@@ -2,7 +2,7 @@
   "name": "simplicateca/burton",
   "description": "Burton is a protosite / starter kit for Craft CMS 4",
   "keywords": [ "craft", "cms", "craftcms", "project", "docker", "webpack" ],
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "homepage": "https://www.simplicate.ca",
   "type": "project",
   "version": "0.1",
