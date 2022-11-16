@@ -1,5 +1,5 @@
 fieldLayouts:
-  40684536-4ae6-410b-9ab9-ce1f423c9427:
+  b31791aa-909d-43be-a352-7970cd695247:
     tabs:
       -
         elementCondition: null
@@ -12,7 +12,7 @@ fieldLayouts:
             disabled: false
             elementCondition: null
             id: null
-            instructions: null
+            instructions: 'This is the main page title. It will appear on the page unless you used the header builder.'
             label: 'Page Title'
             max: null
             min: null
@@ -26,7 +26,7 @@ fieldLayouts:
             tip: null
             title: null
             type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: 47231d35-0018-4377-b46c-ae84f4e46fcc
+            uid: 3f9ed9b7-3cde-4499-a7a2-396bf7a3d33b
             userCondition: null
             warning: null
             width: 100
@@ -34,7 +34,7 @@ fieldLayouts:
             elementCondition: null
             template: _builders/controlpanel/instructionsHeaderBuilder.twig
             type: craft\fieldlayoutelements\Template
-            uid: ea61fb96-468b-4427-a0b4-a1b5dbb29752
+            uid: 706c3a05-0cce-4331-8d53-2c66f752969d
             userCondition: null
             width: 100
           -
@@ -45,7 +45,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 77db6e21-1b04-4dc7-b055-8b4e14e30ef3
+            uid: afef7495-b715-4717-900c-146a33e75450
             userCondition: null
             warning: null
             width: 100
@@ -53,7 +53,7 @@ fieldLayouts:
             elementCondition: null
             template: _builders/controlpanel/instructionsContentBuilder.twig
             type: craft\fieldlayoutelements\Template
-            uid: 0a342393-374b-4c57-8dcc-e08a394b84fd
+            uid: 1e1b2698-ace8-444b-af5d-e333a70dad96
             userCondition: null
             width: 100
           -
@@ -64,7 +64,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 90dfabd8-446b-40c7-958c-984a9647211d
+            uid: 3013d139-6ccf-4920-8105-9d74fb779d9c
             userCondition: null
             warning: null
             width: 100
@@ -72,11 +72,11 @@ fieldLayouts:
             elementCondition: null
             template: _builders/controlpanel/matrixConditionalFields.twig
             type: craft\fieldlayoutelements\Template
-            uid: e8450ae2-36ee-4f3b-837c-dd11c1cf4538
+            uid: 1d2d5820-d225-4571-aba5-cb8f0f45d81d
             userCondition: null
             width: 100
         name: Content
-        uid: 201e19ec-430f-436f-bc75-9985641f2352
+        uid: 20e7b132-6229-47bf-8c01-9a2142ccfc2b
         userCondition: null
       -
         elementCondition: null
@@ -85,7 +85,7 @@ fieldLayouts:
             elementCondition: null
             template: _builders/controlpanel/instructionsContentChunks.twig
             type: craft\fieldlayoutelements\Template
-            uid: abe45b6a-3af5-405c-84e0-b9c8c640e611
+            uid: 14196bc8-b742-42da-b42e-d9017bf2f230
             userCondition: null
             width: 100
           -
@@ -96,12 +96,12 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 4e2b9296-5d6e-40a4-af59-8da58b4bf78d
+            uid: b1440ecd-041f-4ef3-9850-009970b29d4a
             userCondition: null
             warning: null
             width: 100
         name: 'Content Chunks'
-        uid: 5dd83726-a9d9-4dd3-837a-50c8a37bab20
+        uid: 7b8a24fa-23a4-4502-a297-045769f082c9
         userCondition: null
       -
         elementCondition: null
@@ -114,7 +114,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: d2afd6a8-b5fe-4b5f-8d55-af5c501dcb75
+            uid: da6fc831-aaa6-4d44-a48a-6c7ddd44dbf4
             userCondition: null
             warning: null
             width: 50
@@ -126,7 +126,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 373a4f64-b4a5-40fc-a09d-030d18293177
+            uid: 179a2beb-2983-434b-b1b1-4f7203ee0206
             userCondition: null
             warning: null
             width: 50
@@ -138,7 +138,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: e4125718-7942-4545-8e0a-edb64323c89a
+            uid: d94261f6-2a33-4d40-9720-6f7d626ce8c0
             userCondition: null
             warning: null
             width: 100
@@ -150,17 +150,17 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 7ba2254d-ab6e-4818-a0bd-39f8002ea1e1
+            uid: 64433471-dc20-433c-8c04-22dda5811bc1
             userCondition: null
             warning: null
             width: 100
         name: 'Page Settings'
-        uid: 2b82df5f-5521-4d7c-b079-1432a96c9a75
+        uid: 9f8c970f-637c-425e-b58c-19deaf4b7a95
         userCondition: null
-handle: default
+handle: standard
 hasTitleField: true
-name: Default
-section: fdb77561-cbd1-4a4e-a2a5-eb559a5361cb # Sitebook
+name: 'Standard (Single Column)'
+section: 8c9174b7-2c31-491e-a3f9-0374374c967c # Landing Pages
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

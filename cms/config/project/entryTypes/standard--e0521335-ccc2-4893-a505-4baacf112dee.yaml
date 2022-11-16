@@ -146,7 +146,7 @@ fieldLayouts:
             elementCondition: null
             fieldUid: c62ec2a4-1966-4b3c-a5d1-b0842235c23e # Fragment(s)
             instructions: null
-            label: 'Footer Call to Action'
+            label: 'Footer Fragment(s)'
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
@@ -154,25 +154,13 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
-          -
-            elementCondition: null
-            fieldUid: d79b3073-00bf-430c-95d5-6d03d8303032 # SEO
-            instructions: null
-            label: __blank__
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 3a08d1a5-d7f0-4bc8-a76e-bf56684014b6
-            userCondition: null
-            warning: null
-            width: 100
         name: 'Page Settings'
         uid: a533ce47-f77f-4d3b-add6-fa261e2823b1
         userCondition: null
-handle: basic
+handle: standard
 hasTitleField: true
-name: 'Standard Page (Single Column)'
-section: 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Pages
+name: 'Standard (Single Column)'
+section: 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Primary Pages
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

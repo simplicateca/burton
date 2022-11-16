@@ -1,9 +1,0 @@
-baseUrl: '@web/'
-enabled: '1'
-handle: frenchSite
-hasUrls: true
-language: en
-name: 'Filaire de Site (Fr)'
-primary: false
-siteGroup: bcb40c76-f64f-408f-b1da-edb455b3588d # Primary Site
-sortOrder: 2

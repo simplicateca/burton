@@ -277,7 +277,7 @@ fields:
         - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # FAQs
         - 'section:c2b6d2e5-34ab-410c-8b3b-f752217b7552' # Feedback
         - 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # News
-        - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Pages
+        - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Primary Pages
         - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Topics
       targetSiteId: null
       validateRelatedElements: false

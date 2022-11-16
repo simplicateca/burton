@@ -69,7 +69,7 @@ permissions:
     enabled: '1'
 propagationMethod: none
 siteSettings:
-  34463b82-dd3f-441c-b9c6-59c351e847aa: # Wireframe Site (En)
+  34463b82-dd3f-441c-b9c6-59c351e847aa: # Main Site (FRENCH)
     enabled: true
 sortOrder: 2
 structure:

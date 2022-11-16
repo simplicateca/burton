@@ -119,22 +119,11 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: d79b3073-00bf-430c-95d5-6d03d8303032 # SEO
-            instructions: null
-            label: __blank__
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 526646d2-5a6d-4ea5-bc58-be49bd705b8a
+            template: _builders/controlpanel/instructionsContentChunks.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 5c68d99d-276d-4d3a-af07-9780d95560ee
             userCondition: null
-            warning: null
             width: 100
-        name: SEO
-        uid: 85ed043d-21f9-434f-89bd-47ecd8b3630d
-        userCondition: null
-      -
-        elementCondition: null
-        elements:
           -
             elementCondition: null
             fieldUid: b09bda91-6d4a-42c4-a824-f3d402ce20e7 # Chunks
@@ -147,8 +136,26 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
-        name: Chunks
+        name: 'Content Chunks'
         uid: c339eecb-e3d9-4f42-8063-61eadcc39dea
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: c62ec2a4-1966-4b3c-a5d1-b0842235c23e # Fragment(s)
+            instructions: null
+            label: 'Footer Fragment(s)'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3d765f0a-7ae3-4627-9277-6fe235f3bcf9
+            userCondition: null
+            warning: null
+            width: 100
+        name: 'Page Settings'
+        uid: 8163b101-7568-4d0b-aed3-9882d54c5ad3
         userCondition: null
 handle: default
 hasTitleField: true

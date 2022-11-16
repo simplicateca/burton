@@ -1,0 +1,223 @@
+{
+    "handle": "contactForm",
+    "settings": "{\"displayFormTitle\":false,\"displayCurrentPageTitle\":false,\"displayPageTabs\":false,\"displayPageProgress\":false,\"scrollToTop\":true,\"progressPosition\":\"end\",\"defaultLabelPosition\":\"verbb\\\\formie\\\\positions\\\\AboveInput\",\"defaultInstructionsPosition\":\"verbb\\\\formie\\\\positions\\\\AboveInput\",\"submitMethod\":\"ajax\",\"submitAction\":\"message\",\"submitActionTab\":null,\"submitActionUrl\":null,\"submitActionFormHide\":false,\"submitActionMessage\":\"[{\\\"type\\\":\\\"paragraph\\\",\\\"attrs\\\":{\\\"textAlign\\\":\\\"start\\\"},\\\"content\\\":[{\\\"type\\\":\\\"text\\\",\\\"text\\\":\\\"Thank you for contacting us! Our team will get in touch shortly to follow up on your message.\\\"}]}]\",\"submitActionMessageTimeout\":null,\"submitActionMessagePosition\":\"top-form\",\"loadingIndicator\":\"spinner\",\"loadingIndicatorText\":null,\"validationOnSubmit\":true,\"validationOnFocus\":true,\"errorMessage\":\"[{\\\"type\\\":\\\"paragraph\\\",\\\"attrs\\\":{\\\"textAlign\\\":\\\"start\\\"},\\\"content\\\":[{\\\"type\\\":\\\"text\\\",\\\"text\\\":\\\"Couldn\u2019t save submission due to errors.\\\"}]}]\",\"errorMessagePosition\":\"top-form\",\"requireUser\":false,\"requireUserMessage\":\"[{\\\"type\\\":\\\"paragraph\\\",\\\"attrs\\\":{\\\"textAlign\\\":\\\"start\\\"}}]\",\"scheduleForm\":false,\"scheduleFormStart\":null,\"scheduleFormEnd\":null,\"scheduleFormPendingMessage\":\"[{\\\"type\\\":\\\"paragraph\\\",\\\"attrs\\\":{\\\"textAlign\\\":\\\"start\\\"}}]\",\"scheduleFormExpiredMessage\":\"[{\\\"type\\\":\\\"paragraph\\\",\\\"attrs\\\":{\\\"textAlign\\\":\\\"start\\\"}}]\",\"limitSubmissions\":false,\"limitSubmissionsNumber\":null,\"limitSubmissionsType\":\"total\",\"limitSubmissionsMessage\":\"[{\\\"type\\\":\\\"paragraph\\\",\\\"attrs\\\":{\\\"textAlign\\\":\\\"start\\\"}}]\",\"integrations\":{\"\":{\"enabled\":true},\"recaptcha\":{\"enabled\":\"1\",\"showAllPages\":\"\"},\"hcaptcha\":{\"enabled\":\"1\",\"showAllPages\":\"\"},\"duplicate\":{\"enabled\":\"1\",\"showAllPages\":\"\"},\"honeypot\":{\"enabled\":\"1\",\"showAllPages\":\"\"},\"javascript\":{\"enabled\":\"1\",\"showAllPages\":\"\"}},\"submissionTitleFormat\":\"{timestamp}\",\"collectIp\":true,\"collectUser\":true,\"dataRetention\":null,\"dataRetentionValue\":null,\"fileUploadsAction\":null,\"redirectUrl\":null,\"defaultEmailTemplateId\":null,\"disableCaptchas\":false}",
+    "submitActionEntryId": null,
+    "submitActionEntrySiteId": null,
+    "defaultStatusId": 1,
+    "dataRetention": "forever",
+    "dataRetentionValue": null,
+    "userDeletedAction": "retain",
+    "fileUploadsAction": "retain",
+    "fieldLayoutId": 40,
+    "title": "Contact Form",
+    "notifications": [
+        {
+            "name": "Admin Notification",
+            "enabled": 1,
+            "subject": "A new submission was made on \"{formName}\"",
+            "recipients": "email",
+            "to": "{systemEmail}",
+            "toConditions": "{\"toRecipients\":[]}",
+            "cc": null,
+            "bcc": null,
+            "replyTo": "{field.emailAddress}",
+            "replyToName": null,
+            "from": "{field.emailAddress}",
+            "fromName": null,
+            "sender": null,
+            "content": "[{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"start\"},\"content\":[{\"type\":\"text\",\"text\":\"A user submission has been made on the \\\"\"},{\"type\":\"variableTag\",\"attrs\":{\"label\":\"Form Name\",\"value\":\"{formName}\"}},{\"type\":\"text\",\"text\":\"\\\" form on \"},{\"type\":\"variableTag\",\"attrs\":{\"label\":\"Site Name\",\"value\":\"{siteName}\"}},{\"type\":\"text\",\"text\":\" at \"},{\"type\":\"variableTag\",\"attrs\":{\"label\":\"Timestamp (yyyy-mm-dd hh:mm:ss)\",\"value\":\"{timestamp}\"}}]},{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"start\"},\"content\":[{\"type\":\"text\",\"text\":\"Their submission details are:\"}]},{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"start\"},\"content\":[{\"type\":\"variableTag\",\"attrs\":{\"label\":\"All Form Fields\",\"value\":\"{allFields}\"}}]}]",
+            "attachFiles": 1,
+            "attachPdf": null,
+            "attachAssets": null,
+            "enableConditions": 0,
+            "conditions": "{\"sendRule\":\"send\",\"conditionRule\":\"all\",\"conditions\":[]}"
+        },
+        {
+            "name": "User Notification",
+            "enabled": 1,
+            "subject": "Thanks for contacting us!",
+            "recipients": "email",
+            "to": "{field.emailAddress}",
+            "toConditions": "{\"toRecipients\":[]}",
+            "cc": null,
+            "bcc": null,
+            "replyTo": null,
+            "replyToName": null,
+            "from": null,
+            "fromName": null,
+            "sender": null,
+            "content": "[{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"start\"},\"content\":[{\"type\":\"text\",\"text\":\"Thanks again for contacting us. Our team will get back to you as soon as we can.\"}]},{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"start\"},\"content\":[{\"type\":\"text\",\"text\":\"As a reminder, you submitted the following details at \"},{\"type\":\"variableTag\",\"attrs\":{\"label\":\"Timestamp (yyyy-mm-dd hh:mm:ss)\",\"value\":\"{timestamp}\"}}]},{\"type\":\"paragraph\",\"attrs\":{\"textAlign\":\"start\"},\"content\":[{\"type\":\"variableTag\",\"attrs\":{\"label\":\"All Form Fields\",\"value\":\"{allFields}\"}}]}]",
+            "attachFiles": 1,
+            "attachPdf": null,
+            "attachAssets": null,
+            "enableConditions": 0,
+            "conditions": "{\"sendRule\":\"send\",\"conditionRule\":\"all\",\"conditions\":[]}"
+        }
+    ],
+    "pages": [
+        {
+            "settings": {
+                "submitButtonLabel": "Contact us",
+                "backButtonLabel": "Back",
+                "showBackButton": false,
+                "saveButtonLabel": "Save",
+                "showSaveButton": false,
+                "saveButtonStyle": "link",
+                "buttonsPosition": "left",
+                "cssClasses": null,
+                "containerAttributes": null,
+                "inputAttributes": null,
+                "enableNextButtonConditions": false,
+                "nextButtonConditions": [],
+                "enablePageConditions": false,
+                "pageConditions": [],
+                "enableJsEvents": false,
+                "jsGtmEventOptions": []
+            },
+            "userCondition": null,
+            "elementCondition": null,
+            "label": "Page 1",
+            "rows": [
+                {
+                    "fields": [
+                        {
+                            "label": "Your Name",
+                            "handle": "yourName",
+                            "type": "verbb\\formie\\fields\\formfields\\Name",
+                            "settings": {
+                                "instructions": "Please enter your full name.",
+                                "required": false,
+                                "useMultipleFields": true,
+                                "prefixEnabled": false,
+                                "prefixCollapsed": true,
+                                "prefixLabel": "Prefix",
+                                "prefixPlaceholder": null,
+                                "prefixDefaultValue": null,
+                                "prefixPrePopulate": null,
+                                "prefixRequired": false,
+                                "prefixErrorMessage": null,
+                                "firstNameEnabled": true,
+                                "firstNameCollapsed": false,
+                                "firstNameLabel": "First Name",
+                                "firstNamePlaceholder": "e.g. Peter",
+                                "firstNameDefaultValue": null,
+                                "firstNamePrePopulate": null,
+                                "firstNameRequired": true,
+                                "firstNameErrorMessage": null,
+                                "middleNameEnabled": false,
+                                "middleNameCollapsed": true,
+                                "middleNameLabel": "Middle Name",
+                                "middleNamePlaceholder": null,
+                                "middleNameDefaultValue": null,
+                                "middleNamePrePopulate": null,
+                                "middleNameRequired": false,
+                                "middleNameErrorMessage": null,
+                                "lastNameEnabled": true,
+                                "lastNameCollapsed": false,
+                                "lastNameLabel": "Last Name",
+                                "lastNamePlaceholder": "e.g. Sherman",
+                                "lastNameDefaultValue": null,
+                                "lastNamePrePopulate": null,
+                                "lastNameRequired": true,
+                                "lastNameErrorMessage": null,
+                                "subfieldLabelPosition": null,
+                                "matchField": null,
+                                "placeholder": "Your name",
+                                "defaultValue": null,
+                                "prePopulate": null,
+                                "errorMessage": null,
+                                "labelPosition": "verbb\\formie\\positions\\Hidden",
+                                "instructionsPosition": "verbb\\formie\\positions\\AboveInput",
+                                "cssClasses": null,
+                                "containerAttributes": null,
+                                "inputAttributes": null,
+                                "includeInEmail": true,
+                                "enableConditions": false,
+                                "conditions": {
+                                    "showRule": "show",
+                                    "conditionRule": "all",
+                                    "conditions": []
+                                },
+                                "enableContentEncryption": false,
+                                "visibility": null,
+                                "isNested": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {
+                            "label": "Email Address",
+                            "handle": "emailAddress",
+                            "type": "verbb\\formie\\fields\\formfields\\Email",
+                            "settings": {
+                                "instructions": "Please enter your email so we can get in touch.",
+                                "required": true,
+                                "validateDomain": false,
+                                "blockedDomains": [],
+                                "uniqueValue": false,
+                                "matchField": null,
+                                "placeholder": "e.g. psherman@wallaby.com",
+                                "defaultValue": null,
+                                "prePopulate": null,
+                                "errorMessage": null,
+                                "labelPosition": null,
+                                "instructionsPosition": null,
+                                "cssClasses": null,
+                                "containerAttributes": null,
+                                "inputAttributes": null,
+                                "includeInEmail": true,
+                                "enableConditions": false,
+                                "conditions": null,
+                                "enableContentEncryption": false,
+                                "visibility": null,
+                                "isNested": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "fields": [
+                        {
+                            "label": "Message",
+                            "handle": "message",
+                            "type": "verbb\\formie\\fields\\formfields\\MultiLineText",
+                            "settings": {
+                                "instructions": "Please enter your comments.",
+                                "required": true,
+                                "limit": false,
+                                "min": null,
+                                "minType": null,
+                                "max": null,
+                                "maxType": "characters",
+                                "useRichText": false,
+                                "richTextButtons": null,
+                                "matchField": null,
+                                "placeholder": "e.g. The reason for my enquiry is...",
+                                "defaultValue": null,
+                                "prePopulate": null,
+                                "errorMessage": null,
+                                "labelPosition": null,
+                                "instructionsPosition": null,
+                                "cssClasses": null,
+                                "containerAttributes": null,
+                                "inputAttributes": null,
+                                "includeInEmail": true,
+                                "enableConditions": false,
+                                "conditions": {
+                                    "showRule": "show",
+                                    "conditionRule": "all",
+                                    "conditions": []
+                                },
+                                "enableContentEncryption": false,
+                                "visibility": null,
+                                "isNested": false
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

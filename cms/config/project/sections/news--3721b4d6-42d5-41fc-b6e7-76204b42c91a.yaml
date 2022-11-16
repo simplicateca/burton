@@ -14,9 +14,9 @@ previewTargets:
       -
         - refresh
         - '1'
-propagationMethod: all
+propagationMethod: custom
 siteSettings:
-  34463b82-dd3f-441c-b9c6-59c351e847aa: # Wireframe Site (En)
+  41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
     enabledByDefault: true
     hasUrls: true
     template: _sections/news/_entry.twig

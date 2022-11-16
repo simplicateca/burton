@@ -83,7 +83,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            template: _builders/controlpanel/instructionsSidebarBuilder.twig
+            template: _builders/controlpanel/instructionsContentChunks.twig
             type: craft\fieldlayoutelements\Template
             uid: ad4c755b-f0ca-48dc-b0d9-211e845bc0fb
             userCondition: null
@@ -102,6 +102,31 @@ fieldLayouts:
             width: 100
         name: Sidebar
         uid: e6f941ab-670b-4aa1-83f6-1ebb29e90282
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            template: _builders/controlpanel/instructionsContentChunks.twig
+            type: craft\fieldlayoutelements\Template
+            uid: b72bf7f1-6cf2-4014-9722-4d0da57563d8
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: b09bda91-6d4a-42c4-a824-f3d402ce20e7 # Chunks
+            instructions: null
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1f67b2a4-7a46-456a-bcd3-2a82af00f1ac
+            userCondition: null
+            warning: null
+            width: 100
+        name: 'Content Chunks'
+        uid: 1cbeeae6-6012-4c05-ac30-e7fe9623d3be
         userCondition: null
       -
         elementCondition: null
@@ -132,23 +157,35 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: d79b3073-00bf-430c-95d5-6d03d8303032 # SEO
+            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topics
             instructions: null
-            label: __blank__
+            label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: be768740-44fb-422a-9841-f5f120ee410a
+            uid: d61974ce-b568-4fe3-8df6-8c5325cd4f91
             userCondition: null
             warning: null
             width: 100
-        name: SEO
+          -
+            elementCondition: null
+            fieldUid: c62ec2a4-1966-4b3c-a5d1-b0842235c23e # Fragment(s)
+            instructions: null
+            label: 'Footer Fragment(s)'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 36536b1f-7aba-4adb-bda7-2cc207ba7589
+            userCondition: null
+            warning: null
+            width: 100
+        name: 'Page Settings'
         uid: 25183390-3692-4379-9b10-d39ff01ebbbb
         userCondition: null
-handle: withSidebar
+handle: standardSidebar
 hasTitleField: true
-name: 'With Sidebar'
-section: 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Pages
+name: 'Standard with Sidebar (Two Columns)'
+section: 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Primary Pages
 sortOrder: 3
 titleFormat: null
 titleTranslationKeyFormat: null

@@ -1,0 +1,9 @@
+baseUrl: '@web'
+enabled: '0'
+handle: french
+hasUrls: true
+language: fr-CA
+name: 'Main Site (FRENCH)'
+primary: false
+siteGroup: bcb40c76-f64f-408f-b1da-edb455b3588d # Main Site (En+Fr)
+sortOrder: 1

@@ -1,9 +1,0 @@
-baseUrl: '@web'
-enabled: true
-handle: default
-hasUrls: true
-language: en
-name: 'Wireframe Site (En)'
-primary: true
-siteGroup: bcb40c76-f64f-408f-b1da-edb455b3588d # Primary Site
-sortOrder: 1

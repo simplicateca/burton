@@ -1,0 +1,9 @@
+baseUrl: '@web/'
+enabled: true
+handle: english
+hasUrls: true
+language: en-CA
+name: 'Main Site'
+primary: true
+siteGroup: bcb40c76-f64f-408f-b1da-edb455b3588d # Main Site (En+Fr)
+sortOrder: 2
