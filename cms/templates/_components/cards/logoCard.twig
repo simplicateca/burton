@@ -1,0 +1,16 @@
+{% set htag    = htag    ??? 'h3' %}
+{% set title   = title   ??? entry.title ??? entry.headline ??? null %}
+{% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
+{% set url     = url     ??? entry.url ??? null %}
+{% set handle  = handle  ??? entry.section.handle ??? null %}
+{% set images  = images  ??? entry.images.all() ??? null %}
+
+<article class="tease {{handle}} relative">
+    <div class="grid grid-cols-1 h-full content-start">
+        <div class="bg-gray-200 w-full aspect-video flex items-center justify-center">
+            {%- if title -%}
+                <h4>{{title}}</h4>
+            {%- endif -%}
+        </div>
+    </div>  
+</article>

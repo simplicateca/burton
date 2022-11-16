@@ -1,0 +1,79 @@
+{% set blockAbove = blockAbove ?? null %}
+{% set blockBelow = blockBelow ?? null %}
+{% set entry      = entry      ?? null %}
+{% set isFirst    = first      ?? null %}
+     
+{% set blockType  = blockBelow.content.type.handle ~ '--' ~ blockBelow.content.variant %}
+
+{% set nextScene        = blockBelow.settings.scene ??? null %}
+{% set inherit          = nextScene.inherit ??? false %}
+
+{# set a blockID for this block that can be used in any dynamic components #}
+{% set blockID          = blockBelow.content.id ??? random(111111, 999999) %}
+
+{% set nextBlock        = blockBelow.settings.block   ??? null %}
+{% set spaceBefore      = nextBlock.spaceBefore       ??? null %}
+{% set includeBefore    = nextBlock.includeBefore     ??? null %}
+{% set negativeTop      = nextBlock.negativeMarginTop ??? null %}
+
+{% set prevScene        = blockAbove.settings.scene ??? null %}
+{% set prevBlock        = blockAbove.settings.block ??? null %}
+{% set inheritBaseClass = prevBlock.baseClass ??? '' %}
+{% set inheritClass     = prevBlock.class     ??? '' %}
+
+{% set sceneBgsMatch    = inherit or (prevScene.bgColor ?? null) == (nextScene.bgColor ?? null) %}
+{% set blockBgsMatch    = (prevBlock.bgColor ?? null) == (nextBlock.bgColor ?? null) %}
+{% set prevSpacerAfter  = prevBlock.spaceAfter ?? '' %}
+
+{% set container        = blockBelow.settings.container ??? null %}
+
+{% if inherit and not isFirst %}
+
+    {% if spaceBefore %}
+        {% if not sceneBgsMatch or not prevSpacerAfter %}
+            <div class="cBlockSpacer cBlockSpacer__before {{spaceBefore}} bg-{{prevBlock.bgColor ?? null }}"></div>
+        {% endif %}
+    {% endif %}
+
+    <div data-block-id="{{blockID}}" class="cBlock cBlock__{{blockType}} {{[inheritBaseClass,inheritClass,negativeTop]|join(' ')}}" data-viewport>
+
+{% else %}
+
+    {% set sceneBaseClass = nextScene.baseClass ?? '' %}
+    {% set sceneClass     = nextScene.class ?? '' %}
+    {% set nextBlock      = blockBelow.settings.block ??? null %}
+
+    {% set aboveBgNeutral = prevScene.bgNeutralHex ?? '#ffffff' %}
+    {% set cssVars        = "--bgAboveNeutral:#{aboveBgNeutral};" %}
+
+    <div data-scene-id="{{blockID}}" class="cScene {{[sceneBaseClass,sceneClass]|join(' ')}}" style="{{cssVars}}" data-viewport>
+
+        {% if includeBefore %}
+            {{ include( includeBefore, {
+                blockAbove: blockAbove,
+                blockBelow: blockBelow,
+                entry: entry
+            }, withContext = false )}}
+
+        {% else %}
+            {% set blockAboveClass = blockAbove.class ?? null %}    
+            {% if isFirst and blockAboveClass %}
+                <div class="cBlockSpacer cBlockSpacer__before cBlockSpacer__builderTop {{blockAbove.class}}"></div>
+            {% else %}
+                {% if spaceBefore %}
+                    {% if not sceneBgsMatch or not prevSpacerAfter %}
+                        <div class="cBlockSpacer cBlockSpacer__before {{spaceBefore}}"></div>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+
+        {% set containerClass = container.class ?? 'container' %}
+        <div class="{{containerClass}}">
+
+            {% set blockBaseClass = nextBlock.baseClass ?? '' %}
+            {% set blockClass     = nextBlock.class ?? '' %}
+
+            <div data-block-id="{{blockID}}" class="cBlock cBlock__{{blockType}} {{[blockBaseClass,blockClass,negativeTop]|join(' ')}}" data-viewport>
+
+{% endif %}

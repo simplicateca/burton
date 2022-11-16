@@ -1,0 +1,23 @@
+{% extends "_layouts/grids/1-column" %}
+
+{% set text = text ??? fragment.text ??? null %}
+{% set content1Hide = not text|trim %}
+
+{% set blockConfig = {
+    wrapper: 'grid grid-cols-1 mx-auto max-w-xl',
+    contentCols: 'grid grid-cols-1 gap-12'
+} %}
+
+{% block content1 -%}{{text}}{%- endblock %}
+
+{% block content2 %}
+    {% include '_components/search/form' with { 
+        label: entry.title ?? ''
+    } %}
+
+    {% if text|trim %}
+        {{ include('_components/media/lottie', {
+            animation: 'https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/lottie/rocket.json'
+        }, withContext = false ) }}
+    {% endif %}
+{% endblock %}

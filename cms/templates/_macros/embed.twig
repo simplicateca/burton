@@ -1,0 +1,23 @@
+{#
+ # Embed Macros
+ #
+ # For embedding content from external URLs via iframes
+ #
+ # Usage:
+ # {% import "_macros/embed.twig" as embed %}
+ #}
+
+
+{%- macro iframe( url, config = null, first = true ) -%}
+    {% set media    = embedInfo( url ) %}
+    {% set provider = media.provider ??? null %}
+
+    {{ include( [
+        "_components/media/#{provider}",
+        "_components/media/iframe"
+    ], {
+        first: first,
+        media: media,
+        config: config 
+    }) }}
+{%- endmacro -%}

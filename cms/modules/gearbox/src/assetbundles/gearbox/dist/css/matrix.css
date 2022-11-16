@@ -1,0 +1,249 @@
+/**
+ * Gearbox - Matrix layout tweaks
+ */
+
+/* align & enlarge 25% / 50% / 75% select fields */
+/* .field.width-25,
+.field.width-50,
+.field.width-75 {
+     display: flex;
+     flex-direction: column;
+} */
+
+.field.width-25 div.input .select,
+.field.width-50 div.input .select {
+    width: 100%;
+}
+
+.field.width-25 div.input .select select,
+.field.width-50 div.input .select select {
+    width: 100%;
+}
+
+.field.width-25 div.input {
+    justify-self: flex-end;
+}
+
+.field.width-25 div.instructions {
+    flex-grow: 1;
+}
+
+.matrix-field .blocks > .matrixblock:not(:last-of-type) {
+    margin-bottom: 3rem;
+}
+
+.matrix-field .blocks > .matrixblock:last-of-type {
+    margin-bottom: 1.25rem;
+}
+
+.matrix-field .blocks > .matrixblock.collapsed:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+.matrix-field .buttons.last .btngroup::before {
+    content: 'Add a new content block';
+    position: absolute;
+    display: block;
+    top: -1.5rem;
+    color: #596673;
+    font-weight: bold;
+}
+
+.matrix-field .buttons.last .btngroup.disabled::before {
+    content: 'Block limit reached';
+    color: #444;
+}
+
+.blocks .matrixblock:not(.collapsed) {
+    transition: box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.blocks .matrixblock:not(.collapsed):focus,
+.blocks .matrixblock:not(.collapsed):focus-visible,
+.blocks .matrixblock:not(.collapsed):focus-within {
+    box-shadow: 10px 10px 113px 101px rgba(0, 0, 0, 0.42);
+    z-index: 3;
+    transition: box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+#content div.matrix-field .flex-fields > *:not(.matrixConditionals--hidden) {
+    margin-bottom: 30px !important;
+}
+
+.superTableMatrix.matrixblock.collapsed {
+    margin-bottom: 20px;
+}
+
+.matrixblock > .titlebar .blocktype {
+    font-weight: 700;
+}
+
+.mfp-block-type-preview {
+    margin: calc(-1 * var(--m)) calc(-1 * var(--m)) var(--m) !important;
+    padding: var(--m) !important;
+    border-bottom: 1px solid #ccc;
+    background-color: var(--gray-700) !important;
+    /* background-color: #ebf2fa !important; */
+
+}
+
+.mfp-block-type-preview__thumb {
+    width: 80px !important;
+}
+
+.mfp-block-type-preview__image {
+    display: none !important;
+}
+
+
+.mfp-block-type-preview__description a {
+    white-space: nowrap;
+    color: var(--light-sel-color);
+}
+
+.mfp-block-type-preview__name {
+    /* color: var(--medium-dark-text-color); */
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 0px !important;
+    display: none;
+
+}
+
+/* .mfp-block-type-preview {
+    align-items: flex-start;
+} */
+
+.mfp-block-type-preview__description {
+    max-width: 560px;
+    line-height: 1.5 !important;
+    color: #fff !important;
+}
+
+
+#content div.matrix-field .flex-fields div[data-attribute="variant"] {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 2rem !important;
+    padding-bottom: 1rem !important;
+    margin-top: -14px !important;
+    padding-top: 20px !important;
+    background-color: #ebf2fa;
+}
+
+#content div.matrix-field .flex-fields div[data-attribute="variant"] select {
+    background-color: #FaFbFc !important;
+}
+
+
+#content div.matrix-field .flex-fields div[data-attribute="spacing"],
+#content div.matrix-field .flex-fields div[data-attribute="bg"] {
+    border-top: 1px solid #ccc;
+    margin-top: 3rem !important;
+    padding-top: 2rem !important;
+    margin-bottom: 0px !important;
+    padding-bottom: 10px !important;
+    background-color: var(--gray-100);
+}
+
+#content div.matrix-field .flex-fields div[data-attribute="spacing"] select,
+#content div.matrix-field .flex-fields div[data-attribute="bg"] select {
+    background-color: #F4F6F9 !important;
+}
+
+
+@media only screen and (max-width:1535px) {
+
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="images"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="externalMedia"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="media"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="items"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="chunk"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="text2"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="text"] {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width:500px) {
+    #content div.matrix-field .flex-fields div[data-attribute="spacing"] {
+        border-top: none !important;
+        margin-top: 0rem !important;
+        padding-top: 1rem !important;
+        margin-bottom: 0px !important;
+    }
+}
+
+
+
+.matrixblock:not(.superTableMatrix) {
+    border-color: var(--gray-700) !important;
+}
+
+.matrixblock:not(.superTableMatrix)>.titlebar {
+    background-color: var(--gray-700) !important;
+    color: #fff !important;
+    padding-left: 14px !important;
+}
+
+.matrixblock:not(.superTableMatrix)>.checkbox {
+    display: none !important;
+}
+
+
+.matrixblock:not(.superTableMatrix)>.titlebar>.blocktype {
+    color: #fff !important;
+}
+
+
+.matrixblock:not(.superTableMatrix)>.actions .settings {
+    color: #fff !important;
+}
+
+.matrixblock:not(.superTableMatrix)>.actions a.icon.move:before {
+    color: #fff !important;
+}
+
+.matrixblock:not(.superTableMatrix) .matrixmate-tabs li a:not(.sel) {
+    color: #fff !important;
+}
+
+
+.fieldTemplate {
+
+}
+
+.fieldTemplate h2 {
+    font-size: 18px;
+}
+
+.fieldTemplate p {
+    max-width: 720px;
+}
+
+.fieldTemplate__contentChunks,
+.fieldTemplate__sidebarBuilder,
+.fieldTemplate__headerBuilder {
+    padding-top: 1.5rem;
+}
+
+.fieldTemplate__contentBuilder {
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--hairline-color);
+    margin-top: 2rem;
+}
+
+p#noMoreHerosText {
+    margin-top: -10px;
+    opacity: 0.7;
+    display: none;
+}
+
+p#noMoreHerosText span[data-icon] {
+    transform:translateY(-2px);
+    display: inline-block;
+    padding-right: 2px;
+    padding-left: 2px;
+    cursor: pointer;
+}
+

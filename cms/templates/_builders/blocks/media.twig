@@ -1,0 +1,20 @@
+{% extends blockConfig.layout %}
+{% use "_builders/blocks/_default" %}
+
+{% set content1Hide = not text|trim %}
+
+{% block content2 %}
+    {% import "_macros/embed" as embedExternal %}
+    {% set externalMedia = externalMedia ??? content.externalMedia ??? null %}
+    {% if externalMedia %}
+        {% for media in externalMedia %}
+            {{ embedExternal.iframe( media.url, mediaConfig, ( loop.first ) ) }}
+        {% endfor %}
+    {% else %}
+        {% set mediaComponent = mediaConfig.component  ??? '_components/media/media' %}
+        {{ include(mediaComponent, {
+            media: media|first,
+            config: mediaConfig
+        }) }}
+    {% endif %}
+{% endblock %}

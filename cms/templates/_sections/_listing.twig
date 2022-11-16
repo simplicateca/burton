@@ -1,0 +1,67 @@
+{% extends layout ?? '' %}
+
+{% set section     = sectionHandle ??? null %}
+{% set order       = order         ??? 'mostRecent' %}
+{% set hasSearch   = search        ??? true %}
+{% set hasPaginate = paginate      ??? true %}
+{% set useCard     = useCard       ??? 'text' %}
+{% set topics      = topics        ??? null %}
+{% set url         = url           ??? null %}
+
+{% set orderBy = 'postDate DESC' %}
+{% set orderBy = ( order == 'random'       ) ? 'RAND()'     : orderBy %}
+{% set orderBy = ( order == 'alphabetical' ) ? 'title DESC' : orderBy %}
+
+{% set queryString = craft.app.request.getParam('q') ??? null %}
+
+{% if section %}
+    {% set query = craft.entries().section(section) %}
+
+    {# are we doing a text based search? #}
+    {% if hasSearch and queryString %}
+        {% set query   = query.search(queryString) %}
+        {% set orderBy = 'score' %}
+    {% endif %}
+
+    {# are we doing a topic based search? #}
+    {% if topics %}
+        {% set query = query.relatedTo(topics) %}
+    {% endif %}
+
+    {% set query = query
+        .orderBy(orderBy)
+        .limit(limit)
+    %}
+
+    {% paginate query as pageInfo, pageEntries %}
+{% endif %}
+
+{% block content1 %}
+    {{text}}
+
+    {% if hasSearch %}
+        <div class="my-5 bg-slate-100 p-4">
+            {{ include( '_components/search/form', { url: url }, withContext = false ) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content2 %}
+    {% for row in pageEntries ??? [] %}
+        {{ include( [
+            '_sections/#{section}/_tease.content',
+            '_sections/#{section}/_tease',
+            '_sections/_tease.content',
+            '_sections/_tease'
+        ], {
+            entry: row,
+            card: useCard
+        }, withContext = false ) }}
+    {% endfor %}
+{% endblock %}
+
+{% block footer %}
+    {% if hasPaginate %}
+        {{ include('_components/pagination/pagination') }}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "_layouts/grids/2-column-collapsing" %}
+
+{% set text = text ??? fragment.text ??? null %}
+{% set content1Hide = not text|trim %}
+{% set blockID = blockID ??? null %}
+
+{% set blockConfig = {
+
+} %}
+
+{% block content1 -%}{{text}}{%- endblock %}
+
+{% block content2 %}
+    <canvas id="myChart{{blockID}}" style="height:100%; min-height: 300px; max-height: 450px;"></canvas>
+{% endblock %}
+
+{% html %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // setup 
+        const data = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [{
+                label: 'Weekly Sales',
+                data: [18, 12, 6, 9, 12, 3, 9],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 205, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(201, 203, 207, 0.8)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // config 
+        let delayed;
+        const config = {
+            type: 'bar',
+            data,
+            options: {
+                animation: {
+                    onComplete: () => {
+                        delayed = true;
+                    },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 600 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
+                },                
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: true,
+                            drawOnChartArea: true,
+                            drawTicks: false
+                        }
+                    },
+                    y: {
+                        drawBorder: false,
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        };
+
+        // render init block
+        const myChart = new Chart(
+            document.getElementById('myChart{{blockID}}'),
+            config
+        );
+    </script>
+
+    {# <script>
+    //     const data = {
+    //         labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'],
+    //         datasets: [{
+    //             label: 'Favourite Colours',
+    //             data: [65, 59, 80, 81, 56, 55, 40],
+    //             backgroundColor: [
+    //                 'rgba(255, 99, 132, 0.8)',
+    //                 'rgba(255, 159, 64, 0.8)',
+    //                 'rgba(255, 205, 86, 0.8)',
+    //                 'rgba(75, 192, 192, 0.8)',
+    //                 'rgba(54, 162, 235, 0.8)',
+    //                 'rgba(153, 102, 255, 0.8)',
+    //                 'rgba(201, 203, 207, 0.8)'
+    //             ],
+    //             borderColor: [
+    //                 'rgb(255, 99, 132)',
+    //                 'rgb(255, 159, 64)',
+    //                 'rgb(255, 205, 86)',
+    //                 'rgb(75, 192, 192)',
+    //                 'rgb(54, 162, 235)',
+    //                 'rgb(153, 102, 255)',
+    //                 'rgb(201, 203, 207)'
+    //             ],
+    //             borderWidth: 1
+    //         }]
+    //     };
+
+    //     const config = {
+    //         type: 'bar',
+    //         data: data,
+    //         options: {
+    //             animations: {
+    //                 tension: {
+    //                     duration: 1000,
+    //                     easing: 'linear',
+    //                     from: 1,
+    //                     to: 0,
+    //                     loop: true
+    //                 }
+    //             },
+    //             maintainAspectRatio: false,
+    //             scales: {
+    //                 x: {
+    //                     grid: {
+    //                         display: false,
+    //                         drawBorder: true,
+    //                         drawOnChartArea: true,
+    //                         drawTicks: false
+    //                     }
+    //                 },
+    //                 y: {
+    //                     drawBorder: false,
+    //                     beginAtZero: true
+    //                 }
+    //             },
+    //             plugins: {
+    //                 legend: {
+    //                     display: false
+    //                 }
+    //             }
+    //         }
+    //     };
+
+    //     const myChart = new Chart(
+    //         document.getElementById('myChart{{blockID}}'),
+    //         config
+    //     );
+    // </script>     #}
+{% endhtml %}
+

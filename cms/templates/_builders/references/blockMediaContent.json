@@ -1,0 +1,75 @@
+[
+    {
+        "label": "Feature Spotlight",
+        "value": "featureMedia",
+        "reference": {
+            "title": "[Media Content] Feature Spotlight",
+            "note": "Large media player with optional text above. CTA buttons below player.",
+            "image": "https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/media-featured-v2.jpg",
+            "moreUrl": "/sitebook/components/media/#featured"
+        },
+        "block": {
+            "baseClass": "max-w-5xl mx-auto",
+            "layout": "_layouts/grids/1-column"
+        },
+        "mediaConfig": {
+            "class": "mt-4",
+            "component": "_components/media/media"
+        },
+        "textConfig": {
+            "moveHeaders": false,
+            "moveButtons": true
+        }
+    },
+
+    {
+        "label": "Text Left / Media Player Right",
+        "value": "textLeft",
+        "reference": {
+            "title": "[Media Content] Text Left / Media Right",
+            "note": "50/50 split. Text content left, media player right. Stacks vertical on mobile.",
+            "image": "https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/media-text-left.jpg",
+            "moreUrl": "/sitebook/components/media/#textLeft"
+        },
+        "block": {
+            "layout": "_layouts/grids/2-column-collapsing"
+        },
+        "mediaConfig": {
+            "component": "_components/media/media",
+            "card": false,
+            "cardSubsequent":  "_components/cards/teaserCard",
+            "class" : "flex flex-col w-full justify-center"
+        },
+        "textConfig": {
+            "moveHeaders": false,
+            "moveButtons": false,
+            "transform": null
+        }
+    },
+
+    {
+        "label": "Media Player Left / Text Right",
+        "value": "textRight",
+        "reference": {
+            "title": "[Media Content] Media Left / Text Right",
+            "note": "50/50 split. Text content right, media player left. Stacks vertical on mobile.",
+            "html": "<h1>I wonder how far we can push this</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quis enim redargueret? <b>Ecce aliud simile dissimile.</b> Quae cum magnifice primo dici viderentur, considerata minus probabantur. Videsne quam sit magna dissensio? </p><ul><li>De vacuitate doloris eadem sententia erit.</li><li>Sin dicit obscurari quaedam nec apparere, quia valde parva sint, nos quoque concedimus;</li><li>Sed erat aequius Triarium aliquid de dissensione nostra iudicare.</li><li>Illa videamus, quae a te de amicitia dicta sunt.</li></ul><p>Quare attende, quaeso. De illis, cum volemus. Tecum optime, deinde etiam cum mediocri amico. Duo Reges: constructio interrete. </p><p>Rationis enim perfectio est virtus; Qua ex cognitione facilior facta est investigatio rerum occultissimarum. Cur iustitia laudatur? <b>Non autem hoc: igitur ne illud quidem.</b> Primum in nostrane potestate est, quid meminerimus? Expectoque quid ad id, quod quaerebam, respondeas. Quis istud possit, inquit, negare? Teneo, inquit, finem illi videri nihil dolere.</p>",
+            "moreUrl": "/sitebook/components/media/#textRight"
+        },
+        "block": {
+            "layout": "_layouts/grids/2-column-collapsing",
+            "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16"
+        },
+        "mediaConfig": {
+            "component": "_components/media/media",
+            "card": false,
+            "cardSubsequent":  "_components/cards/teaserCard",
+            "class" : "flex flex-col w-full justify-center"
+        },
+        "textConfig": {
+            "moveHeaders": false,
+            "moveButtons": false,
+            "transform": null
+        }
+    }
+]

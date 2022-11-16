@@ -1,0 +1,15 @@
+[{
+    "type": "basic",
+    "section": "pages",
+    "note": "Very versatile single column layout. Configurable hero & footer. No sidebar.",
+    "video": "https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/uploads/pages/media-test/file_example_MP4_640_3MG.mp4",
+    "moreUrl": "/sitebook/layouts/"
+},{
+    "type": "withSidebar",
+    "section": "pages",
+    "note": "Standard page - w/ sidebar. Optional hero."
+},{
+    "type": "redirect",
+    "section": "pages",
+    "note": "Sends visitors to this page to a different location."
+}]

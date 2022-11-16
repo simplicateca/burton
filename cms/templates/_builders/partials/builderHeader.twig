@@ -1,0 +1,21 @@
+{% set entry  = entry  ??? null  %}
+{% set blocks = blocks ??? entry.headerBuilder.all() ??? null %}
+
+{% if blocks %}
+    {% set section = section ??? entry.section.handle ??? 'generic' %}
+    {% set type    = type    ??? entry.type.handle    ??? 'generic' %}
+
+    <section class="
+        cHeaderBuilder
+        cHeaderBuilder__{{section}}
+        cHeaderBuilder__{{type}}
+        ">
+        {{ include( '_builders/_loop', {
+            blocks       : [blocks|first],
+            builderTop   : builderTop    ??? { class: '' },
+            builderBottom: builderBottom ??? { class: '' },
+            entry        : entry,
+            builder      : 'header',
+        }, withContext = false ) }}
+    </section>
+{% endif %}

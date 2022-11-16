@@ -1,0 +1,29 @@
+{% block beforeGrid %}{% endblock %}
+
+<div class="{{props.classes.wrapper}}">
+
+    {% block header %}{% endblock %}
+
+    <div class="{{props.classes.contentCols}}">
+        {% if not ( content1Hide ??? false ) %}
+            <div class="{{[props.classes.content1Base,props.classes.content1]|join(" ")}}">
+                {% if props.classes.content1Inner ?? null %}<div class="{{props.classes.content1Inner}}">{% endif %}
+                    {% block content1 %}{% endblock %}
+                    {% block content1Includes %}{% endblock %}
+                {% if props.classes.content1Inner ?? null %}</div>{% endif %}
+            </div>
+        {% endif %}
+    
+        <div class="{{[props.classes.content2Base,props.classes.content2]|join(" ")}}">
+            {% if props.classes.content2Inner ?? null %}<div class="{{props.classes.content2Inner}}">{% endif %}
+                {% block content2 %}{% endblock %}
+                {% block content2Includes %}{% endblock %}
+            {% if props.classes.content2Inner ?? null %}</div>{% endif %}
+        </div>
+    </div>
+
+    {% block footer %}{% endblock %}
+
+</div>
+
+{% block afterGrid %}{% endblock %}

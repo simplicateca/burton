@@ -1,0 +1,19 @@
+{% set elementId = elementId    ??? '??' %}
+{% set entry     = craft.entries().id(elementId).one() %}
+{% set chunks    = entry.chunks.all() ?? null %}
+
+{
+    "label": "",
+    "value": ""
+}
+
+{% if chunks %}
+,
+
+    {% for option in chunks %}
+    {
+        "label": "{{option.identifier}}",
+        "value": "{{option.id}}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+{% endif %}

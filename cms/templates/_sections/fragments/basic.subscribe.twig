@@ -1,0 +1,42 @@
+<div class="flex flex-col items-center justify-center">
+    <h3 class="font-headline text-4xl font-bold mb-8">Sign-up for our Newsletter</h3>
+
+    <div class="container" id="newsletterContainer">
+        <form>
+            <slime></slime>
+            <div class="wrapper mx-auto max-w-sm md:max-w-2xl font-sans">
+                <div class="inputs flex flex-col md:flex-row gap-4">
+                    <div class="flex flex-col gap-2">
+                        <label class="font-bold">Email</label>
+                        <input type="email" placeholder="you@example.com" class="w-full p-4 b-0 leading-none bg-slate-50 border border-slate-300">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="font-bold">First Name</label>
+                        <input type="text" placeholder="Dave" class="w-full p-4 b-0 leading-none bg-slate-50 border border-slate-300">
+                    </div>
+                        
+                    <div class="flex flex-col gap-2">
+                        <label class="font-bold">Last Name</label>
+                        <input type="text" placeholder="Smith" class="w-full p-4 b-0 leading-none bg-slate-50 border border-slate-300">
+                    </div>
+                        
+                    <div class="flex flex-col gap-2">
+                        <label>&nbsp;</label>
+                        <button class="button">Sign&#8209;up</button>
+                    </div>
+                </div>        
+                <div class="legal text-md pt-3">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Primum quid tu dicis breve.
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+{% js %}
+    window.waitForGlobal("app.createSlime", function() {
+        app.createSlime('#newsletterContainer')
+    });
+{% endjs %}

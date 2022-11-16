@@ -1,0 +1,9 @@
+{% set menu    = menu  ?? "primary" %}
+<div class="flex flex-grow items-start w-full items-center">
+    {{ include( "_components/navigation/mobile", { menu: menu }, withContext = false ) }}
+    
+    {{ include( "_components/navigation/menu",   {
+        menu: menu,
+        class: "items-center ml-2 hidden md:flex"
+    }, withContext = false ) }}
+</div>

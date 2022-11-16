@@ -1,0 +1,13 @@
+{% set card = card ??? null %}
+{% set path = card.useCard ??? card ??? '' %}
+{% set type = card.value   ??? 'text' %}
+
+{% embed [
+    path,
+    '_components/cards/text'
+] with {
+    entry: entry ??? null,
+    path : path  ??? ''
+} only %}
+
+{% endembed %}

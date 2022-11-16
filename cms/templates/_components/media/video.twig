@@ -1,0 +1,45 @@
+{% set media  = media  ??? null %}
+{% set config = config ??? null %}
+
+{% if media %}
+    {% set class     = config.class          ??? ''   %}
+    {% set poster    = media.images|first    ??? null %}
+    {% set transform = config.coverTransform ??? null %}
+
+    {% if poster and transform %}
+        {% do poster.setTransform(transform) %}
+    {% endif %}
+    
+    <div class="{{class}} relative" x-data="{ poster: true }">
+        <button
+            @click="
+                poster=false;
+                document.getElementById('video--{{media.id}}').play()"
+            class="
+                group3
+                bg-none
+                absolute
+                z-10
+                top-0
+                left-0
+                right-0
+                bottom-0
+                p-0
+                m-0"
+            x-show="poster">
+            <img class="h-full w-full object-cover" src="{{poster.url}}">
+            <span class="block h-24 w-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-white group-hover:scale-110 transition">
+                <svg class="h-full w-full" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path class="fill-slate-400 transition group-hover:fill-slate-600" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm8.856-3.845A1.25 1.25 0 0 0 9 9.248v5.504a1.25 1.25 0 0 0 1.856 1.093l5.757-3.189a.75.75 0 0 0 0-1.312l-5.757-3.189Z" /></svg>
+            </span>
+        </button>
+        
+        <video id="video--{{media.id}}" controls class="w-full aspect-video" poster="{{poster.url}}">
+            <source src="{{media.url}}" type="{{media.mimeType}}">
+        </video>
+    </div>
+{% endif %}
+
+{# wireframe placeholder #}
+{% if not media and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    <div class="bg-slate-500 aspect-video w-full">&nbsp;</div>
+{% endif %}

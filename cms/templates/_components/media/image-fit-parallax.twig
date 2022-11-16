@@ -1,0 +1,55 @@
+{% set images    = images ??? content.images.all() ??? null %}
+{% set class     = class  ??? "object-cover object-center h-full w-full" %}
+{% set transform = transform ??? null %}
+{% set blockID   = blockID ?? null %}
+{% set image     = images|first ??? null %}
+
+{% if transform %}
+    {% do image.setTransform(transform) %}
+{% endif %}
+
+{% if image %}   
+    <img
+        src="{{image.url}}"
+        alt="{{image.title}}"
+        loading="lazy"
+        class="
+            {{class}}
+            absolute
+            top-0
+            left-0
+            right-0
+            bottom-0
+            parallax
+            !max-w-[120vw]
+        "
+        >
+{% endif %}
+
+{# wireframe placeholder #}
+{% if not image and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    <div class="bg-slate-500 w-full h-full">&nbsp;</div>
+{% endif %}
+
+{% js %}
+    window.waitForGlobal("app.gsap", function() {
+        block = document.querySelector('[data-block-id="{{blockID}}"]')
+        image = block.querySelector(".parallax")
+
+        app.gsap.fromTo(image, {
+            y: '-35%',
+            scale: 1.5
+        }, {
+            y: '35%',
+            scale: 1.1,
+            ease: "none",
+            scrollTrigger: {
+                trigger: block,
+                start: () => "top bottom", 
+                end: "bottom top",
+                scrub: true,
+                invalidateOnRefresh: true // to make it responsive
+            }
+        });
+    });
+{% endjs %}

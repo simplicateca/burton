@@ -1,0 +1,53 @@
+{% set images    = images    ??? content.images.all() ??? null %}
+{% set class     = class     ??? 'w-full h-full object-cover object-center' %}
+{% set transform = transform ??? null %}
+{% set blockID   = blockID   ??? null %}
+
+{% set image     = images|first ??? null %}
+
+{% if transform %}
+    {% do image.setTransform(transform) %}
+{% endif %}
+
+{% if image %}   
+
+    {% set alt = image.alt ??? image.title ??? "" %}
+
+    <img
+        src="{{image.url}}"
+        alt="{{alt}}"
+        loading="lazy"
+        class="{{class}}" style="height:150%;">
+{% endif %}
+
+{# wireframe placeholder #}
+{% if not image and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    <div class="bg-slate-500 aspect-video w-full">&nbsp;</div>
+{% endif %}
+
+{% js %}
+    
+    window.waitForGlobal("app.gsap", function() {
+
+        app.gsap.utils.toArray(".cBlock__textImage--parallax").forEach((section, i) => {
+            section.bg = section.querySelector(".parallaxBg img");
+    
+            app.gsap.fromTo(section.bg, {
+                y: '-55%',
+                scale: 1.3
+            }, {
+                y: '20%',
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    start: () => "top bottom", 
+                    end: "bottom top",
+                    scrub: true,
+                    invalidateOnRefresh: true // to make it responsive
+                }
+            });
+        });
+    });
+    
+{% endjs %}

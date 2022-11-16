@@ -1,0 +1,18 @@
+{% set linkClass   = 'nav-link lowercase text-xl mr-10 text-slate-400 hover:text-slate-800' %}
+{% set activeClass = 'nav-active text-slate-700' %}
+
+<div class="flex flex-grow items-start w-full items-center">   
+    <nav role="navigation" aria-label="Sitebook Navigation">
+        {% set pages = craft.entries.section('sitebook').level(1).slug('not home') %}
+        <ul class="m-0 p-0 list-none flex">
+            {% for page in pages.all() %}
+                <li class="font-display">
+                    <a
+                        href="{{page.url}}"
+                        class="{{linkClass}} {{ page.slug in craft.app.request.url ? activeClass : '' }}"
+                        >{{page.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</div>

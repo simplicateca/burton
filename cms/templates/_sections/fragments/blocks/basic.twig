@@ -1,0 +1,28 @@
+{% set entry        = entry     ??? null %}
+{% set thisBlock    = thisBlock ??? null %}
+{% set fragment     = fragment  ??? thisBlock.fragment ??? null %}
+{% set entryType    = fragment.type.handle  ??? null %}
+{% set fragmentType = fragment.fragmentType ??? null %}
+
+{% if entryType == 'basic' and ( fragmentType == 'contentBuilder' or fragmentType == 'customHtml' ) %}
+    {% if fragmentType == 'contentBuilder' %}
+        {{ include( '_builders/_loop', {
+            blocks       : fragment.contentBuilder.all(),
+            entry        : entry,
+            builder      : 'content',
+        }, withContext = false ) }}
+    {% endif %}
+
+    {% if fragmentType == 'customHtml' %}
+        {{entry.code}}
+    {% endif %}
+{% else %}
+    {% include [
+        '_sections/fragments/' ~ entryType,
+        '_sections/fragments/' ~ entryType ~ '.' ~ fragmentType
+    ] with {
+        entry: entry,
+        thisBlock: thisBlock,
+        fragment: fragment
+    } %}
+{% endif %}

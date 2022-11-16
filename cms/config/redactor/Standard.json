@@ -1,0 +1,41 @@
+{
+  "buttons": ["html", "formatting", "bold", "italic", "unorderedlist", "orderedlist", "alignment", "link", "image"],
+  "plugins": [ "alignment", "imageclass", "listclass", "linkclass", "baukasten", "h2h3h4", "eyebrow" ],
+  "linkNewTab": true,
+  "toolbarFixed": true,
+  "imagePosition": false,
+  "formatting": ["p", "blockquote"],
+  "formattingAdd": {
+    "larger": {
+      "title": "Larger",
+      "api": "module.block.format",
+      "args": {
+          "tag": "p",
+          "class": "larger"
+      }
+    },
+    "smaller": {
+      "title": "Smaller",
+      "api": "module.block.format",
+      "args": {
+          "tag": "p",
+          "class": "smaller"
+      }
+    }
+  },
+  "linkClasses" : [
+    { "label": "Button", "class": "button" }
+  ],
+  "listClasses" : [
+    { "label": "Checkmarks", "class": "checkmarks" },
+    { "label": "2 columns",  "class": "grid" }
+  ],
+  "imageClasses" : [
+    { "label": "Center", "class": "prose-img-center", "default": true }
+  ],
+  "eyebrows" : [
+    { "label": "Standard", "class": "eyebrow--standard", "default": true },
+    { "label": "Knockout", "class": "eyebrow--knockout", "default": false },
+    { "label": "Accent",   "class": "eyebrow--accent",   "default": false }
+  ]
+}

@@ -1,0 +1,14 @@
+{% set animation = animation ?? '' %}
+
+<figure
+    class="flex items-center justify-center"
+    aria-hidden="true"
+>
+    <lottie-player
+        autoplay
+        loop
+        mode="bounce"
+        src="{{ animation }}"
+        class="w-full"
+    ></lottie-player>
+</figure>

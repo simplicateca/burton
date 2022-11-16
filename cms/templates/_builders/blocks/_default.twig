@@ -1,0 +1,38 @@
+{% block header %}
+    {% if headline or ( moveHeaders and headers ) %}
+        {% if blockConfig.headerClass ??? null %}<div class="{{blockConfig.headerClass}}">{% endif %}
+            {{ headline }}
+            {{ moveHeaders ? headers : null }}
+        {% if blockConfig.headerClass ??? null %}</div>{% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content1 %}
+    {{text}}
+{% endblock %}
+
+{% block footer %}
+    {% if ( moveButtons and buttons ) %}
+        {% if blockConfig.footer ??? null %}<div class="{{blockConfig.footer}}">{% endif %}
+            {{ moveButtons ? buttons : null }}
+        {% if blockConfig.footer ??? null %}</div>{% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content1Includes %}
+    {% import "_macros/widgets.twig" as widgets %}
+    {{ widgets.embed( thisBlock, 'content1Includes' ) }}
+
+    {% if settings.block.includeAfterContent1 ??? null %}
+        {{ include( settings.block.includeAfterContent1, { settings: settings } ) }}
+    {% endif %}
+{% endblock %}
+
+{% block content2Includes %}
+    {% import "_macros/widgets.twig" as widgets %}        
+    {{ widgets.embed( thisBlock, 'content2Includes' ) }}
+
+    {% if settings.block.includeAfterContent2 ??? null %}
+        {{ include( settings.block.includeAfterContent2, { settings: settings } ) }}
+    {% endif %}
+{% endblock %}

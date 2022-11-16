@@ -1,0 +1,21 @@
+{% set entry  = entry  ??? null  %}
+{% set blocks = blocks ??? entry.sidebarBuilder.all() ??? null %}
+
+{% if blocks %}
+    {% set section = section ??? entry.section.handle ??? 'generic' %}
+    {% set type    = type    ??? entry.type.handle    ??? 'generic' %}
+
+    <section class="
+        cSidebarBuilder
+        cSidebarBuilder__{{section}}
+        cSidebarBuilder__{{type}}
+        ">
+        {{ include( '_builders/_loop', {
+            blocks       : blocks,
+            builderTop   : builderTop    ??? { class: '' },
+            builderBottom: builderBottom ??? { class: '' },
+            entry        : entry,
+            builder      : 'sidebar',
+        }, withContext = false ) }}
+    </section>
+{% endif %}

@@ -1,0 +1,79 @@
+fieldLayouts:
+  aa1d4284-387c-47e6-8cfa-1e77f71cfaef:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 40c8f327-88fe-4e2a-8a36-de2ca24d8429
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: e47b95bf-7a74-49e3-afa3-a938bd733ef7 # Summary
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5e2d2d14-6437-4750-abcf-99c64af43f1b
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Lead Image(s)
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b950ef0e-0c06-4d96-bba8-c1b7086cf852
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topics
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9fa1da7e-12be-4b22-b43a-ef6d38a75f45
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 735982e5-b923-4f3c-bdb5-2b8bd24fe507
+        userCondition: null
+handle: testimonial
+hasTitleField: true
+name: Testimonial
+section: c2b6d2e5-34ab-410c-8b3b-f752217b7552 # Feedback
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

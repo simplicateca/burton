@@ -1,0 +1,38 @@
+{% extends "_boilerplate" %}
+{% set templatePath = _self ??? '' %}
+
+{% block bodyHtml %}
+    {% block alertbar %}
+        {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+    {% endblock %}
+
+    {% block header %}
+        {{ include( "_components/header/header", { entry: entry ??? null }, withContext = false ) }}
+    {% endblock %}
+
+    {% block belowHeader %}
+        {{ include( "_components/breadcrumb/breadcrumb", {}, withContext = true ) }}
+    {% endblock %}
+
+    {% block main %}
+        <main>
+            {% block aboveContent %}{% endblock %}
+        
+            {% block content %}
+                {{ include( "_builders/partials/builderContent", { entry: entry ??? null }, withContext = false ) }}
+            {% endblock %}
+        
+            {% block belowContent %}{% endblock %}
+        </main>
+    {% endblock %}
+
+    {% block aboveFooter %}
+
+    {% import "_macros/fragments.twig" as fragments %}
+        {{ fragments.load(1406) }}
+    {% endblock %}
+
+    {% block footer %}
+        {{ include( "_components/footer/footer", {}, withContext = false ) }}
+    {% endblock %}
+{% endblock bodyHtml %}

@@ -1,0 +1,118 @@
+{% import "_macros/richtext" as richtext %}
+
+{# it's important that when this template is included, it
+   does not have access to the context of it's parent
+   templates, with the exception of these 3 parameters:
+
+   builder  : the content builder being used
+   entry    : the current loaded entry
+   thisBlock: a normalizedBlock array. see twig `normalizeBlocks()` function.
+   
+{# make sure we have the params passed from the calling template (usually: _loop) #}
+{% set builder   = builder   ??? 'builder' %}
+{% set entry     = entry     ??? null %}
+{% set thisBlock = thisBlock ??? null %}
+
+{# try to fix the block if it doesn't look normal #}
+{% if not ( thisBlock.isNormal ??? false ) %}
+    {% set thisBlock = normalizeBlocks( [thisBlock], entry, builder )|first %}
+{% endif %}
+
+{# get the normalized parts of the block #}
+{% set content       = thisBlock.content       ??? null %}
+{% set settings      = thisBlock.settings      ??? null %}
+{% set blockType     = thisBlock.blockType     ??? ''   %}
+{% set sectionHandle = thisBlock.sectionHandle ??? ''   %}
+{% set entryHandle   = thisBlock.entryHandle   ??? ''   %}
+{% set variant       = thisBlock.variant       ??? ''   %}
+
+{# don't bother going any further unless we have content #}
+{% if thisBlock and content %}
+
+    {# collect common field configs #}
+    {% set blockConfig  = settings.block       ??? null %}
+    {% set textConfig   = settings.textConfig  ??? {empty:true} %}
+    {% set mediaConfig  = settings.mediaConfig ??? {empty:true} %}
+    {% set itemsConfig  = settings.itemsConfig ??? {empty:true} %}
+    {% set widgetConfig = settings.widgets     ??? {empty:true} %}
+
+    {# pre-parse the most common fields and setttings across
+       all block types to keep twig templates slimmer #}
+    {% set text     = text     ??? content.text         ??? '' %}
+    {% set headline = headline ??? content.headline     ??? '' %}
+    {% set items    = items    ??? content.items.all()  ??? [] %}
+    {% set images   = images   ??? content.images.all() ??? [] %}
+    {% set media    = media    ??? content.media.all()  ??? [] %}
+
+    {# if we're using textConfig.moveHeaders and/or textConfig.moveButtons
+       to automatically extract leading headlines (h1/h2/h3/etc) and/or
+       trailing button elements from the primary block text field
+       so that they can be relocated to a different part of the block grid #}
+    {% set headline       = headline ? richtext.formatHeadline( headline, 'h1' ) : '' %}
+    {% set moveHeaders    = textConfig.moveHeaders ?? false %}
+    {% set moveButtons    = textConfig.moveButtons ?? false %}
+    {% if moveHeaders or moveButtons %}
+
+        {# extract / wrap the headline #}
+        {% set headerTmpl  = textConfig.headerComponent ?? null %}
+        {% set headerClass = textConfig.headerClass     ?? null %}
+        {% set headers     = richtext.leadingHeadlines( text, null, headerClass, headerTmpl ) %}
+
+        {# extract / wrap the buttons #}
+        {% set buttonWrap  = textConfig.buttonWrapper ?? null %}
+        {% set buttons     = richtext.trailingButtons( text, buttonWrap ) %}
+        {% set text        = richtext.trimHeadlinesButtons( text, moveHeaders, moveButtons ) %}
+        
+    {% endif %}
+
+    {# text field formatting #}
+    {% set text = richtext.prose( text ) %}
+
+    {# set a blockID for this block that can be used in any dynamic components #}
+    {% set blockID = content.id ??? random(111111, 999999) %}
+
+    {# include the twig template for this block from a list of
+       possible locations based on the blocks attributes.
+       
+       the more specific/targetted a variant template is,
+       the higher up in the list it should appear
+       
+       only the first template found will be included #}
+    {% set twigPath = [
+        "_sections/#{sectionHandle}/blocks/#{builder}/#{blockType}.#{variant}",
+        "_sections/#{sectionHandle}/blocks/#{builder}/#{blockType}",
+        "_sections/#{sectionHandle}/blocks/#{blockType}.#{variant}",
+        "_sections/#{sectionHandle}/blocks/#{blockType}",
+        "_builders/blocks/#{builder}/#{blockType}.#{variant}",
+        "_builders/blocks/#{builder}/#{blockType}",
+        "_builders/blocks/#{blockType}.#{variant}",
+        "_builders/blocks/#{blockType}",
+        "_builders/blocks/_default",
+    ] %}
+
+    {{ include( twigPath ) }}
+{% endif %}
+
+
+{#
+    below is a list of twig files the above include() would
+    try to load for a block with these attributes:
+    
+      blockType : textImage
+      variant   : textLeft
+      builder   : header
+      section   : news
+    
+    the first template found will be loaded in this order:
+
+    _sections/news/blocks/header/textImage.textLeft.twig
+    _sections/news/blocks/header/textImage.twig
+    _sections/news/blocks/textImage.textLeft.twig
+    _sections/news/blocks/textImage.twig
+    _builders/blocks/header/textImage.textLeft.twig
+    _builders/blocks/header/textImage.twig
+    _builders/blocks/textImage.textLeft.twig
+    _builders/blocks/textImage.twig
+    _builders/blocks/_default.twig
+
+#}

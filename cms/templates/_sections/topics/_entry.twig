@@ -1,0 +1,32 @@
+{% extends "_layouts/base" %}
+
+{% import "_macros/richtext" as richtext %}
+
+{% set entries = craft.entries()
+    .section('news','feedback', 'faqs')
+    .relatedTo(entry)
+    .all() %}
+
+{% set summary = richtext.prose( entry.summary, 'xl' ) %}
+
+{% block content %}
+    <div class="container pb-20 pt-10">
+        {% embed '_layouts/grids/intro-above-3-columns-collapsing' with {
+            blockConfig: {
+                content1Base: 'max-w-5xl ml-0 mb-8'
+            }
+        } %}
+            {% block content1 %}
+                {{ summary }}
+            {% endblock %}
+
+            {% block content2 %}
+                {% for item in entries %}
+                    {{ include('_components/cards/stackedCard', {
+                        entry: item
+                    }, withContext = false ) }}
+                {% endfor %}
+            {% endblock %}
+        {% endembed %}
+    </div>
+{% endblock %}

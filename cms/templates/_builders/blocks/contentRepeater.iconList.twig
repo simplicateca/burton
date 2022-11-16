@@ -1,0 +1,66 @@
+{% set layout = blockConfig.layout ??? images
+    ? '_layouts/grids/2-column-collapsing.twig' 
+    : '_layouts/grids/intro-above-6-columns-collapsing' %}
+
+{% extends layout %}
+
+{% use "_builders/blocks/_default" %}
+
+{% set items         = items ??? [] %}
+{% set itemComponent = itemsConfig.component ??? null %}
+{% set cardLayout    = itemsConfig.useCard   ??? null %}
+{% set buttonClass   = itemsConfig.buttons   ??? null %}
+
+{% block content1 %}
+    {{text}}
+
+    {% if images %}
+        {% if itemComponent %}
+            {{ include(itemComponent) }}
+        {% else %}
+            <div class="grid grid-cols-3 gap-3 mt-10">
+                {% for item in items %}
+                    {% if buttonClass %}
+                        {% set item = {
+                            headline: item.headline,
+                            images: item.images,
+                            text: item.text|retconAttr( "a.button", { class: buttonClass } )
+                        } %}
+                    {% endif %}
+            
+                    {{ include(cardLayout, {
+                        entry: item
+                    }, withContext = false ) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content2 %}
+    {% if images %}
+        {{ include( mediaConfig.component ??? '_components/media/image', {
+            images: images ??? [],
+            transform: mediaConfig.transform ??? null,
+        }) }}
+    {% else %}
+        {% if itemComponent %}
+            {{ include(itemComponent) }}
+        {% else %}
+            {% for item in items %}
+
+                {% if buttonClass %}
+                    {% set item = {
+                        headline: item.headline,
+                        images: item.images,
+                        text: item.text|retconAttr( "a.button", { class: buttonClass } )
+                    } %}
+                {% endif %}
+        
+                {{ include(cardLayout, {
+                    entry: item
+                }, withContext = false ) }}
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

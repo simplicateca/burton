@@ -1,0 +1,12 @@
+{% set url       = url       ?? "" %}
+{% set headline  = headline  ?? "Search our Site" %}
+{% set label     = label     ?? "Search term..." %}
+{% set lastQuery = lastQuery ?? craft.app.request.getParam('q') ?? null %}
+
+<form action="{{ url }}" class="max-w-xl w-full text-center">
+    {% if headline %}<div class="font-headline text-4xl font-bold mb-8">{{headline}}</div>{% endif %}
+    <div class="flex flex-col sm:flex-row">
+        <input type="search" name="q" placeholder="{{label}}" value="{{lastQuery}}" class="flex-grow px-4 py-4 sm:py-1">
+        <button class="button">Search</button>
+    </div>
+</form>

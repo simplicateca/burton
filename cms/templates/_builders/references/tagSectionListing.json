@@ -1,0 +1,63 @@
+[
+    {
+        "label": "3 Column Grid",
+        "value": "gridCards",
+        "block" : {
+            "layout": "_layouts/grids/intro-above-3-columns-collapsing",
+        },
+        "textConfig": {
+            "moveHeaders": false
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/stackedCard"
+        }
+    },
+
+    {
+        "label": "Text Listings",
+        "value": "textListing",        
+        "block": {
+            "layout": "_layouts/grids/1-column"
+        },
+        "textConfig": {
+            "moveHeaders": false
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/text"
+        }
+    },
+
+    {
+        "label": "Full Listing",
+        "value": "fullListing",
+        "block": {
+            "layout": "_layouts/grids/intro-above-3-columns-collapsing",
+            "content1Replace" : "max-w-5xl"
+        },
+        "textConfig": {
+            "moveHeaders": false
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/stackedCard",
+            "paginate": true,
+            "search": true
+        }
+    },
+
+    {
+        "label": "Tag Cloud",
+        "value": "tagCloud",
+        
+        "block": {
+            "layout": "_layouts/grids/intro-above-6-columns-collapsing"
+        },
+        "textConfig": {
+            "moveHeaders": false,
+            "moveButtons": true,
+            "size": "sm"
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/tagCard"
+        }
+    }
+]

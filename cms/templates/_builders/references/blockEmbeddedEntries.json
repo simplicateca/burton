@@ -1,0 +1,43 @@
+[
+    {
+        "label": "Featured Entry",
+        "value": "featuredEntry",
+        "block": {
+            "layout": "_layouts/grids/1-column"
+        },
+        "textConfig": {
+            "moveHeaders": true
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/largeCard"
+        }
+    },
+
+    {
+        "label": "2 Column Grid",
+        "value": "gridCards",
+        "block": {
+            "layout": "_layouts/grids/text-above-2-columns",
+            "content1": "ml-0"
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/stackedCard"
+        }
+    },
+
+    {
+        "label": "Tag Cloud",
+        "value": "tagCloud",
+        "block": {
+            "layout": "_layouts/grids/intro-above-6-columns-collapsing"
+        },
+        "textConfig": {
+            "moveHeaders": false,
+            "moveButtons": true,
+            "size": "sm"
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/tagCard"
+        }
+    }
+]

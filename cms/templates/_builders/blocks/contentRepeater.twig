@@ -1,0 +1,30 @@
+{% extends blockConfig.layout %}
+{% use "_builders/blocks/_default" %}
+
+{% set items         = items ??? [] %}
+{% set itemComponent = itemsConfig.component ??? null %}
+{% set cardLayout    = itemsConfig.useCard   ??? null %}
+{% set buttonClass   = itemsConfig.buttons   ??? null %}
+
+{% set content1Hide  = not text|trim %}
+
+{% block content2 %}
+    {% if itemComponent %}
+        {{ include(itemComponent) }}
+    {% else %}
+        {% for item in items %}
+
+            {% if buttonClass %}
+                {% set item = {
+                    headline: item.headline,
+                    images: item.images,
+                    text: item.text|retconAttr( "a.button", { class: buttonClass } )
+                } %}
+            {% endif %}
+       
+            {{ include(cardLayout, {
+                entry: item
+            }, withContext = false ) }}
+        {% endfor %}
+    {% endif %}
+{% endblock %}

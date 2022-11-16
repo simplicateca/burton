@@ -1,0 +1,631 @@
+field: 00464ad8-4fb3-4d70-8ad0-202ad79cbc2c # Content Builder - Test
+fieldLayouts:
+  339c0122-cc30-4d9b-bddf-5e32ed3cb83f:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 80ab6db6-b74b-4300-9d18-5f3a1f3eed59 # Lightswitch
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: df745945-b7e8-41ad-8368-981cfbcf8ff4
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 83bbca72-25f6-496c-b095-52dcdf21323d # Room Light
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2ccce7aa-0107-4cd6-893e-6519ed5cc513
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: f318c0b9-c05e-4e37-b455-1c9372cd602e # Item List
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8300fc50-1826-4d5e-8228-9cb5db33eb82
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: c418b531-e6e7-4a06-bd70-e20e6e6e6950 # Display Format
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9577d8d5-613c-46eb-830d-85925d84e23c
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 500d3539-5d02-4c1a-97ba-890be8854857 # Grid Columns
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5d3ca963-fb38-45fd-8dde-1e7676392084
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: e21b715b-d604-4b2b-936e-a9b9ab272d39 # Number Test
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2927452d-492c-41e1-96ce-43dddbe61140
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4bedd98c-1f69-4364-b00a-c104f29b836c # Number Result
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 87595b4e-1fa9-46c6-a577-510c36d9376f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 074ac1b8-ff0c-4993-a607-0b94b74cc84a # Customize Buttons
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a28f9051-4bd0-4a08-8305-0f30ee8dda93
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 8196fcb8-fa8a-48b2-a62d-8163c8bdc14a # Button Text
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1b66c32b-b609-424e-9329-84da64ba2bfb
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 10491714-9ba1-4777-bb3c-d4e1083979aa # Button Color
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1294d2e3-8922-4c4e-9279-6e55283ff064
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: dfcbd5d1-a56d-485a-bbe1-bb5fc49bec58 # Radio Test
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ec4df552-8666-48e7-a4c4-dbb0da43972a
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: e8c41477-003c-46c3-b6fb-449126b08709 # Radio Result
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3f188024-2dec-43f4-bea8-a22157c4ef33
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 7927f7ad-975c-4d46-948a-6bba692a6714 # Table Test
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bd646124-f14b-4f7a-a1b4-e7ea02442efb
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 183c2169-29b6-48fe-8dcd-c8b4945c8abd # Table Result
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 11a40eaa-6469-4dd4-b452-d80f18c4ddcd
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 6c74006c-0a40-4ee2-8129-d384c43b0f37 # Assets
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b33a4a52-3065-4887-b867-5f06afd9797c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 047acefc-818d-4df0-83c5-d8b5a1ebf27c # Asset Format
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 114ddc49-8bf9-4b08-8602-e54f95583216
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: e58f85af-58d8-45fc-90b2-9f5a67050e8a
+        userCondition: null
+fields:
+  4bedd98c-1f69-4364-b00a-c104f29b836c: # Number Result
+    columnSuffix: nmghkuho
+    contentColumnType: text
+    fieldGroup: null
+    handle: numberResult
+    instructions: null
+    name: 'Number Result'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  6c74006c-0a40-4ee2-8129-d384c43b0f37: # Assets
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: assets
+    instructions: null
+    name: Assets
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: false
+      allowUploads: true
+      allowedKinds: null
+      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      defaultUploadLocationSubpath: null
+      localizeRelations: false
+      maxRelations: null
+      minRelations: null
+      previewMode: full
+      restrictFiles: false
+      restrictLocation: false
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: null
+      showSiteMenu: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      source: null
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: list
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+  047acefc-818d-4df0-83c5-d8b5a1ebf27c: # Asset Format
+    columnSuffix: fgcdcrvm
+    contentColumnType: text
+    fieldGroup: null
+    handle: assetFormat
+    instructions: null
+    name: 'Asset Format'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  074ac1b8-ff0c-4993-a607-0b94b74cc84a: # Customize Buttons
+    columnSuffix: becjmtfq
+    contentColumnType: string
+    fieldGroup: null
+    handle: checkboxes
+    instructions: null
+    name: 'Customize Buttons'
+    searchable: true
+    settings:
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - 'Custom Button Text'
+            -
+              - value
+              - customButtonText
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Custom Button Color'
+            -
+              - value
+              - customButtonColor
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Checkboxes
+  80ab6db6-b74b-4300-9d18-5f3a1f3eed59: # Lightswitch
+    columnSuffix: oukmuhpi
+    contentColumnType: boolean
+    fieldGroup: null
+    handle: lightswitch
+    instructions: null
+    name: Lightswitch
+    searchable: false
+    settings:
+      default: true
+      offLabel: 'Off'
+      onLabel: 'On'
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Lightswitch
+  83bbca72-25f6-496c-b095-52dcdf21323d: # Room Light
+    columnSuffix: sjozhfbq
+    contentColumnType: text
+    fieldGroup: null
+    handle: roomLight
+    instructions: null
+    name: 'Room Light'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  183c2169-29b6-48fe-8dcd-c8b4945c8abd: # Table Result
+    columnSuffix: qwdhryxl
+    contentColumnType: text
+    fieldGroup: null
+    handle: tableResult
+    instructions: null
+    name: 'Table Result'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  500d3539-5d02-4c1a-97ba-890be8854857: # Grid Columns
+    columnSuffix: bhrqthxw
+    contentColumnType: integer(10)
+    fieldGroup: null
+    handle: gridColumns
+    instructions: null
+    name: 'Grid Columns'
+    searchable: false
+    settings:
+      decimals: 0
+      defaultValue: null
+      max: null
+      min: 0
+      prefix: null
+      previewCurrency: null
+      previewFormat: decimal
+      size: null
+      suffix: null
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Number
+  7927f7ad-975c-4d46-948a-6bba692a6714: # Table Test
+    columnSuffix: levwzhhj
+    contentColumnType: text
+    fieldGroup: null
+    handle: tableTest
+    instructions: null
+    name: 'Table Test'
+    searchable: false
+    settings:
+      addRowLabel: 'Add a row'
+      columnType: text
+      columns:
+        __assoc__:
+          -
+            - col1
+            -
+              __assoc__:
+                -
+                  - heading
+                  - Field
+                -
+                  - handle
+                  - field
+                -
+                  - width
+                  - ''
+                -
+                  - type
+                  - singleline
+      defaults: null
+      maxRows: null
+      minRows: null
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Table
+  8196fcb8-fa8a-48b2-a62d-8163c8bdc14a: # Button Text
+    columnSuffix: sexwrfvb
+    contentColumnType: text
+    fieldGroup: null
+    handle: buttonText
+    instructions: null
+    name: 'Button Text'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: 'Learn More'
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  10491714-9ba1-4777-bb3c-d4e1083979aa: # Button Color
+    columnSuffix: toywvhmp
+    contentColumnType: string(7)
+    fieldGroup: null
+    handle: buttonColor
+    instructions: null
+    name: 'Button Color'
+    searchable: false
+    settings:
+      defaultColor: '#0011ff'
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Color
+  c418b531-e6e7-4a06-bd70-e20e6e6e6950: # Display Format
+    columnSuffix: piixnwyz
+    contentColumnType: string
+    fieldGroup: null
+    handle: displayFormat
+    instructions: null
+    name: 'Display Format'
+    searchable: false
+    settings:
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - Carousel
+            -
+              - value
+              - carousel
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - Grid
+            -
+              - value
+              - grid
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Dropdown
+  dfcbd5d1-a56d-485a-bbe1-bb5fc49bec58: # Radio Test
+    columnSuffix: hcxnedho
+    contentColumnType: string
+    fieldGroup: null
+    handle: radioTest
+    instructions: null
+    name: 'Radio Test'
+    searchable: false
+    settings:
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - 'Option 1'
+            -
+              - value
+              - option1
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Option 2'
+            -
+              - value
+              - option2
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Option 3'
+            -
+              - value
+              - option3
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\RadioButtons
+  e8c41477-003c-46c3-b6fb-449126b08709: # Radio Result
+    columnSuffix: urlmlisf
+    contentColumnType: text
+    fieldGroup: null
+    handle: radioResult
+    instructions: null
+    name: 'Radio Result'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  e21b715b-d604-4b2b-936e-a9b9ab272d39: # Number Test
+    columnSuffix: uqlsnffg
+    contentColumnType: integer(10)
+    fieldGroup: null
+    handle: numberTest
+    instructions: null
+    name: 'Number Test'
+    searchable: false
+    settings:
+      decimals: 0
+      defaultValue: null
+      max: null
+      min: 0
+      prefix: null
+      previewCurrency: null
+      previewFormat: decimal
+      size: null
+      suffix: null
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Number
+  f318c0b9-c05e-4e37-b455-1c9372cd602e: # Item List
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: itemList
+    instructions: null
+    name: 'Item List'
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      entryTypes: null
+      localizeRelations: false
+      maxRelations: null
+      minRelations: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Entry
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\entries\EntryCondition
+      selectionLabel: null
+      showSiteMenu: false
+      source: null
+      sources: '*'
+      targetSiteId: null
+      userGroups: null
+      users: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: nfourtythree\entriessubset\fields\EntriesSubsetField
+handle: testTriggers
+name: 'Test Triggers'
+sortOrder: 3

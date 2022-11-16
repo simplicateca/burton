@@ -1,0 +1,29 @@
+defaultPlacement: end
+enableVersioning: true
+handle: topics
+name: Topics
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  41b193c3-f554-4c48-8c8a-7ac2645f083f: # Filaire de Site (Fr)
+    enabledByDefault: true
+    hasUrls: true
+    template: _sections/topics/_entry
+    uriFormat: 'topics/{slug}'
+  34463b82-dd3f-441c-b9c6-59c351e847aa: # Wireframe Site (En)
+    enabledByDefault: true
+    hasUrls: true
+    template: _sections/topics/_entry
+    uriFormat: 'topics/{slug}'
+type: channel

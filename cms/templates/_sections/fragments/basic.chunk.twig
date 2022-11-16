@@ -1,0 +1,75 @@
+{% set entry     = entry ??? null %}
+{% set thisBlock = thisBlock ??? null %}
+{% set text      = thisBlock.content.text ??? null %}
+
+{% set chunkId   = thisBlock.content.chunk.value ?? null %}
+{% set chunk     = craft.matrixBlocks().id(chunkId)|first %}
+
+{% if chunk %}
+    {% set chunkHandle = chunk.type.handle ??? null %}    
+
+    {% if chunkHandle == 'table' and chunk.table %}
+        {% embed [
+            '_layouts/grids/1-column'
+        ] with {
+            entry: entry ??? null,
+            text: text,
+            chunk: chunk,
+            blockConfig: {
+                contentCols: 'grid grid-cols-1 gap-8',
+                content1: 'max-w-4xl'
+            }
+        } only %}
+
+            {% block content1 %}
+                {% import "_macros/richtext" as richtext %}
+                {{ richtext.prose(text) }}
+            {% endblock %}
+
+            {% block content2 %}
+                <div class="overflow-x-auto relative">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-md text-white uppercase bg-slate-700 font-bold">
+                            <tr>
+                                <th scope="col" class="py-3 px-6">ID</th>
+                                <th scope="col" class="py-3 px-6">Name</th>
+                                <th scope="col" class="py-3 px-6">Status</th>
+                                <th scope="col" class="py-3 px-6">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in chunk.table %}
+                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ row.id }}
+                                    </th>
+                                    <td class="py-4 px-6">{{ row.name }}</td>
+                                    <td class="py-4 px-6">{{ row.status|ucfirst }}</td>
+                                    <td class="py-4 px-6">{{ row.date|datetime('short') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                {% if chunk.caption %}
+                    <div class="pt-4 text-right">
+                        {% import "_macros/richtext" as richtext %}
+                        {{ richtext.prose(chunk.caption, 'sm') }}
+                    </div>
+                {% endif %}
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+
+    {% if chunkHandle == 'code' and chunk.code %}
+        <pre><code class="language-css">{{chunk.code|e('html')}}</code></pre>
+    {% endif %}
+{% endif %}
+
+{% html %}
+    <link href="https://unpkg.com/prismjs@1.29.0/themes/prism.css" rel="stylesheet" />
+
+    <script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
+	<script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+{% endhtml %}

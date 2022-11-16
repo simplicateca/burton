@@ -1,0 +1,15 @@
+<footer class="bg-slate-900">
+    <div class="container">
+        <div class="flex py-6 text-white">
+            {% block legal %}
+                <div>
+                    © {{"now"|date('Y')}} {{ currentSite.name }}. All rights reserved.
+                </div>
+            {% endblock %}
+
+            {% block menu %}
+                {{ include( "_components/navigation/menu", { menu: 'legal' }, withContext = false ) }}
+            {% endblock %}
+        </div>
+    </div>
+</footer>

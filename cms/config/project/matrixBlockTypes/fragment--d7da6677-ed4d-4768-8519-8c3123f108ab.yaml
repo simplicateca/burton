@@ -1,0 +1,176 @@
+field: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+fieldLayouts:
+  564ddb22-070a-4f59-9191-678a9a6aa04c:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: e2cdac24-87bd-4a5b-be66-d991b0323794 # Fragment(s)
+            instructions: null
+            label: null
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: cf64b0c8-2197-4b35-882d-1efa6ff77c73
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: c27f9fb5-d0cc-4e10-841c-c739bfbdb971 # Text
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9e12432b-9546-4b4c-8c78-08b969786487
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: e8af3e49-fbce-4621-a06d-a3d56f425497 # Content Chunk
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5f5876ee-6ad6-41e4-beba-f992b65a9810
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: bf152e62-fb69-4e45-836d-7546488987e6 # Background
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 32fc547d-c5c4-4205-a400-fed243e51d88
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: abf72c9c-cdfc-4765-b71d-a03735da679d # Spacing
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 41cfa4e2-45bf-495a-8ef7-5181c17669d7
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: d9dcfac7-2f95-4e7f-8dff-5e8f93eb6332
+        userCondition: null
+fields:
+  abf72c9c-cdfc-4765-b71d-a03735da679d: # Spacing
+    columnSuffix: gslywyag
+    contentColumnType: string
+    fieldGroup: null
+    handle: spacing
+    instructions: 'Change spacing & dividers above/below this block.'
+    name: Spacing
+    searchable: false
+    settings:
+      referenceFile: _builders/references/spacingFragment.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  bf152e62-fb69-4e45-836d-7546488987e6: # Background
+    columnSuffix: nfwtlclo
+    contentColumnType: string
+    fieldGroup: null
+    handle: bg
+    instructions: 'Set the background style behind this block.'
+    name: Background
+    searchable: false
+    settings:
+      referenceFile: _builders/references/backgroundsFragment.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  c27f9fb5-d0cc-4e10-841c-c739bfbdb971: # Text
+    columnSuffix: ahimykba
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: 'Injects additional text content into the selected fragment (if supported).'
+    name: Text
+    searchable: true
+    settings:
+      availableTransforms: '*'
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Standard.json
+      removeEmptyTags: false
+      removeInlineStyles: false
+      removeNbsp: false
+      showHtmlButtonForNonAdmins: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  e2cdac24-87bd-4a5b-be66-d991b0323794: # Fragment(s)
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: fragments
+    instructions: null
+    name: Fragment(s)
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      localizeRelations: false
+      maxRelations: null
+      minRelations: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Entry
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\entries\EntryCondition
+      selectionLabel: 'Choose Fragment'
+      showSiteMenu: false
+      source: null
+      sources:
+        - 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f' # Fragments
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
+  e8af3e49-fbce-4621-a06d-a3d56f425497: # Content Chunk
+    columnSuffix: lrlikkza
+    contentColumnType: string
+    fieldGroup: null
+    handle: chunk
+    instructions: 'Use the selected fragment to feature a Content Chunk.'
+    name: 'Content Chunk'
+    searchable: false
+    settings:
+      referenceFile: _builders/references/entryChunk.twig
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+handle: fragment
+name: Fragment
+sortOrder: 7

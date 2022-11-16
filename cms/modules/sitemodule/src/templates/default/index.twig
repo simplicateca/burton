@@ -1,0 +1,24 @@
+{% extends "_layouts/base" %}
+
+{% block header %}
+    {{ include(
+        "_components/header/header",
+        { entry: {
+            title: "Site Module Custom Route"
+        } }, withContext = false
+    ) }}
+{% endblock %}
+
+{% block content %}
+    <div class="container py-8">
+        <div class="max-w-5xl prose prose-lg">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi vero, inquit, placet agi subtilius et, ut ipse dixisti, pressius. Sin laboramus, quis est, qui alienae modum statuat industriae?
+            </p>
+
+            <p>
+                Ut nemo dubitet, eorum omnia officia quo spectare, quid sequi, quid fugere debeant? Cupit enim dícere nihil posse ad beatam vitam deesse sapienti.
+            </p>
+        </div>
+    </div>
+{% endblock %}

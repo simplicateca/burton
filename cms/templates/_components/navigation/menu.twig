@@ -1,0 +1,13 @@
+{% set menu    = menu  ?? "primary" %}
+{% set class   = class ?? "m-#{menu}" %}
+{% set ulClass = ulClass ?? 'm-0 p-0 list-none flex' %}
+
+<nav class="{{class}}" role="navigation" aria-label="{{menu|capitalize}} Navigation">
+    {{ craft.navigation.render( menu, {
+        ulClass: ulClass,
+        liClass: 'font-display',
+        aClass: 'nav-link lowercase text-xl ml-5 text-slate-400 hover:text-slate-800',
+        activeClass: 'nav-active text-slate-700',
+        hasChildrenClass: 'nav-has-children',
+    }) }}
+</nav>

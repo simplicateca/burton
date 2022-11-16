@@ -1,0 +1,155 @@
+fieldLayouts:
+  1a82b273-bb1c-458c-b9a5-2722aa9e1020:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: 'This is the main page title. It will appear on the page unless you used the header builder.'
+            label: 'Page Title'
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: aff7c356-6d38-41f0-8ad6-1611b9d0470f
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _builders/controlpanel/instructionsHeaderBuilder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: a9440325-5030-48ac-8db3-064cc4750400
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: d05f4009-0b38-4065-a1b1-65221aa65e63 # Header Builder
+            instructions: 'Use the block below to customize the hero section for this page'
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 45d1c2b8-3ae2-4ac7-b698-663d5e301564
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _builders/controlpanel/instructionsContentBuilder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 868120ed-342e-4a60-b979-5bc194680518
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+            instructions: 'Use the blocks below to construct the body of your entry. Each block contains specific settings and content requirements.'
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5f1c3647-1a55-497b-a7c2-33cbf90ecae4
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _builders/controlpanel/matrixConditionalFields.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 64393159-3e89-4faa-9aaa-11de8dcd8b2a
+            userCondition: null
+            width: 100
+        name: Content
+        uid: 7309709a-e27a-4226-a2c1-5685670c4c51
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            template: _builders/controlpanel/instructionsSidebarBuilder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: ad4c755b-f0ca-48dc-b0d9-211e845bc0fb
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: a35a0beb-0cf7-4a2b-9ec3-91e953a18116 # Sidebar Builder
+            instructions: 'Use the blocks below to construct the sidebar of your entry. Each block contains specific settings and content requirements.'
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f6cccab6-cc19-437f-84cc-fcbd912b8ae6
+            userCondition: null
+            warning: null
+            width: 100
+        name: Sidebar
+        uid: e6f941ab-670b-4aa1-83f6-1ebb29e90282
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Lead Image(s)
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 645515ab-242d-4610-a4e6-2238a3f66628
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: b1c52a06-4990-43f5-90d3-898a48789556 # Dek
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d29e982c-a5a6-4cf0-979c-70c6ce0cf0fb
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: d79b3073-00bf-430c-95d5-6d03d8303032 # SEO
+            instructions: null
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: be768740-44fb-422a-9841-f5f120ee410a
+            userCondition: null
+            warning: null
+            width: 100
+        name: SEO
+        uid: 25183390-3692-4379-9b10-d39ff01ebbbb
+        userCondition: null
+handle: withSidebar
+hasTitleField: true
+name: 'With Sidebar'
+section: 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Pages
+sortOrder: 3
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

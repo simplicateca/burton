@@ -1,0 +1,103 @@
+{% set images    = images    ??? content.images.all() ??? null %}
+{% set class     = class     ??? blockType ??? 'w-full' %}
+{% set transform = transform ??? null %}
+
+{% set image     = images|first ??? null %}
+
+{% if transform %}
+    {% do image.setTransform(transform) %}
+{% endif %}
+
+{% if image %}
+    {% set alt = image.alt ??? image.title ??? "" %}
+
+    <img
+        src="{{image.url}}"
+        width="{{ image.width }}"
+        height="{{ image.height }}"
+        alt="{{alt}}"
+        loading="lazy"
+        class="{{class}}">
+{% endif %}
+
+{# wireframe placeholder #}
+{% if not image and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    <div class="cImageCluster flex gap-4 mx-auto md:-my-20">
+        <div class="flex flex-col gap-4">
+            <div class="bg-slate-500 aspect-square h-72 w-72 rounded-lg opacity-0 clusterA relative z-30">&nbsp;</div>
+
+            <div class="bg-slate-400 aspect-square h-40 w-40 rounded-lg mr-0 ml-auto opacity-0 relative clusterB z-10">&nbsp;</div>
+        </div>
+        <div class="mt-32">
+            <div class="bg-slate-600 aspect-square h-56 w-56 rounded-lg opacity-0 clusterC relative z-20">&nbsp;</div>
+        </div>
+    </div>
+{% endif %}
+
+
+{% js %}
+    window.waitForGlobal("app.gsap", function() {
+
+        app.gsap.fromTo(".clusterA", {
+            rotation:-90,
+            opacity: 0,
+            transformOrigin: '0% 100%'
+        }, {
+            rotation:0,
+            opacity: 1,
+            ease: app.Power3.easeOut,
+            duration:1,
+            scrollTrigger: {
+                trigger: ".clusterA",
+                start: "bottom 80%",
+                end: "bottom 60%",
+                scrub:.3,
+                invalidateOnRefresh: true // to make it responsive
+            }
+        });
+
+        app.gsap.fromTo(".clusterB", {
+            y: '-40%',
+            x: '40%',
+            rotation:-90,
+            opacity: 0,
+            transformOrigin: '100% 0%'
+        }, {
+            y: '0%',
+            x: '0%',
+            rotation:0,
+            opacity: 1,
+            ease: app.Power3.easeOut,
+            duration:1,
+            scrollTrigger: {
+                trigger: ".clusterB",
+                start: "bottom 80%",
+                end: "bottom 60%",
+                scrub:.3,
+                invalidateOnRefresh: true // to make it responsive                
+            }
+        });
+        
+        app.gsap.fromTo(".clusterC", {
+            y: '-40%',
+            x: '-40%',
+            rotation:90,
+            opacity: 0,
+            transformOrigin: '0% 0%'
+        }, {
+            y: '0%',
+            x: '0%',
+            rotation:0,
+            opacity: 1,
+            ease: app.Power3.easeOut,
+            duration:1,
+            scrollTrigger: {
+                trigger: ".clusterC",
+                start: "bottom 80%",
+                end: "bottom 60%",
+                scrub:.3,
+                invalidateOnRefresh: true // to make it responsive                
+            }
+        });        
+    });
+{% endjs %}

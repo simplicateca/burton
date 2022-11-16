@@ -1,0 +1,16 @@
+{#
+ # Fragments in templates
+ #
+ # For embedding content from fragment entries directly into templates
+ #
+ # Usage:
+ # {% import "_macros/fragments.twig" as fragments %}
+ #}
+
+
+{%- macro load( entryId, entry ) -%}
+    {% set fragment = craft.entries().id(entryId).one() %}
+    {{ include( '_sections/fragments/blocks/basic', {
+        fragment: fragment
+    }, withContext = false) }}
+{%- endmacro -%}

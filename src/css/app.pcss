@@ -1,0 +1,92 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+
+/**
+ * Site settings (variables / fonts / breakpoints / etc)
+ */
+/* @import './_settings/_global.pcss';
+@import './_settings/typography.pcss'; */
+
+
+/**
+ * Layout & utility classes
+ */
+/* @import './_settings/utility.pcss';
+@import './_settings/frame.pcss'; */
+
+
+@import '../templates/_components/buttons/buttons.pcss';
+@import '../templates/_components/header/header.pcss';
+@import '../templates/_components/a11y/skip-to-content.pcss';
+@import '../templates/_components/navigation/mobile.pcss';
+/* @import '../templates/_builders/builders.pcss'; */
+
+@import '../templates/_components/text/typography.pcss';
+
+@import '../templates/_components/_sprig/search/search.pcss';
+
+
+/**
+ * This injects all of Tailwind's utility classes, generated based on your config file.
+ * (buildchain/tailwind.config.js)
+ *
+ */
+@import 'tailwindcss/utilities';
+
+html {
+    @apply font-body;
+    visibility: visible;
+    opacity: 1;
+    scroll-behavior: smooth;
+}
+
+body {
+	@apply m-0 p-0 bg-stone-50;
+}
+
+::selection {
+	background: var(--blonde); /* WebKit/Blink Browsers */
+  }
+
+::-moz-selection {
+	background: var(--blonde); /* Gecko Browsers */
+}
+
+
+.container {
+    .container {
+        max-width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+header {
+    position: relative;
+    z-index: 30;
+}
+
+main {
+    min-height: 35vh;
+}
+
+section[class^="c-content"] {
+    div:first-child {
+        &.spaceNone {
+            @apply -mt-10;
+        }
+    }
+}
+
+a.clickable-parent {
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 2;
+    }
+}
+

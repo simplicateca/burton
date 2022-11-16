@@ -1,0 +1,12 @@
+{% extends blockConfig.layout %}
+{% use "_builders/blocks/_default" %}
+
+{% import "_macros/richtext" as richtext %}
+
+{% set text2 = text2 ??? content.text2 ??? '' %}
+{% set text2 = richtext.prose( text2 ) %}
+{% set content2Hide = not text2|trim %}
+
+{% block content2 %}
+    {{text2}}
+{% endblock %}

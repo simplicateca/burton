@@ -1,0 +1,97 @@
+{# -- Block Loop -- #}
+{#
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                includeBefore                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ | ┌─────────────────────────────────────────────────────────────────────┐ │ |
+| │ | ┌─────────────────────────────────────────────────────────────────┐ │ | |
+| │ | |                              block                              | | │ |
+| │ | └─────────────────────────────────────────────────────────────────┘ │ | |
+| │ | ┌─────────────────────────────────────────────────────────────────┐ │ | |
+| │ | |                          block (inherit)                        | | │ |
+| │ | └─────────────────────────────────────────────────────────────────┘ │ | |
+| │ | ┌─────────────────────────────────────────────────────────────────┐ │ | |
+| │ | |                           innerInclude                          | | │ |
+| │ | └─────────────────────────────────────────────────────────────────┘ │ | |
+│ | |                                                                     | | │
+│ | |                            innerBackground                          | | │
+│ | └─────────────────────────────────────────────────────────────────────┘ │ |
+│ | ┌─────────────────────────────────────────────────────────────────────┐ │ |
+│ | |                           containerInclude                          | | │
+│ | └─────────────────────────────────────────────────────────────────────┘ │ |
+│ |                                                                         | │
+│ │                                container                                │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │                              outerInclude                               │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+│                                                                             │
+│                               outerBackground                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                includeAfter                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+#}
+
+{# make sure we have all the matrix builder blocks we need #}
+{% set blocks    = blocks     ??? blocks.all()       ??? null %}
+{% set entry     = entry      ??? blocks|first.owner ??? null %}
+{% set builder   = builder    ??? 'content' %}
+
+{# spacing settings for the area above the builder can be passed
+   via `builderTop` and will be included before the first block #}
+{% set prevBlock = builderTop ??? null %}
+
+{# individually splice fragment blocks into the block list, and
+    merge the variant/background/color reference fields for each
+    block into a `settings` array #}
+{% set blocks = normalizeBlocks( blocks, entry, builder ) %}
+
+{% if blocks %}
+
+    {# loop through the list of normalized blocks #}
+    {% for thisBlock in blocks %}
+
+        {# closes the scene+container for block above -- if necessary #}
+        {% if not loop.first %}
+            {{ include('_builders/partials/blockClose', {
+                blockAbove: prevBlock,
+                blockBelow: thisBlock,
+                entry: entry,
+                builder: builder
+            }, withContext = false ) }}
+        {% endif %}
+        
+        {# open the scene+container for the current block, including
+            any spacers/dividers/transitions from the block above #}
+        {{ include('_builders/partials/blockOpen', {
+            blockAbove: prevBlock,
+            blockBelow: thisBlock,
+            entry: entry,
+            first: loop.first
+        }, withContext = false ) }}
+    
+        {# find/load the content/layout template for this block #}
+        {{ include('_builders/_block', {
+            entry: entry,
+            builder: builder,
+            thisBlock: thisBlock            
+        }, withContext = false ) }}
+
+
+        {# FINAL ACTION BEFORE NEXT LOOP ITERATION!
+            DON'T ADD ANYTHING ELSE BELOW THIS LINE #}
+        {% set prevBlock = thisBlock %}
+    {% endfor %}
+
+    {# close the final scene+container #}
+    {{ include('_builders/partials/blockClose', {
+        blockAbove: prevBlock,
+        blockBelow: builderBottom ??? null,
+        entry: entry,
+        builder: builder,
+        last: true
+    }, withContext = false ) }}
+{% endif %}

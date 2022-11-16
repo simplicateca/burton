@@ -1,0 +1,58 @@
+[
+    {
+        "label": "Transparent / No Color",
+        "value": "bgNone",
+        
+        "scene": {
+            "baseClass": "py-16 relative",
+            "bgColor": "stone-50",
+            "bgHex": "#fafaf9",
+            "fillColor" : "stone-50",
+            "fillHex" : "#fafaf9"
+        }
+    },
+
+    {
+        "label": "Plaid Pattern (Grey)",
+        "value": "bgPattern",
+
+        "scene": {
+            "baseClass": "py-24 relative bg-[url('https://simplicate.nyc3.digitaloceanspaces.com/simplicate/assets/site/images/diagonal-plaid-2.png')] bg-repeat",
+            "bgColor": "slate-100",
+            "bgHex": "#fafaf9",
+            "fillColor" : "slate-100",
+            "fillHex" : "#fafaf9",
+            "includeBeforeClose": "_components/dividers/tilt-right"
+        }
+    },
+
+    {
+        "label": "Light Blue",
+        "value": "bgBlue",
+
+        "scene": {
+            "baseClass": "py-16 bg-slate-100",
+            "bgColor": "slate-100",
+            "bgHex": "#f1f5f9",
+            "fillColor" : "slate-100",
+            "fillHex" : "#f1f5f9"
+        }
+    },
+
+    {
+        "label": "Dark Blue",
+        "value": "bgDark",
+
+        "scene": {
+            "baseClass": "py-12 bg-slate-600",
+            "bgColor": "slate-600",
+            "bgHex": "#475569",
+            "fillColor" : "slate-600",
+            "fillHex" : "#475569"
+        },
+
+        "block": {
+            "class": "text-white prose-text-white"
+        }
+    }
+]

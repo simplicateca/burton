@@ -1,0 +1,62 @@
+columnSuffix: lvxnzhkr
+contentColumnType: string
+fieldGroup: b7f29b8a-788f-4f46-a93e-cdfdfa91d44b # Buttons & Links
+handle: button
+instructions: null
+name: Button
+searchable: false
+settings:
+  allowCustomText: true
+  allowTarget: true
+  autoNoReferrer: true
+  customTextMaxLength: 0
+  customTextRequired: false
+  defaultLinkName: url
+  defaultText: 'Click here'
+  enableAllLinkTypes: false
+  enableAriaLabel: false
+  enableElementCache: false
+  enableTitle: false
+  typeSettings:
+    asset:
+      allowCrossSiteLink: false
+      allowCustomQuery: false
+      enabled: false
+      sources: '*'
+    category:
+      allowCrossSiteLink: false
+      allowCustomQuery: false
+      enabled: true
+      sources: '*'
+    custom:
+      allowAliases: false
+      disableValidation: false
+      enabled: true
+    email:
+      allowAliases: false
+      disableValidation: false
+      enabled: true
+    entry:
+      allowCrossSiteLink: false
+      allowCustomQuery: false
+      enabled: true
+      sources: '*'
+    site:
+      enabled: true
+      sites: '*'
+    tel:
+      allowAliases: false
+      disableValidation: false
+      enabled: true
+    url:
+      allowAliases: false
+      disableValidation: false
+      enabled: true
+    user:
+      allowCrossSiteLink: false
+      allowCustomQuery: false
+      enabled: false
+      sources: '*'
+translationKeyFormat: null
+translationMethod: none
+type: lenz\linkfield\fields\LinkField

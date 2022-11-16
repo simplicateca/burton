@@ -1,0 +1,27 @@
+defaultPlacement: end
+enableVersioning: true
+handle: sitebook
+name: Sitebook
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  34463b82-dd3f-441c-b9c6-59c351e847aa: # Wireframe Site (En)
+    enabledByDefault: true
+    hasUrls: true
+    template: _page
+    uriFormat: '{{parent.uri ?? ''sitebook''}}/{{slug}}'
+structure:
+  maxLevels: null
+  uid: d5688cfd-6a2b-4609-bc18-7e1f0c00426f
+type: structure

@@ -1,0 +1,31 @@
+{
+  "buttons": ["html", "formatting", "bold", "italic", "unorderedlist", "orderedlist", "link", "line"],
+  "plugins": ["email", "listclass", "linkclass"],
+  "linkNewTab": true,
+  "formattingAdd": {
+    "larger": {
+      "title": "Larger Paragraph",
+      "api": "module.block.format",
+      "args": {
+          "tag": "p",
+          "class": "larger"
+      }
+    },
+    "smaller": {
+      "title": "Smaller Paragraph",
+      "api": "module.block.format",
+      "args": {
+          "tag": "p",
+          "class": "smaller"
+      }
+    }
+  },
+  "toolbarFixed": true,
+  "linkClasses" : [
+    { "label": "Button", "class": "button" }
+  ],
+  "listClasses" : [
+    { "label": "Checkmarks", "class": "checkmarks" },
+    { "label": "2 columns",  "class": "grid" }
+  ]
+}

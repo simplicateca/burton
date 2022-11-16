@@ -1,0 +1,169 @@
+field: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+fieldLayouts:
+  ddb9be0d-9c71-4e4a-82c1-e7bae599e577:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: f3fc91f4-ef9e-4532-beaf-1c80b55b7233 # Layout Variant
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: dbb08e69-d9f5-44ac-955a-9aaa57de18c1
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: b431aa28-7fd8-4a95-8ace-467582d8e01f # Text (Left)
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e1606cf7-2992-4c96-99b3-6d962ecf7b8e
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 79001047-67b4-4b93-825f-333664a55c70 # Text (Right)
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e6db4a45-0247-4c09-918e-9dd563db1fa0
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 1a28951d-82d5-47da-8ec8-ab405c40e0b8 # Background
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d3b4e657-3c15-4be6-9e25-5540d2d09513
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: ef8f5bd0-5250-42da-b861-c220362619e2 # Spacing
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f78019cd-ba94-4f38-bdf8-bef956b4bd6e
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: fdd84f30-2bdd-479e-be58-143b9b45dbfd
+        userCondition: null
+fields:
+  1a28951d-82d5-47da-8ec8-ab405c40e0b8: # Background
+    columnSuffix: mgtiyjak
+    contentColumnType: string
+    fieldGroup: null
+    handle: bg
+    instructions: 'Set the background style behind this block.'
+    name: Background
+    searchable: false
+    settings:
+      referenceFile: _builders/references/backgrounds.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  79001047-67b4-4b93-825f-333664a55c70: # Text (Right)
+    columnSuffix: null
+    contentColumnType: text
+    fieldGroup: null
+    handle: text2
+    instructions: null
+    name: 'Text (Right)'
+    searchable: true
+    settings:
+      availableTransforms: '*'
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Standard.json
+      removeEmptyTags: true
+      removeInlineStyles: true
+      removeNbsp: true
+      showHtmlButtonForNonAdmins: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  b431aa28-7fd8-4a95-8ace-467582d8e01f: # Text (Left)
+    columnSuffix: null
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: null
+    name: 'Text (Left)'
+    searchable: true
+    settings:
+      availableTransforms: '*'
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Standard.json
+      removeEmptyTags: true
+      removeInlineStyles: true
+      removeNbsp: true
+      showHtmlButtonForNonAdmins: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  ef8f5bd0-5250-42da-b861-c220362619e2: # Spacing
+    columnSuffix: kvbxevci
+    contentColumnType: string
+    fieldGroup: null
+    handle: spacing
+    instructions: 'Change spacing & dividers above/below this block.'
+    name: Spacing
+    searchable: false
+    settings:
+      referenceFile: _builders/references/spacing.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  f3fc91f4-ef9e-4532-beaf-1c80b55b7233: # Layout Variant
+    columnSuffix: rkmoflxj
+    contentColumnType: string
+    fieldGroup: null
+    handle: variant
+    instructions: 'Change the block layout without changing its underlying content'
+    name: 'Layout Variant'
+    searchable: false
+    settings:
+      referenceFile: _builders/references/blockTextText.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+handle: textText
+name: 'Text + Text'
+sortOrder: 2

@@ -1,0 +1,41 @@
+{% set card   = card ??? null %}
+{% set path   = card.useCard ??? card ??? '' %}
+{% set type   = path|split('/')|reverse|first %}
+
+{% set topics = topics ??? [] %}
+{% set topic  = topics|first ??? entry.topics|first ??? null %}
+
+{% embed [
+    path,
+    '_components/cards/text'
+] with {
+    entry : entry ??? null,
+    path  : path  ??? '',
+    type  : type  ??? '',
+    topic : topic  ??? '',
+} only %}
+    {% block articleTag %}
+        <article class="tease news relative" style="--topicColor:{{topic.color ??? '#000' }};">
+    {% endblock %}
+
+    {% block aboveTitle -%}
+        {%- if topic and topic.title -%}
+            <strong class="
+                block
+                topic
+                topic__{{topic.slug ??? ''}}
+                text-[color:var(--topicColor)]
+                mb-2
+                ">{{topic.title|lower}}</strong>
+        {%- endif -%}
+    {%- endblock %}
+
+    {% block aboveSummary -%}
+        {% if not( type in ['stackedCard', 'largeCard'] ) %}
+            <time
+                class="block"
+                datetime="{{ entry.postDate | date('Y-m-d') }}"
+            >{{ entry.postDate | date('d M Y') }}</time>
+        {% endif %}
+    {%- endblock %}
+{% endembed %}

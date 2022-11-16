@@ -1,0 +1,46 @@
+field: a35a0beb-0cf7-4a2b-9ec3-91e953a18116 # Sidebar Builder
+fieldLayouts:
+  6a521951-ee4a-490a-93da-631e4286c554:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 4e1fbf94-015b-4a5b-880a-8e7051457536 # Test
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b6b12061-1c20-4a22-beb8-139fa8024cfb
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 04b77bf4-524c-4e70-8fad-86c4b383525c
+        userCondition: null
+fields:
+  4e1fbf94-015b-4a5b-880a-8e7051457536: # Test
+    columnSuffix: tjslxfvc
+    contentColumnType: text
+    fieldGroup: null
+    handle: test
+    instructions: null
+    name: Test
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: test
+name: Test
+sortOrder: 1

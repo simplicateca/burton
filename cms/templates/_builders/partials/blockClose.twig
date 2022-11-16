@@ -1,0 +1,42 @@
+{% set blockClosing       = blockAbove ?? null %}
+{% set blockNextOpen      = blockBelow ?? null %}
+{% set entry              = entry      ?? null %}
+{% set lastBlockInBuilder = last       ?? null %}
+
+{# is the next block inheriting the background from this one? #}
+{% set nextScene         = blockNextOpen.settings.scene ??? null  %}
+{% set nextSceneInherits = nextScene.inherit            ??? false %}
+
+{% set closingScene      = blockClosing.settings.scene  ??? null  %}
+
+{# do we need to add extra space after or include a special component #}
+{% set closingSettings   = blockClosing.settings.block  ??? null %}
+{% set spaceAfter        = closingSettings.spaceAfter   ??? null %}
+
+{% if nextSceneInherits and not lastBlockInBuilder %}
+    </div>
+
+    {% if spaceAfter %}
+        <div class="cBlockSpacer cBlockSpacer__after {{spaceAfter}}"></div>
+    {% endif %}
+{% else %}
+            </div>
+        </div>
+
+        {% if closingScene.includeBeforeClose ?? null %}
+            {{ include( closingScene.includeBeforeClose, {
+                blockAbove: blockClosing,
+                blockBelow: blockNextOpen,
+                entry: entry
+            }, withContext = false )}}
+        {% endif %}
+
+        {% if lastBlockInBuilder and ( blockNextOpen.class ?? null ) and spaceAfter %}
+            <div class="cBlockSpacer cBlockSpacer__after cBlockSpacer__builderBottom {{spaceAfter ?? blockNextOpen.class}}"></div>
+        {% else %}
+            {% if spaceAfter %}
+                <div class="cBlockSpacer cBlockSpacer__after {{spaceAfter}}"></div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}

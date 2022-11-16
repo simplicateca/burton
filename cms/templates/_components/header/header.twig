@@ -1,0 +1,50 @@
+{% set entry  = entry  ??? null %}
+{% set blocks = blocks ??? entry.headerBuilder.all() ??? null %}
+{% set title  = title  ??? entry.title ??? null %}
+
+{% block headerNavbar %}
+    <div class="bg-slate-100 py-4 border-b sticky top-0 w-full z-50">
+        <div class="container">
+            <div class="flex items-center w-full">
+                {% block headerNavigation %}
+                    {{ include(
+                        [
+                            "_components/navigation/menu-primary",
+                            "_components/navigation/menu"
+                        ],
+                        { menu: 'primary' },
+                        withContext = false
+                    ) }}
+                {% endblock %}
+
+                {% block headerLogo %}
+                    {{ include( "_components/logo/logo",
+                        { },
+                        withContext = false
+                    ) }}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<header class="cHeader flex flex-col" role="heading" aria-level="1">
+    {% block headerBuilder %}
+        {{ include("_builders/partials/builderHeader", {
+            blocks: blocks ??? null,
+            entry: entry
+        }, withContext = false ) }}
+    {% endblock %}
+    
+    {% block headerTitle %}
+        {% if title and not blocks %}
+            <div class="container pt-16 pb-16">
+                <div class="max-w-4xl">
+                    {% import "_macros/richtext" as richtext %}
+                    {{ richtext.formatHeadline( title, 'h1', 'text-slate-600 text-4xl lg:text-8xl' ) }}
+                    {% block belowTitle %}{% endblock %}
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+</header>

@@ -1,0 +1,22 @@
+{% embed '_builders/blocks/text' %}
+
+    {% block aboveText %}
+        <div class="grid grid-cols-1 gap-4">
+            {% import "_macros/richtext" as richtext %}
+            {{ richtext.formatHeadline( entry.title, 'h1' ) }}
+
+            <time
+                datetime="{{ entry.postDate | date('Y-m-d') }}"
+            >{{ entry.postDate | date('F jS, Y') }}</time>
+    {% endblock %}
+
+    {% block text %}
+        {% set proseSize = 'xl' %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block belowText %}
+        </div>
+    {% endblock %}
+
+{% endembed %}

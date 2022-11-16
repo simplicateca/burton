@@ -1,0 +1,11 @@
+{
+    "buttons": ["html", "bold", "alignment"],
+    "plugins": ["alignment", "eyebrow"],
+    "toolbarFixed": false,
+    "air" : true,
+    "eyebrows" : [
+        { "label": "Standard", "class": "eyebrow--standard", "default": true },
+        { "label": "Knockout", "class": "eyebrow--knockout", "default": false },
+        { "label": "Accent",   "class": "eyebrow--accent",   "default": false }
+    ]
+}

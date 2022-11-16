@@ -1,0 +1,161 @@
+[{
+    "value": "textLeft",
+    "label": "Text Left / Image Right",
+    "default": true,
+    "reference": {
+        "note": "Text on the left, image on the right, 50%/50% width. Stacks top/bottom mobile.",
+        "image": "https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/media-featured-v2.jpg",
+        "moreUrl": "/sitebook/components/media/#featured"        
+    },
+    "block": {
+        "layout": "_layouts/grids/2-column-collapsing"
+    },    
+    "mediaConfig": {
+        "component": "_components/media/image"
+    }
+},
+
+{
+    "value": "textLeftCarouselRight",
+    "label": "Text Left / Image Carousel Right",
+    "reference": {
+        "note": "Text on the left, 1-up image carousel on the right."
+    },
+    "scene": {
+        "class": "overflow-hidden"
+    },
+    "block": {
+        "layout": "_layouts/grids/2-column-collapsing"
+    },
+    "mediaConfig": {
+        "component": "_components/media/image-carousel"
+    }
+},
+
+{
+    "value": "textRight",
+    "label": "Image Left (Stretch Height) / Text Right",
+    "reference": {
+        "note": "Text on the right, image on the left. Image will stretch to match text height."
+    },
+    "block": {
+        "layout": "_layouts/grids/2-column-collapsing",
+        "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16"
+    },
+    "mediaConfig": {
+        "component": "_components/media/image-fit"
+    }
+},
+
+{
+    "value": "parallax",
+    "label": "Parallax Background Image - Text center",
+    "reference": {
+        "note": "Full bleed image w/ parallax effect on scroll. Text centered."
+    },
+    "block": {
+        "layout": "_layouts/grids/text-overlap.twig",
+        "contentCols": "w-full max-w-xl mx-auto p-6 lg:p-16 min-h-[45rem]"
+    },
+    "container" : {
+        "class": "overflow-hidden"
+    },
+    "mediaConfig": {
+        "component": "_components/media/image-parallax"
+    },
+    "textConfig": {
+        "moveHeaders": true,
+        "headerComponent": "_components/text/scrolling-headline"
+    }
+},
+
+{
+    "value": "textLeftFullBleed",
+    "label": "Text Left / Image Right (Full Bleed)",
+    "reference": {
+        "note": ""
+    },
+    "block": {
+        "layout": "_layouts/grids/2-column-collapsing",
+        "contentCols": "flex flex-col-reverse sm:flex-row sm:justify-center sm:items-center overflow-hidden",
+        "content1Base": "w-full sm:w-1/2",
+        "content2Base": "w-full sm:w-1/2",
+        "content1": "p-8 xl:p-20",
+        "content2": "h-96 sm:h-full tall:min-h-[800px] relative overflow-hidden"
+    },
+    "container" : {
+        "class": ""
+    },
+    "mediaConfig": {
+        "component": "_components/media/image-fit-parallax"
+    }
+},
+
+{
+    "value": "textRightFullBleed",
+    "label": "Image Left / Text Right (Full Bleed)",
+    "reference": {
+        "note": ""
+    },
+    "block": {
+        "layout": "_layouts/grids/2-column-collapsing",
+        "content1Base": "w-full sm:w-1/2",
+        "content2Base": "w-full sm:w-1/2",
+        "contentCols": "flex flex-col-reverse sm:flex-row-reverse sm:justify-center sm:items-center overflow-hidden",
+        "content1": "p-8 xl:p-20",
+        "content2": "h-96 sm:h-full tall:min-h-[800px] relative overflow-hidden"
+    },
+    "container" : {
+        "class": ""
+    },    
+    "mediaConfig": {
+        "component": "_components/media/image-fit-parallax"
+    }
+},
+
+{
+    "value": "textRightCluster",
+    "label": "Text Right / Image Cluster Left",
+    "default": true,
+    "reference": {
+        "note": ""
+    },
+    "block": {
+        "layout": "_layouts/grids/2-column-collapsing",
+        "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16",
+        "content2" : "flex items-center"
+    },    
+    "mediaConfig": {
+        "component": "_components/media/image-cluster"
+    }
+},
+
+{
+    "value": "textLeftGlitter",
+    "label": "Text Left / Image (with Glitter) Right",
+    "default": true,
+    "reference": {
+        "note": ""
+    },
+    "block": {
+        "layout": "_layouts/grids/2-column-collapsing"
+    },    
+    "mediaConfig": {
+        "component": "_components/media/image-glitter"
+    }
+},
+
+{
+    "label": "Thumbnail Gallery",
+    "value": "thumbGallery",
+    "reference": {
+        "note": "Image gallery thumbnails - 6 column grid."
+    },
+    "block": {
+        "layout": "_layouts/grids/intro-above-6-columns-collapsing",
+        "content1Base": "max-w-4xl ml-0"
+    },
+    "mediaConfig": {
+        "component": "_components/media/image-gallery"
+    }    
+}]

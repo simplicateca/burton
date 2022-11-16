@@ -1,0 +1,233 @@
+margin-top: 8px;/**
+ * Gearbox - Redactor inline styles
+ */
+
+@font-face {
+  font-family: 'Mulish';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/dist/fonts/Mulish.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'OverlockOblique';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/dist/fonts/Overlock-Oblique.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'TitanOne';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/dist/fonts/TitanOne.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+/* paragraph formatting dropdown selector */ 
+.redactor-dropdown-item-larger span {
+    font-size: 22px !important;
+}
+
+.redactor-dropdown-item-smaller span {
+    font-size: 13px !important;
+}
+
+/* in editor styles */
+:root:root .redactor-styles > * {
+  line-height: 1.5 !important;
+}
+
+:root:root .redactor-styles h2 {
+  font-size: 35px !important;
+  font-family: OverlockOblique;
+}
+
+:root:root .redactor-styles h3 {
+  font-size: 24px !important;
+  font-family: OverlockOblique;
+}
+
+:root:root .redactor-styles h2 + h3 {
+  font-size: 20px !important;
+  font-family: 'Mulish', arial;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: -10px !important;
+}
+
+:root:root .redactor-styles p.larger {
+    font-size: 20px !important;
+}
+
+:root:root .redactor-styles p.smaller {
+    font-size: 13px !important;
+}
+
+
+.input .redactor-styles figure {
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 24px 0 !important;
+    text-align: center;
+}
+
+.input .redactor-styles figure img {
+    display: inline-block;
+    margin: 0 auto;
+    padding: 0;
+    line-height: 1em;
+}
+
+.input .redactor-styles figure figcaption {
+    display: block;
+    margin: 5px auto 0;
+    padding: 0;
+    line-height: 1em;
+    text-align: center;
+}
+
+.input .redactor-styles a.button {
+    display : inline-block;
+    padding: 0.25em 0.5em;
+    border: 2px solid #3397ff;
+}
+
+.input .redactor-styles a.button:hover {
+    background: #3397ff;
+    text-decoration: none;
+    color: #fff;
+}
+
+.input .redactor-styles ul.two-column {
+    column-count: 2;
+}
+
+.input .redactor-styles ul.grid,
+.input .redactor-styles ul.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+}
+
+.input .redactor-styles ul.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+}
+
+.input .redactor-styles ul.checkmarks {
+    list-style: none;
+}
+  
+.input .redactor-styles ul.checkmarks li:before {
+    content: '✓ ';
+}
+
+.input .redactor-styles div.eyebrow {
+  display: table;
+  padding: 2px 4px;
+  border: 3px dashed #898989;
+  color: #222;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  margin-left: -1px;
+}
+
+.input .redactor-styles div.eyebrow.eyebrow--knockout {
+  background: #222;
+  color: #fff;
+  border-color: #999;
+}
+
+.input .redactor-styles div.eyebrow.eyebrow--accent {
+  background: yellow;
+}
+
+.input .redactor-styles div.eyebrow + h2,
+.input .redactor-styles div.eyebrow + h3,
+.input .redactor-styles div.eyebrow + h4 {
+  margin-top: 0 !important;
+}
+
+.input .redactor-styles mark.rd-mark-alt {
+  font-family: inherit;
+  display:inline-block;
+  padding: 2px;
+  background: black;
+  color: #fff;
+  font-size: 1em !important;
+}
+
+.input .redactor-styles mark.rd-mark {
+  font-family: inherit;
+  display:inline-block;
+  padding: 2px;
+  background: yellow;
+  font-size: 1em !important;
+}
+
+
+div[id^='fields-headerBuilder'][id$='headline-field'] .input .redactor-styles p {
+  font-family: 'TitanOne';
+  font-size: 48px;
+  font-weight: normal !important;
+}
+
+div[id$='headline-field'] .input .redactor-styles {
+    overflow: initial;
+    padding-top: 12px;
+    padding-bottom: 12px;    
+}
+
+div[id$='headline-field'] .input .redactor-styles p {
+  font-size: 20px;
+}
+
+div[id$='headline-field'] .input .redactor-styles p {
+    font-size: 20px;
+}
+
+.redactor.normal .redactor-box .redactor-toolbar a.re-button-icon {
+    padding: 4px 5px !important;
+    margin-right: 4px !important;
+}
+
+.redactor-box:not(.redactor-focus) .redactor-toolbar-wrapper {
+  transition: 0.3s opacity linear;
+  opacity: 0.3;
+}
+
+a.redactor-dropdown-item-marked span {
+  display: inline-block;
+  padding: 2px;
+  background: yellow;
+}
+
+a.redactor-dropdown-item-markedAlt span {
+  display: inline-block;
+  padding: 2px;
+  background: black;
+  color: #fff;
+}
+
+a.redactor-dropdown-item-deleted span {
+  text-decoration: line-through;
+  text-decoration-color: red;
+  text: #999;
+}
+*[data-re-name="marked"] span {
+  
+}

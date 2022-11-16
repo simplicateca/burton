@@ -1,0 +1,43 @@
+{% set gridDefaults = {
+    classes: {
+        wrapper     : 'relative flex flex-col justify-center items-center',
+        contentCols : 'w-full max-w-xl mx-auto p-6 lg:p-16',
+        content1Base: 'flex items-center justify-center relative z-10 prose-text-white w-full',
+        content2Base: 'absolute top-0 left-0 right-0 bottom-0 parallaxBg',
+        content1    : '',
+        content2    : '',
+    }
+} %}
+  
+{% set props = {
+    classes: blockConfig is defined and blockConfig is iterable ? gridDefaults.classes | merge(blockConfig) : gridDefaults.classes
+} %}
+
+{% block beforeGrid %}{% endblock %}
+
+<div class="{{props.classes.wrapper}}">
+
+    <div class="{{[props.classes.content2Base,props.classes.content2]|join(" ")}}">
+        {% if props.classes.content2Inner ?? null %}<div class="{{props.classes.content2Inner}}">{% endif %}
+            {% block content2 %}{% endblock %}
+            {% block content2Includes %}{% endblock %}
+        {% if props.classes.content2Inner ?? null %}</div>{% endif %}
+    </div>
+
+    {% block header %}{% endblock %}
+
+    <div class="{{props.classes.contentCols}}">
+        {% if not ( content1Hide ??? false ) %}
+            <div class="{{[props.classes.content1Base,props.classes.content1]|join(" ")}}">
+                {% if props.classes.content1Inner ?? null %}<div class="{{props.classes.content1Inner}}">{% endif %}
+                    {% block content1 %}{% endblock %}
+                    {% block content1Includes %}{% endblock %}
+                {% if props.classes.content1Inner ?? null %}</div>{% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    {% block footer %}{% endblock %}
+</div>
+
+{% block afterGrid %}{% endblock %}

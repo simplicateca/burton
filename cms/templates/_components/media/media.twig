@@ -1,0 +1,13 @@
+{% set media  = media  ?? null %}
+{% set config = config ?? null %}
+
+{% if not media and content.media.one() %}
+    {% set media = content.media|first %}
+{% endif %}
+
+{% if media %}
+    {{ include( "_components/media/#{media.kind}", {
+        media:  media,
+        config: config
+    }, withContext = false ) }}
+{% endif %}

@@ -1,0 +1,22 @@
+[
+    {
+        "label": "I want to choose specific entries",
+        "value": "choose",
+        "note": "Use the <strong data-click-button='Add Content'>[+ Add Content]</strong> button below to choose your content entries.",
+        "hideField": "contentType,topics,order,limit,perPage"
+    },
+
+    {
+        "label": "I want to include a limited number of search results",
+        "value": "limitedSearch",
+        "note": "Use the <strong data-click-mmtab='Additional Settings'>'Additional Settings'</strong> tab to define your search.",
+        "hideField": "items,perPage"
+    },
+
+    {
+        "label": "I want to include *ALL* the results of a search",
+        "value": "allSearch",
+        "note": "Use the <strong data-click-mmtab='Additional Settings'>'Additional Settings'</strong> tab to define your search. Not ideal for all layout variants.",
+        "hideField": "items,limit"
+    }
+]

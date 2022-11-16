@@ -1,0 +1,14 @@
+{% set images    = images    ??? content.images.all() ??? null %}
+{% set class     = class     ??? "block mx-auto text-center" %}
+{% set transform = transform ??? null %}
+{% set blockID   = blockID   ??? content.id ??? 1 %}
+
+{% if images %}
+    {% for image in images %}
+        <a class="{{class}}"
+           href="#"
+           x-on:click.prevent="open=true; $dispatch('set-splide-index-{{blockID}}', {{loop.index}} )">
+            {{ include( '_components/media/image', { images: [image] } ) }}
+        </a>
+    {% endfor %}
+{% endif %}

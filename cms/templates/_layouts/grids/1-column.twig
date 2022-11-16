@@ -1,0 +1,16 @@
+{% extends "_layouts/grids/_base2" %}
+
+{% set gridDefaults = {
+    classes: {
+        wrapper     : 'grid grid-cols-1 gap-12',
+        contentCols : 'grid grid-cols-1',
+        content1Base: 'w-full',
+        content2Base: 'w-full',
+        content1    : '',
+        content2    : '',
+    }
+} %}
+  
+{% set props = {
+    classes: blockConfig is defined and blockConfig is iterable ? gridDefaults.classes | merge(blockConfig) : gridDefaults.classes
+} %}

@@ -1,0 +1,26 @@
+{#
+ # Widget Macros
+ #
+ # For embedding widgets into the right places
+ #
+ # Usage:
+ # {% import "_macros/widgets.twig" as widgets %}
+ #}
+
+{%- macro embed( thisBlock, position ) -%}
+
+    {% set thisBlock  = thisBlock ??? null %}
+    {% set position   = position  ??? null %}
+
+    {% set widget     = thisBlock.content.widget.reference() ??? null %}
+    {% set widgetComp = widget.component ??? null %}
+    {% set widgetPos  = widget.position  ??? null %}
+    
+    {% if widgetComp and widgetPos and widgetPos == position %}
+        {{ include( widgetComp, {
+            thisBlock: thisBlock,
+            position : position
+        }, withContext = false ) }}
+    {% endif %}
+
+{%- endmacro -%}

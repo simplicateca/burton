@@ -1,0 +1,165 @@
+field: b09bda91-6d4a-42c4-a824-f3d402ce20e7 # Chunks
+fieldLayouts:
+  1316dcbc-3dc3-4533-9ef7-3d2d46216e72:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: af48dd81-f2f9-4b6e-83b6-81012dc228db # Identifier
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f86bcee9-d9db-4dd1-87de-ed8972b3a69a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 0634113d-5014-46e7-a319-61f78258ce62 # Form
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f8880e59-49d0-42a6-bdb9-8b6deecb2a02
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: f8f98780-0d0a-46aa-b8bf-3986a32262ac # Recipient
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ff052687-edde-4835-98ed-cc18bde86677
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: ffb53008-0128-493f-9c96-5f66a6a83565 # Attachment
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: be21fc74-d3cd-4d09-ba29-340d5ea1357a
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 52cdd53c-459a-4d7d-b958-d80384896622
+        userCondition: null
+fields:
+  0634113d-5014-46e7-a319-61f78258ce62: # Form
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: form
+    instructions: null
+    name: Form
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      localizeRelations: false
+      maxRelations: 1
+      minRelations: 0
+      selectionLabel: 'Choose form'
+      showSiteMenu: true
+      source: null
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: verbb\formie\fields\Forms
+  af48dd81-f2f9-4b6e-83b6-81012dc228db: # Identifier
+    columnSuffix: nqcgwseh
+    contentColumnType: text
+    fieldGroup: null
+    handle: identifier
+    instructions: null
+    name: Identifier
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+  f8f98780-0d0a-46aa-b8bf-3986a32262ac: # Recipient
+    columnSuffix: qicypfxo
+    contentColumnType: string
+    fieldGroup: null
+    handle: recipient
+    instructions: null
+    name: Recipient
+    searchable: false
+    settings:
+      placeholder: null
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Email
+  ffb53008-0128-493f-9c96-5f66a6a83565: # Attachment
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: attachment
+    instructions: null
+    name: Attachment
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: false
+      allowUploads: true
+      allowedKinds: null
+      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      defaultUploadLocationSubpath: '{{- ( object.owner.variants   ?? null  ) ? "products/#{object.owner.type.handle|lower}/" : '''' -}} {{- ( object.owner.product    ?? null  ) ? "products/#{object.owner.product.type.handle|lower}/" : '''' -}} {{- ( object.owner.section    ?? null  ) ? "#{object.owner.section.handle|lower}/" : '''' -}} {{- ( object.owner.parentUri  ?? null  ) ? "#{object.owner.parentUri|replace(''__'','''')}/" : '''' -}} {{object.owner.slug}}'
+      localizeRelations: false
+      maxRelations: null
+      minRelations: null
+      previewMode: full
+      restrictFiles: false
+      restrictLocation: false
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: 'Choose File'
+      showSiteMenu: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      source: null
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: list
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+handle: form
+name: Form
+sortOrder: 3

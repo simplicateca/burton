@@ -1,0 +1,35 @@
+{% import "_macros/richtext" as richtext %}
+
+{% set htag    = htag    ??? 'h3' %}
+{% set title   = title   ??? entry.title ??? entry.headline ??? null %}
+{% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
+{% set url     = url     ??? entry.url ??? null %}
+{% set handle  = handle  ??? entry.section.handle ??? null %}
+{% set images  = images  ??? entry.images.all() ??? null %}
+
+<article class="tease {{handle}} relative border-2 p-5 bg-slate-50">
+
+    <div class="float-right ml-2 mb-2">
+        <div class="bg-slate-500 h-16 aspect-video flex items-center justify-center">
+
+        </div>
+    </div>
+
+    {% block title %}
+        {%- if title -%}
+            <{{htag}} class="text-2xl">{{title}}</{{htag}}>
+        {%- endif -%}
+    {% endblock %}
+
+    {% block aboveSummary %}{% endblock %}
+
+    {% block summary %}
+        {{ richtext.prose( text, 'small' ) }}
+    {% endblock %}
+
+    {% block link %}
+        {%- if url -%}
+            <a class="clickable-parent" href="{{ url }}">Read more →</a>
+        {%- endif -%}
+    {% endblock %}
+</article>

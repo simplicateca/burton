@@ -1,0 +1,11 @@
+{% extends blockConfig.layout %}
+{% use "_builders/blocks/_default" %}
+
+{% set content1Hide  = not text|trim %}
+
+{% block content2 %}
+    {{ include( mediaConfig.component ??? '_components/media/image', {
+        images: images ??? [],
+        transform: mediaConfig.transform ??? null,
+    }) }}
+{% endblock %}

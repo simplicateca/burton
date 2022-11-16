@@ -1,0 +1,249 @@
+field: 00464ad8-4fb3-4d70-8ad0-202ad79cbc2c # Content Builder - Test
+fieldLayouts:
+  6b6c5acd-7109-4ddb-820d-7ee84be86350:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: a62dcf2c-64d8-4cb9-82b6-73cf878eff3d # Video Source
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2ee62636-b58e-4fe7-b077-abb820e66622
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: fb9aac65-9df8-4d6f-b3e8-dec682391eb1 # External URL
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: fefafdce-00fb-4ccf-b371-c885e1c4fe9b
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 76d6a612-0d42-461e-9c00-05cac551f775 # Custom Cover Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b08d4b70-1749-4bd8-8d60-f91a5d6895a0
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 088d28b2-b2cf-4b3d-8741-de59b3784d07 # Show Related?
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5dac42b8-5cdf-4401-9c55-d95909acb68e
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 13d8c1ff-fb5e-44df-935d-fc33f1b35f6e # MP4 File
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bc08436f-8051-47b9-8b2b-8ccb3292d0a1
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: b55a42a9-e6e5-46b0-9bb1-ef6fa0352253
+        userCondition: null
+fields:
+  13d8c1ff-fb5e-44df-935d-fc33f1b35f6e: # MP4 File
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: mp4File
+    instructions: null
+    name: 'MP4 File'
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: false
+      allowUploads: true
+      allowedKinds: null
+      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      defaultUploadLocationSubpath: null
+      localizeRelations: false
+      maxRelations: null
+      minRelations: null
+      previewMode: full
+      restrictFiles: false
+      restrictLocation: false
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: null
+      showSiteMenu: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      source: null
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: list
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+  76d6a612-0d42-461e-9c00-05cac551f775: # Custom Cover Image
+    columnSuffix: bzfpehkl
+    contentColumnType: string
+    fieldGroup: null
+    handle: coverImage
+    instructions: null
+    name: 'Custom Cover Image'
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: false
+      allowUploads: true
+      allowedKinds: null
+      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      defaultUploadLocationSubpath: null
+      localizeRelations: false
+      maxRelations: null
+      minRelations: null
+      previewMode: full
+      restrictFiles: false
+      restrictLocation: false
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: null
+      showSiteMenu: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      source: null
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: list
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+  088d28b2-b2cf-4b3d-8741-de59b3784d07: # Show Related?
+    columnSuffix: kvapfeds
+    contentColumnType: boolean
+    fieldGroup: null
+    handle: showRelated
+    instructions: null
+    name: 'Show Related?'
+    searchable: false
+    settings:
+      default: false
+      offLabel: null
+      onLabel: null
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Lightswitch
+  a62dcf2c-64d8-4cb9-82b6-73cf878eff3d: # Video Source
+    columnSuffix: svcsbtic
+    contentColumnType: string
+    fieldGroup: null
+    handle: videoSource
+    instructions: null
+    name: 'Video Source'
+    searchable: false
+    settings:
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - Youtube
+            -
+              - value
+              - youtube
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - Vimeo
+            -
+              - value
+              - vimeo
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Local Asset'
+            -
+              - value
+              - localAsset
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Dropdown
+  fb9aac65-9df8-4d6f-b3e8-dec682391eb1: # External URL
+    columnSuffix: kamvqgni
+    contentColumnType: text
+    fieldGroup: null
+    handle: externalUrl
+    instructions: null
+    name: 'External URL'
+    searchable: false
+    settings:
+      byteLimit: null
+      charLimit: null
+      code: false
+      columnType: null
+      initialRows: 4
+      multiline: false
+      placeholder: null
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\PlainText
+handle: video
+name: Video
+sortOrder: 2

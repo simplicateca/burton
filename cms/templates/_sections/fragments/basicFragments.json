@@ -1,0 +1,37 @@
+[
+    {
+        "label": "Content Builder",
+        "value": "contentBuilder",
+        "note": "Use the standard Content Builder blocks to create a reusable fragment."
+    },
+
+    {
+        "label": "Search Form",
+        "value": "searchForm",
+        "note": "A standard search form. Redirects to the search results page when submitted."
+    },
+
+    {
+        "label": "Sample Chart",
+        "value": "sampleChart",
+        "note": "A sample ChartJS Include."
+    },
+
+    {
+        "label": "Newsletter Signup",
+        "value": "subscribe",
+        "note": "Embeds the 'Newsletter Subscription' form, editable via 'Formie'."
+    },
+
+    {
+        "label": "Content Chunk",
+        "value": "chunk",
+        "note": "Default formatting for individual content chunks."
+    },
+
+    {
+        "label": "Custom HTML",
+        "value": "customHTML",
+        "note": "Please use with caution. You can break things by using this."
+    }
+]

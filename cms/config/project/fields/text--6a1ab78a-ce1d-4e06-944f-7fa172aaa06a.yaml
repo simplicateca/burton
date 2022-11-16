@@ -1,0 +1,27 @@
+columnSuffix: qieovwoa
+contentColumnType: text
+fieldGroup: 481eb25d-9439-4ee3-85c2-e1a0e6d62d11 # Textarea
+handle: text
+instructions: null
+name: Text
+searchable: true
+settings:
+  availableTransforms: '*'
+  availableVolumes: '*'
+  columnType: text
+  configSelectionMode: choose
+  defaultTransform: ''
+  manualConfig: ''
+  purifierConfig: null
+  purifyHtml: true
+  redactorConfig: Standard.json
+  removeEmptyTags: true
+  removeInlineStyles: true
+  removeNbsp: true
+  showHtmlButtonForNonAdmins: false
+  showUnpermittedFiles: false
+  showUnpermittedVolumes: false
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\redactor\Field

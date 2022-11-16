@@ -1,0 +1,8 @@
+{% set class    = class    ??? 'font-display text-6xl not-italic font-normal' %}
+{% set headline = headline ??? null %}
+{% set eyebrow  = eyebrow  ??? null %}
+
+{% if headline or eyebrow %}
+    {{ eyebrow|retconAttr( '.eyebrow', { class: "special" }, false ) }}
+    {{ headline|retconAttr( 'h1,h2,h3,h4,h5,h6', { class: class } ) }}
+{% endif %}
