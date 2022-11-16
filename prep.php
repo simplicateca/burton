@@ -7,7 +7,7 @@ chmod('./cms/config', 0777);
 copy('./scripts/.env.example.sh', './scripts/.env.sh');
 unlink('composer.json');
 unlink('composer.lock');
-unlink('LICENSE.md');
+unlink('LICENSE');
 unlink('README.md');
 unlink('CHANGELOG.md');
 unlink('.gitignore');
