@@ -3,15 +3,14 @@
 {% set title   = title   ??? entry.title ??? entry.headline ??? null %}
 {% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
 {% set url     = url     ??? entry.url ??? null %}
-{% set handle  = handle  ??? entry.section.handle ??? null %}
+{% set handle  = handle  ??? entry.section.handle ??? 'Base' %}
 {% set images  = images  ??? entry.images.all() ??? null %}
 
-<article class="tease {{handle}} relative">
-
+<article class="cCard cCard__testimonial cCard__{{handle}}">
     <div class="flex flex-col lg:flex-row max-w-sm lg:max-w-full mx-auto items-center justify-center">
         <div class="mt-4 md:mt-0 text-center max-w-3xl">
 
-            <div class="bg-slate-500 h-24 w-24 mb-4 mx-auto rounded-full">
+            <div class="bg-gray-500 h-24 w-24 mb-4 mx-auto rounded-full">
                 &nbsp;
             </div>
 

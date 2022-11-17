@@ -1,4 +1,15 @@
-{% set errorHeadline = 'Service Unavailable' %}
-{% set errorText = "This page is currently unavailable. Hopefully the issue it temporary, please try refreshing or checking back in a couple minutes." %}
+{% extends "_layouts/spotlight" %}
 
-{% extends "_layouts/error" %}
+{% set text %}
+    <p>This page is currently unavailable. Hopefully the issue it temporary, please try refreshing or checking back in a couple minutes.</p>    
+{% endset %}
+
+{% block content %}
+    {% import "_macros/richtext" as richtext %}    
+    <div>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl mb-4">
+            Service Unavailable
+        </h1>
+        {{ richtext.prose( text, 'lg' ) }}
+    </div>
+{% endblock %}

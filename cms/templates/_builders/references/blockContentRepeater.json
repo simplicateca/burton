@@ -2,40 +2,21 @@
     {
         "label": "Accordion",
         "value": "accordion",
+
         "block": {
-            "layout": "_layouts/grids/2-column-collapsing"
+            "layout": "_layouts/grids/2-columns-even"
         },        
         "itemsConfig": {
             "component": "_components/accordion/accordion"
-        },
-        "textConfig": {
-            "moveHeaders": true
-        }
-    },
-
-    {
-        "label": "Accordion - Text Above",
-        "value": "accordionTextAbove",
-        "block": {
-            "layout": "_layouts/grids/1-column",
-            "wrapper": "grid grid-cols-1",
-            "contentCols": "grid grid-cols-1 gap-10 items-start",
-            "content2": "ml-0"
-        },        
-        "itemsConfig": {
-            "component": "_components/accordion/accordion",
-            "class": "ml-0 max-w-3xl space-y-4 w-full"
-        },
-        "textConfig": {
-            "moveHeaders": true
         }
     },
 
     {
         "label": "Horizontal Tabs",
         "value": "horizontalTabs",
+
         "block": {
-            "layout": "_layouts/grids/2-column-collapsing"
+            "layout": "_layouts/grids/2-columns-even"
         },        
         "itemsConfig": {
             "component": "_components/tabs/horizontal"
@@ -43,48 +24,16 @@
     },
 
     {
-        "label": "2 Column Grid",
-        "value": "gridCards",
-        "block": {
-            "layout": "_layouts/grids/text-beside-2-columns"
-        },
-        "textConfig": {
-            "moveHeaders": false
-        },
-        "itemsConfig": {
-            "useCard": "_components/cards/textWithLogo"
-        }
-    },
-
-    {
         "label": "3 Column Grid",
         "value": "gridCards",
+
         "block": {
-            "layout": "_layouts/grids/intro-above-3-columns-collapsing",
+            "layout": "_layouts/grids/intro-above-3-columns",
             "content1" : "text-center"
         },
-        "textConfig": {
-            "moveHeaders": false
-        },
+        "textConfig": { },
         "itemsConfig": {
             "useCard": "_components/cards/stackedCard"
-        }
-    },
-
-    {
-        "label": "Icon List",
-        "value": "iconList",
-        "block": {
-
-        },
-        "textConfig": {
-            "moveHeaders": true
-        },
-        "itemsConfig": {
-            "useCard": "_components/cards/simpleIcon"
-        },
-        "mediaConfig": {
-            "component": "_components/media/image"
         }
     },
 
@@ -92,12 +41,10 @@
         "label": "Feature Icons - 3 Columns",
         "value": "featureIcons",
         "block": {
-            "layout": "_layouts/grids/intro-above-3-columns-collapsing",
+            "layout": "_layouts/grids/intro-above-3-columns",
             "content1" : "text-center"
         },
-        "textConfig": {
-            "moveHeaders": false
-        },
+        "textConfig": { },
         "itemsConfig": {
             "useCard": "_components/cards/iconFeature",
             "buttons": "button button--small"
@@ -108,10 +55,9 @@
         "label": "Logo Cloud",
         "value": "logoCloud",
         "block": {
-            "layout": "_layouts/grids/intro-above-6-columns-collapsing"
+            "layout": "_layouts/grids/intro-above-6-columns"
         },
         "textConfig": {
-            "moveHeaders": false,
             "moveButtons": true,
             "size": "sm"
         },

@@ -5,14 +5,14 @@
 {% set itemComponent = itemsConfig.component ??? null %}
 {% set method        = content.method       ??? 'choose' %}
 
-{% set overrideCard  = content.card.reference() ??? null %}
-{% set cardLayout    = overrideCard.useCard ??? itemsConfig.useCard ??? '' %}
-{% set content1Hide  = not text|trim %}
-{% set entryUrl      = entry.url ??? '' %}
-{% set topics        = [] %}
-
 {% set hasSearch     = ( method == 'allSearch' ) %}
 {% set hasPaginate   = ( method == 'allSearch' ) %}
+
+{% set overrideCard  = content.card.reference() ??? null %}
+{% set cardLayout    = overrideCard.useCard ??? itemsConfig.useCard ??? '' %}
+{% set content1Hide  = not text|trim and not hasSearch %}
+{% set entryUrl      = entry.url ??? '' %}
+{% set topics        = [] %}
 
 {% if method != 'choose' %}
     {% set contentType   = content.contentType  ??? '' %}
@@ -61,10 +61,18 @@
     {{- text -}}
 
     {%- if hasSearch -%}
-        {{ include( '_components/search/form', {
-            headline: '',
-            url: entryUrl
-        }, withContext = false ) }}
+        <div class="flex flex-col md:flex-row items-center gap-2 lg:gap-5 p-3 lg:p-8 bg-gray-200 mb-6">
+            <div class="grow w-full">
+                <p class="like-h4 text-gray-400 !mb-0 !font-body">Showing {{pageInfo.first}}-{{pageInfo.last}} of {{pageInfo.total}} total results</p>
+            </div>
+
+            <div class="w-full">
+                {{ include( '_components/search/form', {
+                    headline: '',
+                    url: entryUrl
+                }, withContext = false ) }}
+            </div>
+        </div>
     {%- endif -%}
 {%- endblock %}
 

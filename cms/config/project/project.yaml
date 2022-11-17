@@ -1,4 +1,4 @@
-dateModified: 1668580402
+dateModified: 1668682241
 elementSources:
   craft\elements\Entry:
     -
@@ -126,6 +126,7 @@ meta:
     0a39dfec-64a9-4ad4-98a8-f27aed7fbcd2: 'Intro Text' # Intro Text
     0ad703e2-37a9-478e-9ad4-b6b00485da31: Text # Text
     0bcee758-a660-4162-8172-61eb22e388b1: Text # Text
+    0c63171d-538b-424b-90be-b733f52f2326: Test1 # Test1
     0d2936c9-42b4-467f-9004-678230db8291: Background # Background
     0dabdba1-b0ed-4220-8bfd-115e5127ee42: Background # Background
     0f144f04-bdb4-4ad8-9279-376e39af170e: 'Standard (Single Column)' # Standard (Single Column)
@@ -133,6 +134,7 @@ meta:
     1a73a849-2233-4157-a6bf-b59605d0f83c: 'Sort order' # Sort order
     1a28951d-82d5-47da-8ec8-ab405c40e0b8: Background # Background
     1a985008-f76e-481c-8f5b-0d30aec5998f: Variant # Variant
+    1aa226f6-fbd8-4cb9-94b9-26bca8299a04: Background # Background
     1bd5ff27-b43b-4768-8fdd-170cf3a12f81: 'Anchor Link' # Anchor Link
     1d242d6f-f863-4979-b2af-bb1da5c2aee2: Text # Text
     1da11484-e4d8-4414-9b03-6dc1be10a931: Spacing # Spacing
@@ -141,6 +143,7 @@ meta:
     1edf3767-b37f-430e-8ffd-4bd1a3b9f478: 'Anchor Link' # Anchor Link
     1fcfe5f1-d6bb-41d8-a50a-14c2998b0b66: 'Total results to return' # Total results to return
     2a64e6bd-a23b-4826-bc19-829c037e6e39: Widget # Widget
+    2d9e094a-7b59-4560-841c-138c5391fe7c: Spacing # Spacing
     2e0671a7-eba0-42c5-a5ab-2b30a6fc1bf6: Layout # Layout
     3abe1fa4-77c1-4d66-a3da-ad8dc475b818: Headline # Headline
     3b748353-8f9a-49de-9662-ee18c32578e3: Text # Text
@@ -150,7 +153,7 @@ meta:
     3def122c-77bc-465f-b54f-4bba4ecfab39: Code # Code
     4bedd98c-1f69-4364-b00a-c104f29b836c: 'Number Result' # Number Result
     4cef665b-8759-4bd2-af57-d2867d7447d3: Button # Button
-    4e1fbf94-015b-4a5b-880a-8e7051457536: Test # Test
+    4e1fbf94-015b-4a5b-880a-8e7051457536: Text # Text
     4ebdb729-ea5a-4ff4-b10f-e4b2d0da2292: Entry # Entry
     4ede4f3a-bc76-433d-b9b0-c7e35bc7ac5f: 'Embedded Entries' # Embedded Entries
     4f595261-8437-4ec8-918c-d02f09238a1c: Edges # Edges
@@ -160,6 +163,7 @@ meta:
     5af7b832-6533-4a17-8189-4cb4f8a8f712: 'Include Pagination?' # Include Pagination?
     5bcbe5df-4160-4a4f-9920-b80fcb5ea72d: Button # Button
     5c438d3a-ab99-4c94-9e0b-39ddb3e3100f: Buttons # Buttons
+    5f8fc242-fe03-4416-9cd3-f32841e4b6ca: Widget # Widget
     05fb8aa2-0c98-4cee-93c3-5ad2f2709822: 'Anchor Link' # Anchor Link
     5ff7eb60-d8c3-46aa-812a-d1e865a3f872: Eyebrow # Eyebrow
     6a1ab78a-ce1d-4e06-944f-7fa172aaa06a: Text # Text
@@ -186,7 +190,6 @@ meta:
     9e4fa41f-fd14-4cd9-bc39-6ace1e57fe5c: 'External Media' # External Media
     09e29257-428d-40f2-81a3-c594a739de68: Order # Order
     9f0a0dc0-db3f-49d5-9656-b61ad0d5c452: 'Filter by Topic' # Filter by Topic
-    12d2082c-73bf-4789-929c-396de922ba35: Video # Video
     13d8c1ff-fb5e-44df-935d-fc33f1b35f6e: 'MP4 File' # MP4 File
     14d7d858-e4eb-4c44-90bc-a606a5a2372a: Redirect # Redirect
     16ea4eb8-377b-4740-955d-89f60729fce4: Color # Color
@@ -195,6 +198,7 @@ meta:
     29f0f7bf-a7d4-4015-9ea2-cfd8f1530b1b: 'Has Search?' # Has Search?
     29f157fc-9918-4177-bcd3-55c2c5c9a38f: Text # Text
     30b5253e-1f74-41f3-b484-e6c82e3210d5: 'Layout Variant' # Layout Variant
+    32cc7e71-1196-4abe-a2b2-b9479600a266: Primary # Primary
     34c8b184-a3df-4101-9525-d2c4a65aa9cb: 'Variant layout' # Variant layout
     36dbc7a6-4add-4410-8718-a9f8d7e2da97: 'Fragment Subtype' # Fragment Subtype
     38b98344-6260-45e3-92ea-d455cfa4afe1: Eyebrow # Eyebrow
@@ -207,6 +211,7 @@ meta:
     54aa6fb8-4a59-4704-9956-2c47eb2f5ceb: 'Anchor Link' # Anchor Link
     055d3887-062f-4180-bac4-65a9670f0440: Variant # Variant
     56c5070f-cf62-458c-9dc1-f775ee6f2380: 'Layout Variant' # Layout Variant
+    60a99a1b-8081-4b05-959f-fe916ff2b96e: Legal # Legal
     61d7345d-34c5-4c93-8ae0-9f9b5f3b166b: Text # Text
     67a0e610-9765-4200-9b9f-e59e4130f652: Background # Background
     67e56d28-ce0e-42b3-a78b-cbafa75cb98a: 'User Comment' # User Comment
@@ -229,13 +234,12 @@ meta:
     241f9726-2434-411d-bd66-29e9593ef5cb: 'Layout Variations' # Layout Variations
     267c2f19-de6c-4986-a2fa-d0a8b2a5f969: Headline # Headline
     267e0240-5cf1-4d41-b3ed-86fb8328dc1a: Background # Background
-    318eae36-f416-4489-acbd-550b6731ccbb: 'Test Triggers' # Test Triggers
     387e39f3-66b5-4aa5-a6a8-500db12ccadc: Form # Form
-    00464ad8-4fb3-4d70-8ad0-202ad79cbc2c: 'Content Builder - Test' # Content Builder - Test
     468a14eb-fb24-4d42-85ea-51a108f68949: 'Variant layout' # Variant layout
     479c17fb-3144-43b4-9417-f940264f6a71: 'Title Style' # Title Style
     481eb25d-9439-4ee3-85c2-e1a0e6d62d11: Textarea # Textarea
     500d3539-5d02-4c1a-97ba-890be8854857: 'Grid Columns' # Grid Columns
+    0553ed4a-8d9c-42be-855a-82fb23a24aac: Background # Background
     625a205f-5664-4223-840b-ec4c4e73b1bb: Limit # Limit
     650e7d1d-63e5-42f9-b3ab-4febfb502723: 'Primary Pages' # Primary Pages
     780c9942-bfd5-4d94-82c7-5b323a47f5d4: Default # Default
@@ -265,9 +269,11 @@ meta:
     67671be0-6716-4133-92fd-9b01454d8838: Button # Button
     89093e20-515d-4e3c-b4c4-c6733d8ab56f: Fragments # Fragments
     93580b97-9c95-4704-b7f5-a580fb56486c: Code # Code
+    98433f5b-b542-41ff-a0ca-915026fb4455: 'Layout Variant' # Layout Variant
     138531be-7e43-4759-a397-5325db40a30b: Button # Button
     480317fb-766a-4fad-b7d1-ee171a3aefb6: Testimonial # Testimonial
     537988be-e9c5-43e8-8611-2256a41a72fe: New # New
+    0554821f-40fc-4bf7-bd90-a3a2581c88ab: 'Layout Variant' # Layout Variant
     563430f9-eadc-4a5b-8adf-3f784f79d901: 'Text + Media' # Text + Media
     0634113d-5014-46e7-a319-61f78258ce62: Form # Form
     654452af-16fc-46e0-8dc7-0865935a5d62: 'Alternate card' # Alternate card
@@ -278,9 +284,9 @@ meta:
     7506709b-79c3-40ab-b4d3-5ce0fa5ba5bc: Eyebrow # Eyebrow
     9305104a-d7ea-4f07-b6a5-4f02e3232cbd: 'Include Search?' # Include Search?
     10491714-9ba1-4777-bb3c-d4e1083979aa: 'Button Color' # Button Color
+    21209162-922b-4edb-b952-1cd88d3ac05e: Text # Text
     25414516-f079-42de-9891-f9dd403af271: Image(s) # Image(s)
     26431232-d9c5-41cd-9cad-3647ec59afbd: Text # Text
-    28519221-5ebd-495b-ba47-aaefcd80444b: 'Test Variant' # Test Variant
     43406218-0e65-4e33-bd0a-df130a7d2e6c: 'SEO Editor' # SEO Editor
     79001047-67b4-4b93-825f-333664a55c70: 'Text (Right)' # Text (Right)
     87482970-1ffe-4760-a28d-cf986bbb8c72: Background # Background
@@ -292,13 +298,14 @@ meta:
     a6c56b68-6955-44a2-a86d-198b65955f13: Image(s) # Image(s)
     a7b99dca-7b58-438c-b57e-9d7965c3093b: Spacing # Spacing
     a9eefedb-b175-4baa-a9ee-903aa94e9c9b: 'Content Editor' # Content Editor
-    a25a7c39-08d8-449e-818a-0974ed415987: Test # Test
+    a25a7c39-08d8-449e-818a-0974ed415987: 'Text + Image(s)' # Text + Image(s)
     a35a0beb-0cf7-4a2b-9ec3-91e953a18116: 'Sidebar Builder' # Sidebar Builder
     a39c9c32-2acb-47fd-ad36-7980c445a44e: 'Text + Image(s)' # Text + Image(s)
     a52e2b08-2e30-4b00-8784-4104c409d3ed: FAQs # FAQs
     a57a80dd-895b-4db9-9fb1-02ecff2a9086: 'Choose Color' # Choose Color
     a61ac261-5f37-431f-a92f-8b38277c3a8d: Background # Background
     a62dcf2c-64d8-4cb9-82b6-73cf878eff3d: 'Video Source' # Video Source
+    a99de532-088e-484b-94fc-945b766ee947: Images # Images
     a479dbe3-176d-4b5b-b5e6-f6f5dab262ec: 'Include Pagination?' # Include Pagination?
     a53977b7-95c0-4ac6-bd66-2547ac6caa22: Spacing # Spacing
     a345255e-6a6e-450c-8f3f-bd44bd0d7a91: Text # Text
@@ -307,11 +314,13 @@ meta:
     aaa3f092-4a89-4ed0-9389-471df91b59d1: 'Layout Variations' # Layout Variations
     abf72c9c-cdfc-4765-b71d-a03735da679d: Spacing # Spacing
     ad4c26f2-0839-4f69-bd4b-8f2f43c2d3f1: Edges # Edges
+    adb9f8b8-c638-4bcd-a698-ba5d8deb66d5: Test # Test
     adcea45e-bf40-4faf-b0c8-4ce089696971: 'Lead Image(s)' # Lead Image(s)
     ae3f34db-5fe5-4438-86f0-377cfaebf02a: 'Layout Variant' # Layout Variant
     aebe2498-55fa-4926-8908-8a0bc8d303ba: Widget # Widget
     af48dd81-f2f9-4b6e-83b6-81012dc228db: Identifier # Identifier
     b0be437c-c9b7-4725-b61e-01ae79d26892: 'Layout Variations' # Layout Variations
+    b04167bb-2563-4547-99d7-2f6a3331a57b: Widget # Widget
     b08a1d54-1fa7-49b1-a0aa-22920892b640: Edges # Edges
     b09bda91-6d4a-42c4-a824-f3d402ce20e7: Chunks # Chunks
     b1c52a06-4990-43f5-90d3-898a48789556: Dek # Dek
@@ -329,6 +338,7 @@ meta:
     b911f8a5-3dbc-4aa9-8be2-9eb2c9c8a2ed: 'Text (Intro)' # Text (Intro)
     b947d0e1-da59-4426-bb04-17175245afa2: Edges # Edges
     b6015f85-adad-474b-afb4-ac34bb560c0c: 'Limit / Per Page' # Limit / Per Page
+    b6689e78-2cda-4120-a5a3-7337cec63b2c: Text # Text
     b114569d-4057-4cc7-acc0-04ff0d55ef41: Background # Background
     b181050f-eab8-45f0-906a-c8241c2d3cf2: 'Show Block Meta' # Show Block Meta
     ba25b35f-89c4-4230-96a4-31904c63bbf7: Edges # Edges
@@ -351,7 +361,6 @@ meta:
     c71f0a73-bd49-42fd-8d60-075e1800d924: 'Filter by content type' # Filter by content type
     c418b531-e6e7-4a06-bd70-e20e6e6e6950: 'Display Format' # Display Format
     c441b407-6c5c-4101-b07b-1883f705c486: Buttons # Buttons
-    c631ebbf-3bef-4266-8a8b-5d9087223423: Primary # Primary
     c832b847-2fbc-4a68-ac50-698b165e4fc3: Caption # Caption
     c864b8d2-2de8-4995-9bb6-4647bee68943: Edges # Edges
     c1193bb1-b500-4050-8b68-a0a7bee4594f: 'Hero title' # Hero title
@@ -361,12 +370,10 @@ meta:
     cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: Text # Text
     d05f4009-0b38-4065-a1b1-65221aa65e63: 'Header Builder' # Header Builder
     d08c5ca6-5020-4ac5-9460-c831d0921585: 'Hero title' # Hero title
-    d1f62e57-fa7c-44d0-8deb-ce19e5ff24f4: Legal # Legal
     d4b0af7c-aad2-41a6-9de2-49f00ef28aa5: Background # Background
     d7da6677-ed4d-4768-8519-8c3123f108ab: Fragment # Fragment
     d29c3934-5af7-4d49-9515-9dea41e6d3c2: 'Include Pagination?' # Include Pagination?
     d40f6841-ce5c-4010-b41a-f7d8a1b30c93: Caption # Caption
-    d79b3073-00bf-430c-95d5-6d03d8303032: SEO # SEO
     d339dd86-5cec-4889-b2d2-81f993979c61: Button # Button
     d3282cfb-d044-4890-b553-9a0b87393027: Default # Default
     dc845fdf-e229-4765-9b4c-c77ca578bd52: Text # Text
@@ -393,8 +400,8 @@ meta:
     e44c7d4a-f794-4917-8a3f-e77e8162cc93: Widget # Widget
     e47b95bf-7a74-49e3-afa3-a938bd733ef7: Summary # Summary
     e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9: Background # Background
-    e64c82d2-2ae2-49b6-a7ce-d977f9b486fd: Text # Text
     e511df66-41ea-4d8f-bfa5-538fec0fc45f: 'Site Owner' # Site Owner
+    e2490fe0-802e-4be2-8173-d77847a05e26: Spacing # Spacing
     e826463c-c088-426d-be5d-9630e1b872c9: Spacing # Spacing
     e8196605-52ba-47d2-ba43-8dc77de92903: 'Filter by Topic' # Filter by Topic
     e8279648-aafc-4293-a410-7e3c587f89c2: Edges # Edges
@@ -453,6 +460,184 @@ plugins:
     enabled: true
     licenseKey: W8X3BRSGVDROBDTPYO5LIHMN
     schemaVersion: 2.0.8
+    settings:
+      ajaxTimeout: 10
+      alertEmails: null
+      captchas:
+        __assoc__:
+          -
+            - recaptcha
+            -
+              __assoc__:
+                -
+                  - type
+                  - verbb\formie\integrations\captchas\Recaptcha
+                -
+                  - enabled
+                  - '0'
+                -
+                  - saveSpam
+                  - true
+                -
+                  - settings
+                  -
+                    __assoc__:
+                      0:
+                        - handle
+                        - recaptcha
+                      1:
+                        - secretKey
+                        - $GOOGLE_RECAPTCHA_V3_SECRET_KEY
+                      2:
+                        - siteKey
+                        - $GOOGLE_RECAPTCHA_V3_SITE_KEY
+                      3:
+                        - type
+                        - v3
+                      4:
+                        - size
+                        - normal
+                      5:
+                        - theme
+                        - light
+                      6:
+                        - badge
+                        - bottomright
+                      7:
+                        - language
+                        - en
+                      8:
+                        - minScore
+                        - 0.5
+                      10:
+                        - scriptLoadingMethod
+                        - asyncDefer
+          -
+            - hcaptcha
+            -
+              __assoc__:
+                -
+                  - type
+                  - verbb\formie\integrations\captchas\Hcaptcha
+                -
+                  - enabled
+                  - '0'
+                -
+                  - saveSpam
+                  - true
+                -
+                  - settings
+                  -
+                    __assoc__:
+                      0:
+                        - handle
+                        - hcaptcha
+                      3:
+                        - size
+                        - normal
+                      4:
+                        - theme
+                        - light
+                      5:
+                        - language
+                        - en
+                      6:
+                        - minScore
+                        - 0.5
+                      7:
+                        - scriptLoadingMethod
+                        - asyncDefer
+          -
+            - duplicate
+            -
+              __assoc__:
+                -
+                  - type
+                  - verbb\formie\integrations\captchas\Duplicate
+                -
+                  - enabled
+                  - '0'
+                -
+                  - saveSpam
+                  - true
+                -
+                  - settings
+                  -
+                    __assoc__:
+                      -
+                        - handle
+                        - duplicate
+          -
+            - honeypot
+            -
+              __assoc__:
+                -
+                  - type
+                  - verbb\formie\integrations\captchas\Honeypot
+                -
+                  - enabled
+                  - '0'
+                -
+                  - saveSpam
+                  - true
+                -
+                  - settings
+                  -
+                    __assoc__:
+                      -
+                        - handle
+                        - honeypot
+          -
+            - javascript
+            -
+              __assoc__:
+                -
+                  - type
+                  - verbb\formie\integrations\captchas\Javascript
+                -
+                  - enabled
+                  - '1'
+                -
+                  - saveSpam
+                  - true
+                -
+                  - settings
+                  -
+                    __assoc__:
+                      -
+                        - handle
+                        - javascript
+      defaultDateDisplayType: calendar
+      defaultDateTime: null
+      defaultDateValueOption: ''
+      defaultEmailTemplate: ''
+      defaultFileUploadVolume: ''
+      defaultFormTemplate: ''
+      defaultInstructionsPosition: verbb\formie\positions\AboveInput
+      defaultLabelPosition: verbb\formie\positions\AboveInput
+      defaultPage: forms
+      emptyValuePlaceholder: 'No response.'
+      enableBackSubmission: true
+      enableCsrfValidationForGuests: true
+      enableUnloadWarning: true
+      includeDraftElementUsage: false
+      includeRevisionElementUsage: false
+      maxIncompleteSubmissionAge: 30
+      maxSentNotificationsAge: 30
+      pdfPaperOrientation: portrait
+      pdfPaperSize: letter
+      pluginName: Formie
+      queuePriority: null
+      saveSpam: true
+      sendEmailAlerts: false
+      sentNotifications: true
+      spamBehaviour: showSuccess
+      spamBehaviourMessage: ''
+      spamEmailNotifications: false
+      spamKeywords: ''
+      spamLimit: 500
+      useQueueForIntegrations: true
+      useQueueForNotifications: true
   knock-knock:
     edition: standard
     enabled: true

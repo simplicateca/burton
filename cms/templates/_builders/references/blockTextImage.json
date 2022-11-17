@@ -8,7 +8,7 @@
         "moreUrl": "/sitebook/components/media/#featured"        
     },
     "block": {
-        "layout": "_layouts/grids/2-column-collapsing"
+        "layout": "_layouts/grids/2-columns-even"
     },    
     "mediaConfig": {
         "component": "_components/media/image"
@@ -25,7 +25,7 @@
         "class": "overflow-hidden"
     },
     "block": {
-        "layout": "_layouts/grids/2-column-collapsing"
+        "layout": "_layouts/grids/2-columns-even"
     },
     "mediaConfig": {
         "component": "_components/media/image-carousel"
@@ -39,7 +39,7 @@
         "note": "Text on the right, image on the left. Image will stretch to match text height."
     },
     "block": {
-        "layout": "_layouts/grids/2-column-collapsing",
+        "layout": "_layouts/grids/2-columns-even",
         "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16"
     },
     "mediaConfig": {
@@ -76,7 +76,7 @@
         "note": ""
     },
     "block": {
-        "layout": "_layouts/grids/2-column-collapsing",
+        "layout": "_layouts/grids/2-columns-even",
         "contentCols": "flex flex-col-reverse sm:flex-row sm:justify-center sm:items-center overflow-hidden",
         "content1Base": "w-full sm:w-1/2",
         "content2Base": "w-full sm:w-1/2",
@@ -98,7 +98,7 @@
         "note": ""
     },
     "block": {
-        "layout": "_layouts/grids/2-column-collapsing",
+        "layout": "_layouts/grids/2-columns-even",
         "content1Base": "w-full sm:w-1/2",
         "content2Base": "w-full sm:w-1/2",
         "contentCols": "flex flex-col-reverse sm:flex-row-reverse sm:justify-center sm:items-center overflow-hidden",
@@ -121,7 +121,7 @@
         "note": ""
     },
     "block": {
-        "layout": "_layouts/grids/2-column-collapsing",
+        "layout": "_layouts/grids/2-columns-even",
         "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16",
         "content2" : "flex items-center"
     },    
@@ -138,7 +138,7 @@
         "note": ""
     },
     "block": {
-        "layout": "_layouts/grids/2-column-collapsing"
+        "layout": "_layouts/grids/2-columns-even"
     },    
     "mediaConfig": {
         "component": "_components/media/image-glitter"
@@ -152,7 +152,7 @@
         "note": "Image gallery thumbnails - 6 column grid."
     },
     "block": {
-        "layout": "_layouts/grids/intro-above-6-columns-collapsing",
+        "layout": "_layouts/grids/intro-above-6-columns",
         "content1Base": "max-w-4xl ml-0"
     },
     "mediaConfig": {

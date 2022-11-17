@@ -1,16 +1,29 @@
-{% extends "_layouts/base" %}
+{% extends "_layouts/twoColumns" %}
 
 {% block header %}
     {% embed "_components/header/header" with { entry: entry } only %}
         {% block belowTitle %}
-            <time
-                class="pt-4 block"
-                datetime="{{ entry.postDate | date('Y-m-d') }}"
-            >{{ entry.postDate | date('F jS, Y') }}</time>
+            <p class="larger">
+                <time
+                    class="pt-4 block"
+                    datetime="{{ entry.postDate | date('Y-m-d') }}"
+                >{{ entry.postDate | date('F jS, Y') }}</time>
+            </p>
         {% endblock %}
     {% endembed %}
 {% endblock %}
 
-{% block content %}
+{% block sidebar %}
+    <div class="py-16">
+        {{ include( '_components/search/form', {
+            headline: 'Search Our Archives',
+            url: '/news/'
+        }, withContext = false ) }}
 
+        <div class="like-h4 pt-20">
+            Follow Us
+        </div>
+
+        {{ include( '_components/widgets/social-links', { }, withContext = false ) }}
+    </div>
 {% endblock %}

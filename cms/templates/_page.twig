@@ -1,7 +1,8 @@
-{% set bodyClasses = entry.slug == '__home__' ? 'home' : entry.slug %}
-
 {% set section = entry.section.handle %}
 {% set folder  = "_sections/#{section}" %}
 {% set handle  = entry.type.handle %}
+
+{% set bodyClasses = entry.slug == '__home__' ? 'home' : entry.slug %}
+{% set bodyClasses = 'cBody cBody__' ~ section ~ ' cPage__' ~ bodyClasses %}
 
 {% include folder ~ "/" ~ handle %}

@@ -7,10 +7,19 @@
  # {% import "_macros/fragments.twig" as fragments %}
  #}
 
-
-{%- macro load( entryId, entry ) -%}
+{%- macro loadById( entryId, entry ) -%}
     {% set fragment = craft.entries().id(entryId).one() %}
     {{ include( '_sections/fragments/blocks/basic', {
-        fragment: fragment
+        fragment: fragment,
+        entry: entry
+    }, withContext = false) }}
+{%- endmacro -%}
+
+
+{%- macro loadBySlug( slug, entry ) -%}
+    {% set fragment = craft.entries().slug(slug).one() %}
+    {{ include( '_sections/fragments/blocks/basic', {
+        fragment: fragment,
+        entry: entry
     }, withContext = false) }}
 {%- endmacro -%}

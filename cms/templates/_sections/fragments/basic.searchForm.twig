@@ -14,10 +14,4 @@
     {% include '_components/search/form' with { 
         label: entry.title ?? ''
     } %}
-
-    {% if text|trim %}
-        {{ include('_components/media/lottie', {
-            animation: 'https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/lottie/rocket.json'
-        }, withContext = false ) }}
-    {% endif %}
 {% endblock %}

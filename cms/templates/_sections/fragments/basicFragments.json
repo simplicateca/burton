@@ -12,12 +12,6 @@
     },
 
     {
-        "label": "Sample Chart",
-        "value": "sampleChart",
-        "note": "A sample ChartJS Include."
-    },
-
-    {
         "label": "Newsletter Signup",
         "value": "subscribe",
         "note": "Embeds the 'Newsletter Subscription' form, editable via 'Formie'."

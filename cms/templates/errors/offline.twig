@@ -1,4 +1,14 @@
-{% set errorHeadline = 'Offline for Maintenance' %}
-{% set errorText = "This shouldn't take long. Please try refreshing or checking back in a couple minutes." %}
+{% extends "_layouts/spotlight" %}
 
-{% extends "_layouts/error" %}
+{% set text %}
+    <h1></h1>
+    <p>This shouldn't take long. Please try refreshing or checking back in a couple minutes.</p>
+{% endset %}
+
+{% block content %}
+    {% import "_macros/richtext" as richtext %}    
+    <h1 class="text-3xl md:text-5xl lg:text-6xl mb-4">
+        Offline for Maintenance
+    </h1>
+    {{ richtext.prose( text, 'lg' ) }}
+{% endblock %}

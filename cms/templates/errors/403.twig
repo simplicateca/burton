@@ -1,0 +1,18 @@
+{% extends "_layouts/spotlight" %}
+
+{% set text %}
+    <p>
+        Your not authorized to access this page. Please try logging into your account or
+        <a href="/contact">contact us</a> if you think this is an error.
+    </p>
+{% endset %}
+
+{% block content %}
+    {% import "_macros/richtext" as richtext %}    
+    <div>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl mb-4">
+            Access Forbidden
+        </h1>
+        {{ richtext.prose( text, 'lg' ) }}
+    </div>
+{% endblock %}

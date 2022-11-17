@@ -8,6 +8,23 @@ module.exports = {
     '../src/css/components/**/*.pcss'
   ],
   theme: {
+
+    fontSize: {
+      'xs': '0.7rem',
+      'sm': '0.85rem',
+      'base': '0.95rem',
+      'lg': '1.15rem',
+      'xl': '1.30rem',
+      '2xl': '1.60rem',
+      '3xl': '1.90rem',
+      '4xl': '2.40rem',
+      '5xl': '3.0rem',
+      '6xl': '3.50rem',
+      '7xl': '4.0rem',
+      '8xl': '5.50rem',
+      '9xl': '7.0rem',
+    },
+
     container: {
       center: true,
       padding: {
@@ -28,15 +45,18 @@ module.exports = {
 
     extend: {
       fontFamily: {
-        display:  ["TitanOne", "sans-serif"],
-        headline: ["OverlockOblique", "sans-serif"],
-        body:     ["Mulish", "sans-serif"],
+        display:  ["Rubik"],
+        headline: ["Rubik"],
+        body:     ["Roboto Mono"],
+      },
+
+      lineHeight: {
+        'extra-tight': '1.15'
       },
 
       colors: {
         transparent: 'transparent',
         current: 'currentColor'
-
         // 'grey': '#eeeeee',
         // 'blue': '#1d70b8'
       },

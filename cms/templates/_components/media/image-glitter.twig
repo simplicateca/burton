@@ -30,7 +30,7 @@
 
 {# wireframe placeholder #}
 {% if not image and getenv('CRAFT_ENVIRONMENT') != 'production' %}
-    <div class="bg-slate-500 aspect-square w-full">&nbsp;</div>
+    <div class="bg-gray-500 aspect-square w-full">&nbsp;</div>
 {% endif %}
 
 
@@ -50,7 +50,7 @@
         {% else %}
             {# wireframe placeholder #}    
             {% if getenv('CRAFT_ENVIRONMENT') != 'production' %}
-                <div class="aspect-square bg-slate-500 w-full h-full rounded-lg">&nbsp;</div>
+                <div class="aspect-square bg-gray-500 w-full h-full rounded-lg">&nbsp;</div>
             {% endif %}
         {% endif %}
     </div>

@@ -72,18 +72,6 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
-          -
-            elementCondition: null
-            fieldUid: d79b3073-00bf-430c-95d5-6d03d8303032 # SEO
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 103a727c-7397-4a17-91fe-fa2c4e2d7ff4
-            userCondition: null
-            warning: null
-            width: 100
         name: SEO
         uid: 8c962eba-4012-42b8-8b82-8a42123a74bb
         userCondition: null

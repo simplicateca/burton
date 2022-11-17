@@ -106,6 +106,28 @@ fieldLayouts:
                   class: craft\fields\conditions\TextFieldConditionRule
                   fieldUid: 36dbc7a6-4add-4410-8718-a9f8d7e2da97 # Fragment Subtype
                   operator: '='
+                  uid: c9a3b42a-71b3-4472-84cd-4d4ec6223691
+                  value: subscribe
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 6a1ab78a-ce1d-4e06-944f-7fa172aaa06a # Text
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 54c3c8b3-ed2c-4fcc-b2fc-f98fd7ab4b33
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\fields\conditions\TextFieldConditionRule
+                  fieldUid: 36dbc7a6-4add-4410-8718-a9f8d7e2da97 # Fragment Subtype
+                  operator: '='
                   uid: 3058fcda-d3d1-407e-9a46-fd7c40562b0c
                   value: customHTML
               elementType: craft\elements\Entry

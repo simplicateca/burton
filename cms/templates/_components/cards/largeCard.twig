@@ -4,35 +4,35 @@
 {% set title   = title   ??? entry.title ??? entry.headline ??? null %}
 {% set summary = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
 {% set url     = url     ??? entry.url ??? null %}
-{% set handle  = handle  ??? entry.section.handle ??? null %}
+{% set handle  = handle  ??? entry.section.handle ??? 'Base' %}
 {% set images  = images  ??? entry.images.all() ??? null %}
 
 {% block articleTag %}
-<article class="tease {{handle}} relative">
+<article class="cCard cCard__largeCard cCard__{{handle}}">
 {% endblock %}
-    <div class="flex flex-col lg:flex-row max-w-sm lg:max-w-full mx-auto items-center">
+    <div class="flex flex-col md:flex-row max-w-sm md:max-w-full mx-auto items-center gap-5 md:gap-8 lg:gap-16">
         
-        <div class="bg-slate-500 aspect-video max-w-sm h-64 xl:h-72 2xl:h-80 xl:max-w-full lg:mr-16">
+        <div class="bg-gray-500 aspect-video max-w-sm w-full md:h-64 xl:h-72 2xl:h-80 xl:max-w-full">
             &nbsp;
         </div>
 
-        <div class="mt-4 md:mt-0 text-left">
+        <div class="text-left">
             {% block aboveTitle %}{% endblock %}
 
             {% block title %}
                 {%- if title -%}
-                    <{{htag}} class="text-4xl mb-4">{{title}}</{{htag}}>
+                    <{{htag}} class="mb-4">{{title}}</{{htag}}>
                 {%- endif -%}
             {% endblock %}
 
             {% block aboveSummary %}{% endblock %}
 
             {% block summary %}
-                {% set summary = summary
-                    ? craft.typogrify.truncate(summary, 200)
-                    : '' %}
+                    {% set summary = summary
+                        ? craft.typogrify.truncate(summary, 200)
+                        : '' %}
 
-                {{ richtext.prose( summary, 'lg' ) }}
+                    {{ richtext.prose( summary, 'lg' ) }}
             {% endblock %}
 
             {% block link %}

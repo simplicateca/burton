@@ -124,7 +124,7 @@
 
     {% set text = text|trim %}
 
-    {% set sizes = {
+    {% set proseSizes = {
         'sm'     : 'prose-xs lg:prose-sm 2xl:prose-base',
         'small'  : 'prose-xs lg:prose-sm 2xl:prose-base',
         'md'     : 'prose-xs sm:prose-sm lg:prose-base 2xl:prose-lg',
@@ -134,7 +134,7 @@
         'xl'     : 'prose-lg xl:prose-xl 2xl:prose-2xl'
     } %}
 
-    {% set proseClass = attribute(sizes, size) %}
+    {% set proseClass = attribute(proseSizes, size) %}
 
 
     {% if text %}

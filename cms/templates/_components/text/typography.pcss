@@ -1,57 +1,74 @@
-body {
-	@apply text-slate-800;
+/**
+ * This file contains base typography styles for most text elements.
+ * 
+ *  0| BASE SETUP
+ *  1| HEADLINE FORMATTING (h1-h6)
+ *  2| REDACTOR / BODY TEXT FORMATTING
+ *  3| LIST STYLE FORMATTING (Checkmarks, Grids, etc)
+ *  4| TEXT MARKING / HIGH-LIGHTING
+ *  5| EYEBROW FORMATS
+ *
+*/
+
+
+/**
+ * 0| BASE SETUP
+ *
+ * General styles and formats that apply all types of text through-out the site.
+ *
+*/
+::selection {
+	@apply
+        bg-yellow-100;
 }
 
-h1, .like-h1 {
-    @apply font-display font-normal;
+::-moz-selection {
+	@apply
+        bg-yellow-100;
+}
+
+
+
+/**
+ * 1| HEADLINE FORMATTING (h1-h6)
+ *
+ * While the Tailwind Typography plugin will often try to take over the styling of
+ * headlines inside `div.prose` wrappers, I prefer to styling them consistently regardless
+ * of whether they were created via Redactor or part of a twig template.
+ *
+ * Each headline should have a `.like-h#` class that allows <div> or <p> tags to be styled
+ * as if they were headlines, but without using the actual h# tag for seo / a11y reasons.
+ *
+*/
+
+h1,
+.like-h1 {
+    @apply
+        font-display
+        font-normal
+        leading-extra-tight
+        text-gray-700
+        text-3xl
+        lg:text-6xl
+        xl:text-8xl;
 
     strong {
-        @apply text-slate-500 !font-normal;
-    }
-
-    @screen 2xl {
-        &.text-8xl {
-            font-size: 5.6rem;
-        }
+        @apply
+            text-gray-500
+            !font-normal;
     }
 }
 
-.eyebrow {
-    @apply font-extrabold uppercase font-body;
-    font-size: 15px;
-
-    &.eyebrow--knockout {
-        @apply table py-1 px-3 rounded-full bg-slate-800 text-white -translate-y-4;
-    }
-}
-
-
-div.bgKnockout {
-    div.eyebrow {
-        @apply !text-slate-900;
-        position: absolute;
-        top: -35px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-    }
-}
-
-.eyebrow + h2,
-.eyebrow + h3,
-.eyebrow + h4 {
-    margin-top: 0;
-}
-
-h2, h3, h4, h5, h6 {  
-    @apply font-headline italic;
-}
 
 h2,
+h3.rd-h2,
+div.like-h2,
+p.like-h2,
 .prose h2 {
     @apply
+        font-headline
         font-bold    
-        leading-normal
+        leading-tight
         mb-2
         text-xl
         xs:text-2xl
@@ -62,15 +79,20 @@ h2,
         2xl:text-6xl;
 
     & + h3 {
-        @apply !font-body !not-italic !-mt-5 !text-2xl;
+        @apply !-mt-5;
     }
 }
 
+
 h3,
+h3.rd-h3,
+div.like-h3,
+p.like-h3,
 .prose h3 {
     @apply
+        font-headline    
         font-bold
-        leading-normal
+        leading-tight
         mb-2
         text-base
         xs:text-lg
@@ -81,14 +103,48 @@ h3,
         2xl:text-4xl;
 }
 
-.cBlock.text-white {
-    .topic {
-        color: #fff !important;
-        opacity: 0.75;
-    }
+
+h4,
+h4.rd-h4,
+div.like-h4,
+p.like-h4,
+.prose h4 {
+    @apply
+        font-headline    
+        font-bold
+        uppercase
+        leading-snug
+        mb-1
+        text-sm
+        xs:text-base
+        md:text-lg
+        lg:text-xl
+        xl:mb-3
+        xl:text-2xl
+        2xl:text-3xl;
 }
 
+
+/**
+ * 2| REDACTOR / BODY TEXT FORMATTING
+ *
+ * Most standard paragraph text comes from Redactor fields and is run through the richtext macro.
+ *  -> cms/templates/_macro/richtext
+ *
+ * Typically inside a `div.prose` wrapper, which is from the Tailwind typography plugin
+ *  -> https://tailwindcss.com/docs/typography-plugin
+ *
+ * Additional font scaling controls can be found in:
+ *  -> cms/templates/_macro/richtext
+ *  -> buildchain/tailwind.config.js
+ * 
+*/
 .prose {
+    --tw-prose-body: #374151;
+    --tw-prose-headings: #374151;
+    --tw-prose-lead: #374151;
+    --tw-prose-bold: #374151;
+    --tw-prose-links: #1f2937;
 
     *:first-child {
         margin-top: 0;
@@ -106,100 +162,156 @@ h3,
         margin-bottom: 0 !important;
     }
 
-    p.larger {
-        font-size: 120%;
+    .prose-text-light & {
+        --tw-prose-headings: #ffffff;
+        --tw-prose-body: #ffffff;
+        --tw-prose-lead: #ffffff;
+        --tw-prose-bold: #ffffff;
+        --tw-prose-links: #d1d5db;
     }
 
-    p.smaller {
-        font-size: 80%;
+    .prose-text-dark & {
+        --tw-prose-headings: #374151;
+        --tw-prose-body: #374151;
+        --tw-prose-lead: #374151;
+        --tw-prose-bold: #374151;
+        --tw-prose-links: #1f2937;
     }
+}
 
-    .prose-text-white & {
-        --tw-prose-body: #fff;
-        --tw-prose-headings: #fff;
-        --tw-prose-lead: #fff;
-        --tw-prose-links: #fff;
-        --tw-prose-bold: #fff;
-    }
+/* these larger/smaller modifiers are available through Redactor but useful everywhere */
+p.larger,  li.larger  { font-size: 120%; }
+p.smaller, li.smaller { font-size: 80%;  }
 
-    .prose-text-black & {
-        --tw-prose-body: #000;
-        --tw-prose-headings: #000;
-        --tw-prose-lead: #000;
-        --tw-prose-links: #000;
-        --tw-prose-bold: #000;
-    }
 
-    ul.two-column {
-        column-count: 2;
-    }
 
-    ul.grid,
-    ul.grid-2 {
-        @apply grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 2xl:gap-12 m-0 p-0;
-
-        li {
-            & > strong {
-                display: block;
-                margin-bottom: 2px;
-                font-size: 20px;
-            }
-            
-            list-style: none;
-            padding-left: 0;
-            margin: 0;
+/**
+ * 3| LIST STYLE FORMATTING (Checkmarks, Grids, etc)
+ *
+ * These classes are made available inside Redactor by the List Class plugin
+ *  -> https://github.com/simplicateca/redactor-list-class
+ *
+ * Available options configured via the `listClasses` attribute in each Redactor config
+ *  -> cms/config/redactor/???.json
+ *
+*/
+ol.checkmarks,
+ul.checkmarks {
+    @apply
+        list-none
+        p-0
+        m-0
+        ml-6;
+ 
+    li {
+        @apply relative pl-4 mb-8;
+ 
+        &:before {
+            @apply h-6 w-6 bg-gray-700 block top-4 -left-5;
+            content: " ";
+            border-radius: .8em;
+            position: absolute;
+            margin-top: -.5em;
         }
-    }
-
-    ul.grid-3 {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-column-gap: 2rem;
-        grid-row-gap: 2rem;
-    }
-
-    ul.checkmarks {
-        list-style: none;
-        margin: 0 0 0 1.5rem;
-        padding: 0;
-
-        li {
-            @apply relative pl-4 mb-8;
-
-            position: relative;
-
-
-            &:before {
-                @apply h-6 w-6 bg-slate-500 block top-4 -left-5;
-                content: " ";
-                border-radius: .8em;
-                position: absolute;
-                margin-top: -.5em;
-            }
-
-            &:after {
-                @apply block w-2 h-3.5 absolute -left-3 top-2.5;
-                content: " ";
-                border: solid #fff;
-                border-width: 0 .2em .2em 0;
-                transform: rotate(35deg);
-            }
+ 
+        &:after {
+            @apply block w-2 h-3.5 absolute -left-3 top-2.5;
+            content: " ";
+            border: solid #fff;
+            border-width: 0 .2em .2em 0;
+            transform: rotate(35deg);
         }
     }
 }
 
+ol.two-column,
+ul.two-column {
+    column-count: 2;
+}
+ 
+ol.grid,
+ol.grid-2,
+ul.grid,
+ul.grid-2 {
+    @apply
+        list-none
+        m-0
+        p-0
+        grid-cols-1
+        md:grid-cols-2
+        gap-4
+        md:gap-8
+        xl:gap-12;
+ 
+    li {
+        @apply m-0 p-0;
+ 
+        & > strong {
+            @apply block text-[120%] mb-1;
+        }
+    }
+}
+ 
+ul.grid-3 {
+    @apply
+        grid-cols-1
+        md:grid-cols-3
+        gap-4
+        md:gap-8
+        xl:gap-12;
+}
+
+
+/**
+ * 4| TEXT MARKING / HIGH-LIGHTING
+ *
+ * Different `<mark>` options can be configured inside the "baukasten" Redactor plugin.
+ *  -> cms/config/redactor/plugins/baukasten.js
+ *
+ * Getting a `<span>` inside of `<mark>` tags added by Redactor can be achieved with Retcon:
+ *
+ *  | retconWrap( "mark", "span.mark" )
+ *  | retconChange( "mark", "span" )
+ *  | retconChange( "span.mark", "mark" )
+ *
+ * The `richtext.prose` macro handles this inner wrapper automatically.
+*/
 mark {
-    @apply text-white inline-block px-2 py-2 relative;
-    background: transparent;
+    @apply text-white inline-block px-2 py-2 relative bg-transparent;
 
     span {
         @apply relative z-10;
     }
 
     &:before {
+        @apply bg-gray-500 absolute top-1 left-0 bottom-0 right-0 rounded-md z-0;
         content: '';
-        @apply bg-slate-500 absolute top-1 left-0 bottom-0 right-0 rounded-md;
         transform: skew(-8deg, -3deg);
-        z-index: 0;
     }  
+}
+
+
+
+/**
+ * 5| EYEBROW FORMATS
+ *
+ * Eyebrow are available to be added to most Redactor text fields via the Eyebrow plugin.
+ *  -> https://github.com/simplicateca/redactor-eyebrow
+ *  -> https://uxmovement.com/content/increasing-headline-clicks-with-eyebrow-text/
+ *
+ * Available options configured via the `eyebrows` attribute in each Redactor config
+ *  -> cms/config/redactor/???.json
+*/
+.eyebrow {
+    @apply font-extrabold uppercase font-body text-sm;
+
+    &.eyebrow--knockout {
+        @apply table py-1 px-3 rounded-full bg-gray-700 text-white -translate-y-4;
+    }
+
+    & + h2,
+    & + h3,
+    & + h4 {
+        @apply mt-0;
+    }
 }

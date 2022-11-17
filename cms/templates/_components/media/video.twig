@@ -29,7 +29,7 @@
             x-show="poster">
             <img class="h-full w-full object-cover" src="{{poster.url}}">
             <span class="block h-24 w-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-white group-hover:scale-110 transition">
-                <svg class="h-full w-full" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path class="fill-slate-400 transition group-hover:fill-slate-600" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm8.856-3.845A1.25 1.25 0 0 0 9 9.248v5.504a1.25 1.25 0 0 0 1.856 1.093l5.757-3.189a.75.75 0 0 0 0-1.312l-5.757-3.189Z" /></svg>
+                <svg class="h-full w-full" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path class="fill-gray-500 transition group-hover:fill-gray-700" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm8.856-3.845A1.25 1.25 0 0 0 9 9.248v5.504a1.25 1.25 0 0 0 1.856 1.093l5.757-3.189a.75.75 0 0 0 0-1.312l-5.757-3.189Z" /></svg>
             </span>
         </button>
         
@@ -41,5 +41,5 @@
 
 {# wireframe placeholder #}
 {% if not media and getenv('CRAFT_ENVIRONMENT') != 'production' %}
-    <div class="bg-slate-500 aspect-video w-full">&nbsp;</div>
+    <div class="bg-gray-500 aspect-video w-full">&nbsp;</div>
 {% endif %}

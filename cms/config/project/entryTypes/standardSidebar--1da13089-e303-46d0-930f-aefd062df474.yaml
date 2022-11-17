@@ -83,7 +83,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            template: _builders/controlpanel/instructionsContentChunks.twig
+            template: _builders/controlpanel/instructionsSidebarBuilder.twig
             type: craft\fieldlayoutelements\Template
             uid: ad4c755b-f0ca-48dc-b0d9-211e845bc0fb
             userCondition: null

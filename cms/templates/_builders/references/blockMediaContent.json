@@ -32,7 +32,7 @@
             "moreUrl": "/sitebook/components/media/#textLeft"
         },
         "block": {
-            "layout": "_layouts/grids/2-column-collapsing"
+            "layout": "_layouts/grids/2-columns-even"
         },
         "mediaConfig": {
             "component": "_components/media/media",
@@ -57,7 +57,7 @@
             "moreUrl": "/sitebook/components/media/#textRight"
         },
         "block": {
-            "layout": "_layouts/grids/2-column-collapsing",
+            "layout": "_layouts/grids/2-columns-even",
             "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16"
         },
         "mediaConfig": {

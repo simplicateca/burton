@@ -1,12 +1,3 @@
-/* keep this outside #page-header so it can also be picked up by MobileMenu.vue */
-div.c-primaryLogo {
-    a {
-        body.scrolled & {
-            color: #fff;
-        }
-    }   
-}
-
 nav.m-primary {
     ul {
         display: none;
@@ -28,7 +19,7 @@ nav.m-primary {
 
         &.button {
             a {
-                @apply bg-gray-600 text-white;
+                @apply bg-gray-700 text-white;
 
                 &:hover, &:focus {
                     @apply bg-blue-600 text-white;
@@ -38,33 +29,10 @@ nav.m-primary {
                     @apply bg-blue-600 text-white;
 
                     &:hover, &:focus {
-                        @apply bg-yellow-300 text-slate-800;
+                        @apply bg-yellow-300 text-gray-700;
                     }
                 }
             }
-        }
-
-        a {
-            /* font-family: var(--headline);
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 1.3rem;
-            display: block;
-            padding: 0.75rem 1rem;
-            color: var(--dark);
-            line-height: 1em;
-
-            &:hover, &:focus {
-                @apply text-blue-600;
-
-                body.scrolled & {
-                    @apply text-yellow-300;
-                }
-            }
-
-            body.scrolled & {
-                @apply text-white;
-            } */
         }
 
         ul {

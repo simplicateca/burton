@@ -1,4 +1,4 @@
-{% extends "_layouts/base" %}
+{% extends "_layouts/oneColumn" %}
 
 {% import "_macros/richtext" as richtext %}
 
@@ -11,7 +11,7 @@
 
 {% block content %}
     <div class="container pb-20 pt-10">
-        {% embed '_layouts/grids/intro-above-3-columns-collapsing' with {
+        {% embed '_layouts/grids/intro-above-3-columns' with {
             blockConfig: {
                 content1Base: 'max-w-5xl ml-0 mb-8'
             }

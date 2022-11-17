@@ -1,0 +1,57 @@
+{% set form = craft.formie.forms({ handle: 'newsletterSubscription' }).one() ?? null %}
+{% set text = text ??? fragment.text ??? '<div class="like-h3">Signup for our Newslette</div>' %}
+
+{% set renderOptions = {
+    fieldNamespace: 'footerSubscribe',
+    themeConfig: {
+        resetClasses: true,
+        form: {
+            attributes: {
+                class: 'cFormSubscribe'
+            },
+        },
+        page: {
+            attributes: {
+                class: 'flex flex-col sm:flex-row justify-center items-end pb-12 max-w-md w-full mx-auto'
+            },
+        },
+        pageContainer: {
+            attributes: {
+                class: 'w-full flex-grow'
+            }
+        },
+        emailAddress: {
+            field: {
+                class: 'grow'
+            },
+            fieldLabel: {
+                attributes: {
+                    class: 'font-bold text-lg mb-2 block'
+                }
+            }
+        },
+        fieldInput: {
+            attributes: {
+                class: 'p-4 text-md leading-none w-full'
+            }
+        },
+        buttonWrapper: {
+            attributes: {
+                class: 'w-full sm:w-auto'
+            }            
+        },
+        submitButton: {
+            attributes: {
+                class: 'w-full sm:w-auto button leading-[1.05]'
+            }
+        }
+    },
+} %}
+
+{% if form %}
+    {{text|raw}}
+
+    <div class="mt-10">
+        {{ craft.formie.renderForm(form, renderOptions) }}
+    </div>
+{% endif %}

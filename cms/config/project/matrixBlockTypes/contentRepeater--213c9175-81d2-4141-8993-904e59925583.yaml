@@ -104,7 +104,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 877818026
+      changedFieldIndicator: 13520478
       columns:
         __assoc__:
           -
@@ -128,7 +128,7 @@ fields:
                 -
                   - width
                   - ''
-      contentTable: '{{%stc_14_items}}'
+      contentTable: '{{%stc_1_items}}'
       fieldLayout: matrix
       maxRows: null
       minRows: null

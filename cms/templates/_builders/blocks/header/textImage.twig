@@ -9,7 +9,7 @@
     <div class="hidden 2xl:block pb-4">
         {% if headline or ( moveHeaders and headers ) %}
             {% if blockConfig.header ??? null %}<div class="{{headerWrap}}">{% endif %}
-                {{ headline ? richtext.formatHeadline( headline, 'div', 'like-h1 text-8xl' ) : null }}
+                {{ headline ? richtext.formatHeadline( headline, 'div', 'like-h1' ) : null }}
                 {{ moveHeaders ? headers : null }}
             {% if blockConfig.header ??? null %}</div>{% endif %}
         {% endif %}
@@ -22,7 +22,7 @@
     <div class="block 2xl:hidden pb-4">
         {% if headline or ( moveHeaders and headers ) %}
             {% if blockConfig.header ??? null %}<div class="{{headerWrap}}">{% endif %}
-                {{ headline ? richtext.formatHeadline( headline, 'h1', 'text-6xl md:text-8xl' ) : null }}
+                {{ headline ? richtext.formatHeadline( headline, 'h1' ) : null }}
                 {{ moveHeaders ? headers : null }}
             {% if blockConfig.header ??? null %}</div>{% endif %}
         {% endif %}

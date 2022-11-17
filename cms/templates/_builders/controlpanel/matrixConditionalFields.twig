@@ -32,7 +32,21 @@ var matrixConditionalsConfig = {
             showOnEqual: 'perPage',
             hideOnUnequal: 'perPage'
         }
-    }
+    },
+
+    // entries block type - selection method
+    'contentBuilder.*.test1': {
+
+        'option1': {
+            showOnEqual: 'text',
+            hideOnUnequal: 'text'
+        },
+
+        'option2': {
+            showOnEqual: 'images',
+            hideOnUnequal: 'images'
+        }
+}
 
     // // for the `videoSource` field in any `video` block type in and matrix field
     // '*.video.videoSource': {
@@ -157,6 +171,7 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
         },
 
         cleanValue(value) {
+            if( ! value ?? null ) { return '' }
             var strValue = value.toString().trim().toLowerCase()
             if( strValue.startsWith('base64:') ) {
                 strValue = this.decodeBase64( value ).toLowerCase();
@@ -166,6 +181,7 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
         },
 
         decodeBase64(value) {
+            if( ! value ?? null ) { return '' }
             return atob(value.toString().trim().replace('base64:', ''))
         },
 
@@ -235,10 +251,10 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
             }
 
             var   value  = useValue ?? input.value ?? null
-            const field  = input.closest('.field[data-type]:not([data-type=""]') ?? null
-            const block  = field ? field.closest('.matrixblock[data-type]:not([data-type=""]') : null
+            const field  = input.closest('.field[data-type]:not([data-type=""])') ?? null
+            const block  = field ? field.closest('.matrixblock[data-type]:not([data-type=""]):not(.superTableMatrix)') : null
             const mf     = block ? block.closest( '.matrix-field' ) : null
-            const matrix = mf ? mf.closest('.field[data-type]:not([data-type=""]') : null
+            const matrix = mf ? mf.closest('.field[data-type]:not([data-type=""])') : null
 
             if( !field || !block || !matrix ) {
                 return

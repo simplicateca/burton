@@ -16,9 +16,11 @@
         {% if headerClass ??? null %}</div>{% endif %}
     {% endif %}
 
-    <time
-        datetime="{{ entry.postDate | date('Y-m-d') }}"
-    >{{ entry.postDate | date('F jS, Y') }}</time>
+    <p class="larger">
+        <time
+            datetime="{{ entry.postDate | date('Y-m-d') }}"
+        >{{ entry.postDate | date('F jS, Y') }}</time>
+    </p>
 
     {{text}}
 {% endblock %}

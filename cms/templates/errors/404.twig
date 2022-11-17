@@ -1,65 +1,93 @@
-{% extends "_layouts/error" %}
+{% extends "_layouts/twoColumns" %}
+{% import "_macros/richtext" as richtext %}
+
+{% set cardLayout = '_components/cards/text' %}
+
+{% block header %}
+    {{ include( "_components/header/header", {
+        title: "Page Not Found",
+        subtitle: "Uh oh! We can't seem to find the content you wanted..."
+    }, withContext = false ) }}
+{% endblock %}
+
+{% block belowHeader %}{% endblock %}
+
+{% set searchQuery = craft.app.request.pathInfo|replace({ '/': ' ', '_': ' ', '-': ' ' })|trim|replace({ '  ': ' ' }) %}
+{% set searchQuery = 'story' %}
+{% set entries = craft.entries()
+    .search(searchQuery)
+    .orderBy('score')
+    .limit(6)
+    .all() %}
 
 {% block content %}
-    <div class="page--404">
-        <div class="container">
-
-            <h1>Page Not Found</h1>
-            <p>Sorry about that, but we can't seem to find the page you were looking for.</p>
-
-            {% set searchQuery = craft.app.request.pathInfo|replace({ '/': ' ', '_': ' ', '-': ' ' })|trim|replace({ '  ': ' ' }) %}
-            {% set entries = craft.entries()
-                .search(searchQuery)
-                .orderBy('score')
-                .limit(5)
-                .all() %}
-
-            {% if searchQuery and entries|length %}
-
-                <h2>Here are some search results that might help:</h2>
-
-                {% include '_partials/search-form.twig' with { searchText: searchQuery } %}
-
-                <div class="c-searchResults">
-                    {% for result in entries %}
-                        {% include  [
-                            ( result.entry.type.handle ~ '/_tease.twig'), 
-                            '_pages/_tease.twig'
-                        ] with { entry: result.entry } %}
-                    {% endfor %}
-                </div>
-
-            {% else %}
-
-                <div class="text">
-                    <h2>Here are some of our most frequently visited pages:</h2>
-
-                    <ul>
-                        <li><a href="/">Home page</a></li>
-                        {# Include more popular pages #}
-                        {#
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                        #}
-                    </ul>
-                </div>
-
-                <h3>You could also try searching for what you were trying to find:</h3>
-                
-                {% include '_partials/search-form.twig' with { searchText: '' } %}
-
-            {% endif %}
-
-            {# Update contact email address #}
-            {#  
-                <p>
-                    If you're still having trouble finding something or you think
-                    something is broken that needs fixing, please send us an email at
-                    <a href="mailto:webmaster@example.com">webmaster@example.com</a>.
+    <div class="container py-20">
+        {% if searchQuery and entries|length %}
+            {% set text %}    
+                <h2>Maybe it's been moved?</h2>
+                <p class="larger max-w-xl">
+                    We did a search in our database, and we think you might
+                    be looking for something related to one of these results.
                 </p>
-            #}
+
+                <div class="text-4xl font-bold -mt-6 pl-12 pb-12">↓</div>
+            {% endset %}
+            {{ richtext.prose( text, 'lg' ) }}
+
+            <div class="cSearchResults grid grid-cols-1 gap-12">
+                {% for item in entries %}
+                    {{ include(
+                        [
+                            '_sections/' ~ item.section.handle ~ '/_tease.content',
+                            '_sections/' ~ item.section.handle ~ '/_tease',
+                            '_sections/_tease.content',
+                            '_sections/_tease'
+                        ],{
+                            entry: item,
+                            card: cardLayout
+
+                        }, withContext = false
+                    ) }}
+                {% endfor %}                 
+            </div>
+        {% else %}
+            {% set text %}
+                <div class="like-h3">Maybe these will help?</div>
+                <ul>
+                    <li class="larger"><a href="/">Home Page</a></li>
+                    <li class="larger"><a href="/news">News</a></li>
+                    <li class="larger"><a href="/contact">Contact Us</a></li>
+                </ul>
+            {% endset %}
+            {{ richtext.prose( text, 'lg' ) }}
+        {% endif %}
+
+        <div class="pt-16 mt-16 border-t">
+            {% include '_components/search/form' with {
+                headline: entries and searchQuery ? 'Search a different keyword or phrase' : 'Search by keyword or phrase',
+                searchText: searchQuery
+            } %}
         </div>
     </div>
+{% endblock %}
+
+{% block sidebar %}
+    {% if entries %}
+        <div class="hidden lg:flex flex-col py-20 mt-20 sticky top-16">
+            {% include '_components/search/form' with {
+                headline: 'Try another search',
+                searchText: searchQuery
+            } %}
+
+            {% set text %}
+                <p class="pt-6">
+                    If you're still having trouble finding something, or you think
+                    an error needs fixing, please <a href="/contact" class="whitespace-nowrap">let us know →</a>.
+                </p>
+            {% endset %}
+            
+            {% import "_macros/richtext" as richtext %}
+            {{ richtext.prose( text, 'small' ) }}
+        </div>
+    {% endif %}
 {% endblock %}

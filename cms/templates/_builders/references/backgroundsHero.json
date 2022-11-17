@@ -4,55 +4,41 @@
         "value": "bgNone",
         
         "scene": {
-            "baseClass": "py-16 relative",
-            "bgColor": "stone-50",
-            "bgHex": "#fafaf9",
-            "fillColor" : "stone-50",
-            "fillHex" : "#fafaf9"
+            "baseClass": "cScene__bgNone py-16 relative",
+            "bgColor": "gray-100",
+            "bgHex": "#f3f4f6",
+            "fillColor" : "gray-100",
+            "fillHex" : "#f3f4f6"
         }
     },
 
     {
-        "label": "Plaid Pattern (Grey)",
-        "value": "bgPattern",
+        "label": "White",
+        "value": "bgWhite",
 
         "scene": {
-            "baseClass": "py-24 relative bg-[url('https://simplicate.nyc3.digitaloceanspaces.com/simplicate/assets/site/images/diagonal-plaid-2.png')] bg-repeat",
-            "bgColor": "slate-100",
-            "bgHex": "#fafaf9",
-            "fillColor" : "slate-100",
-            "fillHex" : "#fafaf9",
-            "includeBeforeClose": "_components/dividers/tilt-right"
+            "baseClass": "cScene__bgWhite py-16 bg-white",
+            "bgColor": "white",
+            "bgHex": "#ffffff",
+            "fillColor" : "white",
+            "fillHex" : "#ffffff"
         }
     },
 
     {
-        "label": "Light Blue",
-        "value": "bgBlue",
-
-        "scene": {
-            "baseClass": "py-16 bg-slate-100",
-            "bgColor": "slate-100",
-            "bgHex": "#f1f5f9",
-            "fillColor" : "slate-100",
-            "fillHex" : "#f1f5f9"
-        }
-    },
-
-    {
-        "label": "Dark Blue",
+        "label": "Dark",
         "value": "bgDark",
-
+        
         "scene": {
-            "baseClass": "py-12 bg-slate-600",
-            "bgColor": "slate-600",
-            "bgHex": "#475569",
-            "fillColor" : "slate-600",
-            "fillHex" : "#475569"
+            "baseClass": "cScene__bgDark py-16 bg-gray-700",
+            "bgColor": "gray-700",
+            "bgHex": "#374151",
+            "fillColor" : "gray-700",
+            "fillHex" : "#374151"
         },
 
         "block": {
-            "class": "text-white prose-text-white"
+            "class": "prose-text-light"
         }
     }
 ]

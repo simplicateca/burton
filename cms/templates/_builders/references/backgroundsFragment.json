@@ -9,20 +9,20 @@
         "value": "bgNone",
         
         "scene": {
-            "baseClass": "relative",
-            "bgColor": "stone-50",
-            "bgHex": "#fafaf9",
-            "fillColor" : "stone-50",
-            "fillHex" : "#fafaf9"
+            "baseClass": "cScene__bgNone",
+            "bgColor": "gray-100",
+            "bgHex": "#f3f4f6",
+            "fillColor" : "gray-100",
+            "fillHex" : "#f3f4f6"
         }
     },
 
     {
-        "label": "White Background (Full Width)",
+        "label": "White",
         "value": "bgWhite",
 
         "scene": {
-            "baseClass": "bg-white relative",
+            "baseClass": "cScene__bgWhite bg-white",
             "bgColor": "white",
             "bgHex": "#ffffff",
             "fillColor" : "white",
@@ -31,58 +31,19 @@
     },
 
     {
-        "label": "Blue",
-        "value": "bgBlue",
-
+        "label": "Dark",
+        "value": "bgDark",
+        
         "scene": {
-            "baseClass": "bg-slate-600 relative",
-            "bgColor": "slate-600",
-            "bgHex": "#475569",
-            "fillColor" : "sky-100",
-            "fillHex" : "#e0f2fe"
+            "baseClass": "cScene__bgDark bg-gray-700",
+            "bgColor": "gray-700",
+            "bgHex": "#374151",
+            "fillColor" : "gray-700",
+            "fillHex" : "#374151"
         },
 
         "block": {
-            "class": "text-white prose-text-white",
-            "textColor": "white",
-            "textHex": "#fff"
-        }
-    },
-
-    {
-        "label": "Gradient",
-        "value": "bgGradient",
-
-        "scene": {
-            "baseClass": "bg-gradient-to-b from-[var(--fromAbove)] to-slate-400 relative",
-            "bgColor": "slate-400",
-            "bgHex": "#94a3b8",
-            "fillColor" : "black",
-            "fillHex" : "#000000"
-        }
-    },
-
-    {
-        "label": "Knockout",
-        "value": "bgKnockout",
-
-        "scene": {
-            "baseClass": "relative",
-            "bgColor": "stone-50",
-            "bgHex": "#fafaf9",
-            "bgNeutralHex": "#f1f5f9",
-            "fillColor" : "stone-50",
-            "fillHex" : "#fafaf9"
-        },
-
-        "container": {
-            "class": "container bg-slate-600 rounded-xl text-white prose-text-white relative py-4 md:py-12 lg:py-16",
-            "bgColor": "slate-600",
-            "bgHex": "#475569"
-        },
-
-        "block": {
-            "class": "px-0 sm:px-2 md:px-4 lg:px-0"
+            "class": "prose-text-light"
         }
     },
 

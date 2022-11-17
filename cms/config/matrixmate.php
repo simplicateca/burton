@@ -32,35 +32,20 @@ return [
         'sidebarBuilder' => [
             'defaultTabName' => 'Additional Settings',
             'types' => [
-                'headline' => [
-                    'tabs' => [[
-                        'label' => 'Headline',
-                        'fields' => ['headline'],
-                    ], [
-                        'label' => 'Format & Layout',
-                        'fields' => ['eyebrow', 'anchor', 'layout', 'edges', 'background'],
-                    ]],
-                ],
-
                 'text' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['text'],
-                    ], [
-                        'label' => 'Format & Layout',
-                        'fields' => ['eyebrow', 'anchor', 'layout', 'edges', 'background'],
+                        'fields' => ['variant', 'text', 'images', 'bg', 'spacing'],
+                        
                     ]],
                 ],
 
-                'entries' => [
+                'textImage' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['text', 'records'],
-                    ], [
-                        'label' => 'Format & Layout',
-                        'fields' => ['eyebrow', 'anchor', 'layout', 'edges', 'background'],
+                        'fields' => ['variant', 'text', 'images', 'bg', 'spacing'],
                     ]],
-                ],
+                ]
             ]
         ],
 

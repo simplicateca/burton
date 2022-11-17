@@ -4,13 +4,13 @@
 {% set title   = title   ??? entry.title ??? entry.headline ??? '' %}
 {% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? '' %}
 {% set url     = url     ??? entry.url ??? '' %}
-{% set handle  = handle  ??? entry.section.handle ??? '' %}
+{% set handle  = handle  ??? entry.section.handle ??? 'Base' %}
 {% set images  = images  ??? entry.images.all() ??? [] %}
 
 {% set textWithoutButton = text|removeTrailingButtons  %}
 {% set textOnlyButton    = text|extractTrailingButtons %}
 
-<article class="tease {{handle}} relative">
+<article class="cCard cCard__iconFeature cCard__{{handle}}">
     <div class="grid grid-cols-1 h-full content-start gap-4">
         <div class="flex items-center justify-center">
             {{ include( '_components/media/image', { 

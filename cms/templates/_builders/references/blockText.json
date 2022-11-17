@@ -1,16 +1,16 @@
 [
     {
-        "label": "Optimal Reading - Left",
+        "label": "Optimal Reading Width (Left Justified)",
         "value": "optimalLeft",
         "block": {
             "layout": "_layouts/grids/1-column",
-            "wrapper": "w-full max-w-4xl",
+            "wrapper": "w-full max-w-4xl 2xl:max-w-5xl",
             "content1": ""
         }
     },
 
     {
-        "label": "Optimal Reading - Center",
+        "label": "Optimal Reading Width (Centered)",
         "value": "optimalCenter",
         "block": {
             "layout": "_layouts/grids/1-column",
@@ -26,39 +26,6 @@
             "layout": "_layouts/grids/1-column",
             "wrapper": "w-full",
             "content1": "w-full"
-        }
-    },
-
-    {
-        "label": "Headers Offset",
-        "value": "headerOffset",
-        "block": {
-            "layout": "_layouts/grids/1-column",
-            "wrapper": "",
-            "content1": "pl:0 lg:pl-40 max-w-5xl mx-auto",
-            "headerClass": "pb-4 max-w-lg"
-        },
-        "textConfig": {
-            "moveHeaders": true,
-            "headerComponent": "_components/text/special-headline.twig"
-        }        
-    },
-
-    {
-        "label": "Call To Action",
-        "value": "callToAction",
-        "block": {
-            "layout": "_layouts/grids/1-column",
-            "wrapper": "flex flex-col gap-8 md:flex-row w-full md:items-center mx-auto max-w-3xl",
-            "contentCols": "w-full",
-            "content1": "flex-grow"
-        },
-        "textConfig": {
-            "moveHeaders": false,
-            "moveButtons": true,
-            "buttonWrapper": "div.md:self-end",
-            "transform": null,
-            "button": "button button--large"
         }
     }
 ]

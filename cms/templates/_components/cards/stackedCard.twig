@@ -3,23 +3,23 @@
 {% set title   = title   ??? entry.title ??? entry.headline ??? '' %}
 {% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? '' %}
 {% set url     = url     ??? entry.url ??? '' %}
-{% set handle  = handle  ??? entry.section.handle ??? '' %}
+{% set handle  = handle  ??? entry.section.handle ??? 'Base' %}
 {% set images  = images  ??? entry.images.all() ??? [] %}
 
 {% set textWithoutButton = text|removeTrailingButtons  %}
 {% set textOnlyButton    = text|extractTrailingButtons %}
 
 {% block articleTag %}
-<article class="tease {{handle}} relative">
+<article class="cCard cCard__stackedCard cCard__{{handle}}">
 {% endblock %}
-    <div class="grid bg-slate-200 grid-cols-1 h-full content-start transition hover:scale-[1.025] hover:shadow-2xl">
+    <div class="grid bg-gray-200 grid-cols-1 h-full content-start transition hover:scale-[1.025] hover:shadow-2xl">
         <div class="">
             {{ include( '_components/media/image', { 
                 images: images
             }, withContext = false )}}
         </div>
 
-        <div class="p-8 text-black prose-text-black">
+        <div class="p-8 prose-text-dark">
             {% block aboveTitle %}{% endblock %}
 
             {% block title %}

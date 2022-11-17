@@ -1,4 +1,4 @@
-{% extends "_layouts/base" %}
+{% extends "_layouts/oneColumn" %}
 
 {% requirePermission 'allowSitebook' %}
 
@@ -65,25 +65,25 @@
 
     {{ include( "_components/breadcrumb/sitebook", {}, withContext = true ) }}
 
-    <div class="bg-slate-200">
+    <div class="bg-gray-200">
         <div class="container">
             <div class="flex w-full py-10">
 
                 <div class="mr-20">
-                    <a href="/sitebook/" class="font-display lowercase text-xl mr-5 text-slate-700 hover:text-slate-900">Sitebook</a>
+                    <a href="/sitebook/" class="font-display text-2xl mr-8 text-gray-700 hover:text-gray-900">Sitebook</a>
                 </div>
 
                 {% set pages = craft.entries.section('sitebook').level(1).slug('not home') %}
 
                 {% for page in pages %}
                     <div class="mr-20">
-                        <a href="{{page.url}}" class="font-display lowercase text-xl mr-5 text-slate-700 hover:text-slate-900">{{page.title}}</a>
+                        <a href="{{page.url}}" class="font-display text-2xl mr-8 text-gray-700 hover:text-gray-900">{{page.title}}</a>
 
                         {% set children = page.children() ??? [] %}
                         {% if children %}
                             <ul class="columns-2 gap-12">
                                 {% for child in children %}
-                                    <li><a href="{{child.url}}" class="lowercase text-base block py-2 text-slate-700 hover:text-slate-900">{{child.title}}</a></li>
+                                    <li><a href="{{child.url}}" class="text-base block py-2 text-gray-700 hover:text-gray-900">{{child.title}}</a></li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
@@ -99,7 +99,7 @@
 {% endblock %}
 
 {% block footer %}
-    <footer class="bg-gray-600">
+    <footer class="bg-gray-700">
         <div class="container">
             <div class="flex w-full py-6 text-white justify-between">
                 <strong>

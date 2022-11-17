@@ -17,7 +17,7 @@
         "label": "2 Column Grid",
         "value": "gridCards",
         "block": {
-            "layout": "_layouts/grids/text-above-2-columns",
+            "layout": "_layouts/grids/intro-above-2-columns",
             "content1": "ml-0"
         },
         "itemsConfig": {
@@ -26,13 +26,27 @@
     },
 
     {
+        "label": "3 Column Grid",
+        "value": "gridCards",
+
+        "block": {
+            "layout": "_layouts/grids/intro-above-3-columns",
+            "content1" : "ml-0"
+        },
+        "textConfig": { },
+        "itemsConfig": {
+            "useCard": "_components/cards/stackedCard"
+        }
+    },
+
+    {
         "label": "Tag Cloud",
         "value": "tagCloud",
+
         "block": {
-            "layout": "_layouts/grids/intro-above-6-columns-collapsing"
+            "layout": "_layouts/grids/intro-above-6-columns"
         },
         "textConfig": {
-            "moveHeaders": false,
             "moveButtons": true,
             "size": "sm"
         },

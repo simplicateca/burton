@@ -1,5 +1,8 @@
 {% extends "_boilerplate" %}
 {% set templatePath = _self ??? '' %}
+{% set entry   = entry ??? null %}
+{% set section = entry.section.handle ??? 'base' %}
+{% set layout  = 'oneColumn' %}
 
 {% block bodyHtml %}
     {% block alertbar %}
@@ -7,7 +10,10 @@
     {% endblock %}
 
     {% block header %}
-        {{ include( "_components/header/header", { entry: entry ??? null }, withContext = false ) }}
+        {{ include( "_components/header/header", {
+            entry: entry ??? null,
+            layout: layout
+        }, withContext = false ) }}
     {% endblock %}
 
     {% block belowHeader %}
@@ -15,11 +21,15 @@
     {% endblock %}
 
     {% block main %}
-        <main>
+        <main class="cMain cMain__{{layout}} cMain__{{section}}">
             {% block aboveContent %}{% endblock %}
         
             {% block content %}
-                {{ include( "_builders/partials/builderContent", { entry: entry ??? null }, withContext = false ) }}
+                {{ include( "_builders/partials/builderContent", {
+                    entry: entry,
+                    section: section,
+                    layout: layout
+                }, withContext = false ) }}
             {% endblock %}
         
             {% block belowContent %}{% endblock %}
@@ -27,9 +37,11 @@
     {% endblock %}
 
     {% block aboveFooter %}
-
-    {% import "_macros/fragments.twig" as fragments %}
-        {{ fragments.load(1406) }}
+        {{ include( "_components/footer/above", {
+            entry: entry,
+            section: section,
+            layout: layout
+        }, withContext = false ) }}    
     {% endblock %}
 
     {% block footer %}

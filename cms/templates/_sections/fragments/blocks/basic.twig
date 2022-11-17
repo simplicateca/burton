@@ -1,8 +1,8 @@
 {% set entry        = entry     ??? null %}
 {% set thisBlock    = thisBlock ??? null %}
 {% set fragment     = fragment  ??? thisBlock.fragment ??? null %}
-{% set entryType    = fragment.type.handle  ??? null %}
-{% set fragmentType = fragment.fragmentType ??? null %}
+{% set entryType    = fragment.type.handle   ??? null %}
+{% set fragmentType = fragment.fragmentType  ??? null %}
 
 {% if entryType == 'basic' and ( fragmentType == 'contentBuilder' or fragmentType == 'customHtml' ) %}
     {% if fragmentType == 'contentBuilder' %}

@@ -1,0 +1,39 @@
+{% extends "_boilerplate" %}
+{% set templatePath = _self ??? '' %}
+{% set entry   = entry   ?? null %}
+{% set section = section ?? 'base' %}
+{% set layout  = 'spotlight' %}
+
+{% block bodyHtml %}
+    {% block alertbar %}
+        {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+    {% endblock %}
+
+    {% block main %}
+        <main class="
+            cMain
+            cMain__{{layout}}
+            cMain__{{section}}
+            max-w-2xl
+            w-full
+            mt-20
+            p-4 md:p-12 lg:p-16
+            flex
+            mx-auto
+            justify-center
+            items-center
+            bg-white">
+            {% block aboveContent %}{% endblock %}
+        
+            {% block content %}
+                {{ include( "_builders/partials/builderContent", { entry: entry ??? null }, withContext = false ) }}
+            {% endblock %}
+        
+            {% block belowContent %}{% endblock %}
+        </main>
+    {% endblock %}
+
+    {% block footer %}
+        {{ include( "_components/footer/footer", {}, withContext = false ) }}
+    {% endblock %}
+{% endblock bodyHtml %}

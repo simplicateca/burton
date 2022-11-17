@@ -4,8 +4,8 @@
         "label" : "Normal Spacing Above & Below",
 
         "block" : {
-            "spaceBefore": "h-10 lg:h-20",
-            "spaceAfter": "h-10 lg:h-20"
+            "spaceBefore": "h-10 lg:h-12 xl:h-16 2xl:h-20",
+            "spaceAfter":  "h-10 lg:h-12 xl:h-16 2xl:h-20"
         }
     },
 
@@ -13,8 +13,8 @@
         "value": "spaceGapExtra",
         "label" : "Extra Spacing Above & Below",
         "block" : {
-            "spaceBefore": "h-16 lg:h-32",
-            "spaceAfter": "h-16 lg:h-32"
+            "spaceBefore": "h-16 lg:h-24 xl:h-28 2xl:h-32",
+            "spaceAfter":  "h-16 lg:h-24 xl:h-28 2xl:h-32"
         }
     },
 

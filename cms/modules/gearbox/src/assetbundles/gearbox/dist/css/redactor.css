@@ -1,34 +1,6 @@
-margin-top: 8px;/**
+/**
  * Gearbox - Redactor inline styles
  */
-
-@font-face {
-  font-family: 'Mulish';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/dist/fonts/Mulish.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'OverlockOblique';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/dist/fonts/Overlock-Oblique.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'TitanOne';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/dist/fonts/TitanOne.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 
 /* paragraph formatting dropdown selector */ 
 .redactor-dropdown-item-larger span {
@@ -46,19 +18,16 @@ margin-top: 8px;/**
 
 :root:root .redactor-styles h2 {
   font-size: 35px !important;
-  font-family: OverlockOblique;
+  font-family: arial;
 }
 
 :root:root .redactor-styles h3 {
   font-size: 24px !important;
-  font-family: OverlockOblique;
+  font-family: arial;
 }
 
 :root:root .redactor-styles h2 + h3 {
   font-size: 20px !important;
-  font-family: 'Mulish', arial;
-  font-weight: bold;
-  text-transform: uppercase;
   margin-top: -10px !important;
 }
 
@@ -181,7 +150,7 @@ margin-top: 8px;/**
 
 
 div[id^='fields-headerBuilder'][id$='headline-field'] .input .redactor-styles p {
-  font-family: 'TitanOne';
+  font-family: 'arial';
   font-size: 48px;
   font-weight: normal !important;
 }

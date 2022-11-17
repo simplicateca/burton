@@ -41,11 +41,11 @@
             {% block headJs %}{% endblock headJs %}
         </head>
 
-        <body class="{{bodyClasses|default('')}}" hx-ext="ajax-header">
+        <body class="cLayout__{{layout ?? 'base'}} {{bodyClasses|default('')}}" hx-ext="ajax-header">
 
             {{ include( "_components/a11y/skip-to-content", {}, withContext = false) }}
 
-            {{ include( "_components/transitions/curtain", {}, withContext = false) }}
+            {# {{ include( "_components/transitions/curtain", {}, withContext = false) }} #}
 
             {# -- Page content that should be included in the <body> -- #}
             {% block bodyHtml %}

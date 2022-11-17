@@ -2,10 +2,10 @@
 {% set title   = title   ??? entry.title ??? entry.headline ??? null %}
 {% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
 {% set url     = url     ??? entry.url ??? null %}
-{% set handle  = handle  ??? entry.section.handle ??? null %}
+{% set handle  = handle  ??? entry.section.handle ??? 'Base' %}
 
-<article class="tease {{handle}} relative">
-    <div class="p-4 bg-slate-50 border-t-8 rounded-lg h-full">
+<article class="cCard cCard__tagCard cCard__{{handle}}">
+    <div class="p-4 bg-gray-100 border-t-8 rounded-lg h-full">
         {% block title %}
             {%- if title -%}
                 <{{htag}} class="text-2xl mb-2">{{title}}</{{htag}}>
