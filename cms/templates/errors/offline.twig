@@ -1,14 +1,11 @@
 {% extends "_layouts/spotlight" %}
 
-{% set text %}
-    <h1></h1>
-    <p>This shouldn't take long. Please try refreshing or checking back in a couple minutes.</p>
-{% endset %}
-
 {% block content %}
     {% import "_macros/richtext" as richtext %}    
-    <h1 class="text-3xl md:text-5xl lg:text-6xl mb-4">
-        Offline for Maintenance
-    </h1>
+    <h1>Offline for Maintenance</h1>
+
+    {% set text %}
+        <p>This shouldn't take long. Please try refreshing or checking back in a couple minutes.</p>
+    {% endset %}    
     {{ richtext.prose( text, 'lg' ) }}
 {% endblock %}

@@ -25,7 +25,8 @@
     { "label": "Button", "class": "button" }
   ],
   "listClasses" : [
-    { "label": "Checkmarks", "class": "checkmarks" },
-    { "label": "2 columns",  "class": "grid" }
+    { "label": "Checkmarks",  "class": "checkmarks" },
+    { "label": "2 columns",   "class": "grid" },
+    { "label": "Center Rows", "class": "centerRows" }
   ]
 }

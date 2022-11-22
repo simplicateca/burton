@@ -1,0 +1,13 @@
+{% extends "_layouts/spotlight" %}
+
+{% block content %}
+    {% import "_macros/richtext" as richtext %}
+    <div>
+        <h1>Server Error</h1>
+
+        {% set text %}
+            <p>This page is currently unavailable. Hopefully the issue it temporary, please try refreshing or checking back in a couple minutes.</p>    
+        {% endset %}        
+        {{ richtext.prose( text, 'lg' ) }}
+    </div>
+{% endblock %}

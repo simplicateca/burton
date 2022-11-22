@@ -44,7 +44,8 @@
         "value": "tagCloud",
 
         "block": {
-            "layout": "_layouts/grids/intro-above-6-columns"
+            "layout": "_layouts/grids/intro-above-6-columns",
+            "content1Base" : "ml-0 w-full max-w-full"
         },
         "textConfig": {
             "moveButtons": true,

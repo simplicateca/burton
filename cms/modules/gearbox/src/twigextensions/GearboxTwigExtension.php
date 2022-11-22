@@ -49,6 +49,8 @@ class GearboxTwigExtension extends AbstractExtension
             new TwigFilter( 'hex2rgb',  [$this, 'hex2rgb'  ]),
 
             new TwigFilter( 'groupButtons', [$this, 'groupButtons' ]),
+
+            new TwigFilter( 'statFormat', [$this, 'statFormat' ]),
         ];
     }
 
@@ -90,6 +92,10 @@ class GearboxTwigExtension extends AbstractExtension
      */
     public function leadingHeaders( string|null $html = "", string $method = 'extract' ): string
     {
+        // before we get started, lets yank out any eyebrows
+        $eyebrow = (string) Retcon::getInstance()->retcon->only( $html, "div.eyebrow" ) ?? '';
+        $html    = (string) Retcon::getInstance()->retcon->remove( $html, "div.eyebrow" );
+
         $libxmlUseInternalErrors = \libxml_use_internal_errors(true);
         $content = \mb_convert_encoding($html, 'HTML-ENTITIES', Craft::$app->getView()->getTwig()->getCharset());
         $doc = new \DOMDocument();       
@@ -111,6 +117,10 @@ class GearboxTwigExtension extends AbstractExtension
                 }
             }
         }
+
+        // if we were extracting headers, return the eyebrow with the headers
+        // otherwise do nothing since they're already been removed from the body
+        if( $method == 'extract' ) { $html = $eyebrow . $html; }
 
         return $html;
     }
@@ -289,16 +299,35 @@ class GearboxTwigExtension extends AbstractExtension
             foreach( $crawler->filter('body')->children() AS $node ) {
             
                 // if a paragraph has 2 (or more) a.button elements in it, including the first element
-                // add the "buttonGroup" class to the paragraph
+                // add the "cButtonGroup" class to the paragraph
                 if( strtolower( $node->tagName ) == 'p' ) {
                     $paraCrawler = new Crawler($node);
-                    $buttons = $paraCrawler->filter('a.button');
+                    $buttons        = $paraCrawler->filter('a.button');
+                    $nonButtonLinks = $paraCrawler->filter('a');
 
-                    if( count( $buttons ) > 1 ) {
+                    if( count( $buttons ) >= 1 && count( $nonButtonLinks ) >= 2 ) {
                         $firstChild = $paraCrawler->children()->first();
                         if( strstr( $firstChild->attr('class'), 'button' ) ) {
-                            $curClass = $paraCrawler->attr('class') ? $paraCrawler->attr('class') . ' ' : '';
-                            $node->setAttribute( 'class', $curClass . 'buttonGroup' );
+                            $curClass   = $paraCrawler->attr('class') ?? '';
+
+                            $groupClass = "cButtonGroup";
+
+                            $style = $paraCrawler->attr('style') ?? null;
+                            $style = strtolower( preg_replace( "/\s+/", "", $style ) );
+
+                            if( strstr( $style, "text-align:left" ) ) {
+                                $groupClass .= " cButtonGroup__left";
+                            }
+
+                            if( strstr( $style, "text-align:center" ) ) {
+                                $groupClass .= " cButtonGroup__center";
+                            }
+
+                            if( strstr( $style, "text-align:right" ) ) {
+                                $groupClass .= " cButtonGroup__right";
+                            }
+
+                            $node->setAttribute( 'class', $groupClass . " " . $curClass );
                         }
                     }
                 }
@@ -392,21 +421,22 @@ class GearboxTwigExtension extends AbstractExtension
         }
         
         $scene = array_merge(
-            $variant['scene'] ?? [],
             $spacing['scene'] ?? [],
-            $bg['scene']      ?? []
+            $bg['scene']      ?? [],
+            $variant['scene'] ?? []
         );
 
         $container = array_merge(
-            $bg['container']      ?? [],
             $spacing['container'] ?? [],
+            $bg['container']      ?? [],
             $variant['container'] ?? []
         );
 
         $block = array_merge(
-            $bg['block']      ?? [],
+            $variant['block'] ?? [],
             $spacing['block'] ?? [],
-            $variant['block'] ?? []
+            $bg['block']      ?? []
+            
         );
 
         $variant['scene']     = $scene;
@@ -414,6 +444,23 @@ class GearboxTwigExtension extends AbstractExtension
         $variant['block']     = $block;
 
         return $variant;
+    }
+
+    public function statFormat($number)
+    {
+       $number = preg_replace( "/[^0-9]/", "", $number );
+       $readable = array("", "K", "M", "B");
+       $index=0;
+       while($number > 1000){
+          $number /= 1000;
+          $index++;
+       }
+
+       $round = ( $readable[$index] == 'M' ) ? 0 : 1;
+
+       $formatted = round($number,$round);
+
+       return "<span data-stat-number='$formatted' class='cStatNumber' data-viewport>" . $formatted . "</span>" . $readable[$index];
     }
 
 }

@@ -1,0 +1,71 @@
+{% import "_macros/richtext" as richtext %}
+
+{% set htag    = htag    ??? 'h3' %}
+{% set title   = title   ??? entry.title ??? entry.headline ??? null %}
+{% set summary = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
+{% set url     = url     ??? entry.url ??? null %}
+{% set handle  = handle  ??? entry.section.handle ??? 'base' %}
+{% set images  = images  ??? entry.images.all() ??? null %}
+
+{% set cAlign = loop.index % 2 ? 'md:flex-row-reverse' : 'md:flex-row' %}
+
+{% block articleTag %}
+<article class="cCard cCard__leftRightCard cCard__{{handle}}">
+{% endblock %}
+    <div class="relative flex flex-col {{cAlign}} justify-center items-center gap-10 lg:gap-20">
+
+        <div class="hidden md:block absolute w-6 h-6 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-40">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle class="stroke-gray-400" cx="50" cy="50" r="45" stroke-width="5" fill="#fff" />
+                <circle class="fill-gray-400"   cx="50" cy="50" r="35" />
+            </svg>
+        </div>
+
+        {% if loop.first and not loop.last %}
+            <div class="hidden md:block absolute h-1/2 w-2 bg-white left-1/2 -translate-x-1 top-0 z-20">&nbsp;</div>
+        {% endif %}
+
+        {% if loop.last and not loop.first %}           
+            <div class="hidden md:block absolute h-1/2 w-2 bg-white left-1/2 -translate-x-1 bottom-0 z-20">&nbsp;</div>
+        {% endif %}
+
+        <div class="w-full md:w-1/2 relative px-5 md:px-0">
+            {% block image %}
+                {{ include('_components/backgrounds/lottie-blob') }}
+                <div class="relative z-20">
+                    {{ include('_components/media/image') }}
+                </div>
+            {% endblock %}
+        </div>
+
+        <div class="w-full md:w-1/2 relative">
+            {% block aboveTitle %}{% endblock %}
+
+            <div class="absolute top-0 -translate-y-1/2 -translate-x-1/3 z-10 text-gray-400/40 text-8xl md:text-8xl lg:text-9xl xl:text-[150px] font-display">
+                {{loop.index}}
+            </div>   
+
+            {% block title %}
+                {%- if title -%}
+                    {{ richtext.formatHeadline( title, htag, 'mb-4' ) }}
+                {%- endif -%}
+            {% endblock %}
+
+            {% block aboveSummary %}{% endblock %}
+
+            {% block summary %}
+                {% set summary = summary
+                    ? craft.typogrify.truncate(summary, 200)
+                    : '' %}
+
+                {{ richtext.prose( summary, 'base' ) }}
+            {% endblock %}
+
+            {% block link %}
+                {%- if url -%}
+                    <a class="self-end mt-2 clickable-parent block" href="{{ url }}">Read more →</a>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+</article>

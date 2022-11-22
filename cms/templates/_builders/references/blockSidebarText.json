@@ -2,9 +2,6 @@
     "label": "Full Width",
     "value": "fullWidth",
     "block": {
-        "layout": "_layouts/grids/1-column",
-        "wrapper": "w-full",
-        "content1": "w-full",
-        "contentCols": "grid grid-cols-1 gap-12"
+        "layout": "_layouts/grids/1-column"
     }
 }]

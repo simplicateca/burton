@@ -1,0 +1,42 @@
+[
+    {
+        "label": "Use Card suggested by layout variant",
+        "value": "default"
+    },
+
+    {
+        "label": "Large Card",
+        "value": "largeCards",
+        "useCard": "_components/cards/largeCard"
+    },
+
+    {
+        "label": "Stacked Card",
+        "value": "stackedCard",
+        "useCard": "_components/cards/stackedCard"
+    },
+
+    {
+        "label": "Teaser Card",
+        "value": "teaserCards",
+        "useCard": "_components/cards/teaserCard"
+    },
+
+    {
+        "label": "Testimonial Card",
+        "value": "testimonial",
+        "useCard": "_components/cards/testimonial"
+    },
+
+    {
+        "label": "Text Only",
+        "value": "text",
+        "useCard": "_components/cards/text"
+    },
+
+    {
+        "label": "Stat Number",
+        "value": "statNumber",
+        "useCard": "_components/cards/statNumber"
+    }
+]

@@ -59,7 +59,7 @@
         {% set headers     = richtext.leadingHeadlines( text, null, headerClass, headerTmpl ) %}
 
         {# extract / wrap the buttons #}
-        {% set buttonWrap  = textConfig.buttonWrapper ?? null %}
+        {% set buttonWrap  = textConfig.buttonWrapper ??? 'div.cButtonGroup.cButtonGroup__trailing' %}
         {% set buttons     = richtext.trailingButtons( text, buttonWrap ) %}
         {% set text        = richtext.trimHeadlinesButtons( text, moveHeaders, moveButtons ) %}
         

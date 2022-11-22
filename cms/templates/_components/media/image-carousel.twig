@@ -1,8 +1,13 @@
-{% set images    = images ??? content.images.all() ??? null %}
-{% set class     = class ??? blockType ??? null %}
+{% set images    = images    ??? content.images.all() ??? null %}
+{% set class     = class     ??? blockType ??? null %}
 {% set transform = transform ??? null %}
-{% set blockID   = blockID ??? content.id ??? 1 %}
-{% set inModal   = inModal ?? false %}
+{% set blockID   = blockID   ??? content.id ??? 1 %}
+{% set inModal   = inModal   ??? false %}
+
+{# wireframe placeholder #}
+{% if not images and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    {% set images = [null,null,null,null] %}
+{% endif %}
 
 {% if images %}
     <div
@@ -32,26 +37,13 @@
                 }).mount()
             })"
         {% endif %}
-        class="relative">
-        {% if not inModal %}
-            <figure class="flex items-center justify-center absolute -top-32 -right-20 -bottom-32 -left-20" aria-hidden="true">
-                <lottie-player
-                    autoplay
-                    loop
-                    mode="bounce"
-                    preserveAspectRatio="none"
-                    speed="0.35"
-                    src="https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/lottie/background-blob.json"
-                    class="w-full"
-                ></lottie-player>
-            </figure>
-        {% endif %}
-
+        >
+ 
         {% set carouselClass = inModal
             ? "px-4 xl:py-14 xl:px-20 opacity-95"
             : "" %}
 
-        <section x-ref="splide{{blockID}}" class="splide relative z-20 {{carouselClass}}" aria-label="Slider {{blockID}}">
+        <section x-ref="splide{{blockID}}" class="splide relative z-40 {{carouselClass}}" aria-label="Slider {{blockID}}">
             <div class="splide__track">
                 <ul class="splide__list">
                     {% for image in images %}
@@ -76,5 +68,5 @@
         .splide__pagination__page.is-active {
             background: #333;
         }
-    </style>    
+    </style>
 {% endhtml %}

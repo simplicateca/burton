@@ -1,7 +1,12 @@
 {% set images    = images    ??? content.images.all() ??? null %}
-{% set class     = class     ??? "block mx-auto text-center" %}
+{% set class     = class     ??? "block mx-auto text-center w-full" %}
 {% set transform = transform ??? null %}
 {% set blockID   = blockID   ??? content.id ??? 1 %}
+
+{# wireframe placeholder #}
+{% if not images and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    {% set images = [null,null,null,null,null,null,null,null,null,null,null,null] %}
+{% endif %}
 
 {% if images %}
     {% for image in images %}

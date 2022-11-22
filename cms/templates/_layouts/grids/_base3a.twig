@@ -1,0 +1,69 @@
+{% set baseDefaults = {
+    classes: {
+        wrapperBase: '',
+        wrapper: '',
+        gridBase: '',
+        grid: '',
+        content1Base: '',
+        content2Base: '',
+        content3Base: '',
+        content1: '',
+        content2: '',
+        content3: '',
+        inner1Base: '',
+        inner2Base: '',
+        inner3Base: '',
+        inner1: '',
+        inner2: '',
+        inner3: '',
+        include1: '',
+        include2: '',
+        include3: '',
+    }
+} %}
+
+{% set props = {
+    classes: baseDefaults.classes | merge(props.classes)
+} %}
+
+{% block beforeGrid %}{% endblock %}
+
+<div class="cGrid__wrapper {{props.classes.wrapperBase}} {{props.classes.wrapper}}">
+
+    {% block header %}{% endblock %}
+
+    <div class="cGrid {{props.classes.gridBase}} {{props.classes.grid}}">
+        {% if not ( content1Hide ??? false ) %}
+            <div class="cGrid__content1 {{[props.classes.content1Base,props.classes.content1]|join(" ")}}">
+                {% if props.classes.inner1Base ??? props.classes.inner1 ??? null %}<div class="{{props.classes.inner1Base ?? ''}} {{props.classes.inner1 ?? ''}}">{% endif %}
+                    {% block content1 %}{% endblock %}
+                {% if props.classes.inner1Base ??? props.classes.inner1 ??? null %}</div>{% endif %}
+                {% block include1 %}{% endblock %}
+            </div>
+        {% endif %}
+    
+        <div class="relative">
+            {% if not ( content2Hide ??? false ) %}
+                <div class="cGrid__content2 {{[props.classes.content2Base,props.classes.content2]|join(" ")}}">
+                    {% if props.classes.inner2Base ??? props.classes.inner2 ??? null %}<div class="{{props.classes.inner2Base ?? ''}} {{props.classes.inner2 ?? ''}}">{% endif %}
+                        {% block content2 %}{% endblock %}
+                    {% if props.classes.inner2Base ??? props.classes.inner2 ??? null %}</div>{% endif %}
+                    {% block include2 %}{% endblock %}
+                </div>
+            {% endif %}
+
+            {% if not ( content3Hide ??? false ) %}
+                <div class="cGrid__content3 {{[props.classes.content3Base,props.classes.content3]|join(" ")}}">
+                    {% if props.classes.inner3Base ??? props.classes.inner3 ??? null %}<div class="{{props.classes.inner3Base ?? ''}} {{props.classes.inner3 ?? ''}}">{% endif %}
+                        {% block content3 %}{% endblock %}
+                    {% if props.classes.inner3Base ??? props.classes.inner3 ??? null %}</div>{% endif %}
+                    {% block include3 %}{% endblock %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% block footer %}{% endblock %}
+</div>
+
+{% block afterGrid %}{% endblock %}

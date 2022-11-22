@@ -1,38 +1,48 @@
 {% set gridDefaults = {
     classes: {
-        wrapper     : 'relative flex flex-col justify-center items-center',
-        contentCols : 'w-full max-w-xl mx-auto p-6 lg:p-16',
-        content1Base: 'flex items-center justify-center relative z-10 prose-text-light w-full',
-        content2Base: 'absolute top-0 left-0 right-0 bottom-0 parallaxBg',
-        content1    : '',
+        wrapperBase : 'relative w-full grid grid-cols-1 justify-center items-center',
+        wrapper     : '',
+        gridBase    : 'w-full h-full',
+        grid        : '',
+        content1Base: 'relative z-30 m-5',
+        content2Base: 'absolute top-0 left-0 right-0 bottom-0',
+        content1    : 'bg-white/80',
         content2    : '',
+        inner1Base  : 'p-5 prose-text-dark',
+        inner2Base  : '',
+        inner1      : '',
+        inner2      : '',
+        include1    : '',
+        include2    : '',
     }
 } %}
-  
+
 {% set props = {
     classes: blockConfig is defined and blockConfig is iterable ? gridDefaults.classes | merge(blockConfig) : gridDefaults.classes
 } %}
 
 {% block beforeGrid %}{% endblock %}
 
-<div class="{{props.classes.wrapper}}">
-
-    <div class="{{[props.classes.content2Base,props.classes.content2]|join(" ")}}">
-        {% if props.classes.content2Inner ?? null %}<div class="{{props.classes.content2Inner}}">{% endif %}
-            {% block content2 %}{% endblock %}
-            {% block content2Includes %}{% endblock %}
-        {% if props.classes.content2Inner ?? null %}</div>{% endif %}
-    </div>
+<div class="{{props.classes.wrapperBase}} {{props.classes.wrapper}}">
 
     {% block header %}{% endblock %}
 
-    <div class="{{props.classes.contentCols}}">
+    <div class="{{props.classes.gridBase}} {{props.classes.grid}}">
         {% if not ( content1Hide ??? false ) %}
             <div class="{{[props.classes.content1Base,props.classes.content1]|join(" ")}}">
-                {% if props.classes.content1Inner ?? null %}<div class="{{props.classes.content1Inner}}">{% endif %}
+                {% if props.classes.inner1Base ??? props.classes.inner1 ??? null %}<div class="{{props.classes.inner1Base ?? ''}} {{props.classes.inner1 ?? ''}}">{% endif %}
                     {% block content1 %}{% endblock %}
-                    {% block content1Includes %}{% endblock %}
-                {% if props.classes.content1Inner ?? null %}</div>{% endif %}
+                {% if props.classes.inner1Base ??? props.classes.inner1 ??? null %}</div>{% endif %}
+                {% block include1 %}{% endblock %}
+            </div>
+        {% endif %}
+
+        {% if not ( content2Hide ??? false ) %}
+            <div class="{{[props.classes.content2Base,props.classes.content2]|join(" ")}}">
+                {% if props.classes.inner2Base ??? props.classes.inner2 ??? null %}<div class="{{props.classes.inner2Base ?? ''}} {{props.classes.inner2 ?? ''}}">{% endif %}
+                    {% block content2 %}{% endblock %}
+                {% if props.classes.inner2Base ??? props.classes.inner2 ??? null %}</div>{% endif %}
+                {% block include2 %}{% endblock %}
             </div>
         {% endif %}
     </div>

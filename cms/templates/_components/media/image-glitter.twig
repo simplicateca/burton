@@ -12,7 +12,7 @@
 {% endif %}
 
 {% if image %}   
-    <div class="image relative max-w-md mx-auto">
+    <div class="image relative max-w-[85%] sm:max-w-sm xl:max-w-md mx-auto">
         {% set alt = image.alt ??? image.title ??? "" %}
         <img
             src="{{image.url}}"
@@ -30,7 +30,11 @@
 
 {# wireframe placeholder #}
 {% if not image and getenv('CRAFT_ENVIRONMENT') != 'production' %}
-    <div class="bg-gray-500 aspect-square w-full">&nbsp;</div>
+    <div class="image relative max-w-[85%] sm:max-w-sm xl:max-w-md mx-auto">
+        <img src="https://picsum.photos/seed/{{random(1,9999)}}/800/800?grayscale&blur=2">
+        {{ _self.glitter( glitter[0] ?? null, 0 ) }}
+        {{ _self.glitter( glitter[1] ?? null, 1 ) }}        
+    </div>
 {% endif %}
 
 
@@ -38,7 +42,7 @@
     {% set position = 'top-1/4 left-0 -translate-x-1/2 -translate-y-1/2' %}
     {% if i == 1 %}{% set position = 'top-3/4 right-0 translate-x-1/2 -translate-y-1/2' %}{% endif %}
 
-    <div class="glitter glitter{{i}} h-24 w-24 absolute {{position}}">
+    <div class="glitter glitter{{i}} h-16 w-16 sm:h-24 sm:w-24 absolute {{position}}">
         {% if glitter.url ?? null %}
             {% set alt = glitter.alt ??? glitter.title ??? "" %}
             <img

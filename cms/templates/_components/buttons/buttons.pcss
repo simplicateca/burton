@@ -23,8 +23,28 @@
     }
 }
 
-.buttonGroup {
-    @apply flex flex-col gap-4 md:flex-row;
+.cButtonGroup {
+    @apply
+        flex
+        flex-col
+        items-center
+        md:flex-row
+        gap-4;
+
+    p {
+        @apply
+            flex
+            items-center
+            flex-col
+            md:flex-row
+            gap-4;
+    }
+
+    a:not(.button) {
+        .prose-text-light & {
+            @apply text-gray-300;
+        }
+    }
 
     .button {
         &:nth-of-type(2) {
@@ -34,6 +54,28 @@
                 hover:text-white
                 hover:bg-gray-700;
         }
+
+        & + a:not(.button) {
+            &:after {
+                content: ' →';
+            }
+        }
+    }
+
+    &.cButtonGroup__left  {
+        @apply justify-start;
+    }
+
+    &.cButtonGroup__center  {
+        @apply justify-center;
+    }
+    
+    &.cButtonGroup__right  {
+        @apply justify-end;
+    }
+
+    &.cButtonGroup__trailing {
+        @apply pt-6;
     }
 }
 

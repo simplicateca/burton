@@ -23,9 +23,9 @@
                 <button
                     x-on:click="expanded = !expanded"
                     :aria-expanded="expanded"
-                    class="flex w-full items-center justify-between px-6 py-4 text-xl bg-gray-500 text-white font-bold rounded-md"
+                    class="flex w-full items-center justify-between px-6 py-4 text-base md:text-xl bg-gray-500 text-white font-bold rounded-md"
                 >
-                    <span>{{headline}}</span>
+                    <span class="text-left">{{headline|striptags}}</span>
                     <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
                     <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
                 </button>

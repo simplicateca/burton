@@ -27,15 +27,16 @@
     { "label": "Button", "class": "button" }
   ],
   "listClasses" : [
-    { "label": "Checkmarks", "class": "checkmarks" },
-    { "label": "2 columns",  "class": "grid" }
+    { "label": "Checkmarks",  "class": "checkmarks" },
+    { "label": "2 columns",   "class": "grid" },
+    { "label": "Center Rows", "class": "centerRows" }
   ],
   "imageClasses" : [
-    { "label": "Center", "class": "prose-img-center", "default": true }
+    { "label": "Center", "class": "cImage__center", "default": true }
   ],
   "eyebrows" : [
-    { "label": "Standard", "class": "eyebrow--standard", "default": true },
-    { "label": "Knockout", "class": "eyebrow--knockout", "default": false },
-    { "label": "Accent",   "class": "eyebrow--accent",   "default": false }
+    { "label": "Standard", "class": "cEyebrow cEyebrow__standard", "default": true },
+    { "label": "Knockout", "class": "cEyebrow cEyebrow__knockout", "default": false },
+    { "label": "Icon",     "class": "cEyebrow cEyebrow__icon",     "default": false }
   ]
 }

@@ -70,7 +70,7 @@
             });
 
             if( this.firstEyebrow ) {
-                this.$form.find('input[name=text]').val( this.firstEyebrow.innerText )
+                this.$form.find('input[name=text]').val( this.firstEyebrow.innerText.replace('--blank--','') )
 
                 var classList = this.firstEyebrow
                     .getAttribute('class')
@@ -82,7 +82,7 @@
 
         _insertNewEyebrow() {
             var data = this.$form.getData();
-            var text = ( data.text.trim() === '') ? '--eyebrow--' : data.text
+            var text = ( data.text.trim() === '') ? '<strong>--blank--</strong>' : data.text
             var html = `<div class="eyebrow ${data.style}">${text}</div>`;
             this._appendEyebrow(html)
         },

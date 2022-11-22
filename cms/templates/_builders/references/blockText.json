@@ -4,8 +4,7 @@
         "value": "optimalLeft",
         "block": {
             "layout": "_layouts/grids/1-column",
-            "wrapper": "w-full max-w-4xl 2xl:max-w-5xl",
-            "content1": ""
+            "wrapper": "max-w-4xl 2xl:max-w-5xl"
         }
     },
 
@@ -14,8 +13,7 @@
         "value": "optimalCenter",
         "block": {
             "layout": "_layouts/grids/1-column",
-            "wrapper": "w-full max-w-5xl mx-auto",
-            "content1": "w-full"
+            "wrapper": "max-w-4xl 2xl:max-w-5xl mx-auto"
         }
     },
 
@@ -23,9 +21,7 @@
         "label": "Full Width",
         "value": "fullWidth",
         "block": {
-            "layout": "_layouts/grids/1-column",
-            "wrapper": "w-full",
-            "content1": "w-full"
+            "layout": "_layouts/grids/1-column"
         }
     }
 ]

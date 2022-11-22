@@ -1,4 +1,5 @@
-{% set htag    = htag    ??? 'h3' %}
+{% import "_macros/richtext" as richtext %}
+{% set htag    = htag    ??? 'h4' %}
 {% set title   = title   ??? entry.title ??? entry.headline ??? null %}
 {% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
 {% set url     = url     ??? entry.url ??? null %}
@@ -9,7 +10,7 @@
     <div class="grid grid-cols-1 h-full content-start">
         <div class="bg-gray-200 w-full aspect-video flex items-center justify-center">
             {%- if title -%}
-                <h4>{{title}}</h4>
+                {{ richtext.formatHeadline( title, htag, "mb-0" ) }}
             {%- endif -%}
         </div>
     </div>  

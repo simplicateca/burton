@@ -1,0 +1,44 @@
+[
+    {
+        "label": "Transparent / No Color",
+        "value": "bgNone",
+        
+        "scene": {
+            "baseClass": "cScene__bgNone py-16 relative",
+            "bgColor": "gray-100",
+            "bgHex": "#f3f4f6",
+            "fillColor" : "gray-100",
+            "fillHex" : "#f3f4f6"
+        }
+    },
+
+    {
+        "label": "White",
+        "value": "bgWhite",
+
+        "scene": {
+            "baseClass": "cScene__bgWhite py-16 bg-white",
+            "bgColor": "white",
+            "bgHex": "#ffffff",
+            "fillColor" : "white",
+            "fillHex" : "#ffffff"
+        }
+    },
+
+    {
+        "label": "Dark",
+        "value": "bgDark",
+        
+        "scene": {
+            "baseClass": "cScene__bgDark py-16 bg-gray-700",
+            "bgColor": "gray-700",
+            "bgHex": "#374151",
+            "fillColor" : "gray-700",
+            "fillHex" : "#374151"
+        },
+
+        "block": {
+            "class": "prose-text-light"
+        }
+    }
+]

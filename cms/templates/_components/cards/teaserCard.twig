@@ -1,3 +1,4 @@
+{% import "_macros/richtext" as richtext %}
 {% set htag    = htag    ??? 'h3' %}
 {% set title   = title   ??? entry.title ??? entry.headline ??? null %}
 {% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
@@ -7,16 +8,20 @@
 
 <article class="cCard cCard__teaserCard cCard__{{handle}}">
     <div class="flex flex-row items-center border-1 border-gray-200">
-        <div class="bg-gray-200 aspect-square h-24">
+        <div class="bg-gray-200 aspect-square h-16 lg:h-24 self-start">
             &nbsp;
         </div>
 
-        <div class="p-2">
+        <div class="pl-4">
             {% block title %}
                 {%- if title -%}
-                    <{{htag}} class="sm !leading-none">{{title}}</{{htag}}>
+                    {{ richtext.formatHeadline( title, htag, "text-lg xl:text-xl mb-1" )}}
                 {%- endif -%}
             {% endblock %}
+
+            {% block summary %}
+                {{ richtext.prose( text, 'xs' ) }}
+            {% endblock %}            
 
             {% block link %}
                 {%- if url -%}

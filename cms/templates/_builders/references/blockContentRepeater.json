@@ -16,10 +16,16 @@
         "value": "horizontalTabs",
 
         "block": {
-            "layout": "_layouts/grids/2-columns-even"
+            "layout": "_layouts/grids/2-columns-even",
+            "grid": "lg:flex-row-reverse",
+            "content1": "pt-10"
         },        
         "itemsConfig": {
             "component": "_components/tabs/horizontal"
+        },
+        "textConfig": {
+            "moveHeaders": true,
+            "headerClass": "text-center mb-8"
         }
     },
 
@@ -29,7 +35,7 @@
 
         "block": {
             "layout": "_layouts/grids/intro-above-3-columns",
-            "content1" : "text-center"
+            "content1" : "optimalReadingWidth"
         },
         "textConfig": { },
         "itemsConfig": {
@@ -38,13 +44,16 @@
     },
 
     {
-        "label": "Feature Icons - 3 Columns",
+        "label": "Feature Icons - 2x2",
         "value": "featureIcons",
         "block": {
-            "layout": "_layouts/grids/intro-above-3-columns",
-            "content1" : "text-center"
+            "layout": "_layouts/grids/1-column",
+            "grid" : "gap-10",
+            "content1" : "optimalReadingWidth",
+            "content2": "w-full relative p-5 lg:py-10 lg:px-20",
+            "inner2": "grid grid-cols-1 md:grid-cols-2 gap-20 lg:gap-40 relative z-20",
+            "include2" : "_components/backgrounds/inner-grid-lines"
         },
-        "textConfig": { },
         "itemsConfig": {
             "useCard": "_components/cards/iconFeature",
             "buttons": "button button--small"
@@ -52,10 +61,88 @@
     },
 
     {
+        "label": "2 Columns - Text Above Repeater Left / Image Right",
+        "value": "stack3Left",
+        "block": {
+            "layout": "_layouts/grids/3-columns-stacked-left"
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/teaserCard",
+            "buttons": "button button--small"
+        },
+        "mediaConfig": {
+            "component": "_components/media/image-fit"
+        },
+        "textConfig": {
+            "moveHeaders" : true
+        }
+    },
+
+    {
+        "label": "Features Overlapping Background Image",
+        "value": "featuresOverImage",
+        "block": {
+            "layout": "_layouts/grids/4-column-overlap",
+            "content1": "optimalReadingWidth",
+            "content2": "relative grid grid-cols-2 lg:grid-cols-4 gap-10"
+        },
+        "scene": {
+            "spaceAfter" : ""
+        },
+        "container": {
+            "class" : "noContainer"
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/stackedCard",
+            "buttons": "button button--small"
+        },
+        "mediaConfig": {
+            "component": "_components/media/image-parallax"
+        }
+    },
+
+    {
+        "label": "Text Above Steps - Buttons Bottom",
+        "value": "steps",
+        "block": {
+            "layout": "_layouts/grids/1-column",
+            "grid"    : "gap-12 md:gap-20",
+            "content1": "optimalReadingWidth",
+            "content2": "relative px-2 md:px-8 lg:px-20 grid grid-cols-1 gap-20 my-10",
+            "include2": "_components/backgrounds/step-line-center"
+        },
+        "itemsConfig": {
+            "useCard": "_components/cards/leftRightCard",
+            "buttons": "button button--small"
+        },
+        "textConfig": {
+            "moveButtons" : true
+        }
+    },
+
+    {
+        "label": "Card Slider",
+        "value": "cardSlider",
+        "block": {
+            "layout": "_layouts/grids/1-column",
+            "grid"  : "!gap-0",
+            "content1": "container optimalReadingWidth"
+        },
+        "container" : {
+            "class" : "noContainer"
+        },
+        "itemsConfig": {
+            "component": "_components/carousel/basic",
+            "useCard"  : "_components/cards/stackedCard"
+        }
+    },
+
+    {
         "label": "Logo Cloud",
         "value": "logoCloud",
         "block": {
-            "layout": "_layouts/grids/intro-above-6-columns"
+            "layout": "_layouts/grids/intro-above-6-columns",
+            "content1" : "optimalReadingWidth"
         },
         "textConfig": {
             "moveButtons": true,

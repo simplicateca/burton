@@ -1,4 +1,4 @@
-dateModified: 1668682241
+dateModified: 1669152579
 elementSources:
   craft\elements\Entry:
     -
@@ -235,6 +235,7 @@ meta:
     267c2f19-de6c-4986-a2fa-d0a8b2a5f969: Headline # Headline
     267e0240-5cf1-4d41-b3ed-86fb8328dc1a: Background # Background
     387e39f3-66b5-4aa5-a6a8-500db12ccadc: Form # Form
+    429f5ad0-34e7-4487-9035-39073e8ffcb7: 'Alternate Card' # Alternate Card
     468a14eb-fb24-4d42-85ea-51a108f68949: 'Variant layout' # Variant layout
     479c17fb-3144-43b4-9417-f940264f6a71: 'Title Style' # Title Style
     481eb25d-9439-4ee3-85c2-e1a0e6d62d11: Textarea # Textarea
@@ -339,6 +340,7 @@ meta:
     b947d0e1-da59-4426-bb04-17175245afa2: Edges # Edges
     b6015f85-adad-474b-afb4-ac34bb560c0c: 'Limit / Per Page' # Limit / Per Page
     b6689e78-2cda-4120-a5a3-7337cec63b2c: Text # Text
+    b65678be-7ed0-4665-aaaa-bd9d406b60f4: 'Alternate Card' # Alternate Card
     b114569d-4057-4cc7-acc0-04ff0d55ef41: Background # Background
     b181050f-eab8-45f0-906a-c8241c2d3cf2: 'Show Block Meta' # Show Block Meta
     ba25b35f-89c4-4230-96a4-31904c63bbf7: Edges # Edges

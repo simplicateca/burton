@@ -22,14 +22,29 @@
 
 {# wireframe placeholder #}
 {% if not image and getenv('CRAFT_ENVIRONMENT') != 'production' %}
-    <div class="cImageCluster flex gap-4 mx-auto md:-my-20">
+    <div class="cImageCluster flex gap-4 mx-auto lg:-my-20">
         <div class="flex flex-col gap-4">
-            <div class="bg-gray-500 aspect-square h-72 w-72 rounded-lg opacity-0 clusterA relative z-30">&nbsp;</div>
+            <div class="aspect-square w-full opacity-0 clusterA relative z-30">
+                <img
+                    src="https://picsum.photos/seed/{{random(1,9999)}}/800/800?grayscale&blur=2"
+                    loading="lazy"
+                    class="rounded-lg">
+            </div>
 
-            <div class="bg-gray-500 aspect-square h-40 w-40 rounded-lg mr-0 ml-auto opacity-0 relative clusterB z-10">&nbsp;</div>
+            <div class="aspect-square w-3/5 rounded-lg mr-0 ml-auto opacity-0 relative clusterB z-10">
+                <img
+                    src="https://picsum.photos/seed/{{random(1,9999)}}/800/800?grayscale&blur=2"
+                    loading="lazy"
+                    class="rounded-lg">
+            </div>
         </div>
-        <div class="mt-32">
-            <div class="bg-gray-700 aspect-square h-56 w-56 rounded-lg opacity-0 clusterC relative z-20">&nbsp;</div>
+        <div class="mt-16 lg:mt-32">
+            <div class="aspect-square w-4/5 rounded-lg opacity-0 clusterC relative z-20">
+                <img
+                    src="https://picsum.photos/seed/{{random(1,9999)}}/800/800?grayscale&blur=2"
+                    loading="lazy"
+                    class="rounded-lg">                
+            </div>
         </div>
     </div>
 {% endif %}
@@ -39,7 +54,7 @@
     window.waitForGlobal("app.gsap", function() {
 
         app.gsap.fromTo(".clusterA", {
-            rotation:-90,
+            rotation:-35,
             opacity: 0,
             transformOrigin: '0% 100%'
         }, {
@@ -48,9 +63,9 @@
             ease: app.Power3.easeOut,
             duration:1,
             scrollTrigger: {
-                trigger: ".clusterA",
-                start: "bottom 80%",
-                end: "bottom 60%",
+                trigger: "[data-block-id='{{blockID ?? 1}}']",
+                start: "top 65%",
+                end: "top 45%",
                 scrub:.3,
                 invalidateOnRefresh: true // to make it responsive
             }
@@ -70,9 +85,9 @@
             ease: app.Power3.easeOut,
             duration:1,
             scrollTrigger: {
-                trigger: ".clusterB",
-                start: "bottom 80%",
-                end: "bottom 60%",
+                trigger: "[data-block-id='{{blockID ?? 1}}']",
+                start: "top 40%",
+                end: "top 5%",
                 scrub:.3,
                 invalidateOnRefresh: true // to make it responsive                
             }
@@ -92,9 +107,9 @@
             ease: app.Power3.easeOut,
             duration:1,
             scrollTrigger: {
-                trigger: ".clusterC",
-                start: "bottom 80%",
-                end: "bottom 60%",
+                trigger: "[data-block-id='{{blockID ?? 1}}']",
+                start: "top 55%",
+                end: "top 30%",
                 scrub:.3,
                 invalidateOnRefresh: true // to make it responsive                
             }

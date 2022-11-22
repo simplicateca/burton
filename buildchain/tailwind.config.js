@@ -39,7 +39,7 @@ module.exports = {
 
     screens: {
       'xs': '360px',
-      'tall': { 'raw': '(min-height: 800px)' },
+      'tall': { 'raw': '(min-height: 900px)' },
       ...defaultTheme.screens,
     },
 

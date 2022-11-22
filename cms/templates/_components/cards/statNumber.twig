@@ -1,0 +1,66 @@
+{% import "_macros/richtext" as richtext %}
+
+{% set blockID   = blockID ??? random(11111,99999) %}
+{% set loopIndex = loop.index ??? random(11111,99999) %}
+{% set htag      = htag    ??? 'h3' %}
+{% set title     = title   ??? entry.title ??? entry.headline ??? null %}
+{% set text      = text    ??? entry.summary ??? entry.dek ??? entry.text ??? '' %}
+{% set url       = url     ??? entry.url ??? null %}
+{% set handle    = handle  ??? entry.section.handle ??? 'Base' %}
+{% set images    = images  ??? entry.images.all() ??? null %}
+
+<div class="cCard cCard__statNumber cCard__{{handle}} flex flex-col gap-2">
+    {# <div>
+        <div class="aspect-square h-16 bg-gray-200">&nbsp;</div>
+    </div> #}
+
+    {% block title %}
+        {%- if title -%}
+            {% set number = title|striptags|statFormat %}
+            <h3 class="mb-0 text-4xl text-white cStatNumber__{{blockID}}__{{loopIndex}}">
+                {{number|raw}}
+            </h3>
+        {%- endif -%}
+    {% endblock %}
+
+    {% block summary %}
+        {{ richtext.prose( text, 'sm' ) }}
+    {% endblock %}
+</div>
+
+{% js %}
+    window.waitForGlobal("app.ScrollTrigger", function() {
+
+        if( typeof app.statObserver === 'undefined' ) {
+            app.statObserver = new MutationObserver(function(mutations) {
+                const counterAnimation = (target, start = 0, end, duration = 1000) => {
+                    let startTimestamp = null
+                    const step = (timestamp) => {
+                        if (!startTimestamp) startTimestamp = timestamp
+                        const progress = Math.min((timestamp - startTimestamp) / duration, 1)
+                        target.innerText = Math.floor(progress * (end - start) + start)
+                        if (progress < 1) {
+                            window.requestAnimationFrame(step);
+                        } else {
+                            target.innerText = end
+                        }
+                    }
+                    window.requestAnimationFrame(step)
+                }
+
+                for( let i = 0; i < mutations.length; i++ ) {
+                    counterAnimation( mutations[i].target, 0, mutations[i].target.dataset.statNumber, 1000 )
+                }
+            })
+        }
+    });
+{% endjs %}
+
+{% js %}
+    window.waitForGlobal("app.statObserver", function() {
+        app.statObserver.observe(document.querySelector('.cStatNumber__{{blockID}}__{{loopIndex}} span'), {
+            attributes: true,
+            attributeFilter: ['data-entered'],
+        })
+    });
+{% endjs %}

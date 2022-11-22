@@ -19,20 +19,29 @@
     {% endif %}
 {% endblock %}
 
-{% block content1Includes %}
+{% block include1 %}
     {% import "_macros/widgets.twig" as widgets %}
-    {{ widgets.embed( thisBlock, 'content1Includes' ) }}
+    {{ widgets.embed( thisBlock, 'content1' ) }}
 
-    {% if settings.block.includeAfterContent1 ??? null %}
-        {{ include( settings.block.includeAfterContent1, { settings: settings } ) }}
+    {% if settings.block.include1 ??? null %}
+        {{ include( settings.block.include1, { settings: settings } ) }}
     {% endif %}
 {% endblock %}
 
-{% block content2Includes %}
+{% block include2 %}
     {% import "_macros/widgets.twig" as widgets %}        
-    {{ widgets.embed( thisBlock, 'content2Includes' ) }}
+    {{ widgets.embed( thisBlock, 'content2' ) }}
 
-    {% if settings.block.includeAfterContent2 ??? null %}
-        {{ include( settings.block.includeAfterContent2, { settings: settings } ) }}
+    {% if settings.block.include2 ??? null %}
+        {{ include( settings.block.include2, { settings: settings } ) }}
+    {% endif %}
+{% endblock %}
+
+{% block include3 %}
+    {% import "_macros/widgets.twig" as widgets %}
+    {{ widgets.embed( thisBlock, 'content3' ) }}
+
+    {% if settings.block.include3 ??? null %}
+        {{ include( settings.block.include3, { settings: settings } ) }}
     {% endif %}
 {% endblock %}

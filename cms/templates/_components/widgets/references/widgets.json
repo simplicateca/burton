@@ -1,0 +1,29 @@
+[
+    {
+        "value": "",
+        "label": "None",
+        "component": "",
+        "position": ""
+    },
+
+    {
+        "value": "githubButtons",
+        "label": "Github Buttons",
+        "component": "_components/widgets/github-buttons",
+        "position": "content1"
+    },
+
+    {
+        "value": "socialIcons",
+        "label": "Social Media Icons",
+        "component": "_components/widgets/social-links",
+        "position": "content1"
+    },
+
+    {
+        "value": "contactDetails",
+        "label": "Contact Details",
+        "component": "_components/widgets/contact-details",
+        "position": "content1"
+    }
+]

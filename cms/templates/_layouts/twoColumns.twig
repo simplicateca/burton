@@ -27,7 +27,7 @@
             {% set firstContentBlock = entry.contentBuilder|first ??? null %}
             {% set firstBlockBG      = firstContentBlock.bg.value ??? null %}
 
-            <div class="contentColumn grow">
+            <div class="cContentColumn cContentColumn__{{layout}} cContentColumn__{{section}} grow">
                 {% block aboveContent %}{% endblock %}
 
                 {% block content %}
@@ -43,7 +43,7 @@
 
             {% set hasBlockBG = firstBlockBG in ['bgWhite', 'bgDark'] %}
             {% set sidebarGap = hasBlockBG ? '' : 'lg:pt-20' %}
-            <div class="cSidebar cSidebar__{{section}} {{sidebarGap}} w-full lg:max-w-xs">
+            <div class="cSidebar cSidebar__{{layout}} cSidebar__{{section}} {{sidebarGap}} w-full lg:max-w-xs">
                 {% block sidebar %}
                     {{ include( "_builders/partials/builderSidebar", {
                         entry: entry,

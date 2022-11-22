@@ -58,7 +58,7 @@
         },
         "block": {
             "layout": "_layouts/grids/2-columns-even",
-            "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16"
+            "grid": "lg:flex-row-reverse"
         },
         "mediaConfig": {
             "component": "_components/media/media",

@@ -9,7 +9,7 @@
 <article class="cCard cCard__text cCard__text--truncated cCard__{{handle}}">
     {% block title %}
         {%- if title -%}
-            <{{htag}} class="mb-1">{{title}}</{{htag}}>
+            {{ richtext.formatHeadline( title, htag, "mb-1" )}}
         {%- endif -%}
     {% endblock %}
 

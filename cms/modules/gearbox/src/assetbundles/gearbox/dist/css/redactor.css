@@ -80,6 +80,24 @@
     column-count: 2;
 }
 
+.input .redactor-styles ul.centerRows {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  justify-content: center;
+  align-items:center;
+  list-style: none;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.input .redactor-styles ul.centerRows li {
+  list-style: none;
+  margin: 0px auto;
+  padding: 10px;
+  max-width: 80%;
+  border-bottom: 1px solid #ccc;
+}
+
 .input .redactor-styles ul.grid,
 .input .redactor-styles ul.grid-2 {
     display: grid;
@@ -103,7 +121,7 @@
     content: '✓ ';
 }
 
-.input .redactor-styles div.eyebrow {
+.input .redactor-styles div.cEyebrow {
   display: table;
   padding: 2px 4px;
   border: 3px dashed #898989;
@@ -115,19 +133,19 @@
   margin-left: -1px;
 }
 
-.input .redactor-styles div.eyebrow.eyebrow--knockout {
+.input .redactor-styles div.cEyebrow.cEyebrow__knockout {
   background: #222;
   color: #fff;
   border-color: #999;
 }
 
-.input .redactor-styles div.eyebrow.eyebrow--accent {
+.input .redactor-styles div.cEyebrow.cEyebrow__-accent {
   background: yellow;
 }
 
-.input .redactor-styles div.eyebrow + h2,
-.input .redactor-styles div.eyebrow + h3,
-.input .redactor-styles div.eyebrow + h4 {
+.input .redactor-styles div.cEyebrow + h2,
+.input .redactor-styles div.cEyebrow + h3,
+.input .redactor-styles div.cEyebrow + h4 {
   margin-top: 0 !important;
 }
 

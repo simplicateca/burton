@@ -52,7 +52,7 @@ fieldLayouts:
             uid: 4043fe8b-846c-4408-af28-90d689ede417
             userCondition: null
             warning: null
-            width: 100
+            width: 75
           -
             elementCondition: null
             fieldUid: 7b72b671-dcdc-49b2-95cd-44a8e8be7cad # Background
@@ -77,6 +77,18 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 50
+          -
+            elementCondition: null
+            fieldUid: b65678be-7ed0-4665-aaaa-bd9d406b60f4 # Alternate Card
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 27aa5c02-8af4-4d6b-b0ee-34f54488cb79
+            userCondition: null
+            warning: null
+            width: 100
         name: Content
         uid: 6272049f-8eaf-4847-a1fc-52a1f881a7a9
         userCondition: null
@@ -90,7 +102,7 @@ fields:
     name: Background
     searchable: false
     settings:
-      referenceFile: _builders/references/backgrounds.json
+      referenceFile: _components/backgrounds/references/backgrounds.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -104,7 +116,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 13520478
+      changedFieldIndicator: 605227745
       columns:
         __assoc__:
           -
@@ -148,7 +160,7 @@ fields:
     name: Spacing
     searchable: false
     settings:
-      referenceFile: _builders/references/spacing.json
+      referenceFile: _components/spacers/references/spacing.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -211,6 +223,19 @@ fields:
     searchable: false
     settings:
       referenceFile: _builders/references/blockContentRepeater.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  b65678be-7ed0-4665-aaaa-bd9d406b60f4: # Alternate Card
+    columnSuffix: uzgufcyh
+    contentColumnType: string
+    fieldGroup: null
+    handle: card
+    instructions: null
+    name: 'Alternate Card'
+    searchable: false
+    settings:
+      referenceFile: _components/cards/references/overrideCards.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

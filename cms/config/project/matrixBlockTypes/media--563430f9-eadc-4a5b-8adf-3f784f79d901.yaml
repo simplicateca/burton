@@ -102,7 +102,7 @@ fields:
     name: Spacing
     searchable: false
     settings:
-      referenceFile: _builders/references/spacingHero.json
+      referenceFile: _components/spacers/references/spacingHero.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -168,7 +168,7 @@ fields:
     name: Background
     searchable: false
     settings:
-      referenceFile: _builders/references/backgroundsHero.json
+      referenceFile: _components/backgrounds/references/backgroundsHero.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -181,7 +181,7 @@ fields:
     name: Widget
     searchable: false
     settings:
-      referenceFile: _builders/references/widgets.json
+      referenceFile: _components/widgets/references/widgets.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

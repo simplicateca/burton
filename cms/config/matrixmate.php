@@ -88,7 +88,7 @@ return [
                     ]],
                 ],
 
-                'repeater' => [
+                'contentRepeater' => [
                     'tabs' => [[
                         'label' => 'Content',
                         'fields' => ['variant', 'text', 'items', 'images', 'bg', 'spacing'],
@@ -96,5 +96,5 @@ return [
                 ]
             ],
         ],
-    ],
+    ]
 ];

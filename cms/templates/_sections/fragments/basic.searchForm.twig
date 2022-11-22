@@ -4,8 +4,8 @@
 {% set content1Hide = not text|trim %}
 
 {% set blockConfig = {
-    wrapper: 'grid grid-cols-1 mx-auto max-w-xl',
-    contentCols: 'grid grid-cols-1 gap-12'
+    wrapper: 'max-w-xl mx-auto',
+    grid: 'gap-12'
 } %}
 
 {% block content1 -%}{{text}}{%- endblock %}

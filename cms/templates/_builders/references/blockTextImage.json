@@ -25,7 +25,10 @@
         "class": "overflow-hidden"
     },
     "block": {
-        "layout": "_layouts/grids/2-columns-even"
+        "layout": "_layouts/grids/2-columns-even",
+        "content2": "flex flex-col items-center justify-center relative",
+        "inner2" : "w-full",
+        "include2" : "_components/backgrounds/lottie-blob"
     },
     "mediaConfig": {
         "component": "_components/media/image-carousel"
@@ -40,32 +43,34 @@
     },
     "block": {
         "layout": "_layouts/grids/2-columns-even",
-        "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16"
+        "grid": "lg:flex-row-reverse",
+        "content2": "relative",
+        "inner2": "h-full relative overflow-hidden z-30",
+        "include2" : "_components/backgrounds/offset-box"
     },
     "mediaConfig": {
-        "component": "_components/media/image-fit"
+        "component": "_components/media/image-fit-parallax"
     }
 },
 
 {
     "value": "parallax",
-    "label": "Parallax Background Image - Text center",
+    "label": "Parallax Background Image - Text Offset",
     "reference": {
-        "note": "Full bleed image w/ parallax effect on scroll. Text centered."
+        "note": "Full bleed image w/ parallax effect on scroll. Text offset in a box."
     },
     "block": {
         "layout": "_layouts/grids/text-overlap.twig",
-        "contentCols": "w-full max-w-xl mx-auto p-6 lg:p-16 min-h-[45rem]"
+        "grid": "container",
+        "content1": "mt-60 xl:mt-80 md:w-3/4 lg:w-1/2 !p-0 mr-0 ml-auto",
+        "content2": "min-h-[30rem] max-h-[30rem] xl:min-h-[40rem] xl:max-h-[40rem]",
+        "inner1": "!bg-white/100 lg:ml-6 xl:ml-10 xl:p-10"
     },
     "container" : {
-        "class": "overflow-hidden"
+        "class": "noContainer"
     },
     "mediaConfig": {
         "component": "_components/media/image-parallax"
-    },
-    "textConfig": {
-        "moveHeaders": true,
-        "headerComponent": "_components/text/scrolling-headline"
     }
 },
 
@@ -76,15 +81,10 @@
         "note": ""
     },
     "block": {
-        "layout": "_layouts/grids/2-columns-even",
-        "contentCols": "flex flex-col-reverse sm:flex-row sm:justify-center sm:items-center overflow-hidden",
-        "content1Base": "w-full sm:w-1/2",
-        "content2Base": "w-full sm:w-1/2",
-        "content1": "p-8 xl:p-20",
-        "content2": "h-96 sm:h-full tall:min-h-[800px] relative overflow-hidden"
+        "layout": "_layouts/grids/2-column-checkerboard"
     },
     "container" : {
-        "class": ""
+        "class": "noContainer"
     },
     "mediaConfig": {
         "component": "_components/media/image-fit-parallax"
@@ -98,16 +98,12 @@
         "note": ""
     },
     "block": {
-        "layout": "_layouts/grids/2-columns-even",
-        "content1Base": "w-full sm:w-1/2",
-        "content2Base": "w-full sm:w-1/2",
-        "contentCols": "flex flex-col-reverse sm:flex-row-reverse sm:justify-center sm:items-center overflow-hidden",
-        "content1": "p-8 xl:p-20",
-        "content2": "h-96 sm:h-full tall:min-h-[800px] relative overflow-hidden"
+        "layout": "_layouts/grids/2-column-checkerboard",
+        "grid": "sm:flex-row-reverse"
     },
     "container" : {
-        "class": ""
-    },    
+        "class": "noContainer"
+    },
     "mediaConfig": {
         "component": "_components/media/image-fit-parallax"
     }
@@ -122,8 +118,8 @@
     },
     "block": {
         "layout": "_layouts/grids/2-columns-even",
-        "contentCols": "flex flex-col-reverse lg:flex-row-reverse gap-16",
-        "content2" : "flex items-center"
+        "grid": "lg:flex-row-reverse",
+        "content2" : "flex items-center h-full"
     },    
     "mediaConfig": {
         "component": "_components/media/image-cluster"
@@ -138,8 +134,9 @@
         "note": ""
     },
     "block": {
-        "layout": "_layouts/grids/2-columns-even"
-    },    
+        "layout": "_layouts/grids/2-columns-even",
+        "grid": "items-center"
+    },
     "mediaConfig": {
         "component": "_components/media/image-glitter"
     }

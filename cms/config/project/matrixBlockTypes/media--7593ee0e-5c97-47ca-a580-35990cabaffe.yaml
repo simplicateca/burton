@@ -191,7 +191,7 @@ fields:
     name: Spacing
     searchable: false
     settings:
-      referenceFile: _builders/references/spacing.json
+      referenceFile: _components/spacers/references/spacing.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -232,7 +232,7 @@ fields:
     name: Background
     searchable: false
     settings:
-      referenceFile: _builders/references/backgrounds.json
+      referenceFile: _components/backgrounds/references/backgrounds.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

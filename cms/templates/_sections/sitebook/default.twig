@@ -5,7 +5,10 @@
 {% block alertbar %}{% endblock %}
 
 {% block header %}
-    {% embed "_components/header/header" with { entry: entry ??? null } only %}
+    {% embed "_components/header/header" with {
+        entry: entry ??? null,
+        section: 'sitebook'
+    } only %}
         {% block headerNavigation %}
             {{ include( "_components/navigation/sitebook" ) }}
         {% endblock %}
@@ -67,30 +70,28 @@
 
     <div class="bg-gray-200">
         <div class="container">
-            <div class="flex w-full py-10">
+            <div class="flex flex-col md:flex-row w-full py-10 gap-10">
 
-                <div class="mr-20">
-                    <a href="/sitebook/" class="font-display text-2xl mr-8 text-gray-700 hover:text-gray-900">Sitebook</a>
+                <div class="">
+                    <a href="/sitebook/" class="font-display text-base lg:text-2xl text-gray-700 hover:text-gray-900">Sitebook</a>
                 </div>
 
                 {% set pages = craft.entries.section('sitebook').level(1).slug('not home') %}
 
                 {% for page in pages %}
-                    <div class="mr-20">
-                        <a href="{{page.url}}" class="font-display text-2xl mr-8 text-gray-700 hover:text-gray-900">{{page.title}}</a>
+                    <div class="">
+                        <a href="{{page.url}}" class="font-display text-base lg:text-2xl text-gray-700 hover:text-gray-900">{{page.title}}</a>
 
                         {% set children = page.children() ??? [] %}
                         {% if children %}
-                            <ul class="columns-2 gap-12">
+                            <ul class="pl-4 sm:pl-0 sm:columns-2 gap-4">
                                 {% for child in children %}
-                                    <li><a href="{{child.url}}" class="text-base block py-2 text-gray-700 hover:text-gray-900">{{child.title}}</a></li>
+                                    <li><a href="{{child.url}}" class="text-sm lg:text-base block py-2 text-gray-700 hover:text-gray-900">{{child.title}}</a></li>
                                 {% endfor %}
                             </ul>
                         {% endif %}
                     </div>
                 {% endfor %}
-
-                <div>&nbsp;</div>
             </div>
         </div>
     </div>
@@ -101,7 +102,7 @@
 {% block footer %}
     <footer class="bg-gray-700">
         <div class="container">
-            <div class="flex w-full py-6 text-white justify-between">
+            <div class="text-sm md:text-base flex flex-col md:flex-row gap-8 w-full py-6 text-white justify-between">
                 <strong>
                     Embedded Website Documentation
                 </strong>
@@ -118,5 +119,10 @@
 {% css %}
     main {
         min-height: 80vh !important;
+    }
+
+    .cMainNav__sitebook {
+        position: relative !important;
+        
     }
 {% endcss %}

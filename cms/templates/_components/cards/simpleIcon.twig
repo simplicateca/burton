@@ -14,7 +14,7 @@
 
     {% block title %}
         {%- if title -%}
-            <{{htag}} class="font-body not-italic text-base mb-0 uppercase font-bold">{{title}}</{{htag}}>
+            {{ richtext.formatHeadline( title, htag, "font-body not-italic text-base mb-0 uppercase font-bold" ) }}
         {%- endif -%}
     {% endblock %}
 

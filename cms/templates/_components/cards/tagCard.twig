@@ -1,3 +1,5 @@
+{% import "_macros/richtext" as richtext %}
+
 {% set htag    = htag    ??? 'h4' %}
 {% set title   = title   ??? entry.title ??? entry.headline ??? null %}
 {% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? null %}
@@ -8,7 +10,7 @@
     <div class="p-4 bg-gray-100 border-t-8 rounded-lg h-full">
         {% block title %}
             {%- if title -%}
-                <{{htag}} class="text-2xl mb-2">{{title}}</{{htag}}>
+                {{ richtext.formatHeadline( title, htag, "text-2xl mb-2" )}}    
             {%- endif -%}
         {% endblock %}
 

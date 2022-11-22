@@ -1,0 +1,40 @@
+.cBlock__textText--evenWidth {   
+    .cGrid__content1 {
+        .cProse__startsRight {
+            h2,h3,h4 {
+                @apply
+                    !text-left
+                    lg:!text-right
+                    lg:max-w-xs xl:max-w-sm
+                    ml-0
+                    lg:ml-auto;
+            }
+        }
+    }
+}
+
+.cGrid__content1.optimalReadingWidth > div.prose {
+    @apply
+        !max-w-4xl
+        2xl:!max-w-5xl;
+
+    &.cProse__startsCenter {
+        @apply mx-auto;
+    }
+
+    &.cProse__startsRight {
+        @apply ml-auto;
+    }
+}
+
+/* .parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+}
+
+.div1 { grid-area: 1 / 1 / 2 / 2; padding: 20px 20px 0; }
+.div2 { grid-area: 2 / 1 / 3 / 2; padding: 0 20px 20px; }
+.div3 { grid-area: 1 / 2 / 3 / 3; background-color: red;} */

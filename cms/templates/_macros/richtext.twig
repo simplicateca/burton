@@ -66,11 +66,27 @@
         | nl2br
     %}
 
+    {% set headlineStyle  = headline|lower|replace( " ", "" ) %}
+    {% set alignmentClass = "" %}
+    {% if( 'text-align:left' in headlineStyle ) %}
+        {% set alignmentClass = 'left' %}
+    {% endif %}
+
+    {% if( 'text-align:center' in headlineStyle ) %}
+        {% set alignmentClass = 'center' %}
+    {% endif %}
+
+    {% if( 'text-align:right' in headlineStyle ) %}
+        {% set alignmentClass = 'right' %}
+    {% endif %}
+
     {% if template %}
         {{ include( template, { headline: headline, eyebrow: eyebrow }, withContext = false) }}
     {% else %}
-        {{eyebrow}}
-        {{headline|raw}}
+        <div class="cHeadline cHeadline__{{alignmentClass}}">
+            {{eyebrow}}
+            {{headline|raw}}
+        </div>
     {% endif %}
 {% endmacro %}
 
@@ -91,11 +107,25 @@
 {%- macro formatButtons( button, wrapper = null, class = null, template = null ) %}
     
     {% if button and wrapper %}
+        
+        {% set alignmentClass = "" %}
+        {% if( 'text-align:left' in button|lower|replace( " ", "" ) ) %}
+            {% set alignmentClass = 'cButtonGroup__left' %}
+        {% endif %}
+
+        {% if( 'text-align:center' in button|lower|replace( " ", "" ) ) %}
+            {% set alignmentClass = 'cButtonGroup__center' %}
+        {% endif %}
+
+        {% if( 'text-align:right' in button|lower|replace( " ", "" ) ) %}
+            {% set alignmentClass = 'cButtonGroup__right' %}
+        {% endif %}
+
         {% set wrapper = wrapper|split('.', 2)   %}
         {% set wDiv    = wrapper[0] ?? 'div'     %}
         {% set wClass  = wrapper[1] ?? '' %}
         {% set wClass  = wClass|replace({'.':' '}) %}
-        {% set button  = "<#{wDiv} class='#{wClass}'>#{button}</#{wDiv}>" %}
+        {% set button  = "<#{wDiv} class='#{wClass} #{alignmentClass}'>#{button}</#{wDiv}>" %}
     {% endif %}
 
     {% if class %}
@@ -125,6 +155,7 @@
     {% set text = text|trim %}
 
     {% set proseSizes = {
+        'xs'     : 'prose-xs',
         'sm'     : 'prose-xs lg:prose-sm 2xl:prose-base',
         'small'  : 'prose-xs lg:prose-sm 2xl:prose-base',
         'md'     : 'prose-xs sm:prose-sm lg:prose-base 2xl:prose-lg',
@@ -134,13 +165,31 @@
         'xl'     : 'prose-lg xl:prose-xl 2xl:prose-2xl'
     } %}
 
+    
     {% set proseClass = attribute(proseSizes, size) %}
 
+    {% set first100char = text|retconRemove( 'div.eyebrow' )|trim|slice(0,100)|lower|replace( " ", "" ) %}
+    {% set alignmentClass = "" %}
+    
+    {% if( 'text-align:left' in first100char ) %}
+        {% set alignmentClass = 'cProse__startsLeft' %}
+    {% endif %}
+
+    {% if( 'text-align:center' in first100char ) %}
+        {% set alignmentClass = 'cProse__startsCenter' %}
+    {% endif %}
+
+    {% if( 'text-align:right' in first100char ) %}
+        {% set alignmentClass = 'cProse__startsRight' %}
+    {% endif %}
+
+    {% set first11char = text|retconRemove( 'div.eyebrow' )|trim|slice(0,11)|lower %}
+    {% set extraClass  = first11char == '<blockquote' ? 'cProse__startsQuote' : '' %}
 
     {% if text %}
         {% set text = text|first == '<' ? text : "<p>#{text}</p>" %}
 
-        <div class="prose {{proseClass}}">
+        <div class="prose {{proseClass}} {{alignmentClass}} {{extraClass}}">
             {{ text
                 | groupButtons
                 | typogrify

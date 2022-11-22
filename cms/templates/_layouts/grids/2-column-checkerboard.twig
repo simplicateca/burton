@@ -1,0 +1,16 @@
+{% extends "_layouts/grids/_base2" %}
+
+{% set gridDefaults = {
+    classes: {
+        wrapperBase : 'relative w-full grid grid-cols-1 justify-center items-center',
+        gridBase    : 'flex flex-col-reverse sm:flex-row sm:justify-center sm:items-center overflow-hidden',
+        content1Base: 'w-full sm:w-1/2',
+        content2Base: 'w-full sm:w-1/2',
+        content1    : 'p-8 xl:p-20',
+        content2    : 'h-96 sm:h-full sm:min-h-screen tall:min-h-[800px] relative overflow-hidden',
+    }
+} %}
+  
+{% set props = {
+    classes: blockConfig is defined and blockConfig is iterable ? gridDefaults.classes | merge(blockConfig) : gridDefaults.classes
+} %}

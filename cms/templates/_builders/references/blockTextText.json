@@ -4,9 +4,18 @@
         "value": "evenWidth",
         "block": {
             "layout": "_layouts/grids/2-columns-even"
+        }
+    },
+
+    {
+        "label": "50%/50% - Headers & Buttons Outside Columns",
+        "value": "evenWidthHeaderOutside",
+        "block": {
+            "layout": "_layouts/grids/2-columns-even"
         },
         "textConfig": {
-            "moveHeaders": true
+            "moveHeaders": true,
+            "moveButtons": true
         }
     },
 
@@ -15,8 +24,7 @@
         "value": "focusRight",
         "block": {
             "layout": "_layouts/grids/2-columns-even",
-            "content2" : "lg:w-1/2 p-12 pb-4 pl-8 bg-gray-200 relative rounded-t-md",
-            "includeAfterContent2" : "_components/dividers/bottom-wave",
+            "content2" : "p-12 pl-8 bg-gray-200 relative rounded-lg",
             "fillColor": "fill-gray-200"
         },
         "textConfig": {

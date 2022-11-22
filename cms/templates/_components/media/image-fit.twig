@@ -1,5 +1,5 @@
 {% set images    = images ??? content.images.all() ??? null %}
-{% set class     = class  ??? "object-cover object-center" %}
+{% set class     = class  ??? "object-cover object-center h-full w-full" %}
 {% set transform = transform ??? null %}
 
 {% set image     = images|first ??? null %}
@@ -13,10 +13,16 @@
         src="{{image.url}}"
         alt="{{image.title}}"
         loading="lazy"
-        class="{{class}} absolute top-0 left-0 right-0 bottom-0">
+        class="{{class}} relative z-20"
+        >
 {% endif %}
 
 {# wireframe placeholder #}
 {% if not image and getenv('CRAFT_ENVIRONMENT') != 'production' %}
-    <div class="bg-gray-500 aspect-video w-full h-full">&nbsp;</div>
+    {# <div class="bg-gray-500 aspect-video w-full h-full"> #}
+        <img
+            src="https://picsum.photos/seed/{{random(1,9999)}}/800/450?grayscale&blur=2"
+            loading="lazy"
+            class="{{class}} relative z-20">
+    {# </div> #}
 {% endif %}

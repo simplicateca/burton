@@ -3,7 +3,8 @@
 
 {% set items         = items ??? [] %}
 {% set itemComponent = itemsConfig.component ??? null %}
-{% set cardLayout    = itemsConfig.useCard   ??? null %}
+{% set overrideCard  = content.card.reference() ??? null %}
+{% set cardLayout    = overrideCard.useCard ??? itemsConfig.useCard ??? '' %}
 {% set buttonClass   = itemsConfig.buttons   ??? null %}
 
 {% set content1Hide  = not text|trim %}
@@ -13,7 +14,6 @@
         {{ include(itemComponent) }}
     {% else %}
         {% for item in items %}
-
             {% if buttonClass %}
                 {% set item = {
                     headline: item.headline,
@@ -23,8 +23,17 @@
             {% endif %}
        
             {{ include(cardLayout, {
-                entry: item
+                entry: item,
+                loop: loop
             }, withContext = false ) }}
         {% endfor %}
     {% endif %}
+{% endblock %}
+
+
+{% block content3 %}
+    {{ include( mediaConfig.component ??? '_components/media/image', {
+        images: images ??? [],
+        transform: mediaConfig.transform ??? null,
+    }) }}
 {% endblock %}
