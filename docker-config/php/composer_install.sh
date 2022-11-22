@@ -29,5 +29,6 @@ if [ ! -f "composer.lock" ] || [ ! -f "vendor/autoload.php" ]; then
       sleep 1
     done
     # Run any pending migrations/project config changes
+    echo "### MySQL ready ..."
     su-exec www-data composer craft-update
 fi
