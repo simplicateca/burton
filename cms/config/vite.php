@@ -29,7 +29,7 @@ return [
    /**
     * @var bool Should the dev server be used for?
     */
-    'useDevServer' => App::env('CRAFT_DEV_MODE'),
+    'useDevServer' => App::env('CRAFT_ENVIRONMENT') === 'dev',
 
     /**
      * @var string File system path (or URL) to the Vite-built manifest.json
