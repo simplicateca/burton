@@ -7,7 +7,7 @@ else
 endif
 CONTAINER?=$(shell basename $(CURDIR)| tr A-Z a-z)$(SEPARATOR)php$(SEPARATOR)1
 DBCONTAINER?=$(shell basename $(CURDIR)| tr A-Z a-z)$(SEPARATOR)mysql$(SEPARATOR)1
-BUILDCHAIN?=$(shell basename $(CURDIR)| tr A-Z a-z)$(SEPARATOR)webpack$(SEPARATOR)1
+BUILDCHAIN?=$(shell basename $(CURDIR)| tr A-Z a-z)$(SEPARATOR)vite$(SEPARATOR)1
 
 .PHONY: build clean composer craft dev npm fixdb pulldb restoredb nuke ssh sshroot up
 
@@ -50,8 +50,6 @@ ssh: up
 	docker exec -it $(CONTAINER) su-exec www-data /bin/sh
 sshroot: up
 	docker exec -it $(CONTAINER) /bin/sh	
-
-
 up:
 	if [ ! "$$(docker ps -q -f name=$(CONTAINER))" ]; then \
 		cp -n cms/.env.example cms/.env; \
