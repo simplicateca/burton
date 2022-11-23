@@ -19,15 +19,21 @@ You will need Docker desktop for your platform installed to run the project in l
 
 	`make dev`
 
-	This first launch will take several minutes to run while Docker does it's thing. Subsequent launches will be faster.
+This first launch will take several minutes to run while Docker does it's thing. Subsequent launches will be faster.
+
+If you the `make` command isn't available (Windows?) you can achieve the same thing by running the command:
+
+    `docker-compose up`
 
 
-3. The webpack container will likely be the last to finish installing. Wait until you see this in the console:
+3. The Vite container will likely be the last to finish installing. Wait until you see this in the console:
 
 ```
-webpack_1  | [nodemon] starting `webpack serve --config webpack.dev.js`
-webpack_1  | <i> [webpack-dev-server] Project is running at:
-webpack_1  | <i> [webpack-dev-server] Loopback: http://localhost:8080/
+vite_1   |   vite v2.9.15 dev server running at:
+vite_1   | 
+vite_1   |   > Local:    http://localhost:3000/
+vite_1   |   > Network:  http://192.168.96.5:3000/
+
 ```
 
 	And then visit the URL http://localhost:8000
@@ -57,5 +63,3 @@ Password: `letmein`
     S3_BUCKET=[YOUR_BUCKET]
     S3_REGION=[YOUR_REGION]
 ```
-
- - If you attempt to export the Craft CMS database through the Admin > Utilities menu and receive an error message, run `make fixdb` and attempt the export again. This fixes a [weird mysql-server:8 bug](https://stackoverflow.com/questions/49194719/authentication-plugin-caching-sha2-password-cannot-be-loaded) that only shows up when trying to export. This command only needs to be run once.
