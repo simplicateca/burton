@@ -53,11 +53,6 @@
 
             {{ include( "_components/modal/dynamic", {}, withContext = false) }}
 
-            {#-- Site-wide JavaScript --#}
-            {{ craft.twigpack.includeSafariNomoduleFix() }}
-            {{ craft.twigpack.includeJsModule("runtime.js", true) }}
-            {{ craft.twigpack.includeJsModule("app.js", true) }}
-
             {# -- Any JavaScript that should be included before </body> -- #}
             {% block bodyJs %}
             {% endblock bodyJs %}

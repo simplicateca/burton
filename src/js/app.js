@@ -1,3 +1,7 @@
+// Import our CSS
+import '@/css/app.pcss';
+
+import {createApp} from 'vue';
 import "@lottiefiles/lottie-player";
 
 import gsap from "gsap";
@@ -42,7 +46,9 @@ main().then( (app) => {
     window.app = app
 });
 
-// Accept HMR as per: https://webpack.js.org/api/hot-module-replacement#accept
-if (module.hot) {
-    module.hot.accept();
+// Accept HMR as per: https://vitejs.dev/guide/api-hmr.html
+if (import.meta.hot) {
+    import.meta.hot.accept(() => {
+        console.log("HMR")
+    });
 }
