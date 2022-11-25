@@ -14,3 +14,5 @@ cd /var/www/project/buildchain
 if [ ! -f "package-lock.json" ] || [ ! -d "node_modules" ]; then
     npm install
 fi
+chmod -R 0777 /var/www/project/buildchain/node_modules
+chmod 0777 /var/www/project/buildchain/package-lock.json
