@@ -21,6 +21,9 @@ return GeneralConfig::create()
     // Allow administrative changes
     ->allowAdminChanges( (App::env('CRAFT_ENVIRONMENT') != 'production') )
     
+    // Enable Caching
+    ->enableTemplateCaching( (App::env('CRAFT_ENVIRONMENT') == 'production') )
+
     // Disallow robots
     ->disallowRobots( (App::env('CRAFT_ENVIRONMENT') != 'production') )
 

@@ -1,4 +1,4 @@
-dateModified: 1669175879
+dateModified: 1669543755
 elementSources:
   craft\elements\Entry:
     -
@@ -436,6 +436,85 @@ meta:
     ffb53008-0128-493f-9c96-5f66a6a83565: Attachment # Attachment
     ffda0f34-d718-475b-b8ed-99c25f516b8b: Spacing # Spacing
 plugins:
+  blitz:
+    edition: standard
+    enabled: true
+    schemaVersion: 4.2.0
+    settings:
+      apiKey: ''
+      cacheControlHeader: 'public, s-maxage=31536000, max-age=0'
+      cacheDuration: null
+      cacheElementQueries: true
+      cacheElements: true
+      cacheGeneratorSettings:
+        __assoc__:
+          -
+            - concurrency
+            - '3'
+      cacheGeneratorType: putyourlightson\blitz\drivers\generators\HttpGenerator
+      cacheNonHtmlResponses: false
+      cachePurgerType: putyourlightson\blitz\drivers\purgers\DummyPurger
+      cacheStorageSettings:
+        __assoc__:
+          -
+            - folderPath
+            - '@webroot/cache/blitz'
+          -
+            - createGzipFiles
+            - '1'
+          -
+            - createBrotliFiles
+            - '1'
+      cacheStorageType: putyourlightson\blitz\drivers\storage\FileStorage
+      cachingEnabled: false
+      debug: false
+      deployerType: putyourlightson\blitz\drivers\deployers\DummyDeployer
+      driverJobPriority: 100
+      excludedQueryStringParams:
+        -
+          __assoc__:
+            -
+              - siteId
+              - ''
+            -
+              - queryStringParam
+              - gclid
+        -
+          __assoc__:
+            -
+              - siteId
+              - ''
+            -
+              - queryStringParam
+              - fbclid
+      generatePagesWithQueryStringParams: true
+      hintsEnabled: true
+      includedQueryStringParams:
+        -
+          __assoc__:
+            -
+              - siteId
+              - ''
+            -
+              - queryStringParam
+              - '.*'
+      injectScriptEvent: DOMContentLoaded
+      integrations:
+        - putyourlightson\blitz\drivers\integrations\CommerceIntegration
+        - putyourlightson\blitz\drivers\integrations\FeedMeIntegration
+        - putyourlightson\blitz\drivers\integrations\SeomaticIntegration
+      maxRetryAttempts: 10
+      mutexTimeout: 1
+      outputComments: true
+      queryStringCaching: 0
+      queueJobTtr: 300
+      refreshCacheAutomaticallyForGlobals: true
+      refreshCacheJobPriority: 10
+      refreshCacheWhenElementMovedInStructure: true
+      refreshCacheWhenElementSavedNotLive: false
+      refreshCacheWhenElementSavedUnchanged: false
+      refreshMode: 3
+      sendPoweredByHeader: true
   dospaces:
     edition: standard
     enabled: true

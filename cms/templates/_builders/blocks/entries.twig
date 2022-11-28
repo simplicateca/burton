@@ -1,105 +1,116 @@
-{% extends blockConfig.layout %}
-{% use "_builders/blocks/_default" %}
+{# declare content & setting varibles passed from parent include() #}
+{% set blockID      = blockID ??? random(111111, 999999) %}
+{% set blockConfig  = blockConfig ??? config ??? null %}
+{% set gridLayout   = layout ??? blockConfig.layout ??? null %}
+{% set textContent1 = ( text ??? '' )|trim %}
+{% set method       = method ??? 'choose' %}
 
-{% set items         = items ??? [] %}
+{# declare image/media varibles passed from parent include() #}
+{% set mediaConfig    = mediaConfig ??? null %}
+{% set mediaComponent = mediaConfig.component ??? '_components/media/image' %}
+{% set mediaAssets    = images ??? [] %}
+
+{# declare entries varibles passed from parent include() #}
+{% set itemsConfig   = itemsConfig ??? null %}
 {% set itemComponent = itemsConfig.component ??? null %}
-{% set method        = content.method       ??? 'choose' %}
+{% set cardLayout    = cardLayout ??? itemsConfig.useCard ??? '_components/card/text' %}
+{% set entryItems    = items ??? [] %}
 
-{% set hasSearch     = ( method == 'allSearch' ) %}
-{% set hasPaginate   = ( method == 'allSearch' ) %}
-
-{% set overrideCard  = content.card.reference() ??? null %}
-{% set cardLayout    = overrideCard.useCard ??? itemsConfig.useCard ??? '' %}
-{% set content1Hide  = not text|trim and not hasSearch %}
-{% set entryUrl      = entry.url ??? '' %}
-{% set topics        = [] %}
-
-{% if method != 'choose' %}
-    {% set contentType   = content.contentType  ??? '' %}
-    {% set order         = content.order        ??? 'mostRecent' %}
-    {% set limit         = content.limit        ??? 3 %}
-    {% set perPage       = content.perPage      ??? 25 %}
-    {% set topics        = content.topics.all() ??? [] %}
-
-    {% set orderBy = 'postDate DESC' %}
-    {% set orderBy = ( order == 'random'       ) ? 'RAND()'     : orderBy %}
-    {% set orderBy = ( order == 'alphabetical' ) ? 'title DESC' : orderBy %}
-
-    {% set queryString = craft.app.request.getParam('q') ??? null %}
-    {% set queryLimit  = ( method == 'limitedSearch' ) ? limit : perPage %}
-
-    {% if contentType %}
-        {% set section = contentType.value %}
-        {% set query   = craft.entries().section(section) %}
-
-        {# are we doing a text based search? #}
-        {% if hasSearch and queryString %}
-            {% set query   = query.search(queryString) %}
-            {% set orderBy = 'score' %}
-        {% endif %}
-
-        {# are we doing a topic based search? #}
-        {% if topics %}
-            {% set query = query.relatedTo(topics) %}
-        {% endif %}
-
-        {% set query = query
-            .orderBy(orderBy)
-            .limit(queryLimit)
-        %}
-
-        {% if method == 'allSearch' %}
-            {% paginate query as pageInfo, pageEntries %}
-            {% set items = pageEntries %}
-        {% else %}
-            {% set items = query.all() %}
-        {% endif %}
-    {% endif %}
-{% endif %}
-
-{% block content1 -%}
-    {{- text -}}
-
-    {%- if hasSearch -%}
-        <div class="flex flex-col md:flex-row items-center gap-2 lg:gap-5 p-3 lg:p-8 bg-gray-200 mb-6">
-            <div class="grow w-full">
-                <p class="like-h4 text-gray-400 !mb-0 !font-body">Showing {{pageInfo.first}}-{{pageInfo.last}} of {{pageInfo.total}} total results</p>
-            </div>
-
-            <div class="w-full">
-                {{ include( '_components/search/form', {
-                    headline: '',
-                    url: entryUrl
-                }, withContext = false ) }}
-            </div>
-        </div>
+{# prepare media content #}
+{% set mediaContent3 -%}
+    {%- if mediaComponent -%}
+        {{ include(mediaComponent, {
+            blockID: blockID,
+            config: mediaConfig,
+            images: mediaAssets
+        }) }}
     {%- endif -%}
-{%- endblock %}
+{%- endset %}
 
-{% block content2 %}
+{# declare entry search variables passed from parent include() #}
+{% set builder       = builder     ??? 'content' %}
+{% set contentType   = contentType ??? content.contentType.value ??? null %}
+{% set order         = order       ??? content.order.value       ??? 'mostRecent' %}
+{% set limit         = limit       ??? content.limit             ??? 3 %}
+{% set perPage       = perPage     ??? content.perPage           ??? 25 %}
+{% set topics        = topics      ??? content.topics.all()      ??? [] %}
+{% set entryUrl      = entry.url   ??? '' %}
 
-    {% if itemComponent %}
-        {{ include( itemComponent ) }}
-    {% else %}
-        {% for item in items %}
-            {{ include(
-                [
-                    '_sections/' ~ item.section.handle ~ '/_tease.' ~ builder,
-                    '_sections/' ~ item.section.handle ~ '/_tease',
-                    '_sections/_tease.' ~ builder,
-                    '_sections/_tease'
-                ],{
-                    entry: item,
-                    card: cardLayout,
-                    topics: topics,
-                }, withContext = false
-            ) }}
-        {% endfor %}
+{# if this component has earch & pagination, use the sprig component #}
+{% if method == 'allSearch' %}
+
+    {{ sprig('_components/_sprig/entries/liveSearch', {
+        params: {
+            blockID : blockID,
+            entryID : entry.id,
+            buider  : builder,
+            content1: textContent1|raw ~ "",
+            content3: mediaContent3|raw ~ "",
+        }
+    }) }}
+
+{# otherwise, just handle it within the block component #}
+{% else %}
+
+    {% if method == 'limitedSearch' and contentType %}
+        {# search/sort/filter settings #}
+        {% set orderBy = 'postDate DESC' %}
+        {% set orderBy = ( order == 'random'       ) ? 'RAND()'     : orderBy %}
+        {% set orderBy = ( order == 'alphabetical' ) ? 'title DESC' : orderBy %}
+
+        {# being to create the starting query #}
+        {% set entryQuery = craft.entries()
+            .section(contentType)
+            .with(['images','topics'])
+            .orderBy(orderBy)
+            .limit(limit) %}
+
+        {# are we filtering by topic(s) #}
+        {% if topics %}
+            {% set entryQuery = entryQuery.relatedTo(props.topics) %}
+        {% endif %}
+
+        {# get all the results #}
+        {% set entryItems = entryQuery.all() %}
     {% endif %}
-{% endblock %}
 
-{% block footer -%}
-    {% if hasPaginate %}
-        {{ include( '_components/pagination/pagination' ) }}
-    {% endif %}
-{%- endblock %}
+    {% set entriesContent2 -%}
+        {{ include( '_builders/blocks/_partials/entriesOutput', {
+            items: entryItems,
+            params: {
+                blockID  : blockID,
+                builder  : builder,
+                card     : cardLayout,
+                config   : blockConfig,
+                component: itemComponent,
+                topics   : topics
+            }
+        }, withContext = false ) }}
+    {% endset %}
+
+    {# grid layouts are micro-templates for various content/layout patterns.
+        templates includes all html/tailwind necessary for a basic layout render.
+        layout settings can be modified or overridden via the `config` param.
+        grid layout twig files are typically stored in `cms/templates/_layouts/grids/` #}
+    {% block gridLayout %}
+        {% embed gridLayout ignore missing with {
+            blockID: blockID,
+            config: blockConfig,
+            content1Hide: ( not textContent1 ),
+            content2Hide: ( not entryItems ),
+            content3Hide: ( not mediaContent3|trim )
+        } %}
+            {% block content1 %}
+                {{textContent1|raw}}
+            {% endblock %}
+
+            {% block content2 %}
+                {{entriesContent2|raw}}
+            {% endblock %}
+
+            {% block content3 %}
+                {{mediaContent3|raw}}
+            {% endblock %}        
+        {% endembed %}
+    {% endblock %}
+{% endif %}

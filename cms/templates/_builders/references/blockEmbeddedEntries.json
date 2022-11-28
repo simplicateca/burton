@@ -15,7 +15,7 @@
 
     {
         "label": "2 Column Grid",
-        "value": "gridCards",
+        "value": "gridCards2Col",
         "block": {
             "layout": "_layouts/grids/intro-above-2-columns",
             "content1": "ml-0"
@@ -27,7 +27,7 @@
 
     {
         "label": "3 Column Grid",
-        "value": "gridCards",
+        "value": "gridCards3Col",
 
         "block": {
             "layout": "_layouts/grids/intro-above-3-columns",

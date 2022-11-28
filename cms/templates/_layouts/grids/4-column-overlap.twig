@@ -11,7 +11,7 @@
 } %}
 
 {% set props = {
-    classes: blockConfig is defined and blockConfig is iterable ? gridDefaults.classes | merge(blockConfig) : gridDefaults.classes
+    classes:config is defined and config is iterable ? gridDefaults.classes | merge(blockConfig) : gridDefaults.classes
 } %}
 
 {#

@@ -1,7 +1,8 @@
-{% set images    = images    ??? content.images.all() ??? null %}
-{% set class     = class     ??? "block mx-auto text-center w-full" %}
-{% set transform = transform ??? null %}
-{% set blockID   = blockID   ??? content.id ??? 1 %}
+{% set blockID   = blockID   ??? random(111111, 999999) %}
+{% set config    = config    ??? null %}
+{% set images    = images    ??? null %}
+{% set class     = class     ??? config.class     ??? "block mx-auto text-center w-full" %}
+{% set transform = transform ??? config.transform ??? null %}
 
 {# wireframe placeholder #}
 {% if not images and getenv('CRAFT_ENVIRONMENT') != 'production' %}

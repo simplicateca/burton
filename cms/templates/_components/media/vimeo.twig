@@ -1,6 +1,7 @@
 {% set media  = media  ??? null %}
 {% set config = config ??? null %}
-{% set first  = first  ?? true  %}
+{% set loop   = loop   ??? null %}
+{% set first  = ( loop.first ??? false ) %}
 
 {% set card    = config.card ??? null %}
 {% set cardSub = config.cardSubsequent ??? null %}

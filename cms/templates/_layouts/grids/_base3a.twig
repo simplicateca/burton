@@ -30,7 +30,7 @@
 
 <div class="cGrid__wrapper {{props.classes.wrapperBase}} {{props.classes.wrapper}}">
 
-    {% block header %}{% endblock %}
+    {% block header %}{{blockHeader ??? null}}{% endblock %}
 
     <div class="cGrid {{props.classes.gridBase}} {{props.classes.grid}}">
         {% if not ( content1Hide ??? false ) %}
@@ -38,7 +38,7 @@
                 {% if props.classes.inner1Base ??? props.classes.inner1 ??? null %}<div class="{{props.classes.inner1Base ?? ''}} {{props.classes.inner1 ?? ''}}">{% endif %}
                     {% block content1 %}{% endblock %}
                 {% if props.classes.inner1Base ??? props.classes.inner1 ??? null %}</div>{% endif %}
-                {% block include1 %}{% endblock %}
+                {% block include1 %}{{blockInclude1 ??? null}}{% endblock %}
             </div>
         {% endif %}
     
@@ -48,7 +48,7 @@
                     {% if props.classes.inner2Base ??? props.classes.inner2 ??? null %}<div class="{{props.classes.inner2Base ?? ''}} {{props.classes.inner2 ?? ''}}">{% endif %}
                         {% block content2 %}{% endblock %}
                     {% if props.classes.inner2Base ??? props.classes.inner2 ??? null %}</div>{% endif %}
-                    {% block include2 %}{% endblock %}
+                    {% block include2 %}{{blockInclude2 ??? null}}{% endblock %}
                 </div>
             {% endif %}
 
@@ -57,13 +57,13 @@
                     {% if props.classes.inner3Base ??? props.classes.inner3 ??? null %}<div class="{{props.classes.inner3Base ?? ''}} {{props.classes.inner3 ?? ''}}">{% endif %}
                         {% block content3 %}{% endblock %}
                     {% if props.classes.inner3Base ??? props.classes.inner3 ??? null %}</div>{% endif %}
-                    {% block include3 %}{% endblock %}
+                    {% block include3 %}{{blockInclude3 ??? null}}{% endblock %}
                 </div>
             {% endif %}
         </div>
     </div>
 
-    {% block footer %}{% endblock %}
+    {% block footer %}{{blockFooter ??? null}}{% endblock %}
 </div>
 
 {% block afterGrid %}{% endblock %}

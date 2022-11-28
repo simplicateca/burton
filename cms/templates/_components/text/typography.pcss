@@ -8,6 +8,7 @@
  *  4| BLOCKQUOTES
  *  5| TEXT MARKING / HIGH-LIGHTING
  *  6| EYEBROW FORMATS
+ *  7| TAG / PILL FORMATS
  *
 */
 
@@ -541,5 +542,37 @@ mark {
 h2,h3,h4,h5,h6,p,li,div.eyebrow {
     .cContentColumn__twoColumns & {
         /* font-size: 90%; */
+    }
+}
+
+
+/**
+ * 7| TAGs / PILLs
+ *
+ * 
+ *
+*/
+.cTag {
+    @apply
+        text-xs
+        inline-flex
+        items-center
+        font-bold
+        leading-none
+        uppercase
+        px-3
+        py-2
+        rounded-full
+        border
+        transition-transform
+        hover:scale-110
+    ;
+
+    &.cTag__inactive {
+        @apply bg-white text-gray-700;
+    }
+
+    &.cTag__active {
+        @apply bg-gray-700 text-white; 
     }
 }

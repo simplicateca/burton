@@ -2,17 +2,24 @@
 {% set headline  = headline  ?? "Search our Site" %}
 {% set class     = class     ?? "like-h3 text-left" %}
 {% set label     = label     ?? "Search term..." %}
-{% set lastQuery = lastQuery ?? craft.app.request.getParam('q') ?? null %}
+{% set query     = query     ?? craft.app.request.getParam('q') ?? null %}
+{% set replaceId = replaceId ?? "" %}
+{% set entryUrl  = entryUrl  ?? "" %}
 
 <form action="{{ url }}" class="max-w-2xl w-full text-center">
     {% if headline %}<div class="{{class}}">{{headline}}</div>{% endif %}
     <div class="flex flex-col sm:flex-row">
-        <input type="search" name="q" placeholder="{{label}}" value="{{lastQuery}}" class="
-            flex-grow
-            px-4
-            py-4
-            sm:py-1
-            max-w-[calc(100%_-_7rem)]
+        <input
+            type="search"
+            name="q"
+            placeholder="{{label}}"
+            value="{{query}}"
+            class="
+                flex-grow
+                px-4
+                py-4
+                sm:py-1
+                max-w-[calc(100%_-_7rem)]
             ">
         <button class="button">Search</button>
     </div>

@@ -8,7 +8,14 @@
 {% set subtitle = "What can we help you find?" %}
 
 {% if query %}
-    {% set entries = craft.entries().search(query).orderBy('score').limit(limit) %}
+    {% set entries = craft.entries()
+                          .search(query)
+                          .section('not sitebook')
+                          .type('not private')
+                          .with(['images','topics'])
+                          .orderBy('score')
+                          .limit(limit) %}
+
     {% set title   = 'Search Results' %}
     
     {% set subtitle = entries

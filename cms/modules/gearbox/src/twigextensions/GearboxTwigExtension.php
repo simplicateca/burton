@@ -19,6 +19,8 @@ namespace modules\gearbox\twigextensions;
 use modules\gearbox\Gearbox;
 
 use Craft;
+use craft\elements\Entry;
+use craft\elements\MatrixBlock;
 
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -342,9 +344,19 @@ class GearboxTwigExtension extends AbstractExtension
 
     // find any fragment blocks and splice them into the block array
     public function normalizeBlocks( $blockArray, $entry = [], $builder = 'content' ) {
-        
+
+        // if $entry is just an ID, look it up
+        $entry = is_int($entry) ? Entry::find()->id($entry)->one() ?? [] : $entry;
+
         $blocks = [];
         foreach( $blockArray as $block ) {
+
+            $wasInt = is_int($block);
+
+            // if $block is just an ID, look it up
+            $block = is_int($block) ? MatrixBlock::find()->id($block)
+                                                         ->with(["entries:topics"])
+                                                         ->one() ?? [] : $block;
 
             $blockType = $block->type->handle ?? $block->type ?? null;
             

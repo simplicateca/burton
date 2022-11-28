@@ -1,24 +1,23 @@
-{% extends '_builders/blocks/textImage' %}
 {% import "_macros/richtext" as richtext %}
 
-{% set headline    = headline    ??? null %}
-{% set moveHeaders = moveHeaders ??? null %}
-{% set headers     = headers     ??? null %}
+{# declare setting varibles passed from parent include() #}
+{% set blockID      = blockID ??? random(111111, 999999) %}
+{% set blockConfig  = blockConfig ??? config ??? null %}
+{% set gridLayout   = layout ??? blockConfig.layout ??? null %}
 
-{% block content1 %}
-    <div class="hidden 2xl:block pb-4">
-        {% if headline or ( moveHeaders and headers ) %}
-            {% if blockConfig.header ??? null %}<div class="{{headerWrap}}">{% endif %}
-                {{ headline ? richtext.formatHeadline( headline, 'div', 'like-h1' ) : null }}
-                {{ moveHeaders ? headers : null }}
-            {% if blockConfig.header ??? null %}</div>{% endif %}
-        {% endif %}
-    </div>
+{# declare text specific content varibles passed from parent include() #}
+{% set text         = ( text ??? '' )|trim %}
+{% set headline     = headline    ??? null %}
+{% set moveHeaders  = moveHeaders ??? null %}
+{% set headers      = headers     ??? null %}
 
-    {{text}}
-{% endblock %}
+{# declare image/media varibles passed from parent include() #}
+{% set mediaConfig    = mediaConfig ??? null %}
+{% set mediaComponent = mediaConfig.component ??? '_components/media/image' %}
+{% set mediaAssets    = images ??? [] %}
 
-{% block header %}
+{# place the header <h1>title</h1> above the grid for smaller displays #}
+{% set blockHeader %}
     <div class="block 2xl:hidden pb-4">
         {% if headline or ( moveHeaders and headers ) %}
             {% if blockConfig.header ??? null %}<div class="{{headerWrap}}">{% endif %}
@@ -27,4 +26,50 @@
             {% if blockConfig.header ??? null %}</div>{% endif %}
         {% endif %}
     </div>
-{% endblock %}
+{% endset %}
+
+{# place the header <h1>title</h1> inside the columns for widescreen displays #}
+{% set textContent1 %}
+    <div class="hidden 2xl:block pb-4">
+        {% if headline or ( moveHeaders and headers ) %}
+            {% if blockConfig.header ??? null %}<div class="{{headerWrap}}">{% endif %}
+                {{ headline ? richtext.formatHeadline( headline, 'div', 'like-h1' ) : null }}
+                {{ moveHeaders ? headers : null }}
+            {% if blockConfig.header ??? null %}</div>{% endif %}
+        {% endif %}
+    </div>
+    {{text|raw}}
+{% endset %}
+
+{# prepare image content #}
+{% set mediaContent2 %}
+    {{ include(mediaComponent, {
+        blockID: blockID,
+        config: mediaConfig,
+        images: mediaAssets
+    }) }}
+{% endset %}
+
+{# grid layouts are micro-templates for various content/layout patterns.
+   templates includes all html/tailwind necessary for a basic layout render.
+   layout settings can be modified or overridden via the `config` param.
+   grid layout twig files are typically stored in `cms/templates/_layouts/grids/` #}
+{% if gridLayout %}
+    {% embed gridLayout with {
+        blockID: blockID,
+        config: blockConfig,
+        content1Hide: ( not textContent1 )
+    } %}
+        {% block content1 %}
+            {{textContent1|raw}}
+        {% endblock %}
+
+        {% block content2 %}
+            {{mediaContent2|raw}}
+        {% endblock %}
+
+        {% block header %}
+            {{blockHeader|raw}}
+        {% endblock %}
+    {% endembed %}
+{% endif %}

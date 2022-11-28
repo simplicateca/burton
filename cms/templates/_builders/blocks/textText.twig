@@ -1,12 +1,27 @@
-{% extends blockConfig.layout %}
-{% use "_builders/blocks/_default" %}
+{# declare content & setting varibles passed from parent include() #}
+{% set blockID      = blockID ??? random(111111, 999999) %}
+{% set blockConfig  = blockConfig ??? config ??? null %}
+{% set gridLayout   = layout ??? blockConfig.layout ??? null %}
+{% set textContent1 = ( text  ??? '' )|trim %}
+{% set textContent2 = ( text2 ??? '' )|trim %}
 
-{% import "_macros/richtext" as richtext %}
+{# grid layouts are micro-templates for various content/layout patterns.
+   templates includes all html/tailwind necessary for a basic layout render.
+   layout settings can be modified or overridden via the `config` param.
+   grid layout twig files are typically stored in `cms/templates/_layouts/grids/` #}
+{% if gridLayout %}
+    {% embed gridLayout with {
+        blockID: blockID,
+        config: blockConfig,
+        content1Hide: ( not textContent1 ),
+        content2Hide: ( not textContent2 )
+    } %}
+        {% block content1 %}
+            {{textContent1|raw}}
+        {% endblock %}
 
-{% set text2 = text2 ??? content.text2 ??? '' %}
-{% set text2 = richtext.prose( text2 ) %}
-{% set content2Hide = not text2|trim %}
-
-{% block content2 %}
-    {{text2}}
-{% endblock %}
+        {% block content2 %}
+            {{textContent2|raw}}
+        {% endblock %}
+    {% endembed %}
+{% endif %}

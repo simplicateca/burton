@@ -24,9 +24,9 @@
 
 {% block beforeGrid %}{% endblock %}
 
-<div class="cGrid__wrapper {{props.classes.wrapperBase}} {{props.classes.wrapper}}">
+<div id="cGrid__wrapper__{{blockID ?? null}}" class="cGrid__wrapper {{props.classes.wrapperBase}} {{props.classes.wrapper}}">
 
-    {% block header %}{% endblock %}
+    {% block header %}{{blockHeader ??? null}}{% endblock %}
 
     <div class="cGrid {{props.classes.gridBase}} {{props.classes.grid}}">
         {% if not ( content1Hide ??? false ) %}
@@ -34,7 +34,7 @@
                 {% if props.classes.inner1Base ??? props.classes.inner1 ??? null %}<div class="{{props.classes.inner1Base ?? ''}} {{props.classes.inner1 ?? ''}}">{% endif %}
                     {% block content1 %}{% endblock %}
                 {% if props.classes.inner1Base ??? props.classes.inner1 ??? null %}</div>{% endif %}
-                {% block include1 %}{% endblock %}
+                {% block include1 %}{{blockInclude1 ??? null}}{% endblock %}
             </div>
         {% endif %}
     
@@ -43,12 +43,12 @@
                 {% if props.classes.inner2Base ??? props.classes.inner2 ??? null %}<div class="{{props.classes.inner2Base ?? ''}} {{props.classes.inner2 ?? ''}}">{% endif %}
                     {% block content2 %}{% endblock %}
                 {% if props.classes.inner2Base ??? props.classes.inner2 ??? null %}</div>{% endif %}
-                {% block include2 %}{% endblock %}
+                {% block include2 %}{{blockInclude2 ??? null}}{% endblock %}
             </div>
         {% endif %}
     </div>
 
-    {% block footer %}{% endblock %}
+    {% block footer %}{{blockFooter ??? null}}{% endblock %}
 
 </div>
 

@@ -5,46 +5,59 @@
 {% set layout  = 'oneColumn' %}
 
 {% block bodyHtml %}
-    {% block alertbar %}
-        {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
-    {% endblock %}
+    {% cache %}
+        {% minify %}
+            {% do craft.app.elements.eagerLoadElements(
+                className(entry),
+                [entry],
+                [''] | merge(eagerLoading.commonFields   ??? '')
+                     | merge(eagerLoading.headerBuilder  ??? '')
+                     | merge(eagerLoading.contentBuilder ??? '')
+                     | merge(eagerLoading.sidebarBuilder ??? '')
+            ) %}
 
-    {% block header %}
-        {{ include( "_components/header/header", {
-            entry: entry ??? null,
-            layout: layout
-        }, withContext = false ) }}
-    {% endblock %}
+            {% block alertbar %}
+                {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+            {% endblock %}
 
-    {% block belowHeader %}
-        {{ include( "_components/breadcrumb/breadcrumb", {}, withContext = true ) }}
-    {% endblock %}
-
-    {% block main %}
-        <main class="cMain cMain__{{layout}} cMain__{{section}}">
-            {% block aboveContent %}{% endblock %}
-        
-            {% block content %}
-                {{ include( "_builders/partials/builderContent", {
-                    entry: entry,
-                    section: section,
+            {% block header %}
+                {{ include( "_components/header/header", {
+                    entry: entry ??? null,
                     layout: layout
                 }, withContext = false ) }}
             {% endblock %}
-        
-            {% block belowContent %}{% endblock %}
-        </main>
-    {% endblock %}
 
-    {% block aboveFooter %}
-        {{ include( "_components/footer/above", {
-            entry: entry,
-            section: section,
-            layout: layout
-        }, withContext = false ) }}    
-    {% endblock %}
+            {% block belowHeader %}
+                {{ include( "_components/breadcrumb/breadcrumb", {}, withContext = true ) }}
+            {% endblock %}
 
-    {% block footer %}
-        {{ include( "_components/footer/footer", {}, withContext = false ) }}
-    {% endblock %}
+            {% block main %}
+                <main class="cMain cMain__{{layout}} cMain__{{section}}">
+                    {% block aboveContent %}{% endblock %}
+                
+                    {% block content %}
+                        {{ include( "_builders/partials/builderContent", {
+                            entry: entry,
+                            section: section,
+                            layout: layout
+                        }, withContext = false ) }}
+                    {% endblock %}
+                
+                    {% block belowContent %}{% endblock %}
+                </main>
+            {% endblock %}
+
+            {% block aboveFooter %}
+                {{ include( "_components/footer/above", {
+                    entry: entry,
+                    section: section,
+                    layout: layout
+                }, withContext = false ) }}    
+            {% endblock %}
+
+            {% block footer %}
+                {{ include( "_components/footer/footer", {}, withContext = false ) }}
+            {% endblock %}
+        {% endminify %}
+    {% endcache %}
 {% endblock bodyHtml %}

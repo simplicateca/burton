@@ -10,6 +10,47 @@
 {# -- General global variables -- #}
 {% set baseUrl = alias('@assetsUrl') ~ '/' %}
 
+{% set eagerLoading = {
+    commonFields: [
+        "images",
+        "fragments",
+        "topics"
+    ],
+
+    headerBuilder: [
+      "headerBuilder",
+      "headerBuilder.textImage:images",
+      "headerBuilder.media:media",
+      "headerBuilder.media:images",
+      "headerBuilder.fragment:fragments"
+    ],
+
+    contentBuilder: [
+      "contentBuilder",
+      "contentBuilder.textImage:images",
+      "contentBuilder.contentRepeater:images",
+      "contentBuilder.contentRepeater:items",
+      "contentBuilder.media:media",
+      "contentBuilder.media:images",
+      "contentBuilder.entries:items",
+      "contentBuilder.entries:topics",
+      "contentBuilder.fragment:fragments",
+      "chunks:form"
+    ],
+
+    sidebarBuilder: [
+      "sidebarBuilder",
+      "sidebarBuilder.textImage:images",
+      "sidebarBuilder.contentRepeater:images",
+      "sidebarBuilder.contentRepeater:items",      
+      "sidebarBuilder.media:media",
+      "sidebarBuilder.media:images",
+      "sidebarBuilder.entries:entries",
+      "sidebarBuilder.entries:topics",
+      "sidebarBuilder.fragment:fragments"
+    ]
+} %}
+
 {# -- Twig output from the render; this must be in a block -- #}
 {% block htmlPage %}
 {% endblock %}

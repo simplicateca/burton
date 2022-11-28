@@ -1,39 +1,75 @@
-{% extends blockConfig.layout %}
-{% use "_builders/blocks/_default" %}
+{# declare content & setting varibles passed from parent include() #}
+{% set blockID      = blockID ??? random(111111, 999999) %}
+{% set blockConfig  = blockConfig ??? config ??? null %}
+{% set gridLayout   = layout ??? blockConfig.layout ??? null %}
+{% set textContent1 = ( text ??? '' )|trim %}
 
-{% set items         = items ??? [] %}
+{# declare image/media varibles passed from parent include() #}
+{% set mediaConfig    = mediaConfig ??? null %}
+{% set mediaComponent = mediaConfig.component ??? '_components/media/image' %}
+{% set mediaAssets    = images ??? [] %}
+
+{# declare content repearter varibles passed from parent include() #}
+{% set itemsConfig   = itemsConfig ??? null %}
 {% set itemComponent = itemsConfig.component ??? null %}
-{% set overrideCard  = content.card.reference() ??? null %}
-{% set cardLayout    = overrideCard.useCard ??? itemsConfig.useCard ??? '' %}
-{% set buttonClass   = itemsConfig.buttons   ??? null %}
+{% set cardLayout    = cardLayout ??? itemsConfig.useCard ??? '_components/card/text' %}
+{% set repeaterItems = items ??? [] %}
 
-{% set content1Hide  = not text|trim %}
-
-{% block content2 %}
-    {% if itemComponent %}
-        {{ include(itemComponent) }}
-    {% else %}
-        {% for item in items %}
-            {% if buttonClass %}
-                {% set item = {
-                    headline: item.headline,
-                    images: item.images,
-                    text: item.text|retconAttr( "a.button", { class: buttonClass } )
-                } %}
-            {% endif %}
-       
+{# prepare repeater content #}
+{% set repeaterContent2 -%}
+    {%- if itemComponent -%}
+        {{ include( itemComponent, {
+            blockID: blockID,
+            cardLayout: cardLayout,
+            config: itemsConfig,
+            items: repeaterItems
+        }) }}
+    {%- else -%}
+        {%- for item in repeaterItems -%}
             {{ include(cardLayout, {
+                blockID: blockID,
+                config: itemsConfig,
                 entry: item,
                 loop: loop
             }, withContext = false ) }}
-        {% endfor %}
-    {% endif %}
-{% endblock %}
+        {%- endfor -%}
+    {%- endif -%}
+{%- endset %}
+
+{# prepare media content #}
+{% set mediaContent3 -%}
+    {%- if mediaComponent -%}
+        {{ include(mediaComponent, {
+            blockID: blockID,
+            config: mediaConfig,
+            images: mediaAssets
+        }) }}
+    {%- endif -%}
+{%- endset %}
 
 
-{% block content3 %}
-    {{ include( mediaConfig.component ??? '_components/media/image', {
-        images: images ??? [],
-        transform: mediaConfig.transform ??? null,
-    }) }}
-{% endblock %}
+{# grid layouts are micro-templates for various content/layout patterns.
+   templates includes all html/tailwind necessary for a basic layout render.
+   layout settings can be modified or overridden via the `config` param.
+   grid layout twig files are typically stored in `cms/templates/_layouts/grids/` #}
+{% if gridLayout %}
+    {% embed gridLayout with {
+        blockID: blockID,
+        config: blockConfig,
+        content1Hide: ( not textContent1  ),
+        content2Hide: ( not repeaterItems ),
+        content3Hide: ( not mediaContent3|trim )
+    } %}
+        {% block content1 %}
+            {{textContent1|raw}}
+        {% endblock %}
+
+        {% block content2 %}
+            {{repeaterContent2|raw}}
+        {% endblock %}
+
+        {% block content3 %}
+            {{mediaContent3|raw}}
+        {% endblock %}        
+    {% endembed %}
+{% endif %}
