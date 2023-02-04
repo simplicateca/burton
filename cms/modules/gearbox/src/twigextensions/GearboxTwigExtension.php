@@ -167,9 +167,10 @@ class GearboxTwigExtension extends AbstractExtension
             }
 
             foreach( $crawler->filter('body > p')->last() AS $lastPara ) {
-                $linkCrawler   = new Crawler($lastPara);
+                $linkCrawler = new Crawler($lastPara);
                 if( $linkCrawler ) {
-                    $buttons = $linkCrawler->filter('a.button');
+                    // $buttons = $linkCrawler->filter('a.button');
+                    $buttons = $linkCrawler->filter('a');
 
                     if( $buttons->count() ) {
                         $foundTrailing = true;
@@ -348,7 +349,8 @@ class GearboxTwigExtension extends AbstractExtension
         // if $entry is just an ID, look it up
         $entry = is_int($entry) ? Entry::find()->id($entry)->one() ?? [] : $entry;
 
-        $blocks = [];
+        $blocks      = [];
+        $lastTwColor = null;
         foreach( $blockArray as $block ) {
 
             $wasInt = is_int($block);
@@ -359,7 +361,7 @@ class GearboxTwigExtension extends AbstractExtension
                                                          ->one() ?? [] : $block;
 
             $blockType = $block->type->handle ?? $block->type ?? null;
-            
+                       
             if( $blockType == 'fragment' ) {
                 foreach( $block->fragments->all() as $fragment ) {
                     $fragmentType = $fragment->fragmentType ?? null;
@@ -386,6 +388,15 @@ class GearboxTwigExtension extends AbstractExtension
                 }
             } else {
                 $settings = $this->mergeBlockSettings( $block );
+
+                if( $settings['scene']['twColor'] ?? false ) {
+                    $lastTwColor = $settings['scene']['twColor'];
+                } else {
+                    if( $settings['scene']['inherit'] ?? false ) {
+                        $settings['scene']['twColor'] = $lastTwColor;
+                    }
+                }
+                
                 $blocks[] = $this->beforeRenderBlock([
                     'content'  => $block,
                     'entry'    => $entry,
@@ -445,10 +456,9 @@ class GearboxTwigExtension extends AbstractExtension
         );
 
         $block = array_merge(
-            $variant['block'] ?? [],
             $spacing['block'] ?? [],
-            $bg['block']      ?? []
-            
+            $bg['block']      ?? [],
+            $variant['block'] ?? []            
         );
 
         $variant['scene']     = $scene;
@@ -460,19 +470,25 @@ class GearboxTwigExtension extends AbstractExtension
 
     public function statFormat($number)
     {
-       $number = preg_replace( "/[^0-9]/", "", $number );
+       $cleanNumber = preg_replace( "/[^0-9]/", "", $number );
        $readable = array("", "K", "M", "B");
        $index=0;
-       while($number > 1000){
-          $number /= 1000;
+       while($cleanNumber > 1000){
+          $cleanNumber /= 1000;
           $index++;
        }
 
        $round = ( $readable[$index] == 'M' ) ? 0 : 1;
 
-       $formatted = round($number,$round);
+       $formatted = round($cleanNumber,$round);
 
-       return "<span data-stat-number='$formatted' class='cStatNumber' data-viewport>" . $formatted . "</span>" . $readable[$index];
+       $firstChar = substr($number, 0, 1);
+       $firstChar = in_array( $firstChar, ['+', '-', '>', '<', '$'] ) ? $firstChar : '&ensp;';
+
+       $lastChar  = substr($number, -1);
+       $lastChar  = in_array( $lastChar,  ['+', '-', '>', '<', '$'] ) ? $lastChar : '&ensp;';
+
+       return "$firstChar<span data-stat-number='$formatted' class='cStatNumber' data-viewport>" . $formatted . "</span>" . $readable[$index] . $lastChar;
     }
 
 }

@@ -1,28 +1,26 @@
-{% set blockAbove = blockAbove ?? null %}
 {% set blockBelow = blockBelow ?? null %}
 
 {% set waveBg     = waveBg    ??? blockBelow.settings.scene.twColor ??? '' %}
-{% set waveColor  = waveColor ??? blockAbove.settings.scene.twColor ??? '' %}
-
-{% if blockBelow.blockType == 'textImage' and blockBelow.settings.value == 'parallax' %}
-    {% set waveBg = 'transparent' %}
-{% endif %}
+{% set waveColor  = waveColor ??? blockBelow.settings.scene.twColor ??? '' %}
 
 {# bg-skyBlue   bg-nauticalBlue   bg-midnightBlue   bg-white    #}
 {# fill-skyBlue fill-nauticalBlue fill-midnightBlue fill-white  #}
-
 {% if waveColor %}
     <div class="
-        waveAbove
+        waveBottom
         bg-{{waveBg}}
-        h-[70px]
+        h-[250px]
         overflow-hidden
         w-full
-        relative
         z-20
+        absolute
+        left-0
+        right-0
+        bottom-0
+        -scale-x-100
         ">
         <svg class="
-            fill-{{waveColor}}
+            fill-white
             relative
             block
             w-full
@@ -32,9 +30,3 @@
         </svg>
     </div>
 {% endif %}
-
-{% css %}
-    .waveAbove + .noContainer {
-        margin-top: -70px;
-    }
-{% endcss %}

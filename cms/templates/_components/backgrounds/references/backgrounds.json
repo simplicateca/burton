@@ -5,10 +5,7 @@
         
         "scene": {
             "baseClass": "cScene__bgNone",
-            "bgColor": "gray-100",
-            "bgHex": "#f3f4f6",
-            "fillColor" : "gray-100",
-            "fillHex" : "#f3f4f6"
+            "twColor": "transparent",
         }
     },
 
@@ -18,10 +15,7 @@
 
         "scene": {
             "baseClass": "cScene__bgWhite bg-white",
-            "bgColor": "white",
-            "bgHex": "#ffffff",
-            "fillColor" : "white",
-            "fillHex" : "#ffffff"
+            "twColor": "white"
         }
     },
 
@@ -31,16 +25,28 @@
         
         "scene": {
             "baseClass": "cScene__bgDark bg-gray-700",
-            "bgColor": "gray-700",
-            "bgHex": "#374151",
-            "fillColor" : "gray-700",
-            "fillHex" : "#374151"
+            "twColor": "gray-700"
         },
 
         "block": {
             "class": "prose-text-light"
         }
     },
+
+    {
+        "label": "Grey",
+        "value": "bgGrey",
+        
+        "scene": {
+            "baseClass": "cScene__bgGrey bg-gray-200",
+            "twColor": "gray-200"
+        },
+
+        "block": {
+            "class": "prose-text-dark"
+        }
+    },
+
 
     {
         "label": "Inherit from Block Above",

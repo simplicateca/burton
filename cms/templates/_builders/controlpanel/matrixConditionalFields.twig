@@ -288,7 +288,7 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
             var rGroups = []
             inputs.forEach((input) => {
                 
-                // evaluates radios as a group, instead of individual inputs
+                // evaluates radios as a group, instead of individual <inputs>
                 if( input.getAttribute('type') == 'radio' ) {
                     const groupName = input.getAttribute('name')
                     if( rGroups[groupName] ?? null ) {
@@ -414,11 +414,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 {% endjs %}
 
 {% css %}
-.matrixConditionals--hidden {
-    height : 1px !important;
-    max-height : 1px !important;
-    overflow: hidden !important;
-    opacity: 0 !important;
-    margin-bottom: 0 !important;
-}
+    .matrixConditionals--hidden {
+        height : 1px !important;
+        max-height : 1px !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+        margin-bottom: 0 !important;
+    }
 {% endcss %}

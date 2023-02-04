@@ -3,10 +3,13 @@
         "label": "Featured Entry",
         "value": "featuredEntry",
         "block": {
-            "layout": "_layouts/grids/1-column"
+            "layout": "_layouts/grids/1-column",
+            "content2Base": "w-full grid gap-16"
+
         },
         "textConfig": {
-            "moveHeaders": true
+            "moveHeaders": true,
+            "moveButtons": true            
         },
         "itemsConfig": {
             "useCard": "_components/cards/largeCard"
@@ -14,14 +17,15 @@
     },
 
     {
-        "label": "2 Column Grid",
-        "value": "gridCards2Col",
+        "label": "Full Content Type Search",
+        "value": "fullContentSearch",
         "block": {
-            "layout": "_layouts/grids/intro-above-2-columns",
+            "layout": "_layouts/grids/intro-above-3-columns",
             "content1": "ml-0"
         },
         "itemsConfig": {
-            "useCard": "_components/cards/stackedCard"
+            "useCard": "_components/cards/stackedCard",
+            "showSearch": true
         }
     },
 
@@ -40,11 +44,25 @@
     },
 
     {
-        "label": "Tag Cloud",
-        "value": "tagCloud",
+        "label": "4 Column Grid",
+        "value": "gridCards4Col",
 
         "block": {
-            "layout": "_layouts/grids/intro-above-6-columns",
+            "layout": "_layouts/grids/intro-above-4-columns",
+            "content1" : "ml-0"
+        },
+        "textConfig": { },
+        "itemsConfig": {
+            "useCard": "_components/cards/stackedCard"
+        }
+    },
+
+    {
+        "label": "Logo Cloud",
+        "value": "logoCloud",
+
+        "block": {
+            "layout": "_layouts/grids/intro-above-3-columns",
             "content1Base" : "ml-0 w-full max-w-full"
         },
         "textConfig": {
@@ -52,7 +70,41 @@
             "size": "sm"
         },
         "itemsConfig": {
-            "useCard": "_components/cards/tagCard"
+            "useCard": "_components/cards/logoCard"
+        }
+    },
+
+    {
+        "label": "Carousel (Basic)",
+        "value": "carousel",
+        "block": {
+            "layout": "_layouts/grids/1-column",
+            "grid"  : "!gap-0",
+            "content1": "container optimalReadingWidth"
+        },
+        "container" : {
+            "class" : "noContainer"
+        },
+        "itemsConfig": {
+            "component": "_components/carousel/basic",
+            "useCard"  : "_components/cards/stackedCard"
+        }
+    },
+
+    {
+        "label": "Carousel (Three Up)",
+        "value": "carousel3up",
+        "block": {
+            "layout": "_layouts/grids/1-column",
+            "grid"  : "!gap-0",
+            "content1": "container optimalReadingWidth"
+        },
+        "container" : {
+            "class" : "noContainer"
+        },
+        "itemsConfig": {
+            "component": "_components/carousel/3-up",
+            "useCard"  : "_components/cards/stackedCard"
         }
     }
 ]

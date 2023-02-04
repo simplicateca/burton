@@ -12,8 +12,13 @@
 {# declare content repearter varibles passed from parent include() #}
 {% set itemsConfig   = itemsConfig ??? null %}
 {% set itemComponent = itemsConfig.component ??? null %}
-{% set cardLayout    = cardLayout ??? itemsConfig.useCard ??? '_components/card/text' %}
 {% set repeaterItems = items ??? [] %}
+
+{# set default cardLayout for repeater / entry blocks #}
+{% set cardLayout = cardLayout
+    ??? content.card.reference().useCard
+    ??? itemsConfig.useCard
+    ??? '_components/cards/text' %}
 
 {# prepare repeater content #}
 {% set repeaterContent2 -%}

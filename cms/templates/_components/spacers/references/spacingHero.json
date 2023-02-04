@@ -5,7 +5,7 @@
     },
 
     {
-        "value": "fullPage",
+        "value": "largeHero",
         "label" : "Prominent Feature",
         "block" : {
             "class" : "min-h-[70vh] flex flex-col justify-center"

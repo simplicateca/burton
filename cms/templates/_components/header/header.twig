@@ -1,4 +1,4 @@
-{% set entry    = entry    ??? null %}
+{% set entry    = event    ??? product ??? entry ??? null  %}
 {% set layout   = layout   ??? 'base' %}
 {% set section  = section  ??? entry.section.handle ??? 'base' %}
 {% set blocks   = blocks   ??? entry.headerBuilder.all() ??? null %}
@@ -13,7 +13,6 @@
         cMainNav__{{section}}
         cMainNav__{{layout}}
         bg-gray-100
-        py-4
         border-b
         sticky
         top-0
@@ -21,23 +20,44 @@
         z-50">
         <div class="container">
             <div class="flex items-center w-full">
-                {% block headerNavigation %}
-                    {{ include(
-                        [
-                            "_components/navigation/menu-primary",
-                            "_components/navigation/menu"
-                        ],
-                        { menu: 'primary' },
-                        withContext = false
-                    ) }}
-                {% endblock %}
+                <div class="py-4">
+                    {% block headerLogo %}
+                        {{ include( "_components/logo/logo",
+                            { },
+                            withContext = false
+                        ) }}
+                    {% endblock %}
+                </div>
 
-                {% block headerLogo %}
-                    {{ include( "_components/logo/logo",
-                        { },
-                        withContext = false
-                    ) }}
-                {% endblock %}
+                <div class="flex flex-col flex-grow text-right w-full items-end pb-4">
+                    {% block headerNavigation %}
+                        <div class="flex items-center mb-6 pt-4">
+                            {{ include(
+                                "_components/navigation/menu",
+                                {
+                                    menu: 'utility',
+                                    ulClass: 'm-0 p-0 list-none flex ml-auto text-right',
+                                    liClass: 'ml-3 text-sm',
+                                    aClass: '',
+                                },
+                                withContext = false
+                            ) }}
+
+                            <div class="ml-3">
+                                <a href="/search"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 2.5a7.5 7.5 0 0 1 5.964 12.048l4.743 4.745a1 1 0 0 1-1.32 1.497l-.094-.083-4.745-4.743A7.5 7.5 0 1 1 10 2.5Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z" fill="#212121"/></svg></a>
+                            </div>
+                        </div>
+                    
+                        {{ include(
+                            [
+                                "_components/navigation/menu-primary",
+                                "_components/navigation/menu"
+                            ],
+                            { menu: 'primary' },
+                            withContext = false
+                        ) }}
+                    {% endblock %}
+                </div>
             </div>
         </div>
     </div>
@@ -52,7 +72,8 @@
         flex-col
         bg-gray-200
         relative
-        z-30">
+        z-40
+    "
 
     {% block headerBuilder %}
         {{ include("_builders/partials/builderHeader", {

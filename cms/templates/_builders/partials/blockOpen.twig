@@ -21,8 +21,8 @@
 {% set inheritBaseClass = prevBlock.baseClass ??? '' %}
 {% set inheritClass     = prevBlock.class     ??? '' %}
 
-{% set sceneBgsMatch    = inherit or (prevScene.bgColor ?? null) == (nextScene.bgColor ?? null) %}
-{% set blockBgsMatch    = (prevBlock.bgColor ?? null) == (nextBlock.bgColor ?? null) %}
+{% set sceneBgsMatch    = inherit or (prevScene.twColor ?? null) == (nextScene.twColor ?? null) %}
+{% set blockBgsMatch    = (prevBlock.twColor ?? null) == (nextBlock.twColor ?? null) %}
 {% set prevSpacerAfter  = prevBlock.spaceAfter ?? '' %}
 
 {% set container        = blockBelow.settings.container ??? null %}
@@ -31,7 +31,7 @@
 
     {% if spaceBefore %}
         {% if not sceneBgsMatch or not prevSpacerAfter %}
-            <div class="cBlockSpacer cBlockSpacer__before {{spaceBefore}} bg-{{prevBlock.bgColor ?? null }}"></div>
+            <div class="cBlockSpacer cBlockSpacer__before {{spaceBefore}} bg-{{prevBlock.twColor ?? null }}"></div>
         {% endif %}
     {% endif %}
 
@@ -43,8 +43,7 @@
     {% set sceneClass     = nextScene.class ?? '' %}
     {% set nextBlock      = blockBelow.settings.block ??? null %}
 
-    {% set aboveBgNeutral = prevScene.bgNeutralHex ?? '#ffffff' %}
-    {% set cssVars        = "--bgAboveNeutral:#{aboveBgNeutral};" %}
+    {% set cssVars        = "" %}
 
     <div data-scene-id="{{blockID}}" class="cScene {{[sceneBaseClass,sceneClass]|join(' ')}}" style="{{cssVars}}" data-viewport>
 
@@ -61,8 +60,13 @@
                 <div class="cBlockSpacer cBlockSpacer__before cBlockSpacer__builderTop {{blockAbove.class}}"></div>
             {% else %}
                 {% if spaceBefore %}
+
                     {% if not sceneBgsMatch or not prevSpacerAfter or prevSpacerAfter != spaceBefore %}
                         <div class="cBlockSpacer cBlockSpacer__before {{spaceBefore}}"></div>
+
+                        {# {% if blockID == '6164' %}
+                            <h1>{{blockID}} {{spaceBefore}}</h1>
+                        {% endif %} #}
                     {% endif %}
                 {% endif %}
             {% endif %}

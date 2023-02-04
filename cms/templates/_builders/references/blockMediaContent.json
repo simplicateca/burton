@@ -41,7 +41,7 @@
             "class" : "flex flex-col w-full justify-center"
         },
         "textConfig": {
-            "moveHeaders": false,
+            "moveHeaders": true,
             "moveButtons": false,
             "transform": null
         }
@@ -71,5 +71,19 @@
             "moveButtons": false,
             "transform": null
         }
-    }
+    },
+
+    {
+        "label": "Masonry",
+        "value": "masonry",
+        "block": {
+            "layout": "_layouts/grids/1-column",
+            "content2Base": "w-full md:columns-2 lg:columns-3 2xl:columns-4 gap-8"
+
+        },
+        "mediaConfig": {
+            "component": "_components/media/media",
+            "card": false
+        }
+    } 
 ]

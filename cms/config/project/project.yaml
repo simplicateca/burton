@@ -50,6 +50,9 @@ elementSources:
         - type
       type: native
     -
+      defaultSort:
+        - postDate
+        - desc
       disabled: false
       key: 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f' # Fragments
       tableAttributes:
@@ -80,7 +83,7 @@ elementSources:
       defaultSort:
         - postDate
         - desc
-      disabled: false
+      disabled: true
       key: '*'
       tableAttributes:
         - section
@@ -198,7 +201,7 @@ meta:
     29f0f7bf-a7d4-4015-9ea2-cfd8f1530b1b: 'Has Search?' # Has Search?
     29f157fc-9918-4177-bcd3-55c2c5c9a38f: Text # Text
     30b5253e-1f74-41f3-b484-e6c82e3210d5: 'Layout Variant' # Layout Variant
-    32cc7e71-1196-4abe-a2b2-b9479600a266: Primary # Primary
+    32cc7e71-1196-4abe-a2b2-b9479600a266: 'Header - Primary' # Header - Primary
     34c8b184-a3df-4101-9525-d2c4a65aa9cb: 'Variant layout' # Variant layout
     36dbc7a6-4add-4410-8718-a9f8d7e2da97: 'Fragment Subtype' # Fragment Subtype
     38b98344-6260-45e3-92ea-d455cfa4afe1: Eyebrow # Eyebrow
@@ -211,7 +214,7 @@ meta:
     54aa6fb8-4a59-4704-9956-2c47eb2f5ceb: 'Anchor Link' # Anchor Link
     055d3887-062f-4180-bac4-65a9670f0440: Variant # Variant
     56c5070f-cf62-458c-9dc1-f775ee6f2380: 'Layout Variant' # Layout Variant
-    60a99a1b-8081-4b05-959f-fe916ff2b96e: Legal # Legal
+    60a99a1b-8081-4b05-959f-fe916ff2b96e: 'Footer - Legal Menu' # Footer - Legal Menu
     61d7345d-34c5-4c93-8ae0-9f9b5f3b166b: Text # Text
     67a0e610-9765-4200-9b9f-e59e4130f652: Background # Background
     67e56d28-ce0e-42b3-a78b-cbafa75cb98a: 'User Comment' # User Comment
@@ -243,6 +246,7 @@ meta:
     0553ed4a-8d9c-42be-855a-82fb23a24aac: Background # Background
     625a205f-5664-4223-840b-ec4c4e73b1bb: Limit # Limit
     650e7d1d-63e5-42f9-b3ab-4febfb502723: 'Primary Pages' # Primary Pages
+    740eff0a-152c-4375-b117-cf00b55d99a8: 'Footer - Contact' # Footer - Contact
     780c9942-bfd5-4d94-82c7-5b323a47f5d4: Default # Default
     887c7e34-0b1f-40b8-b330-27d660a47d50: Spacing # Spacing
     912adfc2-2bca-47f1-9da2-f1ed5514623c: Public # Public
@@ -369,6 +373,7 @@ meta:
     c3237db2-d369-48c5-813e-2345a8581370: Background # Background
     c6677eab-6c78-4ca1-93cd-0faa266d1c45: 'Text (Intro)' # Text (Intro)
     cd660f34-a88e-4f6f-a63d-dac487f3c1b3: 'Anchor Link' # Anchor Link
+    cf8b5aee-149d-48d8-b921-8e8d83991221: 'Footer - Features' # Footer - Features
     cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: Text # Text
     d05f4009-0b38-4065-a1b1-65221aa65e63: 'Header Builder' # Header Builder
     d08c5ca6-5020-4ac5-9460-c831d0921585: 'Hero title' # Hero title
@@ -410,6 +415,7 @@ meta:
     ea1a69ed-b5c5-46cf-a629-4435f7f7cad0: 'Content Builders' # Content Builders
     ea2610d5-eecb-4d99-916e-90ce7e2c2bbc: Background # Background
     ebab35b1-2b82-4883-aa61-9c554557708f: Table # Table
+    ebd33ea3-6d11-4647-b12c-a328fd814295: 'Header - Utility Menu' # Header - Utility Menu
     ec26ccd6-8b77-446f-83e4-5a157ab84ee5: Headnote # Headnote
     ecafdb45-55b7-4568-b087-9c19bc75197a: 'Error 404' # Error 404
     ef8f5bd0-5250-42da-b861-c220362619e2: Spacing # Spacing
@@ -440,81 +446,6 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 4.2.0
-    settings:
-      apiKey: ''
-      cacheControlHeader: 'public, s-maxage=31536000, max-age=0'
-      cacheDuration: null
-      cacheElementQueries: true
-      cacheElements: true
-      cacheGeneratorSettings:
-        __assoc__:
-          -
-            - concurrency
-            - '3'
-      cacheGeneratorType: putyourlightson\blitz\drivers\generators\HttpGenerator
-      cacheNonHtmlResponses: false
-      cachePurgerType: putyourlightson\blitz\drivers\purgers\DummyPurger
-      cacheStorageSettings:
-        __assoc__:
-          -
-            - folderPath
-            - '@webroot/cache/blitz'
-          -
-            - createGzipFiles
-            - '1'
-          -
-            - createBrotliFiles
-            - '1'
-      cacheStorageType: putyourlightson\blitz\drivers\storage\FileStorage
-      cachingEnabled: false
-      debug: false
-      deployerType: putyourlightson\blitz\drivers\deployers\DummyDeployer
-      driverJobPriority: 100
-      excludedQueryStringParams:
-        -
-          __assoc__:
-            -
-              - siteId
-              - ''
-            -
-              - queryStringParam
-              - gclid
-        -
-          __assoc__:
-            -
-              - siteId
-              - ''
-            -
-              - queryStringParam
-              - fbclid
-      generatePagesWithQueryStringParams: true
-      hintsEnabled: true
-      includedQueryStringParams:
-        -
-          __assoc__:
-            -
-              - siteId
-              - ''
-            -
-              - queryStringParam
-              - '.*'
-      injectScriptEvent: DOMContentLoaded
-      integrations:
-        - putyourlightson\blitz\drivers\integrations\CommerceIntegration
-        - putyourlightson\blitz\drivers\integrations\FeedMeIntegration
-        - putyourlightson\blitz\drivers\integrations\SeomaticIntegration
-      maxRetryAttempts: 10
-      mutexTimeout: 1
-      outputComments: true
-      queryStringCaching: 0
-      queueJobTtr: 300
-      refreshCacheAutomaticallyForGlobals: true
-      refreshCacheJobPriority: 10
-      refreshCacheWhenElementMovedInStructure: true
-      refreshCacheWhenElementSavedNotLive: false
-      refreshCacheWhenElementSavedUnchanged: false
-      refreshMode: 3
-      sendPoweredByHeader: true
   dospaces:
     edition: standard
     enabled: true
@@ -526,7 +457,6 @@ plugins:
   entriessubset:
     edition: standard
     enabled: true
-    licenseKey: 9R9DDM1EXYYOUZRA27ZR38WN
     schemaVersion: 1.1.1
   environment-label:
     edition: standard
@@ -539,8 +469,7 @@ plugins:
   formie:
     edition: standard
     enabled: true
-    licenseKey: W8X3BRSGVDROBDTPYO5LIHMN
-    schemaVersion: 2.0.8
+    schemaVersion: 2.0.10
     settings:
       ajaxTimeout: 10
       alertEmails: null
@@ -726,7 +655,6 @@ plugins:
   matrix-field-preview:
     edition: standard
     enabled: true
-    licenseKey: 542AOVGBZFL11WRORFHXE0PA
     schemaVersion: 3.0.2
     settings:
       previewSubpath: content-builder
@@ -742,8 +670,7 @@ plugins:
   navigation:
     edition: standard
     enabled: true
-    licenseKey: E7FAUH9NOO7NUN86YZ9Y5M61
-    schemaVersion: 2.0.6
+    schemaVersion: 2.0.7
   redactor:
     edition: standard
     enabled: true
@@ -763,7 +690,6 @@ plugins:
   seomatic:
     edition: standard
     enabled: true
-    licenseKey: D9HVMP5CG85325880WZZDFFR
     schemaVersion: 3.0.11
     settings:
       addHrefLang: true

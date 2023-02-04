@@ -34,7 +34,7 @@
             {% endblock %}
 
             <main class="cMain cMain__{{layout}} cMain__{{section}}">
-                <div class="outerContainer container flex flex-col lg:flex-row gap-12 lg:gap-20">
+                <div class="outerContainer container flex flex-col lg:flex-row gap-12 lg:gap-16">
 
                     {% set firstContentBlock = entry.contentBuilder|first ??? null %}
                     {% set firstBlockBG      = firstContentBlock.bg.value ??? null %}
@@ -55,7 +55,7 @@
 
                     {% set hasBlockBG = firstBlockBG in ['bgWhite', 'bgDark'] %}
                     {% set sidebarGap = hasBlockBG ? '' : 'lg:pt-20' %}
-                    <div class="cSidebar cSidebar__{{layout}} cSidebar__{{section}} {{sidebarGap}} w-full lg:max-w-xs">
+                    <div class="cSidebar cSidebar__{{layout}} cSidebar__{{section}} {{sidebarGap}} w-full lg:max-w-sm">
                         {% block sidebar %}
                             {{ include( "_builders/partials/builderSidebar", {
                                 entry: entry,
@@ -65,6 +65,8 @@
                         {% endblock %}
                     </div>
                 </div>
+
+                {% block belowColumns %}{% endblock %}
             </main>
 
             {% block aboveFooter %}

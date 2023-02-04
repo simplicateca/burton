@@ -28,6 +28,7 @@ use craft\web\twig\variables\CraftVariable;
 
 use modules\sitemodule\assetbundles\sitemodule\SiteModuleAsset;
 use modules\sitemodule\variables\SiteVariable;
+use modules\sitemodule\twigextensions\SiteModuleTwigExtension;
 
 class SiteModule extends Module
 {
@@ -90,6 +91,11 @@ class SiteModule extends Module
     {
         parent::init();
         self::$instance = $this;
+
+        // Add our TwigExtension(s)
+        Craft::$app->view->registerTwigExtension(
+            new SiteModuleTwigExtension()
+        );
 
         // Register our Variables
         // Event::on(

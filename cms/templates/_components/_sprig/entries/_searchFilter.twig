@@ -2,7 +2,7 @@
 {% set pageInfo = pageInfo ??? null %}
 
 {% set query    = query ??? '' %}
-{% set topic    = topic ??? '' %}
+{% set topic    = topic ??? props.topics[0].slug ??? '' %}
 {% set page     = pageInfo.currentPage ??? 1 %}
 {% set pages    = pageInfo.totalPages  ??? 0 %}
 
@@ -55,17 +55,19 @@
             >All Topics</a>
 
             {% for rec in props.topics %}
-                <li class="m-0 p-0">
-                    <a
-                        sprig
-                        s-val:topic="{{rec.slug}}"
-                        class="cTag cTag__{{ topic != rec.slug ? 'inactive' : 'active' }}"
-                        href="{{ _self.urlWithQueryParams(
-                            props.entryUrl,
-                            page,
-                            { query: query, topic: rec.slug }
-                        ) }}"                        
-                    >{{rec.title}}</a>
+                {% if rec.type.handle != 'private' %}    
+                    <li class="m-0 p-0">                   
+                        <a
+                            sprig
+                            s-val:topic="{{rec.slug}}"
+                            class="cTag cTag__{{ topic != rec.slug ? 'inactive' : 'active' }}"
+                            href="{{ _self.urlWithQueryParams(
+                                props.entryUrl,
+                                page,
+                                { query: query, topic: rec.slug }
+                            ) }}"                        
+                        >{{rec.title}}</a>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>

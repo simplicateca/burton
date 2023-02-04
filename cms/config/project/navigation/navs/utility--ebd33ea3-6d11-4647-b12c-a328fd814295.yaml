@@ -1,6 +1,6 @@
 defaultPlacement: end
 fieldLayouts:
-  9ea0ed09-a2ca-4369-bd27-80cbae5f3458:
+  e2ad2fb2-8e9d-4d5e-9fcf-3e32aeea5aa1:
     tabs:
       -
         elementCondition: null
@@ -27,7 +27,7 @@ fieldLayouts:
             tip: null
             title: null
             type: craft\fieldlayoutelements\TitleField
-            uid: 09042c3b-b303-4b3d-9fcc-e80205067075
+            uid: 6bbdb106-30ff-4432-8411-f70d819a1e44
             userCondition: null
             warning: null
             width: 100
@@ -38,7 +38,7 @@ fieldLayouts:
             required: false
             tip: null
             type: verbb\navigation\fieldlayoutelements\NodeTypeElements
-            uid: 32c569d1-d602-4f35-a3e4-d70b29907fcc
+            uid: 40deca8d-0c2c-4be5-a130-b9b110bed27b
             userCondition: null
             warning: null
           -
@@ -54,12 +54,12 @@ fieldLayouts:
             tip: null
             translatable: false
             type: verbb\navigation\fieldlayoutelements\NewWindowField
-            uid: 11e57b40-ebde-465c-9e41-70bdc7dc0105
+            uid: f349c24a-50cd-466f-b682-caf0a2a8588d
             userCondition: null
             warning: null
             width: 100
         name: Node
-        uid: 78284955-9c25-48e0-a101-af21dd12471a
+        uid: 01c4f403-3a6a-407c-b527-fe624aed6f2f
         userCondition: null
       -
         elementCondition: null
@@ -92,7 +92,7 @@ fieldLayouts:
             title: null
             translatable: false
             type: verbb\navigation\fieldlayoutelements\UrlSuffixField
-            uid: 037f4399-ba6e-4423-b83c-8413a3fc743d
+            uid: b7178822-2c00-4420-bc78-58a8f8e93766
             userCondition: null
             warning: null
             width: 100
@@ -124,7 +124,7 @@ fieldLayouts:
             title: null
             translatable: false
             type: verbb\navigation\fieldlayoutelements\ClassesField
-            uid: 0d2bcf5a-d7f7-44fa-895b-35412982fc85
+            uid: b0326578-4683-4681-b236-5002deabf6bc
             userCondition: null
             warning: null
             width: 100
@@ -141,31 +141,27 @@ fieldLayouts:
             tip: null
             translatable: false
             type: verbb\navigation\fieldlayoutelements\CustomAttributesField
-            uid: a5a9c479-0b25-4a5c-bfef-6a73c7564c7b
+            uid: b4e608bc-8666-434e-9e36-c4b38c0683b4
             userCondition: null
             warning: null
             width: 100
         name: Advanced
-        uid: 8c4fe6be-094c-4072-9ecb-2a91ff322b77
+        uid: 472a699a-dd03-44a2-9875-6a47f8e916d7
         userCondition: null
-handle: primary
+handle: utility
 instructions: ''
 maxNodes: null
-name: 'Header - Primary'
+name: 'Header - Utility Menu'
 permissions:
   craft\elements\Asset:
     enabled: '1'
-    permissions: ''
+    permissions: '*'
   craft\elements\Category:
     enabled: '1'
     permissions: '*'
   craft\elements\Entry:
     enabled: '1'
-    permissions:
-      - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Topics
-      - 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # News
-      - 'section:8c9174b7-2c31-491e-a3f9-0374374c967c' # Landing Pages
-      - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Primary Pages
+    permissions: '*'
   craft\elements\Tag:
     enabled: ''
     permissions: '*'
@@ -174,14 +170,14 @@ permissions:
   verbb\navigation\nodetypes\PassiveType:
     enabled: '1'
   verbb\navigation\nodetypes\SiteType:
-    enabled: ''
+    enabled: '1'
 propagationMethod: all
 siteSettings:
   41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
     enabled: true
   34463b82-dd3f-441c-b9c6-59c351e847aa: # Main Site (FRENCH)
     enabled: true
-sortOrder: 3
+sortOrder: 5
 structure:
-  maxLevels: 2
-  uid: 73e32a07-4773-48cf-94f7-6cfc39f43331
+  maxLevels: 1
+  uid: d0aeda71-2c0e-4a02-abbc-1a58d8cc5646

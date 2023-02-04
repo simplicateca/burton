@@ -49,13 +49,8 @@
 } %}
 
 {% if form %}
-    <div class="flex flex-col items-center justify-center pt-12 bg-gray-200">
-        <div class="container">
-            {{text|raw}}
-
-            <div class="mt-10">
-                {{ craft.formie.renderForm(form, renderOptions) }}
-            </div>
-        </div>
+    <div class="flex flex-col">
+        {{text|raw}}
+        {{ craft.formie.renderForm(form, renderOptions) }}
     </div>
 {% endif %}

@@ -50,41 +50,47 @@
     {# set default cardLayout for repeater / entry blocks #}
     {% set cardLayout = content.card.reference().useCard
                         ??? itemsConfig.useCard
-                        ??? '_components/card/text' %}
+                        ??? '_components/cards/text' %}
+
+    {% set headerClass = textConfig.headerClass     ?? null %}
+    {% set headerTmpl  = textConfig.headerComponent ?? null %}
 
     {# if we're using textConfig.moveHeaders and/or textConfig.moveButtons
        to automatically extract leading headlines (h1/h2/h3/etc) and/or
        trailing button elements from the primary block text field
        so that they can be relocated to a different part of the block grid #}
-    {% set headline       = headline ? richtext.formatHeadline( headline, 'h1' ) : '' %}
-    {% set moveHeaders    = textConfig.moveHeaders ?? false %}
-    {% set moveButtons    = textConfig.moveButtons ?? false %}
+    {% set moveFirstEyebrow = textConfig.moveFirstEyebrow ?? false %}
+    {% set moveHeaders      = textConfig.moveHeaders ?? false %}
+    {% set moveButtons      = textConfig.moveButtons ?? false %}
+
     {% if moveHeaders or moveButtons %}
 
-        {# extract / wrap the headline #}
-        {% set headerTmpl  = textConfig.headerComponent ?? null %}
-        {% set headerClass = textConfig.headerClass     ?? null %}
-        {% set headers     = richtext.leadingHeadlines( text, null, headerClass, headerTmpl ) %}
-
-        {# extract / wrap the buttons #}
         {% set buttonWrap  = textConfig.buttonWrapper ??? 'div.cButtonGroup.cButtonGroup__trailing' %}
-        {% set buttons     = richtext.trailingButtons( text, buttonWrap ) %}
-        {% set text        = richtext.trimHeadlinesButtons( text, moveHeaders, moveButtons ) %}
-        
+
+        {# extract / wrap the headers / buttons #}   
+        {% set headers  %}{{ richtext.leadingHeadlines( text, null, headerClass, headerTmpl ) }}{% endset %}
+        {% set buttons  %}{{ richtext.trailingButtons( text, buttonWrap )}}{% endset %}
+        {% set text     %}{{ richtext.trimHeadlinesButtons( text, moveHeaders, moveButtons )}}{% endset %}
     {% endif %}
 
     {# text field formatting #}
-    {% set text  = richtext.prose( text  ) %}
-    {% set text2 = richtext.prose( text2 ) %}
+    {% set text  %}{{ richtext.prose( text  ) }}{% endset %}
+    {% set text2 %}{{ richtext.prose( text2 ) }}{% endset %}
 
     {# set a blockID for this block that can be used in any dynamic components #}
     {% set blockID = content.id ??? random(111111, 999999) %}
 
     {# (overridable) default blockHeader for most most blocks #}
     {% set blockHeader -%}
+        {%- if text and ( moveFirstEyebrow ) -%}
+            {% set eyebrow = text|retconOnly( 'div.eyebrow' ) ??? null %}
+            {% set text    = text|retconRemove( 'div.eyebrow' ) %}
+            {{- eyebrow ??? '' -}}
+        {%- endif -%}
+
         {%- if headline or ( moveHeaders and headers ) -%}
             {%- if blockConfig.headerClass ??? null -%}<div class="{{blockConfig.headerClass}}">{%- endif -%}
-                {{ headline }}
+                {{ headline ? richtext.formatHeadline( headline, 'h1', headerClass, headerTmpl ) : '' }}
                 {{ moveHeaders ? headers : null }}
             {%- if blockConfig.headerClass ??? null -%}</div>{%- endif -%}
         {%- endif -%}

@@ -116,6 +116,7 @@ h1,
 
 
 h2,
+h1.like-h2,
 div.like-h2,
 .prose h2,
 p.like-h2 {
@@ -139,6 +140,8 @@ p.like-h2 {
 
 
 h3,
+h1.like-h3,
+h2.like-h3,
 div.like-h3,
 .prose h3,
 p.like-h3 {
@@ -263,11 +266,11 @@ ul.checkmarks {
         p-0
         m-0
         ml-6
-        my-8
+        !my-8
         ;
  
     li {
-        @apply relative pl-4 mb-8;
+        @apply relative pl-4;
  
         &:before {
             @apply h-6 w-6 bg-gray-700 block top-0 -left-5 translate-y-1/2;
@@ -286,28 +289,25 @@ ul.checkmarks {
     }
 }
 
-ol.two-column,
-ul.two-column {
-    column-count: 2;
-}
- 
-ol.grid,
-ol.grid-2,
-ul.grid,
-ul.grid-2 {
+ol.twoColumn,
+ul.twoColumn,
+ol.listGrid,
+ol.listGrid-2,
+ul.listGrid,
+ul.listGrid-2 {
     @apply
         list-none
         m-0
         py-4
         px-0
+        grid
         grid-cols-1
         md:grid-cols-2
         gap-4
-        md:gap-8
-        xl:gap-12;
+        xl:gap-6;
  
     li {
-        @apply m-0 p-0;
+        @apply m-0 p-0 pl-4;
  
         & > strong {
             @apply block text-[120%] mb-1;
@@ -319,7 +319,7 @@ ul.grid-2 {
     }
 }
  
-ul.grid-3 {
+ul.listGrid-3 {
     @apply
         grid-cols-1
         md:grid-cols-3

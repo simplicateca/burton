@@ -15,17 +15,12 @@
             </div>
 
             {% block summary %}
-                {{ richtext.prose(
-                    ( text
-                    ? craft.typogrify.truncate(text, 200)
-                    : ''
-                    ), 'lg'
-                )}}
+                {{ richtext.prose( text, 'lg' ) }}
             {% endblock %}
 
             {% block title %}
                 {%- if title -%}
-                    <div class="pt-2">
+                    <div class="pt-2 prose">
                         <strong>{{title}}</strong>
                     </div>
                 {%- endif -%}
@@ -33,7 +28,7 @@
 
             {% block link %}
                 {%- if url -%}
-                    <a class="self-end mt-2 clickable-parent block" href="{{ url }}">Read more →</a>
+                    <a class="self-end mt-2 clickable-parent block" href="{{ url }}">&ensp; Read more →</a>
                 {% endif %}
             {% endblock %}
         </div>

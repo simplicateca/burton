@@ -15,11 +15,12 @@
     <div class="grid bg-gray-200 grid-cols-1 h-full content-start transition hover:scale-[1.025] hover:shadow-2xl">
         <div class="aspect-video w-full">
             {{ include( '_components/media/image', { 
-                images: images
+                images: images,
+                transform: 'video'
             }, withContext = false )}}
         </div>
 
-        <div class="p-2.5 md:p-5 xl:p-8 prose-text-dark">
+        <div class="p-2.5 md:p-5 xl:p-8 prose-text-dark flex flex-col gap-2">
             {% block aboveTitle %}{% endblock %}
 
             {% block title %}
@@ -46,7 +47,7 @@
                     </div>
                 {% else %}
                     {%- if url -%}
-                        <a class="self-end mt-2 clickable-parent" href="{{ url }}">Read more →</a>
+                        <a class="self-end mt-2 clickable-parent" href="{{ url }}">&ensp; Read more →</a>
                     {%- endif -%}
                 {%- endif -%}
             {% endblock %}

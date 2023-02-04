@@ -3,12 +3,29 @@
     "label": "Text Left / Image Right",
     "default": true,
     "reference": {
-        "note": "Text on the left, image on the right, 50%/50% width. Stacks top/bottom mobile.",
+        "note": "Text on the left, image on the right, 50%/50% width. Stacks image top / text bottom mobile.",
         "image": "https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/media-featured-v2.jpg",
         "moreUrl": "/sitebook/components/media/#featured"        
     },
     "block": {
         "layout": "_layouts/grids/2-columns-even"
+    },    
+    "mediaConfig": {
+        "component": "_components/media/image"
+    }
+},
+
+{
+    "value": "textRight",
+    "label": "Text Right / Image Left",
+    "reference": {
+        "note": "Text on the right, image on the left, 50%/50% width. Stacks image top / text bottom mobile.",
+        "image": "https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/media-featured-v2.jpg",
+        "moreUrl": "/sitebook/components/media/#featured"
+    },
+    "block": {
+        "layout": "_layouts/grids/2-columns-even",
+        "grid": "lg:flex-row-reverse"
     },    
     "mediaConfig": {
         "component": "_components/media/image"
@@ -36,17 +53,14 @@
 },
 
 {
-    "value": "textRight",
-    "label": "Image Left (Stretch Height) / Text Right",
+    "value": "imageRightHeightFull",
+    "label": "Text Left / Image Right (Stretch Height)",
     "reference": {
-        "note": "Text on the right, image on the left. Image will stretch to match text height."
+        "note": "Text on the left, image on the right. Image will stretch to match text height."
     },
     "block": {
         "layout": "_layouts/grids/2-columns-even",
-        "grid": "lg:flex-row-reverse",
-        "content2": "relative",
-        "inner2": "h-full relative overflow-hidden z-30",
-        "include2" : "_components/backgrounds/offset-box"
+        "inner2": "h-full relative overflow-hidden z-30"
     },
     "mediaConfig": {
         "component": "_components/media/image-fit-parallax"
@@ -61,13 +75,19 @@
     },
     "block": {
         "layout": "_layouts/grids/text-overlap.twig",
-        "grid": "container",
-        "content1": "mt-60 xl:mt-80 md:w-3/4 lg:w-1/2 !p-0 mr-0 ml-auto",
-        "content2": "min-h-[30rem] max-h-[30rem] xl:min-h-[40rem] xl:max-h-[40rem]",
-        "inner1": "!bg-white/100 lg:ml-6 xl:ml-10 xl:p-10"
+        "grid": "container min-h-[20rem] max-h-[20rem] xl:min-h-[32rem] xl:max-h-[32rem]",
+        "content1": "",
+        "content2": "min-h-[24rem] max-h-[24rem] xl:min-h-[36rem] xl:max-h-[36rem]",
+        "inner1": "!bg-white/100 lg:ml-6 xl:ml-10 xl:p-10",
+        "spaceAfter": "none",
+        "prevSpacerAfter": true
     },
     "container" : {
         "class": "noContainer"
+    },
+    "scene": {
+        "baseClass": "cScene__bgNone overflow-hidden",
+        "twColor": "transparent"
     },
     "mediaConfig": {
         "component": "_components/media/image-parallax"

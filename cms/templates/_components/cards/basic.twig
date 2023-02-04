@@ -1,0 +1,57 @@
+{% import "_macros/richtext" as richtext %}
+{% set htag    = htag    ??? 'h3' %}
+{% set title   = title   ??? entry.title ??? entry.headline ??? '' %}
+{% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? '' %}
+{% set url     = url     ??? entry.url ??? '' %}
+{% set handle  = handle  ??? entry.section.handle ??? 'Base' %}
+{% set images  = images  ??? entry.images.all() ??? [] %}
+
+{% set textWithoutButton   = text|removeTrailingButtons  %}
+{% set textOnlyButton      = text|extractTrailingButtons %}
+{% set textOnlyButtonCount = textOnlyButton|split('<a')|length-1 %}
+
+{% block articleTag %}
+<article class="cCard cCard__basicCard cCard__{{handle}} h-full">
+{% endblock %}
+    <div class="grid grid-cols-1 h-full content-start transition">
+        {% block image %}
+            <div class="aspect-video w-full">
+                {{ include( '_components/media/image', { 
+                    images: images
+                }, withContext = false )}}
+            </div>
+        {% endblock %}
+
+        <div class="pt-4 text-center">
+            {% block aboveTitle %}{% endblock %}
+
+            {% block title %}
+                {%- if title -%}
+                    {{ richtext.formatHeadline( title, htag, 'text-base md:text-lg xl:text-xl mb-4' )}}
+                {%- endif -%}
+            {% endblock %}
+
+            {% block aboveSummary %}{% endblock %}
+
+            {% block summary %}
+                {{ richtext.prose( textWithoutButton ?? text ?? '', 'sm' ) }}
+            {% endblock %}  
+
+            {% block link %}
+                {% if textOnlyButton %}
+                    <div class="mt-4 prose">
+                        {% set buttonClass = textOnlyButtonCount == 1 ? "clickable-parent" : '' %}
+                        {{ textOnlyButton
+                            | retconAttr( 'p', { 'class' : 'flex gap-8 items-center justify-center' } )
+                            | retconAttr( 'a', { 'class' : buttonClass } )
+                            | raw }}
+                    </div>
+                {% else %}
+                    {%- if url -%}
+                        <a class="self-end mt-2 clickable-parent" href="{{ url }}">&ensp; Read more →</a>
+                    {%- endif -%}
+                {%- endif -%}
+            {% endblock %}
+        </div>
+    </div>
+</article>

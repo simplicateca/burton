@@ -51,14 +51,10 @@
         {% set headline = "<#{tag}>#{plainText}</#{tag}>" %}
     {% endif %}
 
-    {% if class %}
-        {% set headline = headline| retconAttr( ['h1','h2','h3','h4','h5','h6','div'], { 'class' : class } ) %}
-    {% endif %}
-
     {% set anchor = plainText|replace( {"\n": " " } )|striptags|kebab|ascii %}
     {% set headline =
         headline
-        | retconAttr( ['h1','h2','h3','h4','h5','h6'], { 'id' : anchor } )
+        | retconAttr( ['h1','h2','h3','h4','h5','h6'], { 'id': anchor, 'class': class } )
         | retconWrap( "mark", "span.mark" )
         | retconChange( "mark", "span" )
         | retconChange( "span.mark", "mark" )
@@ -80,13 +76,17 @@
         {% set alignmentClass = 'right' %}
     {% endif %}
 
+    {% set alignmentClass = alignmentClass ? " cHeadline__#{alignmentClass}" : "" %}
+
     {% if template %}
         {{ include( template, { headline: headline, eyebrow: eyebrow }, withContext = false) }}
     {% else %}
-        <div class="cHeadline cHeadline__{{alignmentClass}}">
-            {{eyebrow}}
-            {{headline|raw}}
-        </div>
+        {% if headline or eyebrow %}    
+            <div class="cHeadline {{- alignmentClass }}">
+                {{eyebrow}}
+                {{headline|raw}}
+            </div>
+        {% endif %}
     {% endif %}
 {% endmacro %}
 

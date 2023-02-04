@@ -85,7 +85,7 @@ fields:
       configSelectionMode: choose
       defaultTransform: ''
       manualConfig: ''
-      purifierConfig: allow.iframes.json
+      purifierConfig: null
       purifyHtml: true
       redactorConfig: Standard.json
       removeEmptyTags: true

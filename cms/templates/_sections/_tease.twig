@@ -3,8 +3,9 @@
     card: '_components/cards/text'
 } %}
 {% set props = params is defined and params is iterable ? props|merge(params) : props %}
-
 {% set entry = entry ??? null %}
+{% set loop  = loop  ??? null %}
+
 {% if entry %}
-    {% embed [props.card] with { entry: entry, props: props } only %}{% endembed %}
+    {% embed [props.card] with { entry: entry, props: props, loop: loop } only %}{% endembed %}
 {% endif %}

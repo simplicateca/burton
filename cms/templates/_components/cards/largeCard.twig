@@ -6,7 +6,8 @@
 {% set url     = url     ??? entry.url ??? null %}
 {% set handle  = handle  ??? entry.section.handle ??? 'Base' %}
 {% set images  = images  ??? entry.images.all() ??? null %}
-{% set class   = class   ??? 'md:flex-row' %}
+{% set class   = class   ??? ( (loop.index ??? 1) % 2 ) ? 'md:flex-row' : 'md:flex-row-reverse' %}
+
 
 {% block articleTag %}
 <article class="cCard cCard__largeCard cCard__{{handle}}">
@@ -38,7 +39,7 @@
 
             {% block link %}
                 {%- if url -%}
-                    <a class="self-end mt-2 clickable-parent block" href="{{ url }}">Read more →</a>
+                    <a hx-get="{{ url }}" hx-target="#ajaxContent" hx-swap="outerHTML" class="self-end mt-2 clickable-parent block" href="{{ url }}">&ensp; Read more →</a>
                 {% endif %}
             {% endblock %}
         </div>

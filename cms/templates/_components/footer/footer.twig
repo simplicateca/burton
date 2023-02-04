@@ -1,18 +1,49 @@
-<footer class="bg-gray-900">
-    <div class="container">
-        <div class="flex flex-col md:flex-row py-6 text-white justify-center items-center text-xs md:text-base gap-3">
+<footer class="bg-gray-200">
+    <div class="container pt-10 pb-6">
+        <div class="grid grid-cols-2">
+            <div class="grid grid-cols-2">
+                <div>
+                    <strong>Features</strong>
+                    {{ include( "_components/navigation/menu", {
+                        menu: 'features',
+                        ulClass: "grid grid-cols-1",
+                        liClass: "my-1"
+                    }, withContext = false ) }}                    
+                </div>
+
+                <div>
+                    <strong>Contact us</strong>
+                    {{ include( "_components/navigation/menu", {
+                        menu: 'contact',
+                        ulClass: "grid grid-cols-1",
+                        liClass: "my-1"
+                    }, withContext = false ) }}                    
+
+                    {{ include( '_components/widgets/social-links') }}
+                </div>
+            </div>
+
+            <div>
+                {% import "_macros/fragments.twig" as fragments %}
+                {{ fragments.loadBySlug('newsletter-subscribe') }}
+            </div>
+        </div>
+
+
+        <div class="flex flex-col md:flex-row pt-6 items-center text-xs md:text-base gap-3 border-t border-nauticalBlue">
             {% block legal %}
                 <div>
                     © {{"now"|date('Y')}} {{ currentSite.name }}. All rights reserved.
                 </div>
             {% endblock %}
 
+            
             {% block menu %}
                 {{ include( "_components/navigation/menu", {
                     menu: 'legal',
                     liClass: "mx-3"
                 }, withContext = false ) }}
             {% endblock %}
-        </div>
+        </div>        
     </div>
 </footer>

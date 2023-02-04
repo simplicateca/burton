@@ -19,14 +19,20 @@
 {%- if items -%}
     {%- if props.component -%}
         {{ include( props.component, {
-            params: props,
-            items:  items
+            blockID    : props.blockID,
+            cardLayout : props.card,
+            config     : props.config,
+            items      : items
         }, withContext = false ) }}
     {%- else -%}
         {%- for item in items -%}
+
+            {% set itemClass  = item.className() ?? '' %}    
+            {% set sectionDir = item.section.handle ??? '' %}
+
             {{ include([
-                    "_sections/#{item.section.handle}/_tease.#{props.builder}",
-                    "_sections/#{item.section.handle}/_tease",
+                    "_sections/#{sectionDir}/_tease.#{props.builder}",
+                    "_sections/#{sectionDir}/_tease",
                     "_sections/_tease.#{props.builder}",
                     "_sections/_tease"
                 ],{

@@ -40,7 +40,7 @@
         {% set blockParams = {
             blockConfig  : blockConfig,
             itemsConfig  : itemsConfig,
-            cardLayout   : itemsConfig.useCard   ??? '_components/card/text',
+            cardLayout   : itemsConfig.useCard   ??? '_components/cards/text',
             contentType  : content.contentType   ??? null,
             entryUrl     : thisBlock.entry.url   ??? '/',
             gridLayout   : blockConfig.layout    ??? '_layouts/grids/1-column',
@@ -55,8 +55,9 @@
     {% endif %}
 {% endif %}
 
-{# don't both doing anything unless we have a valid contentType #}
-{% if props.contentType %}
+{# don't bother doing anything unless we have a valid contentType #}
+{% set contentType = props.contentType.value ??? props.contentType ??? "" %}
+{% if contentType %}
 
     {# search/sort/filter settings #}
     {% set orderBy = query ? 'score DESC' : 'postDate DESC' %}
@@ -65,10 +66,19 @@
 
     {# being to create the starting query #}
     {% set entryQuery = craft.entries()
-        .section(props.contentType)
         .with(['topics', 'images'])
         .orderBy(orderBy)
         .limit(props.perPage) %}
+
+        {% if '__' in contentType %}
+            {% set typeParts = contentType|split('__') %}
+            {% set entryQuery = entryQuery
+                .section(typeParts[0])
+                .type(typeParts[1])
+            %}
+        {% else %}
+            {% set entryQuery = entryQuery.section(contentType) %}
+        {% endif %}
 
     {# are we searching by a keyword #}
     {% if query %}
@@ -77,6 +87,7 @@
 
     {# are we filtering by topic(s) #}
     {% if topic ??? props.topics %}
+        {% set topic = topic ??? props.topics[0].slug ??? '' %}
         {% if topic %}
             {% set topicEntry = props.topics|filter( v => v.slug == topic ) %}
             {% set entryQuery = entryQuery.relatedTo(topicEntry) %}
@@ -145,15 +156,13 @@
             content3Hide: ( not props.content3|trim )
         } %}
             {% block beforeGrid %}
-                {{searchContent1|raw}}
+                
             {% endblock %}
 
             {% block content1 %}
                 {{content1|raw}}
 
-                <p class="mt-4 mb-0">
-                    Found <strong>{{ pageInfo.total }}</strong> results
-                </p>
+                {{searchContent1|raw}}
             {% endblock %}
 
             {% block content2 %}

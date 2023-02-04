@@ -41,7 +41,7 @@
         "value": "waveAbove",
         "label" : "Wave Above",
         "block" : {
-            "includeBefore": "_components/dividers/motion-waves",
+            "includeBefore": "_components/dividers/wave",
             "spaceAfter": "h-20"
         }
     },

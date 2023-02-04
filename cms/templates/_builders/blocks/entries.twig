@@ -13,8 +13,13 @@
 {# declare entries varibles passed from parent include() #}
 {% set itemsConfig   = itemsConfig ??? null %}
 {% set itemComponent = itemsConfig.component ??? null %}
-{% set cardLayout    = cardLayout ??? itemsConfig.useCard ??? '_components/card/text' %}
 {% set entryItems    = items ??? [] %}
+
+{# set default cardLayout for repeater / entry blocks #}
+{% set cardLayout = cardLayout
+    ??? content.card.reference().useCard
+    ??? itemsConfig.useCard
+    ??? '_components/cards/text' %}
 
 {# prepare media content #}
 {% set mediaContent3 -%}
@@ -37,7 +42,7 @@
 {% set entryUrl      = entry.url   ??? '' %}
 
 {# if this component has earch & pagination, use the sprig component #}
-{% if method == 'allSearch' %}
+{% if itemsConfig.showSearch ?? false %}
 
     {{ sprig('_components/_sprig/entries/liveSearch', {
         params: {
@@ -52,22 +57,36 @@
 {# otherwise, just handle it within the block component #}
 {% else %}
 
-    {% if method == 'limitedSearch' and contentType %}
+    {% if contentType and method != 'choose' %}
         {# search/sort/filter settings #}
         {% set orderBy = 'postDate DESC' %}
-        {% set orderBy = ( order == 'random'       ) ? 'RAND()'     : orderBy %}
-        {% set orderBy = ( order == 'alphabetical' ) ? 'title DESC' : orderBy %}
+        {% set orderBy = ( order == 'random'       ) ? 'RAND()'        : orderBy %}
+        {% set orderBy = ( order == 'alphabetical' ) ? 'title DESC'    : orderBy %}
+        {% set orderBy = ( order == 'upcoming'     ) ? 'startDate ASC' : orderBy %}
+
+        {% set limit = ( method == 'limitedSearch' ) ? limit : perPage %}
+        {% set limit = limit ?? -1 %}
 
         {# being to create the starting query #}
         {% set entryQuery = craft.entries()
-            .section(contentType)
             .with(['images','topics'])
             .orderBy(orderBy)
             .limit(limit) %}
 
+        {% if '__' in contentType %}
+            {% set typeParts = contentType|split('__') %}
+
+            {% set entryQuery = entryQuery
+                .section(typeParts[0])
+                .type(typeParts[1])
+            %}
+        {% else %}
+            {% set entryQuery = entryQuery.section(contentType) %}
+        {% endif %}
+
         {# are we filtering by topic(s) #}
         {% if topics %}
-            {% set entryQuery = entryQuery.relatedTo(props.topics) %}
+            {% set entryQuery = entryQuery.relatedTo(topics) %}
         {% endif %}
 
         {# get all the results #}
@@ -93,24 +112,26 @@
         layout settings can be modified or overridden via the `config` param.
         grid layout twig files are typically stored in `cms/templates/_layouts/grids/` #}
     {% block gridLayout %}
-        {% embed gridLayout ignore missing with {
-            blockID: blockID,
-            config: blockConfig,
-            content1Hide: ( not textContent1 ),
-            content2Hide: ( not entryItems ),
-            content3Hide: ( not mediaContent3|trim )
-        } %}
-            {% block content1 %}
-                {{textContent1|raw}}
-            {% endblock %}
+        {% if gridLayout %}    
+            {% embed gridLayout ignore missing with {
+                blockID: blockID,
+                config: blockConfig,
+                content1Hide: ( not textContent1 ),
+                content2Hide: ( not entryItems ),
+                content3Hide: ( not mediaContent3|trim )
+            } %}
+                {% block content1 %}
+                    {{textContent1|raw}}
+                {% endblock %}
 
-            {% block content2 %}
-                {{entriesContent2|raw}}
-            {% endblock %}
+                {% block content2 %}
+                    {{entriesContent2|raw}}
+                {% endblock %}
 
-            {% block content3 %}
-                {{mediaContent3|raw}}
-            {% endblock %}        
-        {% endembed %}
+                {% block content3 %}
+                    {{mediaContent3|raw}}
+                {% endblock %}        
+            {% endembed %}
+        {% endif %}
     {% endblock %}
 {% endif %}

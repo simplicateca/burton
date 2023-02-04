@@ -42,7 +42,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "npm run lint && vite build",
+    "build": "vite build",
     "lint": "npm run lint:ts && npm run lint:js && npm run lint:css",
     "lint:ts": "tsc --noEmit",
     "lint:js": "eslint './src/**/*.{js,ts,vue}' --fix",

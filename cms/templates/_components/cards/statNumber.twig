@@ -9,13 +9,14 @@
 {% set handle    = handle  ??? entry.section.handle ??? 'Base' %}
 {% set images    = images  ??? entry.images.all() ??? null %}
 
-<div class="cCard cCard__statNumber cCard__{{handle}} flex flex-col gap-2">
-    {# <div>
+<div class="cCard cCard__statNumber cCard__{{handle}} flex flex-col gap-2 items-center">
+    <div>
         <div class="aspect-square h-16 bg-gray-200">&nbsp;</div>
-    </div> #}
+    </div>
 
     {% block title %}
         {%- if title -%}
+            {# statFormat is a custom twig filter from: cms/modules/gearbox/src/twigextensions/GearboxTwigExtension #}
             {% set number = title|striptags|statFormat %}
             <h3 class="mb-0 text-4xl text-white cStatNumber__{{blockID}}__{{loopIndex}}">
                 {{number|raw}}

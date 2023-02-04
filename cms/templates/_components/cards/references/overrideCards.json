@@ -11,6 +11,12 @@
     },
 
     {
+        "label": "Image Top / Text Bottom",
+        "value": "basic",
+        "useCard": "_components/cards/basic"
+    },
+
+    {
         "label": "Stacked Card",
         "value": "stackedCard",
         "useCard": "_components/cards/stackedCard"

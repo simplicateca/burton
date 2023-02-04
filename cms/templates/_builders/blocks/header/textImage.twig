@@ -1,45 +1,13 @@
-{% import "_macros/richtext" as richtext %}
-
-{# declare setting varibles passed from parent include() #}
+{# declare content & setting varibles passed from parent include() #}
 {% set blockID      = blockID ??? random(111111, 999999) %}
 {% set blockConfig  = blockConfig ??? config ??? null %}
 {% set gridLayout   = layout ??? blockConfig.layout ??? null %}
-
-{# declare text specific content varibles passed from parent include() #}
-{% set text         = ( text ??? '' )|trim %}
-{% set headline     = headline    ??? null %}
-{% set moveHeaders  = moveHeaders ??? null %}
-{% set headers      = headers     ??? null %}
+{% set textContent1 = ( text ??? '' )|trim %}
 
 {# declare image/media varibles passed from parent include() #}
 {% set mediaConfig    = mediaConfig ??? null %}
 {% set mediaComponent = mediaConfig.component ??? '_components/media/image' %}
 {% set mediaAssets    = images ??? [] %}
-
-{# place the header <h1>title</h1> above the grid for smaller displays #}
-{% set blockHeader %}
-    <div class="block 2xl:hidden pb-4">
-        {% if headline or ( moveHeaders and headers ) %}
-            {% if blockConfig.header ??? null %}<div class="{{headerWrap}}">{% endif %}
-                {{ headline ? richtext.formatHeadline( headline, 'h1' ) : null }}
-                {{ moveHeaders ? headers : null }}
-            {% if blockConfig.header ??? null %}</div>{% endif %}
-        {% endif %}
-    </div>
-{% endset %}
-
-{# place the header <h1>title</h1> inside the columns for widescreen displays #}
-{% set textContent1 %}
-    <div class="hidden 2xl:block pb-4">
-        {% if headline or ( moveHeaders and headers ) %}
-            {% if blockConfig.header ??? null %}<div class="{{headerWrap}}">{% endif %}
-                {{ headline ? richtext.formatHeadline( headline, 'div', 'like-h1' ) : null }}
-                {{ moveHeaders ? headers : null }}
-            {% if blockConfig.header ??? null %}</div>{% endif %}
-        {% endif %}
-    </div>
-    {{text|raw}}
-{% endset %}
 
 {# prepare image content #}
 {% set mediaContent2 %}
@@ -60,16 +28,18 @@
         config: blockConfig,
         content1Hide: ( not textContent1 )
     } %}
+    
+        {% block header %}{% endblock %}
+    
         {% block content1 %}
+
+            {% set headline = blockHeader ??? null %}
+            {{ headline|retconAttr( 'h1,h2,h3,h4,h5,h6', { class: 'like-h2' } ) }}
             {{textContent1|raw}}
         {% endblock %}
 
         {% block content2 %}
             {{mediaContent2|raw}}
-        {% endblock %}
-
-        {% block header %}
-            {{blockHeader|raw}}
         {% endblock %}
     {% endembed %}
 {% endif %}

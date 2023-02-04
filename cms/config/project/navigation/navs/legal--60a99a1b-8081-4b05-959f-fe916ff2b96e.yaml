@@ -149,9 +149,9 @@ fieldLayouts:
         uid: 8607ca9b-3afd-4371-bab4-aaf2f7140474
         userCondition: null
 handle: legal
-instructions: null
+instructions: ''
 maxNodes: null
-name: Legal
+name: 'Footer - Legal Menu'
 permissions:
   craft\elements\Asset:
     enabled: '1'

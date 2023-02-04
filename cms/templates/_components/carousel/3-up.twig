@@ -8,11 +8,11 @@
         splide = new Splide($refs.splide{{blockID}}, {
             type: 'slide',
             gap: '3rem',
-            perPage: 1,
+            perPage: 3,
             perMove: 1,
-            {# breakpoints: {
+            breakpoints: {
                 780: {
-                    perPage: 1,
+                    perPage: 2,
                     gap: '2rem',
                 },
 
@@ -20,13 +20,13 @@
                     perPage: 1,
                     gap: '1rem',
                 }                
-            }, #}
+            },
             padding: { left: '0rem', right: '0rem' },
             trimSpace: false
         }).mount().go(0).refresh()
     })"
 >
-    <section x-ref="splide{{blockID}}" class="splide relative z-20 overflow-hidden pt-24 pb-10" aria-label="Carousel {{blockID}}">
+    <section x-ref="splide{{blockID}}" class="splide relative z-40 overflow-hidden pt-24 pb-10" aria-label="Carousel {{blockID}}">
         <div class="splide__slider container relative">
             <div class="splide__track !overflow-visible">
                 <ul class="splide__list">

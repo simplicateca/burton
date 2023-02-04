@@ -18,6 +18,19 @@
     },
 
     {
+        "label": "Title Left / Text Right",
+        "value": "titleLeft",
+        "block": {
+            "layout": "_layouts/grids/1-column",
+            "wrapperBase": "relative w-full grid grid-cols-2 justify-center"
+        },
+        "textConfig": {
+            "moveHeaders": true,
+            "headerClass": "like-h2"
+        }
+    },
+
+    {
         "label": "Full Width",
         "value": "fullWidth",
         "block": {

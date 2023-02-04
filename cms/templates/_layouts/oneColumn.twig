@@ -1,6 +1,6 @@
 {% extends "_boilerplate" %}
 {% set templatePath = _self ??? '' %}
-{% set entry   = entry ??? null %}
+{% set entry   = event ??? product ??? entry ??? null %}
 {% set section = entry.section.handle ??? 'base' %}
 {% set layout  = 'oneColumn' %}
 

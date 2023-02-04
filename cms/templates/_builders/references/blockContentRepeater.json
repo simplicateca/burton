@@ -56,7 +56,7 @@
         },
         "itemsConfig": {
             "useCard": "_components/cards/iconFeature",
-            "buttons": "button button--small"
+            "buttons": "button button__small"
         }
     },
 
@@ -68,7 +68,7 @@
         },
         "itemsConfig": {
             "useCard": "_components/cards/teaserCard",
-            "buttons": "button button--small"
+            "buttons": "button button__small"
         },
         "mediaConfig": {
             "component": "_components/media/image-fit"
@@ -94,7 +94,7 @@
         },
         "itemsConfig": {
             "useCard": "_components/cards/stackedCard",
-            "buttons": "button button--small"
+            "buttons": "button button__small"
         },
         "mediaConfig": {
             "component": "_components/media/image-parallax"
@@ -113,7 +113,7 @@
         },
         "itemsConfig": {
             "useCard": "_components/cards/leftRightCard",
-            "buttons": "button button--small"
+            "buttons": "button button__small"
         },
         "textConfig": {
             "moveButtons" : true
@@ -141,7 +141,7 @@
         "label": "Logo Cloud",
         "value": "logoCloud",
         "block": {
-            "layout": "_layouts/grids/intro-above-6-columns",
+            "layout": "_layouts/grids/intro-above-4-columns",
             "content1" : "optimalReadingWidth"
         },
         "textConfig": {

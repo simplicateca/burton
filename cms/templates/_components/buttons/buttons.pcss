@@ -14,7 +14,7 @@
         leading-none
         hover:bg-gray-700;
 
-    &.button--small {
+    &.button__small {
         @apply
             text-sm
             p-2
@@ -83,7 +83,8 @@
     @apply pt-2;
 }
 
-a.clickable-parent {
+a.clickable-parent,
+button.clickable-parent {
     &:after {       
         @apply absolute top-0 right-0 bottom-0 left-0 z-20;
         content: '';

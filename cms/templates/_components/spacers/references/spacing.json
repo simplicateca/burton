@@ -4,8 +4,8 @@
         "label" : "Normal Spacing Above & Below",
 
         "block" : {
-            "spaceBefore": "h-10 lg:h-12 xl:h-16 2xl:h-20",
-            "spaceAfter":  "h-10 lg:h-12 xl:h-16 2xl:h-20"
+            "spaceBefore": "h-14 lg:h-20 xl:h-24 2xl:h-30",
+            "spaceAfter":  "h-14 lg:h-20 xl:h-24 2xl:h-30"
         }
     },
 
@@ -24,6 +24,14 @@
     },
 
     {
+        "value": "spaceNoneAbove",
+        "label" : "No Spacing Above",
+        "block" : {
+            "spaceAfter": "h-10 lg:h-20"
+        }        
+    },
+
+    {
         "value": "spaceNegGap",
         "label" : "Negative Gap Above",
         "block" : {
@@ -36,16 +44,7 @@
         "value": "waveAbove",
         "label" : "Wave Above",
         "block" : {
-            "includeBefore": "_components/dividers/motion-waves",
-            "spaceAfter": "h-10 lg:h-20"
-        }
-    },
-
-    {
-        "value": "cloudTop",
-        "label" : "Cloud Top",
-        "block" : {
-            "includeBefore": "_components/dividers/cloud-top",
+            "includeBefore": "_components/dividers/wave",
             "spaceAfter": "h-10 lg:h-20"
         }
     },

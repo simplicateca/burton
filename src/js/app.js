@@ -12,15 +12,15 @@ import { ScrollTrigger, Power3 } from "gsap/all";
 const main = async() => {
 
     const app = {
-        async createSlime(el) {
-            const { default: Vue } = await import(/* webpackChunkName: "vue" */ 'vue')
-            return new Vue({
-                el: el,
-                components: {
-                    'slime': () => import(/* webpackChunkName: "slime" */ '@/vue/Slime.vue')
-                }
-            })
-        }
+        // async createSlime(el) {
+        //     const { default: Vue } = await import(/* webpackChunkName: "vue" */ 'vue')
+        //     return new Vue({
+        //         el: el,
+        //         components: {
+        //             'slime': () => import(/* webpackChunkName: "slime" */ '@/vue/Slime.vue')
+        //         }
+        //     })
+        // }
     }
 
     gsap.registerPlugin(ScrollTrigger)
