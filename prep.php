@@ -4,7 +4,7 @@ copy('./cms/.env.example', './cms/.env');
 chmod('./cms/.env', 0777);
 chmod('./cms/composer.json', 0777);
 chmod('./cms/config', 0777);
-copy('./scripts/.env.example.sh', './scripts/.env.sh');
+copy('./.docker/scripts/.env.example.sh', './.docker/scripts/.env.sh');
 unlink('composer.json');
 unlink('composer.lock');
 unlink('LICENSE');

@@ -4,7 +4,7 @@ services:
   # nginx - web server
   nginx:
     build:
-      context: ./docker-config/nginx
+      context: ./.docker/containers/nginx
       dockerfile: ./Dockerfile
     env_file: &env
       - ./cms/.env
@@ -17,7 +17,7 @@ services:
   # php - run php-fpm
   php:
     build: &php-build
-      context: ./docker-config/php
+      context: ./.docker/containers/php
       dockerfile: ./Dockerfile
     depends_on:
       - "mysql"
@@ -54,7 +54,7 @@ services:
   # mysql - database
   mysql:
     build:
-      context: ./docker-config/mysql
+      context: ./.docker/containers/mysql
       dockerfile: ./Dockerfile
     cap_add:
       - SYS_NICE  # CAP_SYS_NICE
@@ -70,11 +70,11 @@ services:
       - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
-      - ./db-seed/:/docker-entrypoint-initdb.d
+      - ./.docker/database-seed/:/docker-entrypoint-initdb.d
   # redis - key/value database for caching & php sessions
   redis:
     build:
-      context: ./docker-config/redis
+      context: ./.docker/containers/redis
       dockerfile: ./Dockerfile
     expose:
       - "6379"
@@ -82,7 +82,7 @@ services:
   # vite - frontend build system
   vite:
     build:
-      context: ./docker-config/vite
+      context: ./.docker/containers/vite
       dockerfile: ./Dockerfile
     env_file:
       *env
@@ -91,10 +91,9 @@ services:
       - "3000:3000"
     tty: true
     volumes:
-      - ./buildchain:/var/www/project/buildchain:cached
-      - ./buildchain/node_modules:/var/www/project/buildchain/node_modules:delegated
-      - ./cms/web:/var/www/project/cms/web:delegated
       - ./src:/var/www/project/src:cached
+      - ./src/node_modules:/var/www/project/src/node_modules:delegated
+      - ./cms/web:/var/www/project/cms/web:delegated
       - ./cms/templates:/var/www/project/cms/templates:cached
 volumes:
   db-data:
