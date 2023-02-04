@@ -1,7 +1,6 @@
 .DS_Store
 
 .docker/scripts/.env.sh
-.docker/database-seed/*
 !.docker/database-seed/sha2_password_fix.sql
 
 cms/.env
