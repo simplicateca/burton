@@ -4,7 +4,7 @@ copy('./cms/.env.example', './cms/.env');
 chmod('./cms/.env', 0777);
 chmod('./cms/composer.json', 0777);
 chmod('./cms/config', 0777);
-copy('./.docker/scripts/.env.example.sh', './.docker/scripts/.env.sh');
+copy('.docker/scripts/.env.example.sh', '.docker/scripts/.env.sh');
 unlink('composer.json');
 unlink('composer.lock');
 unlink('LICENSE');
@@ -22,3 +22,11 @@ $str = str_replace('REPLACE_APP_ID', $appID, $str);
 file_put_contents('./cms/.env', $str );
 
 unlink('prep.php');
+
+rrmdir('vendor');
+
+function rrmdir(string $directory): bool
+{
+    array_map(fn (string $file) => is_dir($file) ? rrmdir($file) : unlink($file), glob($directory . '/' . '*'));
+    return rmdir($directory);
+}
