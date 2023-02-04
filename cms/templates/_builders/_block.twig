@@ -42,8 +42,8 @@
     {% set text     = text     ??? content.text         ??? '' %}
     {% set text2    = text2    ??? content.text2        ??? '' %}
     {% set headline = headline ??? content.headline     ??? '' %}
-    {% set items    = items    ??? content.items.with(['images', 'topics']).all()  ??? [] %}
-    {% set images   = images   ??? content.images.all() ??? [] %}
+    {% set items    = items    ??? content.items.with(['images', 'topics','items']).all()  ??? [] %}
+    {% set images   = images   ??? content.images.with(['images']).all() ??? [] %}
     {% set media    = media    ??? content.media.with(['images']).all()  ??? [] %}
     {% set method   = method   ??? content.method       ??? '' %}
 

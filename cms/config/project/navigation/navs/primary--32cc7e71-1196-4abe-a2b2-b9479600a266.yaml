@@ -181,7 +181,7 @@ siteSettings:
     enabled: true
   34463b82-dd3f-441c-b9c6-59c351e847aa: # Main Site (FRENCH)
     enabled: true
-sortOrder: 3
+sortOrder: 1
 structure:
   maxLevels: 2
   uid: 73e32a07-4773-48cf-94f7-6cfc39f43331

@@ -148,10 +148,10 @@ fieldLayouts:
         name: Advanced
         uid: 30de07d6-f329-4b20-a12d-29ba62cac1b1
         userCondition: null
-handle: programs
+handle: features
 instructions: ''
 maxNodes: null
-name: 'Footer - Programs'
+name: 'Footer - Features'
 permissions:
   craft\elements\Asset:
     enabled: '1'
@@ -177,7 +177,7 @@ siteSettings:
     enabled: true
   34463b82-dd3f-441c-b9c6-59c351e847aa: # Main Site (FRENCH)
     enabled: true
-sortOrder: 6
+sortOrder: 3
 structure:
   maxLevels: null
   uid: 1e32521c-a6a5-4d6f-8ba1-3712d413541c

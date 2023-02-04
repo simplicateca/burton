@@ -1,7 +1,7 @@
 {% set crumbs = crumbs ?? craft.navigation.breadcrumbs() ?? null %}
 
 {% if crumbs|length > 1 %}
-    <nav class="flex bg-transparent text-gray-700" aria-label="Breadcrumb">
+    <nav class="flex bg-transparent text-gray-700 py-3" aria-label="Breadcrumb">
         <div class="container">
             <ol class="absolute inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">

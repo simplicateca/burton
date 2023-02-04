@@ -1,5 +1,5 @@
 import {defineConfig} from 'vite';
-import vue from '@vitejs/plugin-vue2'
+import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy';
 import ViteRestart from 'vite-plugin-restart';
 import viteCompression from 'vite-plugin-compression';
@@ -20,7 +20,7 @@ export default defineConfig(({command}) => ({
     outDir: '../cms/web/dist',
     rollupOptions: {
       input: {
-        app: './src/js/app.js'
+        app: './js/app.js'
       },
       output: {
         sourcemap: true

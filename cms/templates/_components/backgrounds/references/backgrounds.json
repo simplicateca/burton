@@ -5,7 +5,7 @@
         
         "scene": {
             "baseClass": "cScene__bgNone",
-            "twColor": "transparent",
+            "twColor": "transparent"
         }
     },
 

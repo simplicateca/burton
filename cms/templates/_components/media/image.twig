@@ -1,4 +1,4 @@
-{% set images    = images    ??? content.images.all() ??? null %}
+{% set images    = images    ??? content.images.with(['images']).all() ??? null %}
 {% set class     = class     ??? blockType ??? 'w-full' %}
 {% set transform = transform ??? null %}
 

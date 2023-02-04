@@ -47,7 +47,7 @@
             itemComponent: itemsConfig.component ??? null,
             order        : content.order.value   ??? 'mostRecent',
             perPage      : content.perPage       ??? '12',
-            topics       : content.topics.all()  ??? [],
+            topics       : content.topics.with(['topics']).all()  ??? [],
         } %}
 
         {# merge these values back into the template props #}
