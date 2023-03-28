@@ -2,13 +2,12 @@
 
 {# -- Prefetch & preconnect headers and links -- #}
 {% set prefetchUrls = [
-    alias("@assetsUrl"),
     'https://unpkg.com',
     'https://cdn.polyfill.io'
 
 ] %}
 {# -- General global variables -- #}
-{% set baseUrl = alias('@assetsUrl') ~ '/' %}
+{% set baseUrl = alias('@web') ~ '/' %}
 
 {% set eagerLoading = {
     commonFields: [
