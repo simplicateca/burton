@@ -36,7 +36,6 @@ return GeneralConfig::create()
     ->sendPoweredByHeader(false)
 
     ->aliases([
-        '@assetsUrl' => App::env('ASSETS_URL'),
         '@cdnUrl' => App::env('CDN_URL'),
         '@cdnFolder' => App::env('CDN_FOLDER'),
         '@web' => App::env('SITE_URL'),

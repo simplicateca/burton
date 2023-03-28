@@ -1,6 +1,7 @@
 # CRAFT CMS
 .env
 vendor
+license.key
 craftcms/web/dist
 
 # UNCOMPRESSED DATABASE SEED FILES

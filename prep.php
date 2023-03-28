@@ -12,11 +12,29 @@ if( !file_exists('docs/README.md') ) {
     rename('README.md', 'docs/README.md');
 }
 
-echo( "To launch the docker development environment, run\n\n > make dev\n");
+// create default .env file (`make dev` does this, but might as well be double safe)
+copy( 'craftcms/.env.example', 'craftcms/.env' );
+
+// gunzip the seed file (incase `docker compose up` is run instead of `make dev`)
+$gz  = gzopen('./etc/database-seed/craft--2023-03-28-065320--v4.4.5.sql.gz', 'rb');
+$sql = fopen( './etc/database-seed/craft--2023-03-28-065320--v4.4.5.sql',    'wb');
+while(!gzeof($gz)) { fwrite($sql, gzread($gz, 4096)); }
+fclose($sql);
+gzclose($gz);
+
+// output welcome banner
+// ----------------------------------
+echo( " _           _           \n");
+echo( "| |_ _ _ ___| |_ ___ ___ \n");
+echo( "| . | | |  _|  _| . |   |\n");
+echo( "|___|___|_| |_| |___|_|_|\n\n");
+echo( "Project files installed!\n");
+echo( "_______________________________________________\n\n" );
+echo( "Start the Docker environment with the command:\n\n > make dev\n\n");
+echo( "Additional documentation available:\n\n - Locally in docs/ or http://localhost:5000\n - https://github.com/simplicateca/burton\n\n");
 
 // remove this file
 unlink('prep.php');
-
 
 function rrmdir(string $directory): bool
 {
