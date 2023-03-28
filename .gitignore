@@ -3,17 +3,17 @@
 .docker/scripts/.env.sh
 !.docker/database-seed/sha2_password_fix.sql
 
-cms/.env
-cms/vendor/*
-cms/storage/*
-cms/web/assets/files/*
-cms/web/assets/images/*
-cms/web/assets/videos/*
-cms/web/assets/references/*
-cms/web/assets/temp/*
-cms/web/dist/*
+.env
+craftcms/web/assets/files/*
+craftcms/web/assets/images/*
+craftcms/web/assets/videos/*
+craftcms/web/assets/references/*
+craftcms/web/assets/temp/*
+craftcms/web/dist/*
 
-node_modules/*
+storage
+vendor
+node_modules
 src/node_modules/*
 src/.npm/*
 
