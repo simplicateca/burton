@@ -50,7 +50,7 @@ return [
      * @var string The JavaScript entry from the manifest.json to inject on Twig error pages
      *              This can be a string or an array of strings
      */
-    'errorEntry' => 'js/app.js',
+    'errorEntry' => 'src/js/app.js',
 
     /**
      * @var string String to be appended to the cache key

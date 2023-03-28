@@ -1,0 +1,26 @@
+{# for fields directly associated with an entry / product / asset / etc #}
+{%- set folder = object.folder ??? false -%}
+{%- if folder %}{{ ( folder == 'Uploads' ) ? 'asset-meta' : folder ~ '/asset-meta' }}{% endif -%}
+{%- if not folder -%}
+    {{- ( object.variants   ?? null  ) ? "products/#{object.type.handle|lower}/" : '' -}}
+    {{- ( object.product    ?? null  ) ? "products/#{object.product.type.handle|lower}/" : '' -}}
+    {{- ( object.section    ?? null  ) ? "#{object.section.handle|lower}/" : '' -}}
+    {{- ( object.parentUri  ?? null  ) ? "#{object.parentUri|replace('__','')}/" : '' -}}
+    {{object.slug}}
+{%- endif -%}
+
+
+{# for fields inside a matrix block #}
+{{- ( object.owner.variants   ?? null  ) ? "products/#{object.owner.type.handle|lower}/" : '' -}}
+{{- ( object.owner.product    ?? null  ) ? "products/#{object.owner.product.type.handle|lower}/" : '' -}}
+{{- ( object.owner.section    ?? null  ) ? "#{object.owner.section.handle|lower}/" : '' -}}
+{{- ( object.owner.parentUri  ?? null  ) ? "#{object.owner.parentUri|replace('__','')}/" : '' -}}
+{{object.owner.slug}}
+
+
+{# for fields inside a supertable inside a matrix block #}
+{{- ( object.owner.owner.variants   ?? null  ) ? "products/#{object.owner.owner.type.handle|lower}/" : '' -}}
+{{- ( object.owner.owner.product    ?? null  ) ? "products/#{object.owner.owner.product.type.handle|lower}/" : '' -}}
+{{- ( object.owner.owner.section    ?? null  ) ? "#{object.owner.owner.section.handle|lower}/" : '' -}}
+{{- ( object.owner.owner.parentUri  ?? null  ) ? "#{object.owner.owner.parentUri|replace('__','')}/" : '' -}}
+{{object.owner.owner.slug}}

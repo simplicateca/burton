@@ -1,4 +1,4 @@
-dateModified: 1669543755
+dateModified: 1679981674
 elementSources:
   craft\elements\Entry:
     -
@@ -92,9 +92,17 @@ elementSources:
         - link
       type: native
 email:
-  fromEmail: steve@simplicate.ca
-  fromName: admin
-  transportType: craft\mail\transportadapters\Sendmail
+  fromEmail: $SMTP_SYSTEM_ADDRESS
+  fromName: $SMTP_SENDER_NAME
+  replyToEmail: $SMTP_REPLYTO_ADDRESS
+  template: _layouts/systemEmail.twig
+  transportSettings:
+    host: $SMTP_HOSTNAME
+    password: $SMTP_PASSWORD
+    port: $SMTP_PORT
+    useAuthentication: $SMTP_REQUIRE_AUTH
+    username: $SMTP_USERNAME
+  transportType: craft\mail\transportadapters\Smtp
 fs:
   contentAssets:
     hasUrls: true
@@ -445,7 +453,7 @@ plugins:
   blitz:
     edition: standard
     enabled: true
-    schemaVersion: 4.2.0
+    schemaVersion: 4.4.0
   dospaces:
     edition: standard
     enabled: true
@@ -766,5 +774,5 @@ system:
   edition: pro
   live: true
   name: Craft
-  schemaVersion: 4.0.0.9
+  schemaVersion: 4.4.0.4
   timeZone: America/Toronto

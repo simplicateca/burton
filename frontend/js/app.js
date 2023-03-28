@@ -1,6 +1,7 @@
 // Import our CSS
 import '@/css/app.pcss';
 
+// eslint-disable-next-line no-unused-vars
 import {createApp} from 'vue';
 import "@lottiefiles/lottie-player";
 
@@ -28,9 +29,9 @@ const main = async() => {
     gsap.utils.toArray("[data-viewport]").forEach(el => {
         ScrollTrigger.create({
             trigger: el,
-            onToggle: self => el.setAttribute("data-visible", self.isActive ? "in" : "out"),
-            onEnter : self => el.setAttribute("data-entered", true),
-            onLeave : self => el.setAttribute("data-left",    true)
+            onToggle: (self) => el.setAttribute("data-visible", self.isActive ? "in" : "out"),
+            onEnter : ()     => el.setAttribute("data-entered", true),
+            onLeave : ()     => el.setAttribute("data-left",    true)
         });
     });
 

@@ -1,0 +1,126 @@
+.button,
+.cButton {
+    @apply
+        bg-gray-500
+        border-2
+        border-gray-500
+        text-white
+        text-base
+        !m-0
+        p-4
+        px-6
+        inline-block
+        whitespace-nowrap
+        no-underline
+        leading-none
+        hover:bg-gray-700;
+
+    &.cButton__small,
+    &.button__small {
+        @apply
+            text-sm
+            p-2
+            px-4
+            rounded-full;
+    }
+}
+
+.cButton__textArrow {
+    @apply text-gray-500 underline underline-offset-4;
+
+    br {
+        display: none;
+    }
+
+    .prose-text-light & {
+        @apply text-white hover:text-yellow-200;
+    }
+
+    &:after {
+        @apply transition;
+        content: ' ›';
+        right: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        line-height: 1em;
+    }
+
+    &:hover {
+        @apply text-blue-500;
+
+        &:after {
+            @apply translate-x-0.5;
+        }        
+    }
+}
+
+
+.cButtonGroup {
+    @apply
+        flex
+        flex-col
+        items-center
+        md:flex-row
+        gap-4;
+
+    p {
+        @apply
+            flex
+            items-center
+            flex-col
+            md:flex-row
+            gap-4;
+    }
+
+    a:not(.button) {
+        .prose-text-light & {
+            @apply text-gray-300;
+        }
+    }
+
+    .button {
+        &:nth-of-type(2) {
+            @apply
+                bg-white
+                text-gray-500
+                hover:text-white
+                hover:bg-gray-700;
+        }
+
+        & + a:not(.button) {
+            &:after {
+                content: ' →';
+            }
+        }
+    }
+
+    &.cButtonGroup__left  {
+        @apply justify-start;
+    }
+
+    &.cButtonGroup__center  {
+        @apply justify-center;
+    }
+    
+    &.cButtonGroup__right  {
+        @apply justify-end;
+    }
+
+    &.cButtonGroup__trailing {
+        @apply pt-6;
+    }
+}
+
+
+.trailingButtons {
+    @apply pt-2;
+}
+
+
+a.clickable-parent,
+button.clickable-parent {
+    &:before {       
+        @apply absolute top-0 right-0 bottom-0 left-0 z-20;
+        content: '';
+    }
+}

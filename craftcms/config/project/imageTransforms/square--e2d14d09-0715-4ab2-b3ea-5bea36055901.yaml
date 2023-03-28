@@ -6,4 +6,5 @@ mode: crop
 name: Square
 position: center-center
 quality: null
+upscale: true
 width: 350

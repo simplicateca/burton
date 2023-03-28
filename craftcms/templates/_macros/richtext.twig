@@ -78,6 +78,11 @@
 
     {% set alignmentClass = alignmentClass ? " cHeadline__#{alignmentClass}" : "" %}
 
+    {% set eyebrowText = ( eyebrow ?? '' )|striptags|trim|lower|ascii|kebab  %}
+    {% if eyebrowText %}
+        {% set eyebrow = eyebrow|retconAttr( 'div', { id: eyebrowText }) %}
+    {% endif %}
+
     {% if template %}
         {{ include( template, { headline: headline, eyebrow: eyebrow }, withContext = false) }}
     {% else %}
@@ -150,7 +155,7 @@
 {%- endmacro -%}
 
 
-{% macro prose( text, size = 'lg' ) %}
+{% macro prose( text, size = 'lg', extraClass = '' ) %}
 
     {% set text = text|trim %}
 
@@ -184,7 +189,7 @@
     {% endif %}
 
     {% set first11char = text|retconRemove( 'div.eyebrow' )|trim|slice(0,11)|lower %}
-    {% set extraClass  = first11char == '<blockquote' ? 'cProse__startsQuote' : '' %}
+    {% set extraClass  = first11char == '<blockquote' ? 'cProse__startsQuote ' ~ extraClass : extraClass %}
 
     {% if text %}
         {% set text = text|first == '<' ? text : "<p>#{text}</p>" %}

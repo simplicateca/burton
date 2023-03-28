@@ -22,7 +22,8 @@
   },
   "toolbarFixed": true,
   "linkClasses" : [
-    { "label": "Button", "class": "button" }
+    { "label": "Button", "class": "cButton" },
+    { "label": "Text + Arrow", "class": "cButton__textArrow" }
   ],
   "listClasses" : [
     { "label": "Checkmarks",  "class": "checkmarks" },

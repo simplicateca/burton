@@ -1,0 +1,79 @@
+.cContentBuilder__news  { }
+.cContentBuilder__pages { }
+
+
+.cHeaderBuilder {
+
+}
+
+.cHeaderBuilder__news  { }
+.cHeaderBuilder__pages { }
+
+
+
+.cSidebarBuilder {
+
+}
+
+.cSidebarBuilder__news  { }
+.cSidebarBuilder__pages { }
+
+
+.cBlock__textText--evenWidth {   
+    .cGrid__content1 {
+        .cProse__startsRight {
+            h2,h3,h4 {
+                @apply
+                    !text-left
+                    lg:!text-right
+                    lg:max-w-xs xl:max-w-sm
+                    ml-0
+                    lg:ml-auto;
+            }
+        }
+    }
+}
+
+
+.cGrid__content1.optimalReadingWidth > div.prose {
+    @apply
+        !max-w-4xl
+        2xl:!max-w-5xl;
+
+    &.cProse__startsCenter {
+        @apply mx-auto;
+    }
+
+    &.cProse__startsRight {
+        @apply ml-auto;
+    }
+}
+
+
+.cScene__bgDark {
+    label {
+        @apply
+            text-white;
+    }
+
+    a {
+        @apply
+            text-white;        
+    }
+
+    .splide__pagination__page.is-active {
+        background: #fff;
+    }
+}
+
+
+.cBg__offsetBox {
+    .cContentColumn__twoColumns & {
+        @apply 
+            -top-5
+            -left-5
+            right-5
+            bottom-5
+            opacity-25;
+    }
+}

@@ -24,6 +24,14 @@
             <article class="tease news relative" style="--topicColor:{{topic.color ??? '#000' }};">
         {% endblock %}
 
+        {% block image %}
+            {{ include( '_components/media/image', {
+                images: images,
+                transform: 'aspectVideo',
+                class: 'rounded-xl'
+            }, withContext = false )}}
+        {% endblock %}
+
         {% block aboveTitle -%}
             {%- if topic.title ??? false -%}
                 <strong class="

@@ -23,11 +23,12 @@
   "toolbarFixed": false,
   "air" : true,
   "linkClasses" : [
-    { "label": "Button", "class": "button" }
+    { "label": "Button", "class": "cButton" },
+    { "label": "Text + Arrow", "class": "cButton__textArrow" }
   ],
   "listClasses" : [
     { "label": "Checkmarks",  "class": "checkmarks" },
-    { "label": "2 columns",   "class": "grid" },
+    { "label": "2 columns",   "class": "listGrid-2" },
     { "label": "Center Rows", "class": "centerRows" }
   ]
 }

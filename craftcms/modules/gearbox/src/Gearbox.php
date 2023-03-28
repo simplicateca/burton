@@ -96,8 +96,9 @@ class Gearbox extends Module
             function (Event $event) {
                 if( $event->config ) {
                     if( $def = $event->config->getDefinition('HTML', true) ) {
-                        $def->addAttribute('a', 'aria-label',    'Text');
-                        $def->addAttribute('a', 'data-tracking', 'Text');
+                        $def->addAttribute('a', 'aria-label', 'Text');
+                        $def->addAttribute('a', 'data-ident', 'Text');
+                        $def->addAttribute('a', 'data-modal', 'Bool');
                     }
                 }
             }

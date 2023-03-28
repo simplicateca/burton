@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 // module exports
 module.exports = {
   content: [
-    '../cms/templates/**/*.{twig,html,json}',
+    '../craftcms/templates/**/*.{twig,html,json}',
     './vue/**/*.{vue,html}'
   ],
   theme: {
@@ -57,7 +57,7 @@ module.exports = {
         current: 'currentColor'
       },
 
-      typography: (theme) => ({
+      typography: () => ({
         DEFAULT: {
           css: {
             maxWidth: '100%'

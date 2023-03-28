@@ -21,11 +21,19 @@ return GeneralConfig::create()
     // Allow administrative changes
     ->allowAdminChanges( (App::env('CRAFT_ENVIRONMENT') != 'production') )
     
+    // Only allow plugin / Craft updates through the command line
+    // https://craftcms.com/docs/4.x/config/general.html#allowupdates
+    ->allowUpdates(false)
+
     // Enable Caching
     ->enableTemplateCaching( (App::env('CRAFT_ENVIRONMENT') == 'production') )
 
     // Disallow robots
     ->disallowRobots( (App::env('CRAFT_ENVIRONMENT') != 'production') )
+
+    // Don't announce CMS
+    // https://craftcms.com/docs/4.x/config/general.html#sendpoweredbyheader
+    ->sendPoweredByHeader(false)
 
     ->aliases([
         '@assetsUrl' => App::env('ASSETS_URL'),
@@ -55,5 +63,4 @@ return GeneralConfig::create()
     ->maxUploadFileSize(104857600)
     
     ->useEmailAsUsername(true)
-
 ;

@@ -66,8 +66,6 @@ class GearboxTwigExtension extends AbstractExtension
             
             new TwigFunction('firstHref', [$this, 'firstHref']),
             
-            new TwigFunction('newsUrl', [$this, 'newsUrl']),
-
             new TwigFunction('normalizeBlocks', [$this, 'normalizeBlocks']),
         ];
     }
@@ -272,13 +270,6 @@ class GearboxTwigExtension extends AbstractExtension
         }
 
         return false;
-    }
-
-
-    public function newsUrl( $object ) {
-        $siteId = $object->siteId;
-        $type   = $object->type->handle;
-        return 'news-' . $siteId . '/' . $type;
     }
 
 

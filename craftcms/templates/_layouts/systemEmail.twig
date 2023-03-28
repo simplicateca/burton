@@ -1,0 +1,31 @@
+{# 
+    Universal email template for Craft CMS
+    -> https://craftsnippets.com/articles/universal-email-template-for-craft-cms
+
+    The HTML email tem­plate in Craft CMS
+    -> https://supergeekery.com/blog/craftcms-html-email-template-missing-documenation
+#}
+
+{% set buttonColor = '#2980b9' %}
+{% import '_boilerplate/base.email' as macro %}
+{% extends '_boilerplate/base.email' %}
+
+{% block preview %}
+    Urgent message, be sure to open it.
+{% endblock %}
+
+{% block header %}
+    {{ currentSite.name }}
+{% endblock %}
+
+{% block footer %}
+    <a href="{{getenv('SITE_URL')}}">{{getenv('SITE_URL')}}</a>
+{% endblock %}
+
+{% block content %}
+    {# {{ macro.title('This is important message') }} #}
+
+    {{body}}
+
+    {# {{ macro.button('Call to action', getenv('SITE_URL'), buttonColor) }} #}
+{% endblock %}

@@ -1,60 +1,52 @@
+# pipeline settings
 - pipeline: "Build & Deploy to Staging"
-  trigger_mode: "ON_EVERY_PUSH"
   ref_name: "develop"
   ref_type: "BRANCH"
-  target_site_url: "$PROJECT_URL"
+  trigger_mode: "ON_EVERY_PUSH"
   fetch_all_refs: true
-  trigger_condition: "ALWAYS"
+
+  # pipeline variables
+  variables:
+    - key: "PROJECT_SHORTNAME"
+      value: ""
+    - key: "PROJECT_URL"
+      value: ""
+    - key: "REMOTE_PROJECT_ROOT"
+      value: ""
+    - key: "REMOTE_SSH_HOST"
+      value: ""
+    - key: "REMOTE_SSH_USER"
+      value: ""
+
+  # pipeline actions
   actions:
-  - action: "Execute: vite build"
+
+    # STEP 1: build the frontend js/css
+  - action: "Build the frontend js/css with vite:build"
     type: "BUILD"
-    working_directory: "/buddy/$PROJECT_SHORTNAME"
-    docker_image_name: "nystudio107/node-dev-base"
-    docker_image_tag: "16-alpine"
-    execute_commands:
-    - "cd buildchain"
-    - "npm install"
-    - "npm run build"
+    working_directory: "/buddy/$PROJECT_SHORTNAME/frontend"
+    docker_image_name: "node"
+    docker_image_tag: "lts"
     volume_mappings:
-    - "/:/buddy/$PROJECT_SHORTNAME"
-    trigger_condition: "ALWAYS"
-    shell: "BASH"
+      - "/:/buddy/$PROJECT_SHORTNAME"
+    execute_commands:
+      - "npm ci && npm run build"
+
+    # STEP 2: install php vendor files with composer
   - action: "Install Composer"
     type: "BUILD"
-    working_directory: "/buddy/$PROJECT_SHORTNAME"
-    docker_image_name: "library/php"
-    docker_image_tag: "8.1"
-    execute_commands:
-    - "cd cms"
-    - "composer config --no-plugins allow-plugins.yiisoft/* true"
-    - "composer config --no-plugins allow-plugins.craftcms/* true"
-    - "composer install --no-scripts --no-interaction --prefer-dist --optimize-autoloader --ignore-platform-reqs"
-    setup_commands:
-    - "echo \"memory_limit=-1\" >> /usr/local/etc/php/conf.d/buddy.ini"
-    - "apt-get update && apt-get install -y git zip"
-    - "curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer"
-    - "# php ext gd"
-    - "apt-get install -y libfreetype6-dev"
-    - "apt-get install -y libjpeg62-turbo-dev"
-    - "apt-get install -y libpng-dev"
-    - "docker-php-ext-configure gd --with-freetype --with-jpeg"
-    - "docker-php-ext-install gd"
-    - "# php ext zip"
-    - "apt-get install -y zip"
-    - "apt-get install -y unzip"
-    - "apt-get install -y zlib1g-dev"
-    - "apt-get install -y libzip-dev"
-    - "docker-php-ext-install zip"
-    - "# php ext pdo_mysql"
-    - "docker-php-ext-configure pdo_mysql --with-pdo-mysql"
-    - "docker-php-ext-install pdo_mysql"
+    working_directory: "/buddy/$PROJECT_SHORTNAME/craftcms"
+    docker_image_name: "composer"
+    docker_image_tag: "latest"
     volume_mappings:
-    - "/:/buddy/$PROJECT_SHORTNAME"
-    trigger_condition: "ALWAYS"
-    shell: "BASH"
+      - "/:/buddy/$PROJECT_SHORTNAME"
+    execute_commands:
+      - "composer install --verbose --no-progress --no-scripts --optimize-autoloader --no-interaction"
+
+    # STEP 3: rsync push files to host
   - action: "Rsync files to host"
     type: "RSYNC"
-    local_path: "cms/"
+    local_path: "craftcms/"
     remote_path: "$REMOTE_PROJECT_ROOT/deploy-cache"
     login: "$REMOTE_SSH_USER"
     host: "$REMOTE_SSH_HOST"
@@ -64,96 +56,60 @@
     delete_extra_files: true
     recursive: true
     compress: true
-    deployment_excludes:
-    - "/.git/"
-    trigger_condition: "ALWAYS"
-  - action: "Atomic Deploy"
+
+    # STEP 4: create an atomic deployment release on the server
+  - action: "Prepare Atomic Deployment"
     type: "SSH_COMMAND"
     working_directory: "$REMOTE_PROJECT_ROOT"
     login: "$REMOTE_SSH_USER"
     host: "$REMOTE_SSH_HOST"
     port: "22"
     authentication_mode: "WORKSPACE_KEY"
-    commands:
-    - "mkdir -p releases"
-    - "if [ -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && [ \"$BUDDY_EXECUTION_REFRESH\" = \"true\" ];"
-    - "then"
-    - " echo \"Removing: releases/$BUDDY_EXECUTION_REVISION\""
-    - " rm -rf releases/$BUDDY_EXECUTION_REVISION;"
-    - "fi"
-    - "if [ ! -d \"releases/$BUDDY_EXECUTION_REVISION\" ];"
-    - "then"
-    - " echo \"Creating: releases/$BUDDY_EXECUTION_REVISION\""
-    - " cp -dR deploy-cache releases/$BUDDY_EXECUTION_REVISION;"
-    - "fi"
-    - "if [ -d \"public\" && ! -L \"public\" ];"
-    - "then"
-    - " echo \"Replacing public folder with symlink\""
-    - " rm -rf public;"
-    - " ln -s current/web public;"
-    - "fi"
-    - "echo \"Creating: persistent directories\""
-    - "mkdir -p storage"
-    - "echo \"Symlinking: persistent files & directories\""
-    - "ln -nfs $REMOTE_PROJECT_ROOT/.env $REMOTE_PROJECT_ROOT/releases/$BUDDY_EXECUTION_REVISION"
-    - "ln -nfs $REMOTE_PROJECT_ROOT/storage $REMOTE_PROJECT_ROOT/releases/$BUDDY_EXECUTION_REVISION"
-    - "echo \"Setting .htaccess files\""
-    - "mv -f releases/$BUDDY_EXECUTION_REVISION/web/.htaccess.staging releases/$BUDDY_EXECUTION_REVISION/web/.htaccess"
-    - "rm -f releases/$BUDDY_EXECUTION_REVISION/web/.htaccess.production"
-    - "echo \"Linking current to revision: $BUDDY_EXECUTION_REVISION\""
-    - "rm -f current"
-    - "ln -s releases/$BUDDY_EXECUTION_REVISION current"
-    - "echo \"Setting permissions\""
-    - "chmod -R 0774 current/web/cpresources"
-    - "echo \"Removing old releases\""
-    - "cd releases && ls -t | tail -n +6 | xargs rm -rf"
-    trigger_condition: "ALWAYS"
     run_as_script: true
     shell: "BASH"
-  - action: "Prep Craft CMS"
+    commands:
+
+        # make sure we have all the files & directories we might need (especially on first deployments)
+      - "mkdir -p releases storage deploy-cache/migrations"
+      - "[ ! -f '.env' ] && [ -f 'deploy-cache/.env.example' ] && cp deploy-cache/.env.example .env"
+
+        # wipe existing release directory of this is *not* the first attempt deploying this commit
+      - "[ -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && [ \"$BUDDY_EXECUTION_REFRESH\" = \"true\" ] && rm -rf releases/$BUDDY_EXECUTION_REVISION;"
+
+        # create the directory for this release and copy the contents of the deploy cache into it
+      - "[ ! -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && cp -dR deploy-cache releases/$BUDDY_EXECUTION_REVISION;"
+
+        # create symlinks to persistent storage directory and .env file from inside the new release
+      - "ln -nfs $REMOTE_PROJECT_ROOT/.env $REMOTE_PROJECT_ROOT/releases/$BUDDY_EXECUTION_REVISION"
+      - "ln -nfs $REMOTE_PROJECT_ROOT/storage $REMOTE_PROJECT_ROOT/releases/$BUDDY_EXECUTION_REVISION"
+
+        # set permissions on cpresources
+      - "mkdir -p releases/$BUDDY_EXECUTION_REVISION/web/cpresources"
+      - "chmod -R 0774 releases/$BUDDY_EXECUTION_REVISION/web/cpresources"
+
+        # remove old releases
+      - "cd releases && ls -t | tail -n +6 | xargs rm -rf"
+
+    # STEP 5: make the new release live
+  - action: "Make Release Live"
     type: "SSH_COMMAND"
-    working_directory: "$REMOTE_PROJECT_ROOT/current"
+    working_directory: "$REMOTE_PROJECT_ROOT"
     login: "$REMOTE_SSH_USER"
     host: "$REMOTE_SSH_HOST"
     port: "22"
     authentication_mode: "WORKSPACE_KEY"
-    commands:
-    - "echo \"Ensure the craft script is executable\""
-    - "chmod a+x craft"
-    - "echo \"Backup the database just in case any migrations or Project Config changes have issues\""
-    - "./craft db/backup"
-    - "echo \"Run pending migrations, sync project config, and clear caches\""
-    - "./craft migrate/all --interactive=0"
-    - "./craft project-config/apply"
-    - "./craft clear-caches/all"
-    - "echo \"Done prepping Craft\""
-    trigger_condition: "ALWAYS"
     run_as_script: true
     shell: "BASH"
-  - action: "Send confirmation message to Slack"
-    type: "SLACK"
-    content: "[SUCCESS] $BUDDY_PIPELINE_NAME -- #$BUDDY_EXECUTION_ID execution by <$BUDDY_INVOKER_URL|$BUDDY_INVOKER_NAME>"
-    blocks: "[{\"type\":\"section\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"*Successful execution:* <$BUDDY_EXECUTION_URL|Execution #$BUDDY_EXECUTION_ID $BUDDY_EXECUTION_COMMENT>\"},{\"type\":\"mrkdwn\",\"text\":\"*Pipeline:* <$BUDDY_PIPELINE_URL|$BUDDY_PIPELINE_NAME>\"},{\"type\":\"mrkdwn\",\"text\":\"*Branch:* $BUDDY_EXECUTION_BRANCH\"},{\"type\":\"mrkdwn\",\"text\":\"*Project:* <$BUDDY_PROJECT_URL|$BUDDY_PROJECT_NAME>\"}]}]"
-    channel: "C03JCBRH6HY"
-    channel_name: "deployments"
-    integration_hash: "v1ZzQABWJxbo80B3dgwOL0EMrN"
-    trigger_condition: "ALWAYS"
-  - action: "Send error message to Slack"
-    type: "SLACK"
-    trigger_time: "ON_FAILURE"
-    content: "[FAILURE] $BUDDY_PIPELINE_NAME -- #$BUDDY_EXECUTION_ID execution by <$BUDDY_INVOKER_URL|$BUDDY_INVOKER_NAME>"
-    blocks: "[{\"type\":\"section\",\"fields\":[{\"type\":\"mrkdwn\",\"text\":\"*Failed execution:* <$BUDDY_EXECUTION_URL|Execution #$BUDDY_EXECUTION_ID $BUDDY_EXECUTION_COMMENT>\"},{\"type\":\"mrkdwn\",\"text\":\"*Pipeline:* <$BUDDY_PIPELINE_URL|$BUDDY_PIPELINE_NAME>\"},{\"type\":\"mrkdwn\",\"text\":\"*Branch:* $BUDDY_EXECUTION_BRANCH\"},{\"type\":\"mrkdwn\",\"text\":\"*Project:* <$BUDDY_PROJECT_URL|$BUDDY_PROJECT_NAME>\"}]}]"
-    channel: "C03JCBRH6HY"
-    channel_name: "deployments"
-    integration_hash: "v1ZzQABWJxbo80B3dgwOL0EMrN"
-  variables:
-  - key: "PROJECT_SHORTNAME"
-    value: "REPLACE_ME"
-  - key: "PROJECT_URL"
-    value: "https://REPLACE_ME"
-  - key: "REMOTE_PROJECT_ROOT"
-    value: "/home/forge/REPLACE_ME"
-  - key: "REMOTE_SSH_HOST"
-    value: "REPLACE_ME"
-  - key: "REMOTE_SSH_USER"
-    value: "forge"
+    commands:
+
+        # make sure the current craft script is executable & run a database backup
+      - "chmod a+x current/craft && ./current/craft db/backup"
+
+        # swap `current` symlink to new release
+      - "rm -f current && ln -s releases/$BUDDY_EXECUTION_REVISION current"
+
+        # clear caches and run any pending migrations
+      - "cd current && chmod a+x craft"
+      - "./craft invalidate-tags/all --interactive=0"
+      - "./craft clear-caches/all --interactive=0"
+      - "./craft up --interactive=0"

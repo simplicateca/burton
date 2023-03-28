@@ -68,33 +68,6 @@
 },
 
 {
-    "value": "parallax",
-    "label": "Parallax Background Image - Text Offset",
-    "reference": {
-        "note": "Full bleed image w/ parallax effect on scroll. Text offset in a box."
-    },
-    "block": {
-        "layout": "_layouts/grids/text-overlap.twig",
-        "grid": "container min-h-[20rem] max-h-[20rem] xl:min-h-[32rem] xl:max-h-[32rem]",
-        "content1": "",
-        "content2": "min-h-[24rem] max-h-[24rem] xl:min-h-[36rem] xl:max-h-[36rem]",
-        "inner1": "!bg-white/100 lg:ml-6 xl:ml-10 xl:p-10",
-        "spaceAfter": "none",
-        "prevSpacerAfter": true
-    },
-    "container" : {
-        "class": "noContainer"
-    },
-    "scene": {
-        "baseClass": "cScene__bgNone overflow-hidden",
-        "twColor": "transparent"
-    },
-    "mediaConfig": {
-        "component": "_components/media/image-parallax"
-    }
-},
-
-{
     "value": "textLeftFullBleed",
     "label": "Text Left / Image Right (Full Bleed)",
     "reference": {

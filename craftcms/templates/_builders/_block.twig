@@ -3,12 +3,23 @@
 
 {# it's important that when this template is included, it
    does not have access to the context of it's parent
-   templates, with the exception of these 3 parameters:
+   template(s), with the exception of these 3 parameters:
 
    builder  : the content builder being used
    entry    : the current loaded entry
    thisBlock: a normalizedBlock array. see twig `normalizeBlocks()` function.
-   
+
+   otherwise stuff gets wonky.
+
+    ```
+        {{ include('_builders/_block', {
+            entry     : entry,
+            builder   : builder,
+            thisBlock : thisBlock
+        }, withContext = false ) }}
+    ```
+#}
+
 {# make sure we have the params passed from the calling template (usually: _loop) #}
 {% set builder   = builder   ??? 'builder' %}
 {% set entry     = entry     ??? null %}
@@ -85,6 +96,11 @@
         {%- if text and ( moveFirstEyebrow ) -%}
             {% set eyebrow = text|retconOnly( 'div.eyebrow' ) ??? null %}
             {% set text    = text|retconRemove( 'div.eyebrow' ) %}
+            {% set eyebrowText = ( eyebrow ?? '' )|striptags|trim|lower|ascii|kebab  %}
+            {% if eyebrowText %}
+                {% set eyebrow = eyebrow|retconAttr( 'div', { id: eyebrowText }) %}
+            {% endif %}
+
             {{- eyebrow ??? '' -}}
         {%- endif -%}
 
@@ -144,8 +160,7 @@
         "_builders/blocks/#{builder}/#{blockType}.#{variant}",
         "_builders/blocks/#{builder}/#{blockType}",
         "_builders/blocks/#{blockType}.#{variant}",
-        "_builders/blocks/#{blockType}",
-        "_builders/blocks/_default",
+        "_builders/blocks/#{blockType}"
     ] %}
 
     {{ include( twigPath ) }}
@@ -171,6 +186,5 @@
     _builders/blocks/header/textImage.twig
     _builders/blocks/textImage.textLeft.twig
     _builders/blocks/textImage.twig
-    _builders/blocks/_default.twig
 
 #}

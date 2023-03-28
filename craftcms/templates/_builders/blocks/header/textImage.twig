@@ -26,7 +26,7 @@
     {% embed gridLayout with {
         blockID: blockID,
         config: blockConfig,
-        content1Hide: ( not textContent1 )
+        content1Hide: ( not textContent1 and not headline )
     } %}
     
         {% block header %}{% endblock %}

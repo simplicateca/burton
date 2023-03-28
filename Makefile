@@ -1,58 +1,117 @@
-# Determine the docker compose API version to get the separator character
-VERSION?=$(shell docker-compose -v)
-ifneq (,$(findstring v2.,$(VERSION)))
-	SEPARATOR:=-
-else
-	SEPARATOR:=_
-endif
-CONTAINER?=$(shell basename $(CURDIR)| tr A-Z a-z)$(SEPARATOR)php$(SEPARATOR)1
-DBCONTAINER?=$(shell basename $(CURDIR)| tr A-Z a-z)$(SEPARATOR)mysql$(SEPARATOR)1
-BUILDCHAIN?=$(shell basename $(CURDIR)| tr A-Z a-z)$(SEPARATOR)vite$(SEPARATOR)1
+.PHONY: dev run prep craft composer npm lint build exportdb exportdbseed ssh clean wipedb nuke
 
-.PHONY: build clean composer craft dev npm pulldb restoredb nuke ssh sshroot up
+SEED_DIR  :=./etc/database-seed
+SQL_FILES :=$(SEED_DIR)/*.sql
+GZ_FILES  :=$(SEED_DIR)/*.sql.gz
+CRAFT_PATH:=/app/craft
+NPM_PATH  :=/var/www/frontend/npm
+IS_RUNNING:=`docker compose ps --services | grep 'php'`
 
-build: up
-	docker exec -it $(BUILDCHAIN) npm run build
+# > make dev
+# > make run (runs in the background)
+# ---------------------------------------------------------------------
+# launches and prepares the docker based development environment
+dev: prep
+	[ $(IS_RUNNING) ] || docker compose up
+
+run: prep
+	[ $(IS_RUNNING) ] || docker compose up -d
+
+
+# > make prep
+# ---------------------------------------------------------------------
+# takes care of some housekeeping before launching docker
+prep:
+	[ $(IS_RUNNING) ] || ( [ "ls $(GZ_FILES) &>/dev/null" ] && gunzip -kqf $(GZ_FILES) )
+	[ $(IS_RUNNING) ] || cp -n craftcms/.env.example craftcms/.env
+
+
+# > make craft "tool/command arg1 arg2"
+# ---------------------------------------------------------------------
+# issue commands to the craft cli console
+craft: run
+	docker compose exec php $(CRAFT_PATH) $(filter-out $@,$(MAKECMDGOALS))
+
+
+# > make composer "install php/library"
+# ---------------------------------------------------------------------
+# issue commands to the php composer cli. surround arguments in quotes
+composer: run
+	docker compose run composer $(filter-out $@,$(MAKECMDGOALS))
+
+
+# > make npm "install javascript/package"
+# ---------------------------------------------------------------------
+# issue commands to the npm cli. surround arguments in quotes
+npm: run
+	docker compose exec frontend $(NPM_PATH) $(filter-out $@,$(MAKECMDGOALS))
+
+
+# > make lint
+# ---------------------------------------------------------------------
+# run the vite/npm lint scripts
+lint: run
+	docker compose exec frontend $(NPM_PATH) run lint
+
+
+# > make build
+# ---------------------------------------------------------------------
+# run the vite/npm lint & build scripts
+build: run
+	docker compose exec frontend $(NPM_PATH) run build
+
+
+# > make exportdb
+# ---------------------------------------------------------------------
+# short cut to run the craft database export
+exportdb: run
+	docker compose exec php $(CRAFT_PATH) db/backup
+
+
+# > make exportdbseed
+# ---------------------------------------------------------------------
+# set the current database as the new seed file (./etc/database-seed)
+exportdbseed: exportdb
+	rm -f $(GZ_FILES)
+	rm -f $(SQL_FILES)
+	cp -p "`ls -dtr1 ./craftcms/storage/backups/* | tail -1`" $(SEED_DIR)
+	gzip $(SQL_FILES)
+
+
+# > make ssh
+# ---------------------------------------------------------------------
+# ssh into the php-fpm container
+ssh: run
+	docker compose exec php /bin/bash
+
+
+# > make clean
+# ---------------------------------------------------------------------
+# deletes php (./craftcms/vendor) & node (./frontend/node_modules)
+# directories, along with respective lock files
 clean:
-	rm -f cms/composer.lock
-	rm -rf cms/vendor/
-	rm -f src/package-lock.json
-	rm -rf src/node_modules/
-	chmod 0777 cms/.env; \
-	chmod 0777 cms/composer.json; \
-	chmod 0777 cms/config; \
-	chmod -f 0777 cms/composer.lock || true; \
-	chmod -f 0777 cms/config/license.key || true; \
-	chmod -R 0777 cms/config/project; \
-	chmod -R 0777 cms/storage; \
-	chmod -R 0777 cms/web/cpresources;
-composer: up
-	docker exec -it $(CONTAINER) su-exec www-data composer \
-		$(filter-out $@,$(MAKECMDGOALS))
-craft: up
-	docker exec -it $(CONTAINER) su-exec www-data php craft \
-		$(filter-out $@,$(MAKECMDGOALS))
-dev: up
-npm: up
-	docker exec -it $(BUILDCHAIN) npm \
-		$(filter-out $@,$(MAKECMDGOALS))
-pulldb: up
-	cd .docker/scripts/ && ./docker_pull_db.sh
-restoredb: up
-	cd .docker/scripts/ && ./docker_restore_db.sh \
-		$(filter-out $@,$(MAKECMDGOALS))
-nuke: clean
-	docker-compose down -v
-	docker-compose up --build --force-recreate
-ssh: up
-	docker exec -it $(CONTAINER) su-exec www-data /bin/sh
-sshroot: up
-	docker exec -it $(CONTAINER) /bin/sh
-up:
-	if [ ! "$$(docker ps -q -f name=$(CONTAINER))" ]; then \
-		cp -n cms/.env.example cms/.env; \
-		docker-compose up; \
-    fi
+	rm -f craftcms/composer.lock
+	rm -rf craftcms/vendor
+	rm -f frontend/package-lock.json
+	rm -rf frontend/node_modules
+
+
+# > make wipedb
+# ---------------------------------------------------------------------
+# remove the mysql database. files in './etc/database-seed' will be
+# used to recreate the database the next time the project spins up
+wipedb:
+	docker compose down -v
+
+
+# > make nuke
+# ---------------------------------------------------------------------
+# removes all persistent data (mysql volume included), deletes composer
+# and php libraries, and recreates the entire project from scratch
+nuke: clean wipedb
+	docker compose up --build --force-recreate
+
+
 %:
 	@:
 # ref: https://stackoverflow.com/questions/6273608/how-to-pass-argument-to-makefile-from-command-line

@@ -1,17 +1,24 @@
 {
   "name": "simplicateca/burton",
   "description": "Burton is a protosite / starter kit for Craft CMS 4",
-  "keywords": [ "craft", "cms", "craftcms", "project", "docker", "vite" ],
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "project",
+    "docker",
+    "vite"
+  ],
   "license": "Apache-2.0",
   "homepage": "https://www.simplicate.ca",
   "type": "project",
-  "version": "0.1",
+  "version": "0.3",
   "authors": [
     {
-        "name": "Steve Comrie",
-        "email": "steve@simplicate.ca",
-        "homepage": "https://stevecomrie.ca",
-        "role": "Developer"
+      "name": "Steve Comrie",
+      "email": "steve@simplicate.ca",
+      "homepage": "https://stevecomrie.ca",
+      "role": "Developer"
     }
   ],
   "config": {

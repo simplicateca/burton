@@ -61,47 +61,6 @@
     },
 
     {
-        "label": "2 Columns - Text Above Repeater Left / Image Right",
-        "value": "stack3Left",
-        "block": {
-            "layout": "_layouts/grids/3-columns-stacked-left"
-        },
-        "itemsConfig": {
-            "useCard": "_components/cards/teaserCard",
-            "buttons": "button button__small"
-        },
-        "mediaConfig": {
-            "component": "_components/media/image-fit"
-        },
-        "textConfig": {
-            "moveHeaders" : true
-        }
-    },
-
-    {
-        "label": "Features Overlapping Background Image",
-        "value": "featuresOverImage",
-        "block": {
-            "layout": "_layouts/grids/4-column-overlap",
-            "content1": "optimalReadingWidth",
-            "content2": "relative grid grid-cols-2 lg:grid-cols-4 gap-10"
-        },
-        "scene": {
-            "spaceAfter" : ""
-        },
-        "container": {
-            "class" : "noContainer"
-        },
-        "itemsConfig": {
-            "useCard": "_components/cards/stackedCard",
-            "buttons": "button button__small"
-        },
-        "mediaConfig": {
-            "component": "_components/media/image-parallax"
-        }
-    },
-
-    {
         "label": "Text Above Steps - Buttons Bottom",
         "value": "steps",
         "block": {
@@ -132,7 +91,7 @@
             "class" : "noContainer"
         },
         "itemsConfig": {
-            "component": "_components/carousel/basic",
+            "component": "_components/carousel/3-up",
             "useCard"  : "_components/cards/stackedCard"
         }
     },

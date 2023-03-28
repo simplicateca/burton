@@ -1,25 +1,20 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 
-@import '../templates/_builders/builders.pcss';
-@import '../templates/_builders/blocks/blocks.pcss';
+/* common site-wide elements */
+@import 'builders.pcss';
+@import 'buttons.pcss';
+@import 'layouts.pcss';
+@import 'typography.pcss';
+
+/* individual components */
 @import '../templates/_components/a11y/a11y.pcss';
-@import '../templates/_components/backgrounds/backgrounds.pcss';
-@import '../templates/_components/buttons/buttons.pcss';
-@import '../templates/_components/cards/cards.pcss';
 @import '../templates/_components/footer/footer.pcss';
 @import '../templates/_components/navigation/menu-primary.pcss';
 @import '../templates/_components/navigation/mobile.pcss';
-@import '../templates/_components/spacers/spacing.pcss';
-@import '../templates/_components/text/typography.pcss';
-@import '../templates/_layouts/layouts.pcss';
-@import '../templates/_layouts/grids/grids.pcss';
 
-
+/* section & content specific styles */
 @import '../templates/_sections/news/news.pcss';
 
-/**
- * Injects Tailwind's utility classes generated based on config file
- *  -> buildchain/tailwind.config.js
-*/
+/* utility class injection from frontend/tailwind.config.js config */
 @import 'tailwindcss/utilities';

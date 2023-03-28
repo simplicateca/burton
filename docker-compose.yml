@@ -1,101 +1,186 @@
-version: '3.7'
+version: '3.9'
 
 services:
-  # nginx - web server
-  nginx:
-    build:
-      context: ./.docker/containers/nginx
-      dockerfile: ./Dockerfile
-    env_file: &env
-      - ./cms/.env
-    init: true
-    ports:
-      - "8000:80"
-    volumes:
-      - cpresources:/var/www/project/cms/web/cpresources:delegated
-      - ./cms/web:/var/www/project/cms/web:cached
-  # php - run php-fpm
-  php:
-    build: &php-build
-      context: ./.docker/containers/php
-      dockerfile: ./Dockerfile
-    depends_on:
-      - "mysql"
-      - "redis"
-    env_file:
-      *env
-    expose:
-      - "9000"
-    init: true
-    tty: true
-    volumes: &php-volumes
-      - cpresources:/var/www/project/cms/web/cpresources:delegated
-      - storage:/var/www/project/cms/storage:delegated
-      - ./cms:/var/www/project/cms:cached
-      # Specific directories that need to be bind-mounted
-      - ./cms/storage/logs:/var/www/project/cms/storage/logs:delegated
-      - ./cms/storage/backups:/var/www/project/cms/storage/backups:delegated
-      - ./cms/storage/runtime/compiled_templates:/var/www/project/cms/storage/runtime/compiled_templates:delegated
-      - ./cms/storage/runtime/compiled_classes:/var/www/project/cms/storage/runtime/compiled_classes:delegated
-      - ./cms/vendor:/var/www/project/cms/vendor:delegated
-  # queue - runs queue jobs via php craft queue/listen
-  queue:
-    build:
-      *php-build
-    command: /bin/sh /var/www/project/run_queue.sh
-    depends_on:
-      - "php"
-    env_file:
-      *env
-    init: true
-    tty: true
-    volumes:
-      *php-volumes
-  # mysql - database
-  mysql:
-    build:
-      context: ./.docker/containers/mysql
-      dockerfile: ./Dockerfile
-    cap_add:
-      - SYS_NICE  # CAP_SYS_NICE
-    env_file:
-      *env
-    environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: project
-      MYSQL_USER: project
-      MYSQL_PASSWORD: project
-    init: true
-    ports:
-      - "3306:3306"
-    volumes:
-      - db-data:/var/lib/mysql
-      - ./.docker/database-seed/:/docker-entrypoint-initdb.d
-  # redis - key/value database for caching & php sessions
-  redis:
-    build:
-      context: ./.docker/containers/redis
-      dockerfile: ./Dockerfile
-    expose:
-      - "6379"
-    init: true
-  # vite - frontend build system
-  vite:
-    build:
-      context: ./.docker/containers/vite
-      dockerfile: ./Dockerfile
-    env_file:
-      *env
-    init: true
-    ports:
-      - "3000:3000"
-    tty: true
-    volumes:
-      - ./src:/var/www/project/src:cached
-      - ./src/node_modules:/var/www/project/src/node_modules:delegated
-      - ./cms/web:/var/www/project/cms/web:delegated
-      - ./cms/templates:/var/www/project/cms/templates:cached
+    # frontend - node/vite
+    # https://github.com/nodejs/docker-node/tree/cd41dbe222da1ce72d61d8fbaa06ac79316ac6d5/16
+    frontend:
+        image: node:lts
+        restart: unless-stopped
+        user: "${PUID:-1000}:${PGID:-1000}"
+        working_dir: /var/www/frontend
+        stop_grace_period: 1s
+        tty: true
+        env_file: &env
+            - ./craftcms/.env
+
+        # no package lock? -> full install
+        # no node_modules? -> clean install
+        command: >
+            bash -c "[ ! -f package-lock.json ] && npm install;
+                     [ ! -d node_modules/vite ] && npm ci;
+                     npm run dev"
+        ports:
+            - 3000:3000
+        volumes:
+            - ./frontend:/var/www/frontend:delegated
+            - ./craftcms/templates:/var/www/craftcms/templates:ro
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:3000/js/app.js"]
+            interval: 5s
+            timeout: 5s
+            retries: 100
+
+
+    # mysql - persistent database storage
+    # https://hub.docker.com/_/mysql
+    mysql:
+        image: mysql/mysql-server:8.0
+        restart: unless-stopped
+        command: --default-authentication-plugin=mysql_native_password
+        env_file:
+            *env
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+        ports:
+            - 3306:3306
+        volumes:
+            - mysql_data:/var/lib/mysql
+            - ./etc/database-seed:/docker-entrypoint-initdb.d
+        healthcheck:
+            test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
+            start_period: 3s
+            interval: 3s
+            timeout: 3s
+            retries: 20
+
+
+    # composer - php dependency management
+    # https://github.com/composer/docker
+    composer:
+        image: composer
+        command: "composer install --verbose --no-progress --optimize-autoloader --no-interaction"
+        tty: true
+        user: "${PUID:-1000}:${PGID:-1000}"
+        volumes:
+            - ./craftcms:/app
+        depends_on:
+            mysql:
+                condition: service_healthy
+
+
+    # runs craft migrations
+    # https://github.com/nanoninja/php-fpm
+    migrations: &craft
+        image: simplicateca/php-fpm:8.1.8
+        user: "${PUID:-1000}:${PGID:-1000}"
+        working_dir: /app
+        env_file:
+            *env
+
+        # test craft installed. clear caches.
+        # update project config. do migrations.
+        command: >
+            bash -c "./craft install/check &&
+                     ./craft setup/keys &&
+                     ./craft clear-caches/all --interactive=0 &&
+                     ./craft up --interactive=0"
+        volumes:
+            - ./craftcms:/app:cached
+            - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+        depends_on:
+            composer:
+                condition: service_completed_successfully
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
+
+    # php-fpm - backend api endpoints
+    # https://github.com/nanoninja/php-fpm
+    php:
+        <<: *craft
+        restart: unless-stopped
+        command: "php-fpm"
+        depends_on:
+            migrations:
+                condition: service_completed_successfully
+
+
+    # starts a craft queue listener
+    # https://craftcms.com/docs/4.x/extend/queue-jobs.html
+    queue:
+        <<: *craft
+        restart: unless-stopped
+        working_dir: /app
+        command: "./craft queue/listen 10"
+        tty: true
+        stop_grace_period: "1s"
+        depends_on:
+            migrations:
+                condition: service_completed_successfully
+
+
+    # nginx - webserver
+    # https://hub.docker.com/_/nginx
+    nginx:
+        image: nginx:1.23-alpine
+        restart: unless-stopped
+        env_file:
+            *env
+        ports:
+            - 8000:80
+        volumes:
+            - ./craftcms/web/index.php:/app/web/index.php:ro
+            - ./etc/nginx/docker-config.conf:/etc/nginx/conf.d/craft.conf:ro
+        depends_on:
+            mysql:
+                condition: service_healthy
+            php:
+                condition: service_started
+            redis:
+                condition: service_started
+
+
+    # redis - temporary session storage
+    # https://hub.docker.com/_/redis
+    redis:
+        image: redis:5-alpine
+        ports:
+            - 6379:6379
+
+
+    # wikimd - file based project documentation / markdown wiki
+    # https://github.com/Linbreux/wikmd
+    wikmd:
+        image: simplicateca/wikmd:1.0.2
+        restart: unless-stopped
+        environment:
+            - PUID=${PUID:-1000}
+            - PGID=${GUID:-1000}
+            - WIKMD_LOGGING=0
+        volumes:
+            - ./docs:/wiki
+        ports:
+            - 5000:5000
+
+
+    # status - use busybox to output a message on successful compose
+    # https://hub.docker.com/_/busybox
+    status:
+        image: busybox
+        command: "sh -c 'sleep 3 && /bin/sh /home/banner.sh'"
+        env_file:
+            *env
+        volumes:
+            - ./etc/banner.sh:/home/banner.sh
+        depends_on:
+            nginx:
+                condition: service_started
+            frontend:
+                 condition: service_healthy
+            wikmd:
+                 condition: service_started
+
 volumes:
-  db-data:
-  cpresources:
-  storage:
+    mysql_data:

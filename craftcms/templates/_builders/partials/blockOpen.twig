@@ -60,13 +60,8 @@
                 <div class="cBlockSpacer cBlockSpacer__before cBlockSpacer__builderTop {{blockAbove.class}}"></div>
             {% else %}
                 {% if spaceBefore %}
-
                     {% if not sceneBgsMatch or not prevSpacerAfter or prevSpacerAfter != spaceBefore %}
                         <div class="cBlockSpacer cBlockSpacer__before {{spaceBefore}}"></div>
-
-                        {# {% if blockID == '6164' %}
-                            <h1>{{blockID}} {{spaceBefore}}</h1>
-                        {% endif %} #}
                     {% endif %}
                 {% endif %}
             {% endif %}

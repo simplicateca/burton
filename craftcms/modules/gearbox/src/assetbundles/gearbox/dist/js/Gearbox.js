@@ -6,7 +6,6 @@ if (typeof Craft.Gearbox === 'undefined') {
     Craft.Gearbox = {};
 }
 
-
 // Sidebar Entry Types / Section Navigation
 // per: https://github.com/ethercreative/sidebar-entrytypes
 // but with some small UX improvements

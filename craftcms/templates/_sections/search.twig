@@ -9,12 +9,12 @@
 
 {% if query %}
     {% set entries = craft.entries()
-                          .search(query)
-                          .section('not sitebook')
-                          .type('not private')
-                          .with(['images','topics'])
-                          .orderBy('score')
-                          .limit(limit) %}
+        .search(query)
+        .section('not sitebook')
+        .type('not private')
+        .with(['images','topics'])
+        .orderBy('score')
+        .limit(limit) %}
 
     {% set title   = 'Search Results' %}
     
@@ -52,7 +52,6 @@
                             ],{
                                 entry: item,
                                 card: card
-
                             }, withContext = false
                         ) }}
                     {% endfor %}
