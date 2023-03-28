@@ -12,8 +12,11 @@ if( !file_exists('docs/README.md') ) {
     rename('README.md', 'docs/README.md');
 }
 
+echo( "To launch the docker development environment, run\n\n > make dev\n");
+
 // remove this file
 unlink('prep.php');
+
 
 function rrmdir(string $directory): bool
 {
