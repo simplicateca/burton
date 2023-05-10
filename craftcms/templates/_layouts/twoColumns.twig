@@ -1,85 +1,87 @@
-{% extends "_boilerplate" %}
-{% set templatePath = _self ??? '' %}
-{% set entry   = entry ??? null %}
-{% set section = entry.section.handle ??? 'base' %}
-{% set layout  = 'twoColumns' %}
+{% extends "_layouts/base" %}
 
+{% set entry     = event ??? product ??? entry ??? null %}
+{% set layout    = 'twoColumns' %}
+
+{# -- primary <body> content -- #}
 {% block bodyHtml %}
-    {% cache %}
-        {% minify %}
 
-            {% do craft.app.elements.eagerLoadElements(
-                className(entry),
-                [entry],
-                [''] | merge(eagerLoading.commonFields   ??? '')
-                     | merge(eagerLoading.headerBuilder  ??? '')
-                     | merge(eagerLoading.contentBuilder ??? '')
-                     | merge(eagerLoading.sidebarBuilder ??? '')
-            ) %}
+    {% set tmplPath  = _self ??? null %}
+    {% set section   = entry.section.handle ??? null %}
+    {% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
+    {% set bodyClass = "#{layout} #{section} #{entryUri}" %}
 
-            {% block alertbar %}
-                {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = true) }}
-            {% endblock %}
+    {# -- perform entry eager loading -- #}
+    {% if entry and ( className(entry) ??? null ) %}
+        {% do craft.app.elements.eagerLoadElements(
+            className(entry),
+            [entry],
+            [''] | merge(eagerLoading.commonFields   ??? '')
+                 | merge(eagerLoading.headerBuilder  ??? '')
+                 | merge(eagerLoading.contentBuilder ??? '')
+                 | merge(eagerLoading.sidebarBuilder ??? '')
+        ) %}
+    {% endif %}
 
-            {% block header %}
-                {{ include( "_components/header/header", {
-                    entry: entry,
-                    section: section,
+    {% block header %}
+        {{ include( "_components/header/header", {
+            entry : entry,
+            layout: layout
+        }, withContext = false ) }}
+    {% endblock %}
+
+    {% block belowHeader %}
+        {{ include( "_components/breadcrumb/breadcrumb", {}, withContext = true ) }}
+    {% endblock %}
+
+    <div class="container !px-0 flex flex-col lg:flex-row gap-16 lg:gap-20 2xl:gap-28">
+
+        <main id="content" class="min-h-[50vh] grow">
+            {% block beforeContent %}{% endblock %}
+
+            {% block content %}
+                {{ include( "_components/builders/builderContent", {
+                    entry : entry,
                     layout: layout
                 }, withContext = false ) }}
             {% endblock %}
 
-            {% block belowHeader %}
-                {{ include( "_components/breadcrumb/breadcrumb", {}, withContext = true ) }}
-            {% endblock %}
+            {% block afterContent %}{% endblock %}
+        </main>
 
-            <main class="cMain cMain__{{layout}} cMain__{{section}}">
-                <div class="outerContainer container flex flex-col lg:flex-row gap-12 lg:gap-16">
+        {% apply retconRemoveEmpty('aside') %}
+            <aside class="w-full lg:max-w-sm">
+                {% block beforeSidebar %}{% endblock %}
 
-                    {% set firstContentBlock = entry.contentBuilder|first ??? null %}
-                    {% set firstBlockBG      = firstContentBlock.bg.value ??? null %}
+                {% block sidebar %}
+                    {{ include( "_components/builders/builderSidebar", {
+                        entry : entry,
+                        layout: layout
+                    }, withContext = false ) }}
+                {% endblock %}
 
-                    <div class="cContentColumn cContentColumn__{{layout}} cContentColumn__{{section}} grow">
-                        {% block aboveContent %}{% endblock %}
+                {% block afterSidebar %}{% endblock %}
+            </aside>
+        {% endapply %}
+    </div>
 
-                        {% block content %}
-                            {{ include( "_builders/partials/builderContent", {
-                                entry: entry,
-                                section: section,
-                                layout: layout
-                            }, withContext = false ) }}
-                        {% endblock %}
+    {% block belowColumns %}{% endblock %}
 
-                        {% block belowContent %}{% endblock %}
-                    </div>
+    {% block aboveFooter %}
+        {{ include( "_components/footer/above", {
+            entry: entry,
+            layout: layout
+        }, withContext = false ) }}
+    {% endblock %}
 
-                    {% set hasBlockBG = firstBlockBG in ['bgWhite', 'bgDark'] %}
-                    {% set sidebarGap = hasBlockBG ? '' : 'lg:pt-20' %}
-                    <div class="cSidebar cSidebar__{{layout}} cSidebar__{{section}} {{sidebarGap}} w-full lg:max-w-sm">
-                        {% block sidebar %}
-                            {{ include( "_builders/partials/builderSidebar", {
-                                entry: entry,
-                                section: section,
-                                layout: layout
-                            }, withContext = false ) }}
-                        {% endblock %}
-                    </div>
-                </div>
-
-                {% block belowColumns %}{% endblock %}
-            </main>
-
-            {% block aboveFooter %}
-                {{ include( "_components/footer/above", {
-                    entry: entry,
-                    section: section,
-                    layout: layout
-                }, withContext = false ) }}    
-            {% endblock %}
-
-            {% block footer %}
-                {{ include( "_components/footer/footer", {}, withContext = false ) }}
-            {% endblock %}
-        {% endminify %}
-    {% endcache %}
+    {% block footer %}
+        {{ include( "_components/footer/footer", {}, withContext = false ) }}
+    {% endblock %}
 {% endblock bodyHtml %}
+
+{# -- fixed position components -- #}
+{% block bodyComponents %}
+    {% block alertbar %}
+        {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,88 @@
+fieldLayouts:
+  72d9f531-df2e-4fd3-a558-16eb3fdddb6c:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: edbfb193-69ab-4fc4-8396-5b97c97f03c3
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _components/builders/_ui/instructionsHeader.twig
+            type: craft\fieldlayoutelements\Template
+            uid: b457da29-ebf1-4966-8ae3-6584584629c7
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: d05f4009-0b38-4065-a1b1-65221aa65e63 # Header Builder
+            instructions: null
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5c0c9aa7-ea36-483f-b1b2-f0451be135eb
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _components/builders/_ui/instructionsContent.twig
+            type: craft\fieldlayoutelements\Template
+            uid: d223fb0d-28a5-4e90-98ff-dac27d774e81
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+            instructions: null
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 25c4cb66-36bd-47f3-bdb5-a09a68c91745
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _components/builders/_ui/matrixConditionalFields.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 3fc219a1-69b4-4cc1-acf3-5785b707b72f
+            userCondition: null
+            width: 100
+        name: Content
+        uid: b2cccdb6-e8ef-46f0-83b1-49e89036f0fb
+        userCondition: null
+handle: default
+hasTitleField: true
+name: Default
+section: 4615f7fe-de67-4be4-8d0e-ad7b2e14c059 # System Pages
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

@@ -1,0 +1,79 @@
+field: 0b3f350c-7d90-4fe9-b1f9-739b0696f280 # Page Extras
+fieldLayouts:
+  96f81dc9-2b22-4a48-96fd-b412a87bf6df:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 41a2bc31-369b-42aa-a92c-9cb6bf48b741 # Message
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1311b334-8edd-4c6c-b5f0-9e00791a5c12
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 6487ec97-c30b-4453-afaa-a9e4b2d0c0f2
+        userCondition: null
+fields:
+  41a2bc31-369b-42aa-a92c-9cb6bf48b741: # Message
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: message
+    instructions: null
+    name: Message
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Entry
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\entries\EntryCondition
+          -
+            - conditionRules
+            -
+              -
+                __assoc__:
+                  -
+                    - class
+                    - craft\elements\conditions\entries\TypeConditionRule
+                  -
+                    - uid
+                    - 5e8268c3-e3c4-419d-af10-450d31961712
+                  -
+                    - operator
+                    - in
+                  -
+                    - values
+                    -
+                      - 7ba53c7d-afe6-4a6e-9208-a5c0d39b002d # Content Bits
+      selectionLabel: null
+      showSiteMenu: false
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
+handle: alertMessage
+name: 'Alert Message'
+sortOrder: 1

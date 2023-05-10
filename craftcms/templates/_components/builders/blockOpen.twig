@@ -1,0 +1,48 @@
+{% set prevBlock   = prevBlock  ??? null %}
+{% set thisBlock   = thisBlock  ??? null %}
+{% set entry       = entry      ??? null %}
+
+{# {% set blockType   = thisBlock.content.type.handle ~ '--' ~ thisBlock.content.layout ~ '--' ~ thisBlock.content.variant %} #}
+{# cBlock__{{blockType}} #}
+
+{% set blockID     = thisBlock.content.id ??? random(111111, 999999) %}
+{% set inheritBg   = thisBlock.settings.inheritBg ??? false %}
+{% set matchingBg  = inheritBg or (prevBlock.settings.bgColor ??? null) == (thisBlock.settings.bgColor ??? null) %}
+
+{% set container     = thisBlock.settings.container     ??? 'useless' %}
+{% set spaceBefore   = thisBlock.settings.spaceBefore   ??? null %}
+{% set includeBefore = thisBlock.settings.includeBefore ??? null %}
+
+{# create the scene & container for blocks not inheriting bgs #}
+{% if not prevBlock or not inheritBg %}
+    <section class="cScene {{thisBlock.settings.outerClass ?? ''}} relative" data-viewport id="cScene{{blockID}}" x-data>
+        <div class="{{container}}">
+{% endif %}
+
+{# -- usually a template in `includeBefore` will be used as a divider
+      which is why we ignore `spaceBefore` when `includeBefore` exists.
+      use `includeAfter` to add a non-divider template to a block without
+      disrupting spaceBefore or spaceAfter -- #}
+{% if includeBefore %}
+    {{ include( includeBefore, {
+        entry: entry,
+        blockAbove: prevBlock,
+        blockBelow: thisBlock
+    }, withContext = false )}}
+{% endif %}
+
+{# -- insert a spacer before the block content if:
+   - this block is not the first in the builder
+   - something exists in `thisBlock.settings.spaceBefore`
+   - nothing exists in `thisBlock.settings.includeBefore`
+   - `thisBlock.settings.bgColor` does not equal `prevBlock.settings.bgColor`
+     (which prevents a double space when combined with prevBlock.settings.spaceAfter) -- #}
+{% if spaceBefore and not includeBefore and not matchingBg %}
+    <div class="cBlockSpacer cBlockSpacer__before {{spaceBefore}}"></div>
+{% endif %}
+
+{# {% set blockBaseClass = nextBlock.baseClass ?? '' %}
+{% set blockClass     = nextBlock.class ?? '' %} #}
+{# class="{{[blockBaseClass,blockClass]|join(' ')}}" #}
+
+<div data-block-id="{{blockID}}" class="cBlock" data-viewport>

@@ -20,7 +20,7 @@ return GeneralConfig::create()
 
     // Allow administrative changes
     ->allowAdminChanges( (App::env('CRAFT_ENVIRONMENT') != 'production') )
-    
+
     // Only allow plugin / Craft updates through the command line
     // https://craftcms.com/docs/4.x/config/general.html#allowupdates
     ->allowUpdates(false)
@@ -56,10 +56,15 @@ return GeneralConfig::create()
         'subRight' => true,
     ])
 
-    ->errorTemplatePrefix('errors/')
+    ->extraAllowedFileExtensions(['md','svg','code'])
+
+    ->extraFileKinds([
+        'markdown' => [ 'label' => 'Markdown', 'extensions' => ['md'],   ],
+        'code'     => [ 'label' => 'Code',     'extensions' => ['code'], ],
+    ])
 
     // 100MB
     ->maxUploadFileSize(104857600)
-    
+
     ->useEmailAsUsername(true)
 ;

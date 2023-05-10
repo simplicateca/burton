@@ -1,0 +1,21 @@
+{% set source   = source  ??? null %}
+{% set class    = class   ??? "m-0 p-0 flex items-center justify-center" %}
+{% set altText  = altText ??? alt ??? null %}
+
+<figure class="{{class}}">
+    <lottie-player
+        autoplay
+        loop
+        aria-hidden="true"
+        role="presentation"
+        src="{{source}}"
+        mode="bounce"
+        class="w-full"
+    ></lottie-player>
+
+    {#-- if a `caption` exists, use it for the <figcaption> -- #}
+    {{ caption ? tag( 'figcaption', { html: caption } ) }}
+
+    {#-- when `caption` is empty, use `altText` for <figcaption> but only for screen readers -- #}
+    {{ not caption and altText ? tag( 'figcaption', { html: altText, class: "sr-only" } ) }}
+</figure>

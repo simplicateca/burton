@@ -1,0 +1,17 @@
+[
+    {
+        "value": "spacingNormal",
+        "label" : "Normal Header",
+        "settings": {
+            "blockClass": "py-16"
+        }
+    },
+
+    {
+        "value": "spacingProminent",
+        "label" : "Prominent Header",
+        "settings": {
+            "blockClass": "py-16 min-h-[70vh] flex flex-col justify-center"
+        }
+    }
+]

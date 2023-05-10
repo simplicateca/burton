@@ -1,0 +1,41 @@
+[
+    {
+        "label": "Text Left / Media Right",
+        "value": "textLeft",
+
+        "settings": {
+            "grid": "_layouts/grids/splitNormal",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Text Right / Media Left",
+        "value": "textRight",
+
+        "settings": {
+            "grid": "_layouts/grids/splitReverse",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Text Above 2 Columns of Media",
+        "value": "textAbove2",
+
+        "settings": {
+            "grid": "_layouts/grids/stackedOver2",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Text Above 3 Columns of Media",
+        "value": "textAbove3",
+
+        "settings": {
+            "grid": "_layouts/grids/stackedOver3",
+            "container": "container"
+        }
+    }
+]

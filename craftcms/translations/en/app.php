@@ -2,5 +2,5 @@
 
 return [
     'Singles' => 'Sitewide Elements',
-    'Entries' => 'Content'
+    'Entries' => 'Content Entries'
 ];

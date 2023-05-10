@@ -1,0 +1,60 @@
+{#
+ # Image Macros
+ #
+ # For creating image tags and other things like such as
+ #
+ # Usage:
+ # {% import "_macros/imgtags" as imgtags %}
+ #}
+
+{%- macro imgTag( image, transform, altText, class ) -%}
+
+    {% if transform and ( image.url ??? null ) %}
+        {% do image.setTransform(transform) %}
+    {% endif %}
+
+    {% set source = image.url    ??? image ??? null %}
+    {% set width  = image.width  ??? null %}
+    {% set height = image.height ??? null %}
+
+    {# -- automatic placeholder images during development -- #}
+    {% if not source and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+        {% set width   = 960 %}
+        {% set height  = transform == 'square' ? 960 : 540 %}
+
+        {% if transform == 'widescreen' %}
+            {% set width   = 1920 %}
+            {% set height  = 1080 %}
+        {% endif %}
+
+        {% set source  = "https://picsum.photos/seed/" ~ random(1,9999) ~ "/#{width}/#{height}?grayscale&blur=2" %}
+        {% set altText = "Placeholder Image" %}
+    {% endif %}
+
+    {{ source ? tag('img', {
+        src    : source,
+        alt    : altText,
+        width  : width,
+        height : height,
+        class  : class,
+        loading: 'lazy'
+    }) }}
+{%- endmacro -%}
+
+{%- macro figCaption( caption = "", class ) -%}
+
+    {% if caption == 'summary' and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+        {% set caption = random([
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor, lectus sed hendrerit porta, urna nisl vehicula enim.',
+            'Vivamus sit amet nibh et nisi consequat vestibulum. Proin varius nunc ut sapien aliquam, et vestibulum enim pellentesque.',
+            'Duis fringilla mauris vel mi bibendum cursus. Integer vel tellus vel leo efficitur commodo.',
+            'Donec sed elit at ligula scelerisque laoreet. Praesent ut orci euismod, hendrerit nibh ac, aliquam quam.',
+            'Mauris viverra placerat congue. Fusce ut dapibus eros, et imperdiet neque. Sed quis risus et dolor bibendum pellentesque.'
+        ]) %}
+    {% endif %}
+
+    {% set class = class ??? "text-sm text-center py-2" %}
+
+    {{ caption ? tag( 'figcaption', { html: caption, class: class } ) }}
+
+{%- endmacro -%}

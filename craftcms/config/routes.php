@@ -19,5 +19,5 @@
  */
 
 return [
-    //'mimic/<entrySlug:{slug}>\:<mimicSlug:{slug}>' => ['template' => '_mimic'],
+
 ];

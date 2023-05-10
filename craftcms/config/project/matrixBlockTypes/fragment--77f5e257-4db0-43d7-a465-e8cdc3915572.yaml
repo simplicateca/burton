@@ -1,0 +1,132 @@
+field: a35a0beb-0cf7-4a2b-9ec3-91e953a18116 # Sidebar Builder
+fieldLayouts:
+  256ef75b-336f-439e-9295-c8b07b161c32:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: e05e823a-7ea6-4c2e-8906-a71f41da91f0 # Fragment
+            instructions: null
+            label: null
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ef39ef4e-5dec-4f34-b153-997f510329f4
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 26f7dca6-d051-4598-8236-34d1403ab36c # Background
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3bd3cbd8-d7b1-4f32-85f6-494bb539ac80
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 01bb381e-2417-4ee8-8473-40d48d27f2e7 # Spacers & Dividers
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7fba1b15-9a0d-4a3e-87eb-418dcff10d00
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: 3911933e-f3f3-4edc-9e3a-26671b2d7fdb
+        userCondition: null
+fields:
+  01bb381e-2417-4ee8-8473-40d48d27f2e7: # Spacers & Dividers
+    columnSuffix: dcntfjtq
+    contentColumnType: string
+    fieldGroup: null
+    handle: spacing
+    instructions: 'Change spacing & dividers above/below this block.'
+    name: 'Spacers & Dividers'
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/spacingFragment.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  26f7dca6-d051-4598-8236-34d1403ab36c: # Background
+    columnSuffix: npsqcahg
+    contentColumnType: string
+    fieldGroup: null
+    handle: bg
+    instructions: 'Set the background style behind this block.'
+    name: Background
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/bgFragment.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  e05e823a-7ea6-4c2e-8906-a71f41da91f0: # Fragment
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: fragments
+    instructions: null
+    name: Fragment
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Entry
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\entries\EntryCondition
+          -
+            - conditionRules
+            -
+              -
+                __assoc__:
+                  -
+                    - class
+                    - craft\elements\conditions\entries\TypeConditionRule
+                  -
+                    - uid
+                    - e304b4be-1b80-4a65-bad8-fff7faff7fe0
+                  -
+                    - operator
+                    - in
+                  -
+                    - values
+                    -
+                      - 8b095f74-200b-429c-b7a1-ed59d28dbafe # Sidebar Fragments
+                      - 0e3f19ed-abc2-4a3b-887d-5876ad74e994 # Forms
+                      - b99a868b-b561-4841-ad62-d4ab5eed5fad # Data
+      selectionLabel: 'Choose Fragment'
+      showSiteMenu: false
+      sources:
+        - 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f' # Reusable Elements
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
+handle: fragment
+name: 'Reusable Fragment'
+sortOrder: 5

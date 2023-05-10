@@ -1,0 +1,154 @@
+fieldLayouts:
+  65bbcffe-a775-4f08-b4b0-875315064586:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 2bc29913-b5e4-4777-bdca-a21b17b3f146
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topic / Theme / Collection
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6a704e31-bbfa-4280-bae3-6aa4a6c494c7
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Lead Image(s)
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b5b9500f-e31f-47cc-bcfd-48feac83e494
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: b1c52a06-4990-43f5-90d3-898a48789556 # Dek
+            instructions: null
+            label: null
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2d249208-c903-40be-a03d-d2bf20c5b2ce
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            template: _components/builders/_ui/instructionsHeader.twig
+            type: craft\fieldlayoutelements\Template
+            uid: e92d5ddc-f941-4ada-b2e5-d6fc4fef7c8b
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: d05f4009-0b38-4065-a1b1-65221aa65e63 # Header Builder
+            instructions: null
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 50af3e9c-0609-4c1b-b69d-128d70905668
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _components/builders/_ui/instructionsContent.twig
+            type: craft\fieldlayoutelements\Template
+            uid: a16c88f3-b910-4c87-849c-889efb5ff885
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+            instructions: null
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b96a02e2-6ffc-4b3c-b9cb-adfa94770c3b
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _components/builders/_ui/matrixConditionalFields.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 28bb8479-8686-4e58-99b7-88aa5e79463a
+            userCondition: null
+            width: 100
+        name: Content
+        uid: 4cec552a-62c2-449f-b9c6-e88d93bfcbcc
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: decc967b-80dd-4875-ab3f-b6c700b123eb # SEO Settings
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 078203ff-c7b3-46cd-a5c7-331b457e0006
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 0b3f350c-7d90-4fe9-b1f9-739b0696f280 # Page Extras
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: cf1bf3f5-bad0-41f4-8759-98e070fef12e
+            userCondition: null
+            warning: null
+            width: 100
+        name: Settings
+        uid: e52c6791-9eda-4680-ad44-80be7fb77f3a
+        userCondition: null
+handle: news
+hasTitleField: true
+name: News
+section: 3721b4d6-42d5-41fc-b6e7-76204b42c91a # Articles
+sortOrder: 2
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

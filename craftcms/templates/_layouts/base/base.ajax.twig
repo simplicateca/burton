@@ -1,0 +1,13 @@
+{% extends "_globalTwigVars" %}
+
+{% block htmlPage %}
+    <div id="ajaxContent">
+        {% if block('ajaxContent') %}
+            {% block ajaxContent %}{% endblock ajaxContent %}
+        {% else %}
+            {% block content %}
+                <code>No content block defined.</code>
+            {% endblock content %}
+        {% endif %}
+    </div>
+{% endblock %}

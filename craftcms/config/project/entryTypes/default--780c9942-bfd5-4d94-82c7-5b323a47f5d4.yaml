@@ -32,7 +32,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _builders/controlpanel/instructionsHeaderBuilder.twig
+            template: _components/builders/_ui/instructionsHeader.twig
             type: craft\fieldlayoutelements\Template
             uid: ea61fb96-468b-4427-a0b4-a1b5dbb29752
             userCondition: null
@@ -51,7 +51,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _builders/controlpanel/instructionsContentBuilder.twig
+            template: _components/builders/_ui/instructionsContent.twig
             type: craft\fieldlayoutelements\Template
             uid: 0a342393-374b-4c57-8dcc-e08a394b84fd
             userCondition: null
@@ -70,38 +70,13 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _builders/controlpanel/matrixConditionalFields.twig
+            template: _components/builders/_ui/matrixConditionalFields.twig
             type: craft\fieldlayoutelements\Template
             uid: e8450ae2-36ee-4f3b-837c-dd11c1cf4538
             userCondition: null
             width: 100
         name: Content
         uid: 201e19ec-430f-436f-bc75-9985641f2352
-        userCondition: null
-      -
-        elementCondition: null
-        elements:
-          -
-            elementCondition: null
-            template: _builders/controlpanel/instructionsContentChunks.twig
-            type: craft\fieldlayoutelements\Template
-            uid: abe45b6a-3af5-405c-84e0-b9c8c640e611
-            userCondition: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: b09bda91-6d4a-42c4-a824-f3d402ce20e7 # Chunks
-            instructions: null
-            label: __blank__
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 4e2b9296-5d6e-40a4-af59-8da58b4bf78d
-            userCondition: null
-            warning: null
-            width: 100
-        name: 'Content Chunks'
-        uid: 5dd83726-a9d9-4dd3-837a-50c8a37bab20
         userCondition: null
       -
         elementCondition: null
@@ -132,7 +107,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topics
+            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topic / Theme / Collection
             instructions: null
             label: null
             required: false
@@ -144,13 +119,30 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: c62ec2a4-1966-4b3c-a5d1-b0842235c23e # Fragment(s)
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 4201b712-518a-4250-b610-a6c9ad84551b
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: decc967b-80dd-4875-ab3f-b6c700b123eb # SEO Settings
             instructions: null
-            label: 'Footer Fragment(s)'
+            label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 7ba2254d-ab6e-4818-a0bd-39f8002ea1e1
+            uid: d0ec0ce3-948d-466a-b62d-152254ed89cd
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 0b3f350c-7d90-4fe9-b1f9-739b0696f280 # Page Extras
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1186f787-685b-4ee4-a652-56c9f9e3d554
             userCondition: null
             warning: null
             width: 100

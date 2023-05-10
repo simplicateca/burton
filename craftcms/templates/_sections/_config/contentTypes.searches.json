@@ -1,0 +1,46 @@
+[
+    {
+        "label": "Articles",
+        "value": "articles.default"
+    },
+
+    {
+        "label": "Blog Articles",
+        "value": "articles.default"
+    },
+
+    {
+        "label": "News Articles",
+        "value": "articles.default"
+    },
+
+    {
+        "label": "FAQs",
+        "value": "faqs.default"
+    },
+
+    {
+        "label": "Pages",
+        "value": "pages"
+    },
+
+    {
+        "label": "Topics",
+        "value": "taxonomy.topic"
+    },
+
+    {
+        "label": "Data",
+        "value": "reusable.data"
+    },
+
+    {
+        "label": "Content Bits",
+        "value": "reusable.contentBit"
+    },
+
+    {
+        "label": "RSS Feed",
+        "value": "rss"
+    }
+]

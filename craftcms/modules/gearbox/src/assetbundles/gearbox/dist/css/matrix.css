@@ -123,6 +123,7 @@
 }
 
 
+#content div.matrix-field .flex-fields div[data-attribute="layout"],
 #content div.matrix-field .flex-fields div[data-attribute="variant"] {
     border-bottom: 1px solid #ccc;
     margin-bottom: 2rem !important;
@@ -132,6 +133,7 @@
     background-color: #ebf2fa;
 }
 
+#content div.matrix-field .flex-fields div[data-attribute="layout"] select,
 #content div.matrix-field .flex-fields div[data-attribute="variant"] select {
     background-color: #FaFbFc !important;
 }
@@ -155,10 +157,10 @@
 
 @media only screen and (max-width:1535px) {
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="images"],
-    #content div.matrix-field .flex-fields .field.width-50[data-attribute="externalMedia"],
-    #content div.matrix-field .flex-fields .field.width-50[data-attribute="media"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="externalUrls"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="localAssets"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="items"],
-    #content div.matrix-field .flex-fields .field.width-50[data-attribute="chunk"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="fragments"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="text2"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="text"] {
         width: 100% !important;
@@ -256,4 +258,3 @@ p#noMoreHerosText span[data-icon] {
     padding-left: 2px;
     cursor: pointer;
 }
-

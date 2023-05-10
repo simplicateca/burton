@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'Singles' => 'Sitewide Elements'
+    'Singles' => 'Sitewide Elements',
+    'Entries' => 'Content Entries'
 ];

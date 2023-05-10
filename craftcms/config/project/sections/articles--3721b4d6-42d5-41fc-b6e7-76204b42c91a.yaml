@@ -1,0 +1,24 @@
+defaultPlacement: end
+enableVersioning: true
+handle: articles
+name: Articles
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary Content'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
+siteSettings:
+  41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
+    enabledByDefault: true
+    hasUrls: true
+    template: _sections/article/_router
+    uriFormat: '{{object.type.handle}}/{{object.slug}}'
+type: channel

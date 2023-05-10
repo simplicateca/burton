@@ -1,0 +1,22 @@
+{% extends "_layouts/twoColumns" %}
+
+{% requirePermission 'allowSitebook' %}
+
+{% set entry        = entry ?? null %}
+{% set entryType    = entry.type.handle  ?? null %}
+{% set fragmentType = entry.fragmentType ?? null %}
+
+{% block sidebar %}
+    {{ include( '_components/builders/builderSidebar.twig', {
+        entry: entry
+    }, withContext = false) }}
+{% endblock %}
+
+{% block alertbar %}{% endblock %}
+{% block header %}{% endblock %}
+{% block belowHeader %}{% endblock %}
+{% block aboveContent %}{% endblock %}
+{% block content %}{% endblock %}
+{% block belowContent %}{% endblock %}
+{% block aboveFooter %}{% endblock %}
+{% block footer %}{% endblock %}

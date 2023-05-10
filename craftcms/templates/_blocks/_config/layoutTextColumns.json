@@ -1,0 +1,28 @@
+[
+    {
+        "label": "50% / 50%",
+        "value": "textEvent",
+        "settings": {
+            "grid": "_layouts/grids/splitNormal",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "50% / 50%",
+        "value": "textEvent",
+        "settings": {
+            "grid": "_layouts/grids/splitNormal",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "50% / 50%",
+        "value": "textEvent",
+        "settings": {
+            "grid": "_layouts/grids/splitNormal",
+            "container": "container"
+        }
+    }
+]

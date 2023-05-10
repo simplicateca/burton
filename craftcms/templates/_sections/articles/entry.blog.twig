@@ -1,0 +1,37 @@
+{% extends "_layouts/twoColumns" %}
+
+{% block header %}
+    {% embed "_components/header/header" with { entry: entry } only %}
+        {% block belowTitle %}
+            <div class="prose text-xl">
+                {{ entry.dek }}
+
+                <p>
+                    <time
+                        class="pt-4 block"
+                        datetime="{{ entry.postDate | date('Y-m-d') }}"
+                    >{{ entry.postDate | date('F jS, Y') }}</time>
+                </p>
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="container py-10 relative h-full">
+        <div class="sticky top-32">
+	    {{ include( '_components/search/form', {
+		    headline: 'Search Our Archives',
+		    url: '/news/'
+	    }, withContext = false ) }}
+
+            <div class="prose prose-lg">
+                <hr class="my-6">
+
+                <p class="mb-2"><strong>Follow Us</strong></p>
+
+                {{ include( '_components/widgets/social-links', { }, withContext = false ) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

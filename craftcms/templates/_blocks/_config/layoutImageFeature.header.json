@@ -1,0 +1,35 @@
+[
+    {
+        "label": "Text Left / Image Right",
+        "value": "textLeft",
+
+        "settings": {
+            "grid": "_layouts/grids/splitNormal",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Text Right / Image Left",
+        "value": "textRight",
+
+        "settings": {
+            "grid": "_layouts/grids/splitReverse",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Text Overlay Background Image",
+        "value": "textOverlay",
+
+        "settings": {
+            "grid": "_layouts/grids/overlap",
+            "container": "container"
+        },
+
+        "important": {
+            "imageComponent": "_components/images/parallaxBg"
+        }
+    }
+]

@@ -1,0 +1,29 @@
+[{
+    "label": "Text Left / Media Right",
+    "value": "textLeft",
+
+    "settings": {
+        "grid": "_layouts/grids/splitNormal",
+        "container": "container"
+    }
+},
+
+{
+    "label": "Text Right / Media Left",
+    "value": "textRight",
+
+    "settings": {
+        "grid": "_layouts/grids/splitReverse",
+        "container": "container"
+    }
+},
+
+{
+    "label": "Text Above Media",
+    "value": "textAbove",
+
+    "settings": {
+        "grid": "_layouts/grids/stacked",
+        "container": "container"
+    }
+}]

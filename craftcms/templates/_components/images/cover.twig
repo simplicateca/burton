@@ -1,0 +1,30 @@
+{% set layout     = layout ??? null %}
+{% set image      = images.one() ??? image ??? null %}
+{% set caption    = caption ??? null %}
+{% set caption    = caption ? attribute(image, caption) ??? caption %}
+{% set coverClass = "absolute top-0 left-0 right-0 bottom-0" %}
+
+{% if layout == 'textRight' %}
+    {% set coverClass = "absolute top-0 left-0 w-[50vw] bottom-0" %}
+{% endif %}
+
+{% if layout == 'textLeft' %}
+    {% set coverClass = "absolute top-0 right-0 w-[50vw] bottom-0" %}
+{% endif %}
+
+<template x-teleport="#cScene{{blockID}}">
+    {% embed '_components/images/basic' with {
+        image : image,
+        class : "object-cover object-center h-full w-full relative z-20",
+        transform: "square",
+    } %}
+        {% block figure %}
+            <figure class="{{coverClass}}">
+        {% endblock %}
+
+        {% block figcaption %}
+            {% import "_macros/imgtags" as imgtags %}
+            {{ caption ? imgtags.figCaption( caption, "absolute bottom-8 left-8 right-8 bg-black/60 mx-auto max-w-xl text-white text-sm p-4 z-20 text-center" ) }}
+        {% endblock %}
+    {% endembed %}
+</template>

@@ -1,0 +1,12 @@
+columnSuffix: vynnhurk
+contentColumnType: string
+fieldGroup: 3be366bf-8e5e-4f28-8502-7ebf1d83e26e # Dropdowns
+handle: format
+instructions: null
+name: Format
+searchable: false
+settings:
+  referenceFile: _sections/_config/formats.data.json
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\referencefield\fields\Dropdown

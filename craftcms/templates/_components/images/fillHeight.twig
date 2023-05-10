@@ -1,0 +1,9 @@
+{% embed '_components/images/basic' with {
+    image : images.one() ??? image ??? null,
+    class : "object-cover object-center h-full w-full relative z-20",
+    transform: "square",
+} %}
+    {% block figure %}
+        <figure class="object-cover object-center h-full w-full relative z-20">
+    {% endblock %}
+{% endembed %}

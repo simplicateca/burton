@@ -1,0 +1,20 @@
+{# redeclare the variables set in `templates/_blocks/_base.twig` that we'll be using here #}
+{% set settings = settings ??? null %}
+{% set content  = content  ??? null %}
+{% set grid     = grid     ??? settings.grid    ??? null %}
+{% set wrapper  = wrapper  ??? settings.wrapper ??? null %}
+{% set text     = text     ??? content.text     ??? null %}
+
+{% if grid %}
+    {% embed grid %}
+        {% block cell1 %}
+            {{text|raw}}
+        {% endblock %}
+    {% endembed %}
+{% else %}
+    <div class="{{wrapper}}">
+        {{ blockHeader }}
+        {{ text|raw }}
+        {{ blockFooter }}
+    </div>
+{% endif %}

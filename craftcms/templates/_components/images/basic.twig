@@ -1,0 +1,49 @@
+{% import "_macros/imgtags" as imgtags %}
+
+{% set image     = images.one() ??? image ??? null %}
+{% set class     = class  ??? "w-full max-w-full h-auto" %}
+{% set transform = transform ??? null %}
+{% set altText   = alt ??? altText ??? image.alt ??? image.title ??? null %}
+{% set caption   = caption ??? null %}
+{% set caption   = caption ? attribute(image, caption) ??? caption %}
+{% set source    = image.url ??? image ??? null %}
+{% set kind      = image.kind ??? source|split('.')|last|lower ??? 'image' %}
+{% set sizes     = sizes ??? null %}
+
+{% block figure %}
+    <figure class="m-0 p-0 flex flex-col">
+{% endblock %}
+
+{# -- lottie animations -- #}
+{% if kind in ['json','lottie'] %}
+    {{ tag('lottie-player', {
+        src       : source,
+        class     : class,
+        autoplay  : true,
+        loop      : true,
+        ariaHidden: true,
+        role      : "presentation",
+        mode      : "bounce",
+        loading   : 'lazy'
+    }) }}
+{% endif %}
+
+{# -- regular images -- #}
+{% if kind in ['image','jpg','jpeg','png','gif','webm'] %}
+    <picture>
+        {# -- code for responsive sizes / webm conversion goes here -- #}
+
+        {# -- output the image tag -- #}
+        {{ imgtags.imgTag( image, transform, altText, class ) }}
+    </picture>
+{% endif %}
+
+
+{# if a `caption` exists, use it for the <figcaption>,
+   if not, use `altText` but only show it to screen readers #}
+{% block figcaption %}
+    {{ caption ? imgtags.figCaption( caption ) }}
+    {{ not caption and altText ? imgtags.figCaption( altText, "sr-only" ) }}
+{% endblock %}
+
+</figure>

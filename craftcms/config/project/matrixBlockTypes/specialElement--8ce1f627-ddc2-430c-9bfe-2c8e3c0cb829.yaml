@@ -1,0 +1,195 @@
+field: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+fieldLayouts:
+  b140a9b2-9811-44ea-82e0-e32fa3582bd8:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: b7ec333d-193c-4bfe-b1c2-637e039f302d # Variant
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 26724913-ce96-4be7-b2f5-86dc5ffff9eb
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 4e6dab12-ff70-4db1-9095-aec90d712602 # Supporting Text
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9c6b1041-1de6-465d-af7e-5d2c49b231cd
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: adc05109-eaa7-4f80-b156-5b250a28e878 # Saved Search
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8ecb71c9-cf08-4a15-a9cc-6560a4a97919
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 8ecf45da-7553-48ac-b52d-a45f8bc90317 # Background
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2fe5567a-e450-4f98-93fe-f5daa278c6e6
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 846fcb98-b56b-479d-9d99-3502ed63ef09 # Partition
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 56853d75-f63f-42d2-be02-559aff395542
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: 4e479aee-581c-4e9e-9c85-c891dca6fd51
+        userCondition: null
+fields:
+  4e6dab12-ff70-4db1-9095-aec90d712602: # Supporting Text
+    columnSuffix: wwmudfrl
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: 'Additional text content to introduce or describe the element'
+    name: 'Supporting Text'
+    searchable: true
+    settings:
+      availableTransforms: '*'
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Standard.json
+      removeEmptyTags: false
+      removeInlineStyles: false
+      removeNbsp: false
+      showHtmlButtonForNonAdmins: true
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  8ecf45da-7553-48ac-b52d-a45f8bc90317: # Background
+    columnSuffix: sbrwrmrk
+    contentColumnType: string
+    fieldGroup: null
+    handle: bg
+    instructions: 'Set the background style behind this block.'
+    name: Background
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/bgContent.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  846fcb98-b56b-479d-9d99-3502ed63ef09: # Partition
+    columnSuffix: svjbxtmy
+    contentColumnType: string
+    fieldGroup: null
+    handle: spacing
+    instructions: 'Adjust whitespace & dividers for this block'
+    name: Partition
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/spacingContent.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  adc05109-eaa7-4f80-b156-5b250a28e878: # Saved Search
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: searches
+    instructions: null
+    name: 'Saved Search'
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Entry
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\entries\EntryCondition
+          -
+            - conditionRules
+            -
+              -
+                __assoc__:
+                  -
+                    - class
+                    - craft\elements\conditions\entries\TypeConditionRule
+                  -
+                    - uid
+                    - 8ac0c4bd-e425-4d70-bf38-6b614cf5e8d7
+                  -
+                    - operator
+                    - in
+                  -
+                    - values
+                    -
+                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Saved Searches
+      selectionLabel: 'Choose Search'
+      showSiteMenu: false
+      sources:
+        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
+  b7ec333d-193c-4bfe-b1c2-637e039f302d: # Variant
+    columnSuffix: fvriqqes
+    contentColumnType: string
+    fieldGroup: null
+    handle: variant
+    instructions: 'Change content layout/positioning without changing the underlying content'
+    name: Variant
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/variantSpecialElements.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+handle: specialElement
+name: 'Special Element'
+sortOrder: 7

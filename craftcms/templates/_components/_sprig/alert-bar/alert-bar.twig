@@ -43,9 +43,11 @@
 {% endjs %}
 
 {% css %}
-    body.hasScroller {
-        div.cAlertBar {
-            transform: translateY(0);
-        }
+    body.hasScroller div.cAlertBar {
+        transform: translateY(0);
+    }
+
+    body.hasAlert footer {
+        @apply pb-14;
     }
 {% endcss %}

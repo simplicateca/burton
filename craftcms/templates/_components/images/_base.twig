@@ -1,0 +1,28 @@
+{% set settings  = settings  ??? null %}
+{% set content   = content   ??? null %}
+{% set images    = images    ??? content.images.all() ??? [] %}
+{% set component = component ??? settings.imageComponent ??? null %}
+{% set treatment = treatment ??? settings.imageTreatment ??? null %}
+
+{#-- let the component sort out how to display all the images --#}
+{% if component %}
+
+    {{- include( component, {
+        images: images,
+        settings: settings
+    }, withContext = false ) -}}
+
+{#-- otherwise hand off to a treatment --#}
+{% else %}
+
+    {% set transform = transform ??? settings.imageTransform ??? null %}
+    {% set imgClass  = imgClass  ??? settings.imageClass     ??? null %}
+    {% set caption   = caption   ??? settings.imageCaption   ??? null %}
+
+    {{ include( treatment ??? '_components/images/basic', {
+        images   : images,
+        caption  : caption,
+        class    : imgClass,
+        transform: transform
+    }) }}
+{% endif %}

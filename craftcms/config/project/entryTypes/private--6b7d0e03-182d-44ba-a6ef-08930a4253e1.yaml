@@ -42,37 +42,13 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 50
-          -
-            elementCondition: null
-            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Lead Image(s)
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 145d2c09-1779-4d8e-947b-a356e58145d3
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: 16ea4eb8-377b-4740-955d-89f60729fce4 # Color
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 0760926f-dbcc-4b22-bec6-1ef130871e47
-            userCondition: null
-            warning: null
-            width: 100
         name: Content
         uid: 7d435989-cada-4c87-929c-cb36c4aa1be6
         userCondition: null
 handle: private
 hasTitleField: true
-name: Private
-section: 942cbdfb-d50d-4dcd-9032-4f483562d1dd # Topics
+name: 'Private Collections'
+section: 942cbdfb-d50d-4dcd-9032-4f483562d1dd # Taxonomies
 sortOrder: 2
 titleFormat: null
 titleTranslationKeyFormat: null

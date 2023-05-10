@@ -35,6 +35,8 @@ use yii\base\InvalidConfigException;
 use modules\gearbox\assetbundles\gearbox\GearboxAsset;
 use modules\gearbox\twigextensions\GearboxTwigExtension;
 
+use modules\gearbox\helpers\FileLog;
+
 class Gearbox extends Module
 {
     public static Gearbox $instance;
@@ -121,54 +123,60 @@ class Gearbox extends Module
             }
         );
 
-        
+
         // Sidebar Entry Types / Section Navigation
-        // per: https://github.com/ethercreative/sidebar-entrytypes
-        Event::on(Entry::class, Element::EVENT_REGISTER_SOURCES, function(RegisterElementSourcesEvent $event) {
-            $children = [];
-      
-            foreach ($event->sources as $i => $source) {
-                if (!isset($source['data'])) {
+        // roughly based on: https://github.com/ethercreative/sidebar-entrytypes
+        Event::on(Entry::class, Entry::EVENT_REGISTER_SOURCES, function(RegisterElementSourcesEvent $event) {
+
+            $singlesSource = null;
+
+            $newSources = [];
+            foreach ( $event->sources as &$source ) {
+
+                $sectionType  = $source['data']['type'] ?? null;
+                $sectionId    = $source['criteria']['sectionId'] ?? null;
+                $sourceKey    = $source['key'] ?? null;
+
+                if( ( $sourceKey ?? null ) == 'singles' ) {
+                    $singlesSource = $source;
                     continue;
                 }
 
-                $entryTypes = Craft::$app->sections->getEntryTypesBySectionId($source['criteria']['sectionId']);
-      
-                $sectionType    = $source['data']['type']           ?? '';
-                $sectionHandle  = $source['data']['handle']         ?? '';
-                $sectionSort    = $source['data']['defaultSort'][0] ?? 'postDate';
-                $sectionSortDir = $source['data']['defaultSort'][1] ?? 'desc';
-
-                if( count($entryTypes) < 2 || $sectionType == 'structure' ) {
+                if( !is_int( $sectionId ) ) {
+                    $newSources[] = $source;
                     continue;
                 }
-      
-                $children[$i] = [];
-                               
-                foreach ($entryTypes as $entryType) {
-                    $children[$i][] = [
-                        'key' => 'section:' . $entryType->uid,
-                        'label' => $entryType->name,
-                        'data' => [
-                            'default-sort' => $sectionSort . ':' . $sectionSortDir,
-                            'type' => $sectionType,
-                            'handle' => $sectionHandle,
-                            'type-id' => $entryType->id,
-                            'entry-type' => true
-                        ],
-                        'criteria' => [
-                            'sectionId' => $entryType->sectionId,
-                            'type' => $entryType->handle,
-                            'editable' => false,
-                        ]
-                    ];
+
+                $entryTypes = Craft::$app->sections->getEntryTypesBySectionId( $sectionId );
+
+                if( count($entryTypes) < 2 || $sectionType != 'channel' ) {
+                    $newSources[] = $source;
+                    continue;
                 }
 
+                $children = [];
+                foreach( $entryTypes AS $type ) {
+
+                    $typeSource = $source;
+                    $typeSource['key'] = $source['key'] . ':' . $type->handle;
+                    $typeSource['label'] = $type->name;
+                    $typeSource['criteria']['typeId'] = $type->id;
+
+                    $children[] = $typeSource;
+                }
+
+                if( $sourceKey == 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f' && $singlesSource ) {
+                    $children[] = $singlesSource;
+                }
+
+                if( !empty( $children ) ) {
+                    $source['nested'] = $children;
+                }
+
+                $newSources[] = $source;
             }
-      
-            foreach ($children as $key => $child) {
-                $event->sources[$key]['nested'] = $child;
-            }
+
+            $event->sources = $newSources;
         });
     }
 }

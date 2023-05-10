@@ -1,4 +1,5 @@
-<footer class="bg-gray-200">
+
+<footer class="bg-gray-200" id="footer">
     <div class="container pt-10 pb-6">
         <div class="grid grid-cols-2">
             <div class="grid grid-cols-2">
@@ -8,7 +9,7 @@
                         menu: 'features',
                         ulClass: "grid grid-cols-1",
                         liClass: "my-1"
-                    }, withContext = false ) }}                    
+                    }, withContext = false ) }}
                 </div>
 
                 <div>
@@ -17,7 +18,7 @@
                         menu: 'contact',
                         ulClass: "grid grid-cols-1",
                         liClass: "my-1"
-                    }, withContext = false ) }}                    
+                    }, withContext = false ) }}
 
                     {{ include( '_components/widgets/social-links') }}
                 </div>
@@ -37,13 +38,13 @@
                 </div>
             {% endblock %}
 
-            
+
             {% block menu %}
                 {{ include( "_components/navigation/menu", {
                     menu: 'legal',
                     liClass: "mx-3"
                 }, withContext = false ) }}
             {% endblock %}
-        </div>        
+        </div>
     </div>
 </footer>

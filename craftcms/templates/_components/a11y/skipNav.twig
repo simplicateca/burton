@@ -1,0 +1,33 @@
+<div
+    x-cloak
+    x-data="{}"
+    class="
+        cSkipToContent
+        absolute
+        -translate-y-full
+        opacity-0
+        w-full
+        h-12
+        left-0
+        top-0
+        z-10000
+        transition-transform
+        flex
+        items-center
+        justify-center
+        text-white
+        bg-black
+    ">
+    <div>
+        Skip to <a href='#content' aria-label="Jump to Content" class="font-bold no-underline p-2 text-red-500 inline-block">content</a>
+             or <a href='#footer'  aria-label="Jump to Footer"  class="font-bold no-underline p-2 text-red-500 inline-block">footer</a>
+    </div>
+</div>
+
+{% css %}
+    .cSkipToContent:focus,
+    .cSkipToContent:focus-within {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+    }
+{% endcss %}

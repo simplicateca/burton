@@ -1,0 +1,51 @@
+[{
+    "label": "16:9 Aspect with Caption",
+    "value": "fit",
+    "settings": {
+        "imageTransform": "video",
+        "imageCaption": "summary"
+    }
+},{
+    "label": "Rounded Square Carousel",
+    "value": "roundsquare",
+    "settings": {
+        "imageClass": "rounded-2xl",
+        "imageTransform": "square",
+        "imageComponent": "_components/images/carousel"
+    }
+},{
+    "label": "Circle - Align Center",
+    "value": "circleCenter",
+    "settings": {
+        "imageClass": "rounded-full",
+        "imageTransform": "square",
+        "imageComponent": "_components/images/carousel"
+    }
+},{
+    "label": "Fill Available Height",
+    "value": "fill",
+    "settings": {
+        "imageTreatment": "_components/images/fillHeight"
+    }
+},{
+    "label": "Full Bleed Coverage",
+    "value": "cover",
+    "settings": {
+        "imageTreatment": "_components/images/cover",
+        "imageCaption": "summary"
+    }
+},{
+    "label": "Showcase",
+    "value": "showcase",
+    "settings": {
+        "imageClass": "rounded-2xl relative z-20 mx-auto max-w-sm",
+        "imageTransform": "square",
+        "imageTreatment": "_components/images/showcase"
+    }
+},{
+    "label": "Cluster",
+    "value": "cluster",
+    "settings": {
+        "imageComponent": "_components/images/cluster"
+    }
+}]

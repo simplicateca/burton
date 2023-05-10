@@ -29,7 +29,19 @@ fieldLayouts:
             uid: 53cb8baa-f384-4ef0-b722-6e76955c4341
             userCondition: null
             warning: null
-            width: 100
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topic / Theme / Collection
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7625b54c-ea41-4033-8f06-ce4e1c2225bd
+            userCondition: null
+            warning: null
+            width: 50
           -
             elementCondition: null
             fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Lead Image(s)
@@ -56,24 +68,6 @@ fieldLayouts:
             width: 100
         name: Content
         uid: 3d99a854-f397-48f2-bb53-3be188f296d1
-        userCondition: null
-      -
-        elementCondition: null
-        elements:
-          -
-            elementCondition: null
-            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topics
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 7625b54c-ea41-4033-8f06-ce4e1c2225bd
-            userCondition: null
-            warning: null
-            width: 100
-        name: SEO
-        uid: 8c962eba-4012-42b8-8b82-8a42123a74bb
         userCondition: null
 handle: default
 hasTitleField: true

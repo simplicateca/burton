@@ -1,0 +1,21 @@
+[
+    {
+        "label": "Default",
+        "value": "default"
+    },
+
+    {
+        "label": "Most Recent",
+        "value": "recent"
+    },
+
+    {
+        "label": "Alphabetically",
+        "value": "alpha"
+    },
+
+    {
+        "label": "Random",
+        "value": "random"
+    }
+]

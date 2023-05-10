@@ -1,0 +1,11 @@
+{% set entry  = entry  ??? null  %}
+{% set blocks = blocks ??? entry.contentBuilder.all() ??? null %}
+{% if blocks %}
+    {% apply retconChange( '.useless', false ) %}
+        {{ include( '_components/builders/_loop', {
+            entry  : entry,
+            builder: 'content',
+            blocks : blocks
+        }, withContext = false ) }}
+    {% endapply %}
+{% endif %}

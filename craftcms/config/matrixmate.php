@@ -6,24 +6,24 @@ return [
         'headerBuilder' => [
             'defaultTabName' => 'Additional Settings',
             'types' => [
-                'text' => [
+                'singleText' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'headline', 'text', 'bg', 'spacing'],
+                        'fields' => ['layout', 'headline', 'text', 'bg', 'spacing'],
                     ]],
                 ],
 
-                'textImage' => [
+                'imageContent' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'headline', 'text', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'headline', 'text', 'images', 'bg', 'spacing'],
                     ]],
                 ],
 
-                'media' => [
+                'richMedia' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'headline', 'text', 'media', 'bg', 'spacing'],
+                        'fields' => ['layout', 'headline', 'text', 'assetSource', 'localAssets', 'externalUrls', 'bg', 'spacing'],
                     ]],
                 ],
             ]
@@ -32,18 +32,32 @@ return [
         'sidebarBuilder' => [
             'defaultTabName' => 'Additional Settings',
             'types' => [
-                'text' => [
+                'singleText' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'images', 'bg', 'spacing'],
-                        
+                        'fields' => ['layout', 'text', 'images', 'bg', 'spacing'],
+
                     ]],
                 ],
 
-                'textImage' => [
+                'imageFeature' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'images', 'bg', 'spacing'],
+                    ]],
+                ],
+
+                'richMedia' => [
+                    'tabs' => [[
+                        'label' => 'Content',
+                        'fields' => ['layout', 'text', 'assetSource', 'localAssets', 'externalUrls', 'bg', 'spacing'],
+                    ]],
+                ],
+
+                'collection' => [
+                    'tabs' => [[
+                        'label' => 'Content',
+                        'fields' => ['layout', 'variant', 'collectionType', 'entries', 'assets', 'searches', 'text', 'items', 'limit', 'pagination', 'images', 'bg', 'spacing'],
                     ]],
                 ]
             ]
@@ -52,48 +66,47 @@ return [
         'contentBuilder' => [
             'defaultTabName' => 'Additional Settings',
             'types' => [
-                'text' => [
+                'singleText' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'images', 'bg', 'spacing'],
-                        
+                        'fields' => ['layout', 'text', 'bg', 'spacing'],
                     ]],
                 ],
 
-                'textImage' => [
+                'textColumns' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'text2', 'bg', 'spacing'],
                     ]],
                 ],
 
-                'textText' => [
+                'imageFeature' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'text2', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'images', 'bg', 'spacing'],
                     ]],
                 ],
 
-                'media' => [
+                'richMedia' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'media', 'externalMedia', 'bg', 'spacing'],
+                        'fields' => ['layout', 'text', 'assetSource', 'localAssets', 'externalUrls', 'bg', 'spacing'],
                     ]],
                 ],
 
-                'entries' => [
+                'collection' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'method', 'items', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'collectionType', 'entries', 'assets', 'searches', 'text', 'items', 'limit', 'pagination', 'images', 'bg', 'spacing'],
                     ]],
                 ],
 
-                'contentRepeater' => [
+                'specialElement' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'items', 'images', 'bg', 'spacing'],
+                        'fields' => ['variant', 'text', 'searches', 'bg', 'spacing'],
                     ]],
-                ]
+                ],
             ],
         ],
     ]

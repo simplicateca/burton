@@ -1,0 +1,13 @@
+{% extends "_layouts/grids/_base2Cell" %}
+
+{% set gridDefaults = {
+    classes: {
+        gridBase  : 'w-full relative grid grid-cols-1 items-center gap-10 lg:gap-16 xl:gap-24',
+        gridCell1 : 'w-full',
+        gridCell2 : 'w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12 xl:gap-18'
+    }
+} %}
+
+{% set props = {
+    classes:settings is defined and settings is iterable ? gridDefaults.classes | merge(settings) : gridDefaults.classes
+} %}

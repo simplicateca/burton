@@ -9,7 +9,7 @@
 {% endfor %}
 
 {% if sbCrumbs|length >= 1 %}
-    <nav class="flex bg-gray-100 text-gray-700 border border-gray-200 py-3 rounded-lg dark:bg-gray-700 dark:border-gray-700" aria-label="Breadcrumb">
+    <nav class="flex bg-gray-100 text-gray-700 border border-gray-200 py-3 dark:bg-gray-700 dark:border-gray-700" aria-label="Breadcrumb">
         <div class="container">
             <ol class="inline-flex items-center space-x-1 md:space-x-3">
                 <li class="inline-flex items-center">
@@ -18,7 +18,7 @@
                         Sitebook
                     </a>
                 </li>
-        
+
                 {% for crumb in sbCrumbs %}
                     <li>
                         <div class="flex items-center">
@@ -29,5 +29,5 @@
                 {% endfor %}
             </ol>
         </div>
-    </nav>    
+    </nav>
 {% endif %}

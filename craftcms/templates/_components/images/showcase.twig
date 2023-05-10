@@ -1,0 +1,18 @@
+{% embed '_components/images/basic' with {
+    image : images.one() ??? image ??? null
+} %}
+    {% block figure %}
+        <figure class="m-0 p-0 relative z-20">
+            <span class="flex items-center justify-center absolute -top-16 -left-6 -bottom-16 -right-6" aria-hidden="true">
+                <lottie-player
+                    autoplay
+                    loop
+                    mode="bounce"
+                    preserveAspectRatio="none"
+                    speed="0.35"
+                    src="https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/lottie/background-blob.json"
+                    class="w-full"
+                ></lottie-player>
+            </span>
+    {% endblock %}
+{% endembed %}

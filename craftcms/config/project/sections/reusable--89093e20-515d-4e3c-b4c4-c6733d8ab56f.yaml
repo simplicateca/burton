@@ -1,0 +1,24 @@
+defaultPlacement: end
+enableVersioning: true
+handle: reusable
+name: 'Reusable Elements'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
+siteSettings:
+  41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
+    enabledByDefault: true
+    hasUrls: true
+    template: _sections/reusable/_router
+    uriFormat: 'sitebook/reusable/{{object.type.handle}}/{{object.slug}}'
+type: channel

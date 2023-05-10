@@ -1,0 +1,241 @@
+field: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+fieldLayouts:
+  a067cac1-ec42-43cc-b56a-f98e3b5b7803:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 30b5253e-1f74-41f3-b484-e6c82e3210d5 # Layout
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9ebdf9f9-f485-4eaa-8d3f-3dfbcb3e859a
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 05016637-9828-4c3e-94f2-6db02f40308e # Variant
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a65ddadc-3316-480c-ad4f-0135500428fe
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 1d242d6f-f863-4979-b2af-bb1da5c2aee2 # Supporting Text
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 25e6f7b0-ef21-41a3-bde5-2f2646a2779e
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: dda1fa64-dd45-42b6-8df9-476cbac15152 # Image(s)
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 482f9cf0-2950-4e81-a1ee-4dcd8c1a4597
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: b8f98eab-bd44-4073-b73b-c5c394a00643 # Background
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: db705720-4f45-4505-8b23-dd8e4c9fd2b0
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: e826463c-c088-426d-be5d-9630e1b872c9 # Partition
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: adf55cbb-40d8-4b6c-9618-e0f89cde467c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: e44c7d4a-f794-4917-8a3f-e77e8162cc93 # Widget
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 510ff4bf-39e4-4dd7-ad78-851b7df7b254
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: cac765d1-21c1-46d6-addb-0dfd3c50eb9e
+        userCondition: null
+fields:
+  1d242d6f-f863-4979-b2af-bb1da5c2aee2: # Supporting Text
+    columnSuffix: null
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: 'Optional text content to introduce or describe the image content'
+    name: 'Supporting Text'
+    searchable: true
+    settings:
+      availableTransforms: '*'
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Standard.json
+      removeEmptyTags: true
+      removeInlineStyles: true
+      removeNbsp: true
+      showHtmlButtonForNonAdmins: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  30b5253e-1f74-41f3-b484-e6c82e3210d5: # Layout
+    columnSuffix: payanbyx
+    contentColumnType: string
+    fieldGroup: null
+    handle: layout
+    instructions: 'Change content positioning without changing the underlying content'
+    name: Layout
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/layoutImageFeature.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  05016637-9828-4c3e-94f2-6db02f40308e: # Variant
+    columnSuffix: tdkiykfz
+    contentColumnType: string
+    fieldGroup: null
+    handle: variant
+    instructions: 'Adjust the overall style & format of this block layout'
+    name: Variant
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/variantImageFeature.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  b8f98eab-bd44-4073-b73b-c5c394a00643: # Background
+    columnSuffix: cpekkbhk
+    contentColumnType: string
+    fieldGroup: null
+    handle: bg
+    instructions: 'Set the background style behind this block.'
+    name: Background
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/bgContent.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  dda1fa64-dd45-42b6-8df9-476cbac15152: # Image(s)
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: images
+    instructions: null
+    name: Image(s)
+    searchable: true
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: false
+      allowUploads: true
+      allowedKinds:
+        - image
+        - json
+      branchLimit: null
+      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      defaultUploadLocationSubpath: '{{- ( object.owner.variants   ?? null  ) ? "products/#{object.owner.type.handle|lower}/" : '''' -}} {{- ( object.owner.product    ?? null  ) ? "products/#{object.owner.product.type.handle|lower}/" : '''' -}} {{- ( object.owner.section    ?? null  ) ? "#{object.owner.section.handle|lower}/" : '''' -}} {{- ( object.owner.parentUri  ?? null  ) ? "#{object.owner.parentUri|replace(''__'','''')}/" : '''' -}} {{object.owner.slug}}'
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      previewMode: full
+      restrictFiles: true
+      restrictLocation: false
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: 'Choose Image'
+      showSiteMenu: true
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: large
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+  e44c7d4a-f794-4917-8a3f-e77e8162cc93: # Widget
+    columnSuffix: mdoonwrh
+    contentColumnType: string
+    fieldGroup: null
+    handle: widget
+    instructions: 'Add a custom feature to this block.'
+    name: Widget
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/widgets.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  e826463c-c088-426d-be5d-9630e1b872c9: # Partition
+    columnSuffix: eqfigngd
+    contentColumnType: string
+    fieldGroup: null
+    handle: spacing
+    instructions: 'Adjust whitespace & dividers for this block'
+    name: Partition
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/spacingContent.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+handle: imageFeature
+name: 'Image Feature'
+sortOrder: 3

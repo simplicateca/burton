@@ -1,0 +1,31 @@
+[
+    {
+        "label": "Readable Width - Left",
+        "value": "readableLeft",
+
+        "settings": {
+            "wrapper": "max-w-4xl 2xl:max-w-5xl",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Readable Width - Center",
+        "value": "readableCenter",
+
+        "settings": {
+            "wrapper": "max-w-4xl 2xl:max-w-5xl mx-auto",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Full Width",
+        "value": "fullWidth",
+
+        "settings": {
+            "wrapper": "w-full",
+            "container": "container"
+        }
+    }
+]

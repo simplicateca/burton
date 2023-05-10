@@ -1,0 +1,21 @@
+{% extends "_layouts/oneColumn" %}
+
+{% requirePermission 'allowSitebook' %}
+
+{% set entry        = entry ?? null %}
+{% set entryType    = entry.type.handle  ?? null %}
+{% set fragmentType = entry.fragmentType ?? null %}
+
+{% block content %}
+    {{ include( '_components/builders/builderContent.twig', {
+        entry: entry
+    }, withContext = false) }}
+{% endblock %}
+
+{% block alertbar %}{% endblock %}
+{% block header %}{% endblock %}
+{% block belowHeader %}{% endblock %}
+{% block aboveContent %}{% endblock %}
+{% block belowContent %}{% endblock %}
+{% block aboveFooter %}{% endblock %}
+{% block footer %}{% endblock %}

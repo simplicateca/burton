@@ -1,0 +1,50 @@
+[
+    {
+        "label": "Text Left / Image Right",
+        "value": "textLeft",
+
+        "settings": {
+            "grid": "_layouts/grids/splitNormal",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Text Right / Image Left",
+        "value": "textRight",
+
+        "settings": {
+            "grid": "_layouts/grids/splitReverse",
+            "container": "container"
+        }
+    },
+
+    {
+        "label": "Text Above Images",
+        "value": "textGallery",
+
+        "settings": {
+            "grid": "_layouts/grids/stacked",
+            "container": "container"
+        },
+
+        "important": {
+            "imageComponent": "_components/images/gallery"
+        }
+    },
+
+    {
+        "label": "Text Overlay Background Image",
+        "value": "textOverlay",
+
+        "settings": {
+            "grid": "_layouts/grids/overlap",
+            "container": "container min-h-[90vh] flex flex-col items-center justify-center"
+        },
+
+        "important": {
+            "imageComponent": "_components/images/parallaxBg",
+            "bgColor": "image"
+        }
+    }
+]

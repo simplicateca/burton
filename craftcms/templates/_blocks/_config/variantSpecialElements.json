@@ -1,0 +1,16 @@
+[
+    {
+        "label": "Site Search",
+        "value": "siteSearch"
+    },
+
+    {
+        "label": "Saved Search Index Page",
+        "value": "searchListing"
+    },
+
+    {
+        "label": "Vue Component",
+        "value": "vueComponent"
+    }
+]

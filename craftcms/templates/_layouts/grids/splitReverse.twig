@@ -1,0 +1,13 @@
+{% extends "_layouts/grids/_base2Cell" %}
+
+{% set gridDefaults = {
+    classes: {
+        gridBase  : 'w-full relative flex flex-col lg:flex-row-reverse gap-10 lg:gap-16 xl:gap-24',
+        gridCell1 : 'w-full lg:w-1/2',
+        gridCell2 : 'w-full lg:w-1/2'
+    }
+} %}
+
+{% set props = {
+    classes:settings is defined and settings is iterable ? gridDefaults.classes | merge(settings) : gridDefaults.classes
+} %}

@@ -1,0 +1,11 @@
+[
+    {
+        "label": "Stat",
+        "value": "stat"
+    },
+
+    {
+        "label": "CSV Table",
+        "value": "csvtable"
+    }
+]

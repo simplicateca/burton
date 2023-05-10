@@ -1,0 +1,19 @@
+[{
+    "label": "Plain",
+    "value": "plain",
+    "settings" : {
+
+    }
+},{
+    "label": "Headers Above",
+    "value": "headersAbove",
+    "settings" : {
+        "headlineAbove": true
+    }
+},{
+    "label": "Focus Right",
+    "value": "focusRight",
+    "settings" : {
+
+    }
+}]

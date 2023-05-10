@@ -1,51 +1,76 @@
-{% extends "_boilerplate" %}
-{% set templatePath = _self ??? '' %}
-{% set entry   = entry   ?? null %}
-{% set section = section ?? 'base' %}
-{% set layout  = 'spotlight' %}
+{% extends "_layouts/base" %}
 
+{% set entry     = event ??? product ??? entry ??? null %}
+{% set layout    = 'spotlight' %}
+
+{# -- primary <body> content -- #}
 {% block bodyHtml %}
-    {% cache %}
-        {% minify %}
 
-            {% do craft.app.elements.eagerLoadElements(
-                className(entry),
-                [entry],
-                [''] | merge(eagerLoading.commonFields   ??? '')
-                     | merge(eagerLoading.contentBuilder ??? '')
-            ) %}
+    {% set tmplPath  = _self ??? null %}
+    {% set section   = entry.section.handle ??? null %}
+    {% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
+    {% set bodyClass = "#{layout} #{section} #{entryUri} bg-gray-900" %}
 
-            {% block alertbar %}
-                {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+    {# -- perform entry eager loading -- #}
+    {% if entry and ( className(entry) ??? null ) %}
+        {% do craft.app.elements.eagerLoadElements(
+            className(entry),
+            [entry],
+            [''] | merge(eagerLoading.commonFields   ??? '')
+                 | merge(eagerLoading.headerBuilder  ??? '')
+                 | merge(eagerLoading.contentBuilder ??? '')
+        ) %}
+    {% endif %}
+
+    {% block header %}
+        <div class="max-w-3xl w-full mx-auto">
+            {% block headerLogo %}
+                {{ include( "_components/logo/logo",
+                    { },
+                    withContext = false
+                ) }}
+            {% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block belowHeader %}{% endblock %}
+
+    {% block main %}
+        <main
+            id="content"
+            class="
+            cMain
+            cMain__{{layout}}
+            cMain__{{section}}
+            max-w-3xl
+            w-full
+            mx-auto
+            mt-20
+            p-4 md:p-12 lg:p-16
+            flex
+            justify-center
+            items-center
+            bg-white">
+
+            {% block beforeContent %}{% endblock %}
+
+            {% block content %}
+                {{ include( "_components/builders/builderContent", {
+                    entry : entry,
+                    layout: layout
+                }, withContext = false ) }}
             {% endblock %}
 
-            {% block main %}
-                <main class="
-                    cMain
-                    cMain__{{layout}}
-                    cMain__{{section}}
-                    max-w-2xl
-                    w-full
-                    mt-20
-                    p-4 md:p-12 lg:p-16
-                    flex
-                    mx-auto
-                    justify-center
-                    items-center
-                    bg-white">
-                    {% block aboveContent %}{% endblock %}
-                
-                    {% block content %}
-                        {{ include( "_builders/partials/builderContent", { entry: entry ??? null }, withContext = false ) }}
-                    {% endblock %}
-                
-                    {% block belowContent %}{% endblock %}
-                </main>
-            {% endblock %}
+            {% block afterContent %}{% endblock %}
+        </main>
+    {% endblock %}
 
-            {% block footer %}
-                {{ include( "_components/footer/footer", {}, withContext = false ) }}
-            {% endblock %}
-        {% endminify %}
-    {% endcache %}
+    {% block footer %}{% endblock %}
 {% endblock bodyHtml %}
+
+{# -- fixed position components -- #}
+{% block bodyComponents %}
+    {% block alertbar %}
+        {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+    {% endblock %}
+{% endblock %}

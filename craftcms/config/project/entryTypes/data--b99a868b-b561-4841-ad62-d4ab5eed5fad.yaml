@@ -1,0 +1,102 @@
+fieldLayouts:
+  e93ee762-91d5-420e-b14e-74860d54621d:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 92432c89-8e9e-4b6e-b8de-7c44570a50b3
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 0ad40d15-72b4-44cd-8601-7432a9d4133e # Format
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 637830de-0a71-4662-8b18-8d3d89d8927c
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\referencefield\fields\conditions\ReferenceFieldConditionRule
+                  fieldUid: 0ad40d15-72b4-44cd-8601-7432a9d4133e # Format
+                  operator: in
+                  uid: 0441328f-48e8-4840-8db9-a59a247b67f0
+                  values:
+                    - csvtable
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 12ebd69f-28fa-42bb-ae95-8ff3d3eb5135 # Assets
+            instructions: null
+            label: 'File Upload'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7fd80c49-b63b-4915-bde7-1b230e508be4
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: c70698c5-9843-4d1a-9ce8-2e2e272bd096 # Headline
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 201fabdd-3d99-4c40-b012-54aebe0b0cf1
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: e47b95bf-7a74-49e3-afa3-a938bd733ef7 # Summary
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2f5c673c-8467-4daf-9433-bb3053399c97
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 60dffbe9-1deb-4065-8cc3-9480a414d5ab
+        userCondition: null
+handle: data
+hasTitleField: true
+name: Data
+section: 89093e20-515d-4e3c-b4c4-c6733d8ab56f # Reusable Elements
+sortOrder: 5
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

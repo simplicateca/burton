@@ -26,7 +26,7 @@
 
 {# if the input params contained a blockID, we need to load the block before anything else #}
 {% if props.blockID %}
-    
+
     {# normalizeBlocks() is a twig function from Gearbox (see: `cms/modules/gearbox/src/twigextensions`)
        it collects block content + merges layout settings from any associated reference fields #}
     {% set thisBlock = normalizeBlocks( [props.blockID], props.entryID, props.builder )|first %}
@@ -104,10 +104,10 @@
     {% set pushUrl  = ( page > 1 ) ? "#{props.entryUrl}/p#{page}" : props.entryUrl %}
     {% set queryStr = { query: query, topic: topic }|url_encode %}
     {% do sprig.pushUrl( queryStr ? "#{pushUrl}?#{queryStr}" : pushUrl ) %}
- 
+
     {# prepare entries content #}
     {% set entriesContent2 -%}
-        {{ include( '_builders/blocks/_partials/entriesOutput', {
+        {{ include( '_blocks/entriesOutput', {
             items: entryItems,
             pageInfo: pageInfo,
             query: query,
@@ -137,7 +137,7 @@
             params: props,
             pageInfo: pageInfo,
             query: query,
-            topic: topic            
+            topic: topic
         }, withContext = false ) }}
     {% endset %}
 
@@ -156,7 +156,7 @@
             content3Hide: ( not props.content3|trim )
         } %}
             {% block beforeGrid %}
-                
+
             {% endblock %}
 
             {% block content1 %}

@@ -1,0 +1,39 @@
+[
+    {
+        "label": "Light Gray",
+        "value": "light",
+
+        "settings": {
+            "bgColor": "gray-200",
+            "outerClass": "light-mode bg-gray-200"
+        }
+    },
+
+    {
+        "label": "White",
+        "value": "white",
+
+        "settings": {
+            "bgColor": "white",
+            "outerClass": "light-mode bg-white"
+        }
+    },
+
+    {
+        "label": "Dark",
+        "value": "dark",
+
+        "settings": {
+            "bgColor": "gray-700",
+            "outerClass": "dark-mode bg-gray-700"
+        }
+    },
+
+    {
+        "label": "Inherit from Block Above",
+        "value": "INHERIT",
+        "settings": {
+            "inheritBg": true
+        }
+    }
+]

@@ -1,0 +1,59 @@
+[
+    {
+        "label": "Default",
+        "value": "default",
+        "settings": {
+
+        }
+    },
+
+    {
+        "label": "Plain - Stacked",
+        "value": "plainStacked",
+        "settings": {
+            "collectionCard" : "stackedPlain"
+        }
+    },
+
+    {
+        "label": "Plain - Horizontal",
+        "value": "plainHorizontal",
+        "settings": {
+            "collectionCard" : "horizontalPlain"
+        }
+    },
+
+    {
+        "label": "Box - Stacked",
+        "value": "boxStacked",
+        "settings": {
+            "collectionCard" : "stackedBox"
+        }
+    },
+
+    {
+        "label": "Box - Horizontal",
+        "value": "boxHorizontal",
+        "settings": {
+            "collectionCard" : "horizontalBox"
+        }
+    },
+
+    {
+        "label": "Accordion Items",
+        "value": "accordion",
+
+        "settings": {
+            "collectionComponent" : "_components/accordion/accordion"
+        }
+    },
+
+    {
+        "label": "Horizontal Tabs",
+        "value": "horizontalTabs",
+
+        "settings": {
+            "collectionComponent" : "_components/tabs/horizontal"
+        }
+    }
+]

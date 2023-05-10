@@ -8,18 +8,19 @@
  #}
 
 {%- macro loadById( entryId, entry ) -%}
-    {% set fragment = craft.entries().id(entryId).one() %}
-    {{ include( '_sections/fragments/blocks/basic', {
-        fragment: fragment,
-        entry: entry
-    }, withContext = false) }}
+    {% set reusable = craft.entries().section('reusable').id(entryId).one() ??? null  %}
+    {% if reusable %}
+        {{ include( '_sections/reusable/_router.twig', {
+            entry: reusable
+        }, withContext = false) }}
+    {% endif %}
 {%- endmacro -%}
 
-
 {%- macro loadBySlug( slug, entry ) -%}
-    {% set fragment = craft.entries().slug(slug).one() %}
-    {{ include( '_sections/fragments/blocks/basic', {
-        fragment: fragment,
-        entry: entry
-    }, withContext = false) }}
+    {% set reusable = craft.entries().section('reusable').slug(slug).one() ??? null %}
+    {% if reusable %}
+        {{ include( '_sections/reusable/_router.twig', {
+            entry: reusable
+        }, withContext = false) }}
+    {% endif %}
 {%- endmacro -%}

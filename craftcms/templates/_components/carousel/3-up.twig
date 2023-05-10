@@ -19,7 +19,7 @@
                 640: {
                     perPage: 1,
                     gap: '1rem',
-                }                
+                }
             },
             padding: { left: '0rem', right: '0rem' },
             trimSpace: false
@@ -32,7 +32,7 @@
                 <ul class="splide__list">
                     {% for item in items %}
                         <li class="splide__slide">
-                            {{ include(cardLayout, {
+                            {{ include(card, {
                                 entry: item,
                                 loop: loop
                             }, withContext = false ) }}

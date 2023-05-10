@@ -1,0 +1,59 @@
+{% apply spaceless %}
+
+{# -- Prefetch & preconnect headers and links -- #}
+{% set prefetchUrls = [
+    'https://unpkg.com',
+    'https://cdn.polyfill.io'
+] %}
+
+{# -- General global variables -- #}
+{% set baseUrl = alias('@web') ~ '/' %}
+
+{% set eagerLoading = {
+    commonFields: [
+        "images",
+        "fragments",
+        "topics"
+    ],
+
+    headerBuilder: [
+        "headerBuilder",
+        "headerBuilder.imageFeature:images",
+        "headerBuilder.richMedia:localAssets",
+        "headerBuilder.fragment:reusable"
+    ],
+
+    contentBuilder: [
+        "contentBuilder",
+        "contentBuilder.imageFeature:images",
+        "contentBuilder.richMedia:localAssets",
+        "contentBuilder.collection:items",
+        "contentBuilder.collection:entries",
+        "contentBuilder.collection:assets",
+        "contentBuilder.collection:taxonomies",
+        "contentBuilder.fragment:reusable",
+        "contentBuilder.specialElement:taxonomies"
+    ],
+
+    sidebarBuilder: [
+        "sidebarBuilder",
+        "sidebarBuilder.imageFeature:images",
+        "sidebarBuilder.richMedia:localAssets",
+        "sidebarBuilder.collection:items",
+        "sidebarBuilder.collection:entries",
+        "sidebarBuilder.collection:assets",
+        "sidebarBuilder.collection:taxonomies",
+        "sidebarBuilder.fragment:reusable",
+        "sidebarBuilder.specialElement:taxonomies"
+    ]
+} %}
+
+{# -- Twig output from the render; this must be in a block -- #}
+{% cache %}
+    {% minify %}
+        {% block htmlPage %}
+        {% endblock %}
+    {% endminify %}
+{% endcache %}
+
+{% endapply %}
