@@ -1,0 +1,56 @@
+{% import "_macros/richtext" as richtext %}
+{% set htag    = htag    ??? 'h3' %}
+{% set title   = title   ??? entry.title ??? entry.headline ??? '' %}
+{% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? '' %}
+{% set url     = url     ??? entry.url ??? '' %}
+{% set handle  = handle  ??? entry.section.handle ??? 'Base' %}
+{% set images  = images  ??? entry.images.all() ??? [] %}
+
+{% set textWithoutButton = text|removeTrailingButtons  %}
+{% set textOnlyButton    = text|extractTrailingButtons %}
+
+{% block articleTag %}
+<article class="cCard cCard__stackedCard cCard__{{handle}} h-full">
+{% endblock %}
+    <div class="grid bg-gray-200 grid-cols-1 h-full content-start transition hover:scale-[1.025] hover:shadow-2xl">
+        <div class="aspect-video w-full">
+            {{ include( '_components/images/basic', {
+                images: images,
+                transform: 'video'
+            }, withContext = false )}}
+        </div>
+
+        <div class="p-2.5 md:p-5 xl:p-8 prose-text-dark flex flex-col gap-2">
+            {% block aboveTitle %}{% endblock %}
+
+            {% block title %}
+                {%- if title -%}
+                    {{ richtext.formatHeadline( title, htag, 'text-base md:text-lg xl:text-xl mb-0' )}}
+                {%- endif -%}
+            {% endblock %}
+
+            {% block aboveSummary %}{% endblock %}
+
+            {% block summary %}
+                {{ richtext.prose(
+                    ( textWithoutButton
+                    ? craft.typogrify.truncate(textWithoutButton, 100)
+                    : ''
+                    ), 'small'
+                )}}
+            {% endblock %}
+
+            {% block link %}
+                {% if textOnlyButton %}
+                    <div class="mt-4">
+                        {{textOnlyButton|raw}}
+                    </div>
+                {% else %}
+                    {%- if url -%}
+                        <a class="self-end mt-2 clickable-parent" href="{{ url }}">&ensp; Read more →</a>
+                    {%- endif -%}
+                {%- endif -%}
+            {% endblock %}
+        </div>
+    </div>
+</article>

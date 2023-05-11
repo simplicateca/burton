@@ -1,15 +1,17 @@
-{% extends "_layouts/base" %}
-
 {% set entry     = event ??? product ??? entry ??? null %}
 {% set layout    = 'spotlight' %}
+
+{% set tmplPath  = _self ??? null %}
+{% set section   = entry.section.handle ??? null %}
+{% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
+{% set bodyClass = "#{layout} #{section} #{entryUri} bg-gray-900" %}
+
+{% extends "_layouts/base" %}
 
 {# -- primary <body> content -- #}
 {% block bodyHtml %}
 
-    {% set tmplPath  = _self ??? null %}
-    {% set section   = entry.section.handle ??? null %}
-    {% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
-    {% set bodyClass = "#{layout} #{section} #{entryUri} bg-gray-900" %}
+
 
     {# -- perform entry eager loading -- #}
     {% if entry and ( className(entry) ??? null ) %}
@@ -71,6 +73,6 @@
 {# -- fixed position components -- #}
 {% block bodyComponents %}
     {% block alertbar %}
-        {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+        {{ sprig( "_sprig/alertBar/basic", {} ) }}
     {% endblock %}
 {% endblock %}

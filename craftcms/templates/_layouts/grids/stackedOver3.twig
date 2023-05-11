@@ -1,13 +1,23 @@
 {% extends "_layouts/grids/_base2Cell" %}
 
-{% set gridDefaults = {
-    classes: {
-        gridBase  : 'w-full relative grid grid-cols-1 items-center gap-10 lg:gap-16 xl:gap-24',
-        gridCell1 : 'w-full',
-        gridCell2 : 'w-full grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 xl:gap-24'
-    }
+{% set _grid = {
+    gridBase  : 'w-full relative grid grid-cols-1 items-center gap-10 lg:gap-16 xl:gap-24',
+    gridCell1 : 'w-full',
+    gridCell2 : 'grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 xl:gap-24 mx-auto',
+    maxCols   : 3
 } %}
 
-{% set props = {
-    classes:settings is defined and settings is iterable ? gridDefaults.classes | merge(settings) : gridDefaults.classes
-} %}
+{% set _grid = settings is defined and settings is iterable ? _grid | merge(settings) : _grid %}
+
+{# --
+   if this 3-column grid won't have enough items/results to fill the columns,
+   passing a `maxCols` value of 1 or 2 in the `setting` object will reduce
+   the grid columns accordingly, resulting in a less lopsided layout. -- #}
+
+{% if _grid.maxCols == 2 %}
+    {% set _grid = _grid| merge({ gridCell2: 'grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 xl:gap-24 mx-auto max-w-4xl' }) %}
+{% endif %}
+
+{% if _grid.maxCols < 2 %}
+    {% set _grid = _grid| merge({ gridCell2: 'mx-auto max-w-2xl' }) %}
+{% endif %}

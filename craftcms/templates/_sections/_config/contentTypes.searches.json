@@ -1,42 +1,57 @@
 [
     {
         "label": "Articles",
-        "value": "articles.default"
+        "value": "articles.default",
+        "section": "articles",
+        "entryType": ["blog","news"]
     },
 
     {
         "label": "Blog Articles",
-        "value": "articles.default"
+        "value": "articles.blog",
+        "section": "articles",
+        "entryType": "blog"
     },
 
     {
         "label": "News Articles",
-        "value": "articles.default"
+        "value": "articles.default",
+        "section": "articles",
+        "entryType": "news"
     },
 
     {
         "label": "FAQs",
-        "value": "faqs.default"
+        "value": "faqs.default",
+        "section": "faqs",
+        "entryType": "default"
     },
 
     {
         "label": "Pages",
-        "value": "pages"
+        "value": "pages",
+        "section": "pages"
     },
 
     {
         "label": "Topics",
-        "value": "taxonomy.topic"
+        "value": "taxonomy.topic",
+        "section": "taxonomy",
+        "entryType": "topic"
     },
 
     {
         "label": "Data",
-        "value": "reusable.data"
+        "value": "reusable.data",
+        "section": "reusable",
+        "entryType": "data"
     },
 
     {
         "label": "Content Bits",
-        "value": "reusable.contentBit"
+        "value": "reusable.contentBit",
+        "section": "reusable",
+        "entryType": "contentBit"
     },
 
     {

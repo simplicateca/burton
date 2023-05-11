@@ -1,8 +1,13 @@
-{% embed '_components/images/basic' with {
-    image : images.one() ??? image ??? null,
-    class : "object-cover object-center h-full w-full relative z-20",
-    transform: "square",
+{% set _base = {
+    image: images.one() ??? image ??? null,
+    imageClass: "object-cover object-center h-full w-full relative z-20",
+    imageTransform: "square",
 } %}
+
+{# -- merge `_base` into variables passed into the template  -- #}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+{% embed '_components/images/_base' %}
     {% block figure %}
         <figure class="object-cover object-center h-full w-full relative z-20">
     {% endblock %}

@@ -7,6 +7,7 @@
     {
         "label": "Inherit from Block Above",
         "value": "INHERIT",
+
         "settings": {
             "outerBgInherit": true
         }

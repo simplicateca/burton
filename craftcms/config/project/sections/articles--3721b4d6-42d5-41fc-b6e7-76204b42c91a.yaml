@@ -19,6 +19,6 @@ siteSettings:
   41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
     enabledByDefault: true
     hasUrls: true
-    template: _sections/article/_router
+    template: _sections/articles/_router
     uriFormat: '{{object.type.handle}}/{{object.slug}}'
 type: channel

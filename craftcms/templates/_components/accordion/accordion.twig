@@ -27,10 +27,10 @@
                 >
                     <span class="text-left">{{headline|striptags}}</span>
                     <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
-                    <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                    <span x-show="!expanded" aria-hidden="true" class="ml-4">+</span>
                 </button>
             </h2>
-    
+
             <div x-show="expanded" x-collapse>
                 <div class="px-6 pb-4">
                     {{ richtext.prose(text, 'sm') }}

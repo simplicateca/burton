@@ -15,10 +15,20 @@ return [
         'allowIps' => '',
         'denyIps' => '',
         'useRemoteIp' => false,
-        
+
+        // buddy.works white list
+        'allowIps' => [
+            '91.200.38.2',
+            '18.219.118.165',
+            '18.219.233.31',
+            '185.206.228.0/24',
+            '93.179.255.178',
+        ],
+
         'protectedUrls' => '',
         'unprotectedUrls' => '',
     ],
+
     'staging' => [
         'enabled' => true,
     ],

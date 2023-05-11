@@ -1,81 +1,86 @@
 {# redeclare the variables set in `templates/_blocks/_base.twig` that we'll be using here #}
-{% set blockID      = blockID  ??? random(111111, 999999) %}
-{% set settings     = settings ??? null %}
+{% set settings = settings ??? null %}
+{% set content  = content  ??? null %}
+{% set grid     = grid     ??? settings.grid          ??? null %}
+{% set text     = text     ??? content.text           ??? null %}
 
-{% set gridLayout   = layout ??? blockConfig.layout ??? null %}
-{% set textContent1 = ( text ??? '' )|trim %}
+{% set entries  = entries  ??? content.entries.all()  ??? null %}
+{% set searches = searches ??? content.searches.all() ??? null %}
+{% set assets   = assets   ??? content.assets.all()   ??? null %}
+{% set custom   = custom   ??? content.items.all()    ??? null %}
 
-{# declare image/media varibles passed from parent include() #}
-{% set mediaConfig    = mediaConfig ??? null %}
-{% set mediaComponent = mediaConfig.component ??? '_components/media/image' %}
-{% set mediaAssets    = images ??? [] %}
+{% set component = component ??? settings.itemComponent ??? null %}
+{% set itemCard  = itemCard  ??? settings.itemCard      ??? null %}
 
-{# declare content repearter varibles passed from parent include() #}
-{% set itemsConfig   = itemsConfig ??? null %}
-{% set itemComponent = itemsConfig.component ??? null %}
-{% set repeaterItems = items ??? [] %}
+{% set collectionType  = content.collectionType ??? null %}
 
-{# set default cardLayout for repeater / entry blocks #}
-{% set cardLayout = collectionCard
-    ??? content.card.reference().useCard
-    ??? itemsConfig.useCard
-    ??? '_components/cards/text' %}
+{% set collectionItems = collectionType == 'items'   ? custom  : null %}
+{% set collectionItems = collectionType == 'entries' ? entries : collectionItems %}
+{% set collectionItems = collectionType == 'assets'  ? assets  : collectionItems %}
 
-{# prepare repeater content #}
-{% set repeaterContent2 -%}
-    {%- if itemComponent -%}
-        {{ include( itemComponent, {
-            blockID: blockID,
-            cardLayout: cardLayout,
-            config: itemsConfig,
-            items: repeaterItems
-        }) }}
-    {%- else -%}
-        {%- for item in repeaterItems -%}
-            {{ include(cardLayout, {
-                blockID: blockID,
-                config: itemsConfig,
-                entry: item,
-                loop: loop
+{% if collectionType == 'search' %}
+
+    {% set search      = searches|first %}
+    {% set contentType = search.contentType.reference() ??? null %}
+    {% set section     = contentType.section     ??? null %}
+    {% set entryType   = contentType.entryType   ??? null %}
+    {% set limit       = content.limit           ??? -1 %}
+    {% set sort        = search.sort.value       ??? null %}
+    {% set topics      = search.taxonomies.all() ??? null %}
+
+    {# search/sort/filter settings #}
+    {% set orderBy = 'postDate DESC' %}
+    {% set orderBy = ( sort == 'random'       ) ? 'RAND()'        : orderBy %}
+    {% set orderBy = ( sort == 'alphabetical' ) ? 'title DESC'    : orderBy %}
+    {% set orderBy = ( sort == 'upcoming'     ) ? 'startDate ASC' : orderBy %}
+
+    {# being to create the starting query #}
+    {% set collectionQuery = craft.entries()
+        .orderBy(orderBy)
+        .limit(limit) %}
+
+    {% set collectionQuery = section   ? collectionQuery.section(section)  : collectionQuery %}
+    {% set collectionQuery = entryType ? collectionQuery.type(entryType)   : collectionQuery %}
+    {% set collectionQuery = topics    ? collectionQuery.relatedTo(topics) : collectionQuery %}
+
+    {% set collectionItems = collectionQuery.all() ??? null %}
+
+{% endif %}
+
+{# -- prepare the collection items content for cell2 --- #}
+{% set collection %}
+
+    {#-- let the component sort out how to display all the items --#}
+    {% if component %}
+
+        {{- include( component, {
+            items: collectionItems,
+            settings: settings
+        }, withContext = false ) -}}
+
+    {#-- otherwise hand off to a treatment --#}
+    {% else %}
+        {% for item in collectionItems %}
+
+            {# {{ include( collectionCard ??? '_components/cards/basic', { #}
+            {{ include( '_components/cards/basic', {
+                entry : item,
+                settings: settings
             }, withContext = false ) }}
-        {%- endfor -%}
-    {%- endif -%}
-{%- endset %}
 
-{# prepare media content #}
-{% set mediaContent3 -%}
-    {%- if mediaComponent -%}
-        {{ include(mediaComponent, {
-            blockID: blockID,
-            config: mediaConfig,
-            images: mediaAssets
-        }) }}
-    {%- endif -%}
-{%- endset %}
+        {% endfor %}
+    {% endif %}
+{% endset %}
 
 
-{# grid layouts are micro-templates for various content/layout patterns.
-   templates includes all html/tailwind necessary for a basic layout render.
-   layout settings can be modified or overridden via the `config` param.
-   grid layout twig files are typically stored in `cms/templates/_layouts/grids/` #}
-{% if gridLayout %}
-    {% embed gridLayout with {
-        blockID: blockID,
-        config: blockConfig,
-        content1Hide: ( not textContent1  ),
-        content2Hide: ( not repeaterItems ),
-        content3Hide: ( not mediaContent3|trim )
-    } %}
-        {% block content1 %}
-            {{textContent1|raw}}
+{% if grid %}
+    {% embed grid %}
+        {% block cell1 %}
+            {{text|raw}}
         {% endblock %}
 
-        {% block content2 %}
-            {{repeaterContent2|raw}}
-        {% endblock %}
-
-        {% block content3 %}
-            {{mediaContent3|raw}}
+        {% block cell2 %}
+            {{collection|raw}}
         {% endblock %}
     {% endembed %}
 {% endif %}

@@ -1,137 +1,41 @@
 {# redeclare the variables set in `templates/_blocks/_base.twig` that we'll be using here #}
-{% set blockID      = blockID ??? random(111111, 999999) %}
-{% set blockConfig  = blockConfig ??? config ??? null %}
-{% set gridLayout   = layout ??? blockConfig.layout ??? null %}
-{% set textContent1 = ( text ??? '' )|trim %}
-{% set method       = method ??? 'choose' %}
+{% set settings  = settings  ??? null %}
+{% set content   = content   ??? null %}
+{% set grid      = grid      ??? settings.grid ??? null %}
+{% set text      = text      ??? content.text  ??? null %}
+{% set component = component ??? settings.specialComponent ??? null %}
+{% set searchID  = searchID  ??? (content.searches.ids() ??? null)|first ??? null %}
 
-{# declare image/media varibles passed from parent include() #}
-{% set mediaConfig    = mediaConfig ??? null %}
-{% set mediaComponent = mediaConfig.component ??? '_components/media/image' %}
-{% set mediaAssets    = images ??? [] %}
+{% if component %}
 
-{# declare entries varibles passed from parent include() #}
-{% set itemsConfig   = itemsConfig ??? null %}
-{% set itemComponent = itemsConfig.component ??? null %}
-{% set entryItems    = items ??? [] %}
-
-{# set default cardLayout for repeater / entry blocks #}
-{% set cardLayout = collectionCard
-    ??? content.card.reference().useCard
-    ??? itemsConfig.useCard
-    ??? '_components/cards/text' %}
-
-{# prepare media content #}
-{% set mediaContent3 -%}
-    {%- if mediaComponent -%}
-        {{ include(mediaComponent, {
-            blockID: blockID,
-            config: mediaConfig,
-            images: mediaAssets
-        }) }}
-    {%- endif -%}
-{%- endset %}
-
-{# declare entry search variables passed from parent include() #}
-{% set builder       = builder     ??? 'content' %}
-{% set contentType   = contentType ??? content.contentType.value ??? null %}
-{% set order         = order       ??? content.order.value       ??? 'mostRecent' %}
-{% set limit         = limit       ??? content.limit             ??? 3 %}
-{% set perPage       = perPage     ??? content.perPage           ??? 25 %}
-{% set topics        = topics      ??? content.topics.with(['topics']).all() ??? [] %}
-{% set entryUrl      = entry.url   ??? '' %}
-
-{# if this component has earch & pagination, use the sprig component #}
-{% if itemsConfig.showSearch ?? false %}
-
-    {{ sprig('_components/_sprig/entries/liveSearch', {
-        params: {
-            blockID : blockID,
-            entryID : entry.id,
-            buider  : builder,
-            content1: textContent1|raw ~ "",
-            content3: mediaContent3|raw ~ "",
-        }
-    }) }}
-
-{# otherwise, just handle it within the block component #}
-{% else %}
-
-    {% if contentType and method != 'choose' %}
-        {# search/sort/filter settings #}
-        {% set orderBy = 'postDate DESC' %}
-        {% set orderBy = ( order == 'random'       ) ? 'RAND()'        : orderBy %}
-        {% set orderBy = ( order == 'alphabetical' ) ? 'title DESC'    : orderBy %}
-        {% set orderBy = ( order == 'upcoming'     ) ? 'startDate ASC' : orderBy %}
-
-        {% set limit = ( method == 'limitedSearch' ) ? limit : perPage %}
-        {% set limit = limit ?? -1 %}
-
-        {# being to create the starting query #}
-        {% set entryQuery = craft.entries()
-            .with(['images','topics'])
-            .orderBy(orderBy)
-            .limit(limit) %}
-
-        {% if '__' in contentType %}
-            {% set typeParts = contentType|split('__') %}
-
-            {% set entryQuery = entryQuery
-                .section(typeParts[0])
-                .type(typeParts[1])
-            %}
+    {% set specialContent %}
+        {% if '_sprig' in component %}
+            {{ sprig( component, {
+                text: text|string,
+                settings: settings,
+                searchID: searchID
+            }) }}
         {% else %}
-            {% set entryQuery = entryQuery.section(contentType) %}
+            {{- include( component, {
+                text: text,
+                settings: settings,
+                searchID: searchID
+            }, withContext = false ) -}}
         {% endif %}
-
-        {# are we filtering by topic(s) #}
-        {% if topics %}
-            {% set entryQuery = entryQuery.relatedTo(topics) %}
-        {% endif %}
-
-        {# get all the results #}
-        {% set entryItems = entryQuery.all() %}
-    {% endif %}
-
-    {% set entriesContent2 -%}
-        {{ include( '_blocks/entriesOutput', {
-            items: entryItems,
-            params: {
-                blockID  : blockID,
-                builder  : builder,
-                card     : cardLayout,
-                config   : blockConfig,
-                component: itemComponent,
-                topics   : topics
-            }
-        }, withContext = false ) }}
     {% endset %}
 
-    {# grid layouts are micro-templates for various content/layout patterns.
-        templates includes all html/tailwind necessary for a basic layout render.
-        layout settings can be modified or overridden via the `config` param.
-        grid layout twig files are typically stored in `cms/templates/_layouts/grids/` #}
-    {% block gridLayout %}
-        {% if gridLayout %}
-            {% embed gridLayout ignore missing with {
-                blockID: blockID,
-                config: blockConfig,
-                content1Hide: ( not textContent1 ),
-                content2Hide: ( not entryItems ),
-                content3Hide: ( not mediaContent3|trim )
-            } %}
-                {% block content1 %}
-                    {{textContent1|raw}}
-                {% endblock %}
+    {% if grid %}
+        {% embed grid %}
+            {% block cell1 %}
+                {{text|raw}}
+            {% endblock %}
 
-                {% block content2 %}
-                    {{entriesContent2|raw}}
-                {% endblock %}
+            {% block cell2 %}
+                {{specialContent|raw}}
+            {% endblock %}
+        {% endembed %}
+    {% else %}
+        {{specialContent|raw}}
+    {% endif %}
 
-                {% block content3 %}
-                    {{mediaContent3|raw}}
-                {% endblock %}
-            {% endembed %}
-        {% endif %}
-    {% endblock %}
 {% endif %}

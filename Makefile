@@ -4,7 +4,6 @@ SEED_DIR  :=./etc/database-seed
 SQL_FILES :=$(SEED_DIR)/*.sql
 GZ_FILES  :=$(SEED_DIR)/*.sql.gz
 CRAFT_PATH:=/app/craft
-NPM_PATH  :=/var/www/frontend/npm
 IS_RUNNING:=`docker compose ps --services | grep 'php'`
 
 # > make dev
@@ -44,21 +43,21 @@ composer: run
 # ---------------------------------------------------------------------
 # issue commands to the npm cli. surround arguments in quotes
 npm: run
-	docker compose exec frontend $(NPM_PATH) $(filter-out $@,$(MAKECMDGOALS))
+	docker compose exec frontend npm $(filter-out $@,$(MAKECMDGOALS))
 
 
 # > make lint
 # ---------------------------------------------------------------------
 # run the vite/npm lint scripts
 lint: run
-	docker compose exec frontend $(NPM_PATH) run lint
+	docker compose exec frontend npm run lint
 
 
 # > make build
 # ---------------------------------------------------------------------
 # run the vite/npm lint & build scripts
 build: run
-	docker compose exec frontend $(NPM_PATH) run build
+	docker compose exec frontend npm run build
 
 
 # > make exportdb

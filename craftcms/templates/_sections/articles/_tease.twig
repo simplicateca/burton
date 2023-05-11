@@ -25,7 +25,7 @@
         {% endblock %}
 
         {% block image %}
-            {{ include( '_components/media/image', {
+            {{ include( '_components/images/basic', {
                 images: images,
                 transform: 'aspectVideo',
                 class: 'rounded-xl'
@@ -51,6 +51,6 @@
                     datetime="{{ entry.postDate | date('Y-m-d') }}"
                 >{{ entry.postDate | date('d M Y') }}</time>
             {% endif %}
-        {%- endblock %}        
+        {%- endblock %}
     {% endembed %}
 {% endif %}

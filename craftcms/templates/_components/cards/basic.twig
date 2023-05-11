@@ -1,4 +1,12 @@
 {% import "_macros/richtext" as richtext %}
+
+{% set _base = {
+    imageTransform: "video",
+} %}
+
+{# -- merge `_base` into variables passed into the template  -- #}
+{% set settings = ( settings is defined and settings is iterable ) ? _base|merge(settings) : _base %}
+
 {% set htag    = htag    ??? 'h3' %}
 {% set title   = title   ??? entry.title ??? entry.headline ??? '' %}
 {% set text    = text    ??? entry.summary ??? entry.dek ??? entry.text ??? '' %}
@@ -11,13 +19,14 @@
 {% set textOnlyButtonCount = textOnlyButton|split('<a')|length-1 %}
 
 {% block articleTag %}
-<article class="cCard cCard__basicCard cCard__{{handle}} h-full">
+<article class="cCard cCard__basic cCard__{{handle}} h-full relative">
 {% endblock %}
     <div class="grid grid-cols-1 h-full content-start transition">
         {% block image %}
             <div class="aspect-video w-full">
-                {{ include( '_components/media/image', { 
-                    images: images
+                {{ include( '_components/images/basic', {
+                    images: images,
+                    settings: settings
                 }, withContext = false )}}
             </div>
         {% endblock %}
@@ -35,7 +44,7 @@
 
             {% block summary %}
                 {{ richtext.prose( textWithoutButton ?? text ?? '', 'sm' ) }}
-            {% endblock %}  
+            {% endblock %}
 
             {% block link %}
                 {% if textOnlyButton %}

@@ -43,7 +43,7 @@
                 <img
                     src="https://picsum.photos/seed/{{random(1,9999)}}/800/800?grayscale&blur=2"
                     loading="lazy"
-                    class="rounded-lg">                
+                    class="rounded-lg">
             </div>
         </div>
     </div>
@@ -89,10 +89,10 @@
                 start: "top 40%",
                 end: "top 5%",
                 scrub:.3,
-                invalidateOnRefresh: true // to make it responsive                
+                invalidateOnRefresh: true // to make it responsive
             }
         });
-        
+
         app.gsap.fromTo(".clusterC", {
             y: '-40%',
             x: '-40%',
@@ -111,8 +111,8 @@
                 start: "top 55%",
                 end: "top 30%",
                 scrub:.3,
-                invalidateOnRefresh: true // to make it responsive                
+                invalidateOnRefresh: true // to make it responsive
             }
-        });        
+        });
     });
 {% endjs %}

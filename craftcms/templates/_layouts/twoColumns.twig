@@ -1,15 +1,16 @@
-{% extends "_layouts/base" %}
-
 {% set entry     = event ??? product ??? entry ??? null %}
 {% set layout    = 'twoColumns' %}
+
+{% set tmplPath  = _self ??? null %}
+{% set section   = entry.section.handle ??? null %}
+{% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
+{% set bodyClass = "#{layout} #{section} #{entryUri}" %}
+
+{% extends "_layouts/base" %}
 
 {# -- primary <body> content -- #}
 {% block bodyHtml %}
 
-    {% set tmplPath  = _self ??? null %}
-    {% set section   = entry.section.handle ??? null %}
-    {% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
-    {% set bodyClass = "#{layout} #{section} #{entryUri}" %}
 
     {# -- perform entry eager loading -- #}
     {% if entry and ( className(entry) ??? null ) %}
@@ -36,7 +37,7 @@
 
     <div class="container !px-0 flex flex-col lg:flex-row gap-16 lg:gap-20 2xl:gap-28">
 
-        <main id="content" class="min-h-[50vh] grow">
+        <main id="content" class="min-h-[30vh] grow">
             {% block beforeContent %}{% endblock %}
 
             {% block content %}
@@ -82,6 +83,6 @@
 {# -- fixed position components -- #}
 {% block bodyComponents %}
     {% block alertbar %}
-        {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+        {{ sprig( "_sprig/alertBar/basic", {} ) }}
     {% endblock %}
 {% endblock %}

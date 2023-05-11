@@ -2,7 +2,7 @@
     x-data="{ open: false }"
     class="flex justify-center"
     :class="open ? 'absolute top-0 right-0 bottom-0 left-0 z-50' : ''">
- 
+
     <!-- Modal -->
     <div
         x-show="open"
@@ -19,7 +19,7 @@
     >
         <!-- Overlay -->
         <div x-show="open" x-transition.opacity class="fixed inset-0 bg-gray-700 bg-opacity-50"></div>
- 
+
         <!-- Panel -->
         <div
             x-show="open" x-transition

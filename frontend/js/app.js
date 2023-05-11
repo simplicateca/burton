@@ -2,7 +2,7 @@
 import '@/css/app.pcss';
 
 // eslint-disable-next-line no-unused-vars
-import {createApp} from 'vue';
+import {createApp, defineAsyncComponent} from 'vue';
 import "@lottiefiles/lottie-player";
 
 import gsap from "gsap";
@@ -11,18 +11,6 @@ import { ScrollTrigger, Power3 } from "gsap/all";
 // wrap the main app in an async function
 // delay importing packages until absolutely necessary
 const main = async() => {
-
-    const app = {
-        async createSlime(el) {
-            const { default: Vue } = await import(/* webpackChunkName: "vue" */ 'vue')
-            return new Vue({
-                el: el,
-                components: {
-                    'slime': () => import(/* webpackChunkName: "slime" */ '@/vue/TestSlime.vue')
-                }
-            })
-        }
-    }
 
     gsap.registerPlugin(ScrollTrigger)
 
@@ -35,11 +23,15 @@ const main = async() => {
         });
     });
 
-    app.gsap = gsap
-    app.ScrollTrigger = ScrollTrigger
-    app.Power3 = Power3
-
-    return app
+    return {
+        gsap: gsap,
+        ScrollTrigger: ScrollTrigger,
+        Power3: Power3,
+        createApp: createApp,
+        vueTestSlime: defineAsyncComponent(() =>
+            import('@/vue/TestSlime.vue')
+        )
+    }
 }
 
 // execute async function

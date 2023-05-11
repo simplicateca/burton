@@ -1,25 +1,41 @@
-{% set url       = url       ?? "" %}
-{% set headline  = headline  ?? "Search our Site" %}
-{% set class     = class     ?? "like-h3 text-left" %}
-{% set label     = label     ?? "Search term..." %}
-{% set query     = query     ?? craft.app.request.getParam('q') ?? null %}
-{% set replaceId = replaceId ?? "" %}
-{% set entryUrl  = entryUrl  ?? "" %}
+{% set _base = {
+    text       : text ??? null,
+    url        : "/search",
+    query      : craft.app.request.getParam('q') ??? '',
+    headline   : "Search our Site",
+    class      : "like-h3 text-left",
+    placeholder: "Search term..."
+} %}
 
-<form action="{{ url }}" class="max-w-2xl w-full text-center">
-    {% if headline %}<div class="{{class}}">{{headline}}</div>{% endif %}
-    <div class="flex flex-col sm:flex-row">
+{# -- merge `_base` into variables passed into the template  -- #}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+<form action="{{ settings.url }}" class="max-w-2xl w-full mx-auto grid grid-cols-1 gap-6">
+
+    {% if settings.text ??? null %}
+        {{ settings.text
+            |retconAttr( 'h3', { 'class': '!mb-0' } )
+            |retconAttr( 'h2', { 'class': '!mb-0' } )
+            |raw }}
+    {% else %}
+        {% if settings.headline %}
+            <div class="{{settings.class}}">{{settings.headline}}</div>
+        {% endif %}
+    {% endif %}
+
+    <div class="flex flex-col justify-between sm:flex-row border border-slate-700 bg-white">
         <input
             type="search"
             name="q"
-            placeholder="{{label}}"
-            value="{{query}}"
+            placeholder="{{settings.placeholder}}"
+            value="{{settings.query}}"
             class="
                 flex-grow
                 px-4
                 py-4
                 sm:py-1
                 max-w-[calc(100%_-_7rem)]
+                text-black
             ">
         <button class="button">Search</button>
     </div>

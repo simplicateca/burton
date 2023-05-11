@@ -8,14 +8,14 @@
 {% if grid %}
     {% embed grid %}
         {% block cell1 %}
-            {{text|raw}}
+            {{ text|raw }}
         {% endblock %}
 
         {% block cell2 %}
-            {{ include("_components/images/_base", {
-                images: images,
+            {{- include( settings.imageComponent ??? settings.imageTreatment ??? '_components/images/basic', {
+                images  : images,
                 settings: settings
-            }) }}
+            }, withContext = false ) -}}
         {% endblock %}
     {% endembed %}
 {% endif %}

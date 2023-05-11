@@ -420,16 +420,15 @@ ul.centerRows {
  * The `richtext.prose` macro handles this inner wrapper automatically.
 */
 mark {
-    @apply text-white inline-block px-2 py-2 relative bg-transparent;
+    @apply text-white inline-block py-1 px-2 relative bg-transparent;
 
     span {
-        @apply relative z-10;
+        @apply relative z-10 text-white;
     }
 
     &:before {
-        @apply bg-gray-500 absolute top-1 left-0 bottom-0 right-0 rounded-md z-0;
+        @apply bg-gray-500 absolute top-0 left-0 bottom-0 right-0 z-0;
         content: '';
-        transform: skew(-8deg, -3deg);
     }
 }
 

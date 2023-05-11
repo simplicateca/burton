@@ -1,65 +1,64 @@
-{# grids are micro-layouts used for quickly implementing common layout patterns.
-   each grid template will include all html/css needed to implement its layout
-   responsively, without making edits to the content passed into the grid to
-   display within it's cells.
+{# --
+   grids are micro-layouts used for quickly implementing common layout patterns.
 
-   each grid template has a baseDefaults variable which contains the tailwind
-   code necessary to create the layout. individual attributes can be overridden
-   by including an attribute of the same name in the block `settings` object that
-   is passed into the grid template along with cell content. #}
+   a grid template tends to be called via a twig {% embed %} tag to take advantage
+   of the ability to override any defined blocks with the template.
 
-{% set baseDefaults = {
-    classes: {
-        gridBase: '',
-        gridHeader: '',
-        gridCell1: '',
-        gridInner1: '',
-        gridCell2: '',
-        gridInner2: '',
-        gridFooter: ''
-    }
+   it's generally safe to provide a grid template access to all variables that
+   exist in the template that is calling it, but you are free to limit context
+   if you like.
+
+   each grid consists of a `_grid` object, which contains a series of tailwind
+   utility classes used to implement each part of the micro-layouts.
+
+   individual `_grid` attributes can be overridden by including a new value
+   for that attribute inside a `settings` object passed into the template. -- #}
+
+{% set _base = {
+    gridBase  : '',
+    gridHeader: '',
+    gridCell1 : '',
+    gridInner1: '',
+    gridCell2 : '',
+    gridInner2: '',
+    gridFooter: ''
 } %}
 
-{% set props = {
-    classes: baseDefaults.classes | merge(props.classes)
-} %}
+{% set class = _base | merge(_grid ??? {}) %}
 
-{% set cell1Inner = props.classes.gridInner1 ??? null %}
-{% set cell2Inner = props.classes.gridInner2 ??? null %}
+{% set cell1Inner = class.gridInner1 ??? null %}
+{% set cell2Inner = class.gridInner2 ??? null %}
 
-{% block gridHeader %}
-    {% apply retconRemoveEmpty('div.cGrid__header') %}
-        <div class="cGrid__header {{props.classes.gridHeader}}">{% block header %}{{- blockHeader ?? null -}}{% endblock %}</div>
-    {% endapply %}
-{% endblock %}
+{% block gridHeader -%}
+    {% apply retconRemoveEmpty('div.cGrid__header') -%}
+        <div class="cGrid__header {{class.gridHeader}}">{% block header %}{{- blockHeader ??? null -}}{% endblock %}</div>
+    {%- endapply %}
+{%- endblock %}
 
-{% apply retconRemoveEmpty(['cGrid__cell', 'cGrid__inner']) %}
+{# {% apply retconRemoveEmpty(['div.cGrid__cell', 'div.cGrid__inner']) -%} #}
+    <div class="cGrid {{class.gridBase}}">
+        {% block gridCell1 %}
+            <div class="cGrid__cell {{class.gridCell1}}">
+                {% if cell1Inner %}<div class="cGrid__inner {{cell1Inner}}">{% endif %}
+                    {% block cell1 %}{% endblock %}
+                    {{- blockInclude1 ??? null -}}
+                {% if cell1Inner %}</div>{% endif %}
+            </div>
+        {% endblock %}
 
-<div class="cGrid {{props.classes.gridBase}}">
-    {% block gridCell1 %}
-        <div class="cGrid__cell {{props.classes.gridCell1}}">
-            {% if cell1Inner %}<div class="cGrid__inner {{cell1Inner}}">{% endif %}
-                {% block cell1 %}{% endblock %}
-                {{- blockInclude1 ??? null -}}
-            {% if cell1Inner %}</div>{% endif %}
-        </div>
-    {% endblock %}
+        {% block gridCell2 %}
+            <div class="cGrid__cell {{class.gridCell2}}">
+                {% if cell2Inner %}<div class="cGrid__inner {{cell2Inner}}">{% endif %}
+                    {% block cell2 %}{% endblock %}
+                    {{- blockInclude2 ??? null -}}
+                {% if cell2Inner %}</div>{% endif %}
+            </div>
+        {% endblock %}
+    </div>
+{# {%- endapply %} #}
 
-    {% block gridCell2 %}
-        <div class="cGrid__cell {{props.classes.gridCell2}}">
-            {% if cell2Inner %}<div class="cGrid__inner {{cell2Inner}}">{% endif %}
-                {% block cell2 %}{% endblock %}
-                {{- blockInclude2 ??? null -}}
-            {% if cell2Inner %}</div>{% endif %}
-        </div>
-    {% endblock %}
-</div>
-
-{% endapply %}
-
-
-{% block gridFooter %}
-    {% apply retconRemoveEmpty('div.cGrid__footer') %}
-        <div class="cGrid__footer {{props.classes.gridFooter}}">{% block footer %}{{- blockFooter ?? null -}}{% endblock %}</div>
-    {% endapply %}
-{% endblock %}
+{% block gridFooter -%}
+    {% apply retconRemoveEmpty('div.cGrid__footer') -%}
+        <div class="cGrid__footer {{class.gridFooter}}">{% block footer %}{{- blockFooter ??? null -}}{% endblock %}</div>
+    {%- endapply %}
+{%- endblock %}

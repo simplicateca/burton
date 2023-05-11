@@ -11,7 +11,7 @@
         "label": "Plain - Stacked",
         "value": "plainStacked",
         "settings": {
-            "collectionCard" : "stackedPlain"
+            "itemCard" : "_components/cards/stackedPlain"
         }
     },
 
@@ -19,7 +19,7 @@
         "label": "Plain - Horizontal",
         "value": "plainHorizontal",
         "settings": {
-            "collectionCard" : "horizontalPlain"
+            "itemCard" : "_components/cards/horizontalPlain"
         }
     },
 
@@ -27,7 +27,7 @@
         "label": "Box - Stacked",
         "value": "boxStacked",
         "settings": {
-            "collectionCard" : "stackedBox"
+            "itemCard" : "_components/cards/stackedBox"
         }
     },
 
@@ -35,7 +35,7 @@
         "label": "Box - Horizontal",
         "value": "boxHorizontal",
         "settings": {
-            "collectionCard" : "horizontalBox"
+            "itemCard" : "_components/cards/horizontalBox"
         }
     },
 
@@ -43,8 +43,8 @@
         "label": "Accordion Items",
         "value": "accordion",
 
-        "settings": {
-            "collectionComponent" : "_components/accordion/accordion"
+        "important": {
+            "itemComponent" : "_components/accordion/accordion"
         }
     },
 
@@ -52,8 +52,8 @@
         "label": "Horizontal Tabs",
         "value": "horizontalTabs",
 
-        "settings": {
-            "collectionComponent" : "_components/tabs/horizontal"
+        "important": {
+            "itemComponent" : "_components/tabs/horizontal"
         }
     }
 ]

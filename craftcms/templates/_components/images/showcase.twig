@@ -1,6 +1,11 @@
-{% embed '_components/images/basic' with {
-    image : images.one() ??? image ??? null
+{% set _base = {
+    image: images.one() ??? image ??? null
 } %}
+
+{# -- merge `_base` into variables passed into the template  -- #}
+{% set settings = ( settings is defined and settings is iterable ) ? _base|merge(settings) : _base %}
+
+{% embed '_components/images/_base' %}
     {% block figure %}
         <figure class="m-0 p-0 relative z-20">
             <span class="flex items-center justify-center absolute -top-16 -left-6 -bottom-16 -right-6" aria-hidden="true">

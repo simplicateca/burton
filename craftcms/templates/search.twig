@@ -1,48 +1,48 @@
-{% extends "_layouts/twoColumns" %}
+{% extends "_layouts/oneColumn" %}
 
-{% set card     = '_components/cards/textTruncated' %}
+{% set card     = '_components/cards/text' %}
 {% set query    = craft.app.request.getParam('q') %}
 {% set limit    = 12 %}
 {% set entries  = [] %}
 {% set title    = 'Search' %}
-{% set subtitle = "What can we help you find?" %}
 
 {% if query %}
     {% set entries = craft.entries()
         .search(query)
-        .section('not sitebook')
-        .type('not private')
+        .section('and, not sitebook, not reusable, not systemPages')
+        .type('and, not private, not searches')
         .with(['images','topics'])
         .orderBy('score')
         .limit(limit) %}
 
     {% set title   = 'Search Results' %}
 
-    {% set subtitle = entries
-        ? entries|length ~ " results for <strong>“" ~ query ~ "”</strong>"
-        : "Your search for <strong>“" ~ query ~ "”</strong> didn’t return any results."
+    {% set subtitle = entries|length
+        ? "We found " ~ entries|length ~ " results for <mark><span>" ~ query ~ "</span></mark>"
+        : "Sorry, we couldn't find anything matching <mark><span>" ~ query ~ "</mark></span>."
     %}
 {% endif %}
 
 {% block header %}
     {{ include( "_components/header/header", {
-        title: title,
-        subtitle: subtitle,
-        layout: 'twoColumns',
-        section: 'search'
+        title   : title,
+        layout  : 'oneColumn',
+        section : 'search'
     }, withContext = false ) }}
 {% endblock %}
 
 {% block belowHeader %}{% endblock %}
 
 {% block content %}
-    <div class="container py-20">
-        {% set searchFieldClasses = '' %}
+    <div class="container">
         {% if entries %}
             {% paginate entries as pageInfo, pageEntries %}
-            {% embed '_layouts/grids/intro-above-2-columns' with { content1Hide: true } %}
-                {% block content2 %}
-                    {% for item in pageEntries %}
+
+            <div class="grid grid-cols-1 gap-16 pb-24">
+                <h2>{{subtitle|raw}}</h2>
+
+                {% for item in pageEntries %}
+                    <div class="relative">
                         {{ include(
                             [
                                 '_sections/' ~ item.section.handle ~ '/_tease.content',
@@ -54,31 +54,18 @@
                                 card: card
                             }, withContext = false
                         ) }}
-                    {% endfor %}
-                {% endblock %}
-            {% endembed %}
+                    </div>
+                {% endfor %}
 
-            {{ include('_components/pagination/pagination') }}
-
-            {% set searchFieldClasses = 'pt-16 mt-16 border-t' %}
+                {{ include('_components/pagination/pagination') }}
+            </div>
         {% endif %}
 
-        <div class="{{searchFieldClasses}}">
+        <div class="max-w-2xl pb-16">
             {% include '_components/search/form' with {
-                headline: entries and query ? 'Search a different keyword or phrase' : 'Enter a search keyword or phrase',
+                headline: entries and query ? 'Looking for something else?' : 'What can we help you find?',
                 searchText: query
             } %}
         </div>
     </div>
-{% endblock %}
-
-{% block sidebar %}
-    {% if entries %}
-        <div class="hidden lg:flex py-20 sticky top-16">
-            {% include '_components/search/form' with {
-                headline: 'Try another search',
-                searchText: query
-            } %}
-        </div>
-    {% endif %}
 {% endblock %}

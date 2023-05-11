@@ -1,17 +1,18 @@
-{% extends "_layouts/base" %}
-
 {% set entry     = event ??? product ??? entry ??? null %}
 {% set layout    = 'oneColumn' %}
+
+{% set tmplPath  = _self ??? null %}
+{% set section   = entry.section.handle ??? null %}
+{% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
+
+{% set bodyClass = "#{layout} #{section} #{entryUri}" %}
+
+{% extends "_layouts/base" %}
 
 {# -- primary <body> content -- #}
 {% block bodyHtml %}
 
-    {% set tmplPath  = _self ??? null %}
-    {% set section   = entry.section.handle ??? null %}
-    {% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
-    {% set bodyClass = "#{layout} #{section} #{entryUri}" %}
-
-    {# -- perform entry eager loading -- #}
+        {# -- perform entry eager loading -- #}
     {% if entry and ( className(entry) ??? null ) %}
         {% do craft.app.elements.eagerLoadElements(
             className(entry),
@@ -34,7 +35,7 @@
     {% endblock %}
 
     {% block main %}
-        <main id="content" class="min-h-[50vh]">
+        <main id="content" class="min-h-[30vh]">
             {% block beforeContent %}{% endblock %}
 
             {% block content %}
@@ -63,6 +64,6 @@
 {# -- fixed position components -- #}
 {% block bodyComponents %}
     {% block alertbar %}
-        {{ include( "_components/_sprig/alert-bar/alert-bar", {}, withContext = false ) }}
+        {{ sprig( "_sprig/alertBar/basic", {} ) }}
     {% endblock %}
 {% endblock %}

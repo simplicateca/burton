@@ -1,28 +1,55 @@
-{% set settings  = settings  ??? null %}
-{% set content   = content   ??? null %}
-{% set images    = images    ??? content.images.all() ??? [] %}
-{% set component = component ??? settings.imageComponent ??? null %}
-{% set treatment = treatment ??? settings.imageTreatment ??? null %}
+{% import "_macros/imgtags" as imgtags %}
+{% set settings = settings ??? null %}
 
-{#-- let the component sort out how to display all the images --#}
-{% if component %}
+{% set source   = settings.image.url  ??? settings.image ??? null %}
+{% set kind     = settings.image.kind ??? source|split('.')|last|lower ??? 'image' %}
 
-    {{- include( component, {
-        images: images,
-        settings: settings
-    }, withContext = false ) -}}
+{% block figure %}
+    <figure class="m-0 p-0 flex flex-col">
+{% endblock %}
 
-{#-- otherwise hand off to a treatment --#}
-{% else %}
-
-    {% set transform = transform ??? settings.imageTransform ??? null %}
-    {% set imgClass  = imgClass  ??? settings.imageClass     ??? null %}
-    {% set caption   = caption   ??? settings.imageCaption   ??? null %}
-
-    {{ include( treatment ??? '_components/images/basic', {
-        images   : images,
-        caption  : caption,
-        class    : imgClass,
-        transform: transform
-    }) }}
+{# -- lottie animations -- #}
+{% if kind in ['json','lottie'] %}
+    {% block lottieTag %}
+        {{ tag('lottie-player', {
+            src       : source,
+            class     : settings.imageClass,
+            autoplay  : true,
+            loop      : true,
+            ariaHidden: true,
+            role      : "presentation",
+            mode      : "bounce",
+            loading   : 'lazy'
+        }) }}
+    {% endblock %}
 {% endif %}
+
+{# -- regular images -- #}
+{% if kind in ['image','jpg','jpeg','png','gif','webm'] %}
+    {% block imageTag %}
+        <picture>
+            {# -- code for responsive sizes / webm conversion goes here -- #}
+
+            {# -- output the image tag -- #}
+            {{ imgtags.imgTag(
+                settings.image,
+                settings.imageTransform,
+                settings.altText ??? null,
+                settings.imageClass
+            ) }}
+        </picture>
+    {% endblock %}
+{% endif %}
+
+
+{# if a `caption` exists, use it for the <figcaption>,
+   if not, use `altText` but only show it to screen readers #}
+{% block figcaption %}
+    {% set caption = settings.imageCaption ??? null %}
+    {% set altText = settings.altText      ??? null %}
+    {% set captionText = caption ? attribute(settings.image, caption) ??? caption : null %}
+    {{ captionText ? imgtags.figCaption( captionText ) }}
+    {{ not captionText and altText ? imgtags.figCaption( altText, "sr-only" ) }}
+{% endblock %}
+
+</figure>

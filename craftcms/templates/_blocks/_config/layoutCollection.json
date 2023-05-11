@@ -7,7 +7,8 @@
             "grid": "_layouts/grids/splitNormal",
             "container": "container",
             "headlineClass": "",
-            "headlineComponent": null
+            "headlineComponent": null,
+            "itemComponent": "_components/carousel/single"
         }
     },
 

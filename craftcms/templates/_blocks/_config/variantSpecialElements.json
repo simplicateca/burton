@@ -1,16 +1,33 @@
 [
     {
         "label": "Site Search",
-        "value": "siteSearch"
+        "value": "siteSearch",
+
+        "settings" : {
+            "container": "container",
+            "specialComponent": "_components/search/form"
+        }
     },
 
     {
         "label": "Saved Search Index Page",
-        "value": "searchListing"
+        "value": "searchListing",
+
+        "settings" : {
+            "container": "container",
+            "specialComponent": "_sprig/liveSearch/basic"
+
+        }
     },
 
     {
         "label": "Vue Component",
-        "value": "vueComponent"
+        "value": "vueComponent",
+
+        "settings" : {
+            "container": "container",
+            "specialComponent": "_components/media/vueComponent",
+            "specialVueLoader": "app.vueTestSlime"
+        }
     }
 ]

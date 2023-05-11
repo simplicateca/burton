@@ -404,6 +404,9 @@ class GearboxTwigExtension extends AbstractExtension
         $block['sectionHandle'] = $block['fragment']->section->handle ?? $block['entry']->section->handle ?? '';
         $block['blockType']     = $block['fragment']->type->handle    ?? $block['content']->type->handle ?? $block['content']->type ?? $block['content']['type'] ?? '';
 
+        $block['settings']['entryID']  = $block['entry']->id  ?? null;
+        $block['settings']['entryUrl'] = $block['entry']->url ?? null;
+
         return $block;
     }
 
@@ -453,6 +456,7 @@ class GearboxTwigExtension extends AbstractExtension
         $settings['bg']      = $bg['value']      ?? null;
         $settings['spacing'] = $spacing['value'] ?? null;
         $settings['blockID'] = $block->id        ?? null;
+        $settings['entryID'] = $block->id        ?? null;
 
         return array_merge(
             $settings,
