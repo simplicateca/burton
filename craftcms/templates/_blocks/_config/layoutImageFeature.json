@@ -5,7 +5,8 @@
 
         "settings": {
             "grid": "_layouts/grids/splitNormal",
-            "container": "container"
+            "gridAlign": "items-center",
+            "container": "container @container"
         }
     },
 
@@ -15,7 +16,8 @@
 
         "settings": {
             "grid": "_layouts/grids/splitReverse",
-            "container": "container"
+            "gridAlign": "items-center",
+            "container": "container @container"
         }
     },
 
@@ -25,11 +27,12 @@
 
         "settings": {
             "grid": "_layouts/grids/stacked",
-            "container": "container"
+            "gridInner1": "max-w-5xl @container",
+            "container": "container @container"
         },
 
         "important": {
-            "imageComponent": "_components/images/gallery"
+            "imageComponent": "_components/cards/image/gallery"
         }
     },
 
@@ -38,12 +41,12 @@
         "value": "textOverlay",
 
         "settings": {
-            "grid": "_layouts/grids/overlap",
-            "container": "container min-h-[90vh] flex flex-col items-center justify-center"
+            "grid": "_layouts/grids/overlap"
         },
 
         "important": {
-            "imageComponent": "_components/images/parallaxBg",
+            "container": "container min-h-[90vh] flex flex-col items-center justify-center @container",
+            "imageCard": "_components/cards/image/parallaxBg",
             "bgColor": "image"
         }
     }

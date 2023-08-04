@@ -6,7 +6,7 @@ instructions: null
 name: 'Content Type'
 searchable: false
 settings:
-  referenceFile: _sections/_config/contentTypes.searches.json
+  referenceFile: _sections/_config/contentIndex.types.json
 translationKeyFormat: null
 translationMethod: none
 type: simplicateca\referencefield\fields\Dropdown

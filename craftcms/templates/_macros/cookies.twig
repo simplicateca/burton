@@ -17,7 +17,7 @@
  # @copyright Copyright (c) 2019 nystudio107
  # @license   MIT
  # @license   https://opensource.org/licenses/MIT MIT Licensed
- #}
+ ##}
 
 {#
  # Return the value the cookie specified in `name`. The return value will be an
@@ -27,7 +27,7 @@
  # @param yii\web\CookieCollection  cookieJar
  #
  # @return string className
- #}
+ ##}
 {%- macro get(name, cookieJar = null) -%}
     {% apply spaceless %}
         {% set cookieJar = cookieJar ?? craft.app.request.cookies %}
@@ -50,7 +50,7 @@
  # @param bool                      secure
  # @param bool                      httpOnly
  # @param yii\web\CookieCollection  cookieJar
- #}
+ ##}
 {%- macro set(name, value = '', expires = 0, path = '/', domain = '', secure = false, httpOnly = false, cookieJar = null) -%}
     {% apply spaceless %}
         {% set cookieJar = cookieJar ?? craft.app.response.cookies %}

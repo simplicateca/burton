@@ -3,7 +3,7 @@ contentColumnType: string
 fieldGroup: e0dac603-c510-4bb5-8701-e25672d93744 # Common
 handle: taxonomies
 instructions: null
-name: 'Topic / Theme / Collection'
+name: 'Topic / Theme / Tag'
 searchable: false
 settings:
   allowSelfRelations: false
@@ -40,8 +40,8 @@ settings:
               -
                 - values
                 -
-                  - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Topics / Themes
-                  - 6b7d0e03-182d-44ba-a6ef-08930a4253e1 # Private Collections
+                  - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Topics & Themes
+                  - 6b7d0e03-182d-44ba-a6ef-08930a4253e1 # Private Tags
   selectionLabel: 'Add Association'
   showSiteMenu: false
   sources:

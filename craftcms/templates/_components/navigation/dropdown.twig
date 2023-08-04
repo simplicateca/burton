@@ -1,0 +1,70 @@
+{# {% set _settings = _settings is defined and _settings is iterable ? _settings : {} %} #}
+{% set _settings = {
+    title           : null,
+    children        : [],
+    menuClass       : "absolute left-0 top-10 mt-0 w-48 bg-white shadow-md",
+    aClass          : "dropdownMenu
+                       p-2
+                       text-left
+                       text-lg
+                       no-underline
+                       text-gray-700
+                       hover:bg-blue-500
+                       flex
+                       items-center
+                       gap-2
+                       w-full",
+    activeClass     : "navItem__isActive",
+    hasChildrenClass: "navItem__hasChildren",
+}|merge(_context) %}
+
+<div
+    x-cloak
+    x-data="{
+        open: false,
+        toggle() {
+            if (this.open) {
+                return this.close()
+            }
+            this.$refs.button.focus()
+            this.open = true
+        },
+        close(focusAfter) {
+            if (! this.open) return
+            this.open = false
+            focusAfter && focusAfter.focus()
+        }
+    }"
+    x-on:keydown.escape.prevent.stop="close($refs.button)"
+    x-on:focusin.window="!$refs.panel.contains($event.target) && close()"
+    x-id="['dropdown-button']"
+    class="relative"
+>
+    <!-- Button -->
+    <button
+        x-ref="button"
+        x-on:click="toggle()"
+        :aria-expanded="open"
+        :aria-controls="$id('dropdown-button')"
+        type="button"
+        class="{{ _settings.buttonClass }}"
+    >
+        <span>{{ _settings.title }}</span>
+        {{ include( 'svg/chevron-down.svg' ) }}
+    </button>
+
+    <!-- Panel -->
+    <div
+        x-ref="panel"
+        x-show="open"
+        x-on:click.outside="close($refs.button)"
+        :id="$id('dropdown-button')"
+        class="{{_settings.menuClass}}"
+    >
+        {% for node in _settings.children %}
+            <a href="{{node.url}}" class="{{_settings.aClass}}">
+                {{node.title}}
+            </a>
+        {% endfor %}
+    </div>
+</div>

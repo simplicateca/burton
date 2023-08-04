@@ -107,7 +107,7 @@ fieldLayouts:
                     - word
               elementType: craft\elements\Asset
               fieldContext: global
-            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Lead Image(s)
+            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Feature Image
             instructions: null
             label: 'Cover image'
             required: false

@@ -3,7 +3,7 @@
     html{ visibility: hidden; opacity:0; }
 </style>
 
-{# -- Critical CSS -- #}
+{## Critical CSS ##}
 {#
 # Use Nginx Server Sider Includes (SSI) to render different HTML depending on
 # the value in the `critical-css` cookie. ref: http://nginx.org/en/docs/http/ngx_http_ssi_module.html
@@ -12,7 +12,7 @@
 {#
  # If the `critical-css` cookie is set, the client already has the CSS file download,
  # so don't include the critical CSS, and load the full stylesheet(s) synchronously
- #}
+ ##}
 <!--# if expr="$HTTP_COOKIE=/critical\-css\={{ cssHash }}/" -->
 {{ craft.vite.script("js/app.js", false) }}
 <!--# else -->
@@ -27,5 +27,5 @@
 {{ craft.vite.script("js/app.js", true) }}
 <!--# endif -->
 
-{# -- Favicons, webapp manifests, etc. -- #}
+{## Favicons, webapp manifests, etc. ##}
 {{ craft.vite.inline("@webroot/dist/assets/favicons/webapp.html") }}

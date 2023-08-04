@@ -11,7 +11,7 @@
     "settings": {
         "imageClass": "rounded-2xl",
         "imageTransform": "square",
-        "imageComponent": "_components/images/carousel"
+        "imageComponent": "_components/cards/image/carousel"
     }
 },{
     "label": "Circle - Align Center",
@@ -19,33 +19,39 @@
     "settings": {
         "imageClass": "rounded-full",
         "imageTransform": "square",
-        "imageComponent": "_components/images/carousel"
+        "imageComponent": "_components/cards/image/carousel"
     }
 },{
     "label": "Fill Available Height",
     "value": "fill",
     "settings": {
-        "imageTreatment": "_components/images/fillHeight"
+        "gridAlign": "items-stretch",
+        "gridCell1": "w-full self-center",
+        "gridCell2": "flex-1",
+        "imageCard": "_components/cards/image/fillHeight"
     }
 },{
     "label": "Full Bleed Coverage",
     "value": "cover",
     "settings": {
-        "imageTreatment": "_components/images/cover",
-        "imageCaption": "summary"
+        "imageCaption": "summary",
+        "imageCard": "_components/cards/image/cover"
+
     }
 },{
     "label": "Showcase",
     "value": "showcase",
     "settings": {
-        "imageClass": "rounded-2xl relative z-20 mx-auto max-w-sm",
-        "imageTransform": "square",
-        "imageTreatment": "_components/images/showcase"
+        "moveHeaderMobile": true,
+        "gridBase"  : "w-full relative flex flex-col-reverse",
+        "gridHeader": "max-lg:text-center max-lg:pb-10",
+        "gridInner1": "max-lg:text-center max-lg:pt-4",
+        "imageCard" : "_components/cards/image/basicWithBlob"
     }
 },{
     "label": "Cluster",
     "value": "cluster",
     "settings": {
-        "imageComponent": "_components/images/cluster"
+        "imageComponent": "_components/cards/image/cluster"
     }
 }]

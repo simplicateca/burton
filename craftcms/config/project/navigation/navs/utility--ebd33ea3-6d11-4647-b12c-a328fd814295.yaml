@@ -175,7 +175,7 @@ propagationMethod: all
 siteSettings:
   41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
     enabled: true
-  34463b82-dd3f-441c-b9c6-59c351e847aa: # Main Site (FRENCH)
+  34463b82-dd3f-441c-b9c6-59c351e847aa: # Alternate Region/Lang
     enabled: true
 sortOrder: 2
 structure:

@@ -1,0 +1,67 @@
+{% set blockID = blockID ??? content.id ??? create('craft\\helpers\\StringHelper').UUID() %}
+{% set items   = items   ??? content.items ??? null %}
+{% set class   = class   ??? 'mx-auto max-w-4xl space-y-4 w-full' %}
+
+{% set _base = {
+    openClass : 'p-4 bg-white'
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? _base|merge(settings) : _base %}
+
+<div x-data="{ active: '{{blockID}}-1' }" class="{{class}}">
+    {% for row in items %}
+        {% set image    = row.images.one() ??? null %}
+        {% set headline = row.headline ??? row.title ??? null %}
+        {% set text     = row.text ??? null %}
+
+        <div
+            role="region"
+            x-cloak
+            x-data="{
+                id: '{{blockID}}-{{loop.index}}',
+                animatingOpen: false,
+                get expanded() {
+                    return this.active === this.id
+                },
+                set expanded(value) {
+                    this.active = value ? this.id : null
+
+                    if( this.active == this.id ) {
+                        this.animatingOpen = true
+                        setTimeout(() => {
+                            this.animatingOpen = false
+                        }, 200 );
+                    }
+                },
+                handleLeaving() {
+                    if( this.animatingOpen ) {
+                        setTimeout(() => {
+                            document.getElementById('{{blockID}}-{{loop.index}}-header').scrollIntoView({ behavior: 'smooth' })
+                        }, 100 );
+                    }
+                }
+            }"
+            class=""
+            :class="{ 'shadow' : expanded }"
+        >
+            <h2 class="text-white mb-0 scroll-mt-4" id='{{blockID}}-{{loop.index}}-header' x-intersect:leave="handleLeaving()">
+                <button
+                    x-on:click="expanded = !expanded"
+                    :aria-expanded="expanded"
+                    class="flex w-full items-center justify-between p-4 text-base bg-gray-700 text-white font-medium rounded hover:text-blue-500"
+                >
+                    <span class="text-left">{{headline|striptags}}</span>
+                    <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                    <span x-show="!expanded" aria-hidden="true" class="ml-4">+</span>
+                </button>
+            </h2>
+
+            <div x-show="expanded" x-collapse.duration.200ms>
+                <div class="{{settings.openClass}}">
+                    {{ processRichHtml( text ).body|raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

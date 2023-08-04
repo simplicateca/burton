@@ -34,6 +34,7 @@ use yii\base\InvalidConfigException;
 
 use modules\gearbox\assetbundles\gearbox\GearboxAsset;
 use modules\gearbox\twigextensions\GearboxTwigExtension;
+use modules\gearbox\twigextensions\NormalizeBlockTwigExtension;
 
 use modules\gearbox\helpers\FileLog;
 
@@ -68,9 +69,8 @@ class Gearbox extends Module
         self::$instance = $this;
 
         // Add our TwigExtension(s)
-        Craft::$app->view->registerTwigExtension(
-            new GearboxTwigExtension()
-        );
+        Craft::$app->view->registerTwigExtension( new GearboxTwigExtension() );
+        Craft::$app->view->registerTwigExtension( new NormalizeBlockTwigExtension() );
 
         // Load our AssetBundle
         if (Craft::$app->getRequest()->getIsCpRequest()) {
@@ -129,6 +129,8 @@ class Gearbox extends Module
         Event::on(Entry::class, Entry::EVENT_REGISTER_SOURCES, function(RegisterElementSourcesEvent $event) {
 
             $singlesSource = null;
+
+            if( $event->context == 'modal' ) { return $event->sources; }
 
             $newSources = [];
             foreach ( $event->sources as &$source ) {

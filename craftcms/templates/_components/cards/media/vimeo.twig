@@ -1,0 +1,23 @@
+{% set media  = media  ??? null %}
+{% set config = config ??? null %}
+{% set loop   = loop   ??? null %}
+{% set first  = ( loop.first ??? false ) %}
+
+{% set card    = config.card ??? null %}
+{% set cardSub = config.cardSubsequent ??? null %}
+
+{% if media %}
+    {% set class = config.class ??? '' %}
+
+    <div class="{{class}}">
+        {{media.html|raw}}
+
+        <p class="text-center mt-1">{{media.summary}}</p>
+    </div>
+
+{% endif %}
+
+{## wireframe placeholder ##}
+{% if ( not media or not media.html ) and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    <div class="bg-gray-500 aspect-video w-full">&nbsp;</div>
+{% endif %}

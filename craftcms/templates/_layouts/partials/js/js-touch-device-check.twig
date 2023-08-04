@@ -1,9 +1,7 @@
 <script>
-    const touchSupported = 'ontouchstart' in window || (window.DocumentTouch && document instanceof DocumentTouch);
-
-    if (touchSupported) {
-        document.documentElement.classList.add('has-touchevents');
-    } else {
-        document.documentElement.classList.add('no-touchevents');
-    }
+    document.documentElement.classList.add(
+        ( 'ontouchstart' in window || (window.DocumentTouch && document instanceof DocumentTouch) )
+        ? 'has-touchevents'
+        : 'no-touchevents'
+    )
 </script>

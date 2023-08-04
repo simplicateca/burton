@@ -4,7 +4,7 @@
 <div class="flex flex-grow justify-end w-full items-center">
     <nav role="navigation" aria-label="Sitebook Navigation">
         {% set pages = craft.entries.section('sitebook').level(1).slug('not home') %}
-        <ul class="m-0 p-0 list-none flex flex-col sm:flex-row">
+        <ul class="flex flex-col sm:flex-row">
             {% for page in pages.all() %}
                 <li class="font-display">
                     <a

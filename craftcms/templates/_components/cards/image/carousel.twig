@@ -1,0 +1,54 @@
+{% set images    = images    ??? [] %}
+{% set settings  = settings  ??? null %}
+{% set cardTmpl  = cardTmpl  ??? settings.imageCard ??? '_components/cards/image/basic' %}
+{% set transform = transform ??? settings.imageTransform ??? null %}
+{% set imgClass  = imgClass  ??? settings.imageClass     ??? null %}
+{% set caption   = caption   ??? settings.imageCaption   ??? null %}
+
+{% set uuid = create('craft\\helpers\\StringHelper').UUID() %}
+
+{## wireframe placeholder ##}
+{% if not images and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    {% set images = [null,null,null,null] %}
+{% endif %}
+
+{% if images %}
+    <div
+        x-data="{ splide: null }"
+        x-cloak
+        x-init="$nextTick(() => {
+            splide = new Splide($refs['splide-{{uuid}}'], {
+                type: 'loop',
+                perPage: 1
+            }).mount()
+        })">
+
+        <section x-ref="splide-{{uuid}}" class="splide relative z-40">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    {% for image in images %}
+                        <li class="splide__slide flex flex-col items-center justify-start pb-8">
+                            {{ include( cardTmpl, {
+                                image    : image,
+                                caption  : caption,
+                                class    : imgClass,
+                                transform: transform,
+                            } ) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    </div>
+{% endif %}
+
+{% html %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
+
+    <style>
+        .splide__pagination__page.is-active {
+            background: #333;
+        }
+    </style>
+{% endhtml %}

@@ -116,7 +116,7 @@ fields:
     name: 'Text (Right)'
     searchable: true
     settings:
-      availableTransforms: '*'
+      availableTransforms: ''
       availableVolumes: '*'
       columnType: text
       configSelectionMode: choose
@@ -144,7 +144,7 @@ fields:
     name: 'Text (Left)'
     searchable: true
     settings:
-      availableTransforms: '*'
+      availableTransforms: ''
       availableVolumes: '*'
       columnType: text
       configSelectionMode: choose

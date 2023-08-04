@@ -1,4 +1,4 @@
-{# for fields directly associated with an entry / product / asset / etc #}
+{## for fields directly associated with an entry / product / asset / etc ##}
 {%- set folder = object.folder ??? false -%}
 {%- if folder %}{{ ( folder == 'Uploads' ) ? 'asset-meta' : folder ~ '/asset-meta' }}{% endif -%}
 {%- if not folder -%}
@@ -10,7 +10,7 @@
 {%- endif -%}
 
 
-{# for fields inside a matrix block #}
+{## for fields inside a matrix block ##}
 {{- ( object.owner.variants   ?? null  ) ? "products/#{object.owner.type.handle|lower}/" : '' -}}
 {{- ( object.owner.product    ?? null  ) ? "products/#{object.owner.product.type.handle|lower}/" : '' -}}
 {{- ( object.owner.section    ?? null  ) ? "#{object.owner.section.handle|lower}/" : '' -}}
@@ -18,7 +18,7 @@
 {{object.owner.slug}}
 
 
-{# for fields inside a supertable inside a matrix block #}
+{## for fields inside a supertable inside a matrix block ##}
 {{- ( object.owner.owner.variants   ?? null  ) ? "products/#{object.owner.owner.type.handle|lower}/" : '' -}}
 {{- ( object.owner.owner.product    ?? null  ) ? "products/#{object.owner.owner.product.type.handle|lower}/" : '' -}}
 {{- ( object.owner.owner.section    ?? null  ) ? "#{object.owner.owner.section.handle|lower}/" : '' -}}

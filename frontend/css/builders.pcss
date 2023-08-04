@@ -1,29 +1,17 @@
-.cBlock__textText--evenWidth {
-    .cGrid__content1 {
-        .cProse__startsRight {
-            h2,h3,h4 {
-                @apply
-                    !text-left
-                    lg:!text-right
-                    lg:max-w-xs xl:max-w-sm
-                    ml-0
-                    lg:ml-auto;
-            }
-        }
-    }
+.cBlock {
+	@apply w-full;
 }
 
+.cGridHeader,
+.cGridFooter,
+.cGridCell {
+    @apply @container;
 
-.cGrid__content1.optimalReadingWidth > div.prose {
-    @apply
-        !max-w-4xl
-        2xl:!max-w-5xl;
-
-    &.cProse__startsCenter {
-        @apply mx-auto;
+    & > *:first-child {
+        margin-top: 0;
     }
 
-    &.cProse__startsRight {
-        @apply ml-auto;
+    & > *:last-child {
+        margin-bottom: 0;
     }
 }

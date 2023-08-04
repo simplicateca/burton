@@ -4,8 +4,9 @@
         "value": "readableLeft",
 
         "settings": {
-            "wrapper": "max-w-4xl 2xl:max-w-5xl",
-            "container": "container"
+            "grid": "_layouts/grids/single",
+            "gridCell1": "max-w-4xl 2xl:max-w-5xl",
+            "container": "container @container"
         }
     },
 
@@ -14,8 +15,9 @@
         "value": "readableCenter",
 
         "settings": {
-            "wrapper": "max-w-4xl 2xl:max-w-5xl mx-auto",
-            "container": "container"
+            "grid": "_layouts/grids/single",
+            "gridCell1": "w-full max-w-4xl 2xl:max-w-5xl mx-auto",
+            "container": "container @container"
         }
     },
 
@@ -24,8 +26,8 @@
         "value": "fullWidth",
 
         "settings": {
-            "wrapper": "w-full",
-            "container": "container"
+            "grid": "_layouts/grids/single",
+            "container": "container @container"
         }
     }
 ]

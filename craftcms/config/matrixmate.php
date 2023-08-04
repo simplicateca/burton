@@ -13,7 +13,7 @@ return [
                     ]],
                 ],
 
-                'imageContent' => [
+                'imageFeature' => [
                     'tabs' => [[
                         'label' => 'Content',
                         'fields' => ['layout', 'variant', 'headline', 'text', 'images', 'bg', 'spacing'],
@@ -23,7 +23,7 @@ return [
                 'richMedia' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'headline', 'text', 'assetSource', 'localAssets', 'externalUrls', 'bg', 'spacing'],
+                        'fields' => ['layout', 'headline', 'text', 'source', 'assets', 'urls', 'bg', 'spacing'],
                     ]],
                 ],
             ]
@@ -50,14 +50,14 @@ return [
                 'richMedia' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'text', 'assetSource', 'localAssets', 'externalUrls', 'bg', 'spacing'],
+                        'fields' => ['layout', 'text', 'source', 'assets', 'urls', 'bg', 'spacing'],
                     ]],
                 ],
 
                 'collection' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'collectionType', 'entries', 'assets', 'searches', 'text', 'items', 'limit', 'pagination', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'collectionType', 'entries', 'assets', 'searches', 'text', 'items', 'limit', 'pagination', 'bg', 'spacing'],
                     ]],
                 ]
             ]
@@ -90,21 +90,21 @@ return [
                 'richMedia' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'text', 'assetSource', 'localAssets', 'externalUrls', 'bg', 'spacing'],
+                        'fields' => ['layout', 'text', 'source', 'assets', 'urls', 'bg', 'spacing'],
                     ]],
                 ],
 
                 'collection' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'collectionType', 'entries', 'assets', 'searches', 'text', 'items', 'limit', 'pagination', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'collectionType', 'entries', 'assets', 'searches', 'text', 'items', 'limit', 'pagination', 'bg', 'spacing'],
                     ]],
                 ],
 
                 'specialElement' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'searches', 'bg', 'spacing'],
+                        'fields' => ['variant', 'text', 'searches', 'form', 'bg', 'spacing'],
                     ]],
                 ],
             ],

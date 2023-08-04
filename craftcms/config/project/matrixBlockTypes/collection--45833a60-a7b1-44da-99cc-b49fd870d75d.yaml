@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 87c55206-b434-47f6-844d-1d8664946c2b # Layout Variant
+            fieldUid: 87c55206-b434-47f6-844d-1d8664946c2b # Layout
             instructions: null
             label: null
             required: false
@@ -16,7 +16,19 @@ fieldLayouts:
             uid: e074f42e-4643-4f3c-bff5-4268ce8004fc
             userCondition: null
             warning: null
-            width: 100
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 1acf385f-ccfd-46ca-a526-91115dad48a5 # Variant
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b58baaec-776a-4a18-9652-c7d45fedd184
+            userCondition: null
+            warning: null
+            width: 50
           -
             elementCondition: null
             fieldUid: 595b273f-27a3-4469-bbee-7a14141cadab # Text (Intro)
@@ -153,6 +165,19 @@ fieldLayouts:
         uid: 118a3008-759b-45f6-aca3-eb1f796e4242
         userCondition: null
 fields:
+  1acf385f-ccfd-46ca-a526-91115dad48a5: # Variant
+    columnSuffix: bmkgicur
+    contentColumnType: string
+    fieldGroup: null
+    handle: variant
+    instructions: null
+    name: Variant
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/variantCollection.sidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
   1cc41dda-2e96-4e16-967f-c1e9c567ad99: # Card design
     columnSuffix: pegniaoa
     contentColumnType: string
@@ -233,16 +258,16 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Number
-  87c55206-b434-47f6-844d-1d8664946c2b: # Layout Variant
+  87c55206-b434-47f6-844d-1d8664946c2b: # Layout
     columnSuffix: soxbrgat
     contentColumnType: string
     fieldGroup: null
-    handle: variant
+    handle: layout
     instructions: 'Change the block layout without changing its underlying content'
-    name: 'Layout Variant'
+    name: Layout
     searchable: false
     settings:
-      referenceFile: _blocks/_config/variantTeasersBits.sidebar.json
+      referenceFile: _blocks/_config/layoutCollection.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -297,7 +322,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 295440566
+      changedFieldIndicator: 1943415164
       columns:
         __assoc__:
           -
@@ -434,7 +459,7 @@ fields:
                   -
                     - values
                     -
-                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Saved Searches
+                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Search
       selectionLabel: null
       showSiteMenu: false
       sources:
@@ -560,19 +585,16 @@ fields:
                     -
                       - d3282cfb-d044-4890-b553-9a0b87393027 # SEO / Blog
                       - 8000f4a4-93b8-4f5b-b6b2-b26e6c12e366 # News
-                      - 64029a67-3d0c-4cad-8fc6-dc0eec8c112c # Default
-                      - e0521335-ccc2-4893-a505-4baacf112dee # Standard (Single Column)
-                      - 1da13089-e303-46d0-930f-aefd062df474 # Standard with Sidebar (Two Columns)
-                      - 7ba53c7d-afe6-4a6e-9208-a5c0d39b002d # Content Bits
-                      - b99a868b-b561-4841-ad62-d4ab5eed5fad # Data
-                      - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Topics / Themes
+                      - 64029a67-3d0c-4cad-8fc6-dc0eec8c112c # FAQs
+                      - e0521335-ccc2-4893-a505-4baacf112dee # Standard
+                      - 1da13089-e303-46d0-930f-aefd062df474 # Standard w/ Sidebar
+                      - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Topics & Themes
       selectionLabel: 'Choose Entry'
       showSiteMenu: false
       sources:
         - 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # Articles
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # FAQs
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
         - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Primary Pages
-        - 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f' # Reusable Elements
         - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
       targetSiteId: null
       validateRelatedElements: false

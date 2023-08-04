@@ -43,20 +43,30 @@ var matrixConditionalsConfig = {
         'searchListing': {
             showOnEqual: 'searches',
             hideOnUnequal: 'searches',
+        },
+
+        'form': {
+            showOnEqual: 'form',
+            hideOnUnequal: 'form',
+        },
+
+        'navigation': {
+            showOnEqual: 'menu',
+            hideOnUnequal: 'menu',
         }
     },
 
     // rich media content block type
-    '*.richMedia.assetSource': {
+    '*.richMedia.source': {
 
-        'localAssets': {
+        'local': {
             showOnEqual: 'assets',
             hideOnUnequal: 'assets',
         },
 
-        'externalUrls': {
-            showOnEqual: 'externalUrls',
-            hideOnUnequal: 'externalUrls',
+        'external': {
+            showOnEqual: 'urls',
+            hideOnUnequal: 'urls',
         }
     }
 }

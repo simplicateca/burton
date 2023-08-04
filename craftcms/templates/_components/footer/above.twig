@@ -1,7 +1,10 @@
-{% set entry  = entry  ??? null   %}
-{% set layout = layout ??? 'base' %}
+{% set entry   = entry ??? null   %}
+{% set _layout = _layout is defined and _layout is iterable ? _layout : {} %}
+{% set _layout = {
+    className: null,
+}|merge(_layout) %}
 
-{# <section class="cAboveFooter cAboveFooter__{{layout}}">
+{## <section class="cAboveFooter cAboveFooter__{{_layout.className}}">
     {% import "_macros/fragments.twig" as fragments %}
     {{ fragments.loadBySlug('call-to-action') }}
-</section> #}
+</section> ##}

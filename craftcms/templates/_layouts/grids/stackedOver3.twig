@@ -1,23 +1,41 @@
 {% extends "_layouts/grids/_base2Cell" %}
 
 {% set _grid = {
-    gridBase  : 'w-full relative grid grid-cols-1 items-center gap-10 lg:gap-16 xl:gap-24',
+    maxCols   : 3,
+    gridBase  : 'w-full relative grid grid-cols-1 gap-10 xl:gap-16 items-center',
     gridCell1 : 'w-full',
-    gridCell2 : 'grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16 xl:gap-24 mx-auto',
-    maxCols   : 3
+    gridCell2 : 'grid grid-cols-1 md:grid-cols-3 gap-10 xl:gap-14 justify-center justify-items-center',
+    gridCell1Adjust: '',
+    gridCell2Adjust: '',
 } %}
 
 {% set _grid = settings is defined and settings is iterable ? _grid | merge(settings) : _grid %}
 
-{# --
-   if this 3-column grid won't have enough items/results to fill the columns,
-   passing a `maxCols` value of 1 or 2 in the `setting` object will reduce
-   the grid columns accordingly, resulting in a less lopsided layout. -- #}
+{## Grid adjustments
+    -------------------------------------------------------------------------- ##
+    if this 3-column grid won't have enough items/results to fill the columns,
+    passing a `maxCols` value of 1 or 2 in the `setting` object will reduce
+    the grid columns accordingly for a less lopsided layout.
+ ## -------------------------------------------------------------------------- ##}
 
 {% if _grid.maxCols == 2 %}
-    {% set _grid = _grid| merge({ gridCell2: 'grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 xl:gap-24 mx-auto max-w-4xl' }) %}
+    {% set _grid = _grid| merge({ gridCell2: 'w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 xl:gap-14 max-w-5xl' }) %}
 {% endif %}
 
 {% if _grid.maxCols < 2 %}
-    {% set _grid = _grid| merge({ gridCell2: 'mx-auto max-w-2xl' }) %}
+    {% set _grid = _grid| merge({ gridCell2: 'w-full mx-auto max-w-2xl' }) %}
 {% endif %}
+
+{## post-merge adjustments (post-merge)
+    -------------------------------------------------------------------------- ##
+    allow for micro-adjustments to be made to the grid based on the content
+    of the `settings` parameters after they've been merged with the grid base.
+
+    making changes here has the potential to wipeout any grid overrides that
+    were part of the block settings object.
+ ## -------------------------------------------------------------------------- ##}
+{% set _grid = _grid| merge({
+    gridBase : _grid.gridBase,
+    gridCell1: [ _grid.gridCell1, _grid.gridCell1Adjust ]|join(' '),
+    gridCell2: [ _grid.gridCell2, _grid.gridCell2Adjust ]|join(' ')
+}) %}

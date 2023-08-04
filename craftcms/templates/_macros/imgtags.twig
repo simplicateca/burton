@@ -5,7 +5,7 @@
  #
  # Usage:
  # {% import "_macros/imgtags" as imgtags %}
- #}
+ ##}
 
 {%- macro imgTag( image, transform, altText, class ) -%}
 
@@ -17,7 +17,7 @@
     {% set width  = image.width  ??? null %}
     {% set height = image.height ??? null %}
 
-    {# -- automatic placeholder images during development -- #}
+    {## automatic placeholder images during development ##}
     {% if not source and getenv('CRAFT_ENVIRONMENT') != 'production' %}
         {% set width   = 960 %}
         {% set height  = transform == 'square' ? 960 : 540 %}
@@ -29,6 +29,10 @@
 
         {% set source  = "https://picsum.photos/seed/" ~ random(1,9999) ~ "/#{width}/#{height}?grayscale&blur=2" %}
         {% set altText = "Placeholder Image" %}
+
+        {% if "icon" in class %}
+            {% set source  = "https://placeskull.com/170/170/475569/" ~ random(1,24) %}
+        {% endif %}
     {% endif %}
 
     {{ source ? tag('img', {
@@ -41,8 +45,8 @@
     }) }}
 {%- endmacro -%}
 
-{%- macro figCaption( caption = "", class ) -%}
 
+{%- macro figCaption( caption = "", class ) -%}
     {% if caption == 'summary' and getenv('CRAFT_ENVIRONMENT') != 'production' %}
         {% set caption = random([
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor, lectus sed hendrerit porta, urna nisl vehicula enim.',

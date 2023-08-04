@@ -1,23 +1,20 @@
-
 <footer class="bg-gray-200" id="footer">
     <div class="container pt-10 pb-6">
         <div class="grid grid-cols-2">
             <div class="grid grid-cols-2">
                 <div>
-                    <strong>Features</strong>
-                    {{ include( "_components/navigation/menu", {
-                        menu: 'features',
-                        ulClass: "grid grid-cols-1",
-                        liClass: "my-1"
+                    {{ include( "_components/navigation/verticalList", {
+                        title: 'Features',
+                        titleTag: 'strong',
+                        handle: 'features'
                     }, withContext = false ) }}
                 </div>
 
                 <div>
-                    <strong>Contact us</strong>
-                    {{ include( "_components/navigation/menu", {
-                        menu: 'contact',
-                        ulClass: "grid grid-cols-1",
-                        liClass: "my-1"
+                    {{ include( "_components/navigation/verticalList", {
+                        title: 'Contact us',
+                        titleTag: 'strong',
+                        handle: 'contact'
                     }, withContext = false ) }}
 
                     {{ include( '_components/widgets/social-links') }}
@@ -40,9 +37,8 @@
 
 
             {% block menu %}
-                {{ include( "_components/navigation/menu", {
-                    menu: 'legal',
-                    liClass: "mx-3"
+                {{ include( "_components/navigation/horizontalList", {
+                    handle: 'legal'
                 }, withContext = false ) }}
             {% endblock %}
         </div>

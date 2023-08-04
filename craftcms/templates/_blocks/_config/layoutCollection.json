@@ -5,7 +5,7 @@
 
         "settings": {
             "grid": "_layouts/grids/splitNormal",
-            "container": "container",
+            "container": "container @container",
             "headlineClass": "",
             "headlineComponent": null,
             "itemComponent": "_components/carousel/single"
@@ -18,7 +18,7 @@
 
         "settings": {
             "grid": "_layouts/grids/splitReverse",
-            "container": "container",
+            "container": "container @container",
             "headlineClass": "",
             "headlineComponent": null
         }
@@ -30,7 +30,10 @@
 
         "settings": {
             "grid": "_layouts/grids/stacked",
-            "container": "container"
+            "gridInner1": "mx-auto max-w-5xl text-center",
+            "separateCta": true,
+            "gridFooter": "pt-24",
+            "container": "container @container"
         }
     },
 
@@ -40,7 +43,8 @@
 
         "settings": {
             "grid": "_layouts/grids/stackedOver2",
-            "container": "container"
+            "gridInner1": "mx-auto max-w-5xl text-center",
+            "container": "container @container"
         }
     },
 
@@ -50,7 +54,19 @@
 
         "settings": {
             "grid": "_layouts/grids/stackedOver3",
-            "container": "container"
+            "gridInner1": "mx-auto max-w-5xl text-center",
+            "container": "container @container"
+        }
+    },
+
+    {
+        "label": "Text Above 4 Columns",
+        "value": "textAbove4",
+
+        "settings": {
+            "grid": "_layouts/grids/stackedOver4",
+            "gridInner1": "mx-auto max-w-5xl text-center",
+            "container": "container @container"
         }
     },
 
@@ -60,7 +76,8 @@
 
         "settings": {
             "grid": "_layouts/grids/stackedOver6",
-            "container": "container"
+	    "gridInner1": "mx-auto max-w-5xl text-center",
+            "container": "container @container"
         }
     },
 
@@ -70,7 +87,7 @@
 
         "settings": {
             "grid": "_layouts/grids/splitBeside2",
-            "container": "container"
+            "container": "container @container"
         }
     }
 ]

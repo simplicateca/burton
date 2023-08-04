@@ -69,7 +69,7 @@
         {{- include( "_components/builders/builderHeader", { entry: systemPage ??? null }, withContext = false ) -}}
     {%- else -%}
         <div class="p-4 md:p-12 lg:p-16 mt-10">
-            {% if defaultEyebrow %}<div class="eyebrow cEyebrow">{{defaultEyebrow}}</div>{% endif %}
+            {% if defaultEyebrow %}<div class="eyebrow">{{defaultEyebrow}}</div>{% endif %}
             <h1>{{ defaultTitle }}</h1>
         </div>
     {%- endif -%}
@@ -79,7 +79,6 @@
     {%- if systemPage -%}
         {{ include( "_components/builders/builderContent", { entry: systemPage ??? null }, withContext = false ) }}
     {%- else -%}
-        {% import "_macros/richtext" as richtext %}
-        {{ richtext.prose( "<p>#{defaultText}</p>", 'lg' ) }}
+        <p>#{defaultText}</p>
     {%- endif -%}
 {% endblock %}

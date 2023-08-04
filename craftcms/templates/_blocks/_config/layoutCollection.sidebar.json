@@ -1,0 +1,21 @@
+[
+    {
+        "label": "Text Above Collection - Rows",
+        "value": "textAbove",
+
+        "settings": {
+            "grid": "_layouts/grids/stacked",
+            "container": "container @container"
+        }
+    },
+
+    {
+        "label": "Text Above Collection - Carousel",
+        "value": "textAbove",
+
+        "settings": {
+            "grid": "_layouts/grids/stacked",
+            "container": "container @container"
+        }
+    }
+]

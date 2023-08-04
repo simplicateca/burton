@@ -1,18 +1,54 @@
-{# redeclare the variables set in `templates/_blocks/_base.twig` that we'll be using here #}
-{% set settings = settings ??? null %}
-{% set content  = content  ??? null %}
-{% set grid     = grid     ??? settings.grid       ??? null %}
-{% set text     = text     ??? content.text        ??? null %}
-{% set images   = images   ??? content.images.all()??? null %}
+{## Image Feature Block Template
+   -------------------------------------------------------------------------- ##
+   this template is meant to be included via `templates/_blocks/_base.twig`
 
-{% if grid %}
-    {% embed grid %}
+   it *can* be called directly with {{ include }} or {% embed %}, but it might
+   be more trouble than it's worth to prep and format the necessary inputs.
+
+   instead, if you want to display content for a Craft MatrixBlock element,
+   start with the block base template
+
+     -> templates/_blocks/_base.twig
+
+   the block base template is responsible for sanitizing and normalizing all
+   MatrixBlock content and layout settings before calling a template like this.
+
+   if you're trying to create a similar layout or functionality using content
+   that didn't come from a MatrixBlock, consider using {% embed %} to create
+   a grid and overload {% block %} elements as neccesary.
+ # -------------------------------------------------------------------------- ##}
+{% set settings  = settings  ??? null %}
+{% set content   = content   ??? null %}
+
+{% set textParts = textParts ??? null %}
+{% set headline  = textParts.eyebrow ~ textParts.headline ??? null %}
+{% set text      = textParts.body ~ textParts.cta ??? null %}
+
+{% set moveHeaderMobile = settings.moveHeaderMobile ??? false %}
+
+{% set images = images ??? content.images.all() ??? null %}
+
+{% if settings.grid ??? null %}
+    {% embed settings.grid %}
+        {% block header %}
+            {% if moveHeaderMobile %}
+                <div class="lg:hidden">{{headline|raw}}</div>
+            {% endif %}
+        {% endblock %}
+
         {% block cell1 %}
+            {% if moveHeaderMobile %}<div class="max-lg:hidden">{% endif %}
+                {{headline|raw}}
+            {% if moveHeaderMobile %}</div>{% endif %}
+
+            {## is there a widget under the header ##}
+            {% import "_macros/widgets" as widgets %}
+            {{ widgets.embed( thisBlock, 'cell1', 'belowHeader' ) }}
             {{ text|raw }}
         {% endblock %}
 
         {% block cell2 %}
-            {{- include( settings.imageComponent ??? settings.imageTreatment ??? '_components/images/basic', {
+            {{- include( settings.imageComponent ??? settings.imageCard ??? '_components/cards/image/basic', {
                 images  : images,
                 settings: settings
             }, withContext = false ) -}}

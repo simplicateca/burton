@@ -1,64 +1,68 @@
-{% set entry    = entry    ??? null  %}
-{% set layout   = layout   ??? 'generic' %}
-{% set section  = entry.section.handle ??? 'generic' %}
+{% set _settings = {
+    entry       : null,
+    title       : null,
+    subtitle    : null,
+    className   : null,
+    headerLogo  : "_components/logo/basic",
+    headerBlocks: null,
 
-{% set blocks   = blocks   ??? entry.headerBuilder.all() ??? null %}
-{% set title    = title    ??? entry.title ??? null %}
-{% set subtitle = subtitle ??? null %}
+    headerPrimaryNavigation: "_components/navigation/horizontalListWithDropdowns",
+    headerPrimaryMenuHandle: 'primary',
 
-{# primary navigation can also be included inside the <header>,
-   but it depends on whether the navbar is going to be sticky or not #}
+    headerMobileMenuTrigger: "_components/navigation/mobileMenuTrigger",
+
+    headerUtilityNavigation: "_components/navigation/horizontalList",
+    headerUtilityMenuHandle: 'utility',
+}|merge(_context) %}
+
+{## primary navigation can also be included inside the <header>,
+   but it depends on whether the navbar is going to be sticky or not ##}
 {% block headerNavbar %}
     <div class="
         cMainNav
-        cMainNav__{{section}}
-        cMainNav__{{layout}}
-        bg-gray-200
+        cMainNav__{{_settings.className}}
+        bg-slate-200
         border-b
+        border-slate-400
         sticky
         top-0
         w-full
         z-50">
-        <div class="container">
+        <div class="container @container">
             <div class="flex items-center w-full gap-8">
-                <div class="py-4">
-                    {% block headerLogo %}
-                        {{ include( "_components/logo/logo",
-                            { },
-                            withContext = false
-                        ) }}
-                    {% endblock %}
-                </div>
+                {% block headerLogo %}
+                    <div class="py-4">
+                        {{ include( "_components/logo/basic", {}, withContext = false ) }}
+                    </div>
+                {% endblock %}
 
-                <div class="flex flex-col flex-grow text-right w-full items-end">
-                    {% block headerNavigation %}
-                        <div class="flex items-center mb-6 pt-4">
+                {% block headerNavigation %}
+                    <div class="hidden lg:flex flex-col flex-grow text-right w-full items-end gap-6">
+                        <div class="flex items-center gap-3">
                             {{ include(
-                                "_components/navigation/menu",
-                                {
-                                    menu: 'utility',
-                                    ulClass: 'm-0 p-0 list-none flex ml-auto text-right',
-                                    liClass: 'ml-3 text-sm',
-                                    aClass: '',
-                                },
-                                withContext = false
+                                _settings.headerUtilityNavigation, {
+                                    handle: _settings.headerUtilityMenuHandle,
+                                    ulClass: 'm-0 p-0 pt-4 list-none flex gap-3 ml-auto text-right text-sm',
+                                }, withContext = false
                             ) }}
-
-                            <div class="ml-3">
-                                <a href="/search"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 2.5a7.5 7.5 0 0 1 5.964 12.048l4.743 4.745a1 1 0 0 1-1.32 1.497l-.094-.083-4.745-4.743A7.5 7.5 0 1 1 10 2.5Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z" fill="#212121"/></svg></a>
-                            </div>
                         </div>
 
-                        {{ include(
-                            [
-                                "_components/navigation/menu-primary",
-                                "_components/navigation/menu"
-                            ],
-                            { menu: 'primary' },
-                            withContext = false
-                        ) }}
-                    {% endblock %}
-                </div>
+                        <div class="flex items-center gap-6">
+                            {% if _settings.headerPrimaryNavigation %}
+                                {{ include(
+                                    _settings.headerPrimaryNavigation, {
+                                        handle: _settings.headerPrimaryMenuHandle
+                                    }, withContext = false
+                                ) }}
+                            {% endif %}
+                            <a href="/search">{{ include( 'svg/search.svg' ) }}</a>
+                        </div>
+                    </div>
+
+                    {% if _settings.headerMobileMenuTrigger %}
+                        {{ include( _settings.headerMobileMenuTrigger, { }, withContext = false ) }}
+                    {% endif %}
+                {% endblock %}
             </div>
         </div>
     </div>
@@ -67,8 +71,7 @@
 <header role="heading" aria-level="1"
     class="
         cHeader
-        cHeader__{{section}}
-        cHeader__{{layout}}
+        cHeader__{{_settings.className}}
         flex
         flex-col
         bg-gray-200
@@ -76,27 +79,19 @@
         z-40
     ">
 
+    {% set headerBlocks = _settings.headerBlocks ??? _settings.entry.headerBuilder.all() ??? null %}
     {% block headerBuilder %}
         {{ include("_components/builders/builderHeader", {
-            blocks: blocks ??? null,
-            entry: entry
+            entry: entry,
+            blocks: headerBlocks
         }, withContext = false ) }}
     {% endblock %}
 
     {% block headerTitle %}
-        {% if title and not blocks %}
-            <div class="container py-6 lg:py-16">
-                <div class="max-w-7xl">
-                    {% import "_macros/richtext" as richtext %}
-                    {{ richtext.formatHeadline( title, 'h1' ) }}
-                    {% block belowTitle -%}
-                        {% if subtitle %}
-                            <div class="text-2xl pt-8">
-                                {{subtitle|raw}}
-                            </div>
-                        {% endif %}
-                    {%- endblock %}
-                </div>
+        {% if _settings.title and not headerBlocks %}
+            <div class="container @container py-6 lg:py-16">
+                <h1>{{_settings.title}}</h1>
+                {{ _settings.subtitle|raw }}
             </div>
         {% endif %}
     {% endblock %}

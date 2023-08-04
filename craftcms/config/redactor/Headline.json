@@ -4,8 +4,8 @@
     "toolbarFixed": false,
     "air" : true,
     "eyebrows" : [
-        { "label": "Standard", "class": "cEyebrow cEyebrow__standard", "default": true },
-        { "label": "Knockout", "class": "cEyebrow cEyebrow__knockout", "default": false },
-        { "label": "Icon",     "class": "cEyebrow cEyebrow__icon",     "default": false }
+        { "label": "Standard", "class": "eyebrowStandard", "default": true },
+        { "label": "Knockout", "class": "eyebrowKnockout", "default": false },
+        { "label": "Icon",     "class": "eyebrowIcon",     "default": false }
     ]
 }

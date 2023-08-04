@@ -24,20 +24,20 @@
     }
   },
   "linkClasses" : [
-    { "label": "Button", "class": "cButton" },
-    { "label": "Text + Arrow", "class": "cButton__textArrow" }
+    { "label": "Button", "class": "button" },
+    { "label": "Text + Arrow", "class": "button textArrow" }
   ],
   "listClasses" : [
     { "label": "Checkmarks",  "class": "checkmarks" },
-    { "label": "2 columns",   "class": "listGrid-2" },
+    { "label": "2 Columns",   "class": "twoColumns" },
     { "label": "Center Rows", "class": "centerRows" }
   ],
   "imageClasses" : [
-    { "label": "Center", "class": "cImage__center", "default": true }
+    { "label": "Basic", "class": "cImageTreatment__basic", "default": true }
   ],
   "eyebrows" : [
-    { "label": "Standard", "class": "cEyebrow cEyebrow__standard", "default": true },
-    { "label": "Knockout", "class": "cEyebrow cEyebrow__knockout", "default": false },
-    { "label": "Icon",     "class": "cEyebrow cEyebrow__icon",     "default": false }
+    { "label": "Standard", "class": "eyebrowStandard", "default": true },
+    { "label": "Knockout", "class": "eyebrowKnockout", "default": false },
+    { "label": "Icon",     "class": "eyebrowIcon",     "default": false }
   ]
 }

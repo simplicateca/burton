@@ -1,0 +1,39 @@
+{% set _base = {
+    text       : text ??? null,
+    url        : "/search",
+    query      : craft.app.request.getParam('q') ??? '',
+    headline   : "Search our Site",
+    class      : "like-h3 text-left mb-0",
+    placeholder: "Search term..."
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+<form action="{{ settings.url }}" class="max-w-2xl w-full mx-auto grid grid-cols-1 gap-3">
+
+    {% if settings.text ??? null %}
+        {{ settings.text|raw }}
+    {% else %}
+        {% if settings.headline %}
+            <div class="{{settings.class}}">{{settings.headline}}</div>
+        {% endif %}
+    {% endif %}
+
+    <div class="flex flex-col justify-between sm:flex-row border border-slate-700 bg-white">
+        <input
+            type="search"
+            name="q"
+            placeholder="{{settings.placeholder}}"
+            value="{{settings.query}}"
+            class="
+                flex-grow
+                px-4
+                py-4
+                sm:py-1
+                max-w-[calc(100%_-_7rem)]
+                text-black
+            ">
+        <button class="button">Search</button>
+    </div>
+</form>

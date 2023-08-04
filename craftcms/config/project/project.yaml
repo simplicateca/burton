@@ -1,4 +1,4 @@
-dateModified: 1683779940
+dateModified: 1691091841
 elementSources:
   craft\elements\Entry:
     -
@@ -24,19 +24,30 @@ elementSources:
       key: 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # Articles
       tableAttributes:
         - type
-        - 'field:772247d2-d67e-40f2-a243-6e6eca55c5f5' # Topic / Theme / Collection
+        - 'field:772247d2-d67e-40f2-a243-6e6eca55c5f5' # Topic / Theme / Tag
         - postDate
         - link
       type: native
     -
-      heading: 'Supporting Content'
+      heading: 'Secondary Content'
       type: heading
     -
       defaultSort:
         - postDate
         - desc
       disabled: false
-      key: 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # FAQs
+      key: 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+      tableAttributes:
+        - type
+        - 'field:772247d2-d67e-40f2-a243-6e6eca55c5f5' # Topic / Theme / Tag
+        - link
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:8c9174b7-2c31-491e-a3f9-0374374c967c' # Landing Pages
       tableAttributes:
         - postDate
         - expiryDate
@@ -44,8 +55,8 @@ elementSources:
         - link
       type: native
     -
-      key: 'section:8c9174b7-2c31-491e-a3f9-0374374c967c' # Landing Pages
-      type: native
+      heading: 'Meta & System'
+      type: heading
     -
       defaultSort:
         - postDate
@@ -62,17 +73,13 @@ elementSources:
         - postDate
         - desc
       disabled: false
-      key: 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f' # Reusable Elements
+      key: 'section:4615f7fe-de67-4be4-8d0e-ad7b2e14c059' # System Pages
       tableAttributes:
-        - type
+        - postDate
+        - expiryDate
+        - author
         - link
       type: native
-    -
-      key: 'section:4615f7fe-de67-4be4-8d0e-ad7b2e14c059' # System Pages
-      type: native
-    -
-      heading: Documentation
-      type: heading
     -
       defaultSort:
         - structure
@@ -147,7 +154,6 @@ fs:
 meta:
   __names__:
     0a39dfec-64a9-4ad4-98a8-f27aed7fbcd2: 'Intro Text' # Intro Text
-    0ad40d15-72b4-44cd-8601-7432a9d4133e: Format # Format
     0ad703e2-37a9-478e-9ad4-b6b00485da31: 'Text Header' # Text Header
     0b3f350c-7d90-4fe9-b1f9-739b0696f280: 'Page Extras' # Page Extras
     0bcee758-a660-4162-8172-61eb22e388b1: Text # Text
@@ -155,7 +161,6 @@ meta:
     0d222dec-052d-44e2-b502-e9e1109f695d: Text # Text
     0d2936c9-42b4-467f-9004-678230db8291: Background # Background
     0dabdba1-b0ed-4220-8bfd-115e5127ee42: Background # Background
-    0e3f19ed-abc2-4a3b-887d-5876ad74e994: Forms # Forms
     0e2362da-4175-4b8f-a6f7-d881f03be73e: 'Collection Type' # Collection Type
     0f144f04-bdb4-4ad8-9279-376e39af170e: 'Standard (Single Column)' # Standard (Single Column)
     0f975294-dda3-4007-bbc3-3991fb0d15b9: 'Spacers & Dividers' # Spacers & Dividers
@@ -164,25 +169,27 @@ meta:
     1a28951d-82d5-47da-8ec8-ab405c40e0b8: Background # Background
     1a985008-f76e-481c-8f5b-0d30aec5998f: Variant # Variant
     1aa226f6-fbd8-4cb9-94b9-26bca8299a04: Background # Background
+    1acf385f-ccfd-46ca-a526-91115dad48a5: Variant # Variant
     01bb381e-2417-4ee8-8473-40d48d27f2e7: 'Spacers & Dividers' # Spacers & Dividers
     1bd5ff27-b43b-4768-8fdd-170cf3a12f81: 'Anchor Link' # Anchor Link
     1cc41dda-2e96-4e16-967f-c1e9c567ad99: 'Card design' # Card design
     1d242d6f-f863-4979-b2af-bb1da5c2aee2: 'Supporting Text' # Supporting Text
     1da11484-e4d8-4414-9b03-6dc1be10a931: Spacing # Spacing
-    1da13089-e303-46d0-930f-aefd062df474: 'Standard with Sidebar (Two Columns)' # Standard with Sidebar (Two Columns)
+    1da13089-e303-46d0-930f-aefd062df474: 'Standard w/ Sidebar' # Standard w/ Sidebar
     1ddd814c-a3f1-4689-bb67-33d04ad8307a: Headline # Headline
     1edf3767-b37f-430e-8ffd-4bd1a3b9f478: 'Anchor Link' # Anchor Link
     1f910dd9-3b38-45b3-9b88-d01515f45a0c: 'Search navigation' # Search navigation
     1fcfe5f1-d6bb-41d8-a50a-14c2998b0b66: Limit # Limit
     2a64e6bd-a23b-4826-bc19-829c037e6e39: Widget # Widget
     2d9e094a-7b59-4560-841c-138c5391fe7c: 'Spacers & Dividers' # Spacers & Dividers
+    2d27e08b-61f3-47ca-8a0a-e69fa2b1a226: 'Sidebar Fragments' # Sidebar Fragments
+    2dd114a5-aaaa-4e4a-872d-7a61d224b0cb: 'Content Fragments' # Content Fragments
     2e0671a7-eba0-42c5-a5ab-2b30a6fc1bf6: Layout # Layout
     3abe1fa4-77c1-4d66-a3da-ad8dc475b818: Headline # Headline
     3b748353-8f9a-49de-9662-ee18c32578e3: Text # Text
     3be366bf-8e5e-4f28-8502-7ebf1d83e26e: Dropdowns # Dropdowns
     3c05e593-d621-444e-8fb9-ddbb1b356a43: 'Static Assets' # Static Assets
     3d132a28-a031-453f-8dcf-7c2f939cb34a: Button # Button
-    3def122c-77bc-465f-b54f-4bba4ecfab39: Code # Code
     4bedd98c-1f69-4364-b00a-c104f29b836c: 'Number Result' # Number Result
     4cef665b-8759-4bd2-af57-d2867d7447d3: Button # Button
     4d6046b4-d831-4f76-9de0-b7e11ac0fd78: 'Layout Variant' # Layout Variant
@@ -203,8 +210,8 @@ meta:
     05fb8aa2-0c98-4cee-93c3-5ad2f2709822: 'Anchor Link' # Anchor Link
     5ff7eb60-d8c3-46aa-812a-d1e865a3f872: Eyebrow # Eyebrow
     6a1ab78a-ce1d-4e06-944f-7fa172aaa06a: Text # Text
-    6b7d0e03-182d-44ba-a6ef-08930a4253e1: 'Private Collections' # Private Collections
-    6b671614-b4b6-4e0b-9aca-a007b289b197: Default # Default
+    6b7d0e03-182d-44ba-a6ef-08930a4253e1: 'Private Tags' # Private Tags
+    6b671614-b4b6-4e0b-9aca-a007b289b197: Standard # Standard
     6bd61b45-415d-4702-8b93-c734e25ed41e: Subtext # Subtext
     6c74006c-0a40-4ee2-8129-d384c43b0f37: Assets # Assets
     6cf35dcf-8c52-416d-8ce6-736d91b93f74: Coverage # Coverage
@@ -214,21 +221,21 @@ meta:
     7b0a973f-bff0-4f46-bfb0-b6a50c8fe28a: 'Layout Variations' # Layout Variations
     7b71f9f9-edbb-45b7-80c8-3d8bba143155: 'Title Style' # Title Style
     7b72b671-dcdc-49b2-95cd-44a8e8be7cad: Background # Background
-    7ba53c7d-afe6-4a6e-9208-a5c0d39b002d: 'Content Bits' # Content Bits
     7ee37099-f386-42e2-b4fa-2442db13c547: Background # Background
     07fd881e-0862-439b-a7f3-7232454c1947: 'Layout Variations' # Layout Variations
-    8b095f74-200b-429c-b7a1-ed59d28dbafe: 'Sidebar Fragments' # Sidebar Fragments
+    8be21d78-fdee-4246-8da3-24065808e202: Metrics # Metrics
     8c9174b7-2c31-491e-a3f9-0374374c967c: 'Landing Pages' # Landing Pages
     8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: 'Special Element' # Special Element
     8d76450d-4425-43d1-a9eb-b151c3cae1d0: Layout # Layout
     8ecf45da-7553-48ac-b52d-a45f8bc90317: Background # Background
     8eee0057-f0e3-4674-8fd8-6eae3cc9ae0d: Variant # Variant
     8fb8abb9-c8de-487c-ae92-012e8f094ca2: Background # Background
+    9a98ee26-bff8-4ae4-b942-9a367fca906d: Variant # Variant
     9a818c17-ad1d-488d-945a-777b6b8b702f: 'Content entries' # Content entries
     9bc3780c-8a26-4b34-964e-9afe3f249654: 'Filter by Topic' # Filter by Topic
     9d4f8876-987f-46fc-9042-aaf824a7131d: Layout # Layout
     9d81e4ce-5846-4157-aebc-c26abc01d16e: 'Has Search?' # Has Search?
-    9e4fa41f-fd14-4cd9-bc39-6ace1e57fe5c: 'External assets' # External assets
+    9e4fa41f-fd14-4cd9-bc39-6ace1e57fe5c: 'External asset URLs' # External asset URLs
     09e29257-428d-40f2-81a3-c594a739de68: Order # Order
     9f0a0dc0-db3f-49d5-9656-b61ad0d5c452: 'Filter by Topic' # Filter by Topic
     10bfd69c-1702-4ad8-9f1d-db4e1a00aa53: Background # Background
@@ -240,6 +247,7 @@ meta:
     20aa7fd2-2f1f-4b3f-b505-a14c1c3cc164: Eyebrow # Eyebrow
     20c62722-b003-461f-a9e8-763b2a9cbc21: 'How do you want to pick  which entries to embed?' # How do you want to pick  which entries to embed?
     26f7dca6-d051-4598-8236-34d1403ab36c: Background # Background
+    29ded7b8-e4a1-43ce-b030-eac97433cb97: 'Reusable Bits' # Reusable Bits
     29f0f7bf-a7d4-4015-9ea2-cfd8f1530b1b: 'Has Search?' # Has Search?
     29f157fc-9918-4177-bcd3-55c2c5c9a38f: Text # Text
     30b5253e-1f74-41f3-b484-e6c82e3210d5: Layout # Layout
@@ -252,7 +260,6 @@ meta:
     047acefc-818d-4df0-83c5-d8b5a1ebf27c: 'Asset Format' # Asset Format
     48ca3c9e-27f4-4fa0-aa40-711aa5baa658: Variant # Variant
     51b4cdd8-a3aa-47f5-bbb3-f01ce199d3d8: 'Title Style' # Title Style
-    51de348b-07ba-461d-930e-6c85778ed95d: Form # Form
     053bfa49-6de1-439c-8e91-d2b6169eb5e7: Headline # Headline
     54aa6fb8-4a59-4704-9956-2c47eb2f5ceb: 'Anchor Link' # Anchor Link
     055d3887-062f-4180-bac4-65a9670f0440: Variant # Variant
@@ -262,7 +269,6 @@ meta:
     67a0e610-9765-4200-9b9f-e59e4130f652: Background # Background
     68b93e4b-8d64-4598-b7c7-7e34609198b2: Identifier # Identifier
     69a283b4-6d7c-4669-895c-8474a32201f8: 'Limit / Per Page' # Limit / Per Page
-    69ac403d-1688-46dc-ab62-a46257cb4e1b: 'Emergency Message Layout' # Emergency Message Layout
     69c2d7dc-3df8-4df1-a444-d2ae376da00c: Text # Text
     72b4a2cb-e557-468e-ac08-22f48060f192: Eyebrow # Eyebrow
     074ac1b8-ff0c-4993-a607-0b94b74cc84a: 'Customize Buttons' # Customize Buttons
@@ -272,9 +278,8 @@ meta:
     83bbca72-25f6-496c-b095-52dcdf21323d: 'Room Light' # Room Light
     85a35bf9-39c4-475c-9abf-7839f75bb8e6: 'Saved searches' # Saved searches
     86da4c73-7a95-496d-9abe-cd3807a11ead: 'Layout Variations' # Layout Variations
-    87c55206-b434-47f6-844d-1d8664946c2b: 'Layout Variant' # Layout Variant
+    87c55206-b434-47f6-844d-1d8664946c2b: Layout # Layout
     088d28b2-b2cf-4b3d-8741-de59b3784d07: 'Show Related?' # Show Related?
-    174cd975-f457-4998-8bcc-3d25963f9c3b: 'Content Fragments' # Content Fragments
     183c2169-29b6-48fe-8dcd-c8b4945c8abd: 'Table Result' # Table Result
     187bd4a1-b799-4996-9fbc-c74c2d8b7ce0: 'Background Image' # Background Image
     213c9175-81d2-4141-8993-904e59925583: Collection # Collection
@@ -289,7 +294,7 @@ meta:
     479c17fb-3144-43b4-9417-f940264f6a71: 'Title Style' # Title Style
     481eb25d-9439-4ee3-85c2-e1a0e6d62d11: Textarea # Textarea
     500d3539-5d02-4c1a-97ba-890be8854857: 'Grid Columns' # Grid Columns
-    514c0347-c4dd-4b9a-9979-452fc7db526e: 'Saved Searches' # Saved Searches
+    514c0347-c4dd-4b9a-9979-452fc7db526e: 'Content Search' # Content Search
     0553ed4a-8d9c-42be-855a-82fb23a24aac: Background # Background
     577dd7e1-eea7-4b11-9b21-1f402770e968: Background # Background
     595b273f-27a3-4469-bbee-7a14141cadab: 'Text (Intro)' # Text (Intro)
@@ -300,8 +305,9 @@ meta:
     780c9942-bfd5-4d94-82c7-5b323a47f5d4: Default # Default
     846fcb98-b56b-479d-9d99-3502ed63ef09: Partition # Partition
     874c1a25-ef53-4cb7-84b3-3f09a80fa387: Fragment # Fragment
+    0878fe69-0bad-4cb0-97fb-6bd18e7f716a: Stats # Stats
     887c7e34-0b1f-40b8-b330-27d660a47d50: 'Inner Spacing' # Inner Spacing
-    912adfc2-2bca-47f1-9da2-f1ed5514623c: 'Topics / Themes' # Topics / Themes
+    912adfc2-2bca-47f1-9da2-f1ed5514623c: 'Topics & Themes' # Topics & Themes
     942cbdfb-d50d-4dcd-9032-4f483562d1dd: Taxonomies # Taxonomies
     0976e4cf-6b48-45af-9477-99ac396436ae: Buttons # Buttons
     986a0a6d-c09c-4a78-b259-2190a004b305: Redirect # Redirect
@@ -311,6 +317,7 @@ meta:
     5347a201-6da8-47ff-bc5b-20a0dc63d44e: 'Custom Items' # Custom Items
     5491cd12-3474-47e4-afb0-8239bbfe9dd9: 'Anchor Link' # Anchor Link
     6337ada0-e669-440b-8463-48f5c021f9b1: Navigation # Navigation
+    6788be2a-03be-4a82-8c88-9e8a1af1acf4: Preset # Preset
     7574f2c5-ebea-4c7c-9efb-fabe0fc82275: 'Title Style' # Title Style
     7593ee0e-5c97-47ca-a580-35990cabaffe: 'Rich Media' # Rich Media
     7927f7ad-975c-4d46-948a-6bba692a6714: 'Table Test' # Table Test
@@ -323,23 +330,22 @@ meta:
     9844b6dc-6dbb-4203-9eec-5507fcee91f7: 'Limit / Per Page' # Limit / Per Page
     17687c83-d165-4736-b0ae-59020efcb749: 'Local assets' # Local assets
     20618b1a-5f20-4479-8fa4-842e4def10c7: 'Asset source' # Asset source
-    34463b82-dd3f-441c-b9c6-59c351e847aa: 'Main Site (FRENCH)' # Main Site (FRENCH)
+    34463b82-dd3f-441c-b9c6-59c351e847aa: 'Alternate Region/Lang' # Alternate Region/Lang
     041164a1-2d58-4fa0-9493-2de14aabe9ea: Order # Order
     43048f2c-3b11-44e7-8c32-29d991c819cc: Spacing # Spacing
     45833a60-a7b1-44da-99cc-b49fd870d75d: Collection # Collection
-    64029a67-3d0c-4cad-8fc6-dc0eec8c112c: Default # Default
+    64029a67-3d0c-4cad-8fc6-dc0eec8c112c: FAQs # FAQs
     67671be0-6716-4133-92fd-9b01454d8838: Button # Button
     70911a70-fee3-4778-a591-9660d8187ca0: Entry # Entry
-    89093e20-515d-4e3c-b4c4-c6733d8ab56f: 'Reusable Elements' # Reusable Elements
     98433f5b-b542-41ff-a0ca-915026fb4455: 'Layout Variant' # Layout Variant
     138531be-7e43-4759-a397-5325db40a30b: Button # Button
     537988be-e9c5-43e8-8611-2256a41a72fe: New # New
-    0554821f-40fc-4bf7-bd90-a3a2581c88ab: 'Layout Variant' # Layout Variant
+    0554821f-40fc-4bf7-bd90-a3a2581c88ab: Layout # Layout
     563430f9-eadc-4a5b-8adf-3f784f79d901: 'Media Header' # Media Header
     0634113d-5014-46e7-a319-61f78258ce62: Form # Form
     654452af-16fc-46e0-8dc7-0865935a5d62: 'Card design' # Card design
     751770b9-039b-4d3b-8f92-3e31d5c0fba9: 'Anchor Link' # Anchor Link
-    772247d2-d67e-40f2-a243-6e6eca55c5f5: 'Topic / Theme / Collection' # Topic / Theme / Collection
+    772247d2-d67e-40f2-a243-6e6eca55c5f5: 'Topic / Theme / Tag' # Topic / Theme / Tag
     984098f0-f085-4059-9146-a22742da49f7: Sort # Sort
     4778051c-8236-4b81-8b84-f3f633841179: 'JS Event' # JS Event
     05016637-9828-4c3e-94f2-6db02f40308e: Variant # Variant
@@ -366,10 +372,10 @@ meta:
     a7b99dca-7b58-438c-b57e-9d7965c3093b: Partition # Partition
     a8dc4c16-ac4a-41eb-b5cb-a83598b8313f: 'Search navigation' # Search navigation
     a9eefedb-b175-4baa-a9ee-903aa94e9c9b: 'Content Editor' # Content Editor
-    a25a7c39-08d8-449e-818a-0974ed415987: 'Image Content' # Image Content
+    a25a7c39-08d8-449e-818a-0974ed415987: 'Image Feature' # Image Feature
     a35a0beb-0cf7-4a2b-9ec3-91e953a18116: 'Sidebar Builder' # Sidebar Builder
     a39c9c32-2acb-47fd-ad36-7980c445a44e: 'Image Feature' # Image Feature
-    a52e2b08-2e30-4b00-8784-4104c409d3ed: FAQs # FAQs
+    a52e2b08-2e30-4b00-8784-4104c409d3ed: 'Modular Content' # Modular Content
     a57a80dd-895b-4db9-9fb1-02ecff2a9086: 'Choose Color' # Choose Color
     a61ac261-5f37-431f-a92f-8b38277c3a8d: Background # Background
     a62dcf2c-64d8-4cb9-82b6-73cf878eff3d: 'Video Source' # Video Source
@@ -385,7 +391,7 @@ meta:
     ad4c26f2-0839-4f69-bd4b-8f2f43c2d3f1: Edges # Edges
     adb9f8b8-c638-4bcd-a698-ba5d8deb66d5: Test # Test
     adc05109-eaa7-4f80-b156-5b250a28e878: 'Saved Search' # Saved Search
-    adcea45e-bf40-4faf-b0c8-4ce089696971: 'Lead Image(s)' # Lead Image(s)
+    adcea45e-bf40-4faf-b0c8-4ce089696971: 'Feature Image' # Feature Image
     ae3f34db-5fe5-4438-86f0-377cfaebf02a: Layout # Layout
     aebe2498-55fa-4926-8908-8a0bc8d303ba: Widget # Widget
     af48dd81-f2f9-4b6e-83b6-81012dc228db: Identifier # Identifier
@@ -406,7 +412,6 @@ meta:
     b66cd5b9-c63b-48da-88e4-4f0af9f0c6e7: 'Uploaded assets' # Uploaded assets
     b90dc7a3-3d38-40c1-81e0-0ff813fb6fd9: Background # Background
     b97d889b-174a-4908-b53e-13fbe7ad2d73: 'Contact Form' # Contact Form
-    b99a868b-b561-4841-ad62-d4ab5eed5fad: Data # Data
     b99b85fc-06c0-4960-bcda-7f07690ef20d: Background # Background
     b161b327-4669-4d08-b51f-7b8c7091a2d4: Order # Order
     b431aa28-7fd8-4a95-8ace-467582d8e01f: 'Text (Left)' # Text (Left)
@@ -421,7 +426,7 @@ meta:
     ba25b35f-89c4-4230-96a4-31904c63bbf7: Edges # Edges
     bb08d0c0-bcc3-4d96-b172-572ca8f601a1: 'Anchor Link' # Anchor Link
     bc32472f-668b-443f-94a8-94873d0473d2: 'Saved searches' # Saved searches
-    bcb40c76-f64f-408f-b1da-edb455b3588d: 'Main Site (En+Fr)' # Main Site (En+Fr)
+    bcb40c76-f64f-408f-b1da-edb455b3588d: 'Primary Site' # Primary Site
     bdb06b40-a3b0-4a5c-a000-82f87c2f70d0: Partition # Partition
     bf152e62-fb69-4e45-836d-7546488987e6: Background # Background
     bfbcdaa7-793d-4876-911c-c943b49061dd: 'Content source' # Content source
@@ -445,6 +450,8 @@ meta:
     c3237db2-d369-48c5-813e-2345a8581370: Background # Background
     c6677eab-6c78-4ca1-93cd-0faa266d1c45: 'Supporting Text' # Supporting Text
     c70698c5-9843-4d1a-9ce8-2e2e272bd096: Headline # Headline
+    ca0addca-320c-4b2c-94c4-f063b00c270a: Form # Form
+    cbe5ac85-220c-41d2-b80f-6b2f4b4635c3: 'Navigation Menu' # Navigation Menu
     cd660f34-a88e-4f6f-a63d-dac487f3c1b3: 'Anchor Link' # Anchor Link
     cf8b5aee-149d-48d8-b921-8e8d83991221: 'Footer - Features' # Footer - Features
     cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: 'Supporting Text' # Supporting Text
@@ -469,7 +476,7 @@ meta:
     dff5de1e-c92e-47c2-bed2-2e31bca44a38: 'Existing entries' # Existing entries
     e0dac603-c510-4bb5-8701-e25672d93744: Common # Common
     e05e823a-7ea6-4c2e-8906-a71f41da91f0: Fragment # Fragment
-    e0521335-ccc2-4893-a505-4baacf112dee: 'Standard (Single Column)' # Standard (Single Column)
+    e0521335-ccc2-4893-a505-4baacf112dee: Standard # Standard
     e1f06878-5f13-4be3-a010-2741b9b3c7f5: 'Include Search?' # Include Search?
     e2cdac24-87bd-4a5b-be66-d991b0323794: Fragment # Fragment
     e2d14d09-0715-4ab2-b3ea-5bea36055901: Square # Square
@@ -526,7 +533,7 @@ plugins:
     edition: standard
     enabled: true
     licenseKey: XU37DE0Q9IJS585ED5V8E2UX
-    schemaVersion: 4.4.0
+    schemaVersion: 4.5.0
   dospaces:
     edition: standard
     enabled: true
@@ -782,7 +789,7 @@ plugins:
             - 3721b4d6-42d5-41fc-b6e7-76204b42c91a # Articles
             - none
           -
-            - a52e2b08-2e30-4b00-8784-4104c409d3ed # FAQs
+            - a52e2b08-2e30-4b00-8784-4104c409d3ed # Modular Content
             - none
           -
             - 8c9174b7-2c31-491e-a3f9-0374374c967c # Landing Pages
@@ -791,7 +798,7 @@ plugins:
             - 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Primary Pages
             - all
           -
-            - 89093e20-515d-4e3c-b4c4-c6733d8ab56f # Reusable Elements
+            - 89093e20-515d-4e3c-b4c4-c6733d8ab56f
             - all
           -
             - fdb77561-cbd1-4a4e-a2a5-eb559a5361cb # Sitebook
@@ -814,7 +821,7 @@ plugins:
     edition: standard
     enabled: true
     licenseKey: IBL61TQYRBL4JGRTUDGO1XC2
-    schemaVersion: 3.0.11
+    schemaVersion: 3.0.12
     settings:
       addHrefLang: true
       addPaginatedHreflang: true

@@ -1,9 +1,15 @@
 <template>
-    <div class="container">
+    <div class="container @container">
+        <div
+            v-if="settings.text"
+            class="mx-auto max-w-5xl"
+            v-text="settings.text"
+        />
 
-        <div v-if="settings.text" v-html="settings.text"></div>
-
-        <h2  v-else class="mx-auto text-center">
+        <h2
+            v-else
+            class="mx-auto text-center"
+        >
             Simple Vue Component
         </h2>
 
@@ -12,9 +18,7 @@
                 id="slime"
                 ref="slime"
                 class="aspect-square h-full"
-            >
-                &nbsp;
-            </div>
+            />
         </div>
     </div>
 </template>
@@ -23,6 +27,17 @@
     import { TimelineMax, Power0 } from "gsap/all";
 
     export default {
+        props: {
+            settings: {
+                type: Object,
+                default: () => {}
+            },
+            entry: {
+                type: Object,
+                default: () => {}
+            },
+        },
+
         mounted: function() {
             var slime = this.$refs.slime
             var tl    = new TimelineMax({repeat: -1})
@@ -32,8 +47,6 @@
               .to(slime, 2.50, {left: "20%", ease:Power0.easeInOut})
               .to(slime, 0.25, {rotationY: "+=180", left: "10%"});
         },
-
-        props: ['settings']
     }
 </script>
 

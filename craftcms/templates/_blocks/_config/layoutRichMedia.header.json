@@ -4,7 +4,7 @@
 
     "settings": {
         "grid": "_layouts/grids/splitNormal",
-        "container": "container"
+        "container": "container @container"
     }
 },
 
@@ -14,7 +14,7 @@
 
     "settings": {
         "grid": "_layouts/grids/splitReverse",
-        "container": "container"
+        "container": "container @container"
     }
 },
 
@@ -24,6 +24,6 @@
 
     "settings": {
         "grid": "_layouts/grids/stacked",
-        "container": "container"
+        "container": "container @container"
     }
 }]

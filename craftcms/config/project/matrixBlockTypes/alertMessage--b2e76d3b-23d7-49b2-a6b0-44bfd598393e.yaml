@@ -64,7 +64,7 @@ fields:
                   -
                     - values
                     -
-                      - 7ba53c7d-afe6-4a6e-9208-a5c0d39b002d # Content Bits
+                      - 7ba53c7d-afe6-4a6e-9208-a5c0d39b002d
       selectionLabel: null
       showSiteMenu: false
       sources: '*'

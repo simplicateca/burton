@@ -1,0 +1,88 @@
+{% set blockID = blockID ??? content.id    ??? create('craft\\helpers\\StringHelper').UUID()|camel %}
+{% set items   = items   ??? content.items ??? null %}
+
+<!-- Tabs -->
+<div
+    x-data="{
+        selectedId: null,
+        init() {
+            // Set the first available tab on the page on page load.
+            this.$nextTick(() => this.select(this.$id('tab{{blockID}}', 1)))
+        },
+        select(id) {
+            this.selectedId = id
+        },
+        isSelected(id) {
+            return this.selectedId === id
+        },
+        whichChild(el, parent) {
+            return Array.from(parent.children).indexOf(el) + 1
+        }
+    }"
+    x-cloak
+    x-id="['tab{{blockID}}']"
+    class="mx-auto max-w-3xl"
+>
+    <!-- Tab List -->
+    <ul
+        x-ref="tablist{{blockID}}"
+        @keydown.right.prevent.stop="$focus.wrap().next()"
+        @keydown.home.prevent.stop="$focus.first()"
+        @keydown.page-up.prevent.stop="$focus.first()"
+        @keydown.left.prevent.stop="$focus.wrap().prev()"
+        @keydown.end.prevent.stop="$focus.last()"
+        @keydown.page-down.prevent.stop="$focus.last()"
+        role="tablist"
+        class="mb-4 sm:-mb-px flex flex-wrap sm:flex-row items-stretch justify-center sm:justify-start gap-1 sm:gap-0"
+    >
+        <!-- Tab -->
+        {% for row in items %}
+            {% set headline = row.headline ??? row.title ??? null %}
+            <li>
+                <button
+                    :id="$id('tab{{blockID}}', whichChild($el.parentElement, $refs.tablist{{blockID}}))"
+                    @click="select($el.id)"
+                    @mousedown.prevent
+                    @focus="select($el.id)"
+                    type="button"
+                    :tabindex="isSelected($el.id) ? 0 : -1"
+                    :aria-selected="isSelected($el.id)"
+                    :class="isSelected($el.id) ? 'border-gray-200 bg-white' : 'border-transparent'"
+                    class="
+                        inline-flex
+                        rounded
+                        sm:rounded-b-0
+                        border
+                        sm:border-b-0
+                        px-3
+                        py-2.5
+                        text-sm
+                        md:text-base
+                        lg:text-xs
+                        xl:text-base
+                    "
+                    role="tab"
+                >{{headline}}</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Panels -->
+    <div role="tabpanels" class="rounded-b-md border border-gray-200 bg-white">
+        {% for row in items %}
+            {% set image    = row.images.one() ??? null %}
+            {% set headline = row.headline ??? row.title ??? null %}
+            {% set text     = row.text ??? null %}
+
+            <!-- Panel -->
+            <section
+                x-show="isSelected($id('tab{{blockID}}', whichChild($el, $el.parentElement)))"
+                :aria-labelledby="$id('tab{{blockID}}', whichChild($el, $el.parentElement))"
+                role="tabpanel"
+                class="p-8"
+            >
+                {{text|raw}}
+            </section>
+        {% endfor %}
+    </div>
+</div>

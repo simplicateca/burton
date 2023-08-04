@@ -1,0 +1,28 @@
+{% set entry = entry ?? null %}
+{% set _base = {
+    baseCard           : "_components/cards/item/_base",
+    imageTransform     : 'video',
+    imageClass         : "aspect-video w-full",
+    cell2Class         : "bg-shadow-300/20 p-4 flex-grow flex flex-col gap-3",
+    itemTagClass       : "flex flex-col h-full",
+    itemParagraphClass : "flex-grow",
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+{## output the appropriate card ##}
+{% set className = className(entry)|t ??? null %}
+{% set isProduct = 'Product' in className ? 'product' : '' %}
+{% set section   = entry.section.handle ??? isProduct ??? null %}
+{% set entryType = entry.type.handle    ??? null %}
+
+{{ include(
+    [ "_components/cards/#{section}.#{entryType}",
+      "_components/cards/#{section}",
+      settings.baseCard
+    ], {
+      entry: entry,
+      settings: settings
+    } )
+}}

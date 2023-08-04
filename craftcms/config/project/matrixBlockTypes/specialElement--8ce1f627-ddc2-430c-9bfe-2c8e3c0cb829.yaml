@@ -28,7 +28,7 @@ fieldLayouts:
             uid: 9c6b1041-1de6-465d-af7e-5d2c49b231cd
             userCondition: null
             warning: null
-            width: 50
+            width: 75
           -
             elementCondition: null
             fieldUid: adc05109-eaa7-4f80-b156-5b250a28e878 # Saved Search
@@ -40,7 +40,31 @@ fieldLayouts:
             uid: 8ecb71c9-cf08-4a15-a9cc-6560a4a97919
             userCondition: null
             warning: null
-            width: 50
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: ca0addca-320c-4b2c-94c4-f063b00c270a # Form
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b700b263-06f3-4225-b41a-4228bb12245a
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: cbe5ac85-220c-41d2-b80f-6b2f4b4635c3 # Navigation Menu
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3c4a4aca-574b-4dea-9af7-ae7e9d393d6f
+            userCondition: null
+            warning: null
+            width: 75
           -
             elementCondition: null
             fieldUid: 8ecf45da-7553-48ac-b52d-a45f8bc90317 # Background
@@ -78,7 +102,7 @@ fields:
     name: 'Supporting Text'
     searchable: true
     settings:
-      availableTransforms: '*'
+      availableTransforms: ''
       availableVolumes: '*'
       columnType: text
       configSelectionMode: choose
@@ -166,7 +190,7 @@ fields:
                   -
                     - values
                     -
-                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Saved Searches
+                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Search
       selectionLabel: 'Choose Search'
       showSiteMenu: false
       sources:
@@ -190,6 +214,41 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
+  ca0addca-320c-4b2c-94c4-f063b00c270a: # Form
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: form
+    instructions: null
+    name: Form
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: 1
+      minRelations: null
+      selectionLabel: 'Choose Form'
+      showSiteMenu: true
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: verbb\formie\fields\Forms
+  cbe5ac85-220c-41d2-b80f-6b2f4b4635c3: # Navigation Menu
+    columnSuffix: czuybujj
+    contentColumnType: text
+    fieldGroup: null
+    handle: menu
+    instructions: null
+    name: 'Navigation Menu'
+    searchable: false
+    translationKeyFormat: null
+    translationMethod: none
+    type: verbb\navigation\fields\NavigationField
 handle: specialElement
 name: 'Special Element'
 sortOrder: 7

@@ -6,13 +6,14 @@
         border-gray-500
         text-white
         text-base
+        rounded-md
         !m-0
         p-4
         px-6
         inline-block
         whitespace-nowrap
         no-underline
-        leading-none
+        !leading-none
         hover:bg-gray-700;
 
     &.cButton__small,
@@ -50,7 +51,7 @@
 
         &:after {
             @apply translate-x-0.5;
-        }        
+        }
     }
 }
 
@@ -101,7 +102,7 @@
     &.cButtonGroup__center  {
         @apply justify-center;
     }
-    
+
     &.cButtonGroup__right  {
         @apply justify-end;
     }
@@ -119,7 +120,7 @@
 
 a.clickable-parent,
 button.clickable-parent {
-    &:before {       
+    &:before {
         @apply absolute top-0 right-0 bottom-0 left-0 z-20;
         content: '';
     }

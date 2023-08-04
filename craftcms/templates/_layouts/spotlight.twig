@@ -1,19 +1,22 @@
-{% set entry     = event ??? product ??? entry ??? null %}
-{% set layout    = 'spotlight' %}
+{% set product   = product ??? null %}
+{% set event     = event   ??? null %}
+{% set entry     = entry   ??? product ??? event ??? null %}
 
-{% set tmplPath  = _self ??? null %}
-{% set section   = entry.section.handle ??? null %}
+{% set section   = entry.section.handle ??? ( product ? 'product' ) ??? ( event ? 'event' ) %}
+{% set entryType = entry.type.handle    ??? null %}
 {% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
-{% set bodyClass = "#{layout} #{section} #{entryUri} bg-gray-900" %}
+
+{% set title     = title  ??? null %}
+{% set layout    = layout ??? 'spotlight' %}
+
+{% set bodyClass = "#{layout} #{section} #{entryType} #{entryUri} bg-gray-900" %}
 
 {% extends "_layouts/base" %}
 
-{# -- primary <body> content -- #}
+{## primary <body> content ##}
 {% block bodyHtml %}
 
-
-
-    {# -- perform entry eager loading -- #}
+    {## perform entry eager loading ##}
     {% if entry and ( className(entry) ??? null ) %}
         {% do craft.app.elements.eagerLoadElements(
             className(entry),
@@ -24,10 +27,14 @@
         ) %}
     {% endif %}
 
+    {% block alertbar %}
+        {{ sprig( "_sprig/alertBar/basic", {} ) }}
+    {% endblock %}
+
     {% block header %}
         <div class="max-w-3xl w-full mx-auto">
             {% block headerLogo %}
-                {{ include( "_components/logo/logo",
+                {{ include( "_components/logo/basic",
                     { },
                     withContext = false
                 ) }}
@@ -69,10 +76,3 @@
 
     {% block footer %}{% endblock %}
 {% endblock bodyHtml %}
-
-{# -- fixed position components -- #}
-{% block bodyComponents %}
-    {% block alertbar %}
-        {{ sprig( "_sprig/alertBar/basic", {} ) }}
-    {% endblock %}
-{% endblock %}

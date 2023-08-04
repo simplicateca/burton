@@ -1,0 +1,29 @@
+{% extends "_layouts/grids/_base2Cell" %}
+
+{% set _grid = {
+    gridBase  : 'w-full relative grid grid-cols-1 items-center gap-10 xl:gap-16',
+    gridCell1 : 'w-full',
+    gridCell2 : 'w-full mx-auto grid grid-cols-2 md:grid-cols-4 gap-10 xl:gap-14',
+    maxCols   : 4
+} %}
+
+{% set _grid = settings is defined and settings is iterable ? _grid | merge(settings) : _grid %}
+
+{## Grid adjustments
+    -------------------------------------------------------------------------- ##
+    if this 4-column grid won't have enough items/results to fill the columns,
+    passing a `maxCols` value of 1, 2, or 3 in the `setting` object will reduce
+    the grid columns accordingly for a less lopsided layout.
+ ## -------------------------------------------------------------------------- ##}
+
+{% if _grid.maxCols == 3 %}
+    {% set _grid = _grid| merge({ gridCell2: 'w-full mx-auto grid grid-cols-2 md:grid-cols-3 gap-10 xl:gap-14 max-w-5xl' }) %}
+{% endif %}
+
+{% if _grid.maxCols == 2 %}
+    {% set _grid = _grid| merge({ gridCell2: 'w-full mx-auto grid grid-cols-2 gap-10 xl:gap-14 max-w-5xl' }) %}
+{% endif %}
+
+{% if _grid.maxCols < 2 %}
+    {% set _grid = _grid| merge({ gridCell2: 'w-full mx-auto max-w-2xl' }) %}
+{% endif %}

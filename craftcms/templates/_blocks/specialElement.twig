@@ -1,13 +1,31 @@
-{# redeclare the variables set in `templates/_blocks/_base.twig` that we'll be using here #}
+{## Special Element Block Template
+    -------------------------------------------------------------------------- ##
+    this template is meant to be included via `templates/_blocks/_base.twig`
+
+    it *can* be called directly with {{ include }} or {% embed %}, but it might
+    be more trouble than it's worth to prep and format the necessary inputs.
+
+    instead, if you want to display content for a Craft MatrixBlock element,
+    start with the block base template
+
+        -> templates/_blocks/_base.twig
+
+    the block base template is responsible for sanitizing and normalizing all
+    MatrixBlock content and layout settings before calling a template like this.
+
+    if you're trying to create a similar layout or functionality using content
+    that didn't come from a MatrixBlock, consider using {% embed %} to create
+    a grid and overload {% block %} elements as neccesary.
+ ## -------------------------------------------------------------------------- ##}
 {% set settings  = settings  ??? null %}
 {% set content   = content   ??? null %}
+{% set entry     = entry     ??? null %}
 {% set grid      = grid      ??? settings.grid ??? null %}
 {% set text      = text      ??? content.text  ??? null %}
 {% set component = component ??? settings.specialComponent ??? null %}
 {% set searchID  = searchID  ??? (content.searches.ids() ??? null)|first ??? null %}
 
 {% if component %}
-
     {% set specialContent %}
         {% if '_sprig' in component %}
             {{ sprig( component, {
@@ -18,6 +36,7 @@
         {% else %}
             {{- include( component, {
                 text: text,
+                entry: entry,
                 settings: settings,
                 searchID: searchID
             }, withContext = false ) -}}

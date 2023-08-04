@@ -1,7 +1,9 @@
-<div class="flex flex-col gap-4 mt-3">
+{% set class = class ??? 'text-sm' %}
+
+<div class="flex flex-col gap-5 mt-3">
     <div class="flex gap-3">
         <span class="h-6 w-6">{{_self.pin( '#94a3b8' ) }}</span>
-        <div class="prose text">
+        <div class="{{class}}">
             1234 Main Street.<br>
             Unit 2001<br>
             Cityville, PS
@@ -9,13 +11,13 @@
     </div>
     <div class="flex gap-3">
         <span class="h-6 w-6">{{_self.mail( '#94a3b8' )}}</span>
-        <div class="prose text">
+        <div class="{{class}}">
             <a href="mailto:"><span>email@domain.com</span></a>
         </div>
     </div>
     <div class="flex gap-3">
         <span class="h-6 w-6">{{_self.phone( '#94a3b8' )}}</span>
-        <div class="prose text">
+        <div class="{{class}}">
             <a href="tel:+15555555555"><span>+1 555-555-5555 (local)</span></a><br>
             <a href="tel:+18005555555"><span>+1 800-555-5555 (toll free)</span></a>
         </div>

@@ -64,11 +64,11 @@ fields:
                   -
                     - values
                     -
-                      - 174cd975-f457-4998-8bcc-3d25963f9c3b # Content Fragments
+                      - 174cd975-f457-4998-8bcc-3d25963f9c3b
       selectionLabel: null
       showSiteMenu: false
       sources:
-        - 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f' # Reusable Elements
+        - 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f'
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

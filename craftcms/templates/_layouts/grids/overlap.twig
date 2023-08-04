@@ -1,9 +1,10 @@
 {% extends "_layouts/grids/_base2Cell" %}
 
 {% set _grid = {
-    gridBase  : 'w-full flex flex-col gap-10 lg:gap-16 xl:gap-24',
+    gridBase  : 'w-full',
     gridCell1 : 'w-full relative z-30',
-    gridCell2 : 'absolute top-0 left-0 bottom-0 right-0 overflow-hidden'
+    gridInner1: 'mx-auto w-full @container',
+    gridCell2 : 'absolute top-0 left-0 bottom-0 right-0 overflow-hidden z-10'
 } %}
 
 {% set _grid = settings is defined and settings is iterable ? _grid | merge(settings) : _grid %}

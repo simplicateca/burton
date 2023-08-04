@@ -1,48 +1,55 @@
-{# redeclare the variables set in `templates/_blocks/_base.twig` that we'll be using here #}
-{% set blockID      = blockID ??? random(111111, 999999) %}
-{% set blockConfig  = blockConfig ??? config ??? null %}
-{% set gridLayout   = layout ??? blockConfig.layout ??? null %}
-{% set textContent1 = ( text ??? '' )|trim %}
+{## Rich Media Block Template
+   -------------------------------------------------------------------------- ##
+   this template is meant to be included via `templates/_blocks/_base.twig`
 
-{% import "_macros/embed" as embedExternal %}
+   it *can* be called directly with {{ include }} or {% embed %}, but it might
+   be more trouble than it's worth to prep and format the necessary inputs.
 
-{# declare image/media varibles passed from parent include() #}
-{% set mediaConfig    = mediaConfig ??? null %}
-{% set mediaComponent = mediaConfig.component ??? '_components/media/media' %}
-{% set mediaAssets    = media ??? content.media.all() ??? [] %}
-{% set externalMedia  = externalMedia ??? content.externalMedia ??? null %}
+   instead, if you want to display content for a Craft MatrixBlock element,
+   start with the block base template
 
-{# prepare media content #}
-{% set mediaContent2 %}
-    {% if externalMedia %}
-        {% for exMedia in externalMedia %}
-            {{ embedExternal.iframe( exMedia.url, mediaConfig, blockID, loop ) }}
-        {% endfor %}
-    {% else %}
-        {{ include(mediaComponent, {
-            blockID: blockID,
-            config: mediaConfig,
-            media: mediaAssets
-        }) }}
-    {% endif %}
-{% endset %}
+     -> templates/_blocks/_base.twig
 
-{# grid layouts are micro-templates for various content/layout patterns.
-   templates includes all html/tailwind necessary for a basic layout render.
-   layout settings can be modified or overridden via the `config` param.
-   grid layout twig files are typically stored in `cms/templates/_layouts/grids/` #}
-{% if gridLayout %}
-    {% embed gridLayout with {
-        blockID: blockID,
-        config: blockConfig,
-        content1Hide: ( not textContent1 )
-    } %}
-        {% block content1 %}
-            {{textContent1|raw}}
+   the block base template is responsible for sanitizing and normalizing all
+   MatrixBlock content and layout settings before calling a template like this.
+
+   if you're trying to create a similar layout or functionality using content
+   that didn't come from a MatrixBlock, consider using {% embed %} to create
+   a grid and overload {% block %} elements as neccesary.
+ # -------------------------------------------------------------------------- ##}
+{% set settings  = settings  ??? null %}
+{% set content   = content   ??? null %}
+{% set textParts = textParts ??? null %}
+
+{% if settings.grid %}
+    {% embed settings.grid %}
+
+        {% block cell1 %}
+            {% set text = ( textParts.eyebrow ~ textParts.headline ~ textParts.body ~ textParts.cta ) ??? text ??? content.text ??? null %}
+            {{ text|raw }}
         {% endblock %}
 
-        {% block content2 %}
-            {{mediaContent2|raw}}
+        {% block cell2 %}
+            {% set source = source ??? content.source ??? null %}
+            {% set urls   = urls   ??? content.urls   ??? null %}
+            {% set assets = assets ??? content.assets.all() ??? null %}
+
+            {% set urls   = ( source == 'external' or ( urls and not assets ) ) ? urls   : null %}
+            {% set assets = ( source == 'local'    or ( assets and not urls ) ) ? assets : null %}
+
+            {% import "_macros/embed" as embedExternal %}
+
+            {% for exMedia in urls %}
+                {{ embedExternal.iframe( exMedia.url, settings, blockID, loop ) }}
+            {% endfor %}
+
+            {{- include( settings.mediaComponent ??? settings.mediaTreatment ??? '_components/cards/media/_router', {
+                urls    : urls,
+                assets  : assets,
+                source  : source,
+                settings: settings
+            }, withContext = false ) -}}
         {% endblock %}
+
     {% endembed %}
 {% endif %}

@@ -26,12 +26,12 @@ settings:
     category:
       allowCrossSiteLink: false
       allowCustomQuery: false
-      enabled: true
+      enabled: false
       sources: '*'
     custom:
       allowAliases: false
       disableValidation: false
-      enabled: true
+      enabled: false
     email:
       allowAliases: false
       disableValidation: false
@@ -40,7 +40,10 @@ settings:
       allowCrossSiteLink: false
       allowCustomQuery: false
       enabled: true
-      sources: '*'
+      sources:
+        - 'section:8c9174b7-2c31-491e-a3f9-0374374c967c' # Landing Pages
+        - 'section:4615f7fe-de67-4be4-8d0e-ad7b2e14c059' # System Pages
+        - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Primary Pages
     site:
       enabled: true
       sites: '*'

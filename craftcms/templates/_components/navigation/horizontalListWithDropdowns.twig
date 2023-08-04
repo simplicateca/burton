@@ -1,0 +1,54 @@
+{# {% set _settings = _settings is defined and _settings is iterable ? _settings : {} %} #}
+{% set _settings = {
+    title           : null,
+    titleTag        : null,
+    handle          : null,
+    navId           : null,
+    ulClass         : "m-0 p-0 list-none flex gap-8",
+    liClass         : null,
+    aClass          : "navItem
+                       text-lg
+                       no-underline
+                       text-gray-700
+                       hover:bg-slate-100
+                       flex
+                       items-center
+                       px-2
+                       gap-2",
+    activeClass     : "navItem__isActive",
+    hasChildrenClass: "navItem__hasChildren",
+}|merge(_context) %}
+
+{% if _settings.handle %}
+    {% set nodes = craft.navigation.nodes()
+        .handle( _settings.handle )
+        .level(1)
+    %}
+
+    {% if nodes.one() %}
+        <nav
+            id="{{ _settings.navId ??? "menu#{_settings.handle|capitalize}" }}"
+            role="navigation"
+            aria-label="{{ _settings.title ??? _settings.handle|capitalize }} Navigation"
+        >
+            <ul class="{{ _settings.ulClass }}">
+                {% for node in nodes.all() %}
+                    <li class="{{ _settings.liClass }} {{ node.children ? _settings.hasChildrenClass }}">
+                        {% if node.hasDescendants %}
+                            {{ include( '_components/navigation/dropdown', {
+                                title: node.title,
+                                children: node.children.all(),
+                                buttonClass: _settings.aClass,
+                            }, withContext = false ) }}
+                        {% else %}
+                            <a
+                                href="{{node.url}}"
+                                class="{{ _settings.aClass }} {{ node.active or node.hasActiveChild ? _settings.activeClass }}"
+                            ><span>{{node.title}}</span></a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endif %}

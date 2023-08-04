@@ -3,7 +3,7 @@ enabled: '0'
 handle: french
 hasUrls: true
 language: fr-CA
-name: 'Main Site (FRENCH)'
+name: 'Alternate Region/Lang'
 primary: false
-siteGroup: bcb40c76-f64f-408f-b1da-edb455b3588d # Main Site (En+Fr)
+siteGroup: bcb40c76-f64f-408f-b1da-edb455b3588d # Primary Site
 sortOrder: 2

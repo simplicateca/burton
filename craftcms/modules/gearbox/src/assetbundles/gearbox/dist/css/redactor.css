@@ -2,7 +2,7 @@
  * Gearbox - Redactor inline styles
  */
 
-/* paragraph formatting dropdown selector */ 
+/* paragraph formatting dropdown selector */
 .redactor-dropdown-item-larger span {
     font-size: 22px !important;
 }
@@ -116,12 +116,12 @@
 .input .redactor-styles ul.checkmarks {
     list-style: none;
 }
-  
+
 .input .redactor-styles ul.checkmarks li:before {
     content: '✓ ';
 }
 
-.input .redactor-styles div.cEyebrow {
+.input .redactor-styles div.eyebrow {
   display: table;
   padding: 2px 4px;
   border: 3px dashed #898989;
@@ -133,19 +133,19 @@
   margin-left: -1px;
 }
 
-.input .redactor-styles div.cEyebrow.cEyebrow__knockout {
+.input .redactor-styles div.eyebrowKnockout {
   background: #222;
   color: #fff;
   border-color: #999;
 }
 
-.input .redactor-styles div.cEyebrow.cEyebrow__-accent {
+.input .redactor-styles div.eyebrowAccent {
   background: yellow;
 }
 
-.input .redactor-styles div.cEyebrow + h2,
-.input .redactor-styles div.cEyebrow + h3,
-.input .redactor-styles div.cEyebrow + h4 {
+.input .redactor-styles div.eyebrow + h2,
+.input .redactor-styles div.eyebrow + h3,
+.input .redactor-styles div.eyebrow + h4 {
   margin-top: 0 !important;
 }
 
@@ -176,7 +176,7 @@ div[id^='fields-headerBuilder'][id$='headline-field'] .input .redactor-styles p 
 div[id$='headline-field'] .input .redactor-styles {
     overflow: initial;
     padding-top: 12px;
-    padding-bottom: 12px;    
+    padding-bottom: 12px;
 }
 
 div[id$='headline-field'] .input .redactor-styles p {
@@ -216,5 +216,5 @@ a.redactor-dropdown-item-deleted span {
   text: #999;
 }
 *[data-re-name="marked"] span {
-  
+
 }

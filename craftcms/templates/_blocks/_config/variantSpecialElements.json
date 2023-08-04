@@ -1,22 +1,31 @@
 [
     {
-        "label": "Site Search",
+        "label": "Content Search",
         "value": "siteSearch",
 
         "settings" : {
-            "container": "container",
-            "specialComponent": "_components/search/form"
+            "container": "container @container",
+            "specialComponent": "_components/search/basicQuery"
         }
     },
 
     {
-        "label": "Saved Search Index Page",
-        "value": "searchListing",
+        "label": "Form",
+        "value": "form",
 
         "settings" : {
-            "container": "container",
-            "specialComponent": "_sprig/liveSearch/basic"
+            "container": "container @container",
+            "specialComponent": "_components/cards/media/form"
+        }
+    },
 
+    {
+        "label": "Navigation Menu",
+        "value": "navigation",
+
+        "settings" : {
+            "container": "container @container",
+            "specialComponent": "_components/navigation/basic"
         }
     },
 
@@ -25,8 +34,8 @@
         "value": "vueComponent",
 
         "settings" : {
-            "container": "container",
-            "specialComponent": "_components/media/vueComponent",
+            "container": "container @container",
+            "specialComponent": "_components/cards/media/vue",
             "specialVueLoader": "app.vueTestSlime"
         }
     }

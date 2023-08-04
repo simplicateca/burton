@@ -1,20 +1,20 @@
-{# -- Block Loop -- #}
+{## Block Loop ##}
 
-{# these are the 3 parameters we need to see in here #}
+{## these are the 3 parameters we need to see in here ##}
 {% set blocks  = blocks  ??? blocks.all()       ??? null %}
 {% set entry   = entry   ??? blocks|first.owner ??? null %}
 {% set builder = builder ??? 'content' %}
 
-{# individually splice fragment blocks into the block list, and merge settings #}
+{## individually splice fragment blocks into the block list, and merge settings ##}
 {% set normalBlocks = normalizeBlocks( blocks, entry, builder ) %}
 
 {% if normalBlocks %}
 
-    {# loop through the list of normalized blocks #}
+    {## loop through the list of normalized blocks ##}
     {% set prevBlock = null %}
     {% for thisBlock in normalBlocks %}
 
-        {# closes the scene+container for block above -- if necessary #}
+        {## closes the section+container for block above -- if necessary ##}
         {% if not loop.first %}
             {{ include('_components/builders/blockClose', {
                 entry: entry,
@@ -23,27 +23,27 @@
             }, withContext = false ) }}
         {% endif %}
 
-        {# open the scene+container for the current block, including
-            any spacers/dividers/transitions from the block above #}
+        {## open the section+container for the current block, including
+            any spacers/dividers/transitions from the block above ##}
         {{ include('_components/builders/blockOpen', {
             entry: entry,
             prevBlock: prevBlock,
             thisBlock: thisBlock
         }, withContext = false ) }}
 
-        {# find/load the content/layout template for this block #}
+        {## find/load the content/layout template for this block ##}
         {{ include('_blocks/_base', {
             entry: entry,
             builder: builder,
             thisBlock: thisBlock
         }, withContext = false ) }}
 
-        {# FINAL ACTION BEFORE NEXT LOOP ITERATION!
-           DON'T ADD ANYTHING ELSE BELOW THIS LINE #}
+        {## FINAL ACTION BEFORE NEXT LOOP ITERATION!
+           DON'T ADD ANYTHING ELSE BELOW THIS LINE ##}
         {% set prevBlock = thisBlock %}
     {% endfor %}
 
-    {# close the final scene+container #}
+    {## close the final section+container ##}
     {{ include('_components/builders/blockClose', {
         entry: entry,
         thisBlock: prevBlock,

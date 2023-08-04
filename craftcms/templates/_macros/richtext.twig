@@ -5,219 +5,79 @@
  #
  # Usage:
  # {% import "_macros/richtext.twig" as richtext %}
- #}
+ ##}
 
 
-{# Extract any headers (h1,h2,h3,etc) from the start of a string of html
- #
- # e.g.
- #   {{ richtext.leadingHeadlines( '<h1>Hello</h1><p>How are you?</p>' )}
- #
- # will output:
- #   <h1>Hello</h1>
- #}
+{% macro formatHeadline( headline, tag = null, class = null, template = null ) -%}{% apply spaceless %}
+    {% if headline %}
+        {% set eyebrow   = headline|retconOnly( 'div.eyebrow' ) ??? null %}
+        {% set headline  = headline|retconRemove( 'div.eyebrow' ) ??? "" %}
+        {% set plainText = headline|retconChange( ['h1','h2','h3','h4','h5','h6','p','li','div'], '' ) %}
+        {## |widont ##}
 
-{% macro leadingHeadlines(html, forceTo = null, class = null, template = null ) -%}
-{% apply spaceless %}
-    {% if html %}
-        {% set eyebrow   = html|retconOnly( 'div.eyebrow' ) ??? null %}
-        {% set html      = html|retconRemove( 'div.eyebrow' ) %}
-
-        {% set headlines = html|extractLeadingHeaders %}
-
-        {% set hTags = ['h1','h2','h3','h4','h5','h6'] %}
-
-        {% if forceTo and forceTo in hTags  %}
-            {% set headlines = headlines|retconChange( hTags, forceTo ) %}
+        {% if tag %}
+            {% set headline = "<#{tag}>#{plainText}</#{tag}>" %}
         {% endif %}
 
-        {% if class %}
-            {% set headlines = headlines| retconAttr( hTags, { 'class' : class } ) %}
-        {% endif %}
+        {% set anchor = plainText|replace( {"\n": " " } )|striptags|kebab|ascii %}
+        {% set headline =
+            headline
+            | retconAttr( ['h1','h2','h3','h4','h5','h6'], { 'id': anchor, 'class': class } )
+            | retconWrap( "mark", "span.mark" )
+            | retconChange( "mark", "span" )
+            | retconChange( "span.mark", "mark" )
+            | typogrify(true)
+            | nl2br
+        %}
 
-        {% set headlines = eyebrow ~ headlines %}
-
-        {{ _self.formatHeadline( headlines, null, null, template ) }}
-    {% endif %}
-{% endapply %}
-{%- endmacro %}
-
-
-{% macro formatHeadline( headline, tag = null, class = null, template = null ) -%}
-{% apply spaceless %}
-    {% set eyebrow   = headline|retconOnly( 'div.eyebrow' ) ??? null %}
-    {% set headline  = headline|retconRemove( 'div.eyebrow' ) %}
-    {% set plainText = headline|retconChange( ['h1','h2','h3','h4','h5','h6','p','li','div'], '' )|widont %}
-
-    {% if tag %}
-        {% set headline = "<#{tag}>#{plainText}</#{tag}>" %}
-    {% endif %}
-
-    {% set anchor = plainText|replace( {"\n": " " } )|striptags|kebab|ascii %}
-    {% set headline =
-        headline
-        | retconAttr( ['h1','h2','h3','h4','h5','h6'], { 'id': anchor, 'class': class } )
-        | retconWrap( "mark", "span.mark" )
-        | retconChange( "mark", "span" )
-        | retconChange( "span.mark", "mark" )
-        | typogrify(true)
-        | nl2br
-    %}
-
-    {% set headlineStyle  = headline|lower|replace( " ", "" ) %}
-    {% set alignmentClass = "" %}
-    {% if( 'text-align:left' in headlineStyle ) %}
-        {% set alignmentClass = 'left' %}
-    {% endif %}
-
-    {% if( 'text-align:center' in headlineStyle ) %}
-        {% set alignmentClass = 'center' %}
-    {% endif %}
-
-    {% if( 'text-align:right' in headlineStyle ) %}
-        {% set alignmentClass = 'right' %}
-    {% endif %}
-
-    {% set alignmentClass = alignmentClass ? " cHeadline__#{alignmentClass}" : "" %}
-
-    {% set eyebrowText = ( eyebrow ?? '' )|striptags|trim|lower|ascii|kebab  %}
-    {% if eyebrowText %}
-        {% set eyebrow = eyebrow|retconAttr( 'div', { id: eyebrowText }) %}
-    {% endif %}
-
-    {% if template %}
-        {{ include( template, { headline: headline, eyebrow: eyebrow }, withContext = false) }}
-    {% else %}
-        {% if headline or eyebrow %}
-            <div class="cHeadline {{- alignmentClass }}">
-                {{eyebrow}}
-                {{headline|raw}}
-            </div>
-        {% endif %}
-    {% endif %}
-{% endapply %}
-{%- endmacro %}
-
-
-{% macro trailingButtons(html, wrapper = 'div.trailingButtons', class = null, template = null ) -%}
-{% apply spaceless %}
-   {% if html %}
-        {% set buttons = html|extractTrailingButtons %}
-
-        {% if class %}
-            {% set buttons = buttons| retconAttr( 'a.button', { 'class' : class } ) %}
-        {% endif %}
-
-        {{ _self.formatButtons( buttons, wrapper, null, template ) }}
-    {% endif %}
-{% endapply %}
-{%- endmacro %}
-
-
-{% macro formatButtons( button, wrapper = null, class = null, template = null ) -%}
-{% apply spaceless %}
-
-    {% if button and wrapper %}
-
+        {% set headlineStyle  = headline|lower|replace( " ", "" ) %}
         {% set alignmentClass = "" %}
-        {% if( 'text-align:left' in button|lower|replace( " ", "" ) ) %}
-            {% set alignmentClass = 'cButtonGroup__left' %}
+        {% if( 'text-align:left' in headlineStyle ) %}
+            {% set alignmentClass = 'left' %}
         {% endif %}
 
-        {% if( 'text-align:center' in button|lower|replace( " ", "" ) ) %}
-            {% set alignmentClass = 'cButtonGroup__center' %}
+        {% if( 'text-align:center' in headlineStyle ) %}
+            {% set alignmentClass = 'center' %}
         {% endif %}
 
-        {% if( 'text-align:right' in button|lower|replace( " ", "" ) ) %}
-            {% set alignmentClass = 'cButtonGroup__right' %}
+        {% if( 'text-align:right' in headlineStyle ) %}
+            {% set alignmentClass = 'right' %}
         {% endif %}
 
-        {% set wrapper = wrapper|split('.', 2)   %}
-        {% set wDiv    = wrapper[0] ?? 'div'     %}
-        {% set wClass  = wrapper[1] ?? '' %}
-        {% set wClass  = wClass|replace({'.':' '}) %}
-        {% set button  = "<#{wDiv} class='#{wClass} #{alignmentClass}'>#{button}</#{wDiv}>" %}
+        {% set alignmentClass = alignmentClass ? " cHeadline__#{alignmentClass}" : "" %}
+
+        {% set eyebrowText = ( eyebrow ?? '' )|striptags|trim|lower|ascii|kebab  %}
+        {% if eyebrowText %}
+            {% set eyebrow = eyebrow|retconAttr( 'div', { id: eyebrowText }) %}
+        {% endif %}
+
+        {% if template %}
+            {{ include( template, { headline: headline, eyebrow: eyebrow }, withContext = false) }}
+        {% else %}
+            {% if headline or eyebrow %}
+                <div class="cHeadline {{- alignmentClass }}">
+                    {{eyebrow}}
+                    {{headline|raw}}
+                </div>
+            {% endif %}
+        {% endif %}
     {% endif %}
-
-    {% if class %}
-        {% set button = button| retconAttr( 'a.button', { 'class' : class } ) %}
-    {% endif %}
-
-    {% if template %}
-        {{ include( template, { button: buttonv }, withContext = false) }}
-    {% else %}
-        {{button|raw}}
-    {% endif %}
-{% endapply %}
-{%- endmacro %}
+{% endapply %}{%- endmacro %}
 
 
-{% macro trimHeadlinesButtons(html, removeHeadlines = true, removeButtons = true) -%}
-{% apply spaceless %}
-    {% if html %}
-        {% set html = removeHeadlines ? html|retconRemove( 'div.eyebrow' ) : html %}
-        {% set html = removeHeadlines ? html|removeLeadingHeaders  : html %}
-        {% set html = removeButtons   ? html|removeTrailingButtons : html %}
-        {{html|raw}}
-    {% endif %}
-{% endapply %}
-{%- endmacro %}
+{% macro prose( text, size = 'lg', extraClass = '' ) -%}{% apply spaceless %}
 
-
-{% macro prose( text, size = 'lg', extraClass = '' ) -%}
-{% apply spaceless %}
     {% set text = text|trim %}
-
-    {% set proseSizes = {
-        'xs'     : 'prose-xs',
-        'sm'     : 'prose-xs lg:prose-sm 2xl:prose-base',
-        'small'  : 'prose-xs lg:prose-sm 2xl:prose-base',
-        'md'     : 'prose-xs sm:prose-sm lg:prose-base 2xl:prose-lg',
-        'base'   : 'prose-xs sm:prose-sm lg:prose-base 2xl:prose-lg',
-        'lg'     : 'prose-sm sm:prose-base xl:prose-lg 2xl:prose-xl',
-        'large'  : 'prose-sm sm:prose-base xl:prose-lg 2xl:prose-xl',
-        'xl'     : 'prose-lg xl:prose-xl 2xl:prose-2xl'
-    } %}
-
-
-    {% set proseClass = attribute(proseSizes, size) %}
-
-    {% set first100char = text|retconRemove( 'div.eyebrow' )|trim|slice(0,100)|lower|replace( " ", "" ) %}
-    {% set alignmentClass = "" %}
-
-    {% if( 'text-align:left' in first100char ) %}
-        {% set alignmentClass = 'cProse__startsLeft' %}
-    {% endif %}
-
-    {% if( 'text-align:center' in first100char ) %}
-        {% set alignmentClass = 'cProse__startsCenter' %}
-    {% endif %}
-
-    {% if( 'text-align:right' in first100char ) %}
-        {% set alignmentClass = 'cProse__startsRight' %}
-    {% endif %}
-
-    {% set first11char = text|retconRemove( 'div.eyebrow' )|trim|slice(0,11)|lower %}
-    {% set extraClass  = first11char == '<blockquote' ? 'cProse__startsQuote ' ~ extraClass : extraClass %}
 
     {% if text %}
         {% set text = text|first == '<' ? text : "<p>#{text}</p>" %}
 
-        <div class="prose {{proseClass}} {{alignmentClass}} {{extraClass}}">
+        {## <div class="prose {{proseClass}} {{alignmentClass}} {{extraClass}}"> ##}
+        <div class="prose {{extraClass}}">
             {{- text
-                | groupButtons
                 | typogrify
                 | retconChange( 'h1', 'h2' )
-                | retconWrap( "mark", "span.mark" )
-                | retconChange( "mark", "span" )
-                | retconChange( "span.mark", "mark" )
-                | retconAttr( "figure", { style: '' } )
-                | retconWrap( "figure img", ".img" )
-                | retconWrap( "figure iframe[src*='youtube']", ".video" )
-                | retconAttr( "figure div.image + figcaption", { class: 'img' } )
-                | retconAttr( "figure div.video iframe", { style: '' } )
             -}}
         </div>
     {% endif %}
-{% endapply %}
-{%- endmacro %}
+{% endapply %}{%- endmacro %}

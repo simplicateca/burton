@@ -1,0 +1,98 @@
+{% set _base = {
+    figureID    : null,
+    imageFigure : "m-auto p-0 flex flex-col",
+    captionClass: "",
+    link        : false,
+    sizes       : [],
+} %}
+
+{## merge `_base` into variables passed into the template ##}
+{% set settings = ( settings is defined and settings is iterable ) ? _base|merge(settings) : _base %}
+
+{## --
+   get a little more detail about the image, allowing for the
+   possibility we were passed a URL rather than an Asset element ##}
+{% set images = settings.image ??? settings.images ??? null %}
+{% set image  = null %}
+{% set source = "" %}
+{% set kind   = "image" %}
+
+{% if images %}
+    {% if ( images.url ??? null ) or not images is iterable %}
+        {% set image = images %}
+    {% else %}
+        {% set image = ( images[0].url ??? null )
+            ? images[0]
+            : null
+        %}
+    {% endif %}
+{% endif %}
+
+{% if image %}
+    {% if image is iterable %}
+        {% set source = image.url  %}
+        {% set kind   = image.kind %}
+    {% else %}
+        {% set source = image %}
+        {% set kind   = (source|split('.')|last|lower ??? "")|t %}
+    {% endif %}
+{% endif %}
+
+{% if source or getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    <figure class="{{settings.imageFigure}}" {% if settings.figureID %}id="{{settings.figureID}}"{% endif %}>
+
+    {% if settings.link %}<a href="{{settings.link}}">{% endif %}
+
+    {## lottie animations ##}
+    {% if kind in ['json','lottie'] %}
+        {% block lottieTag %}
+            {{ tag('lottie-player', {
+                src       : source,
+                class     : settings.imageClass,
+                autoplay  : true,
+                loop      : true,
+                ariaHidden: true,
+                role      : "presentation",
+                mode      : "bounce",
+                loading   : 'lazy'
+            }) }}
+        {% endblock %}
+    {% endif %}
+
+    {## regular images ##}
+    {% import "_macros/imgtags" as imgtags %}
+
+    {% if kind in ['image','jpg','jpeg','png','gif','webm'] %}
+        {% block imageTag %}
+            <picture>
+                {## code for responsive sizes / webm conversion goes here ##}
+
+                {## output the image tag ##}
+                {{ imgtags.imgTag(
+                    image,
+                    settings.imageTransform,
+                    settings.altText ??? null,
+                    settings.imageClass
+                ) }}
+            </picture>
+        {% endblock %}
+    {% endif %}
+
+    {% if settings.link %}</a>{% endif %}
+
+    {## if a `caption` exists, use it for the <figcaption>,
+    if not, use `altText` but only show it to screen readers ##}
+    {% block figcaption %}
+        {% set caption     = (settings.imageCaption ??? null)|t %}
+        {% set altText     = (settings.altText      ??? null)|t %}
+
+        {% set image       = settings.image ??? null %}
+
+        {% set captionText = caption and image ? attribute(image, caption) ??? caption : caption %}
+
+        {{ captionText ? imgtags.figCaption( captionText, settings.captionClass ) }}
+        {{ not captionText and altText ? imgtags.figCaption( altText, "sr-only" ) }}
+    {% endblock %}
+
+    </figure>
+{% endif %}

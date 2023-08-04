@@ -1,13 +1,13 @@
 
 {% set items    = items    ??? [] %}
-{% set settings = settings ??? null %}
-{% set itemCard = itemCard ??? settings.itemCard ??? null %}
-
-{% set uuid = create('craft\\helpers\\StringHelper').UUID() %}
+{% set settings = settings is defined and settings is iterable ??? null %}
+{% set itemCard = itemCard ??? settings.itemCard ??? '_components/cards/item/stackedBox' %}
+{% set uuid     = create('craft\\helpers\\StringHelper').UUID() %}
 
 {% if items %}
     <div
         x-data="{ splide: null }"
+        x-cloak
         x-init="$nextTick(() => {
             splide = new Splide($refs['splide-{{uuid}}'], {
                 type: 'loop',
@@ -15,13 +15,13 @@
             }).mount()
         })">
 
-        <section x-ref="splide-{{uuid}}" class="splide relative z-40">
+        <section x-ref="splide-{{uuid}}" class="splide relative z-40" id="splide-{{uuid}}">
             <div class="splide__track">
                 <ul class="splide__list">
                     {% for item in items %}
-                        <li class="splide__slide flex flex-col items-center justify-start pb-8">
+                        <li class="splide__slide flex flex-col items-center justify-start">
                             {{ include(itemCard, {
-                                item: item,
+                                entry: item,
                                 loop: loop,
                                 settings: settings
                             }, withContext = false ) }}
@@ -38,8 +38,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.7/dist/js/splide.min.js"></script>
 
     <style>
-        .splide__pagination__page.is-active {
-            background: #333;
+        #splide-{{uuid}} .splide__pagination {
+            display: none;
         }
     </style>
 {% endhtml %}

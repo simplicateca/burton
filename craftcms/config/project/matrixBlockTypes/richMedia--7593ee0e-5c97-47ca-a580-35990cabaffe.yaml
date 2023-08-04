@@ -55,7 +55,7 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: 9e4fa41f-fd14-4cd9-bc39-6ace1e57fe5c # External assets
+            fieldUid: 9e4fa41f-fd14-4cd9-bc39-6ace1e57fe5c # External asset URLs
             instructions: null
             label: null
             required: false
@@ -93,16 +93,16 @@ fieldLayouts:
         uid: 06fcfa84-a4b0-40d3-9fa4-5e8e032778cd
         userCondition: null
 fields:
-  9e4fa41f-fd14-4cd9-bc39-6ace1e57fe5c: # External assets
+  9e4fa41f-fd14-4cd9-bc39-6ace1e57fe5c: # External asset URLs
     columnSuffix: uhslrpql
     contentColumnType: text
     fieldGroup: null
-    handle: externalUrls
+    handle: urls
     instructions: 'Paste direct links to 3rd party hosted media (Youtube, Vimeo, etc)'
-    name: 'External assets'
+    name: 'External asset URLs'
     searchable: false
     settings:
-      addRowLabel: 'Add External Media'
+      addRowLabel: 'Add URL'
       columnType: text
       columns:
         __assoc__:
@@ -158,7 +158,7 @@ fields:
               - 'Choose from uploaded assets / files'
             -
               - value
-              - localAssets
+              - local
             -
               - default
               - '1'
@@ -169,7 +169,7 @@ fields:
               - 'Embed external assets by URL'
             -
               - value
-              - externalUrls
+              - external
             -
               - default
               - ''
@@ -256,7 +256,7 @@ fields:
     name: 'Supporting Text'
     searchable: false
     settings:
-      availableTransforms: '*'
+      availableTransforms: ''
       availableVolumes: '*'
       columnType: text
       configSelectionMode: choose

@@ -19,17 +19,15 @@ namespace modules\gearbox\twigextensions;
 use modules\gearbox\Gearbox;
 
 use Craft;
-use craft\elements\Entry;
-use craft\elements\MatrixBlock;
+use craft\helpers\StringHelper;
 
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Twig\TwigMarkup;
 use Twig\Extension\AbstractExtension;
 
 use Embed\Embed;
-use Masterminds\HTML5;
 use mmikkel\retcon\Retcon;
-use Symfony\Component\DomCrawler\Crawler;
 
 class GearboxTwigExtension extends AbstractExtension
 {
@@ -42,160 +40,313 @@ class GearboxTwigExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter( 'extractLeadingHeaders', [$this, 'extractHeaders',  ]),
-            new TwigFilter( 'removeLeadingHeaders',  [$this, 'removeHeaders'  ]),
-
-            new TwigFilter( 'extractTrailingButtons', [$this, 'extractButtons',  ]),
-            new TwigFilter( 'removeTrailingButtons',  [$this, 'removeButtons'  ]),
-
-            new TwigFilter( 'hex2rgb',  [$this, 'hex2rgb'  ]),
-
-            new TwigFilter( 'groupButtons', [$this, 'groupButtons' ]),
-
-            new TwigFilter( 'statFormat', [$this, 'statFormat' ]),
+            new TwigFilter( 'decode_entities',  [$this, 'decodeEntities']),
+            new TwigFilter( 'hex2rgb',          [$this, 'hex2rgb'       ]),
+            new TwigFilter( 'ucfirst',          [$this, 'ucFirstFilter' ]),
         ];
     }
 
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('leadingHeaders',  [$this, 'leadingHeaders']),
-            new TwigFunction('trailingButtons', [$this, 'trailingButtons']),
-            new TwigFunction('embedInfo', [$this, 'embedInfo']),
-            new TwigFunction('hex2rgb', [$this, 'hex2rgb']),
+            // new TwigFunction('leadingHeaders',  [$this, 'leadingHeaders']),
+            // new TwigFunction('trailingButtons', [$this, 'trailingButtons']),
 
-            new TwigFunction('firstHref', [$this, 'firstHref']),
-
-            new TwigFunction('normalizeBlocks', [$this, 'normalizeBlocks']),
+            new TwigFunction('processRichHtml', [$this, 'processRichHtml'   ]),
+            new TwigFunction('hex2rgb',         [$this, 'hex2rgb'           ]),
+            new TwigFunction('hex2text',        [$this, 'hex2text'          ]),
+            new TwigFunction('embedInfo',       [$this, 'embedInfo'         ]),
         ];
     }
 
-
-    public function extractHeaders( string|null $html = "" ): string
+    public function ucFirstFilter(string|null $val)
     {
-        return $this->leadingHeaders( $html, 'extract' );
+        return ucfirst($val);
     }
 
-    public function removeHeaders(  string|null $html = "" ): string
+    public function processRichHtml( string|null $html = "" ): array
     {
-        return $this->leadingHeaders( $html, 'remove' );
-    }
+        // selector configs
+        // TODO: move these into a config file
+        $settings = [
+            'eyebrowSelector'     => "div.eyebrow:first-child",
+            'headlineSelectors'   => ['h1:first-child','h2:first-child','h3:first-child'],
+            'defaultMarkSelector' => "mark:not(.m1):not(.m2)",
+            'defaultMarkClass'    => "m1",
+            'markSelectors'       => ['mark.m1','mark.m2'],
+            'ctaSelector'         => "a.button",
+            'lastSmallSelector'   => "p.small:last-child",
+            'trailingCtaSelector' => "p[data-has-buttons]:last-child",
+            'figureClassPrefix'   => "cImageCard__",
+        ];
 
-    /**
-     * Finds any leading header tags (h1-h6) at the beginning of a string of
-     * HTML code and optionally extract or removes them, returning the result
-     *
-     * @param string $html   -- a string of well formatted html code
-     * @param string $method -- extract|remove
-     *
-     * @return string
-     */
-    public function leadingHeaders( string|null $html = "", string $method = 'extract' ): string
-    {
-        // before we get started, lets yank out any eyebrows
-        $eyebrow = (string) Retcon::getInstance()->retcon->only( $html, "div.eyebrow" ) ?? '';
-        $html    = (string) Retcon::getInstance()->retcon->remove( $html, "div.eyebrow" );
 
-        $libxmlUseInternalErrors = \libxml_use_internal_errors(true);
-        $content = \mb_convert_encoding($html, 'HTML-ENTITIES', Craft::$app->getView()->getTwig()->getCharset());
-        $doc = new \DOMDocument();
-        $doc->loadHTML("<html><body>$content</body></html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        \libxml_use_internal_errors($libxmlUseInternalErrors);
+        // keep a copy of the original unchanged text body
+        $processed = $html;
+        $textParts = [
+            'original'  => $html,
+            'eyebrow'   => null,
+            'headline'  => null,
+            'cta'       => null,
+            'body'      => null,
+            'bodyRaw'   => null,
+        ];
 
-        $crawler = new Crawler($doc);
-
-        if( $crawler->filter('body') && $crawler->filter('body')->children() ) {
-            $html = "";
-            $foundLeading = false;
-
-            foreach( $crawler->filter('body')->children() AS $node ) {
-                if( !$foundLeading && in_array( strtolower( $node->tagName ), ['h1','h2','h3','h4','h5','h6'] ) ) {
-                    $html .= ( $method == 'extract' ) ? $node->ownerDocument->saveHTML($node) : "";
-                } else {
-                    $foundLeading = true;
-                    $html .= ( $method == 'remove'  ) ? $node->ownerDocument->saveHTML($node) : "";
-                }
-            }
+        if( !$html ) {
+            return $textParts;
         }
 
-        // if we were extracting headers, return the eyebrow with the headers
-        // otherwise do nothing since they're already been removed from the body
-        if( $method == 'extract' ) { $html = $eyebrow . $html; }
+        // do some retcon things that we want to do for all text fields
+        $processed = $this->commonTextManipulations( $processed, $settings );
+
+        // if the html string only has a single link element in the entire block
+        $links = $this->retconOnly( $processed, "a" );
+        if( mb_substr_count( mb_strtolower( $links ), "</a>" ) == 1 ) {
+            $processed = (string) Retcon::getInstance()->retcon->attr( $processed, "a", [ "data-only-link" => true ] );
+        }
+
+        // process the top level DomElements in the rich html string for:
+        //  - embedded rich media (images, videos, url strings, etc)
+        //  - replace style="text-align:left|center|right" attriutes with class names
+        //  - paragraphs that contain one or more buttons
+        $processed = $this->processTopLevelDomElements( $processed, $settings );
+
+        // extract the div.eyebrow element appearing before any other element in the html string
+        $textParts['eyebrow'] = $this->retconOnly( $processed, $settings['eyebrowSelector'] );
+        $processed = $this->retconRemove( $processed, $settings['eyebrowSelector'] );
+
+        // TODO: automatically add id to eyebrow
+        // {% set eyebrowText = ( eyebrow ?? '' )|striptags|trim|lower|ascii|kebab  %}
+        // {% if eyebrowText %}
+        //     {% set eyebrow = eyebrow|retconAttr( 'div', { id: eyebrowText }) %}
+        // {% endif %}
+
+        // do the same for h1,h2,h3 elements in cascading succession
+        foreach( $settings['headlineSelectors'] as $headerTagSelector ) {
+            $textParts['headline'] .= $this->retconOnly( $processed, $headerTagSelector );
+            $processed = $this->retconRemove( $processed, $headerTagSelector );
+        }
+
+        // find any small/micetype paragraphs at the bottom of the html string
+        // these sometimes site below trailing buttons and should be extracted with it
+        $lastSmallPara = $this->retconOnly( $processed, $settings['lastSmallSelector'] );
+        $processed = $this->retconRemove( $processed, $settings['lastSmallSelector'] );
+
+        // grab the last paragraph and test to see if it contains buttons. or more specifically,
+        // test if the first child of last paragraph is a link of some kind (typically a call-to-action)
+        $lastButtonPara = $this->retconOnly( $processed, $settings['trailingCtaSelector'] );
+        $processed = $this->retconRemove( $processed, $settings['trailingCtaSelector'] );
+
+        // if we found a trailing button paragraph, save it separately with the last small paragraph (if any).
+        // otherwise, slap push any last small paragraph element on to the bottom of the processed html string
+        if( $lastButtonPara ) {
+            $textParts['cta'] = $lastButtonPara . $lastSmallPara;
+        } else {
+            $processed .= $lastSmallPara;
+        }
+
+        $textParts['body']    = $processed;
+        $textParts['bodyRaw'] = (string) Retcon::getInstance()->retcon->change(
+            $processed,
+            ['h1','h2','h3','h4','h5','h6','p','li','ul','ol','div'],
+            false
+        );
+
+        return $textParts;
+    }
+
+
+    private function retconOnly( $html, $selector ) {
+        $html = (string) Retcon::getInstance()->retcon->only( "<wrapper>$html</wrapper>", "wrapper $selector" ) ?? null;
+        return trim( $html );
+    }
+
+
+    private function retconRemove( $html, $selector ) {
+        $html = (string) Retcon::getInstance()->retcon->remove( "<wrapper>$html</wrapper>", "wrapper $selector" );
+        $html = (string) Retcon::getInstance()->retcon->change( $html, "wrapper", false );
+        return trim( $html );
+    }
+
+
+    private function commonTextManipulations( $html, $settings = [] )
+    {
+        // add a base class to all block level elements to identify them as
+        // having come from redactor so that they can be easily styled
+        $html = (string) Retcon::getInstance()->retcon->attr(
+            $html,
+            "p,ol,ul,blockquote,h1,h2,h3,h4,h5,h6,hr",
+            ["class" => "base"], false
+        );
+
+        // duplicate all href attributes to data-href inside <a> elements
+        $html = (string) Retcon::getInstance()->retcon->renameAttr( $html, "a", [ 'href' => 'data-ahref' ] );
+        $html = preg_replace('/data-ahref="(.*?)"/', "href=\"$1\" data-ahref=\"$1\"", $html );
+
+        // make sure all <mark> elements have a default class
+        $html = (string) Retcon::getInstance()->retcon->attr(
+            $html,
+            $settings['defaultMarkSelector'],
+            ["class" => $settings['defaultMarkClass'] ]
+        );
+
+        // backflip our way into wrapping the inner contents of all <mark> elements with a plain <span>
+        foreach( $settings['markSelectors'] as $markTagSelector ) {
+            $html = (string) Retcon::getInstance()->retcon->wrap( $html, $markTagSelector, $markTagSelector );
+            $html = (string) Retcon::getInstance()->retcon->change( $html, "$markTagSelector $markTagSelector", "span" );
+            $html = (string) Retcon::getInstance()->retcon->attr( $html, "$markTagSelector span", [ "class" => null ] );
+        }
 
         return $html;
     }
 
 
-    public function extractButtons( string|null $html = "" ): string
-    {
-        return $this->trailingButtons( $html, 'extract' );
-    }
+    private function processTopLevelDomElements( $html, $settings ) {
 
-    public function removeButtons(  string|null $html = "" ): string
-    {
-        return $this->trailingButtons( $html, 'remove' );
-    }
-
-    /**
-     * Finds any buttons (or paragraphs that start with a button) at the end of a string of
-     * HTML code and optionally extract or removes them, returning the result
-     *
-     * @param string $html   -- a string of well formatted html code
-     * @param string $method -- extract|remove
-     *
-     * @return string
-     */
-    public function trailingButtons( string|null $html = "", string $method = 'extract' ): string
-    {
-        $libxmlUseInternalErrors = \libxml_use_internal_errors(true);
-        $content = \mb_convert_encoding($html, 'HTML-ENTITIES', Craft::$app->getView()->getTwig()->getCharset());
-        $doc = new \DOMDocument();
-        $doc->loadHTML("<html><body>$content</body></html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        \libxml_use_internal_errors($libxmlUseInternalErrors);
-
-        $crawler = new Crawler($doc);
-
-        if( $crawler->filter('body') && $crawler->filter('body')->children() ) {
+        if( $nodes = $this->_html2nodes( $html ) ) {
             $html = "";
-            $foundTrailing = false;
+            foreach( $nodes AS $node ) {
+                if( $node ) {
 
-            $allNodes = [];
-            foreach( $crawler->filter('body')->children() AS $node ) {
-                $allNodes[] = $node;
-            }
+                    $node = $this->setNodeAlignment( $node, $settings );
 
-            foreach( $crawler->filter('body > p')->last() AS $lastPara ) {
-                $linkCrawler = new Crawler($lastPara);
-                if( $linkCrawler ) {
-                    // $buttons = $linkCrawler->filter('a.button');
-                    $buttons = $linkCrawler->filter('a');
-
-                    if( $buttons->count() ) {
-                        $foundTrailing = true;
+                    $nodeHtml = "";
+                    switch( mb_strtolower( $node->tagName ?? "" ) ) {
+                        case 'figure':
+                            $nodeHtml = $this->generateFigureHtml( $node, $settings['figureClassPrefix'] ?? null );
+                            break;
+                        case 'p':
+                            $nodeHtml = $this->generateParagraphHtml( $node, $settings['ctaSelector'] ?? null );
+                            break;
+                        default:
+                            $nodeHtml = $node->ownerDocument->saveHTML($node);
                     }
+
+                    $html .= $nodeHtml;
                 }
             }
-
-            $buttonNode = ( $foundTrailing ) ? array_pop( $allNodes ) : null;
-
-            if( $method == 'extract' ) {
-                return ( $buttonNode )
-                    ? $buttonNode->ownerDocument->saveHTML($buttonNode)
-                    : "";
-            }
-
-            foreach( $allNodes AS $node ) {
-                $html .= $node->ownerDocument->saveHTML($node);
-            }
         }
-
         return $html;
     }
 
 
+    private function generateFigureHtml( $node, $figureClassPrefix )
+    {
+        $view = Craft::$app->getView();
+        $templateMode = $view->getTemplateMode();
+        $view->setTemplateMode($view::TEMPLATE_MODE_SITE);
 
-    public function embedInfo( $url ) {
+        $figureHtml   = $node->ownerDocument->saveHTML( $node );
+        $figureClass  = $node->getAttribute('class') ?? "";
+        $cardTemplate = mb_ereg_replace( $figureClassPrefix, '', $figureClass );
 
+        // TODO: Clean-up this dumb ugly bullshit
+        // ------------------------------------------------------------------------
+        $figureLink     = $this->retconOnly( $figureHtml, "a" );
+        $figureImage    = $this->retconOnly( $figureHtml, "img" );
+        $figureIframe   = $this->retconOnly( $figureHtml, "iframe" );
+        $figureCaption  = $this->retconOnly( $figureHtml, "figcaption" );
+        $linkNodes      = $this->_html2nodes( $figureLink   ) ?? [];
+        $imageNodes     = $this->_html2nodes( $figureImage  ) ?? [];
+        $iframeNodes    = $this->_html2nodes( $figureIframe ) ?? [];
+        $linkNode       = null;
+        $imageNode      = null;
+        $iframeNode     = null;
+        foreach( $linkNodes AS $node   ) { $linkNode   = $node; break; }
+        foreach( $imageNodes AS $node  ) { $imageNode  = $node; break; }
+        foreach( $iframeNodes AS $node ) { $iframeNode = $node; break; }
+        // ------------------------------------------------------------------------
+
+        $cleanCardTmplName = trim( mb_ereg_replace('/[^\w\d\-\_]+/', '', $cardTemplate ) ) ?? 'basic';
+        $cardComponentPath = $iframeNode
+            ? "_components/cards/richmedia/"
+            : "_components/cards/image/";
+
+        $cardTwigInclude   = '{% include "' . $cardComponentPath . $cleanCardTmplName . '" ignore missing %}';
+
+        $cardSettings = [
+            'figureID'     => $node->getAttribute('id') ?? StringHelper::UUID(),
+            'link'         => $linkNode  ? $linkNode->getAttribute('href') ?? null : null,
+            'image'        => $imageNode ? $imageNode->getAttribute('src') ?? null : null,
+            'altText'      => $imageNode ? $imageNode->getAttribute('alt') ?? $imageNode->getAttribute('title') ?? null : null,
+            'imageCaption' => (string) Retcon::getInstance()->retcon->change( $figureCaption, "figcaption", false ) ?? ""
+        ];
+
+        $newFigureHtml = (string) $view->renderString( $cardTwigInclude, [ 'settings' => $cardSettings ] );
+
+        $view->setTemplateMode($templateMode);
+
+        return trim( $newFigureHtml ?? $figureHtml );
+    }
+
+
+    // convert:
+    //   style="text-align:left/center/right"
+    // to:
+    //   class="text-left/text-center/text-right"
+    private function setNodeAlignment( $node, $settings )
+    {
+        $classLeft   = $settings["classLeft"]   ?? "text-left";
+        $classCenter = $settings["classCenter"] ?? "text-center";
+        $classRight  = $settings["classRight"]  ?? "text-right";
+
+        $nodeStyle = $node->getAttribute('style') ?? "";
+        $nodeClass = $node->getAttribute('class') ?? "";
+        $nodeStyle = mb_strtolower( mb_ereg_replace( "/\s+/", '', $nodeStyle ) );
+
+        if( strstr( $nodeStyle, "text-align:left" ) ) {
+            $node->setAttribute( "class", implode( " ", [$nodeClass, $classLeft] ) );
+        }
+
+        if( strstr( $nodeStyle, "text-align:center" ) ) {
+            $node->setAttribute( "class", implode( " ", [$nodeClass, $classCenter] ) );
+        }
+
+        if( strstr( $nodeStyle, "text-align:right" ) ) {
+            $node->setAttribute( "class", implode( " ", [$nodeClass, $classRight] ) );
+        }
+
+        return $node;
+    }
+
+
+    private function generateParagraphHtml( $node, $ctaSelector )
+    {
+        $paraHtml = $node->ownerDocument->saveHTML( $node );
+
+        if( $this->retconOnly( $paraHtml, $ctaSelector ) ) {
+            $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['data-has-buttons' => true] );
+        }
+
+        return trim( $paraHtml );
+    }
+
+
+    private function _html2nodes( $html )
+    {
+        $html = \mb_convert_encoding($html, 'HTML-ENTITIES', Craft::$app->getView()->getTwig()->getCharset());
+        if( mb_substr($html,0,1) != '<' ) {
+            return null;
+        }
+
+        $libxmlUseInternalErrors = \libxml_use_internal_errors(true);
+        $doc = new \DOMDocument();
+        $doc->loadHTML("<wrapper>$html</wrapper>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        \libxml_use_internal_errors($libxmlUseInternalErrors);
+
+        $crawler = new \Symfony\Component\DomCrawler\Crawler($doc);
+        return $crawler->filter('wrapper')->children();
+    }
+
+
+    public function decodeEntities( string|null $html = "" ): string
+    {
+        return html_entity_decode( $html );
+    }
+
+
+    public function embedInfo( $url )
+    {
         $embedData = \Craft::$app->cache->getOrSet( "embedData-$url", function () use ($url) {
             $embed = new Embed();
             $info = $embed->get($url);
@@ -208,7 +359,7 @@ class GearboxTwigExtension extends AbstractExtension
                 'html'       => $info->code->html,
                 'ratio'      => $info->code->ratio,
                 'aspect'     => "",
-                'provider'   => strtolower( $info->providerName ),
+                'provider'   => mb_strtolower( $info->providerName ),
             ];
 
             if( (int) $data['ratio'] == 56 ) {
@@ -233,7 +384,8 @@ class GearboxTwigExtension extends AbstractExtension
     }
 
 
-    public function hex2rgb( $colour ) {
+    public function hex2rgb( $colour )
+    {
         $colour = ltrim( $colour, '#' );
 
         if( strlen( $colour ) == 6 ) {
@@ -252,239 +404,22 @@ class GearboxTwigExtension extends AbstractExtension
     }
 
 
-    public function firstHref( $html, $only = false ) {
+    // figure out whether black or white is the most appropriate colour
+    // to use for displaying text over top of a given background hex value
+    public function hex2text( $hex ) {
 
-        if( empty($html) ) { return false; }
+        // Convert hex code to an array of RGB values
+        list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
 
-        $libxmlUseInternalErrors = \libxml_use_internal_errors(true);
-        $content = \mb_convert_encoding($html, 'HTML-ENTITIES', Craft::$app->getView()->getTwig()->getCharset());
-        $doc = new \DOMDocument();
-        $doc->loadHTML("<html><body>$content</body></html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        \libxml_use_internal_errors($libxmlUseInternalErrors);
+        // Convert RGB values to decimal
+        $decimal_r = intval($r, 16);
+        $decimal_g = intval($g, 16);
+        $decimal_b = intval($b, 16);
 
-        $crawler  = new Crawler($doc);
-        $allLinks = $crawler->filter('body a');
+        // Apply formula to determine text color
+        $luminance = $decimal_r * 0.299 + $decimal_g * 0.587 + $decimal_b * 0.114;
 
-        if( count( $allLinks ) == 1 || !$only ) {
-            return $allLinks->first()->link()->getUri();
-        }
-
-        return false;
+        // Use #000000 for text color if luminance is greater than 186
+        return ($luminance > 156) ? '#000000' : '#ffffff';
     }
-
-
-    public function groupButtons( $html ) {
-
-        if( substr($html,0,1) != '<' ) {
-            return $html;
-        }
-
-        $libxmlUseInternalErrors = \libxml_use_internal_errors(true);
-        $content = \mb_convert_encoding($html, 'HTML-ENTITIES', Craft::$app->getView()->getTwig()->getCharset());
-        $doc = new \DOMDocument();
-        $doc->loadHTML("<html><body>$content</body></html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        \libxml_use_internal_errors($libxmlUseInternalErrors);
-
-        $crawler = new Crawler($doc);
-
-        if( $crawler->filter('body') && $crawler->filter('body')->children() ) {
-            $html = "";
-
-            foreach( $crawler->filter('body')->children() AS $node ) {
-
-                // if a paragraph has 2 (or more) a.button elements in it, including the first element
-                // add the "cButtonGroup" class to the paragraph
-                if( strtolower( $node->tagName ) == 'p' ) {
-                    $paraCrawler = new Crawler($node);
-                    $buttons        = $paraCrawler->filter('a.button');
-                    $nonButtonLinks = $paraCrawler->filter('a');
-
-                    if( count( $buttons ) >= 1 && count( $nonButtonLinks ) >= 2 ) {
-                        $firstChild = $paraCrawler->children()->first();
-                        if( strstr( $firstChild->attr('class'), 'button' ) ) {
-                            $curClass   = $paraCrawler->attr('class') ?? '';
-
-                            $groupClass = "cButtonGroup";
-
-                            $style = $paraCrawler->attr('style') ?? null;
-                            $style = strtolower( preg_replace( "/\s+/", "", $style ) );
-
-                            if( strstr( $style, "text-align:left" ) ) {
-                                $groupClass .= " cButtonGroup__left";
-                            }
-
-                            if( strstr( $style, "text-align:center" ) ) {
-                                $groupClass .= " cButtonGroup__center";
-                            }
-
-                            if( strstr( $style, "text-align:right" ) ) {
-                                $groupClass .= " cButtonGroup__right";
-                            }
-
-                            $node->setAttribute( 'class', $groupClass . " " . $curClass );
-                        }
-                    }
-                }
-
-                $html .= $node->ownerDocument->saveHTML($node);
-            }
-        }
-
-        return $html;
-    }
-
-
-    // find any fragment blocks and splice them into the block array
-    public function normalizeBlocks( $blockArray, $entry = [], $builder = 'content' ) {
-
-        // if $entry is just an ID, look it up
-        $entry  = is_int($entry) ? Entry::find()->id($entry)->one() ?? [] : $entry;
-
-        $blocks = [];
-        foreach( $blockArray as $block ) {
-
-            // if $block is just an ID, look it up
-            $isJustID  = is_int($block);
-            $block     = $isJustID ? MatrixBlock::find()->id($block)->one() ?? [] : $block;
-
-            $blockType = $block->type->handle ?? $block->type ?? null;
-
-            if( $blockType == 'fragment' ) {
-                // foreach( $block->fragments->all() as $fragment ) {
-                //     $fragmentType = $fragment->fragmentType ?? null;
-                //     if( $fragmentType == 'contentBuilder' && $fragment->contentBuilder->one() ) {
-                //         foreach( $fragment->contentBuilder->all() as $fragBlock ) {
-                //             $settings = $this->mergeBlockSettings( $fragBlock, $block );
-                //             $blocks[] = $this->beforeRenderBlock([
-                //                 'content'  => $fragBlock,
-                //                 'entry'    => $entry,
-                //                 'builder'  => $builder,
-                //                 'settings' => $settings
-                //             ]);
-                //         }
-                //     } else {
-                //         $settings = $this->mergeBlockSettings( $fragment, $block );
-                //         $blocks[] = $this->beforeRenderBlock([
-                //             'content'  => $block,
-                //             'entry'    => $entry,
-                //             'fragment' => $fragment,
-                //             'builder'  => $builder,
-                //             'settings' => $settings
-                //         ]);
-                //     }
-                // }
-            } else {
-                $settings = $this->mergeBlockSettings( $block );
-
-                // if( $settings['scene']['twColor'] ?? false ) {
-                //     $lastTwColor = $settings['scene']['twColor'];
-                // } else {
-                //     if( $settings['scene']['inherit'] ?? false ) {
-                //         $settings['scene']['twColor'] = $lastTwColor;
-                //     }
-                // }
-
-                $blocks[] = $this->beforeRenderBlock([
-                    'content'  => $block,
-                    'entry'    => $entry,
-                    'builder'  => $builder,
-                    'settings' => $settings
-                ]);
-            }
-        }
-
-        return $blocks;
-    }
-
-
-    private function beforeRenderBlock( array $block ) : array
-    {
-        $block['isNormal']      = true;
-        $block['entryHandle']   = $block['entry']->type->handle ?? '';
-        $block['sectionHandle'] = $block['fragment']->section->handle ?? $block['entry']->section->handle ?? '';
-        $block['blockType']     = $block['fragment']->type->handle    ?? $block['content']->type->handle ?? $block['content']->type ?? $block['content']['type'] ?? '';
-
-        $block['settings']['entryID']  = $block['entry']->id  ?? null;
-        $block['settings']['entryUrl'] = $block['entry']->url ?? null;
-
-        return $block;
-    }
-
-
-    private function mergeBlockSettings( $block, $fragmentParent = null ) {
-
-        if( is_array( $block ) && empty( $block ) ) {
-            return [];
-        }
-
-        $layout    = $block->layout  ? $block->layout->reference()  ?? [] : [];
-        $variant   = $block->variant ? $block->variant->reference() ?? [] : [];
-        $bg        = $block->bg      ? $block->bg->reference()      ?? [] : [];
-        $spacing   = $block->spacing ? $block->spacing->reference() ?? [] : [];
-
-        // if this is a content block that was inside a fragment container,
-        // figure out where to grab background/spacing settings from
-        if( $fragmentParent )
-        {
-            // background
-            if( $fragmentParent->bg && $fragmentParent->bg != 'FROMFRAGMENT' ) {
-                $bg = $fragmentParent->bg->reference() ?? $bg;
-            }
-
-            // spacing
-            if( $fragmentParent->spacing && $fragmentParent->spacing != 'FROMFRAGMENT' ) {
-                $spacing = $fragmentParent->spacing->reference() ?? $spacing;
-            }
-        }
-
-        $settings = array_merge(
-            $layout['settings']  ?? [],
-            $variant['settings'] ?? [],
-            $bg['settings']      ?? [],
-            $spacing['settings'] ?? []
-        );
-
-        $important = array_merge(
-            $spacing['important'] ?? [],
-            $bg['important']      ?? [],
-            $variant['important'] ?? [],
-            $layout['important']  ?? []
-        );
-
-        $settings['variant'] = $variant['value'] ?? null;
-        $settings['layout']  = $layout['value']  ?? null;
-        $settings['bg']      = $bg['value']      ?? null;
-        $settings['spacing'] = $spacing['value'] ?? null;
-        $settings['blockID'] = $block->id        ?? null;
-        $settings['entryID'] = $block->id        ?? null;
-
-        return array_merge(
-            $settings,
-            $important
-        );
-    }
-
-    public function statFormat($number)
-    {
-       $cleanNumber = preg_replace( "/[^0-9]/", "", $number );
-       $readable = array("", "K", "M", "B");
-       $index=0;
-       while($cleanNumber > 1000){
-          $cleanNumber /= 1000;
-          $index++;
-       }
-
-       $round = ( $readable[$index] == 'M' ) ? 0 : 1;
-
-       $formatted = round($cleanNumber,$round);
-
-       $firstChar = substr($number, 0, 1);
-       $firstChar = in_array( $firstChar, ['+', '-', '>', '<', '$'] ) ? $firstChar : '&ensp;';
-
-       $lastChar  = substr($number, -1);
-       $lastChar  = in_array( $lastChar,  ['+', '-', '>', '<', '$'] ) ? $lastChar : '&ensp;';
-
-       return "$firstChar<span data-stat-number='$formatted' class='cStatNumber' data-viewport>" . $formatted . "</span>" . $readable[$index] . $lastChar;
-    }
-
 }

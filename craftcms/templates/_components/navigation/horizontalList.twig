@@ -1,0 +1,30 @@
+{% set _settings = _settings is defined and _settings is iterable ? _settings : {} %}
+{% set _settings = {
+    title           : null,
+    titleTag        : null,
+    handle          : null,
+    navId           : null,
+    ulClass         : "m-0 p-0 list-none flex gap-3",
+    liClass         : null,
+    aClass          : "navItem",
+    activeClass     : "navItem__isActive",
+    hasChildrenClass: "navItem__hasChildren",
+}|merge(_context) %}
+
+{% set nodes = craft.navigation.nodes()
+    .handle( _settings.handle )
+%}
+
+{% if nodes.one() %}
+    <nav
+        id="{{ _settings.navId ??? "menu#{_settings.handle|capitalize}" }}"
+        role="navigation"
+        aria-label="{{ _settings.title ??? _settings.handle|capitalize }} Navigation"
+    >
+        {% if _settings.title and _settings.titleTag %}
+            {{ tag( _settings.titleTag, { text: _settings.title }) }}
+        {% endif %}
+
+        {{ craft.navigation.render( _settings.handle, _settings ) }}
+    </nav>
+{% endif %}

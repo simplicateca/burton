@@ -66,5 +66,13 @@ return GeneralConfig::create()
     // 100MB
     ->maxUploadFileSize(104857600)
 
+    // let users sign-up with just an email and set a password after email confirmation
+    // https://craftcms.com/docs/4.x/config/general.html#deferpublicregistrationpassword
+    ->deferPublicRegistrationPassword(true)
+
     ->useEmailAsUsername(true)
+
+    ->autoLoginAfterAccountActivation(true)
+
+    ->loginPath( '/account' )
 ;

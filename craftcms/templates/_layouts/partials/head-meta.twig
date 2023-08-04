@@ -1,10 +1,10 @@
-{# -- basic meta tags -- #}
+{## basic meta tags ##}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,minimum-scale=1">
 <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,viewport-fit=cover">
 <meta name="format-detection" content="telephone=no">
 
-{# -- prefetch & preconnect headers and links -- #}
+{## prefetch & preconnect headers and links ##}
 {% set headerLink = "Link: " %}
 {% for url in prefetchUrls %}
     {% set headerLink = headerLink ~ "<#{url}>; rel=dns-prefetch;," %}

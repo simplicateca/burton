@@ -8,7 +8,7 @@
     "label": "Headers Above",
     "value": "headersAbove",
     "settings" : {
-        "headlineAbove": true
+        "separateHeadline": true
     }
 },{
     "label": "Focus Right",

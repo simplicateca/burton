@@ -30,7 +30,7 @@ export default defineConfig(({command}) => ({
 
     plugins: [
         // critical({
-        //     criticalUrl: 'https://snowcloudproductions.com/',
+        //     criticalUrl: 'https://replaceme.com/',
         //     criticalBase: '../craftcms/web/dist/criticalcss/',
         //     criticalPages: [
         //         {uri: '/', template: 'index'},

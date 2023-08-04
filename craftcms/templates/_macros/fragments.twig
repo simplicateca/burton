@@ -5,22 +5,32 @@
  #
  # Usage:
  # {% import "_macros/fragments.twig" as fragments %}
- #}
+ ##}
 
 {%- macro loadById( entryId, entry ) -%}
-    {% set reusable = craft.entries().section('reusable').id(entryId).one() ??? null  %}
-    {% if reusable %}
-        {{ include( '_sections/reusable/_router.twig', {
-            entry: reusable
+    {% set modular = craft.entries().section('modular').id(entryId).one() ??? null  %}
+    {% if modular %}
+        {{ include( '_components/builders/builderContent.twig', {
+            entry: modular
         }, withContext = false) }}
     {% endif %}
 {%- endmacro -%}
 
 {%- macro loadBySlug( slug, entry ) -%}
-    {% set reusable = craft.entries().section('reusable').slug(slug).one() ??? null %}
-    {% if reusable %}
-        {{ include( '_sections/reusable/_router.twig', {
-            entry: reusable
+    {% set modular = craft.entries().section('modular').slug(slug).one() ??? null %}
+    {% if modular %}
+        {{ include( '_components/builders/builderContent.twig', {
+            entry: modular
+        }, withContext = false) }}
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro loadByPresetID( presetID, entry ) -%}
+    {% set modular = craft.entries().section('modular').preset(presetID).one() ??? null %}
+
+    {% if modular %}
+        {{ include( '_components/builders/builderContent.twig', {
+            entry: modular
         }, withContext = false) }}
     {% endif %}
 {%- endmacro -%}

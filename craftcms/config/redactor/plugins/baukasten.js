@@ -12,7 +12,7 @@
           api: 'module.inline.format',
           args: {
             tag: 'mark',
-            class: 'rd-mark',
+            class: 'm1',
           },
         },
         markedAlt: {
@@ -20,9 +20,9 @@
           api: 'module.inline.format',
           args: {
             tag: 'mark',
-            class: 'rd-mark-alt',
+            class: 'm2',
           },
-        },        
+        },
         superscript: {
           title: 'Superscript ⁰¹²',
           api: 'module.inline.format',

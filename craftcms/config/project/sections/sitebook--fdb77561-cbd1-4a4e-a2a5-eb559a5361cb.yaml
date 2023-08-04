@@ -7,7 +7,7 @@ previewTargets:
     __assoc__:
       -
         - label
-        - 'Primary entry page'
+        - 'Content Layout'
       -
         - urlFormat
         - '{url}'
@@ -19,7 +19,7 @@ siteSettings:
   41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
     enabledByDefault: true
     hasUrls: true
-    template: _page
+    template: _sections/sitebook/_entry
     uriFormat: '{{parent.uri ?? ''sitebook''}}/{{slug}}'
 structure:
   maxLevels: null

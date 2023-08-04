@@ -1,32 +1,45 @@
+{% set entry = entry ??? null %}
+
+{## everything except topics should 404 ##}
+{% if ( entry.type.handle ??? null ) != 'topic' %}
+    {% header "HTTP/1.0 404 Not Found" %}
+{% endif %}
+
+{% set _layout = {
+    title: entry.title
+} %}
+
 {% extends "_layouts/oneColumn" %}
 
-{% import "_macros/richtext" as richtext %}
+{% block beforeContent %}
+    {% if entry.summary %}
+        <div class="container @container">
+            {{ processRichHtml( entry.summary ).text }}
+        </div>
+    {% endif %}
+{% endblock %}
 
-{% set entries = craft.entries()
-    .section('news','feedback', 'faqs')
-    .relatedTo(entry)
-    .all() %}
+{% block afterContent %}
+    {% set taggedArticles = craft.entries()
+        .section('articles')
+        .relatedTo(entry)
+        .all() %}
 
-{% set summary = richtext.prose( entry.summary, 'xl' ) %}
+    {% if taggedArticles %}
+        <div class="container py-16">
+            {% embed '_layouts/grids/stackedOver3' %}
+                {% block cell1 %}
+                    <h2>Articles related to {{ entry.title }}</h2>
+                {% endblock %}
 
-{% block content %}
-    <div class="container pb-20 pt-10">
-        {% embed '_layouts/grids/intro-above-3-columns' with {
-            blockConfig: {
-                content1Base: 'max-w-5xl ml-0 mb-8'
-            }
-        } %}
-            {% block content1 %}
-                {{ summary }}
-            {% endblock %}
-
-            {% block content2 %}
-                {% for item in entries %}
-                    {{ include('_components/cards/stackedCard', {
-                        entry: item
-                    }, withContext = false ) }}
-                {% endfor %}
-            {% endblock %}
-        {% endembed %}
-    </div>
+                {% block cell2 %}
+                    {% for item in taggedArticles %}
+                        {{ include('_components/cards/item/basic', {
+                            entry: item
+                        }, withContext = false ) }}
+                    {% endfor %}
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
 {% endblock %}

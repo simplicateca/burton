@@ -1,7 +1,6 @@
-{% import "_macros/richtext" as richtext %}
 {% import "_macros/widgets" as widgets %}
 
-{# it's important that when this template is included, it
+{## it's important that when this template is included, it
    does not have access to the context of it's parent
    template(s), with the exception of these 3 parameters:
 
@@ -20,17 +19,17 @@
     ```
 #}
 
-{# make sure we have the params passed from the calling template (usually: _loop) #}
+{## make sure we have the params passed from the calling template (usually: _loop) ##}
 {% set builder   = builder   ??? 'builder' %}
 {% set entry     = entry     ??? null %}
 {% set thisBlock = thisBlock ??? null %}
 
-{# try to normalize this block if it doesn't look normal #}
+{## try to normalize this block if it doesn't look normal ##}
 {% if not ( thisBlock.isNormal ??? false ) %}
     {% set thisBlock = normalizeBlocks( [thisBlock], entry, builder )|first %}
 {% endif %}
 
-{# get the normalized parts of the block #}
+{## get the normalized parts of the block ##}
 {% set content       = thisBlock.content       ??? null %}
 {% set settings      = thisBlock.settings      ??? null %}
 {% set blockType     = thisBlock.blockType     ??? ''   %}
@@ -39,105 +38,75 @@
 {% set layout        = settings.layout         ??? ''   %}
 {% set variant       = settings.variant        ??? ''   %}
 
-{# don't bother going any further unless we have content #}
+{## don't bother going any further unless we have content ##}
 {% if thisBlock and content %}
 
-    {# pre-parse the most common fields and setttings across
-       all block types to keep twig templates slimmer #}
-    {% set headline = headline ??? content.headline       ??? '' %}
-    {% set text     = text     ??? content.text           ??? '' %}
-    {% set text2    = text2    ??? content.text2          ??? '' %}
-    {% set items    = items    ??? content.items.all()    ??? [] %}
-    {% set images   = images   ??? content.images.all()   ??? [] %}
-    {% set entries  = entries  ??? content.entries.all()  ??? [] %}
-    {% set assets   = assets   ??? content.assets.all()   ??? [] %}
-    {% set searches = searches ??? content.searches.all() ??? [] %}
+    {## pre-parse the most common fields and setttings across all
+       block types and make an assortment of pre-formatted variables
+       available to keep individual block templates slimmer ##}
+    {% set headline   = headline ??? content.headline       ??? '' %}
+    {% set text       = text     ??? content.text           ??? '' %}
+    {% set text2      = text2    ??? content.text2          ??? '' %}
+    {% set items      = items    ??? content.items.all()    ??? [] %}
+    {% set images     = images   ??? content.images.all()   ??? [] %}
+    {% set entries    = entries  ??? content.entries.all()  ??? [] %}
+    {% set assets     = assets   ??? content.assets.all()   ??? [] %}
+    {% set searches   = searches ??? content.searches.all() ??? [] %}
 
-    {% set collectionCard = settings.collectionCard      ??? '_components/cards/text' %}
-    {% set collectionComp = settings.collectionComponent ??? null %}
+    {% set headParts  = processRichHtml( headline ) %}
+    {% set header     = "#{headParts.eyebrow}<h1>#{headParts.bodyRaw}</h1>"| retconRemoveEmpty('div') %}
 
-    {% set headlineClass  = settings.headlineClass       ??? null %}
-    {% set headlineComp   = settings.headlineComponent   ??? null %}
-
-    {# if we're using textConfig.moveHeaders and/or textConfig.moveButtons
+    {## if we're using settings.textMoveHeaders and/or settings.textMoveHeaders
        to automatically extract leading headlines (h1/h2/h3/etc) and/or
        trailing button elements from the primary block text field
-       so that they can be relocated to a different part of the block grid #}
-    {% set moveFirstEyebrow = settings.moveFirstEyebrow ?? false %}
-    {% set moveHeaders      = settings.headlineAbove    ?? false %}
-    {% set moveButtons      = settings.buttonsBelow     ?? false %}
+       so that they can be relocated to a different part of the block grid ##}
+    {% set moveFirstEyebrow = settings.moveFirstEyebrow ??? false %}
 
-    {% if moveHeaders or moveButtons %}
+    {% set separateHeadline = settings.separateHeadline ??? false %}
+    {% set separateCta      = settings.separateCta      ??? false %}
 
-        {% set buttonWrap  = settings.buttonWrapper ??? 'div.cButtonGroup.cButtonGroup__trailing' %}
+    {% set textParts  = processRichHtml( header ~ text ) %}
+    {% set text2Parts = processRichHtml( text2 ) %}
 
-        {# extract / wrap the headers / buttons #}
-        {% set headers  %}{{ richtext.leadingHeadlines( text, null, headlineClass, headlineComp ) }}{% endset %}
-        {% set buttons  %}{{ richtext.trailingButtons( text, buttonWrap )}}{% endset %}
-        {% set text     %}{{ richtext.trimHeadlinesButtons( text, moveHeaders, moveButtons )}}{% endset %}
+    {% set collectionCard = settings.collectionCard      ??? '_components/cards/item/text' %}
+    {% set collectionComp = settings.collectionComponent ??? null %}
+
+    {## do we need to apply a class to the headline of a rich text block (or wrap it in a component) ##}
+    {% set headlineClass = settings.headlineClass       ??? null %}
+    {% set headlineComp  = settings.headlineComponent   ??? null %}
+    {% if headlineClass and ( textParts.headline ??? null ) %}
+        {% set newHeadline = textParts.headline|retconAttr( 'h1,h2,h3', { 'class': headlineClass }, false ) %}
+        {% set textParts   = textParts | merge({ headline: newHeadline }) %}
     {% endif %}
 
-    {# text field formatting #}
-    {% set text  %}{{ richtext.prose( text  ) }}{% endset %}
-    {% set text2 %}{{ richtext.prose( text2 ) }}{% endset %}
+    {## set a blockID for this block that can be used in any dynamic components ##}
+    {% set blockID = content.id ??? create('craft\\helpers\\StringHelper').UUID() %}
 
-    {# set a blockID for this block that can be used in any dynamic components #}
-    {% set blockID = content.id ??? random(111111, 999999) %}
+    {## set default content for gridHeader / gridFooter ##}
+    {% set headerCellContent = separateHeadline ? textParts.eyebrow ~ textParts.headline : null %}
+    {% set footerCellContent = separateCta ? textParts.cta : null %}
 
-    {# (overridable) default blockHeader for most most blocks #}
-    {% set blockHeader -%}
-        {%- if text and ( moveFirstEyebrow ) -%}
-            {% set eyebrow = text|retconOnly( 'div.eyebrow' ) ??? null %}
-            {% set text    = text|retconRemove( 'div.eyebrow' ) %}
-            {% set eyebrowText = ( eyebrow ?? '' )|striptags|trim|lower|ascii|kebab  %}
-            {% if eyebrowText %}
-                {% set eyebrow = eyebrow|retconAttr( 'div', { id: eyebrowText }) %}
-            {% endif %}
+    {## update the contents of the main block text field based on whether anything was separated out ##}
+    {% set text = textParts.body %}
+    {% set text = separateHeadline ? text : textParts.eyebrow ~ textParts.headline ~ text %}
+    {% set text = separateCta      ? text : text ~ textParts.cta %}
 
-            {{- eyebrow ??? '' -}}
-        {%- endif -%}
+    {% set text2 = text2Parts.eyebrow ~ text2Parts.headline ~ text2Parts.body ~ text2Parts.cta %}
 
-        {%- if headline or ( moveHeaders and headers ) -%}
-            {%- if headlineClass ??? null -%}<div class="{{headlineClass}}">{%- endif -%}
-                {{ headline ? richtext.formatHeadline( headline, 'h1', headlineClass, headlineComp ) : '' }}
-                {{ moveHeaders ? headers : null }}
-            {%- if headlineClass ??? null -%}</div>{%- endif -%}
-        {%- endif -%}
-    {%- endset %}
+    {## set default includes for grid cells 1/2 ##}
+    {% set gridInclude1 = widgets.embed( thisBlock, 'cell1' ) %}
+    {% set gridInclude1 = (settings.gridInclude1 ??? null) ? include( settings.gridInclude1, { settings: settings }, ignore_missing = true ) : gridInclude1 %}
 
-    {# (overridable) default blockHeader for most most blocks #}
-    {% set blockFooter -%}
-        {%- if ( moveButtons and buttons ) -%}
-            {%- if settings.footer ??? null %}<div class="{{settings.footer}}">{% endif -%}
-                {{ moveButtons ? buttons : null }}
-            {%- if settings.footer ??? null %}</div>{% endif -%}
-        {%- endif -%}
-    {%- endset %}
+    {% set gridInclude2 = widgets.embed( thisBlock, 'cell2' ) %}
+    {% set gridInclude2 = (settings.gridInclude2 ??? null) ? include( settings.gridInclude2, { settings: settings }, ignore_missing = true ) : gridInclude2 %}
 
-    {# (overridable) includes for content area 1 #}
-    {% set blockInclude1 -%}
-        {{ widgets.embed( thisBlock, 'content1' ) }}
-        {%- if settings.include1 ??? null -%}
-            {{ include( settings.include1, { settings: settings } ) }}
-        {%- endif -%}
-    {%- endset %}
-
-    {# (overridable) includes for content area 2 #}
-    {% set blockInclude2 -%}
-        {{ widgets.embed( thisBlock, 'content2' ) }}
-        {%- if settings.include2 ??? null -%}
-            {{ include( settings.include2, { settings: settings } ) }}
-        {%- endif -%}
-    {%- endset %}
-
-
-    {# include the twig template for this block from a list of
+    {## include the twig template for this block from a list of
        possible locations based on the blocks attributes.
 
        the more specific/targetted a variant template is,
        the higher up in the list it should appear
 
-       only the first template found will be included #}
+       only the first template found will be included ##}
     {% set twigPath = [
         "_sections/#{sectionHandle}/_blocks/#{builder}/#{blockType}.#{entryHandle}.#{variant}",
         "_sections/#{sectionHandle}/_blocks/#{builder}/#{blockType}.#{entryHandle}",

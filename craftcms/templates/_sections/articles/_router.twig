@@ -1,9 +1,0 @@
-{% set entry   = entry ?? null %}
-{% set section = entry.section.handle ?? null %}
-{% set type    = entry.type.handle    ?? null %}
-{% if entry %}
-    {{ include([
-        "_sections/#{section}/entry.#{type}",
-        "_sections/#{section}/entry",
-    ]) }}
-{% endif %}

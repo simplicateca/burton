@@ -4,26 +4,25 @@
 {% set loop       = loop      ??? null %}
 {% set lastBlock  = loop.last ??? null %}
 
-{# does the next block inherit the background from this one? #}
+{## does the next block inherit the background from this one? ##}
 {% set inheritBg  = nextBlock.settings.inheritBg ??? null %}
 
-{# do we need to add extra space after or include a special component #}
+{## do we need to add extra space after or include a special component ##}
 {% set spaceAfter = closeBlock.settings.spaceAfter ??? null %}
 
-{# close the <div class='cBlock'> from `blockOpen` #}
+{## close the <div class='cBlock'> from `blockOpen` ##}
 </div>
 
 {% if spaceAfter %}
-    <div class="cBlockSpacer cBlockSpacer__after {{spaceAfter}}"></div>
+    <div class="{{spaceAfter}} {{spaceAfter}}__after"></div>
 {% endif %}
 
-{#-- close the container <div> if this is the last block or
-     the next block is not inheriting its background --#}
+{## close the container <div> if this is the last block or
+     the next block is not inheriting its background ##}
 {% if not nextBlock or not inheritBg %}
-    </div>     {#-- close <div class='container'> from `blockOpen`  --#}
+    </div>     {## close <div class='container'> from `blockOpen`  ##}
 {% endif %}
 
-{#-- if `includeAfter` exists, insert it after the block --#}
 {% if closeBlock.settings.includeAfter ??? null %}
     {{ include( closeBlock.settings.includeAfter, {
         entry: entry,
@@ -32,7 +31,8 @@
     }, withContext = false ) }}
 {% endif %}
 
-{#-- close the background/scene <section> same as container above --#}
+{## closes the <section class='cBlock'> from `blockOpen`
+    if this is the last block or the next block is not inheriting its background ##}
 {% if not nextBlock or not inheritBg %}
-    </section> {#-- close <section class='cScene'> from `blockOpen` --#}
+    </section> {## closes  ##}
 {% endif %}

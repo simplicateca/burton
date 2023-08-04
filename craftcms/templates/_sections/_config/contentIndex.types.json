@@ -1,0 +1,67 @@
+[
+    {
+        "label": "Articles",
+        "value": "articles.all",
+        "section": "articles",
+        "entryType": ["blog","news"]
+    },
+
+    {
+        "label": "Blog Articles",
+        "value": "articles.blog",
+        "section": "articles",
+        "entryType": "blog"
+    },
+
+    {
+        "label": "News Articles",
+        "value": "articles.news",
+        "section": "articles",
+        "entryType": "news"
+    },
+
+    {
+        "label": "FAQs",
+        "value": "modular.faq",
+        "section": "modular",
+        "entryType": "faq"
+    },
+
+    {
+        "label": "Pages",
+        "value": "pages",
+        "section": "pages"
+    },
+
+    {
+        "label": "Topics",
+        "value": "taxonomy.topic",
+        "section": "taxonomy",
+        "entryType": "topic"
+    },
+
+    {
+        "label": "Data",
+        "value": "modular.metric",
+        "section": "modular",
+        "entryType": "metric"
+    },
+
+    {
+        "label": "Content Bits",
+        "value": "modular.bit",
+        "section": "modular",
+        "entryType": "bit"
+    },
+
+    {
+        "label": "External RSS Feed",
+        "value": "rss"
+    },
+
+    {
+        "label": "Internal Site Search",
+        "value": "siteSearch",
+        "section": ["articles", "pages"]
+    }
+]

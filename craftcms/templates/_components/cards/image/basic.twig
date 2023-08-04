@@ -1,0 +1,11 @@
+{% set _base = {
+    images        : images ??? null,
+    imageClass    : "w-full max-w-full h-auto",
+    imageTransform: "standard",
+    sizes         : null,
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? _base|merge(settings) : _base %}
+
+{% embed '_components/cards/image/_base' %}{% endembed %}

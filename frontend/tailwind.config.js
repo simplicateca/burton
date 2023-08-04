@@ -3,41 +3,38 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 // module exports
 module.exports = {
     content: [
-        '../craftcms/templates/**/*.{twig,html,json}',
+        '../craftcms/templates/**/*.{twig,html,json,svg}',
         './vue/**/*.{vue,html}'
     ],
     theme: {
-        fontSize: {
-            'xs': '0.7rem',
-            'sm': '0.85rem',
-            'base': '0.95rem',
-            'lg': '1.15rem',
-            'xl': '1.30rem',
-            '2xl': '1.60rem',
-            '3xl': '1.90rem',
-            '4xl': '2.40rem',
-            '5xl': '3.0rem',
-            '6xl': '3.50rem',
-            '7xl': '4.0rem',
-            '8xl': '5.50rem',
-            '9xl': '7.0rem',
-        },
+        // fontSize: {
+        //     'xs'  : '',
+        //     'sm'  : '',
+        //     'base': '',
+        //     'lg'  : '',
+        //     'xl'  : '',
+        //     '2xl' : '',
+        //     '3xl' : '',
+        //     '4xl' : '',
+        //     '5xl' : '',
+        //     '6xl' : '',
+        //     '7xl' : '',
+        //     '8xl' : '',
+        //     '9xl' : '',
+        // },
 
         container: {
             center: true,
             padding: {
-                DEFAULT: '1rem',
-                sm: '2rem',
-                md: '1rem',
-                lg: '2rem',
-                xl: '3rem',
-                '2xl': '3rem',
+                DEFAULT: '2rem'
             }
         },
 
         screens: {
+            '2xs': '280px',
             'xs': '360px',
             'tall': { 'raw': '(min-height: 900px)' },
+            'max-lg': {'max': '1023px'},
             ...defaultTheme.screens,
         },
 
@@ -48,31 +45,53 @@ module.exports = {
                 body:     ["Roboto Mono"],
             },
 
-            lineHeight: {
-                'extra-tight': '1.15'
+            containers: {
+                '2xs': '16rem'
+            },
+
+            animation: {
+                'slide-in-up': 'slideinup 0.25s ease-out forwards 0.1s',
+            },
+
+            keyframes: {
+                slideinup: {
+                  '0%'  : { transform: 'translateY(20px)', opacity: 0 },
+                  '100%': { transform: 'translateY(0)',    opacity: 1 },
+                },
+            },
+
+            //backgroundImage: {
+            //    '': "url('')",
+            //},
+
+            maxWidth: {
+                '2xs': '16rem',
             },
 
             zIndex: {
-                '10000': '10000',
+		100: 100,
+                max: 999,
+            },
+
+            scale: {
+                '-1': '-1'
             },
 
             colors: {
                 transparent: 'transparent',
-                current: 'currentColor'
+                current: 'currentColor',
+                //blue: {
+                //    DEFAULT: '#219EBC',
+                //    light: '#219EBC',
+                //    medium: '#008cac',
+                //    dark: '#023047',
+                //},
             },
-
-            typography: () => ({
-                DEFAULT: {
-                    css: {
-                        maxWidth: '100%'
-                    },
-                },
-            }),
         }
     },
 
     plugins: [
-        require('@tailwindcss/typography'),
+        require('@tailwindcss/container-queries'),
         // ...
     ],
 };

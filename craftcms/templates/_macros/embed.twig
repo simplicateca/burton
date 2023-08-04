@@ -5,19 +5,19 @@
  #
  # Usage:
  # {% import "_macros/embed" as embed %}
- #}
+ ##}
 
 {%- macro iframe( url = null, config = null, blockID = null, loop = null ) -%}
 
     {% if url %}
         {% set media    = embedInfo( url ) %}
         {% set provider = media.provider ??? null %}
-        {% set blockID  = blockID ??? random(111111, 999999) %}
+        {% set blockID  = blockID ??? create('craft\\helpers\\StringHelper').UUID() %}
 
         {% if media %}
             {{ include( [
-                "_components/media/#{provider}",
-                "_components/media/iframe"
+                "_components/cards/media/#{provider}",
+                "_components/cards/media/iframe"
             ], {
                 blockID: blockID,
                 config: config,

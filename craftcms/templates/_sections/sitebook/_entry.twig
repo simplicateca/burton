@@ -1,0 +1,99 @@
+{% set entry = entry ??? null %}
+{% extends "_layouts/oneColumn" %}
+
+{% requirePermission 'allowSitebook' %}
+
+{% block alertbar %}{% endblock %}
+
+{## {% block header %}
+    {% embed "_components/header/header" with {
+        entry: entry ??? null,
+        section: 'sitebook'
+    } only %}
+        {% block headerNavigation %}
+            {{ include( "_components/navigation/sitebook" ) }}
+        {% endblock %}
+
+        {% block headerLogo %}
+            {{ include( "_components/logo/sitebook" ) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %} ##}
+
+
+{% block belowHeader %}
+    {% if 0 and entry.slug == 'media' %}
+        <div class="container @container">
+            {## Figure out everywhere the specified block appears.
+            This returns an array where every instance of a block is a new item. ##}
+            {% set entries = craft
+                .entries()
+                .section(['pages'])
+                .leftJoin('{{%matrixblocks}} as matrixblocks', 'matrixblocks.primaryOwnerId = entries.id')
+                .andWhere({'matrixblocks.typeId': 15})
+                .status(['enabled', 'disabled'])
+                .all()
+            %}
+
+            {## Init vars ##}
+            {% set filteredEntries = [] %}
+
+            {## Filter the previous array down so that an entry with the specified block
+            can only appear once. ##}
+            {% for entry in entries %}
+                {## Create a vastly pared-down array for each entry ##}
+                {% set filteredEntry = {
+                    link: entry.cpEditUrl,
+                    title: entry.title
+                } %}
+                {% if filteredEntry not in filteredEntries %}
+                    {% set filteredEntries = filteredEntries | merge([filteredEntry]) %}
+                {% endif %}
+            {% endfor %}
+
+            {## Spit out the results ##}
+            <ol>
+                {% for entry in filteredEntries %}
+                    <li>
+                    <a href="{{ entry.link }}" target="_blank">{{ entry.title }}</a>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block aboveFooter %}
+
+    {{ include( "_components/breadcrumb/sitebook", {}, withContext = true ) }}
+
+    <div class="bg-gray-100">
+        <div class="container @container">
+            <div class="flex flex-col md:flex-row w-full py-10 gap-10">
+
+                <div class="">
+                    <a href="{{ siteUrl('/sitebook') }}" class="font-display text-base lg:text-2xl text-blue-dark hover:text-gray-900">Sitebook</a>
+                </div>
+
+                {% set pages = craft.entries.section('sitebook').level(1).slug('not home') %}
+
+                {% for page in pages %}
+                    <div class="">
+                        <a href="{{page.url}}" class="font-display text-base lg:text-2xl text-blue-dark hover:text-gray-900">{{page.title}}</a>
+
+                        {% set children = page.children() ??? [] %}
+                        {% if children %}
+                            <ul class="pl-4 sm:pl-0 sm:columns-2 gap-4">
+                                {% for child in children %}
+                                    <li><a href="{{child.url}}" class="text-sm lg:text-base block py-2 text-blue-dark hover:text-gray-900">{{child.title}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,12 +1,60 @@
-{# Sitebook is the built in component & layout documentation
+{## Sitebook is the built in component & layout documentation
    system for content editors. It can be accessed at:
 
     -> $SITE_URL/sitebook/
-   
+
    Access is restricted to users with the permission:
 
     -> allowSitebook
 
-   This template helps redirect requests out of the Pages
-   structure and into the secondary Sitebook structure. #}
-{% redirect "/sitebook/home" %}
+   This template serves two purposes:
+
+   1) helps redirect requests out of the pages structure
+      and into the secondary /sitebook/ structure without
+      having to do any weird nesting
+
+   2) acts as a preview template for modular content without
+      a public URL using /sitebook/?modular={{entry.id}}
+#}
+{% requirePermission 'allowSitebook' %}
+
+{% set modularID = craft.app.request.getQueryParam('modular') %}
+{% set entry     = craft.entries().section('modular').id(modularID).one() ??? null  %}
+{% set entryType = entry.type.handle ??? null %}
+{% set sidebar   = entry.sidebarBuilder.one() ??? null %}
+{% set template  = sidebar ? "_layouts/twoColumns" : "_layouts/oneColumn" %}
+
+{% if not entry %}
+    {% redirect "/sitebook/home" %}
+{% endif %}
+
+{% extends template %}
+
+{% block content %}
+    {% if entryType == 'contentFragment' %}
+        {{ include( '_components/builders/builderContent.twig', {
+            entry: entry
+        }, withContext = false) }}
+    {% endif %}
+
+    {% if not ( 'Fragment' in entryType ) %}
+        <div class="container @container">
+            <div class="max-w-sm py-20">
+                {{ include( '_components/cards/item/basic', { entry: entry }, withContext = false ) }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+    {% if entryType == 'sidebarFragment' %}
+        {{ include( '_components/builders/builderSidebar.twig', {
+            entry: entry
+        }, withContext = false) }}
+    {% endif %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block pageTitle %}{% endblock %}
+{% block aboveFooter %}{% endblock %}
+{% block footer %}{% endblock %}

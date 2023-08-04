@@ -1,21 +1,21 @@
 [
     {
-        "label": "Light Gray",
-        "value": "light",
-
-        "settings": {
-            "bgColor": "gray-200",
-            "outerClass": "light-mode bg-gray-200"
-        }
-    },
-
-    {
         "label": "White",
         "value": "white",
 
         "settings": {
             "bgColor": "white",
-            "outerClass": "light-mode bg-white"
+            "outerClass": "theme-light bg-white"
+        }
+    },
+
+    {
+        "label": "Light Gray",
+        "value": "light",
+
+        "settings": {
+            "bgColor": "gray-200",
+            "outerClass": "theme-light bg-gray-100"
         }
     },
 
@@ -25,7 +25,7 @@
 
         "settings": {
             "bgColor": "gray-700",
-            "outerClass": "dark-mode bg-gray-700"
+            "outerClass": "theme-dark bg-gray-700"
         }
     },
 

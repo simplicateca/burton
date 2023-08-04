@@ -1,6 +1,6 @@
 {% macro postNav(entry, props) %}
 
-  {# Defaults #}
+  {## Defaults ##}
   {% set defaults = {
     name: 'm-postNav',
     section: null,
@@ -11,14 +11,14 @@
     nextIcon: 'arrow-forward'
   } %}
 
-  {# Merge Default with Options #}
+  {## Merge Default with Options ##}
   {% set props = props is defined ? defaults|merge(props) : defaults %}
 
   {% if props.section %}
-    {# Set parameters for prev/next elements list #}
+    {## Set parameters for prev/next elements list ##}
     {% set entries = craft.entries.section(props.section).orderBy(props.order).limit(null) %}
 
-    {# Get the prev/next elements #}
+    {## Get the prev/next elements ##}
     {% set prevEntry = entry.getPrev(entries) %}
     {% set nextEntry = entry.getNext(entries) %}
   {% else %}
@@ -26,7 +26,7 @@
     {% set nextEntry = false %}
   {% endif %}
 
-  {# And make sure to only output the links if the element exists #}
+  {## And make sure to only output the links if the element exists ##}
   {% if prevEntry or nextEntry %}
     <nav class="o-row  {{ props.cn }}">
       {% if prevEntry %}
@@ -34,7 +34,7 @@
           <a class="{{ props.cn ~ '__link' }}  {{ props.cn ~ '__link--prev' }}" href="{{ prevEntry.url }}">
             {% if props.prevIcon %}
               <span class="{{ props.cn ~ '__icon' }}  {{ props.cn ~ '__icon--prev' }}">
-                {# Icon #}
+                {## Icon ##}
                 {{ include('_components/icon/icon.twig', {
                   props: {
                     modifiers: ['24'],
@@ -63,7 +63,7 @@
 
             {% if props.nextIcon %}
               <span class="{{ props.cn ~ '__icon' }}  {{ props.cn ~ '__icon--next' }}">
-                {# Icon #}
+                {## Icon ##}
                 {{ include('_components/icon/icon.twig', {
                   props: {
                     modifiers: ['24'],

@@ -3,7 +3,7 @@ contentColumnType: string
 fieldGroup: e0dac603-c510-4bb5-8701-e25672d93744 # Common
 handle: images
 instructions: null
-name: 'Lead Image(s)'
+name: 'Feature Image'
 searchable: true
 settings:
   allowSelfRelations: false
@@ -11,9 +11,11 @@ settings:
   allowUploads: true
   allowedKinds:
     - image
+  branchLimit: null
   defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
   defaultUploadLocationSubpath: '{%- set folder = object.folder ??? false -%} {%- if folder %}{{ ( folder == ''Uploads'' ) ? ''asset-meta'' : folder ~ ''/asset-meta'' }}{% endif -%} {%- if not folder -%}     {{- ( object.variants   ?? null  ) ? "products/#{object.type.handle|lower}/" : '''' -}}     {{- ( object.product    ?? null  ) ? "products/#{object.product.type.handle|lower}/" : '''' -}}     {{- ( object.section    ?? null  ) ? "#{object.section.handle|lower}/" : '''' -}}     {{- ( object.parentUri  ?? null  ) ? "#{object.parentUri|replace(''__'','''')}/" : '''' -}}     {{object.slug}} {%- endif -%}'
   localizeRelations: false
+  maintainHierarchy: false
   maxRelations: null
   minRelations: null
   previewMode: full
@@ -37,9 +39,9 @@ settings:
   showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
-  source: null
   sources:
     - 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+    - 'volume:3c05e593-d621-444e-8fb9-ddbb1b356a43' # Static Assets
   targetSiteId: null
   validateRelatedElements: false
   viewMode: large

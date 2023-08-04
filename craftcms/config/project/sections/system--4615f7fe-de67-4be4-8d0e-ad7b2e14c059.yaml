@@ -1,0 +1,24 @@
+defaultPlacement: end
+enableVersioning: true
+handle: system
+name: 'System Pages'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Content Layout'
+      -
+        - urlFormat
+        - '{{ object.slug|replace({''__'': ''/''}) }}'
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
+siteSettings:
+  41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

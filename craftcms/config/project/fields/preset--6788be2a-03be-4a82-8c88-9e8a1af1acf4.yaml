@@ -1,0 +1,19 @@
+columnSuffix: wcrbruuk
+contentColumnType: text
+fieldGroup: a4b149ed-cc92-46ad-bfb9-6fa96bb29e5c # Text Input
+handle: preset
+instructions: null
+name: Preset
+searchable: false
+settings:
+  byteLimit: null
+  charLimit: null
+  code: false
+  columnType: null
+  initialRows: 4
+  multiline: false
+  placeholder: null
+  uiMode: normal
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\PlainText

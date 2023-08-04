@@ -6,7 +6,11 @@
     "platform": {
         "php": "8.1",
         "ext-bcmath": "8.1",
-        "ext-intl": "8.1"
+        "ext-intl": "8.1",
+        "ext-bz2": "8.1",
+        "ext-soap": "8.1",
+        "ext-sodium": "8.1",
+        "ext-zip": "8.1"
     },
     "allow-plugins": {
       "yiisoft/*": true,
@@ -14,33 +18,34 @@
       "treeware/plant": true
     }
   },
+
   "prefer-stable": true,
   "minimum-stability": "beta",
   "require": {
-    "craftcms/cms": "^4.4.5",
+    "craftcms/cms": "^4.4.9",
     "craftcms/redactor": "^3.0.4",
     "dolphiq/redirect": "^2.0.1",
     "embed/embed": "^4.4.7",
-    "mmikkel/retcon": "^2.6.1",
+    "mmikkel/retcon": "^2.7.1",
     "nystudio107/craft-closure": "^1.0",
     "nystudio107/craft-emptycoalesce": "^4.0.0",
     "nystudio107/craft-minify": "^4.0.0",
-    "nystudio107/craft-seomatic": "^4.0.23",
+    "nystudio107/craft-seomatic": "^4.0.24",
     "nystudio107/craft-typogrify": "^4.0.1",
     "nystudio107/craft-vite": "^4.0.5",
     "putyourlightson/craft-blitz": "^4.4.4",
     "putyourlightson/craft-sherlock": "^4.3.0",
-    "putyourlightson/craft-sprig": "^2.5.1",
+    "putyourlightson/craft-sprig": "^2.6.2",
     "ryssbowh/craft-restrict-deletions": "^2.0",
     "sebastianlenz/linkfield": "^2.1.5",
     "simplicateca/craft-reference-field": "^0.4",
-    "topshelfcraft/environment-label": "^4.0.2",
+    "topshelfcraft/environment-label": "^4.0.3",
     "vaersaagod/dospaces": "^2.0.0",
-    "vaersaagod/matrixmate": "^2.1.2",
-    "verbb/formie": "^2.0.25.1",
+    "vaersaagod/matrixmate": "^2.1.3",
+    "verbb/formie": "^2.0.28",
     "verbb/knock-knock": "^2.0.8",
     "verbb/navigation": "^2.0.17",
-    "verbb/super-table": "^3.0.8",
+    "verbb/super-table": "^3.0.8.1",
     "vlucas/phpdotenv": "^5.5.0",
     "weareferal/matrix-field-preview": "^4.0.5",
     "yiisoft/yii2-redis": "^2.0.18"
@@ -78,6 +83,5 @@
     "post-install-cmd": "@post-craft-update",
     "post-create-project-cmd": "@pre-craft-update",
     "post-root-package-install": "@pre-craft-update"
-  },
-  "type": "project"
+  }
 }

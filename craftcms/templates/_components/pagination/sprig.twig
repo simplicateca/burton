@@ -1,0 +1,59 @@
+{% set _base = {
+    currentPage: pageInfo.currentPage ??? 1,
+    totalPages : pageInfo.totalPages  ??? 0,
+    query      : liveFilter.query ??? '',
+    topic      : liveFilter.topic ??? null,
+    active     : "",
+    disabled   : "cursor-not-allowed opacity-50",
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+{% macro urlWithQueryParams( entryUrl, page, queryParams ) -%}
+    {%- set baseUrl  = ( page > 1 ) ? "#{entryUrl}p#{page}" : entryUrl -%}
+    {%- set queryStr = queryParams|url_encode -%}
+    {{- queryStr ? "#{baseUrl}?#{queryStr}" : baseUrl -}}
+{%- endmacro %}
+
+{% if settings.totalPages > 1 %}
+    <nav
+        class="py-10 w-full max-w-xs mx-auto text-center"
+        role="navigation"
+        aria-label="Pagination Navigation"
+    >
+        <ul class="flex mb-6">
+            <li class="w-1/2">
+                {% set prevClass = settings.currentPage > 1 ? settings.active : settings.disabled %}
+                <a class="{{prevClass}}"
+                    href="{{ _self.urlWithQueryParams(
+                        settings.entryUrl,
+                        settings.currentPage - 1,
+                        { q: settings.query, show: settings.topic }
+                    ) }}"
+                    sprig
+                    s-val:page="{{ settings.currentPage - 1 }}"
+                    s-trigger="click"
+                >{{"← Previous"|t}}</a>
+            </li>
+
+            <li class="w-1/2">
+                {% set nextClass = settings.currentPage != settings.totalPages ? settings.active : settings.disabled %}
+                <a class="{{nextClass}}"
+                    href="{{ _self.urlWithQueryParams(
+                        settings.entryUrl,
+                        settings.currentPage + 1,
+                        { q: settings.query, show: settings.topic }
+                    ) }}"
+                    sprig
+                    s-val:page="{{ settings.currentPage + 1 }}"
+                    s-trigger="click"
+                >{{"Next →"|t}}</a>
+            </li>
+        </ul>
+
+        <p>
+            Page <strong>{{settings.currentPage}} <span>of</span> {{settings.totalPages}}</strong>
+        </p>
+    </nav>
+{% endif %}

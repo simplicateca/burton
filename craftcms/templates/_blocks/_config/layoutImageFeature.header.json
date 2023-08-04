@@ -5,7 +5,11 @@
 
         "settings": {
             "grid": "_layouts/grids/splitNormal",
-            "container": "container"
+            "gridAlign": "items-center",
+            "gridCell1Adjust": "lg:w-3/5 justify-center",
+            "gridCell2Adjust": "lg:w-2/5",
+            "headlineClass": "pb-8 border-b-8",
+            "container": "container @container"
         }
     },
 
@@ -15,7 +19,8 @@
 
         "settings": {
             "grid": "_layouts/grids/splitReverse",
-            "container": "container"
+            "gridAlign": "items-center",
+            "container": "container @container"
         }
     },
 
@@ -25,11 +30,11 @@
 
         "settings": {
             "grid": "_layouts/grids/overlap",
-            "container": "container"
+            "container": "container @container"
         },
 
         "important": {
-            "imageComponent": "_components/images/parallaxBg"
+            "imageCard": "_components/cards/image/parallaxBg"
         }
     }
 ]

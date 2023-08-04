@@ -1,0 +1,71 @@
+{% set images    = images ??? content.images.all() ??? null %}
+{% set class     = class  ??? "object-cover object-top h-full w-full" %}
+{% set transform = transform ??? null %}
+{% set blockID   = blockID ?? null %}
+{% set image     = images|first ??? null %}
+
+{% if transform %}
+    {% do image.setTransform(transform) %}
+{% endif %}
+
+{% if image %}
+    <div class="h-full w-full overflow-hidden">
+        <img
+            src="{{image.url}}"
+            alt="{{image.title}}"
+            loading="lazy"
+            class="
+                {{class}}
+                absolute
+                top-0
+                left-0
+                right-0
+                bottom-0
+                parallax
+                !max-w-[120vw]
+                z-20
+            "
+        >
+    </div>
+{% endif %}
+
+{## wireframe placeholder ##}
+{% if not image and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    <div class="h-full w-full overflow-hidden">
+        <img
+            src="https://picsum.photos/seed/{{random(1,9999)}}/800/800?grayscale&blur=2"
+            loading="lazy"
+            class="
+                {{class}}
+                absolute
+                top-0
+                left-0
+                right-0
+                bottom-0
+                parallax
+                !max-w-[120vw]
+                z-20
+            "
+        >
+    </div>
+{% endif %}
+
+{% js %}
+    window.waitForGlobal("app.gsap", function() {
+        app.gsap.fromTo('[data-block-id="{{blockID}}"] img.parallax', {
+            y: '-35%',
+            scale: 1.5
+        }, {
+            y: '35%',
+            scale: 1.1,
+            ease: "none",
+            scrollTrigger: {
+                trigger: '[data-block-id="{{blockID}}"]',
+                start: () => "top bottom",
+                end: "bottom top",
+                scrub: true,
+                invalidateOnRefresh: true // to make it responsive
+            }
+        });
+    });
+{% endjs %}

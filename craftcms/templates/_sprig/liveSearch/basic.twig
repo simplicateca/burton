@@ -6,7 +6,7 @@
     entryUrl   : '/',
     grid       : '_layouts/grids/stackedOver3',
     gridInner1 : "w-full max-w-5xl text-center mx-auto flex flex-col gap-12",
-    itemCard   : '_components/cards/basic',
+    itemCard   : '_components/cards/item/basic',
     section    : null,
     entryType  : null,
     sort       : 'recent',
@@ -19,26 +19,26 @@
     uuid       : create('craft\\helpers\\StringHelper').UUID()
 } %}
 
-{# -- merge with values passed in via `settings` -- #}
+{## merge with values passed in via `settings` ##}
 {% set settings = ( settings is defined and settings is iterable ) ? _base|merge(settings) : _base %}
 
 
-{# -- searchID references a Saved Search Taxonomy entry containing default search parameters -- #}
+{## searchID references a Saved Search Taxonomy entry containing default search parameters ##}
 {% if settings.searchID %}
 
     {% set savedSearch = craft.entries()
             .id(settings.searchID)
-            .type('searches')
+            .type('contentSearch')
             .one() ??? null %}
 
-    {# -- _components/_sections/_config/contentTypes.searches.json -- #}
+    {## _components/_sections/_config/contentTypes.searches.json ##}
     {% set contentType = savedSearch.contentType.reference() ??? null %}
 
-    {# -- topics used for searching vs. topics available for tag filtering -- #}
+    {## topics used for searching vs. topics available for tag filtering ##}
     {% set topics = savedSearch.taxonomies.all() ??? settings.topics ??? [] %}
-    {% set tags   = topics|filter(topic => ( topic.type.handle ??? null ) not in ['private','searches'] ) %}
+    {% set tags   = topics ? topics|filter(topic => ( topic.type.handle ??? null ) not in ['privateTag','contentSearch'] ) %}
 
-    {# -- if `forceTopic` is true, get the first available tag because at least one *MUST* be active -- #}
+    {## if `forceTopic` is true, get the first available tag because at least one *MUST* be active ##}
     {% set firstTagSlug = ( tags|first ??? null ).slug ??? null %}
 
     {% set settings = settings|merge( {
@@ -46,6 +46,7 @@
         entryType: contentType.entryType        ??? settings.entryType ??? null,
         sort     : savedSearch.sort.value       ??? settings.sort      ??? null,
         topic    : settings.forceTopic ? firstTagSlug : null,
+        query    : savedSearch.preset ??? null,
         topics   : topics,
         tags     : tags
     } ) %}
@@ -53,7 +54,7 @@
 {% endif %}
 
 
-{# -- collect live filtering parameters -- #}
+{## collect live filtering parameters ##}
 {% set liveFilter = {
     page : craft.app.request.getParam('page') ??? craft.app.request.pageNum ??? 1,
     topic: craft.app.request.getParam('show') ??? settings.topic ??? null,
@@ -61,14 +62,14 @@
 } %}
 
 
-{# -- sort order -- #}
+{## sort order ##}
 {% set orderBy = 'postDate DESC' %}
 {% set orderBy = ( settings.sort == 'random'       ) ? 'RAND()'        : orderBy %}
 {% set orderBy = ( settings.sort == 'alphabetical' ) ? 'title DESC'    : orderBy %}
 {% set orderBy = ( settings.sort == 'upcoming'     ) ? 'startDate ASC' : orderBy %}
 
 
-{# -- apply search params and filters to the query -- #}
+{## apply search params and filters to the query ##}
 {% set searchQuery = craft.entries()
         .orderBy(orderBy)
         .limit(settings.limit) %}
@@ -83,28 +84,28 @@
 {% endif %}
 
 
-{# -- hand the query off to sprig for pagination -- #}
+{## hand the query off to sprig for pagination ##}
 {% set pageInfo = sprig.paginate( searchQuery, liveFilter.page ) %}
 
 
-{# -- make sure the url stays updated when moving between pages -- #}
+{## make sure the url stays updated when moving between pages ##}
 {% set pushUrl  = ( liveFilter.page > 1 ) ? "#{settings.entryUrl}/p#{liveFilter.page}" : settings.entryUrl %}
 {% set queryStr = { q: liveFilter.query, show: liveFilter.topic }|url_encode %}
 {% do sprig.pushUrl( queryStr ? "#{pushUrl}?#{queryStr}" : pushUrl ) %}
 
 
-{# -- set the number of results into the grid, so that it can adjust column count -- #}
+{## set the number of results into the grid, so that it can adjust column count ##}
 {% set settings = settings| merge({ maxCols: pageInfo.pageResults|length ??? 0 }) %}
 
 
-{# -- output the search results -- #}
+{## output the search results ##}
 <div s-results="sprig-{{settings.uuid}}">
     {% embed settings.grid %}
 
         {% block cell1 %}
             {{settings.text|raw}}
 
-            {{ include( '_sprig/liveSearch/_filter', {
+            {{ include( '_components/search/sprigQueryAndTopic', {
                 settings  : settings,
                 pageInfo  : pageInfo,
                 liveFilter: liveFilter
@@ -125,7 +126,7 @@
         {% endblock %}
 
         {% block footer %}
-            {{ include( '_sprig/liveSearch/_pagination', {
+            {{ include( '_components/pagination/sprig', {
                 settings  : settings,
                 pageInfo  : pageInfo,
                 liveFilter: liveFilter
