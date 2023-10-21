@@ -4,18 +4,19 @@
         "value": "textLeft",
 
         "settings": {
-            "grid": "_layouts/grids/splitNormal",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutLeftRightEven",
+            "blockContainer": "container @container"
         }
     },
+
 
     {
         "label": "Text Right / Icon Left",
         "value": "textRight",
 
         "settings": {
-            "grid": "_layouts/grids/splitReverse",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutLeftRightEvenReverse",
+            "blockContainer": "container @container"
         }
     },
 
@@ -24,12 +25,12 @@
         "value": "textGallery",
 
         "settings": {
-            "grid": "_layouts/grids/stacked",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container"
         },
 
         "important": {
-            "imageComponent": "_components/cards/image/gallery"
+            "imageComponent": "_cards/image/gallery"
         }
     },
 
@@ -38,12 +39,12 @@
         "value": "textOverlay",
 
         "settings": {
-            "grid": "_layouts/grids/overlap"
+            "blockLayout": "_layouts/micro/blockLayoutOverlap"
         },
 
         "important": {
-            "container": "container min-h-[90vh] flex flex-col items-center justify-center @container",
-            "imageComponent": "_components/cards/image/parallaxBg",
+            "blockContainer": "container min-h-[90vh] flex flex-col items-center justify-center @container",
+            "imageComponent": "_cards/image/parallaxBg",
             "bgColor": "image"
         }
     }

@@ -36,11 +36,13 @@
     {% endblock %}
 
     {% block belowHeader %}
-        {{ include( "_components/breadcrumb/basic", {}, withContext = true ) }}
+        <div class="container">
+            {{ include( "_components/breadcrumb/basic", {}, withContext = true ) }}
+        </div>
     {% endblock %}
 
-    <main id="content" class="relative z-20">
-        <div class="container !px-0 flex flex-col lg:flex-row gap-16 lg:gap-20 2xl:gap-28">
+    <main id="content" class="container @container">
+        <div class="relative z-20 my-16 !px-0 flex flex-col lg:flex-row gap-16 lg:gap-20 2xl:gap-28">
             <div class="min-h-[30vh] grow">
                 {% block beforeContent %}{% endblock %}
 

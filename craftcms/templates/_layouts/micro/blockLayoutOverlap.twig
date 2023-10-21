@@ -1,0 +1,29 @@
+{## Block Layout - Overlap
+    ---------------------------------------------------------------------------- ##
+    this is a micro-layout for a block layout where the content for cell1 and
+    cell2 are overlapped within the same space
+ ## ---------------------------------------------------------------------------- ##}
+
+{% set _layout = {
+    blockBase: '
+        w-full
+        relative
+    ',
+    blockCell1: '
+        w-full
+        relative
+        z-30
+        @container
+    ',
+    blockCell2: '
+        absolute
+        top-0
+        left-0
+        bottom-0
+        right-0
+        overflow-hidden
+        z-10
+    ',
+} %}
+
+{% extends "_layouts/micro/_base2Cell" %}

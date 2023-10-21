@@ -105,10 +105,10 @@ class NormalizeBlockTwigExtension extends AbstractExtension
             return [];
         }
 
-        $layout    = $block->layout  ? $block->layout->reference()  ?? [] : [];
-        $variant   = $block->variant ? $block->variant->reference() ?? [] : [];
-        $bg        = $block->bg      ? $block->bg->reference()      ?? [] : [];
-        $spacing   = $block->spacing ? $block->spacing->reference() ?? [] : [];
+        $layout    = ( $block->layout  ?? null ) ? $block->layout->reference()  ?? [] : [];
+        $variant   = ( $block->variant ?? null ) ? $block->variant->reference() ?? [] : [];
+        $bg        = ( $block->bg      ?? null ) ? $block->bg->reference()      ?? [] : [];
+        $spacing   = ( $block->spacing ?? null ) ? $block->spacing->reference() ?? [] : [];
 
         // if this is a content block that was inside a fragment container,
         // figure out where to grab background/spacing settings from

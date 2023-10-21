@@ -4,9 +4,8 @@
         "value": "readableLeft",
 
         "settings": {
-            "grid": "_layouts/grids/single",
-            "gridCell1": "max-w-4xl 2xl:max-w-5xl",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutSingle",
+            "blockContainer": "container @container"
         }
     },
 
@@ -15,9 +14,9 @@
         "value": "readableCenter",
 
         "settings": {
-            "grid": "_layouts/grids/single",
+            "blockLayout": "_layouts/micro/blockLayoutSingle",
             "gridCell1": "w-full max-w-4xl 2xl:max-w-5xl mx-auto",
-            "container": "container @container"
+            "blockContainer": "container @container"
         }
     },
 
@@ -26,8 +25,8 @@
         "value": "fullWidth",
 
         "settings": {
-            "grid": "_layouts/grids/single",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutSingleFull",
+            "blockContainer": "container @container"
         }
     }
 ]

@@ -1,8 +1,8 @@
 {% set _base = {
     currentPage: pageInfo.currentPage ??? 1,
     totalPages : pageInfo.totalPages  ??? 0,
-    query      : liveFilter.query ??? '',
-    topic      : liveFilter.topic ??? null,
+    query      : searchParams.query   ??? '',
+    filter     : searchParams.filter  ??? null,
     active     : "",
     disabled   : "cursor-not-allowed opacity-50",
 } %}
@@ -10,10 +10,9 @@
 {## merge `_base` into variables passed into the template  ##}
 {% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
 
-{% macro urlWithQueryParams( entryUrl, page, queryParams ) -%}
-    {%- set baseUrl  = ( page > 1 ) ? "#{entryUrl}p#{page}" : entryUrl -%}
-    {%- set queryStr = queryParams|url_encode -%}
-    {{- queryStr ? "#{baseUrl}?#{queryStr}" : baseUrl -}}
+{% macro urlWithQueryParams( entryUrl, page, params ) -%}
+    {%- set baseUrl  = ( page > 1 ) ? "#{entryUrl}/p#{page}/" : "#{entryUrl}/" -%}
+    {{ siteUrl( baseUrl, params ) }}
 {%- endmacro %}
 
 {% if settings.totalPages > 1 %}
@@ -29,10 +28,12 @@
                     href="{{ _self.urlWithQueryParams(
                         settings.entryUrl,
                         settings.currentPage - 1,
-                        { q: settings.query, show: settings.topic }
+                        { q: settings.query, f: settings.filter }
                     ) }}"
                     sprig
                     s-val:page="{{ settings.currentPage - 1 }}"
+                    s-val:query="{{ settings.query }}"
+                    s-val:filter="{{ settings.filter }}"
                     s-trigger="click"
                 >{{"← Previous"|t}}</a>
             </li>
@@ -43,10 +44,12 @@
                     href="{{ _self.urlWithQueryParams(
                         settings.entryUrl,
                         settings.currentPage + 1,
-                        { q: settings.query, show: settings.topic }
+                        { q: settings.query, f: settings.filter }
                     ) }}"
                     sprig
                     s-val:page="{{ settings.currentPage + 1 }}"
+                    s-val:query="{{ settings.query }}"
+                    s-val:filter="{{ settings.filter }}"
                     s-trigger="click"
                 >{{"Next →"|t}}</a>
             </li>

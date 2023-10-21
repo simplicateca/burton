@@ -1,38 +1,47 @@
-{% set closeBlock = thisBlock ??? null %}
-{% set nextBlock  = nextBlock ??? null %}
-{% set entry      = entry     ??? null %}
-{% set loop       = loop      ??? null %}
-{% set lastBlock  = loop.last ??? null %}
+{% set entry       = entry     ??? null %}
+{% set loop        = loop      ??? null %}
+{% set isLastBlock = loop.last ??? null %}
+{% set thisBlock   = thisBlock ??? null %}
+{% set nextBlock   = nextBlock ??? null %}
 
-{## does the next block inherit the background from this one? ##}
-{% set inheritBg  = nextBlock.settings.inheritBg ??? null %}
+{% set thisBg      = thisBlock.settings.bg ??? null %}
+{% set nextBg      = nextBlock.settings.bg ??? null %}
+{% set matchingBg  = ( nextBlock.settings.inheritBg ??? null ) ??? ( nextBg == thisBg ) ??? false %}
 
-{## do we need to add extra space after or include a special component ##}
-{% set spaceAfter = closeBlock.settings.spaceAfter ??? null %}
+{% set spaceBelowClass      = thisBlock.settings.spaceBelowClass      ??? null %}
+{% set bgComponentBottom    = thisBlock.settings.bgComponentBottom    ??? null %}
+{% set blockComponentBottom = thisBlock.settings.blockComponentBottom ??? null %}
 
-{## close the <div class='cBlock'> from `blockOpen` ##}
-</div>
 
-{% if spaceAfter %}
-    <div class="{{spaceAfter}} {{spaceAfter}}__after"></div>
-{% endif %}
-
-{## close the container <div> if this is the last block or
-     the next block is not inheriting its background ##}
-{% if not nextBlock or not inheritBg %}
-    </div>     {## close <div class='container'> from `blockOpen`  ##}
-{% endif %}
-
-{% if closeBlock.settings.includeAfter ??? null %}
-    {{ include( closeBlock.settings.includeAfter, {
+{## close the <section class='cBlock'> from `blockOpen`
+    but first check to see if theres anything to include below the block ##}
+{% if blockComponentBottom %}
+    {{ include( blockComponentBottom, {
         entry: entry,
-        blockAbove: closeBlock,
+        blockAbove: thisBlock,
         blockBelow: nextBlock
-    }, withContext = false ) }}
+    }, withContext = false )}}
 {% endif %}
 
-{## closes the <section class='cBlock'> from `blockOpen`
-    if this is the last block or the next block is not inheriting its background ##}
-{% if not nextBlock or not inheritBg %}
-    </section> {## closes  ##}
+</section>
+
+
+{## close the background <div> if this is the last block or
+    the next block is not inheriting its background ##}
+{% if isLastBlock or not matchingBg %}
+
+    {% if spaceBelowClass %}
+        {% set spaceClassXtra = isLastBlock ? "spacing__last" : null %}
+        <div class="{{spaceBelowClass}} spacing__below {{spaceClassXtra}}"></div>
+    {% endif %}
+
+    {% if bgComponentBottom %}
+        {{ include( bgComponentBottom, {
+            entry: entry,
+            blockAbove: thisBlock,
+            blockBelow: nextBlock
+        }, withContext = false )}}
+    {% endif %}
+
+    </div>
 {% endif %}

@@ -1,0 +1,15 @@
+{% set settings = {
+    gridBase: '
+        grid
+        grid-cols-5
+        gap-4
+        justify-center
+        items-center
+    '
+}|merge( settings )|map( (item,key) => _context[key] ??? item ) %}
+
+{% block grid %}
+    <div class="{{settings.gridBase}}">
+        {% block items %}{{ gridItems ??? null }}{% endblock %}
+    </div>
+{% endblock %}

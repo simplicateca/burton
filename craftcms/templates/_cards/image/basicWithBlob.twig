@@ -1,0 +1,14 @@
+{% set _base = {
+    images        : images ??? null,
+    imageClass    : "rounded-3xl relative z-20 mx-auto max-w-[16rem] sm:max-w-xs md:max-w-sm",
+    imageFigure   : "gridarea-overlap m-auto p-0 flex flex-col",
+    imageTransform: "square",
+    sizes         : null,
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+<div class="grid justify-center items-center align-center h-full">
+    {% embed '_cards/image/_base' %}{% endembed %}
+    {{ include( "_components/backgrounds/blob.twig" ) }}
+</div>

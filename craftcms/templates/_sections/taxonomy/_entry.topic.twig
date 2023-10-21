@@ -20,7 +20,7 @@
         <h2>Articles related to {{ topic.title }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
             {% for item in taggedArticles %}
-                {{ include('_components/cards/item/basic', {
+                {{ include('_cards/item/basic', {
                     entry: item
                 }, withContext = false ) }}
             {% endfor %}

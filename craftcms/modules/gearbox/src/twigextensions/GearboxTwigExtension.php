@@ -89,7 +89,6 @@ class GearboxTwigExtension extends AbstractExtension
             'headline'  => null,
             'cta'       => null,
             'body'      => null,
-            'bodyRaw'   => null,
         ];
 
         if( !$html ) {
@@ -145,12 +144,12 @@ class GearboxTwigExtension extends AbstractExtension
             $processed .= $lastSmallPara;
         }
 
-        $textParts['body']    = $processed;
-        $textParts['bodyRaw'] = (string) Retcon::getInstance()->retcon->change(
-            $processed,
-            ['h1','h2','h3','h4','h5','h6','p','li','ul','ol','div'],
-            false
-        );
+        $textParts['body'] = $processed;
+        // $textParts['bodyRaw'] = (string) Retcon::getInstance()->retcon->change(
+        //     $processed,
+        //     ['h1','h2','h3','h4','h5','h6','p','li','ul','ol','div'],
+        //     false
+        // );
 
         return $textParts;
     }
@@ -259,8 +258,8 @@ class GearboxTwigExtension extends AbstractExtension
 
         $cleanCardTmplName = trim( mb_ereg_replace('/[^\w\d\-\_]+/', '', $cardTemplate ) ) ?? 'basic';
         $cardComponentPath = $iframeNode
-            ? "_components/cards/richmedia/"
-            : "_components/cards/image/";
+            ? "_cards/richmedia/"
+            : "_cards/image/";
 
         $cardTwigInclude   = '{% include "' . $cardComponentPath . $cleanCardTmplName . '" ignore missing %}';
 

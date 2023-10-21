@@ -4,8 +4,8 @@
         "label" : "Normal Spacing Above & Below",
 
         "settings" : {
-            "spaceBefore": "spacing-normal",
-            "spaceAfter":  "spacing-normal"
+            "spaceAboveClass": "spacing-normal",
+            "spaceBelowClass":  "spacing-normal"
         }
     },
 
@@ -13,8 +13,8 @@
         "value": "spacingExtra",
         "label" : "Extra Spacing Above & Below",
         "settings" : {
-            "spaceBefore": "spacing-extra",
-            "spaceAfter":  "spacing-extra"
+            "spaceAboveClass": "spacing-extra",
+            "spaceBelowClass":  "spacing-extra"
         }
     },
 
@@ -27,7 +27,7 @@
         "value": "spacingAboveNone",
         "label" : "No Spacing Above, Normal Space Below",
         "settings" : {
-            "spaceAfter":  "spacing-normal"
+            "spaceBelowClass":  "spacing-normal"
         }
     },
 
@@ -35,7 +35,7 @@
         "value": "spacingBelowNone",
         "label" : "Normal Space Above, No Spacing Below",
         "settings" : {
-            "spaceBefore":  "spacing-normal"
+            "spaceAboveClass":  "spacing-normal"
         }
     },
 
@@ -43,8 +43,8 @@
         "value": "waveAbove",
         "label" : "Wave Above",
         "settings" : {
-            "includeBefore": "_components/dividers/wave",
-            "spaceAfter":  "spacing-normal"
+            "bgComponentTop": "_components/dividers/wave",
+            "spaceBelowClass":  "spacing-normal"
         }
     }
 ]

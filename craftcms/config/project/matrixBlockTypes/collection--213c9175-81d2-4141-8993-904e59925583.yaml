@@ -430,7 +430,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 412626860
+      changedFieldIndicator: 719187673
       columns:
         __assoc__:
           -
@@ -503,17 +503,6 @@ fields:
           __assoc__:
             -
               - label
-              - 'Endless Scroll'
-            -
-              - value
-              - scroll
-            -
-              - default
-              - ''
-        -
-          __assoc__:
-            -
-              - label
               - 'See All'
             -
               - value
@@ -525,10 +514,21 @@ fields:
           __assoc__:
             -
               - label
-              - 'Next / Previous'
+              - Next/Previous
             -
               - value
               - standard
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Next/Previous with Search'
+            -
+              - value
+              - standardWithSearch
             -
               - default
               - ''

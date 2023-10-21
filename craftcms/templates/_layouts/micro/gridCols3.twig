@@ -1,0 +1,30 @@
+{% set settings = {
+    gridBase: '
+        grid
+        grid-cols-1
+        md:grid-cols-3
+        gap-10
+        xl:gap-14
+    '
+}|merge( settings )|map( (item,key) => _context[key] ??? item ) %}
+
+{% block grid %}
+    <div class="{{settings.gridBase}}">
+        {% block items %}{{ gridItems ??? null }}{% endblock %}
+    </div>
+{% endblock %}
+
+{## Grid adjustments
+    -------------------------------------------------------------------------- ##
+    if this 3-column grid won't have enough items/results to fill the columns,
+    passing a `maxCols` value of 1 or 2 in the `setting` object will reduce
+    the grid columns accordingly for a less lopsided layout.
+ ## -------------------------------------------------------------------------- ##}
+
+{# {% if _grid.maxCols == 2 %}
+    {% set _grid = _grid| merge({ gridInner2: 'mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 xl:gap-14 max-w-5xl' }) %}
+{% endif %}
+
+{% if _grid.maxCols < 2 %}
+    {% set _grid = _grid| merge({ gridInner2: 'mx-auto max-w-2xl' }) %}
+{% endif %} #}

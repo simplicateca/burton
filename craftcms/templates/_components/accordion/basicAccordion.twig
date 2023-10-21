@@ -1,16 +1,16 @@
-{% set blockID = blockID ??? content.id ??? create('craft\\helpers\\StringHelper').UUID() %}
-{% set items   = items   ??? content.items ??? null %}
-{% set class   = class   ??? 'mx-auto max-w-4xl space-y-4 w-full' %}
+{% set _settings = {
+    blockID     : create('craft\\helpers\\StringHelper').UUID(),
+    items       : [],
+    settings    : [],
+    class       : 'mx-auto max-w-4xl space-y-4 w-full',
+    openClass   : 'p-4 bg-white'
+}|merge(_context) %}
 
-{% set _base = {
-    openClass : 'p-4 bg-white'
-} %}
+{% set hasColumns = ( _settings.settings.columns ??? null ) %}
+{% set startsOpen = hasColumns ? "" : "#{_settings.blockID}-1" %}
 
-{## merge `_base` into variables passed into the template  ##}
-{% set settings = ( settings is defined and settings is iterable ) ? _base|merge(settings) : _base %}
-
-<div x-data="{ active: '{{blockID}}-1' }" class="{{class}}">
-    {% for row in items %}
+{% set output %}
+    {% for row in _settings.items %}
         {% set image    = row.images.one() ??? null %}
         {% set headline = row.headline ??? row.title ??? null %}
         {% set text     = row.text ??? null %}
@@ -19,7 +19,7 @@
             role="region"
             x-cloak
             x-data="{
-                id: '{{blockID}}-{{loop.index}}',
+                id: '{{_settings.blockID}}-{{loop.index}}',
                 animatingOpen: false,
                 get expanded() {
                     return this.active === this.id
@@ -37,7 +37,7 @@
                 handleLeaving() {
                     if( this.animatingOpen ) {
                         setTimeout(() => {
-                            document.getElementById('{{blockID}}-{{loop.index}}-header').scrollIntoView({ behavior: 'smooth' })
+                            document.getElementById('{{_settings.blockID}}-{{loop.index}}-header').scrollIntoView({ behavior: 'smooth' })
                         }, 100 );
                     }
                 }
@@ -45,11 +45,11 @@
             class=""
             :class="{ 'shadow' : expanded }"
         >
-            <h2 class="text-white mb-0 scroll-mt-4" id='{{blockID}}-{{loop.index}}-header' x-intersect:leave="handleLeaving()">
+            <h2 class="text-white h-full mb-0 scroll-mt-4" id='{{_settings.blockID}}-{{loop.index}}-header' x-intersect:leave="handleLeaving()">
                 <button
                     x-on:click="expanded = !expanded"
                     :aria-expanded="expanded"
-                    class="flex w-full items-center justify-between p-4 text-base bg-gray-700 text-white font-medium rounded hover:text-blue-500"
+                    class="flex w-full h-full items-center justify-between p-4 text-base bg-gray-700 text-white font-medium rounded hover:text-blue-500"
                 >
                     <span class="text-left">{{headline|striptags}}</span>
                     <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
@@ -57,11 +57,67 @@
                 </button>
             </h2>
 
-            <div x-show="expanded" x-collapse.duration.200ms>
-                <div class="{{settings.openClass}}">
-                    {{ processRichHtml( text ).body|raw }}
+            {% if hasColumns %}
+                <template x-teleport="#bodyComponents">
+                    <div
+                        x-show="expanded"
+                        style="display: none"
+                        x-on:keydown.escape.prevent.stop="expanded = false"
+                        role="dialog"
+                        aria-modal="true"
+                        x-id="['modal-title']"
+                        :aria-labelledby="$id('modal-title')"
+                        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center"
+                        x-trap.noscroll.inert="expanded"
+                    >
+                        <!-- Overlay -->
+                        <div
+                            x-show="expanded"
+                            x-on:click="expanded = false"
+                            x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50">&nbsp;</div>
+
+                        <!-- Panel -->
+                        <div
+                            x-show="expanded" x-transition
+                            class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-xl shadow-lg z-50"
+                        >
+                            <div class="{{_settings.openClass}}">
+                                <div class="removeLastChildMargin">
+                                    <h2><span>{{headline|striptags}}</span></h2>
+                                    {{ processRichHtml( text ).body|raw }}
+                                </div>
+
+                                <div class="flex pt-6">
+                                    <a href="#" x-on:click.prevent="expanded = false" class="flex gap-2 items-center hover:text-blue-500 focus:text-blue-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z" /></svg>
+                                        <span>Close</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            {% else %}
+                <div x-show="expanded" x-collapse.duration.200ms>
+                    <div class="{{_settings.openClass}} removeLastChildMargin">
+                        {{ processRichHtml( text ).body|raw }}
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     {% endfor %}
+{% endset %}
+
+
+<div x-data="{ active: '{{startsOpen}}' }" class="{{_settings.class}}">
+    {% if _settings.settings.columns ??? null %}
+        {% embed _settings.settings.grid %}
+            {% block cell1Body %}{% endblock %}
+            {% block cell2Body %}
+                {{ output }}
+            {% endblock %}
+        {% endembed %}
+    {% else %}
+        {{ output }}
+    {% endif %}
 </div>

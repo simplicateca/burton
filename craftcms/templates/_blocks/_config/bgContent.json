@@ -5,7 +5,7 @@
 
         "settings": {
             "bgColor": "white",
-            "outerClass": "theme-light bg-white"
+            "outerBgClass": "theme-light bg-white"
         }
     },
 
@@ -15,7 +15,7 @@
 
         "settings": {
             "bgColor": "gray-200",
-            "outerClass": "theme-light bg-gray-100"
+            "outerBgClass": "theme-light bg-gray-100"
         }
     },
 
@@ -25,7 +25,29 @@
 
         "settings": {
             "bgColor": "gray-700",
-            "outerClass": "theme-dark bg-gray-700"
+            "outerBgClass": "theme-dark bg-gray-700"
+        }
+    },
+
+    {
+        "label": "Light on Dark Knockout",
+        "value": "lightKnockout",
+
+        "settings": {
+            "bgColor": "gray-700",
+            "outerBgClass": "bg-gray-700",
+            "innerBgClass": "bg-white p-10"
+        }
+    },
+
+    {
+        "label": "Dark on Light Knockout",
+        "value": "darkKnockout",
+
+        "settings": {
+            "bgColor": "gray-700",
+            "outerBgClass": " bg-white",
+            "innerBgClass": "bg-gray-700 p-10 theme-dark"
         }
     },
 

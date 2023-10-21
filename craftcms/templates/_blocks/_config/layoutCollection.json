@@ -4,10 +4,8 @@
         "value": "textLeft",
 
         "settings": {
-            "grid": "_layouts/grids/splitNormal",
-            "container": "container @container",
-            "headlineClass": "",
-            "headlineComponent": null,
+            "blockLayout": "_layouts/micro/blockLayoutLeftRightEven",
+            "blockContainer": "container @container",
             "itemComponent": "_components/carousel/single"
         }
     },
@@ -17,10 +15,8 @@
         "value": "textRight",
 
         "settings": {
-            "grid": "_layouts/grids/splitReverse",
-            "container": "container @container",
-            "headlineClass": "",
-            "headlineComponent": null
+            "blockLayout": "_layouts/micro/blockLayoutLeftRightEvenReverse",
+            "blockContainer": "container @container"
         }
     },
 
@@ -29,11 +25,12 @@
         "value": "textAbove",
 
         "settings": {
-            "grid": "_layouts/grids/stacked",
-            "gridInner1": "mx-auto max-w-5xl text-center",
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container",
             "separateCta": true,
             "gridFooter": "pt-24",
-            "container": "container @container"
+            "itemComponent": "_components/carousel/single",
+            "itemTagClass" : "flex flex-col gap-4 max-w-3xl mx-auto"
         }
     },
 
@@ -42,20 +39,35 @@
         "value": "textAbove2",
 
         "settings": {
-            "grid": "_layouts/grids/stackedOver2",
-            "gridInner1": "mx-auto max-w-5xl text-center",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container",
+            "itemGrid": "_layouts/micro/gridCols2",
+            "columns": 2
         }
     },
 
     {
-        "label": "Text Above 3 Columns",
+        "label": "Text Above 3 Columns (Grid)",
         "value": "textAbove3",
 
         "settings": {
-            "grid": "_layouts/grids/stackedOver3",
-            "gridInner1": "mx-auto max-w-5xl text-center",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container",
+            "itemGrid": "_layouts/micro/gridCols3",
+            "columns": 3
+        }
+    },
+
+    {
+        "label": "Text Above 3 Columns (Carousel)",
+        "value": "textAbove3Carousel",
+
+        "settings": {
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container",
+            "itemGrid": "_layouts/micro/gridCols3",
+            "itemComponent": "_components/carousel/multiple",
+            "columns": 3
         }
     },
 
@@ -64,9 +76,10 @@
         "value": "textAbove4",
 
         "settings": {
-            "grid": "_layouts/grids/stackedOver4",
-            "gridInner1": "mx-auto max-w-5xl text-center",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container",
+            "itemGrid": "_layouts/micro/gridCols4",
+            "columns": 4
         }
     },
 
@@ -75,9 +88,10 @@
         "value": "textAbove6",
 
         "settings": {
-            "grid": "_layouts/grids/stackedOver6",
-	    "gridInner1": "mx-auto max-w-5xl text-center",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container",
+            "itemGrid": "_layouts/micro/gridCols6",
+            "columns": 6
         }
     },
 
@@ -86,8 +100,10 @@
         "value": "textBeside2",
 
         "settings": {
-            "grid": "_layouts/grids/splitBeside2",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutLeftRightEven",
+            "blockContainer": "container @container",
+            "itemGrid": "_layouts/micro/gridCols2",
+            "columns": 2
         }
     }
 ]

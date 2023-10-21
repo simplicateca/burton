@@ -1,0 +1,32 @@
+{% set entry      = entry ?? null %}
+{% set loopIndex  = loop.index ??? 1 %}
+{% set columnDir  = loopIndex % 2 ? "flex-row" : "flex-row-reverse" %}
+{% set textIndent = loopIndex % 2 ? "pr-12" : "pl-20" %}
+
+{% set _base = {
+    baseCard        : "_cards/item/_base",
+    itemTagClass    : "gap-10 mb-24 items-center max-w-5xl mx-auto flex " ~ columnDir,
+    cell1Class      : "w-1/4 flex items-center justify-center",
+    cell2Class      : "flex flex-col w-3/4 h-full " ~ textIndent,
+    imageTransform  : 'square',
+    imageClass      : 'rounded-full',
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+{## output the appropriate card ##}
+{% set className = className(entry)|t ??? null %}
+{% set isProduct = 'Product' in className ? 'product' : '' %}
+{% set section   = entry.section.handle ??? isProduct ??? null %}
+{% set entryType = entry.type.handle    ??? null %}
+
+{{ include(
+    [ "_cards/#{section}.#{entryType}",
+      "_cards/#{section}",
+      settings.baseCard
+    ], {
+      entry: entry,
+      settings: settings
+    } )
+}}

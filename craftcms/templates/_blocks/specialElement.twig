@@ -1,60 +1,45 @@
-{## Special Element Block Template
-    -------------------------------------------------------------------------- ##
-    this template is meant to be included via `templates/_blocks/_base.twig`
+{## Special Element Block
+    ---------------------------------------------------------------------------- ##
+    this template is typically included from `_blocks/_base.twig` which pre-sets
+    a handful of variables and passes them into this template via twig context.
+ ## ---------------------------------------------------------------------------- ##}
+{% set thisBlock = {
+    content         : null,
+    settings        : null,
+    contentParts    : null,
+    specialComponent: null,
+    blockLayout     : '_layouts/micro/blockLayoutTopBottom',
+}|map( (item,key) => _context[key] ??? settings[key] ??? item ) %}
 
-    it *can* be called directly with {{ include }} or {% embed %}, but it might
-    be more trouble than it's worth to prep and format the necessary inputs.
-
-    instead, if you want to display content for a Craft MatrixBlock element,
-    start with the block base template
-
-        -> templates/_blocks/_base.twig
-
-    the block base template is responsible for sanitizing and normalizing all
-    MatrixBlock content and layout settings before calling a template like this.
-
-    if you're trying to create a similar layout or functionality using content
-    that didn't come from a MatrixBlock, consider using {% embed %} to create
-    a grid and overload {% block %} elements as neccesary.
- ## -------------------------------------------------------------------------- ##}
-{% set settings  = settings  ??? null %}
-{% set content   = content   ??? null %}
+{#
 {% set entry     = entry     ??? null %}
-{% set grid      = grid      ??? settings.grid ??? null %}
-{% set text      = text      ??? content.text  ??? null %}
 {% set component = component ??? settings.specialComponent ??? null %}
-{% set searchID  = searchID  ??? (content.searches.ids() ??? null)|first ??? null %}
+{% set searchID  = searchID  ??? (content.searches.ids() ??? null)|first ??? null %} #}
 
-{% if component %}
-    {% set specialContent %}
-        {% if '_sprig' in component %}
-            {{ sprig( component, {
-                text: text|string,
-                settings: settings,
-                searchID: searchID
+{% embed thisBlock.blockLayout %}
+
+    {## primary text content is already added to this block layout via the `cell1Body`
+        variable declared in `_blocks/_base`. Uncomment {% block %} below to customize
+
+        {% block cell1Body %}
+          {{ thisBlock.content.text }}
+        {% endblock %}
+    ##}
+
+    {% block cell2Body %}
+
+        {% if '.sprig' in thisBlock.specialComponent %}
+            {{ sprig( thisBlock.specialComponent, {
+                content : thisBlock.contentParts,
+                settings: thisBlock.settings
             }) }}
         {% else %}
-            {{- include( component, {
-                text: text,
-                entry: entry,
-                settings: settings,
-                searchID: searchID
-            }, withContext = false ) -}}
+            {{ include( thisBlock.specialComponent, {
+                content : thisBlock.contentParts,
+                settings: thisBlock.settings
+            }, withContext = false ) }}
         {% endif %}
-    {% endset %}
 
-    {% if grid %}
-        {% embed grid %}
-            {% block cell1 %}
-                {{text|raw}}
-            {% endblock %}
+    {% endblock %}
 
-            {% block cell2 %}
-                {{specialContent|raw}}
-            {% endblock %}
-        {% endembed %}
-    {% else %}
-        {{specialContent|raw}}
-    {% endif %}
-
-{% endif %}
+{% endembed %}

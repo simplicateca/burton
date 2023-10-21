@@ -1,0 +1,29 @@
+{## Block Layout - Left / Right Even
+    ---------------------------------------------------------------------------- ##
+    this template is a micro-layout for a block layout for two equally sized
+    content columns arranged left / right. it will collapse to displaying content
+    top / bottom on smaller devices.
+ ## ---------------------------------------------------------------------------- ##}
+
+{% set _layout = {
+    blockBase: '
+        w-full
+        flex
+        flex-col
+        lg:flex-row
+        gap-10
+        lg:gap-16
+        xl:gap-24
+        relative
+    ',
+    blockCell1: '
+        lg:w-1/2
+        @container
+    ',
+    blockCell2: '
+        lg:w-1/2
+        @container
+    ',
+} %}
+
+{% extends "_layouts/micro/_base2Cell" %}

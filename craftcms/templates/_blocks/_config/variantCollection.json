@@ -3,7 +3,7 @@
         "label": "Default",
         "value": "default",
         "settings": {
-            "itemCard": "_components/cards/item/basic"
+            "itemCard": "_cards/item/basic"
         }
     },
 
@@ -11,7 +11,7 @@
         "label": "Horizontal Alternating",
         "value": "horizontalAlternating",
         "settings": {
-            "itemCard": "_components/cards/item/horizontal"
+            "itemCard": "_cards/item/horizontal"
         }
     },
 
@@ -19,16 +19,7 @@
         "label": "Stacked Box",
         "value": "stackedBox",
         "settings": {
-            "itemCard": "_components/cards/item/stackedBox"
-        }
-    },
-
-    {
-        "label": "Carousel",
-        "value": "carousel",
-        "settings": {
-            "itemCard": "_components/cards/item/stackedBox",
-            "itemComponent": "_components/carousel/single"
+            "itemCard": "_cards/item/stackedBox"
         }
     },
 
@@ -36,7 +27,7 @@
         "label": "Icon Card",
         "value": "icon",
         "settings": {
-            "itemCard": "_components/cards/item/icon"
+            "itemCard": "_cards/item/icon"
         }
     },
 
@@ -46,15 +37,6 @@
 
         "important": {
             "itemComponent": "_components/accordion/basicAccordion"
-        }
-    },
-
-    {
-        "label": "Horizontal Tabs",
-        "value": "horizontalTabs",
-
-        "important": {
-            "itemComponent": "_components/tabs/horizontalTabs"
         }
     }
 ]

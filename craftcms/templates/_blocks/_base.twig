@@ -1,104 +1,99 @@
-{% import "_macros/widgets" as widgets %}
+{% set thisBlock = {
+    content      : {},
+    entry        : null,
+    builder      : 'content',
+    settings     : null,
+    isNormal     : null,
+    blockType    : null,
+    entryHandle  : null,
+    sectionHandle: null,
+    layout       : null,
+    variant      : null,
+}|map( (item,key) => _context[key] ??? block[key] ??? block.settings[key] ??? item ) %}
 
-{## it's important that when this template is included, it
-   does not have access to the context of it's parent
-   template(s), with the exception of these 3 parameters:
-
-   builder  : the content builder being used
-   entry    : the current loaded entry
-   thisBlock: a normalizedBlock array. see twig `normalizeBlocks()` function.
-
-   otherwise stuff gets wonky.
-
-    ```
-        {{ include('_blocks', {
-            entry     : entry,
-            builder   : builder,
-            thisBlock : thisBlock
-        }, withContext = false ) }}
-    ```
-#}
-
-{## make sure we have the params passed from the calling template (usually: _loop) ##}
-{% set builder   = builder   ??? 'builder' %}
-{% set entry     = entry     ??? null %}
-{% set thisBlock = thisBlock ??? null %}
 
 {## try to normalize this block if it doesn't look normal ##}
 {% if not ( thisBlock.isNormal ??? false ) %}
-    {% set thisBlock = normalizeBlocks( [thisBlock], entry, builder )|first %}
+    {% set normalBlock = normalizeBlocks( [thisBlock], thisBlock.entry, thisBlock.builder )|first %}
+    {% set thisBlock   = thisBlock|map( (item,key) => normalBlock[key] ??? normalBlock.settings[key] ??? item ) %}
 {% endif %}
 
-{## get the normalized parts of the block ##}
-{% set content       = thisBlock.content       ??? null %}
-{% set settings      = thisBlock.settings      ??? null %}
-{% set blockType     = thisBlock.blockType     ??? ''   %}
-{% set sectionHandle = thisBlock.sectionHandle ??? ''   %}
-{% set entryHandle   = thisBlock.entryHandle   ??? ''   %}
-{% set layout        = settings.layout         ??? ''   %}
-{% set variant       = settings.variant        ??? ''   %}
 
 {## don't bother going any further unless we have content ##}
-{% if thisBlock and content %}
+{% if thisBlock.content ??? null %}
 
-    {## pre-parse the most common fields and setttings across all
-       block types and make an assortment of pre-formatted variables
-       available to keep individual block templates slimmer ##}
-    {% set headline   = headline ??? content.headline       ??? '' %}
-    {% set text       = text     ??? content.text           ??? '' %}
-    {% set text2      = text2    ??? content.text2          ??? '' %}
-    {% set items      = items    ??? content.items.all()    ??? [] %}
-    {% set images     = images   ??? content.images.all()   ??? [] %}
-    {% set entries    = entries  ??? content.entries.all()  ??? [] %}
-    {% set assets     = assets   ??? content.assets.all()   ??? [] %}
-    {% set searches   = searches ??? content.searches.all() ??? [] %}
+    {## pre-parse any html content fields that exist in this block using the processRichHtml()
+        function from `craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php` ##}
+    {% set contentParts = {
+        headline : null,
+        text     : null,
+        text2    : null,
+    }|map( (item,key) => processRichHtml( thisBlock.content[key] ??? null ) ) %}
 
-    {% set headParts  = processRichHtml( headline ) %}
-    {% set header     = "#{headParts.eyebrow}<h1>#{headParts.bodyRaw}</h1>"| retconRemoveEmpty('div') %}
+    {## these variables will be passed into the blockLayout to populate content unless the {% block %} tags
+        that contain them are overloaded within the template {% embed %} for this specific block type ##}
+    {% set headerContent = null %}
+    {% set footerContent = null %}
+    {% set cell1Above    = null %}
+    {% set cell1Body     = contentParts.text.eyebrow ~ contentParts.text.headline ~ contentParts.text.body ~ contentParts.text.cta %}
+    {% set cell1Below    = null %}
+    {% set cell2Above    = null %}
+    {% set cell2Body     = contentParts.text2.eyebrow ~ contentParts.text2.headline ~ contentParts.text2.body ~ contentParts.text2.cta %}
+    {% set cell2Below    = null %}
 
-    {## if we're using settings.textMoveHeaders and/or settings.textMoveHeaders
-       to automatically extract leading headlines (h1/h2/h3/etc) and/or
-       trailing button elements from the primary block text field
-       so that they can be relocated to a different part of the block grid ##}
-    {% set moveFirstEyebrow = settings.moveFirstEyebrow ??? false %}
+    {% set blockHeadline = contentParts.headline.body
+        ? "<h1>#{contentParts.headline.body|striptags('<br><strong><em><mark>')}</h1>"
+        : null
+    %}
 
-    {% set separateHeadline = settings.separateHeadline ??? false %}
-    {% set separateCta      = settings.separateCta      ??? false %}
+    {## the following are some default options configurable via the block `settings` object which can
+        be utilized to subtly shift how content is displayed with a given block ##}
 
-    {% set textParts  = processRichHtml( header ~ text ) %}
-    {% set text2Parts = processRichHtml( text2 ) %}
+        {## move any trailing call-to-action buttons (plus legal mice type) to the block layout <footer> ##}
+        {% if thisBlock.settings.textButtonsToFooter ??? null %}
+            {% set footerContent = contentParts.text.cta  %}
+            {% set cell1Body     = contentParts.text.eyebrow ~ contentParts.text.headline ~ contentParts.text.body %}
+        {% endif %}
 
-    {% set collectionCard = settings.collectionCard      ??? '_components/cards/item/text' %}
-    {% set collectionComp = settings.collectionComponent ??? null %}
+        {## relocate any eyebrow or leading h1,h2,h3 tags into the block layout <header> ##}
+        {% if ( thisBlock.settings.textEyebrowToHeader ??? null ) or ( thisBlock.settings.textHeadlineToHeader ??? null ) %}
+
+            {% if thisBlock.settings.textEyebrowToHeader ??? null %}
+                {% set headerContent = contentParts.headline.eyebrow ~ contentParts.text.eyebrow %}
+                {% set cell1Body     = blockHeadline ~ cell1Body %}
+            {% else %}
+                {% set headerContent = contentParts.headline.eyebrow ~ blockHeadline ~ contentParts.text.eyebrow ~ contentParts.text.headline %}
+                {% set cell1Body     = contentParts.text.body ~ contentParts.text.cta %}
+
+                {% if thisBlock.settings.textButtonsToFooter ??? null %}
+                    {% set cell1Body = contentParts.text.body %}
+                {% endif %}
+            {% endif %}
+        {% else %}
+            {## use the `headline` field from headerBuilder blocks as the <h1> element for the page and prepend
+                it to the block body text field (unless otherwise rearranged) ##}
+            {% set cell1Body = contentParts.headline.eyebrow ~ blockHeadline ~ cell1Body %}
+        {% endif %}
+
 
     {## do we need to apply a class to the headline of a rich text block (or wrap it in a component) ##}
-    {% set headlineClass = settings.headlineClass       ??? null %}
+    {# {% set headlineClass = settings.headlineClass       ??? null %}
     {% set headlineComp  = settings.headlineComponent   ??? null %}
     {% if headlineClass and ( textParts.headline ??? null ) %}
         {% set newHeadline = textParts.headline|retconAttr( 'h1,h2,h3', { 'class': headlineClass }, false ) %}
         {% set textParts   = textParts | merge({ headline: newHeadline }) %}
-    {% endif %}
+    {% endif %} #}
 
     {## set a blockID for this block that can be used in any dynamic components ##}
     {% set blockID = content.id ??? create('craft\\helpers\\StringHelper').UUID() %}
 
-    {## set default content for gridHeader / gridFooter ##}
-    {% set headerCellContent = separateHeadline ? textParts.eyebrow ~ textParts.headline : null %}
-    {% set footerCellContent = separateCta ? textParts.cta : null %}
-
-    {## update the contents of the main block text field based on whether anything was separated out ##}
-    {% set text = textParts.body %}
-    {% set text = separateHeadline ? text : textParts.eyebrow ~ textParts.headline ~ text %}
-    {% set text = separateCta      ? text : text ~ textParts.cta %}
-
-    {% set text2 = text2Parts.eyebrow ~ text2Parts.headline ~ text2Parts.body ~ text2Parts.cta %}
-
     {## set default includes for grid cells 1/2 ##}
-    {% set gridInclude1 = widgets.embed( thisBlock, 'cell1' ) %}
+    {# {% import "_macros/widgets" as widgets %} #}
+    {# {% set gridInclude1 = widgets.embed( thisBlock, 'cell1' ) %}
     {% set gridInclude1 = (settings.gridInclude1 ??? null) ? include( settings.gridInclude1, { settings: settings }, ignore_missing = true ) : gridInclude1 %}
 
     {% set gridInclude2 = widgets.embed( thisBlock, 'cell2' ) %}
-    {% set gridInclude2 = (settings.gridInclude2 ??? null) ? include( settings.gridInclude2, { settings: settings }, ignore_missing = true ) : gridInclude2 %}
+    {% set gridInclude2 = (settings.gridInclude2 ??? null) ? include( settings.gridInclude2, { settings: settings }, ignore_missing = true ) : gridInclude2 %} #}
 
     {## include the twig template for this block from a list of
        possible locations based on the blocks attributes.
@@ -108,28 +103,32 @@
 
        only the first template found will be included ##}
     {% set twigPath = [
-        "_sections/#{sectionHandle}/_blocks/#{builder}/#{blockType}.#{entryHandle}.#{variant}",
-        "_sections/#{sectionHandle}/_blocks/#{builder}/#{blockType}.#{entryHandle}",
-        "_sections/#{sectionHandle}/_blocks/#{builder}/#{blockType}.#{variant}",
-        "_sections/#{sectionHandle}/_blocks/#{builder}/#{blockType}",
+        "_sections/#{thisBlock.sectionHandle}/_blocks/#{thisBlock.builder}/#{thisBlock.blockType}.#{thisBlock.entryHandle}.#{thisBlock.variant}",
+        "_sections/#{thisBlock.sectionHandle}/_blocks/#{thisBlock.builder}/#{thisBlock.blockType}.#{thisBlock.entryHandle}",
+        "_sections/#{thisBlock.sectionHandle}/_blocks/#{thisBlock.builder}/#{thisBlock.blockType}.#{thisBlock.variant}",
+        "_sections/#{thisBlock.sectionHandle}/_blocks/#{thisBlock.builder}/#{thisBlock.blockType}",
 
-        "_sections/#{sectionHandle}/_blocks/#{blockType}.#{entryHandle}.#{variant}",
-        "_sections/#{sectionHandle}/_blocks/#{blockType}.#{entryHandle}",
-        "_sections/#{sectionHandle}/_blocks/#{blockType}.#{variant}",
-        "_sections/#{sectionHandle}/_blocks/#{blockType}",
+        "_sections/#{thisBlock.sectionHandle}/_blocks/#{thisBlock.blockType}.#{thisBlock.entryHandle}.#{thisBlock.variant}",
+        "_sections/#{thisBlock.sectionHandle}/_blocks/#{thisBlock.blockType}.#{thisBlock.entryHandle}",
+        "_sections/#{thisBlock.sectionHandle}/_blocks/#{thisBlock.blockType}.#{thisBlock.variant}",
+        "_sections/#{thisBlock.sectionHandle}/_blocks/#{thisBlock.blockType}",
 
-        "_blocks/#{builder}/#{blockType}.#{entryHandle}.#{variant}",
-        "_blocks/#{builder}/#{blockType}.#{entryHandle}",
-        "_blocks/#{builder}/#{blockType}.#{variant}",
-        "_blocks/#{builder}/#{blockType}",
+        "_blocks/#{thisBlock.builder}/#{thisBlock.blockType}.#{thisBlock.entryHandle}.#{thisBlock.variant}",
+        "_blocks/#{thisBlock.builder}/#{thisBlock.blockType}.#{thisBlock.entryHandle}",
+        "_blocks/#{thisBlock.builder}/#{thisBlock.blockType}.#{thisBlock.variant}",
+        "_blocks/#{thisBlock.builder}/#{thisBlock.blockType}",
 
-        "_blocks/#{blockType}.#{entryHandle}.#{variant}",
-        "_blocks/#{blockType}.#{entryHandle}",
-        "_blocks/#{blockType}.#{variant}",
-        "_blocks/#{blockType}"
+        "_blocks/#{thisBlock.blockType}.#{thisBlock.entryHandle}.#{thisBlock.variant}",
+        "_blocks/#{thisBlock.blockType}.#{thisBlock.entryHandle}",
+        "_blocks/#{thisBlock.blockType}.#{thisBlock.variant}",
+        "_blocks/#{thisBlock.blockType}"
     ] %}
 
-    {{ include( twigPath ) }}
+    {{ include( twigPath, {
+        settings: thisBlock.settings,
+        content: thisBlock.content,
+        contentParts: contentParts,
+    } ) }}
 {% endif %}
 
 

@@ -1,55 +1,42 @@
-{## Rich Media Block Template
-   -------------------------------------------------------------------------- ##
-   this template is meant to be included via `templates/_blocks/_base.twig`
+{## Rich Media Block
+    ---------------------------------------------------------------------------- ##
+    this template is typically included from `_blocks/_base.twig` which pre-sets
+    a handful of variables and passes them into this template via twig context.
+ ## ---------------------------------------------------------------------------- ##}
+{% set thisBlock = {
+    content     : null,
+    settings    : null,
+    blockLayout : '_layouts/micro/blockLayoutLeftRightEven',
+}|map( (item,key) => _context[key] ??? settings[key] ??? item ) %}
 
-   it *can* be called directly with {{ include }} or {% embed %}, but it might
-   be more trouble than it's worth to prep and format the necessary inputs.
+{% embed thisBlock.blockLayout %}
+    {## primary text content is already added to this block layout via the `cell1Body`
+        variable declared in `_blocks/_base`. Uncomment {% block %} below to customize
 
-   instead, if you want to display content for a Craft MatrixBlock element,
-   start with the block base template
-
-     -> templates/_blocks/_base.twig
-
-   the block base template is responsible for sanitizing and normalizing all
-   MatrixBlock content and layout settings before calling a template like this.
-
-   if you're trying to create a similar layout or functionality using content
-   that didn't come from a MatrixBlock, consider using {% embed %} to create
-   a grid and overload {% block %} elements as neccesary.
- # -------------------------------------------------------------------------- ##}
-{% set settings  = settings  ??? null %}
-{% set content   = content   ??? null %}
-{% set textParts = textParts ??? null %}
-
-{% if settings.grid %}
-    {% embed settings.grid %}
-
-        {% block cell1 %}
-            {% set text = ( textParts.eyebrow ~ textParts.headline ~ textParts.body ~ textParts.cta ) ??? text ??? content.text ??? null %}
-            {{ text|raw }}
+        {% block cell1Body %}
+          {{ thisBlock.content.text }}
         {% endblock %}
+    ##}
 
-        {% block cell2 %}
-            {% set source = source ??? content.source ??? null %}
-            {% set urls   = urls   ??? content.urls   ??? null %}
-            {% set assets = assets ??? content.assets.all() ??? null %}
+    {% block cell2Body %}
+        {% set source   = thisBlock.content.source ??? null %}
+        {% set urls     = thisBlock.content.urls   ??? null %}
+        {% set assets   = thisBlock.content.assets.all() ??? null %}
+        {% set template = thisBlock.settings.mediaComponent ??? thisBlock.settings.mediaCard ??? '_cards/media/_router' %}
 
-            {% set urls   = ( source == 'external' or ( urls and not assets ) ) ? urls   : null %}
-            {% set assets = ( source == 'local'    or ( assets and not urls ) ) ? assets : null %}
+        {% set urls   = ( source == 'external' or ( urls and not assets ) ) ? urls   : null %}
+        {% set assets = ( source == 'local'    or ( assets and not urls ) ) ? assets : null %}
 
-            {% import "_macros/embed" as embedExternal %}
+        {% import "_macros/embed" as embedExternal %}
+        {% for exMedia in urls %}
+            {{ embedExternal.iframe( exMedia.url, thisBlock.settings, blockID, loop ) }}
+        {% endfor %}
 
-            {% for exMedia in urls %}
-                {{ embedExternal.iframe( exMedia.url, settings, blockID, loop ) }}
-            {% endfor %}
-
-            {{- include( settings.mediaComponent ??? settings.mediaTreatment ??? '_components/cards/media/_router', {
-                urls    : urls,
-                assets  : assets,
-                source  : source,
-                settings: settings
-            }, withContext = false ) -}}
-        {% endblock %}
-
-    {% endembed %}
-{% endif %}
+        {{ include( template, {
+            urls    : urls,
+            assets  : assets,
+            source  : source,
+            settings: thisBlock.settings
+        }, withContext = false ) }}
+    {% endblock %}
+{% endembed %}

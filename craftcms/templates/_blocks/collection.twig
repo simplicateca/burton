@@ -1,128 +1,80 @@
-{## Collections Block Template
-    -------------------------------------------------------------------------- ##
-    this template is meant to be included via `templates/_blocks/_base.twig`
+{## Collection Block
+    ---------------------------------------------------------------------------- ##
+    this template is typically included from `_blocks/_base.twig` which pre-sets
+    a handful of variables and passes them into this template via twig context.
+ ## ---------------------------------------------------------------------------- ##}
+{% set thisBlock = {
+    content     : null,
+    settings    : null,
+    blockLayout : '_layouts/micro/blockLayoutTopBottom',
+}|map( (item,key) => _context[key] ??? settings[key] ??? item ) %}
 
-    it *can* be called directly with {{ include }} or {% embed %}, but it might
-    be more trouble than it's worth to prep and format the necessary inputs.
+{% embed thisBlock.blockLayout %}
+    {## primary text content is already added to this block layout via the `cell1Body`
+        variable declared in `_blocks/_base`. Uncomment {% block %} below to customize
 
-    instead, if you want to display content for a Craft MatrixBlock element,
-    start with the block base template
+        {% block cell1Body %}
+          {{ thisBlock.content.text }}
+        {% endblock %}
+    ##}
 
-        -> templates/_blocks/_base.twig
+    {% block cell2Body %}
 
-    the block base template is responsible for sanitizing and normalizing all
-    MatrixBlock content and layout settings before calling a template like this.
+        {% set itemSource = thisBlock.content.collectionType ??? null %}
 
-    if you're trying to create a similar layout or functionality using content
-    that didn't come from a MatrixBlock, consider using {% embed %} to create
-    a grid and overload {% block %} elements as neccesary.
- ## -------------------------------------------------------------------------- ##}
+        {% if itemSource == 'search' %}
 
-{% set settings  = settings ??? null %}
-{% set content   = content  ??? null %}
-{% set grid      = grid     ??? settings.grid          ??? null %}
-{% set text      = text     ??? content.text           ??? null %}
-
-{% set entries   = entries  ??? content.entries.all()  ??? null %}
-{% set searches  = searches ??? content.searches.all() ??? null %}
-{% set assets    = assets   ??? content.assets.all()   ??? null %}
-{% set custom    = custom   ??? content.items.all()    ??? null %}
-
-{% set component = component ??? settings.itemComponent ??? null %}
-{% set itemCard  = itemCard  ??? settings.itemCard      ??? '_components/cards/item/basic' %}
-
-{% set collectionType  = content.collectionType ??? null %}
-
-{% set collectionItems = collectionType == 'items'   ? custom  : null %}
-{% set collectionItems = collectionType == 'entries' ? entries : collectionItems %}
-{% set collectionItems = collectionType == 'assets'  ? assets  : collectionItems %}
-
-{% if collectionType == 'search' %}
-
-    {% set search      = searches|first %}
-    {% set contentType = search.contentType.reference() ??? null %}
-    {% set section     = contentType.section       ??? null %}
-    {% set entryType   = contentType.entryType     ??? null %}
-    {% set limit       = content.limit             ??? -1 %}
-    {% set sort        = search.sort.value         ??? null %}
-    {% set redirect    = search.redirect           ??? null %}
-    {% set topics      = search.taxonomies.all()   ??? null %}
-    {% set pagination  = content.pagination        ??? null %}
-
-    {## search/sort/filter settings ##}
-    {% set orderBy = 'postDate DESC' %}
-    {% set orderBy = ( sort == 'random'       ) ? 'RAND()'        : orderBy %}
-    {% set orderBy = ( sort == 'alphabetical' ) ? 'title DESC'    : orderBy %}
-    {% set orderBy = ( sort == 'upcoming'     ) ? 'startDate ASC' : orderBy %}
-
-    {## create the starting query ##}
-    {% set collectionQuery = null %}
-
-    {% if section == 'products' %}
-        {% set orderBy = ( sort == 'recent' ) ? 'dateUpdated DESC' : orderBy %}
-
-        {% set collectionQuery = craft.products()
-            .availableForPurchase(true)
-            .orderBy(orderBy)
-            .limit(limit) %}
-
-    {% else %}
-        {% set collectionQuery = craft.entries()
-            .orderBy(orderBy)
-            .limit(limit) %}
-
-        {% set collectionQuery = section ? collectionQuery.section(section) : collectionQuery %}
-    {% endif %}
-
-    {% set collectionQuery = entryType ? collectionQuery.type(entryType)   : collectionQuery %}
-    {% set collectrionQuery = topics    ? collectionQuery.relatedTo(topics) : collectionQuery %}
-
-    {% set collectionItems = collectionQuery.all() ??? null %}
-
-    {% if pagination == 'all' and redirect %}
-        {% set footerCellContent %}
-            {{ redirect.getLink({
-                class: 'button',
-                text: 'See All',
+            {## are we using (one or more) Content Search entries to choose our items? ##}
+            {{ sprig( "_components/search/contentSearch.sprig", {
+                settings  : thisBlock.settings,
+                limit     : thisBlock.content.limit ??? null,
+                pagination: thisBlock.content.pagination.value ??? null,
+                searchID  : thisBlock.content.searches.ids() ??? null,
             }) }}
-        {% endset %}
-    {% endif %}
-{% endif %}
 
-{## prepare the collection items content for cell2 --- ##}
-{% set collection %}
+        {% else %}
 
-    {## let the component sort out how to display all the items ##}
-    {% if component %}
+            {## or did we chose specific entries/assets or custom items? ##}
+            {% set collectionItems = [] %}
+            {% switch itemSource %}
+                {% case "assets" %}
+                    {% set collectionItems = thisBlock.content.assets.all()  ??? [] %}
+                {% case "entries" %}
+                    {% set collectionItems = thisBlock.content.entries.all() ??? [] %}
+                {% default %}
+                    {% set collectionItems = thisBlock.content.items.all()   ??? [] %}
+            {% endswitch %}
 
-        {{ include( component, {
-            items: collectionItems,
-            settings: settings
-        }, withContext = false ) }}
+            {## are we handing off the items to a custom component ##}
+            {% set component = thisBlock.settings.itemComponent ??? null %}
+            {% if component %}
 
-    {## otherwise hand off to a treatment ##}
-    {% else %}
-        {% for item in collectionItems %}
+                {{ include( component, {
+                    items   : collectionItems,
+                    settings: thisBlock.settings
+                }, withContext = false ) }}
 
-            {{ include( itemCard, {
-                entry: item,
-                loop: loop,
-                settings: settings
-            }, withContext = false ) }}
+            {## or just using a standard grid+card layout ##}
+            {% else %}
 
-        {% endfor %}
-    {% endif %}
-{% endset %}
+                {% set itemGrid = thisBlock.settings.itemGrid ??? '_layouts/micro/gridCols2' %}
+                {% set itemCard = thisBlock.settings.itemCard ??? '_cards/item/basic' %}
 
+                {% embed itemGrid %}
+                    {% block items %}
+                        {% for item in collectionItems %}
+                            {{ include( itemCard, {
+                                entry   : item,
+                                loop    : loop,
+                                settings: thisBlock.settings
+                            }, withContext = false ) }}
+                        {% endfor %}
+                    {% endblock %}
+                {% endembed %}
 
-{% if grid %}
-    {% embed grid %}
-        {% block cell1 %}
-            {{text|raw}}
-        {% endblock %}
+            {% endif %}
 
-        {% block cell2 %}
-            {{collection|raw}}
-        {% endblock %}
-    {% endembed %}
-{% endif %}
+        {% endif %}
+
+    {% endblock %}
+{% endembed %}

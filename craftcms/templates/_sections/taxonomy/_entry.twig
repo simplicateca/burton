@@ -27,17 +27,21 @@
 
     {% if taggedArticles %}
         <div class="container py-16">
-            {% embed '_layouts/grids/stackedOver3' %}
-                {% block cell1 %}
+            {% embed '_layouts/micro/blockLayoutTopBottom' %}
+                {% block cell1Body %}
                     <h2>Articles related to {{ entry.title }}</h2>
                 {% endblock %}
 
-                {% block cell2 %}
-                    {% for item in taggedArticles %}
-                        {{ include('_components/cards/item/basic', {
-                            entry: item
-                        }, withContext = false ) }}
-                    {% endfor %}
+                {% block cell2Body %}
+                    {% embed '_layouts/micro/gridCols3' %}
+                        {% block items %}
+                            {% for item in taggedArticles %}
+                                {{ include('_cards/item/basic', {
+                                    entry: item
+                                }, withContext = false ) }}
+                            {% endfor %}
+                        {% endblock %}
+                    {% endembed %}
                 {% endblock %}
             {% endembed %}
         </div>

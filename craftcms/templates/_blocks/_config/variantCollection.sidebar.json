@@ -3,7 +3,7 @@
         "label": "Default",
         "value": "default",
         "settings": {
-            "itemCard" : "_components/cards/item/basic"
+            "itemCard" : "_cards/item/basic"
         }
     },
 
@@ -11,7 +11,7 @@
         "label": "Plain - Stacked",
         "value": "stackedPlain",
         "settings": {
-            "itemCard" : "_components/cards/stackedPlain"
+            "itemCard" : "_cards/stackedPlain"
         }
     },
 
@@ -19,7 +19,7 @@
         "label": "Plain - Horizontal",
         "value": "horizontalPlain",
         "settings": {
-            "itemCard" : "_components/cards/horizontalPlain"
+            "itemCard" : "_cards/horizontalPlain"
         }
     },
 
@@ -27,7 +27,7 @@
         "label": "Box - Stacked",
         "value": "stackedBox",
         "settings": {
-            "itemCard" : "_components/cards/stackedBox"
+            "itemCard" : "_cards/stackedBox"
         }
     },
 
@@ -35,7 +35,7 @@
         "label": "Box - Horizontal",
         "value": "horizontalBox",
         "settings": {
-            "itemCard" : "_components/cards/horizontalBox"
+            "itemCard" : "_cards/horizontalBox"
         }
     },
 

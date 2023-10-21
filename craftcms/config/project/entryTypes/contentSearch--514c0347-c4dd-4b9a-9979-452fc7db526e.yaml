@@ -32,6 +32,35 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
+            fieldUid: fde3769d-9be8-400b-a915-9c3c06469466 # Label
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7fad6a1a-7342-4352-85e4-390b112a124c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: b1c52a06-4990-43f5-90d3-898a48789556 # Dek
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 43ab46a3-9caf-48a2-9bb9-ab7990833ad0
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: f3184e90-d4b9-4cd0-bccd-1f1921a09a80
+            userCondition: null
+          -
+            elementCondition: null
             fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Type
             instructions: null
             label: null
@@ -150,47 +179,6 @@ fieldLayouts:
             width: 100
         name: Essentials
         uid: 7b3582ca-52c3-4f69-aec4-f49bbc0d6fa0
-        userCondition: null
-      -
-        elementCondition:
-          class: craft\elements\conditions\entries\EntryCondition
-          conditionRules:
-            -
-              class: simplicateca\referencefield\fields\conditions\ReferenceFieldConditionRule
-              fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Type
-              operator: ni
-              uid: 27f07209-95e9-4315-8570-e1c7be040f63
-              values:
-                - rss
-          elementType: craft\elements\Entry
-          fieldContext: global
-        elements:
-          -
-            elementCondition: null
-            fieldUid: c70698c5-9843-4d1a-9ce8-2e2e272bd096 # Headline
-            instructions: null
-            label: 'Feed Title'
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 6e7c394e-27c1-494f-95f1-f1842ebf6adc
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: b1c52a06-4990-43f5-90d3-898a48789556 # Dek
-            instructions: null
-            label: 'Feed Description'
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 43ab46a3-9caf-48a2-9bb9-ab7990833ad0
-            userCondition: null
-            warning: null
-            width: 100
-        name: 'RSS Feed'
-        uid: f5555bfb-de14-4c98-a515-02e985d025dc
         userCondition: null
 handle: contentSearch
 hasTitleField: true

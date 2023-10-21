@@ -4,9 +4,10 @@
     blockID    : null,
     entryID    : null,
     entryUrl   : '/',
-    grid       : '_layouts/grids/stackedOver3',
-    gridInner1 : "w-full max-w-5xl text-center mx-auto flex flex-col gap-12",
-    itemCard   : '_components/cards/item/basic',
+    blockLayout: '_layouts/micro/blockLayoutTopBottom',
+    blockGrid  : '_layouts/micro/gridCols3',
+    gridInner1 : '',
+    itemCard   : '_cards/item/basic',
     section    : null,
     entryType  : null,
     sort       : 'recent',
@@ -102,7 +103,7 @@
 <div s-results="sprig-{{settings.uuid}}">
     {% embed settings.grid %}
 
-        {% block cell1 %}
+        {% block cell1Body %}
             {{settings.text|raw}}
 
             {{ include( '_components/search/sprigQueryAndTopic', {
@@ -112,7 +113,7 @@
             }, withContext = false ) }}
         {% endblock %}
 
-        {% block cell2 %}
+        {% block cell2Body %}
             {% for item in pageInfo.pageResults ??? [] %}
                 {{ include( settings.itemCard, {
                     entry   : item,

@@ -4,7 +4,7 @@
         "value": "siteSearch",
 
         "settings" : {
-            "container": "container @container",
+            "blockContainer": "container @container",
             "specialComponent": "_components/search/basicQuery"
         }
     },
@@ -14,8 +14,8 @@
         "value": "form",
 
         "settings" : {
-            "container": "container @container",
-            "specialComponent": "_components/cards/media/form"
+            "blockContainer": "container @container",
+            "specialComponent": "_cards/media/form"
         }
     },
 
@@ -24,7 +24,7 @@
         "value": "navigation",
 
         "settings" : {
-            "container": "container @container",
+            "blockContainer": "container @container",
             "specialComponent": "_components/navigation/basic"
         }
     },
@@ -34,8 +34,8 @@
         "value": "vueComponent",
 
         "settings" : {
-            "container": "container @container",
-            "specialComponent": "_components/cards/media/vue",
+            "blockContainer": "container @container",
+            "specialComponent": "_cards/media/vue",
             "specialVueLoader": "app.vueTestSlime"
         }
     }

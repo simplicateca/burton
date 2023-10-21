@@ -5,7 +5,7 @@
 
         "settings": {
             "bgColor": "gray-200",
-            "outerClass": "theme-light py-16 bg-gray-200"
+            "outerBgClass": "theme-light py-16 bg-gray-200"
         }
     },
 
@@ -15,7 +15,7 @@
 
         "settings": {
             "bgColor": "white",
-            "outerClass": "theme-light py-16 bg-white"
+            "outerBgClass": "theme-light py-16 bg-white"
         }
     },
 
@@ -25,7 +25,7 @@
 
         "settings": {
             "bgColor": "gray-700",
-            "outerClass": "theme-dark py-16 bg-gray-700"
+            "outerBgClass": "theme-dark py-16 bg-gray-700"
         }
     }
 ]

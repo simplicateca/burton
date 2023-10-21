@@ -1,0 +1,37 @@
+{% set images    = images    ??? [] %}
+{% set settings  = settings  ??? null %}
+{% set cardTmpl  = cardTmpl  ??? settings.imageCard      ??? '_cards/image/basic' %}
+{% set transform = transform ??? settings.imageTransform ??? null %}
+{% set imgClass  = imgClass  ??? settings.imageClass     ??? null %}
+{% set caption   = caption   ??? settings.imageCaption   ??? null %}
+
+{## wireframe placeholders ##}
+{% if not images and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+    {% set images = random([
+        [null,null,null],
+        [null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]
+
+    ]) %}
+{% endif %}
+
+{% if images %}
+    {## set grid columns dynamically ##}
+    {% set columns = 3 %}
+    {% set columns = images|length > 5 ? 6 : columns %}
+
+    {## include all possible class names in a comment for tailwind compiler to find
+    {## lg:grid-cols-3 lg:grid-cols-6  ##}
+
+    <div class="w-full grid grid-cols-3 lg:grid-cols-{{columns}} gap-8 lg:gap-12 xl:gap-18 items-start">
+        {% for image in images %}
+            {{ include( cardTmpl, {
+                image    : image,
+                caption  : caption,
+                class    : imgClass,
+                transform: transform
+            }) }}
+        {% endfor %}
+    </div>
+{% endif %}

@@ -40,7 +40,7 @@
     {% if not ( 'Fragment' in entryType ) %}
         <div class="container @container">
             <div class="max-w-sm py-20">
-                {{ include( '_components/cards/item/basic', { entry: entry }, withContext = false ) }}
+                {{ include( '_cards/item/basic', { entry: entry }, withContext = false ) }}
             </div>
         </div>
     {% endif %}

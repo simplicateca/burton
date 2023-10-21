@@ -3,8 +3,8 @@
     "value": "textLeft",
 
     "settings": {
-        "grid": "_layouts/grids/splitNormal",
-        "container": "container @container"
+        "blockLayout": "_layouts/micro/blockLayoutLeftRightEven",
+        "blockContainer": "container @container"
     }
 },
 
@@ -13,8 +13,8 @@
     "value": "textRight",
 
     "settings": {
-        "grid": "_layouts/grids/splitReverse",
-        "container": "container @container"
+        "blockLayout": "_layouts/micro/blockLayoutLeftRightEvenReverse",
+        "blockContainer": "container @container"
     }
 },
 
@@ -23,7 +23,7 @@
     "value": "textAbove",
 
     "settings": {
-        "grid": "_layouts/grids/stacked",
-        "container": "container @container"
+        "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+        "blockContainer": "container @container"
     }
 }]

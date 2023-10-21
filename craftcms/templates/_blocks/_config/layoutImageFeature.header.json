@@ -4,12 +4,10 @@
         "value": "textLeft",
 
         "settings": {
-            "grid": "_layouts/grids/splitNormal",
-            "gridAlign": "items-center",
-            "gridCell1Adjust": "lg:w-3/5 justify-center",
-            "gridCell2Adjust": "lg:w-2/5",
-            "headlineClass": "pb-8 border-b-8",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutHeavyLeft",
+            "blockAlign": "items-center",
+            "blockContainer": "container @container",
+            "headlineClass": "pb-8 border-b-8"
         }
     },
 
@@ -18,9 +16,9 @@
         "value": "textRight",
 
         "settings": {
-            "grid": "_layouts/grids/splitReverse",
-            "gridAlign": "items-center",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutHeavyRight",
+            "blockAlign": "items-center",
+            "blockContainer": "container @container"
         }
     },
 
@@ -29,12 +27,12 @@
         "value": "textOverlay",
 
         "settings": {
-            "grid": "_layouts/grids/overlap",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutOverlap",
+            "blockContainer": "container @container"
         },
 
         "important": {
-            "imageCard": "_components/cards/image/parallaxBg"
+            "imageCard": "_cards/image/parallaxBg"
         }
     }
 ]

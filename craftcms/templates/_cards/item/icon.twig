@@ -1,0 +1,28 @@
+{% set entry = entry ?? null %}
+{% set _base = {
+    isIcon        : true,
+    baseCard      : "_cards/item/_base",
+    imageCard     : "_cards/image/basic",
+    imageClass    : "w-20 h-20 icon",
+    imageTransform: null,
+    cell2Class    : 'line-clamp-3',
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+{## output the appropriate card ##}
+{% set className = className(entry)|t ??? null %}
+{% set isProduct = 'Product' in className ? 'product' : '' %}
+{% set section   = entry.section.handle ??? isProduct ??? null %}
+{% set entryType = entry.type.handle    ??? null %}
+
+{{ include(
+    [ "_cards/#{section}.#{entryType}",
+      "_cards/#{section}",
+      settings.baseCard
+    ], {
+      entry: entry,
+      settings: settings
+    } )
+}}

@@ -4,8 +4,8 @@
         "value": "textAbove",
 
         "settings": {
-            "grid": "_layouts/grids/stacked",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container"
         }
     },
 
@@ -14,8 +14,8 @@
         "value": "textAbove",
 
         "settings": {
-            "grid": "_layouts/grids/stacked",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container"
         }
     }
 ]

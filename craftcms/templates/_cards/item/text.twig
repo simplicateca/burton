@@ -1,0 +1,26 @@
+{% set entry = entry ?? null %}
+{% set _base = {
+    baseCard: "_cards/item/_base",
+} %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+{## since this is a text only card, remove the images ##}
+{% set entryWithoutImages = entry|withoutKey('images') %}
+
+{## output the appropriate card ##}
+{% set className = className(entry)|t ??? null %}
+{% set isProduct = 'Product' in className ? 'product' : '' %}
+{% set section   = entry.section.handle ??? isProduct ??? null %}
+{% set entryType = entry.type.handle    ??? null %}
+
+{{ include(
+    [ "_cards/#{section}.#{entryType}",
+      "_cards/#{section}",
+      settings.baseCard
+    ], {
+      entry: entryWithoutImages,
+      settings: settings
+    } )
+}}

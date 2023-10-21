@@ -3,9 +3,15 @@
         "label": "Text Left / Media Right",
         "value": "textLeft",
 
+        "reference": {
+            "note": "Text on the left, image on the right, 50%/50% width. Stacks top/bottom mobile.",
+            "image": "https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/media-featured-v2.jpg",
+            "moreUrl": "/sitebook/components/media/#featured"
+        },
+
         "settings": {
-            "grid": "_layouts/grids/splitNormal",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutLeftRightEven",
+            "blockContainer": "container @container"
         }
     },
 
@@ -14,8 +20,8 @@
         "value": "textRight",
 
         "settings": {
-            "grid": "_layouts/grids/splitReverse",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutLeftRightEvenReverse",
+            "blockContainer": "container @container"
         }
     },
 
@@ -24,8 +30,9 @@
         "value": "textAbove2",
 
         "settings": {
-            "grid": "_layouts/grids/stackedOver2",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container",
+            "itemGrid": "_layouts/micro/gridCols2"
         }
     },
 
@@ -34,8 +41,9 @@
         "value": "textAbove3",
 
         "settings": {
-            "grid": "_layouts/grids/stackedOver3",
-            "container": "container @container"
+            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
+            "blockContainer": "container @container",
+            "itemGrid": "_layouts/micro/gridCols3"
         }
     }
 ]

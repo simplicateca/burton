@@ -4,8 +4,8 @@
         "label" : "Normal Spacing Above & Below",
 
         "settings" : {
-            "spaceBefore": "h-14 lg:h-20 xl:h-24 2xl:h-28",
-            "spaceAfter":  "h-14 lg:h-20 xl:h-24 2xl:h-28"
+            "spaceAboveClass": "h-14 lg:h-20 xl:h-24 2xl:h-28",
+            "spaceBelowClass":  "h-14 lg:h-20 xl:h-24 2xl:h-28"
         }
     },
 
@@ -13,8 +13,8 @@
         "value": "spacingExtra",
         "label" : "Extra Spacing Above & Below",
         "settings" : {
-            "spaceBefore": "h-16 lg:h-28 xl:h-32 2xl:h-40",
-            "spaceAfter":  "h-16 lg:h-28 xl:h-32 2xl:h-40"
+            "spaceAboveClass": "h-16 lg:h-28 xl:h-32 2xl:h-40",
+            "spaceBelowClass":  "h-16 lg:h-28 xl:h-32 2xl:h-40"
         }
     },
 
@@ -27,7 +27,7 @@
         "value": "spacingAboveNone",
         "label" : "No Spacing Above, Normal Space Below",
         "settings" : {
-            "spaceAfter":  "h-14 lg:h-20 xl:h-24 2xl:h-28"
+            "spaceBelowClass":  "h-14 lg:h-20 xl:h-24 2xl:h-28"
         }
     },
 
@@ -35,7 +35,7 @@
         "value": "spacingBelowNone",
         "label" : "Normal Space Above, No Spacing Below",
         "settings" : {
-            "spaceBefore":  "h-14 lg:h-20 xl:h-24 2xl:h-28"
+            "spaceAboveClass":  "h-14 lg:h-20 xl:h-24 2xl:h-28"
         }
     }
 ]

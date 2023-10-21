@@ -32,11 +32,11 @@
 {% block content %}
     <div class="container @container">
 
-        <div class="max-w-2xl pb-16">
-            {% include '_components/search/basicQuery' with {
-                headline: results ? 'Looking for something else?' : 'What can we help you find?',
+        <div class="max-w-2xl py-16">
+            {{ include( '_components/search/basicQuery', {
+                headline  : results ? 'Try another term?' : 'Enter your search term',
                 searchText: query
-            } %}
+            }, withContext = false ) }}
         </div>
 
         {% if entries.count() ??? null %}
@@ -45,7 +45,7 @@
             <div class="grid grid-cols-1 gap-16 pb-24">
                 {% for item in pageEntries %}
                     <div class="relative max-w-5xl">
-                        {{ include( '_components/cards/item/horizontal', { entry: item }, withContext = false ) }}
+                        {{ include( '_cards/item/horizontal', { entry: item }, withContext = false ) }}
                     </div>
                 {% endfor %}
 
