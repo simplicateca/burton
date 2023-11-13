@@ -1,6 +1,6 @@
 [
     {
-        "label": "Articles",
+        "label": "Any Article",
         "value": "articles.all",
         "section": "articles",
         "entryType": ["blog","news"]
@@ -22,9 +22,8 @@
 
     {
         "label": "FAQs",
-        "value": "modular.faq",
-        "section": "modular",
-        "entryType": "faq"
+        "value": "faqs.all",
+        "section": "faqs"
     },
 
     {
@@ -41,10 +40,9 @@
     },
 
     {
-        "label": "Data",
-        "value": "modular.metric",
-        "section": "modular",
-        "entryType": "metric"
+        "label": "Profiles",
+        "value": "profiles.all",
+        "section": "modular"
     },
 
     {
@@ -60,8 +58,11 @@
     },
 
     {
-        "label": "Internal Site Search",
+        "label": "All Primary Site Content",
         "value": "siteSearch",
+        "reference" : {
+            "note" : "Search only Articles + Pages"
+        },
         "section": ["articles", "pages"]
     }
 ]

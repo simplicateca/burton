@@ -1,0 +1,75 @@
+{% embed "_components/navigation/_base.list" with {
+    handle: handle ??? 'primary'
+}}
+{% endembed %}
+{% extends  %}
+
+{% }
+{% set title  = title  ??? null  %}
+{% set handle = handle ??? null  %}
+{% set items  = items  ??? null  %}
+{% set tag    = tag    ??? 'nav' %}
+
+{% block menu %}
+    {% block openNav %}
+        <{{ tag }} {{attr({
+            id  : "nav-#{handle ??? null }",
+            role: "navigation",
+            aria: { label: title ??? null }
+        })}}>
+    {% endblock %}
+
+    {% block beforeItems %}{% endblock %}
+
+    {% block openMenu %}
+        <ul class="{{ block( 'menuClass' ) }}">
+    {% endblock %}
+
+    {% block firstItem %}{% endblock %}
+
+    {% for node in items %}
+
+        {% block openItem %}
+            <li class="{{ ( node.children ??? null ) ? 'children' }}">
+        {% endblock %}
+
+        {% block item %}
+            {{ tag( 'a', {
+                href : node.url ??? null,
+                class: block('itemClass'),
+                html : "<span>#{node.title}</span>"
+            }) }}
+        {% endblock %}
+
+        {% block closeMenuItem %}</li>{% endblock %}
+
+    {% endfor %}
+
+    {% block lastItem %}{% endblock %}
+
+    {% block closeMenu %}</ul>{% endblock %}
+
+    {% block closeNav %}</{{tag}}>{% endblock %}
+{% endblock %}
+
+{% if 0 %}
+    {% block menuClass %}
+        m-0
+        p-0
+        list-none
+        flex gap-8
+    {% endblock %}
+
+    {% block item %}
+        text-lg
+        no-underline
+        text-theme-accent
+        hover:text-theme-accent-alt
+        hover:bg-theme-accent
+        flex
+        flex-col
+        items-center
+        px-2
+        gap-2
+    {% endblock %}
+{% endif %}

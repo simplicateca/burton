@@ -7,22 +7,6 @@ module.exports = {
         './vue/**/*.{vue,html}'
     ],
     theme: {
-        // fontSize: {
-        //     'xs'  : '',
-        //     'sm'  : '',
-        //     'base': '',
-        //     'lg'  : '',
-        //     'xl'  : '',
-        //     '2xl' : '',
-        //     '3xl' : '',
-        //     '4xl' : '',
-        //     '5xl' : '',
-        //     '6xl' : '',
-        //     '7xl' : '',
-        //     '8xl' : '',
-        //     '9xl' : '',
-        // },
-
         container: {
             center: true,
             padding: {
@@ -50,11 +34,11 @@ module.exports = {
             },
 
             animation: {
-                'slide-in-up': 'slideinup 0.25s ease-out forwards 0.1s',
+                'slideInUp': 'slideInUp 0.25s ease-out forwards 0.1s',
             },
 
             keyframes: {
-                slideinup: {
+                slideInUp: {
                   '0%'  : { transform: 'translateY(20px)', opacity: 0 },
                   '100%': { transform: 'translateY(0)',    opacity: 1 },
                 },
@@ -69,8 +53,7 @@ module.exports = {
             },
 
             zIndex: {
-		100: 100,
-                max: 999,
+		        100: 100
             },
 
             scale: {
@@ -79,19 +62,40 @@ module.exports = {
 
             colors: {
                 transparent: 'transparent',
-                current: 'currentColor',
-                //blue: {
-                //    DEFAULT: '#219EBC',
-                //    light: '#219EBC',
-                //    medium: '#008cac',
-                //    dark: '#023047',
-                //},
+                current    : 'currentColor',
+
+                theme: {
+                    DEFAULT: 'var(--primaryColor)',
+                    foreground: 'var(--primaryColor)',
+                    accent    : 'var(--accentColor)',
+                    background: 'var(--backgroundColor)',
+                    backgroundOff: 'var(--backgroundColorOff)',
+                    section: 'var(--sectionBackgroundColor)',
+                },
+
+                next: {
+                    'block-bg': 'var(--backgroundColorNext)',
+                },
+
+                prev: {
+                    'block-bg': 'var(--backgroundColorPrev)',
+                },
+
+                hilite: {
+                    DEFAULT : 'var(--hiliteColor)',
+                    alt     : 'var(--hiliteAltColor)',
+                },
+
+                shade: {
+                   DEFAULT : 'var(--shadeColor)',
+                   light   : 'var(--shadeLightColor)',
+                   dark    : 'var(--shadeDarkColor)',
+                }
             },
         }
     },
 
     plugins: [
-        require('@tailwindcss/container-queries'),
-        // ...
+        require('@tailwindcss/container-queries')
     ],
 };

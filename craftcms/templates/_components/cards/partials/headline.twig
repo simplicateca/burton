@@ -1,0 +1,23 @@
+{% block headline %}{% apply spaceless %}
+
+    {% if card.headline ??? null %}
+
+        {% set tag   = cardHeaderTag   ??? card.settings.cardHeaderTag   ??? 'h3' %}
+        {% set class = cardHeaderClass ??? card.settings.cardHeaderClass ??? null %}
+
+        {% import "_macros/markup" as markup %}
+        {{ markup.headline( card.headline, tag, class ) }}
+
+    {% endif %}
+
+{% endapply %}{% endblock %}
+
+
+
+{% block title %}{% apply spaceless %}
+
+    {{ ( card.headline ??? null )
+        | retconRemove( [ 'img', 'figure', 'iframe' ] )
+        | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ol', 'ul', 'li', 'blockquote', 'div', 'a' ], '' ) }}
+
+{% endapply %}{% endblock %}

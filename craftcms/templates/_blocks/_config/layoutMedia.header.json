@@ -1,0 +1,26 @@
+[{
+    "label": "Text Left / Media Right",
+    "value": "textLeft",
+
+    "settings": {
+        "microLayout": "leftRight"
+    }
+},
+
+{
+    "label": "Text Right / Media Left",
+    "value": "textRight",
+
+    "settings": {
+        "microLayout": "leftRightReverse"
+    }
+},
+
+{
+    "label": "Text Above Media",
+    "value": "textAbove",
+
+    "settings": {
+        "microLayout": "topBottom"
+    }
+}]

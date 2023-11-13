@@ -1,0 +1,17 @@
+{% extends "_components/images/_base" %}
+
+{% block image %}
+
+    {% embed '_components/carousel/_base' with {
+        items   : images   ??? null,
+        frame   : frame    ??? 'auto',
+        settings: settings ??? null
+    } %}
+        {% block slide %}
+            {% from "_components/images" import frame as framer %}
+
+            {{ framer( item, frame, settings ) }}
+        {% endblock %}
+    {% endembed %}
+
+{% endblock %}

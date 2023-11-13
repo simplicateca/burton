@@ -1,0 +1,40 @@
+{## Text Double Block Base
+ ------------------------------------------------------------------------------------ ##
+    New block variations should extend this template rather than `_blocks/_common`.
+
+    i.e. {% extends "_blocks/textDouble" %}
+ ------------------------------------------------------------------------------------ ##}
+{% extends "_blocks/_common" %}
+
+
+{## Micro-layouts are defined and documented within `_layouts/base/micro`
+
+    View: http://localhost/sitebook/layouts/micro-layouts
+    Docs: http://buildwithburton.com/docs/micro-layouts
+
+ ------------------------------------------------------------------------------------ ##}
+{% import "_layouts/base/micro" as micro %}
+
+{% block content %}
+
+    {{ micro.layout(
+        [
+            block('content_text'), block('content_text2'),
+            block('block_header'), block('block_footer')
+        ],
+        block.settings.microLayout ??? null,
+        block.settings.container    ?? "default"
+    ) }}
+
+{% endblock content %}
+
+
+{% block content_text2 %}{% apply spaceless %}
+    {% set processedText2 = processedText2 ??? null %}
+    {% if processedText2 %}
+        {{ processedText2.eyebrow  | raw }}
+        {{ processedText2.headline | raw }}
+        {{ processedText2.body     | raw }}
+        {{ processedText2.cta      | raw }}
+    {% endif %}
+{% endapply %}{% endblock %}

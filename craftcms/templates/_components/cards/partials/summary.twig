@@ -1,0 +1,14 @@
+{% block summary %}{% apply spaceless %}
+    {% import "_macros/markup" as markup %}
+    {{ markup.summaryMaxH4( card.summary ??? null ) }}
+{% endapply %}{% endblock %}
+
+
+
+
+{% block summary_truncated %}{% apply spaceless %}
+    <div class="line-clamp-3">
+        {% import "_macros/markup" as markup %}
+        {{ markup.summaryMaxH4( card.summary ??? null ) }}
+    </div>
+{% endapply %}{% endblock %}

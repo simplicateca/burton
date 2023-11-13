@@ -139,8 +139,8 @@
 }
 
 
-#content div.matrix-field .flex-fields div[data-attribute="spacing"],
-#content div.matrix-field .flex-fields div[data-attribute="bg"] {
+#content div.matrix-field .flex-fields div[data-attribute="interspace"],
+#content div.matrix-field .flex-fields div[data-attribute="theme"] {
     border-top: 1px solid #ccc;
     margin-top: 3rem !important;
     padding-top: 2rem !important;
@@ -149,13 +149,14 @@
     background-color: var(--gray-100);
 }
 
-#content div.matrix-field .flex-fields div[data-attribute="spacing"] select,
-#content div.matrix-field .flex-fields div[data-attribute="bg"] select {
+#content div.matrix-field .flex-fields div[data-attribute="interspace"] select,
+#content div.matrix-field .flex-fields div[data-attribute="theme"] select {
     background-color: #F4F6F9 !important;
 }
 
 
 @media only screen and (max-width:1535px) {
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="source"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="images"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="externalUrls"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="localAssets"],
@@ -168,7 +169,7 @@
 }
 
 @media only screen and (max-width:500px) {
-    #content div.matrix-field .flex-fields div[data-attribute="spacing"] {
+    #content div.matrix-field .flex-fields div[data-attribute="interspace"] {
         border-top: none !important;
         margin-top: 0rem !important;
         padding-top: 1rem !important;

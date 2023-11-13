@@ -149,7 +149,7 @@ fieldLayouts:
         uid: 4945e040-25f4-42ba-b3b0-ab439e1cd42a
         userCondition: null
 handle: contact
-instructions: ''
+instructions: null
 maxNodes: null
 name: 'Footer - Contact'
 permissions:

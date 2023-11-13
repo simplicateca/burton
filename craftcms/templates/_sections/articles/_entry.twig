@@ -1,24 +1,6 @@
-{% set entry     = entry ??? null %}
-{% set entryType = entry.type.handle ??? null %}
-{% set sidebar   = entry.sidebarBuilder.one() ??? null %}
-{% set template  = sidebar ? "_layouts/twoColumns" : "_layouts/oneColumn" %}
-
-{## otherwise, just include the proper layout template ##}
-{{ include( [ "_sections/articles/_entry.#{entryType}", template ], { entry: entry } ) }}
-
-{## {% extends "_layouts/twoColumns" %}
-
-{% block sidebar %}
-    <div class="py-16">
-        {{ include( '_components/search/basicQuery', {
-            headline: 'Search Our Archives',
-            url: '/news/'
-        }, withContext = false ) }}
-
-        <div class="like-h4 pt-20">
-            Follow Us
-        </div>
-
-        {{ include( '_components/widgets/social-links', { }, withContext = false ) }}
-    </div>
-{% endblock %} ##}
+{## [Article] Entry Type Base
+ ------------------------------------------------------------------------------------ ##}
+{% extends [
+    "_layouts/twoColumns",
+    "_layouts/_common"
+] %}

@@ -4,7 +4,6 @@ import '@/css/app.pcss';
 // eslint-disable-next-line no-unused-vars
 import {createApp, defineAsyncComponent} from 'vue';
 import "@lottiefiles/lottie-player";
-
 import gsap from "gsap";
 import { ScrollTrigger, Power3 } from "gsap/all";
 

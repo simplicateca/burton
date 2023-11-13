@@ -1,0 +1,15 @@
+{% block open %}{% apply spaceless %}
+    {% set attributes = attr({
+        class: card.class ??? null,
+        'data-card': card_template ??? null,
+        'data-section': card.section ??? null,
+        'data-type': card.type ??? null,
+    }) %}
+
+    <{{card.tag ??? 'div'}} {{attributes|raw}}>
+{% endapply %}{% endblock %}
+
+
+{% block close %}{% apply spaceless %}
+    </{{card.tag ??? 'div' }}>
+{% endapply %}{% endblock %}

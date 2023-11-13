@@ -1,0 +1,36 @@
+{% if currentUser and currentUser.showBlockMeta %}
+
+    {% set block = craft.matrixBlocks().id(id).one() %}
+
+    <div class="flex align-center justify-center font-sans mt-6">
+        <span class="text-xl font-medium -translate-y-4">↑</span>
+
+        <div class="flex align-center bg-gray-900 text-white border border-white">
+            <div class="flex flex-col-reverse border-gray-500 border-l">
+                <strong class="text-xs uppercase block p-1 px-3 pr-5 bg-gray-700 text-gray-200">Block</strong>
+                <span class="p-1 px-3 text-xl text-white font-medium">{{ block.type.name ??? null }}</span>
+            </div>
+
+            <div class="flex flex-col-reverse border-gray-500 border-l">
+                <strong class="text-xs uppercase block p-1 px-3 pr-5 bg-gray-700 text-gray-200">Layout</strong>
+                <span class="p-1 px-3 text-xl text-white font-medium">{{ block.layout.label ??? null }}</span>
+            </div>
+
+            <div class="flex flex-col-reverse border-gray-500 border-l">
+                <strong class="text-xs uppercase block p-1 px-3 pr-5 bg-gray-700 text-gray-200">Variant</strong>
+                <span class="p-1 px-3 text-xl text-white font-medium">{{ block.variant.label ??? null }}</span>
+            </div>
+
+            <div class="flex flex-col-reverse border-gray-500 border-l">
+                <strong class="text-xs uppercase block p-1 px-3 pr-5 bg-gray-700 text-gray-200">Theme</strong>
+                <span class="p-1 px-3 text-xl text-white font-medium">{{ block.theme.label ??? null }}</span>
+            </div>
+
+            <div class="flex flex-col-reverse border-gray-500 border-l">
+                <strong class="text-xs uppercase block p-1 px-3 pr-5 bg-gray-700 text-gray-200">Interspace</strong>
+                <span class="p-1 px-3 text-xl text-white font-medium">{{ block.interspace.label ??? null }}</span>
+            </div>
+        </div>
+        <span class="text-xl font-medium -translate-y-4">↑</span>
+    </div>
+{% endif %}

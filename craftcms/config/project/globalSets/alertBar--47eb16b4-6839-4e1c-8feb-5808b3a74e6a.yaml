@@ -1,0 +1,36 @@
+fieldLayouts:
+  603d77c4-85a3-4bac-9a09-5ac89222a518:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 3a8b6d9d-1ff5-4c4d-ade0-b43673ff5960 # Reusable Bits
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 89e1df99-977c-41d1-897a-197471ad681e
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: c70698c5-9843-4d1a-9ce8-2e2e272bd096 # Headline
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4966c1a7-0057-45a9-86bd-9ac4215b32ea
+            userCondition: null
+            warning: null
+            width: 100
+        name: 'Site Wide Alert'
+        uid: 78ec0216-d146-4f5f-8aca-72860fd99be1
+        userCondition: null
+handle: alertBar
+name: 'Alert Bar'
+sortOrder: 2

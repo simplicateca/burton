@@ -1,0 +1,32 @@
+[
+    {
+        "label": "Text Left / Image Right",
+        "value": "textLeft",
+
+        "settings": {
+            "microLayout": "heavyLeft"
+        }
+    },
+
+    {
+        "label": "Text Right / Image Left",
+        "value": "textRight",
+
+        "settings": {
+            "microLayout": "heavyRight"
+        }
+    },
+
+    {
+        "label": "Text Overlay Background Image",
+        "value": "textOverlay",
+
+        "settings": {
+            "microLayout": "overlap"
+        },
+
+        "important": {
+            "imageFrame": "_components/images/parallaxBg"
+        }
+    }
+]

@@ -4,107 +4,107 @@ return [
     'fields' => [
 
         'headerBuilder' => [
-            'defaultTabName' => 'Additional Settings',
+            'defaultTabName' => '⚛ Advanced',
             'types' => [
-                'singleText' => [
+                'text' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'headline', 'text', 'bg', 'spacing'],
+                        'fields' => ['layout', 'headline', 'text', 'theme', 'interspace'],
                     ]],
                 ],
 
-                'imageFeature' => [
+                'image' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'headline', 'text', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'headline', 'text', 'images', 'theme', 'interspace'],
                     ]],
                 ],
 
-                'richMedia' => [
+                'media' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'headline', 'text', 'source', 'assets', 'urls', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'headline', 'text', 'source', 'assets', 'embeds', 'theme', 'interspace'],
                     ]],
                 ],
             ]
         ],
 
         'sidebarBuilder' => [
-            'defaultTabName' => 'Additional Settings',
+            'defaultTabName' => '⚛ Advanced',
             'types' => [
-                'singleText' => [
+                'text' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'text', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'images', 'theme', 'interspace'],
 
                     ]],
                 ],
 
-                'imageFeature' => [
+                'image' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'images', 'theme', 'interspace'],
                     ]],
                 ],
 
-                'richMedia' => [
+                'media' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'text', 'source', 'assets', 'urls', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'source', 'assets', 'embeds', 'theme', 'interspace'],
                     ]],
                 ],
 
                 'collection' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'collectionType', 'entries', 'assets', 'searches', 'text', 'items', 'limit', 'pagination', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'source', 'entries', 'assets', 'feed', 'text', 'items', 'limit', 'pagination', 'theme', 'interspace'],
                     ]],
                 ]
             ]
         ],
 
         'contentBuilder' => [
-            'defaultTabName' => 'Additional Settings',
+            'defaultTabName' => '⚛ Advanced',
             'types' => [
-                'singleText' => [
+                'text' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'text', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'theme', 'interspace'],
                     ]],
                 ],
 
-                'textColumns' => [
+                'textDouble' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'text2', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'text2', 'theme', 'interspace'],
                     ]],
                 ],
 
-                'imageFeature' => [
+                'image' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'images', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'images', 'theme', 'interspace'],
                     ]],
                 ],
 
-                'richMedia' => [
+                'media' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'text', 'source', 'assets', 'urls', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'source', 'assets', 'embeds', 'theme', 'interspace'],
                     ]],
                 ],
 
                 'collection' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'collectionType', 'entries', 'assets', 'searches', 'text', 'items', 'limit', 'pagination', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'source', 'entries', 'assets', 'feeds', 'items', 'limit', 'pagination', 'theme', 'interspace'],
                     ]],
                 ],
 
-                'specialElement' => [
+                'special' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['variant', 'text', 'searches', 'form', 'bg', 'spacing'],
+                        'fields' => ['layout', 'variant', 'text', 'feeds', 'form', 'menu', 'code', 'theme', 'interspace'],
                     ]],
                 ],
             ],

@@ -1,0 +1,85 @@
+{% extends craft.app.request.isAjax() and not craft.app.request.getIsPreview()
+    ? '_layouts/base/ajax'
+    : '_layouts/base/web' %}
+
+{% use "_layouts/partials/_js" %}
+
+{% block bodyTagOpen %}
+    {{ parent() | attr({
+        class: ['font-body text-theme-foreground'],
+        'hx-ext': 'ajax-header'
+    }) }}
+{% endblock %}
+
+
+{% block components %}
+    {% block alertbar %}
+        {{ sprig( "_components/alertbar/bottom" ) }}
+    {% endblock %}
+
+    {% block modal %}
+        {% embed "_components/modal/dynamic" %}{% endembed %}
+    {% endblock %}
+
+    {% block allynav %}
+        {% embed "_components/navigation/a11y" %}{% endembed %}
+    {% endblock %}
+{% endblock %}
+
+
+{% block html %}
+
+    {% set entry = entry ??? product ??? event ??? null %}
+
+    {## handle redirects for entries of that type ##}
+    {% if ( 'redirect' == entry.type.handle ??? null ) and ( entry.redirect.url ??? null ) %}
+        {% redirect entry.redirect.url %}
+    {% endif %}
+
+    {% set prefetchUrls = [
+        'https://unpkg.com',
+        'https://cdn.polyfill.io'
+    ] %}
+
+    {% set baseUrl = alias('@web') ~ '/' %}
+
+    {% set _eager = {
+        common:
+            ["images", "topics"],
+
+        header:
+            ["headerBuilder"] |
+            merge([
+                "image:images","media:localAssets","fragment:modular"
+            ] | map( p => "headerBuilder.#{p}") ),
+
+        content:
+            ["contentBuilder"] |
+            merge([
+                "image:images","media:localAssets","fragment:modular","special:taxonomies",
+                "collection:items","collection:entries","collection:assets","collection:taxonomies",
+            ] | map( p => "contentBuilder.#{p}") ),
+
+        sidebar:
+            ["sidebarBuilder"] |
+            merge([
+                "image:images","media:localAssets","fragment:modular","special:taxonomies",
+                "collection:items","collection:entries","collection:assets","collection:taxonomies",
+            ] | map( p => "sidebarBuilder.#{p}") ),
+    } %}
+
+    {% if entry and ( className(entry) ??? null ) %}
+        {% do craft.app.elements.eagerLoadElements(
+            className(entry),
+            [entry],
+            [''] | merge(_eager.common  ??? '')
+                 | merge(_eager.header  ??? '')
+                 | merge(_eager.content ??? '')
+                 | merge(_eager.sidebar ??? '')
+        ) %}
+    {% endif %}
+
+    {## supes dupes important. don't remove. ##}
+    {## https://stackoverflow.com/a/32642249 ##}
+    {{ parent() }}
+{% endblock %}

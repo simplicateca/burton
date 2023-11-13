@@ -1,59 +1,31 @@
-[
-    {
-        "label": "Default",
-        "value": "default",
-        "settings": {
-            "itemCard" : "_cards/item/basic"
-        }
-    },
+[{
+    "label": "Auto",
+    "value": "auto",
+    "settings": {
 
-    {
-        "label": "Plain - Stacked",
-        "value": "stackedPlain",
-        "settings": {
-            "itemCard" : "_cards/stackedPlain"
-        }
-    },
-
-    {
-        "label": "Plain - Horizontal",
-        "value": "horizontalPlain",
-        "settings": {
-            "itemCard" : "_cards/horizontalPlain"
-        }
-    },
-
-    {
-        "label": "Box - Stacked",
-        "value": "stackedBox",
-        "settings": {
-            "itemCard" : "_cards/stackedBox"
-        }
-    },
-
-    {
-        "label": "Box - Horizontal",
-        "value": "horizontalBox",
-        "settings": {
-            "itemCard" : "_cards/horizontalBox"
-        }
-    },
-
-    {
-        "label": "Accordion Items",
-        "value": "accordion",
-
-        "important": {
-            "itemComponent" : "_components/accordion/accordion"
-        }
-    },
-
-    {
-        "label": "Horizontal Tabs",
-        "value": "horizontalTabs",
-
-        "important": {
-            "itemComponent" : "_components/tabs/horizontal"
-        }
     }
-]
+},{
+    "label": "Summary Cards",
+    "value": "summary",
+    "settings": {
+        "cardLayout": "standard.truncated"
+    }
+},{
+    "label": "Thumbnail",
+    "value": "thumbnail",
+    "settings": {
+        "cardLayout": "thumbnail"
+    }
+},{
+    "label": "Detail",
+    "value": "detail",
+    "settings": {
+        "cardLayout": "detail"
+    }
+},{
+    "label": "Icon Bullet",
+    "value": "iconbullet",
+    "settings": {
+        "cardLayout": "iconbullet"
+    }
+}]

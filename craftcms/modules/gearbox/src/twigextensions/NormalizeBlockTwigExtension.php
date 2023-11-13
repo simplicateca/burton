@@ -5,16 +5,14 @@
  * Splice any fragment block types into the block array.
  *
  * Combines JSON configs from multiple reference fields
- * (bg, variant, layout, spacing) into a single settings object
+ * (theme, variant, layout, interspace) into a single settings object
  *
  */
 
 namespace modules\gearbox\twigextensions;
 
 use Craft;
-use craft\elements\Entry;
 use craft\elements\MatrixBlock;
-
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 
@@ -24,23 +22,35 @@ class NormalizeBlockTwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('normalizeBlocks', [$this, 'normalizeBlocks']),
+            new TwigFunction( 'normalizeBlocks', [$this, 'normalizeBlocks'] ),
         ];
     }
 
 
     // find any fragment blocks and splice them into the block array
-    public function normalizeBlocks( $blockArray, $entry = [], $builder = 'content' )
+    public function normalizeBlocks( $blockArray, $builder = 'content', $originalSettings )
     {
         // if $entry is just an ID, look it up
-        $entry  = is_int($entry) ? Entry::find()->id($entry)->one() ?? [] : $entry;
+        // $entry  = is_int($entry) ? Entry::find()->id($entry)->one() ?? [] : $entry;
 
         $blocks = [];
+        $entry  = null;
+        $blockArray = $blockArray ?? [];
+
+        if( ! is_array( $blockArray ) ) {
+            print_r( $blockArray );
+            exit;
+        }
+
         foreach( $blockArray as $block ) {
 
             // if $block is just an ID, look it up
             $isJustID  = is_int($block);
             $block     = $isJustID ? MatrixBlock::find()->id($block)->one() ?? [] : $block;
+
+            if( !$entry ) {
+                $entry = $block->owner ?? null;
+            }
 
             $blockType = $block->type->handle ?? $block->type ?? null;
 
@@ -55,7 +65,7 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                                 'content'  => $fragBlock,
                                 'entry'    => $entry,
                                 'builder'  => $builder,
-                                'settings' => $settings
+                                'settings' => array_merge( $settings, $originalSettings )
                             ]);
                         }
                     } else {
@@ -65,7 +75,7 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                             'entry'    => $entry,
                             'fragment' => $fragment,
                             'builder'  => $builder,
-                            'settings' => $settings
+                            'settings' => array_merge( $settings, $originalSettings )
                         ]);
                     }
                 }
@@ -76,8 +86,19 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                     'content'  => $block,
                     'entry'    => $entry,
                     'builder'  => $builder,
-                    'settings' => $settings
+                    'settings' => array_merge( $settings, $originalSettings )
                 ]);
+            }
+        }
+
+        // add settings for next/previous siblings to each block
+        foreach( $blocks AS $key => $block ) {
+            if( $blocks[$key-1]->settings ?? null ) {
+                $block->prev = $blocks[$key-1]->settings;
+            }
+
+            if( $blocks[$key+1]->settings ?? null ) {
+                $block->next = $blocks[$key+1]->settings;
             }
         }
 
@@ -85,70 +106,90 @@ class NormalizeBlockTwigExtension extends AbstractExtension
     }
 
 
-    private function beforeRenderBlock( array $block ) : array
+    private function beforeRenderBlock( array $block ) : BurtonMatrixBlock
     {
-        $block['isNormal']      = true;
-        $block['entryHandle']   = $block['entry']->type->handle ?? '';
-        $block['sectionHandle'] = $block['fragment']->section->handle ?? $block['entry']->section->handle ?? '';
-        $block['blockType']     = $block['content']->type->handle ?? $block['content']->type ?? $block['content']['type'] ?? '';
-
-        $block['settings']['entryID']  = $block['entry']->id  ?? null;
-        $block['settings']['entryUrl'] = $block['entry']->url ?? null;
-
-        return $block;
+        return new BurtonMatrixBlock(
+            $block['content'],
+            array_merge( $block['settings'], [
+                'uuid'       => $block['content']->id ?? craft\helpers\StringHelper::UUID(),
+                'builder'    => $block['builder']    ?? null,
+                'entryID'    => $block['entry']->id  ?? null,
+                'entryUrl'   => $block['entry']->url ?? null,
+                'entryType'  => $block['entry']->type->handle ?? null,
+                'section'    => $block['fragment']->section->handle  ?? $block['entry']->section->handle ?? null,
+                'blockType'  => $block['content']->type->handle      ?? $block['content']->type ?? $block['content']['type'] ?? null,
+                'variant'    => $block['content']->variant->value    ?? null,
+                'theme'      => $block['content']->theme->value      ?? null,
+                'interspace' => $block['content']->interspace->value ?? null,
+                'layout'     => $block['content']->layout->value     ?? null,
+            ] )
+        );
     }
 
 
-    private function mergeBlockSettings( $block, $fragmentParent = null ) {
-
+    private function mergeBlockSettings( $block, $fragmentParent = null )
+    {
         if( empty( $block ) ) {
             return [];
         }
 
-        $layout    = ( $block->layout  ?? null ) ? $block->layout->reference()  ?? [] : [];
-        $variant   = ( $block->variant ?? null ) ? $block->variant->reference() ?? [] : [];
-        $bg        = ( $block->bg      ?? null ) ? $block->bg->reference()      ?? [] : [];
-        $spacing   = ( $block->spacing ?? null ) ? $block->spacing->reference() ?? [] : [];
+        $layout     = ( $block->layout     ?? null ) ? $block->layout->reference()     ?? [] : [];
+        $variant    = ( $block->variant    ?? null ) ? $block->variant->reference()    ?? [] : [];
+        $theme      = ( $block->theme      ?? null ) ? $block->theme->reference()      ?? [] : [];
+        $interspace = ( $block->interspace ?? null ) ? $block->interspace->reference() ?? [] : [];
 
         // if this is a content block that was inside a fragment container,
-        // figure out where to grab background/spacing settings from
+        // figure out where to grab background/interspace settings from
         if( $fragmentParent )
         {
             // background
-            if( $fragmentParent->bg && $fragmentParent->bg != 'FROMFRAGMENT' ) {
-                $bg = $fragmentParent->bg->reference() ?? $bg;
+            if( $fragmentParent->theme && $fragmentParent->theme != 'FROMFRAGMENT' ) {
+                $theme = $fragmentParent->theme->reference() ?? $theme;
             }
 
-            // spacing
-            if( $fragmentParent->spacing && $fragmentParent->spacing != 'FROMFRAGMENT' ) {
-                $spacing = $fragmentParent->spacing->reference() ?? $spacing;
+            // interspace
+
+            if( $fragmentParent->interspace && $fragmentParent->interspace != 'FROMFRAGMENT' ) {
+                $interspace = $fragmentParent->interspace->reference() ?? $interspace;
             }
         }
 
         $settings = array_merge(
-            $layout['settings']  ?? [],
-            $variant['settings'] ?? [],
-            $bg['settings']      ?? [],
-            $spacing['settings'] ?? []
+            $layout['settings']     ?? [],
+            $variant['settings']    ?? [],
+            $theme['settings']      ?? [],
+            $interspace['settings'] ?? []
         );
 
         $important = array_merge(
-            $spacing['important'] ?? [],
-            $bg['important']      ?? [],
-            $variant['important'] ?? [],
-            $layout['important']  ?? []
+            $interspace['important'] ?? [],
+            $theme['important']      ?? [],
+            $variant['important']    ?? [],
+            $layout['important']     ?? []
         );
-
-        $settings['variant'] = $variant['value'] ?? null;
-        $settings['layout']  = $layout['value']  ?? null;
-        $settings['bg']      = $bg['value']      ?? null;
-        $settings['spacing'] = $spacing['value'] ?? null;
-        $settings['blockID'] = $block->id        ?? null;
-        $settings['entryID'] = $block->owner->id ?? null;
 
         return array_merge(
             $settings,
             $important
         );
+    }
+}
+
+
+class BurtonMatrixBlock
+{
+    private $object;
+    public  $settings = [];
+    public  $prev     = [];
+    public  $next     = [];
+
+    public function __construct($object, $settings) {
+
+        $this->object   = $object;
+        $this->settings = $settings;
+    }
+
+    public function __call( $method, $arguments ) {
+        return $this->object->$method ?? call_user_func_array([$this->object, $method], $arguments);
     }
 }

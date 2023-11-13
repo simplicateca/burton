@@ -76,9 +76,12 @@
 {% endblock %}
 
 {% block content %}
-    {%- if systemPage -%}
-        {{ include( "_components/builders/builderContent", { entry: systemPage ??? null }, withContext = false ) }}
-    {%- else -%}
+    {% if systemPage %}
+        {% import "_blocks/_common" as blocks %}
+        {{ blocks.builder( systemPage.contentBuilder.all() ??? null, 'content', {
+            container: 'wideContainer'
+        } )}}
+    {% else %}
         <p>#{defaultText}</p>
-    {%- endif -%}
+    {% endif %}
 {% endblock %}

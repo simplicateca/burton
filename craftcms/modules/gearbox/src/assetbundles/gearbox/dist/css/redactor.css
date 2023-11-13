@@ -76,11 +76,11 @@
     color: #fff;
 }
 
-.input .redactor-styles ul.two-column {
+.input .redactor-styles ul.columnList {
     column-count: 2;
 }
 
-.input .redactor-styles ul.centerRows {
+.input .redactor-styles ul.rowList {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   justify-content: center;
@@ -90,7 +90,7 @@
   padding: 0;
 }
 
-.input .redactor-styles ul.centerRows li {
+.input .redactor-styles ul.rowList li {
   list-style: none;
   margin: 0px auto;
   padding: 10px;
@@ -98,26 +98,19 @@
   border-bottom: 1px solid #ccc;
 }
 
-.input .redactor-styles ul.grid,
-.input .redactor-styles ul.grid-2 {
+.input .redactor-styles ul.columnList {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-column-gap: 2rem;
     grid-row-gap: 2rem;
 }
 
-.input .redactor-styles ul.grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 2rem;
-    grid-row-gap: 2rem;
-}
 
-.input .redactor-styles ul.checkmarks {
+.input .redactor-styles ul.checkList {
     list-style: none;
 }
 
-.input .redactor-styles ul.checkmarks li:before {
+.input .redactor-styles ul.checkList li:before {
     content: '✓ ';
 }
 

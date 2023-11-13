@@ -1,12 +1,8 @@
-{% set entry     = entry ??? null %}
-{% set entryType = entry.type.handle ??? null %}
-{% set sidebar   = entry.sidebarBuilder.one() ??? null %}
-{% set template  = sidebar ? "_layouts/twoColumns" : "_layouts/oneColumn" %}
-
-{## handle redirects for entries of that type ##}
-{% if entryType == 'redirect' and ( entry.redirect.url ??? null ) %}
-    {% redirect entry.redirect.url %}
-{% endif %}
-
-{## otherwise, just include the proper layout template ##}
-{{ include( [ "_sections/pages/_entry.#{entryType}", template ], { entry: entry } ) }}
+{## Page Structure - Default EntryType Template
+ ------------------------------------------------------------------------------------ ##
+    Looks for an EntryType specific template before falling back to the default layout.
+ ------------------------------------------------------------------------------------ ##}
+{% extends [
+    "_sections/pages/_entry.#{entry.type.handle}",
+    "_layouts/_common"
+] %}

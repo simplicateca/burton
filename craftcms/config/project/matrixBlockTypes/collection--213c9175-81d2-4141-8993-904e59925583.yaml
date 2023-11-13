@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: ae3f34db-5fe5-4438-86f0-377cfaebf02a # Layout
+            fieldUid: ae3f34db-5fe5-4438-86f0-377cfaebf02a # Content layout and positioning
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: b65678be-7ed0-4665-aaaa-bd9d406b60f4 # Variant
+            fieldUid: b65678be-7ed0-4665-aaaa-bd9d406b60f4 # Style variation
             instructions: null
             label: null
             required: false
@@ -31,19 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: c6677eab-6c78-4ca1-93cd-0faa266d1c45 # Supporting Text
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 6017252d-7c65-4716-8587-0267805477aa
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: 0e2362da-4175-4b8f-a6f7-d881f03be73e # Collection Type
+            fieldUid: 0e2362da-4175-4b8f-a6f7-d881f03be73e # Where are the Collection items located?
             instructions: null
             label: null
             required: false
@@ -55,7 +43,19 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 9a818c17-ad1d-488d-945a-777b6b8b702f # Content entries
+            fieldUid: c6677eab-6c78-4ca1-93cd-0faa266d1c45 # Copy to introduce and support the Collection
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6017252d-7c65-4716-8587-0267805477aa
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 9a818c17-ad1d-488d-945a-777b6b8b702f # Entries in this Collection
             instructions: null
             label: null
             required: false
@@ -64,10 +64,10 @@ fieldLayouts:
             uid: 3683d32b-df1e-4a5a-b7ed-621696fce332
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
-            fieldUid: 14fd2961-f771-44f1-9b9c-aede9b59a565 # Uploaded assets
+            fieldUid: 14fd2961-f771-44f1-9b9c-aede9b59a565 # Assets in this Collection
             instructions: null
             label: null
             required: false
@@ -76,10 +76,10 @@ fieldLayouts:
             uid: 0fd46570-e8f2-4db3-89dd-0b979b0dedc4
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
-            fieldUid: 85a35bf9-39c4-475c-9abf-7839f75bb8e6 # Saved searches
+            fieldUid: 85a35bf9-39c4-475c-9abf-7839f75bb8e6 # Content feed
             instructions: null
             label: null
             required: false
@@ -88,10 +88,10 @@ fieldLayouts:
             uid: f591dd80-b8a8-49ba-8cc4-f8948b67172e
             userCondition: null
             warning: null
-            width: 50
+            width: 25
           -
             elementCondition: null
-            fieldUid: 6fe06c51-450b-43b8-8ff4-88f896048fd2 # Limit
+            fieldUid: 6fe06c51-450b-43b8-8ff4-88f896048fd2 # Limit to... ?
             instructions: null
             label: null
             required: false
@@ -103,7 +103,7 @@ fieldLayouts:
             width: 25
           -
             elementCondition: null
-            fieldUid: a8dc4c16-ac4a-41eb-b5cb-a83598b8313f # Search navigation
+            fieldUid: a8dc4c16-ac4a-41eb-b5cb-a83598b8313f # Navigation and filtering
             instructions: null
             label: null
             required: false
@@ -112,10 +112,10 @@ fieldLayouts:
             uid: cb10bc5b-d99c-46e6-a1fe-458f4c0d0d63
             userCondition: null
             warning: null
-            width: 25
+            width: 50
           -
             elementCondition: null
-            fieldUid: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Custom Items
+            fieldUid: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Items in this collection
             instructions: null
             label: null
             required: false
@@ -124,10 +124,10 @@ fieldLayouts:
             uid: 4043fe8b-846c-4408-af28-90d689ede417
             userCondition: null
             warning: null
-            width: 100
+            width: 75
           -
             elementCondition: null
-            fieldUid: 7b72b671-dcdc-49b2-95cd-44a8e8be7cad # Background
+            fieldUid: 7b72b671-dcdc-49b2-95cd-44a8e8be7cad # Background theme and colours
             instructions: null
             label: null
             required: false
@@ -139,7 +139,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: a1a62d7a-5173-4caf-8d92-423b6dc0dede # Partition
+            fieldUid: a1a62d7a-5173-4caf-8d92-423b6dc0dede # Area between and around the block
             instructions: null
             label: null
             required: false
@@ -153,13 +153,13 @@ fieldLayouts:
         uid: 6272049f-8eaf-4847-a1fc-52a1f881a7a9
         userCondition: null
 fields:
-  0e2362da-4175-4b8f-a6f7-d881f03be73e: # Collection Type
+  0e2362da-4175-4b8f-a6f7-d881f03be73e: # Where are the Collection items located?
     columnSuffix: knlnnrsn
     contentColumnType: string
     fieldGroup: null
-    handle: collectionType
-    instructions: 'Choose the type of content you want to display in this collection.'
-    name: 'Collection Type'
+    handle: source
+    instructions: null
+    name: 'Where are the Collection items located?'
     searchable: false
     settings:
       options:
@@ -167,7 +167,7 @@ fields:
           __assoc__:
             -
               - label
-              - 'Custom Items'
+              - 'Inline - create items in this block'
             -
               - value
               - items
@@ -178,7 +178,7 @@ fields:
           __assoc__:
             -
               - label
-              - 'Content Entries'
+              - 'Specific - select existing content entries'
             -
               - value
               - entries
@@ -189,10 +189,10 @@ fields:
           __assoc__:
             -
               - label
-              - 'Search Results'
+              - 'Dynamic - choose a predefined content feed'
             -
               - value
-              - search
+              - feed
             -
               - default
               - ''
@@ -200,7 +200,7 @@ fields:
           __assoc__:
             -
               - label
-              - 'Files & Assets'
+              - 'Assets - specific files uploaded inside Craft'
             -
               - value
               - assets
@@ -210,13 +210,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\RadioButtons
-  6fe06c51-450b-43b8-8ff4-88f896048fd2: # Limit
+  6fe06c51-450b-43b8-8ff4-88f896048fd2: # Limit to... ?
     columnSuffix: zbgxqkrw
     contentColumnType: integer(10)
     fieldGroup: null
     handle: limit
-    instructions: 'How many search results to display?'
-    name: Limit
+    instructions: null
+    name: 'Limit to... ?'
     searchable: false
     settings:
       decimals: 0
@@ -231,26 +231,26 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Number
-  7b72b671-dcdc-49b2-95cd-44a8e8be7cad: # Background
+  7b72b671-dcdc-49b2-95cd-44a8e8be7cad: # Background theme and colours
     columnSuffix: ngczrvyg
     contentColumnType: string
     fieldGroup: null
-    handle: bg
-    instructions: 'Set the background style behind this block.'
-    name: Background
+    handle: theme
+    instructions: null
+    name: 'Background theme and colours'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/bgContent.json
+      referenceFile: _blocks/_config/themeContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  9a818c17-ad1d-488d-945a-777b6b8b702f: # Content entries
+  9a818c17-ad1d-488d-945a-777b6b8b702f: # Entries in this Collection
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: entries
-    instructions: 'Choose existing content entries to feature in this collection'
-    name: 'Content entries'
+    instructions: null
+    name: 'Entries in this Collection'
     searchable: false
     settings:
       allowSelfRelations: false
@@ -289,17 +289,20 @@ fields:
                     -
                       - d3282cfb-d044-4890-b553-9a0b87393027 # SEO / Blog
                       - 8000f4a4-93b8-4f5b-b6b2-b26e6c12e366 # News
-                      - 64029a67-3d0c-4cad-8fc6-dc0eec8c112c # FAQs
+                      - 9d712dc3-2d54-4b21-bbc3-251dad2d4dc9 # Default
                       - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
                       - e0521335-ccc2-4893-a505-4baacf112dee # Standard
                       - 1da13089-e303-46d0-930f-aefd062df474 # Standard w/ Sidebar
+                      - b26498c0-236e-4738-85e6-666d3439cbc5 # Default
                       - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Topics & Themes
-      selectionLabel: 'Choose Content Entries'
+      selectionLabel: 'Choose entry'
       showSiteMenu: false
       sources:
         - 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # Articles
+        - 'section:fff3cc82-2855-4031-b003-b91d6e16088b' # FAQs
         - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
         - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Primary Pages
+        - 'section:3552382f-ca3b-44ba-95f4-2be9f7773370' # Profiles
         - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
       targetSiteId: null
       validateRelatedElements: false
@@ -307,13 +310,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  14fd2961-f771-44f1-9b9c-aede9b59a565: # Uploaded assets
+  14fd2961-f771-44f1-9b9c-aede9b59a565: # Assets in this Collection
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: assets
-    instructions: 'Choose the uploaded assets to feature in this collection'
-    name: 'Uploaded assets'
+    instructions: null
+    name: 'Assets in this Collection'
     searchable: false
     settings:
       allowSelfRelations: false
@@ -355,7 +358,7 @@ fields:
           -
             - class
             - craft\elements\conditions\assets\AssetCondition
-      selectionLabel: 'Choose Asset'
+      selectionLabel: 'Choose asset'
       showSiteMenu: false
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
@@ -366,13 +369,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Assets
-  85a35bf9-39c4-475c-9abf-7839f75bb8e6: # Saved searches
+  85a35bf9-39c4-475c-9abf-7839f75bb8e6: # Content feed
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
-    handle: searches
-    instructions: 'Choose the saved search to feature in this collection'
-    name: 'Saved searches'
+    handle: feeds
+    instructions: null
+    name: 'Content feed'
     searchable: false
     settings:
       allowSelfRelations: false
@@ -409,8 +412,8 @@ fields:
                   -
                     - values
                     -
-                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Search
-      selectionLabel: 'Choose Saved Search'
+                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Feeds
+      selectionLabel: 'Choose feed'
       showSiteMenu: false
       sources:
         - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
@@ -420,17 +423,17 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  5347a201-6da8-47ff-bc5b-20a0dc63d44e: # Custom Items
+  5347a201-6da8-47ff-bc5b-20a0dc63d44e: # Items in this collection
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: items
-    instructions: 'Create custom content items to feature in this collection'
-    name: 'Custom Items'
+    instructions: null
+    name: 'Items in this collection'
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 719187673
+      changedFieldIndicator: 1850365523
       columns:
         __assoc__:
           -
@@ -455,36 +458,36 @@ fields:
                   - width
                   - ''
       contentTable: '{{%stc_1_items}}'
-      fieldLayout: table
+      fieldLayout: matrix
       maxRows: null
       minRows: null
       propagationKeyFormat: null
-      propagationMethod: all
-      selectionLabel: 'Add Bit'
+      propagationMethod: none
+      selectionLabel: 'Add item'
       staticField: null
     translationKeyFormat: null
     translationMethod: site
     type: verbb\supertable\fields\SuperTableField
-  a1a62d7a-5173-4caf-8d92-423b6dc0dede: # Partition
+  a1a62d7a-5173-4caf-8d92-423b6dc0dede: # Area between and around the block
     columnSuffix: vdailebf
     contentColumnType: string
     fieldGroup: null
-    handle: spacing
-    instructions: 'Adjust whitespace & dividers for this block'
-    name: Partition
+    handle: interspace
+    instructions: null
+    name: 'Area between and around the block'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/spacingContent.json
+      referenceFile: _blocks/_config/interspaceContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  a8dc4c16-ac4a-41eb-b5cb-a83598b8313f: # Search navigation
+  a8dc4c16-ac4a-41eb-b5cb-a83598b8313f: # Navigation and filtering
     columnSuffix: bqiltrrw
     contentColumnType: string
     fieldGroup: null
     handle: pagination
-    instructions: 'How to show results beyond the limit?'
-    name: 'Search navigation'
+    instructions: null
+    name: 'Navigation and filtering'
     searchable: false
     settings:
       options:
@@ -503,18 +506,7 @@ fields:
           __assoc__:
             -
               - label
-              - 'See All'
-            -
-              - value
-              - all
-            -
-              - default
-              - ''
-        -
-          __assoc__:
-            -
-              - label
-              - Next/Previous
+              - 'Simple pagination (next/previous)'
             -
               - value
               - standard
@@ -525,7 +517,18 @@ fields:
           __assoc__:
             -
               - label
-              - 'Next/Previous with Search'
+              - 'Link to feed homepage (if one exists)'
+            -
+              - value
+              - all
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Full search interface'
             -
               - value
               - standardWithSearch
@@ -535,39 +538,39 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Dropdown
-  ae3f34db-5fe5-4438-86f0-377cfaebf02a: # Layout
+  ae3f34db-5fe5-4438-86f0-377cfaebf02a: # Content layout and positioning
     columnSuffix: ulxtrpcp
     contentColumnType: string
     fieldGroup: null
     handle: layout
-    instructions: 'Change content layout/positioning without changing the underlying content'
-    name: Layout
+    instructions: null
+    name: 'Content layout and positioning'
     searchable: false
     settings:
       referenceFile: _blocks/_config/layoutCollection.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  b65678be-7ed0-4665-aaaa-bd9d406b60f4: # Variant
+  b65678be-7ed0-4665-aaaa-bd9d406b60f4: # Style variation
     columnSuffix: uzgufcyh
     contentColumnType: string
     fieldGroup: null
     handle: variant
-    instructions: 'Adjust the overall style & format of this block layout'
-    name: Variant
+    instructions: null
+    name: 'Style variation'
     searchable: false
     settings:
       referenceFile: _blocks/_config/variantCollection.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  c6677eab-6c78-4ca1-93cd-0faa266d1c45: # Supporting Text
+  c6677eab-6c78-4ca1-93cd-0faa266d1c45: # Copy to introduce and support the Collection
     columnSuffix: null
     contentColumnType: text
     fieldGroup: null
     handle: text
-    instructions: 'Optional text content to introduce or describe the collection item(s)'
-    name: 'Supporting Text'
+    instructions: null
+    name: 'Copy to introduce and support the Collection'
     searchable: true
     settings:
       availableTransforms: ''
@@ -582,7 +585,7 @@ fields:
       removeEmptyTags: true
       removeInlineStyles: true
       removeNbsp: true
-      showHtmlButtonForNonAdmins: false
+      showHtmlButtonForNonAdmins: true
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
       uiMode: normal

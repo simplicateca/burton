@@ -15,18 +15,17 @@
     x-init="$nextTick(() => {
         splide = new Splide($refs['splide-{{_this.blockID}}'], {
             type: 'slide',
-            gap: '3rem',
-            perPage: {{_this.columns}},
-            perMove: 1,
             breakpoints: {
                 780: {
-                    perPage: {{ _this.columns > 2 ? 2 : _this.columns }},
+                    perPage: 3,
                     gap: '2rem',
+                    perMove: 1,
                 },
 
                 640: {
                     perPage: 1,
                     gap: '1rem',
+                    perMove: 1,
                 }
             },
             padding: { left: '0rem', right: '0rem' },
@@ -45,8 +44,9 @@
                 <ul class="splide__list">
                     {% for item in _this.items %}
                         <li class="splide__slide">
-                            {{ include(_this.itemCard, {
+                            {{ include( '_components/cards/_base', {
                                 entry: item,
+                                layout: 'standard',
                                 loop: loop
                             }, withContext = false ) }}
                         </li>

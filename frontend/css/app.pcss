@@ -2,9 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* common site-wide elements */
-@import "builders.pcss";
-@import "buttons.pcss";
-@import "forms.pcss";
 @import "typography.pcss";
-@import "spacing.pcss";
+
+
+input[type="text"], input[type="search"],
+input[type="password"],input[type="email"] {
+    @apply bg-theme-backgroundOff;
+}

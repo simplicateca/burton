@@ -1,0 +1,11 @@
+[
+    {
+        "value": "FROMFRAGMENT",
+        "label": "From Fragment"
+    },
+
+    {
+        "value": "none",
+        "label" : "No Gaps Above & Below"
+    }
+]

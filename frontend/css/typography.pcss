@@ -8,7 +8,8 @@
  *  4| BLOCKQUOTES
  *  5| TEXT MARKING / HIGH-LIGHTING
  *  6| EYEBROW FORMATS
- *  7| TAG / PILL FORMATS
+ *  7| BUTTONS & BUTTON GROUPS
+ *  8| TAG / PILL FORMATS
  *
 */
 
@@ -19,28 +20,27 @@
  *
 */
 ::selection {
-@apply
-    bg-yellow-100;
+    @apply
+        bg-hilite
+    ;
 }
 
-::selection {
-@apply
-    bg-yellow-100;
+*[data-theme] {
+    @apply
+        bg-theme-background
+        text-theme-foreground
+    ;
+
+    a:not(.button) {
+        @apply
+            text-theme-accent
+            hover:bg-theme-accent
+            hover:text-white
+        ;
+    }
 }
 
-.theme-dark {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  a,
-  p,
-  div {
-    @apply text-white;
-  }
-}
+
 
 /**
  * 1| HEADLINE FORMATTING (h1-h6)
@@ -62,10 +62,8 @@ h1,
         font-normal
         !leading-snug
         mb-5
-    ;
 
     /* container query based sizing */
-    @apply
         text-3xl
         @md:text-4xl
         @xl:text-5xl
@@ -77,7 +75,7 @@ h1,
     strong {
         @apply
             !font-normal
-            text-slate-800
+            text-theme-accent
         ;
     }
 }
@@ -90,10 +88,8 @@ h2,
         font-medium
         !leading-tight
         mb-5
-    ;
 
     /* container query based sizing */
-    @apply
         text-2xl
         @md:text-3xl
         @xl:text-4xl
@@ -102,7 +98,6 @@ h2,
     ;
 
     /* adjustments related to children/sibling/parent */
-
     & + h3, & + h4 {
         @apply -mt-2.5;
     }
@@ -116,10 +111,8 @@ h3,
         font-medium
         !leading-tight
         mb-5
-    ;
 
     /* container query based sizing */
-    @apply
         text-xl
         @md:text-2xl
         @xl:text-3xl
@@ -141,10 +134,8 @@ h4,
         font-medium
         !leading-tight
         mb-5
-    ;
 
     /* container query based sizing */
-    @apply
         text-lg
         @md:text-xl
         @xl:text-2xl
@@ -170,23 +161,29 @@ p+h4, ul+h4, ol+h4, blockquote+h4 {
 /**
  * 2| REDACTOR / BODY TEXT FORMATTING
  *
- * Most standard paragraph text comes from Redactor/CKEditor fields and is already run through
- * and bunch of filters via the processRichHtml() twig function in run through the richtext macro.
- *  -> craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php
+ * A class of .html is automatically added to the following tags if they originated in a richtext editor
  *
- * Font scaling controls can be found in:
- *  -> buildchain/tailwind.config.js
+ * -> p,ol,ul,blockquote,h1,h2,h3,h4,h5,h6,hr
+ *
+ * Font scaling is handled in combination with the Tailwind Container Query plugin
+ *  -> https://github.com/tailwindlabs/tailwindcss-container-queries
  *
 */
 
 .\@container,
-.removeLastChildMargin {
-    & > *.base:last-child {
-        margin-bottom: 0;
+*[data-zone="1"] {
+    & > *.html:last-child {
+        margin-bottom: 0 !important;
     }
 }
 
-p.base {
+/* .removeLastChildMargin {
+    & > *:last-child {
+        margin-bottom: 0 !important;
+    }
+} */
+
+p.html {
     /* base formatting */
     @apply
         font-body
@@ -206,11 +203,6 @@ p.base {
             @3xl:text-2xl
             @5xl:text-3xl
         ;
-    }
-
-    /* variations & alternate formats */
-    &[data-has-buttons] {
-        @apply flex items-center gap-4 pt-4;
     }
 
     &.larger {
@@ -246,8 +238,8 @@ p.base {
  *
 */
 
-ol.base,
-ul.base {
+ol.html,
+ul.html {
     @apply
         /* base formatting */
         font-body
@@ -283,7 +275,7 @@ ul.base {
     }
 
     /* variations & alternate formats */
-    &.checkmarks {
+    &.checkList {
         list-style-image: url("data:image/svg+xml,<svg width='16' height='16' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m8.5 16.586-3.793-3.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l11-11a1 1 0 0 0-1.414-1.414L8.5 16.586Z' fill='%23333333'/></svg>");
 
         li {
@@ -291,7 +283,7 @@ ul.base {
         }
     }
 
-    &.twoColumns {
+    &.columnList {
         @apply
             grid
             grid-cols-1
@@ -300,7 +292,7 @@ ul.base {
         ;
     }
 
-    &.centerRows {
+    &.rowList {
         @apply
             grid
             grid-cols-1
@@ -331,7 +323,7 @@ ul.base {
  *
 */
 
-blockquote.base {
+blockquote.html {
     /* base formatting */
     @apply
         font-body
@@ -365,16 +357,28 @@ blockquote.base {
  * Getting a `<span>` inside of `<mark>` tags added by Redactor can be achieved with Retcon.
  *
  */
+
 mark {
-    @apply text-white inline-block py-1 px-2 relative bg-transparent;
+    @apply inline-block py-1 px-2 relative bg-transparent;
 
     span {
-        @apply relative z-10 text-white;
+        @apply relative z-10 text-theme-foreground;
     }
 
     &:before {
-        @apply bg-gray-500 absolute top-0 left-0 bottom-0 right-0 z-0;
-        content: '';
+        @apply content-[''] absolute inset-0 z-0;
+    }
+
+    &.m1 {
+        &:before {
+            @apply bg-hilite;
+        }
+    }
+
+    &.m2 {
+        &:before {
+            @apply bg-hilite-alt;
+        }
     }
 }
 
@@ -390,22 +394,22 @@ mark {
  *  -> cms/config/redactor/???.json
 */
 .eyebrow {
-    @apply table font-medium uppercase font-body text-base -translate-y-2;
-
-    .theme-dark & {
-        @apply text-white;
-    }
+    @apply
+        table
+        font-black
+        text-theme-accent
+        uppercase
+        font-body
+        text-base
+        -translate-y-2
+    ;
 
     strong {
         display: none;
     }
 
     &.eyebrowKnockout {
-        @apply py-1.5 px-4 rounded-full bg-gray-700 text-white -translate-y-4;
-
-        .theme-dark & {
-            @apply bg-slate-500;
-        }
+        @apply py-1.5 px-4 rounded-full bg-theme-foreground text-theme-background -translate-y-4;
     }
 
     & + h2,
@@ -419,7 +423,8 @@ mark {
         @apply
             -translate-y-4
             relative
-            pt-16;
+            pt-16
+        ;
 
         min-width: 48px;
 
@@ -445,30 +450,149 @@ mark {
 }
 
 
-.cProse__startsLeft,
-.cHeadline__left {
-    .eyebrow {
-        @apply ml-0;
+/**
+ * 7| Buttons
+ *
+ *
+ *
+*/
+.button {
+    @apply
+        bg-shade
+        border-shade
+        text-shade-light
+        hover:bg-shade-dark
+        text-base
+        border-2
+        rounded-md
+        !m-0
+        p-4
+        px-6
+        inline-block
+        whitespace-nowrap
+        no-underline
+        !leading-none
+    ;
+}
+
+
+.buttonSmall {
+    @apply
+        bg-shade
+        border-shade
+        text-shade-light
+        hover:bg-shade-dark
+        text-sm
+        border-2
+        rounded-full
+        !m-0
+        p-2
+        px-4
+        inline-block
+        whitespace-nowrap
+        no-underline
+        !leading-none
+    ;
+}
+
+
+.buttonText {
+    @apply
+        text-gray-500
+        underline
+        underline-offset-4
+    ;
+
+    br {
+        display: none;
+    }
+
+    &:after {
+        @apply transition;
+        content: ' ›';
+        right: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        line-height: 1em;
+    }
+
+    &:hover {
+        @apply text-theme-accent;
+
+        &:after {
+            @apply translate-x-0.5;
+        }
     }
 }
 
-.cProse__startsCenter,
-.cHeadline__center {
-    .eyebrow {
-        @apply mx-auto;
+
+/* .cButtonGroup {
+    @apply
+        flex
+        flex-col
+        items-center
+        md:flex-row
+        gap-4;
+
+    p {
+        @apply
+            flex
+            items-center
+            flex-col
+            md:flex-row
+            gap-4;
+    }
+
+    .button {
+        &:nth-of-type(2) {
+            @apply
+                bg-white
+                text-gray-500
+                hover:text-white
+                hover:bg-gray-700;
+        }
+
+        & + a:not(.button) {
+            &:after {
+                content: ' →';
+            }
+        }
+    }
+
+    &.cButtonGroup__left  {
+        @apply justify-start;
+    }
+
+    &.cButtonGroup__center  {
+        @apply justify-center;
+    }
+
+    &.cButtonGroup__right  {
+        @apply justify-end;
+    }
+
+    &.cButtonGroup__trailing {
+        @apply pt-6;
+    }
+} */
+
+
+a.clickCover,
+button.clickCover {
+    &:before {
+        @apply
+            absolute
+            content-['']
+            inset-0
+            z-20
+        ;
     }
 }
 
-.cProse__startsRight,
-.cHeadline__right {
-    .eyebrow {
-        @apply mr-0 ml-auto;
-    }
-}
 
 
 /**
- * 7| TAGs / PILLs
+ * 8| Tags & Pills
  *
  *
  *

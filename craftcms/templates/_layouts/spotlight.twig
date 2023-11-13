@@ -1,78 +1,29 @@
-{% set product   = product ??? null %}
-{% set event     = event   ??? null %}
-{% set entry     = entry   ??? product ??? event ??? null %}
+{% extends "_layouts/_common" %}
 
-{% set section   = entry.section.handle ??? ( product ? 'product' ) ??? ( event ? 'event' ) %}
-{% set entryType = entry.type.handle    ??? null %}
-{% set entryUri  = ( entry.uri ??? 'home' ) | replace({'/':'--'}) %}
+{% block bodyTagOpen %}
+    {{ parent() | attr({
+        class: ['bg-gray-900'],
+        'hx-ext': 'ajax-header'
+    }) }}
+{% endblock %}
 
-{% set title     = title  ??? null %}
-{% set layout    = layout ??? 'spotlight' %}
+{% block mainTagOpen %}
+    {{ parent() | attr({
+        class: ['max-w-3xl w-full mx-auto bg-white'],
+        'hx-ext': 'ajax-header'
+    }) }}
+{% endblock %}
 
-{% set bodyClass = "#{layout} #{section} #{entryType} #{entryUri} bg-gray-900" %}
+{% block page %}
+    {{ tag( 'div', {
+        class: ['max-w-3xl w-full mx-auto py-4'],
+        html: block('logo')
+    })}}
 
-{% extends "_layouts/base" %}
+    {{ block( 'header' ) | attr({
+        class: ['max-w-3xl w-full mx-auto bg-white'],
+        'hx-ext': 'ajax-header'
+    }) }}
 
-{## primary <body> content ##}
-{% block bodyHtml %}
-
-    {## perform entry eager loading ##}
-    {% if entry and ( className(entry) ??? null ) %}
-        {% do craft.app.elements.eagerLoadElements(
-            className(entry),
-            [entry],
-            [''] | merge(eagerLoading.commonFields   ??? '')
-                 | merge(eagerLoading.headerBuilder  ??? '')
-                 | merge(eagerLoading.contentBuilder ??? '')
-        ) %}
-    {% endif %}
-
-    {% block alertbar %}
-        {{ sprig( "_sprig/alertBar/basic", {} ) }}
-    {% endblock %}
-
-    {% block header %}
-        <div class="max-w-3xl w-full mx-auto">
-            {% block headerLogo %}
-                {{ include( "_components/logo/basic",
-                    { },
-                    withContext = false
-                ) }}
-            {% endblock %}
-        </div>
-    {% endblock %}
-
-    {% block belowHeader %}{% endblock %}
-
-    {% block main %}
-        <main
-            id="content"
-            class="
-            cMain
-            cMain__{{layout}}
-            cMain__{{section}}
-            max-w-3xl
-            w-full
-            mx-auto
-            mt-20
-            p-4 md:p-12 lg:p-16
-            flex
-            justify-center
-            items-center
-            bg-white">
-
-            {% block beforeContent %}{% endblock %}
-
-            {% block content %}
-                {{ include( "_components/builders/builderContent", {
-                    entry : entry,
-                    layout: layout
-                }, withContext = false ) }}
-            {% endblock %}
-
-            {% block afterContent %}{% endblock %}
-        </main>
-    {% endblock %}
-
-    {% block footer %}{% endblock %}
-{% endblock bodyHtml %}
+    {{ block( 'base_main' ) }}
+{% endblock %}

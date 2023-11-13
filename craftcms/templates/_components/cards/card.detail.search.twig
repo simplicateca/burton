@@ -1,0 +1,33 @@
+{% extends '_components/cards/_common' %}
+{% set card_template = _self %}
+{% set card_type = 'detail' %}
+
+{% block content %}
+    <div class="w-full max-w-5xl text-theme-foreground relative @container">
+        {{ block('card_headline') }}
+        {{ block('card_summary') }}
+    </div>
+{% endblock %}
+
+{% block action %}
+    {% if card.item.url ??? null %}
+        <div>
+            {{ tag( 'a', {
+                text: card.item.url,
+                href: url( card.item.url ),
+                class: 'clickCover'
+            }) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block card_summary %}
+    {% import "_macros/markup" as markup %}
+    {{ markup.summaryRetainEmphasis( card.summary ??? null ) }}
+{% endblock %}
+
+{% block card_summary_short %}
+    {% import "_macros/markup" as markup %}
+
+    {{ markup.summaryRetainEmphasis( card.summary ??? null ) }}
+{% endblock %}

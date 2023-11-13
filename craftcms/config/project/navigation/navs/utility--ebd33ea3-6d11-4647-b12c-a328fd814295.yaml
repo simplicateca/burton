@@ -149,7 +149,7 @@ fieldLayouts:
         uid: 472a699a-dd03-44a2-9875-6a47f8e916d7
         userCondition: null
 handle: utility
-instructions: ''
+instructions: null
 maxNodes: null
 name: 'Header - Utility Menu'
 permissions:

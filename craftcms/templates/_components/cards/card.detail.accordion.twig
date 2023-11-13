@@ -1,0 +1,17 @@
+{% extends '_components/cards/_common' %}
+{% set card_template = _self %}
+{% set card_type = 'detail' %}
+
+{% block content %}
+    <div class="w-full flex flex-col @3xl:flex-row gap-8">
+        <div class="@container flex-grow text-theme-foreground flex flex-col gap-2 w-full">
+            <div>{{ block('card_summary') }}</div>
+
+            <div class="hlock">{{ block('action_textLink') }}</div>
+        </div>
+
+        <div class="image max-w-1/2 w-full">
+            {{ block('card_image') }}
+        </div>
+    </div>
+{% endblock %}

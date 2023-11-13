@@ -1,0 +1,150 @@
+fieldLayouts:
+  b623e839-01ec-4930-b30b-2daac108a512:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 474e2905-f446-429b-bd65-9ac9d20b24d8
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: c70698c5-9843-4d1a-9ce8-2e2e272bd096 # Headline
+            instructions: null
+            label: Question
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 82946d5e-37bf-4972-ba0f-e96f2674302f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: beac1c7a-7a37-458b-ab2e-ec46f8cff04b
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 6a1ab78a-ce1d-4e06-944f-7fa172aaa06a # Text
+            instructions: null
+            label: Answer
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: deff3587-c3b7-4dfa-84b7-85a7cf331358
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topic/Theme/Tag
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: cab96dcc-a4be-4cb6-b02c-25821145d8c8
+            userCondition: null
+            warning: null
+            width: 50
+        name: Essentials
+        uid: f550a170-cd80-4641-8811-73fd852f3885
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            template: _blocks/_admin/instructionsHeader.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 35a8473b-476f-45d8-bd7b-c7155976336f
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: d05f4009-0b38-4065-a1b1-65221aa65e63 # Header Builder
+            instructions: null
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 020b6538-cc5e-4d1a-80c3-2c4efe267e23
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _blocks/_admin/instructionsContent.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 66abfbb1-5016-479a-9ce4-386c5365c646
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+            instructions: null
+            label: __blank__
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 31fc877f-378d-4854-a5d0-c55adc44240a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _blocks/_admin/matrixConditionalFields.twig
+            type: craft\fieldlayoutelements\Template
+            uid: dca9a20e-f4b6-4fef-878e-344603bd5bb7
+            userCondition: null
+            width: 100
+        name: Content
+        uid: db6810db-f6fc-4dfd-b9a6-fc7db95fd110
+        userCondition:
+          class: craft\elements\conditions\users\UserCondition
+          conditionRules:
+            -
+              class: craft\elements\conditions\users\AdminConditionRule
+              uid: b9b4c456-859b-4d77-b2dd-295d793b9cdb
+              value: true
+          elementType: craft\elements\User
+          fieldContext: global
+handle: default
+hasTitleField: true
+name: Default
+section: fff3cc82-2855-4031-b003-b91d6e16088b # FAQs
+sortOrder: 1
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

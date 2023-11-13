@@ -7,20 +7,20 @@
  # {% import "_macros/widgets.twig" as widgets %}
  ##}
 
-{%- macro embed( thisBlock, gridCell, position ) -%}
+{%- macro embed( block, gridCell, position ) -%}
 
-    {% set thisBlock  = thisBlock ??? null %}
+    {% set block  = block ??? null %}
     {% set gridCell   = gridCell  ??? null %}
     {% set position   = position  ??? null %}
 
-    {% set widget     = thisBlock.content.widget.reference() ??? null %}
+    {% set widget     = block.widget.reference() ??? null %}
     {% set widgetComp = widget.component ??? null %}
     {% set widgetCell = widget.gridCell  ??? null %}
     {% set widgetPos  = widget.position  ??? null %}
 
     {% if widgetComp and gridCell == widgetCell and widgetPos == position %}
         {{ include( widgetComp, {
-            thisBlock: thisBlock,
+            block: block,
             position : position
         }, withContext = false ) }}
     {% endif %}

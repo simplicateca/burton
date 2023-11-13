@@ -1,0 +1,293 @@
+field: a35a0beb-0cf7-4a2b-9ec3-91e953a18116 # Sidebar Builder
+fieldLayouts:
+  891ea448-a0c1-45da-954a-a7819e7f7a93:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 4d6046b4-d831-4f76-9de0-b7e11ac0fd78 # Layout Variant
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 33faf062-e534-46f6-a1f6-fcaca7886342
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 429b6006-ddef-461f-be49-1c0e3ca3dd2e # Asset source
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0458145b-4a00-40a4-aa25-e2b7559dace3
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a7978e08-e908-4533-b20a-1fee67f3918f # Supporting Text
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0eced378-424a-4289-bc80-754478947800
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4f92b127-8107-4e42-b5d8-98c09fe30f97 # Local assets
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 911f7dee-47e9-4959-9da0-766ce67b36b9
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 8006fa4e-0481-4f7c-971a-f92d9bf871d1 # External assets
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b5179c1b-7c2c-482d-afbb-95f680de6a58
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 10bfd69c-1702-4ad8-9f1d-db4e1a00aa53 # Theme
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 46f327cf-2acc-439b-85a9-020680e6205a
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 0f975294-dda3-4007-bbc3-3991fb0d15b9 # Interspace
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: fe887acc-2305-4967-9e1c-200c2bdc8d1d
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: 164f2488-cacc-4694-a395-00c9d835233d
+        userCondition: null
+fields:
+  0f975294-dda3-4007-bbc3-3991fb0d15b9: # Interspace
+    columnSuffix: ezksavrc
+    contentColumnType: string
+    fieldGroup: null
+    handle: interspace
+    instructions: 'Control the area between blocks'
+    name: Interspace
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/interspaceSidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  4d6046b4-d831-4f76-9de0-b7e11ac0fd78: # Layout Variant
+    columnSuffix: iwdiomoo
+    contentColumnType: string
+    fieldGroup: null
+    handle: variant
+    instructions: 'Change the block layout without changing its underlying content'
+    name: 'Layout Variant'
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/variantMedia.sidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  4f92b127-8107-4e42-b5d8-98c09fe30f97: # Local assets
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: assets
+    instructions: 'Files uploaded direcrtly to the CMS.'
+    name: 'Local assets'
+    searchable: true
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: false
+      allowUploads: true
+      allowedKinds:
+        - audio
+        - code
+        - compressed
+        - excel
+        - json
+        - markdown
+        - pdf
+        - powerpoint
+        - video
+        - word
+      branchLimit: null
+      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      defaultUploadLocationSubpath: '{{- ( object.owner.variants   ?? null  ) ? "products/#{object.owner.type.handle|lower}/" : '''' -}} {{- ( object.owner.product    ?? null  ) ? "products/#{object.owner.product.type.handle|lower}/" : '''' -}} {{- ( object.owner.section    ?? null  ) ? "#{object.owner.section.handle|lower}/" : '''' -}} {{- ( object.owner.parentUri  ?? null  ) ? "#{object.owner.parentUri|replace(''__'','''')}/" : '''' -}} {{object.owner.slug}}'
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      previewMode: full
+      restrictFiles: true
+      restrictLocation: false
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: 'Choose Media'
+      showSiteMenu: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: large
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+  10bfd69c-1702-4ad8-9f1d-db4e1a00aa53: # Theme
+    columnSuffix: djpwfrbf
+    contentColumnType: string
+    fieldGroup: null
+    handle: theme
+    instructions: 'Set the background style behind this block.'
+    name: Theme
+    searchable: false
+    settings:
+      referenceFile: _blocks/_config/themeSidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  429b6006-ddef-461f-be49-1c0e3ca3dd2e: # Asset source
+    columnSuffix: zlovzpsf
+    contentColumnType: string
+    fieldGroup: null
+    handle: assetSource
+    instructions: null
+    name: 'Asset source'
+    searchable: false
+    settings:
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - 'Choose from uploaded assets / files'
+            -
+              - value
+              - localAssets
+            -
+              - default
+              - '1'
+        -
+          __assoc__:
+            -
+              - label
+              - 'Embed external assets by URL'
+            -
+              - value
+              - externalUrls
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Dropdown
+  8006fa4e-0481-4f7c-971a-f92d9bf871d1: # External assets
+    columnSuffix: ljkjklvg
+    contentColumnType: text
+    fieldGroup: null
+    handle: externalUrls
+    instructions: 'Paste direct links to 3rd party hosted media (Youtube, Vimeo, etc)'
+    name: 'External assets'
+    searchable: false
+    settings:
+      addRowLabel: 'Add External Media'
+      columnType: text
+      columns:
+        __assoc__:
+          -
+            - col1
+            -
+              __assoc__:
+                -
+                  - heading
+                  - URL
+                -
+                  - handle
+                  - url
+                -
+                  - width
+                  - ''
+                -
+                  - type
+                  - url
+      defaults: null
+      maxRows: null
+      minRows: null
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\Table
+  a7978e08-e908-4533-b20a-1fee67f3918f: # Supporting Text
+    columnSuffix: amzhwaxi
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: 'Optional text content to introduce or describe the media content'
+    name: 'Supporting Text'
+    searchable: false
+    settings:
+      availableTransforms: '*'
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Standard.json
+      removeEmptyTags: false
+      removeInlineStyles: false
+      removeNbsp: false
+      showHtmlButtonForNonAdmins: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+handle: media
+name: Media
+sortOrder: 3

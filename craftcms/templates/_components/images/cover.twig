@@ -1,0 +1,21 @@
+{% set _base = {
+    images          : images ??? null,
+    imageClass      : "object-cover object-center h-full w-full relative z-20",
+    imageTransform  : "square",
+    figureClass     : "absolute top-0 left-0 right-0 bottom-0",
+    figureClassLeft : "md:absolute md:w-[50vw] top-0 left-0  bottom-0",
+    figureClassRight: "md:absolute md:w-[50vw] top-0 right-0 bottom-0",
+    captionClass    : "absolute bottom-8 left-8 right-8 bg-black/60 mx-auto max-w-xl text-white text-sm p-4 z-20 text-center"
+} %}
+
+{##  merge `_base` into variables passed into the template ##}
+{% set settings = ( settings is defined and settings is iterable ) ? settings|merge(_base) : _base %}
+
+{## adjust the class on the image <figure> wrapper left/right checkerboard blocks ##}
+{% set figureClass = settings.layout == 'textRight' ? settings.figureClassLeft  : settings.figureClass %}
+{% set figureClass = settings.layout == 'textLeft'  ? settings.figureClassRight : figureClass %}
+{% set settings    = settings|merge({ imageFigure: figureClass }) %}
+
+<template x-teleport="#cScene{{settings.blockID}}">
+    {% embed '_components/images/_base' %}{% endembed %}
+</template>

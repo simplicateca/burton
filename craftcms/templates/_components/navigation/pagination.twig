@@ -1,0 +1,17 @@
+{% if pageInfo.totalPages > 1 %}
+    <nav
+        class="py-10"
+        role="navigation"
+        aria-label="Pagination Navigation"
+        >
+        <ul class="flex justify-center gap-4">
+            {% if pageInfo.prevUrl %}
+                <li class="prev"><a href="{{ pageInfo.prevUrl }}">&larr; {{"Previous"|t}}</a></li>
+            {% endif %}
+            <li class="pageCount">{{ pageInfo.currentPage }} {{"of"|t}} {{ pageInfo.totalPages }}</li>
+            {% if pageInfo.nextUrl %}
+                <li class="next"><a href="{{ pageInfo.nextUrl }}">{{"Next"|t}} &rarr;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

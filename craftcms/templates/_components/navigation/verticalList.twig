@@ -2,11 +2,12 @@
 {% set _settings = {
     title           : null,
     titleTag        : null,
+    titleClass      : null,
     handle          : null,
     navId           : null,
     ulClass         : "m-0 p-0 list-none flex flex-col gap-2",
     liClass         : null,
-    aClass          : "navItem",
+    aClass          : "hover:text-theme-accent hover:underline",
     activeClass     : "navItem__isActive",
     hasChildrenClass: "navItem__hasChildren",
 }|merge(_context) %}
@@ -19,10 +20,14 @@
     <nav
         id="{{ _settings.navId ??? "menu#{_settings.handle|capitalize}" }}"
         role="navigation"
+        class="@container"
         aria-label="{{ _settings.title ??? _settings.handle|capitalize }} Navigation"
     >
         {% if _settings.title and _settings.titleTag %}
-            {{ tag( _settings.titleTag, { text: _settings.title }) }}
+            {{ tag( _settings.titleTag, {
+                text: _settings.title,
+                class: _settings.titleClass
+            }) }}
         {% endif %}
 
         {{ craft.navigation.render( _settings.handle, _settings ) }}

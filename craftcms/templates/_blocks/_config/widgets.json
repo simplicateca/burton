@@ -7,8 +7,8 @@
     {
         "value": "socialIcons",
         "label": "Social Media Icons",
-        "component": "_components/widgets/social-links",
-        "gridCell": "cell1",
+        "component": "_components/widgets/socialLinks",
+        "gridZone": "zone1",
         "position": "belowContent"
     }
 ]

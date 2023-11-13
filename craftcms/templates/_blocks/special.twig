@@ -1,0 +1,49 @@
+{## Special Element Block Base
+ ------------------------------------------------------------------------------------ ##
+    New block variations should extend this template rather than `_blocks/_common`.
+
+    i.e. {% extends "_blocks/special" %}
+ ------------------------------------------------------------------------------------ ##}
+{% extends "_blocks/_common" %}
+
+
+{## Micro-layouts are defined and documented within `_layouts/base/micro`
+
+    View: http://localhost/sitebook/layouts/micro-layouts
+    Docs: http://buildwithburton.com/docs/micro-layouts
+
+ ------------------------------------------------------------------------------------ ##}
+{% import "_layouts/base/micro" as micro %}
+
+{% block content %}
+
+    {{ micro.layout(
+        [
+            block('content_text'), block('content_special'),
+            block('block_header'), block('block_footer')
+        ],
+        block.settings.microLayout ??? null,
+        block.settings.container    ?? null
+    ) }}
+
+    {# thisBlock.oAlignText ??? null #}
+{% endblock content %}
+
+
+{% block content_special %}{% apply spaceless %}
+    {% set component = block.settings.specialComponent ??? null %}
+
+    {% if component %}
+        {% if '.sprig' in component %}
+            {{ sprig( component, {
+                content : processedText  ??? {},
+                settings: block.settings ??? {}
+            }) }}
+        {% else %}
+            {{ include( component, {
+                code: block.code ??? {}
+            }, withContext = false ) }}
+        {% endif %}
+    {% endif %}
+
+{% endapply %}{% endblock %}

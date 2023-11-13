@@ -1,6 +1,6 @@
 columnSuffix: null
 contentColumnType: string
-fieldGroup: e0dac603-c510-4bb5-8701-e25672d93744 # Common
+fieldGroup: dc717c0e-4ef4-4f7e-b352-1a7ba8e2ff40 # Assets
 handle: assets
 instructions: null
 name: Assets
@@ -34,7 +34,7 @@ settings:
       -
         - class
         - craft\elements\conditions\assets\AssetCondition
-  selectionLabel: null
+  selectionLabel: 'Choose asset'
   showSiteMenu: false
   showUnpermittedFiles: false
   showUnpermittedVolumes: false

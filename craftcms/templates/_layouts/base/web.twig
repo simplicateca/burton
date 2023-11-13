@@ -1,0 +1,59 @@
+{% block html %}
+
+{% block doctype %}
+<!doctype html>{% endblock %}
+
+{% block htmlTagOpen %}
+<html {{ attr({
+    prefix: "og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#",
+    class : "no-js opacity-100 visible scroll-smooth",
+    lang  : craft.app.language |slice(0,2)
+} )}}>{% endblock %}
+
+    <head>
+        {{ head() }}
+
+        {{ _self.prefetch( prefetchUrls ) }}
+
+        {% block meta    %}{% endblock %}
+        {% block fonts   %}{% endblock %}
+        {% block scripts %}{% endblock %}
+        {% block styles  %}{% endblock %}
+
+        {{ block( 'js_vite' ) }}
+    </head>
+
+    {% block bodyTagOpen %}
+        <body {{ attr({ class: "m-0 p-0 min-h-[100vh] h-full" }) }}>
+    {% endblock %}
+
+        {{ beginBody() }}
+
+        {% block page %}{% endblock %}
+
+        {## hidden area for absolute positioned elements (modals, alertbars, etc) ##}
+        <div class="hidden" id="body-components">{% block components %}{% endblock %}</div>
+
+        {{ endBody() }}
+
+    {% block bodyTagClose %}
+        </body>
+    {% endblock %}
+</html>
+{% endblock %}
+
+
+{## prefetch & preconnect headers and links ##}
+{% macro prefetch( urls ) %}
+    {% set headerLink = "Link: " %}
+    {% for url in urls %}
+        {% set headerLink = headerLink ~ "<#{url}>; rel=dns-prefetch;," %}
+        {% set headerLink = headerLink ~ "<#{url}>; rel=preconnect; crossorigin;" %}
+        {% if not loop.last %}
+            {% set headerLink = headerLink ~ "," %}
+        {% endif %}
+        <link rel="dns-prefetch" href="{{ url }}">
+        <link rel="preconnect" href="{{ url }}" crossorigin>
+    {% endfor %}
+    {% header headerLink %}
+{% endmacro %}

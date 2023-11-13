@@ -1,0 +1,277 @@
+{## Micro Layout Generator
+ ------------------------------------------------------------------------------------ ##
+
+    Mobile ready named layouts for creating some kind of relationship between two or
+    more pieces of content. Used extensively in pretty much all blocks.
+
+    - http://localhost:8000/sitebook/layouts/micro-layouts
+
+
+ ## Two Zone Layouts
+ ------------------------------------------------------------------------------------ ##
+    While there are technically 4 areas for content within a two-zone layout, the
+    number of zones refers to the primary content areas, with optional header and
+    footer fields always being assumed.
+
+    You know .. like how they call it a 2-lane highway even through there's 4 lanes.
+
+    Most frequently used as a modifier for block *layout* options.
+
+    Sample output:
+    ╭──────────────────────────────────────────────────────────────────╮
+    │                                                                  │
+    │       <header class="#{header}">                                 │
+    │           // Header Content (optional)                           │
+    │       </header>                                                  │
+    │                                                                  │
+    │       <div class="#{base} #{gap}" data-micro="layoutName">       │
+    │           <div class="#{zone1}" data-zone="1">                   │
+    │              // Zone 1 Content                                   │
+    │           </div>                                                 │
+    │                                                                  │
+    │           <div class="#{zone2}" data-zone="2">                   │
+    │               // Zone 2 Content                                  │
+    │           </div>                                                 │
+    │       </div>                                                     │
+    │                                                                  │
+    │       <footer class="#{footer}">                                 │
+    │           // Footer Content (optional)                           │
+    │       </footer>                                                  │
+    │                                                                  │
+    ╰──────────────────────────────────────────────────────────────────╯
+
+ !! Note that a wrapper element is not generated when header or footer content is
+    provided. You need to wrap it up on your own.
+
+ ------------------------------------------------------------------------------------ ##
+
+ !! This macro outputs as JSON so that it can be read by the macro template or any
+    other place it might be useful (like Sitebook reference pages).
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro definitions() %}{{ {
+
+    _:'## defaults are used for any attributes left off an option definition',
+    defaults: {
+        base: 'w-full relative',
+        gap: 'gap-8 @3xl:gap-16 @5xl:gap-24',
+        zone1: 'w-full @container',
+        zone2: 'w-full @container',
+        header: 'mb-10 w-full max-w-3xl @container',
+        header__left: 'mb-10 w-full max-w-3xl mr-auto @container',
+        header__center: 'mb-10 w-full max-w-3xl mx-auto @container',
+        header__right: 'mb-10 w-full max-w-3xl ml-auto @container',
+        footer: 'mt-10 w-full max-w-3xl @container',
+        footer__left: 'mt-10 w-full max-w-3xl mr-auto @container',
+        footer__center: 'mt-10 w-full max-w-3xl mx-auto @container',
+        footer__right: 'mt-10 w-full max-w-3xl ml-auto @container'
+    },
+
+    _:'## named microlayout definitions',
+    options: {
+
+        topBottom: {
+            base: 'w-full relative flex flex-col',
+            zone1: 'w-full max-w-5xl @container',
+            zone1__left: 'w-full max-w-5xl mr-auto @container',
+            zone1__center: 'w-full max-w-5xl mx-auto @container',
+            zone1__right: 'w-full max-w-5xl ml-auto @container',
+            _type: 'twozone',
+            _reverse: 'bottomTop'
+        },
+
+        topBottomCenter: {
+            base: 'w-full relative flex flex-col',
+            zone1: 'w-full max-w-5xl mx-auto @container',
+            _type: 'twozone',
+            _reverse: 'bottomTop'
+        },
+
+        bottomTop: {
+            base: 'w-full relative flex flex-col-reverse',
+            zone1: 'w-full max-w-5xl @container',
+            zone1__left: 'w-full max-w-5xl mr-auto @container',
+            zone1__center: 'w-full max-w-5xl mx-auto @container',
+            zone1__right: 'w-full max-w-5xl ml-auto @container',
+            _type: 'twozone',
+            _reverse: 'topBottom'
+        },
+
+        bottomTopCenter: {
+            base: 'w-full relative flex flex-col-reverse',
+            zone1: 'w-full max-w-5xl mx-auto @container',
+            _type: 'twozone',
+            _reverse: 'topBottomCenter'
+        },
+
+        leftRight: {
+            base: 'w-full flex flex-col lg:flex-row',
+            zone1: 'w-full lg:w-1/2 @container',
+            zone1__vertCenter: 'w-full lg:w-1/2 @container self-center',
+            zone2: 'w-full lg:w-1/2 @container',
+            _type: 'twozone',
+            _reverse: 'rightLeft'
+        },
+
+        rightLeft: {
+            base: 'w-full flex flex-col-reverse lg:flex-row-reverse',
+            zone1: 'w-full lg:w-1/2 @container',
+            zone1__vertCenter: 'w-full lg:w-1/2 @container self-center',
+            zone2: 'w-full lg:w-1/2 @container flex',
+            _type: 'twozone',
+            _reverse: 'leftRight'
+        },
+
+        leftRightStagger: {
+            base: 'w-full flex flex-col lg:flex-row',
+            zone1: 'w-full lg:w-1/2 @container',
+            zone2: 'w-full lg:w-1/2 @container pt-[50%]',
+            _type: 'twozone',
+            _reverse: 'rightLeftStagger'
+        },
+
+        rightLeftStagger: {
+            base: 'w-full flex flex-col-reverse lg:flex-row-reverse',
+            zone1: 'w-full lg:w-1/2 @container pt-[50%]',
+            zone2: 'w-full lg:w-1/2 @container',
+            _type: 'twozone',
+            _reverse: 'leftRightStagger'
+        },
+
+        heavyLeft: {
+            base: 'w-full flex flex-col lg:flex-row',
+            zone1: 'lg:w-3/5 @container',
+            zone2: 'lg:w-2/5 @container',
+            _type: 'twozone',
+            _reverse: 'heavyRight'
+        },
+
+        heavyLeftReverse: {
+            base: 'w-full flex flex-col-reverse lg:flex-row-reverse',
+            zone1: 'lg:w-3/5 @container',
+            zone2: 'lg:w-2/5 @container',
+            _type: 'twozone',
+            _reverse: 'heavyRightReverse'
+        },
+
+        heavyRight: {
+            base: 'w-full flex flex-col lg:flex-row',
+            zone1: 'lg:w-2/5 @container',
+            zone2: 'lg:w-3/5 @container',
+            _type: 'twozone',
+            _reverse: 'heavyLeft'
+        },
+
+        heavyRightReverse: {
+            base: 'w-full flex flex-col-reverse lg:flex-row-reverse',
+            zone1: 'lg:w-2/5 @container',
+            zone2: 'lg:w-3/5 @container',
+            _type: 'twozone',
+            _reverse: 'heavyLeftReverse'
+        },
+
+        overlap: {
+            base: 'w-full relative',
+            zone1: 'p-10 max-w-3xl @container relative z-20',
+            zone2: 'absolute inset-0 w-full h-full z-10',
+            _type: 'twozone',
+        }
+    }
+} | json_encode() | raw }}{% endmacro %}
+
+
+{% macro layout( html, layout, container ) %}
+
+    {% set json = _self.definitions() | json_decode %}
+    {% set defs = json['defaults'] %}
+
+    {## Test if the `layout` argument was passed as an array, which indicates a modifier ##}
+    {## TODO: Describe Layout Modifiers ##}
+    {% set modifier = null %}
+    {% if ( layout ??? null ) and layout is iterable %}
+        {% set modifier = layout[1] %}
+        {% set layout   = layout[0] %}
+    {% endif %}
+
+    {% set attr = json['options'][layout] ??? json['options']|first %}
+    {% if attr._type ??? null == 'twozone' %}
+        {{ _self.twoZone( html, [layout, modifier], container ) }}
+    {% endif %}
+{% endmacro %}
+
+
+
+{## Wrap a Two Zone Micro Layout around up-to 4 pieces of content
+ ------------------------------------------------------------------------------------ ##
+
+ {% import "_layouts/base/microTwoZone" as grids %}
+
+ {{ grids.generate( htmlToWrap, 'gridName' ) }}
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro twoZone( html, layout, container ) %}
+
+    {## Test if the `layout` argument was passed as an array, which indicates a modifier ##}
+    {## TODO: Describe Layout Modifiers ##}
+    {% set modifier = null %}
+    {% if layout ??? null and layout is iterable %}
+        {% set modifier = layout[1] %}
+        {% set layout   = layout[0] %}
+    {% endif %}
+
+    {% set json = _self.definitions() | json_decode %}
+    {% set defs = json['defaults'] %}
+    {% set attr = json['options'][layout] ??? json['options']|first %}
+
+    {% set layoutContent %}
+
+        {## header (if content provided) ##}
+        {% if html[2] ??? null %}
+            {{ tag( 'header', {
+                html : html[2],
+                class: attr["header__#{modifier}"] ??? defs["header__#{modifier}"] ??? attr.header ??? defs.header ??? null
+            }) }}
+        {% endif %}
+
+        {## zone base wrapper ##}
+        {% tag 'div' with { data: { micro: layout }, class: [
+            attr["base__#{modifier}"] ??? defs["base__#{modifier}"] ??? attr.base ??? defs.base ??? null,
+            attr["gap__#{modifier}"]  ??? defs["gap__#{modifier}"]  ??? attr.gap  ??? defs.gap  ??? null,
+        ],  } %}
+
+            {# zone 1 content #}
+            {% if html[0] ??? null %}
+                {{ tag( 'div', {
+                    html : html[0],
+                    data : { zone: 1 },
+                    class: [ attr["zone1__#{modifier}"] ??? defs["zone1__#{modifier}"] ??? attr.zone1 ??? defs.zone1 ??? null ]
+                }) }}
+            {% endif %}
+
+            {# zone 2 content #}
+            {% if html[1] ??? null %}
+                {{ tag( 'div', {
+                    html : html[1],
+                    data : { zone: 2 },
+                    class: [ attr["zone2__#{modifier}"] ??? defs["zone2__#{modifier}"] ??? attr.zone2 ??? defs.zone2 ??? null ]
+                }) }}
+            {% endif %}
+        {% endtag %}
+
+        {## footer (if content provided) ##}
+        {% if html[3] ??? null %}
+            {{ tag( 'footer', {
+                html : html[3],
+                class: attr["footer__#{modifier}"] ??? defs["footer__#{modifier}"] ??? attr.footer ??? defs.footer ??? null
+            }) }}
+        {% endif %}
+
+    {% endset %}
+
+    {## are we wrapping it in a container too? ##}
+    {% import "_layouts/base/containers" as containers %}
+    {{ container
+        ? containers.wrap( layoutContent, container )
+        : layoutContent }}
+
+{% endmacro %}

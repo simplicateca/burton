@@ -1,0 +1,37 @@
+[{
+    "label": "Auto",
+    "value": "auto",
+    "settings": {
+        "imageFrame": "auto"
+    }
+},{
+    "label": "Auto Grid",
+    "value": "autogrid",
+    "settings": {
+        "imageLayout": "_components/images/layout.autogrid"
+    }
+},{
+    "label": "Fancy",
+    "value": "fancy",
+    "settings": {
+        "imageLayout": "_components/images/layout.fancy"
+    }
+},{
+    "label": "Fill",
+    "value": "fill",
+    "settings": {
+        "imageFrame": "fill"
+    }
+},{
+    "label": "With Caption",
+    "value": "caption",
+    "settings": {
+        "imageFrame": "caption"
+    }
+},{
+    "label": "Gallery",
+    "value": "gallery",
+    "settings": {
+        "imageLayout": "_components/images/layout.gallery"
+    }
+}]

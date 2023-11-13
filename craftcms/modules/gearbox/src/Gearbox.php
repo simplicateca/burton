@@ -13,30 +13,30 @@
 namespace modules\gearbox;
 
 use Craft;
-use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterTemplateRootsEvent;
 use craft\events\RegisterUserPermissionsEvent;
 use craft\events\TemplateEvent;
-use craft\services\Fields;
 use craft\services\UserPermissions;
 use craft\redactor\Field AS RedactorField;
 use craft\web\View;
 
-use craft\base\Element;
 use craft\elements\Entry;
-use craft\models\Section;
 use craft\events\RegisterElementSourcesEvent;
-use craft\events\RegisterElementActionsEvent;
 
 use yii\base\Module;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
 
+use craft\base\Element;
+use craft\events\ModelEvent;
+use craft\helpers\ElementHelper;
+
+use nystudio107\seomatic\helpers\Text as SeoMaticTextHelper;
+use modules\gearbox\helpers\OpenAiHelper as OpenAiHelper;
+
 use modules\gearbox\assetbundles\gearbox\GearboxAsset;
 use modules\gearbox\twigextensions\GearboxTwigExtension;
 use modules\gearbox\twigextensions\NormalizeBlockTwigExtension;
-
-use modules\gearbox\helpers\FileLog;
 
 class Gearbox extends Module
 {
@@ -107,7 +107,7 @@ class Gearbox extends Module
         );
 
 
-        // Register our permissions
+        // add sitebook user permissions
         Event::on(
             UserPermissions::class,
             UserPermissions::EVENT_REGISTER_PERMISSIONS,
@@ -120,6 +120,41 @@ class Gearbox extends Module
                         ],
                     ],
                 ];
+            }
+        );
+
+
+        // use OpenAI to automatically summarize entry types that have a dek field using the text contents of matrix builder blocks
+        Event::on(
+            Entry::class,
+            Element::EVENT_BEFORE_SAVE,
+            function(ModelEvent $e) {
+
+                /* @var Entry $entry */
+                $entry = $e->sender;
+
+                if( ElementHelper::isDraftOrRevision($entry) ) {
+                    // don’t do anything with drafts or revisions
+                    return;
+                }
+
+                // get the custom fields associated with this element
+                $elementFields = $entry->getFieldLayout()->getCustomFields();
+                $fieldHandles  = array_column($elementFields, 'handle');
+
+                if( in_array( 'dek', $fieldHandles ) && empty( $entry->getFieldValue('dek') ) )
+                {
+                    $title        = $entry->title;
+                    $headerBlocks = in_array( 'headerBuilder',  $fieldHandles ) ? $entry->getFieldValue('headerBuilder')->all()  : [];
+                    $bodyBlocks   = in_array( 'contentBuilder', $fieldHandles ) ? $entry->getFieldValue('contentBuilder')->all() : [];
+
+                    $text = SeoMaticTextHelper::extractTextFromMatrix( array_filter( [...$headerBlocks, ...$bodyBlocks] ) );
+
+                    if( $text && $meta = OpenAiHelper::metaDescription( empty($headerBlocks) ? "$title $text" : $text ) )
+                    {
+                        $entry->setFieldValue('dek', $meta );
+                    }
+                }
             }
         );
 

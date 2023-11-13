@@ -149,7 +149,7 @@ fieldLayouts:
         uid: 30de07d6-f329-4b20-a12d-29ba62cac1b1
         userCondition: null
 handle: features
-instructions: ''
+instructions: null
 maxNodes: null
 name: 'Footer - Features'
 permissions:

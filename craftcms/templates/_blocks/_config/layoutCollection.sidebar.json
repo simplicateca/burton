@@ -4,8 +4,7 @@
         "value": "textAbove",
 
         "settings": {
-            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
-            "blockContainer": "container @container"
+            "microLayout": "topBottom"
         }
     },
 
@@ -14,8 +13,7 @@
         "value": "textAbove",
 
         "settings": {
-            "blockLayout": "_layouts/micro/blockLayoutTopBottom",
-            "blockContainer": "container @container"
+            "microLayout": "topBottom"
         }
     }
 ]

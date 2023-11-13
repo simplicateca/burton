@@ -1,6 +1,6 @@
 columnSuffix: cvrpdgoz
 contentColumnType: boolean
-fieldGroup: ea1a69ed-b5c5-46cf-a629-4435f7f7cad0 # Content Builders
+fieldGroup: ea1a69ed-b5c5-46cf-a629-4435f7f7cad0 # Matrix Builders
 handle: showBlockMeta
 instructions: 'When enabled, you will see the setting information for each content block through-out the site.'
 name: 'Show Block Meta'

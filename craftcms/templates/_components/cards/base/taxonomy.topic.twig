@@ -1,0 +1,34 @@
+{% extends '_components/cards/base/_base' %}
+
+{## use retcon + tailwind to modify specific elements after the card is renders ##}
+{% block card_headline %}
+
+    {% if card_type == 'detail' %}
+        {{ parent()
+            | retconAttr( '[data-headline]', {
+                class: "border-b-4 border-[var(--borderColor)] mb-4",
+                style: "--borderColor: #{card.item.color};",
+            }, false)
+        }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+
+{% endblock %}
+
+{## use retcon + tailwind to modify specific elements after the card is renders ##}
+{% block card %}
+    {{ parent()
+        | retconAttr( '*[data-card-thumbnail]', {
+            class: "border-t-4 border-[var(--borderColor)]",
+            style: "--borderColor: #{card.item.color};"
+        }, false)
+    }}
+{% endblock %}
+
+{% block card_action %}
+    {% set modalCard = ['detail'] %}
+    {{ card_type ??? null == 'thumbnail'
+        ? block( 'card_actionModalCard' )
+        : parent() }}
+{% endblock %}

@@ -1,6 +1,6 @@
 columnSuffix: sktzfatm
 contentColumnType: text
-fieldGroup: a4b149ed-cc92-46ad-bfb9-6fa96bb29e5c # Text Input
+fieldGroup: a4b149ed-cc92-46ad-bfb9-6fa96bb29e5c # Plain Text
 handle: label
 instructions: null
 name: Label

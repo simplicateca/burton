@@ -20,10 +20,11 @@ use modules\gearbox\Gearbox;
 
 use Craft;
 use craft\helpers\StringHelper;
+use craft\elements\Entry;
+use craft\elements\db\EntryQuery;
 
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Twig\TwigMarkup;
 use Twig\Extension\AbstractExtension;
 
 use Embed\Embed;
@@ -49,20 +50,86 @@ class GearboxTwigExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            // new TwigFunction('leadingHeaders',  [$this, 'leadingHeaders']),
-            // new TwigFunction('trailingButtons', [$this, 'trailingButtons']),
+            new TwigFunction('processRichHtml',       [$this, 'processRichHtml']),
+            new TwigFunction('hex2rgb',               [$this, 'hex2rgb'        ]),
+            new TwigFunction('hex2text',              [$this, 'hex2text'       ]),
+            new TwigFunction('embedInfo',             [$this, 'embedInfo'      ]),
 
-            new TwigFunction('processRichHtml', [$this, 'processRichHtml'   ]),
-            new TwigFunction('hex2rgb',         [$this, 'hex2rgb'           ]),
-            new TwigFunction('hex2text',        [$this, 'hex2text'          ]),
-            new TwigFunction('embedInfo',       [$this, 'embedInfo'         ]),
+            new TwigFunction('getContentFeedQuery',   [$this, 'getContentFeedQuery'   ]),
+            new TwigFunction('getContentFeedResults', [$this, 'getContentFeedResults' ]),
         ];
     }
+
 
     public function ucFirstFilter(string|null $val)
     {
         return ucfirst($val);
     }
+
+    public function getContentFeedQuery( $feedID, $settings ): EntryQuery
+    {
+        // Get the feeds entry
+        $feeds = Entry::find()->section('taxonomy')->id( $feedID ) ?? null;
+        $firstFeed = $feeds->one() ?? null;
+
+        // Collect query parameters
+        $filter = Craft::$app->request->getParam('f') ?? $settings['filter'] ?? $firstFeed->slug ?? null;
+        $query  = Craft::$app->request->getParam('q') ?? $settings['query'] ?? null;
+
+        // Get the search entry
+        $search = $feeds->collect()->firstWhere('slug', $filter) ?? $firstFeed ?? null;
+
+        // Get content type, section, and entry type
+        $contentType = $search ? $search->contentType->reference() : null;
+        $section     = $contentType ? ( $contentType['section']   ?? null ) : null;
+        $entryType   = $contentType ? ( $contentType['entryType'] ?? null ) : null;
+
+        // Get sort, redirect, and topics
+        $sort     = $search ? $search->sort->value : null;
+        $topics   = $search ? $search->taxonomies->all() : null;
+
+        // Set search/sort/filter settings
+        $orderBy = 'postDate DESC';
+        $orderBy = $sort == 'random' ? 'RAND()' : $orderBy;
+        $orderBy = $sort == 'alphabetical' ? 'title DESC' : $orderBy;
+        $orderBy = $sort == 'upcoming' ? 'startDate ASC' : $orderBy;
+
+        // Create the starting query
+        $collectionQuery = null;
+
+        if ($section == 'products') {
+            $collectionQuery = Entry::find()->section('products')->availableForPurchase(true);
+            $orderBy = $sort == 'recent' ? 'dateUpdated DESC' : $orderBy;
+        } else {
+            $collectionQuery = Entry::find();
+            $collectionQuery = $section ? $collectionQuery->section($section) : $collectionQuery;
+        }
+
+        if ($query) {
+            $collectionQuery = $collectionQuery->search($query);
+            $orderBy = 'score';
+        }
+
+        $limit = $settings['limit'] ?? 3;
+        $collectionQuery = $collectionQuery->orderBy($orderBy)->limit( $limit );
+
+        if( $entryType ) {
+            $collectionQuery = $collectionQuery->type( $entryType );
+        }
+
+        if( $topics ) {
+            $collectionQuery = $collectionQuery->relatedTo( $topics );
+        }
+
+        return $collectionQuery;
+    }
+
+
+    public function getContentFeedResults( $feedID, $settings ): Array
+    {
+        return $this->getContentFeedQuery( $feedID, $settings )->all() ?? [];
+    }
+
 
     public function processRichHtml( string|null $html = "" ): array
     {
@@ -77,7 +144,7 @@ class GearboxTwigExtension extends AbstractExtension
             'ctaSelector'         => "a.button",
             'lastSmallSelector'   => "p.small:last-child",
             'trailingCtaSelector' => "p[data-has-buttons]:last-child",
-            'figureClassPrefix'   => "cImageCard__",
+            'figureClassPrefix'   => "imageCard",
         ];
 
 
@@ -89,6 +156,7 @@ class GearboxTwigExtension extends AbstractExtension
             'headline'  => null,
             'cta'       => null,
             'body'      => null,
+            'oAlign'    => null,
         ];
 
         if( !$html ) {
@@ -113,6 +181,19 @@ class GearboxTwigExtension extends AbstractExtension
         // extract the div.eyebrow element appearing before any other element in the html string
         $textParts['eyebrow'] = $this->retconOnly( $processed, $settings['eyebrowSelector'] );
         $processed = $this->retconRemove( $processed, $settings['eyebrowSelector'] );
+
+        // find the alignment of the opening element
+        if( $textParts['oAlign'] = $this->openingBlockAlignment( $processed, $settings ) ) {
+            $mx = "mr-auto";
+            $mx = 'center' == $textParts['oAlign'] ? 'mx-auto' : $mx;
+            $mx = 'right'  == $textParts['oAlign'] ? 'ml-auto' : $mx;
+            $textParts['eyebrow'] = (string) Retcon::getInstance()->retcon->attr(
+                $textParts['eyebrow'],
+                '.eyebrow',
+                [ 'class' => $mx ],
+                false                   // overwrite
+            );
+        }
 
         // TODO: automatically add id to eyebrow
         // {% set eyebrowText = ( eyebrow ?? '' )|striptags|trim|lower|ascii|kebab  %}
@@ -144,6 +225,8 @@ class GearboxTwigExtension extends AbstractExtension
             $processed .= $lastSmallPara;
         }
 
+        $processed = $this->processTopLevelDomElements( $processed, $settings );
+
         $textParts['body'] = $processed;
         // $textParts['bodyRaw'] = (string) Retcon::getInstance()->retcon->change(
         //     $processed,
@@ -156,14 +239,19 @@ class GearboxTwigExtension extends AbstractExtension
 
 
     private function retconOnly( $html, $selector ) {
-        $html = (string) Retcon::getInstance()->retcon->only( "<wrapper>$html</wrapper>", "wrapper $selector" ) ?? null;
+        $html = (string) Retcon::getInstance()->retcon->only( "<template>$html</template>", "template $selector" ) ?? null;
         return trim( $html );
     }
 
 
+    private function retconAttr( $html, $selector, $attr, $overwrite = true ) {
+        $html = (string) Retcon::getInstance()->retcon->attr( $html, $selector, $attr, $overwrite ) ?? null;
+        return trim( $html );
+    }
+
     private function retconRemove( $html, $selector ) {
-        $html = (string) Retcon::getInstance()->retcon->remove( "<wrapper>$html</wrapper>", "wrapper $selector" );
-        $html = (string) Retcon::getInstance()->retcon->change( $html, "wrapper", false );
+        $html = (string) Retcon::getInstance()->retcon->remove( "<template>$html</template>", "template $selector" );
+        $html = (string) Retcon::getInstance()->retcon->change( $html, "template", false );
         return trim( $html );
     }
 
@@ -175,7 +263,7 @@ class GearboxTwigExtension extends AbstractExtension
         $html = (string) Retcon::getInstance()->retcon->attr(
             $html,
             "p,ol,ul,blockquote,h1,h2,h3,h4,h5,h6,hr",
-            ["class" => "base"], false
+            ["class" => "html"], false
         );
 
         // duplicate all href attributes to data-href inside <a> elements
@@ -225,7 +313,33 @@ class GearboxTwigExtension extends AbstractExtension
                 }
             }
         }
+
         return $html;
+    }
+
+
+    private function openingBlockAlignment( $html, $settings ) {
+
+        $classLeft   = $settings["classLeft"]   ?? "text-left";
+        $classCenter = $settings["classCenter"] ?? "text-center";
+        $classRight  = $settings["classRight"]  ?? "text-right";
+
+        if( $nodes = $this->_html2nodes( $html ) ) {
+            foreach ( $nodes as $key => $node) {
+                $class = $node->getAttribute('class') ?? '';
+                if( mb_strstr( $class, 'eyebrow' ) ) { continue; }
+                foreach( [$classLeft,$classCenter,$classRight] AS $align ) {
+                    if( mb_strstr( $class, $align ) ) {
+                        if( $align == $classLeft   ) { return 'left';   }
+                        if( $align == $classCenter ) { return 'center'; }
+                        if( $align == $classRight  ) { return 'right';  }
+                    }
+                }
+                return null;
+            }
+        }
+
+        return null;
     }
 
 
@@ -258,7 +372,7 @@ class GearboxTwigExtension extends AbstractExtension
 
         $cleanCardTmplName = trim( mb_ereg_replace('/[^\w\d\-\_]+/', '', $cardTemplate ) ) ?? 'basic';
         $cardComponentPath = $iframeNode
-            ? "_cards/richmedia/"
+            ? "_cards/media/"
             : "_cards/image/";
 
         $cardTwigInclude   = '{% include "' . $cardComponentPath . $cleanCardTmplName . '" ignore missing %}';
@@ -291,7 +405,7 @@ class GearboxTwigExtension extends AbstractExtension
 
         $nodeStyle = $node->getAttribute('style') ?? "";
         $nodeClass = $node->getAttribute('class') ?? "";
-        $nodeStyle = mb_strtolower( mb_ereg_replace( "/\s+/", '', $nodeStyle ) );
+        $nodeStyle = mb_strtolower( mb_ereg_replace( ' ', '', $nodeStyle ) );
 
         if( strstr( $nodeStyle, "text-align:left" ) ) {
             $node->setAttribute( "class", implode( " ", [$nodeClass, $classLeft] ) );
@@ -304,6 +418,15 @@ class GearboxTwigExtension extends AbstractExtension
         if( strstr( $nodeStyle, "text-align:right" ) ) {
             $node->setAttribute( "class", implode( " ", [$nodeClass, $classRight] ) );
         }
+
+        // clean up the style tag
+        $nodeStyle = mb_ereg_replace( 'text-align:left',   '', $nodeStyle );
+        $nodeStyle = mb_ereg_replace( 'text-align:center', '', $nodeStyle );
+        $nodeStyle = mb_ereg_replace( 'text-align:right',  '', $nodeStyle );
+
+        empty( $nodeStyle )
+            ? $node->removeAttribute( "style" )
+            : $node->setAttribute( "style", $nodeStyle );
 
         return $node;
     }
@@ -330,11 +453,11 @@ class GearboxTwigExtension extends AbstractExtension
 
         $libxmlUseInternalErrors = \libxml_use_internal_errors(true);
         $doc = new \DOMDocument();
-        $doc->loadHTML("<wrapper>$html</wrapper>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $doc->loadHTML("<template>$html</template>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         \libxml_use_internal_errors($libxmlUseInternalErrors);
 
         $crawler = new \Symfony\Component\DomCrawler\Crawler($doc);
-        return $crawler->filter('wrapper')->children();
+        return $crawler->filter('template')->children();
     }
 
 

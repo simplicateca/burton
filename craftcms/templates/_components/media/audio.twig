@@ -1,0 +1,32 @@
+{% set media  = media  ??? null %}
+{% set config = config ??? null %}
+
+{% if media %}
+    {% set class     = config.class ??? '' %}
+    {% set poster    = media.images|first    ??? null %}
+    {% set transform = config.coverTransform ??? null %}
+
+    {% if poster and transform %}
+        {% do poster.setTransform(transform) %}
+    {% endif %}
+
+    <div class="{{class}}" x-data="{ poster: true }">
+        {% if poster %}
+            <img
+                src="{{poster.url}}"    
+                class="h-full w-full object-cover cursor-pointer"
+                @click="document.getElementById('audio--{{media.id}}').play()"
+            >
+        {% endif %}
+
+        
+
+        <audio id="audio--{{media.id}}" controls class="w-full max-w-3xl bg-[#f1f3f4] rounded-none">
+            <source src="{{media.url}}" type="{{media.mimeType}}">
+        </audio>
+
+        <div class="text-right mt-1">
+            <a href="#">Read transcript →</a>
+        </div>
+    </div>
+{% endif %}

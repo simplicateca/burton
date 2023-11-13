@@ -1,0 +1,25 @@
+[{
+    "label": "Auto",
+    "value": "auto",
+    "settings": {
+        "imageFrame": "card.auto"
+    }
+},{
+    "label": "Auto Grid",
+    "value": "autogrid",
+    "settings": {
+        "imageLayout": "_components/images/layout.autogrid"
+    }
+},{
+    "label": "With Caption",
+    "value": "caption",
+    "settings": {
+        "imageFrame": "caption"
+    }
+},{
+    "label": "Gallery",
+    "value": "gallery",
+    "settings": {
+        "imageLayout": "_components/images/layout.gallery"
+    }
+}]

@@ -24,11 +24,11 @@
   "air" : true,
   "linkClasses" : [
     { "label": "Button", "class": "button" },
-    { "label": "Text + Arrow", "class": "button textArrow" }
+    { "label": "Text w/ Arrow", "class": "buttonText" }
   ],
   "listClasses" : [
-    { "label": "Checkmarks",  "class": "checkmarks" },
-    { "label": "2 Columns",   "class": "twoColumns" },
-    { "label": "Center Rows", "class": "centerRows" }
+    { "label": "Checkmarks",     "class": "checkList" },
+    { "label": "2 Columns",      "class": "columnList" },
+    { "label": "Separated Rows", "class": "rowList" }
   ]
 }

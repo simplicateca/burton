@@ -19,7 +19,7 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: 26f7dca6-d051-4598-8236-34d1403ab36c # Background
+            fieldUid: 26f7dca6-d051-4598-8236-34d1403ab36c # Theme
             instructions: null
             label: null
             required: false
@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 01bb381e-2417-4ee8-8473-40d48d27f2e7 # Spacers & Dividers
+            fieldUid: 01bb381e-2417-4ee8-8473-40d48d27f2e7 # Interspace
             instructions: null
             label: null
             required: false
@@ -45,29 +45,29 @@ fieldLayouts:
         uid: 3911933e-f3f3-4edc-9e3a-26671b2d7fdb
         userCondition: null
 fields:
-  01bb381e-2417-4ee8-8473-40d48d27f2e7: # Spacers & Dividers
+  01bb381e-2417-4ee8-8473-40d48d27f2e7: # Interspace
     columnSuffix: dcntfjtq
     contentColumnType: string
     fieldGroup: null
-    handle: spacing
-    instructions: 'Change spacing & dividers above/below this block.'
-    name: 'Spacers & Dividers'
+    handle: interspace
+    instructions: 'Control the area between blocks'
+    name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/_config/spacingFragment.json
+      referenceFile: _blocks/_config/interspaceFragment.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  26f7dca6-d051-4598-8236-34d1403ab36c: # Background
+  26f7dca6-d051-4598-8236-34d1403ab36c: # Theme
     columnSuffix: npsqcahg
     contentColumnType: string
     fieldGroup: null
-    handle: bg
+    handle: theme
     instructions: 'Set the background style behind this block.'
-    name: Background
+    name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/_config/bgFragment.json
+      referenceFile: _blocks/_config/themeSidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -126,5 +126,5 @@ fields:
     translationMethod: site
     type: craft\fields\Entries
 handle: fragment
-name: 'Reusable Fragment'
+name: Fragment
 sortOrder: 5

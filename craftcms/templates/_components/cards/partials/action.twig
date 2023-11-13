@@ -1,0 +1,31 @@
+{% block action_default %}{% apply spaceless %}
+    {% if card.item.url %}
+        <a href="{{card.item.url}}" class="clickCover"
+            ><span class="hidden">Read More →</span></a>
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+{% block action_textLink %}{% apply spaceless %}
+    {% if card.item.url %}
+        <a href="{{card.item.url}}" class=""
+            >Read More →</a>
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+{% block action_modalCard %}{% apply spaceless %}
+
+    {% embed modalLayout ??? settings.modalLayout ??? "_components/modal/_base" with {
+        item  : card.item ??? card ??? null,
+        layout: modalCard ??? settings.modalCard ??? [ "detail.modal", "detail" ],
+    } %}
+        {% block content %}
+            <div class="p-10">
+                {% import "_components/cards" as cards %}
+                {{ cards.render( item, layout, settings ) }}
+            </div>
+        {% endblock %}
+    {% endembed %}
+
+{% endapply %}{% endblock %}

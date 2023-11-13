@@ -1,0 +1,36 @@
+fieldLayouts:
+  5fcb1eef-6383-40f2-833a-1922ecfd7a33:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: c62ec2a4-1966-4b3c-a5d1-b0842235c23e # Content Fragments
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2eebd10e-00b4-489c-8628-07a3493a05dc
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: b1c52a06-4990-43f5-90d3-898a48789556 # Dek
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: cf9e1c29-6308-4491-a367-0a7a73324bcd
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: d5f3db3b-9ed4-44d5-9f40-3e967351c741
+        userCondition: null
+handle: footer
+name: Footer
+sortOrder: 3

@@ -1,19 +1,27 @@
 columnSuffix: gqqtpzit
 contentColumnType: text
-fieldGroup: a4b149ed-cc92-46ad-bfb9-6fa96bb29e5c # Text Input
+fieldGroup: 481eb25d-9439-4ee3-85c2-e1a0e6d62d11 # Redactor
 handle: headline
 instructions: null
 name: Headline
-searchable: false
+searchable: true
 settings:
-  byteLimit: null
-  charLimit: null
-  code: false
-  columnType: null
-  initialRows: 4
-  multiline: false
-  placeholder: null
-  uiMode: enlarged
+  availableTransforms: '*'
+  availableVolumes: ''
+  columnType: text
+  configSelectionMode: choose
+  defaultTransform: ''
+  manualConfig: ''
+  purifierConfig: null
+  purifyHtml: true
+  redactorConfig: Headline.json
+  removeEmptyTags: true
+  removeInlineStyles: true
+  removeNbsp: false
+  showHtmlButtonForNonAdmins: true
+  showUnpermittedFiles: false
+  showUnpermittedVolumes: false
+  uiMode: normal
 translationKeyFormat: null
 translationMethod: none
-type: craft\fields\PlainText
+type: craft\redactor\Field

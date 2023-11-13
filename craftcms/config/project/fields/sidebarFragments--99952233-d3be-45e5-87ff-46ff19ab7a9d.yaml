@@ -1,0 +1,53 @@
+columnSuffix: null
+contentColumnType: string
+fieldGroup: 2519536b-c608-4348-8c10-9b1ada109842 # Content Entries
+handle: sidebarFragments
+instructions: null
+name: 'Sidebar Fragments'
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 27da02dd-2660-4299-a21c-a4c060391503
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 2d27e08b-61f3-47ca-8a0a-e69fa2b1a226 # Sidebar Fragments
+  selectionLabel: 'Choose fragment'
+  showSiteMenu: false
+  sources:
+    - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: null
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

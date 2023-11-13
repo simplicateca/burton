@@ -1,4 +1,4 @@
-{% set entry = entry ??? null %}
+{% extends "_layouts/_common" %}
 
 {## everything except topics should 404 ##}
 {% if ( entry.type.handle ??? null ) != 'topic' %}
@@ -9,9 +9,7 @@
     title: entry.title
 } %}
 
-{% extends "_layouts/oneColumn" %}
-
-{% block beforeContent %}
+{# {% block beforeContent %}
     {% if entry.summary %}
         <div class="container @container">
             {{ processRichHtml( entry.summary ).text }}
@@ -27,13 +25,13 @@
 
     {% if taggedArticles %}
         <div class="container py-16">
-            {% embed '_layouts/micro/blockLayoutTopBottom' %}
+            {% embed 'topBottom' %}
                 {% block cell1Body %}
                     <h2>Articles related to {{ entry.title }}</h2>
                 {% endblock %}
 
                 {% block cell2Body %}
-                    {% embed '_layouts/micro/gridCols3' %}
+                    {% embed '_layouts/base/micro/gridCols3' %}
                         {% block items %}
                             {% for item in taggedArticles %}
                                 {{ include('_cards/item/basic', {
@@ -46,4 +44,4 @@
             {% endembed %}
         </div>
     {% endif %}
-{% endblock %}
+{% endblock %} #}

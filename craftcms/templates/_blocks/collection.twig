@@ -1,80 +1,138 @@
-{## Collection Block
-    ---------------------------------------------------------------------------- ##
-    this template is typically included from `_blocks/_base.twig` which pre-sets
-    a handful of variables and passes them into this template via twig context.
- ## ---------------------------------------------------------------------------- ##}
-{% set thisBlock = {
-    content     : null,
-    settings    : null,
-    blockLayout : '_layouts/micro/blockLayoutTopBottom',
-}|map( (item,key) => _context[key] ??? settings[key] ??? item ) %}
+{## Collection Block Base
+ ------------------------------------------------------------------------------------ ##
+    New block variations should extend this template rather than `_blocks/_common`.
 
-{% embed thisBlock.blockLayout %}
-    {## primary text content is already added to this block layout via the `cell1Body`
-        variable declared in `_blocks/_base`. Uncomment {% block %} below to customize
+    i.e. {% extends "_blocks/collection" %}
+ ------------------------------------------------------------------------------------ ##}
+{% extends "_blocks/_common" %}
 
-        {% block cell1Body %}
-          {{ thisBlock.content.text }}
-        {% endblock %}
-    ##}
 
-    {% block cell2Body %}
+{## Micro-layouts are defined and documented within `_layouts/base/micro`
 
-        {% set itemSource = thisBlock.content.collectionType ??? null %}
+    View: http://localhost/sitebook/layouts/micro-layouts
+    Docs: http://buildwithburton.com/docs/micro-layouts
 
-        {% if itemSource == 'search' %}
+ ------------------------------------------------------------------------------------ ##}
+{% import "_layouts/base/micro" as micro %}
 
-            {## are we using (one or more) Content Search entries to choose our items? ##}
-            {{ sprig( "_components/search/contentSearch.sprig", {
-                settings  : thisBlock.settings,
-                limit     : thisBlock.content.limit ??? null,
-                pagination: thisBlock.content.pagination.value ??? null,
-                searchID  : thisBlock.content.searches.ids() ??? null,
-            }) }}
+{% block content %}
 
-        {% else %}
+    {{ micro.layout(
+        [
+            block('content_text'), block('content_collection'),
+            block('block_header'), block('block_footer')
+        ],
+        block.settings.microLayout ??? null,
+        block.settings.container    ?? null
+    ) }}
 
-            {## or did we chose specific entries/assets or custom items? ##}
-            {% set collectionItems = [] %}
-            {% switch itemSource %}
-                {% case "assets" %}
-                    {% set collectionItems = thisBlock.content.assets.all()  ??? [] %}
-                {% case "entries" %}
-                    {% set collectionItems = thisBlock.content.entries.all() ??? [] %}
-                {% default %}
-                    {% set collectionItems = thisBlock.content.items.all()   ??? [] %}
-            {% endswitch %}
+{% endblock content %}
 
-            {## are we handing off the items to a custom component ##}
-            {% set component = thisBlock.settings.itemComponent ??? null %}
-            {% if component %}
 
-                {{ include( component, {
-                    items   : collectionItems,
-                    settings: thisBlock.settings
-                }, withContext = false ) }}
+{## Prepare the Collection Content
+ ------------------------------------------------------------------------------------ ##
 
-            {## or just using a standard grid+card layout ##}
-            {% else %}
+ ## First, figure out if we need to hand things off to a Sprig template.
 
-                {% set itemGrid = thisBlock.settings.itemGrid ??? '_layouts/micro/gridCols2' %}
-                {% set itemCard = thisBlock.settings.itemCard ??? '_cards/item/basic' %}
+    Some layouts might want to use a Sprig component to provide dynamic content
+    reloading. Because of the way Sprig and htmx work, these templates can't be passed
+    complex objects as arguments and need to be responsible for much of their own logic.
 
-                {% embed itemGrid %}
-                    {% block items %}
-                        {% for item in collectionItems %}
-                            {{ include( itemCard, {
-                                entry   : item,
-                                loop    : loop,
-                                settings: thisBlock.settings
-                            }, withContext = false ) }}
-                        {% endfor %}
-                    {% endblock %}
-                {% endembed %}
+    So if that's the case, we can do a hand-off. Otherwise, all other base Collection
+    layouts can be rendered by this template.
 
-            {% endif %}
+ ------------------------------------------------------------------------------------ ##}
+{% block content_collection %}
+    {% if ( block.source ??? null == 'feed' ) and ( block.pagination.value ??? null in [ 'standard', 'standardWithSearch' ] ) %}
+        {{ block('collection_render_sprig') }}
+    {% else %}
+        {{ block('collection_render_prep') }}
+    {% endif %}
+{% endblock %}
 
-        {% endif %}
 
-    {% endblock %}
-{% endembed %}
+
+{## Prepare to render the collection
+ ------------------------------------------------------------------------------------ ##}
+{% block collection_render_prep %}
+
+    {## collect query parameters ##}
+    {% set searchParams = {
+        page  : craft.app.request.getParam('page') ??? craft.app.request.pageNum ??? 1,
+        filter: craft.app.request.getParam('f')    ??? block.filter ??? block.feeds.one().slug,
+        query : craft.app.request.getParam('q')    ??? block.query  ??? null,
+        limit : block.limit ??? 6
+    } %}
+
+    {## Collect items from desired source into a single array.
+     -------------------------------------------------------------------------------- ##}
+    {% set source = block.source ??? null %}
+    {% set collection = [] %}
+    {% set collection = source == 'feed'    ? getContentFeedResults( block.feeds.ids(), searchParams ) : collection %}
+    {% set collection = source == 'assets'  ? block.assets.all()  : collection %}
+    {% set collection = source == 'entries' ? block.entries.all() : collection %}
+    {% set collection = source == 'items'   ? block.items.all()   : collection %}
+
+
+    {## Prepare the layout settings for rendering the collection
+     -------------------------------------------------------------------------------- ##}
+    {% set cardLayout = block.settings.cardLayout ??? 'standard' %}
+    {% set cardGrid   = block.settings.cardGrid   ??? 'stacked2' %}
+    {% set cardLoop   = block.settings.cardLoop   ??? null %}
+
+
+    {## Make custom adjustments
+     -------------------------------------------------------------------------------- ##}
+    {% set layout  = block.settings.layout  ??? null %}
+    {% set variant = block.settings.variant ??? null %}
+
+    {% if variant == 'disclosure' %}
+        {# {% set cardLoop   = '_components/accordion/simple' %}
+        {% set cardLayout = 'panel' %} #}
+        {% set cardLoop   = '_components/carousel/simple' %}
+        {# {% set cardLayout = 'panel' %} #}
+    {% endif %}
+
+
+    {{ cardLoop
+        ? block( 'collection_render_layout' )
+        : block( 'collection_render_grid' ) }}
+{% endblock %}
+
+
+
+
+{## Render dynamically using sprig
+ ------------------------------------------------------------------------------------ ##}
+{% block collection_render_sprig %}
+    {{ sprig( "_blocks/partials/collection.feed.sprig", {
+        settings  : block.settings,
+        limit     : block.limit ??? null,
+        pagination: block.pagination.value ??? null,
+        searchID  : block.feeds.ids() ??? null,
+    }) }}
+{% endblock %}
+
+
+
+{## Render within a simple grid
+ ------------------------------------------------------------------------------------ ##}
+{% block collection_render_grid %}
+    {% import "_layouts/base/grids" as grids %}
+    {% import "_components/cards" as cards %}
+    {{ grids.generate(
+        cards.deck( collection, cardLayout, block.settings ??? null ),
+        cardGrid
+    ) }}
+{% endblock %}
+
+
+
+{## Render in a specific layout component (accordion, carousel, etc)
+ ------------------------------------------------------------------------------------ ##}
+{% block collection_render_layout %}
+    {{ include( cardLoop ??? null, {
+        items: sourceItems ??? null,
+        card : cardLayout  ??? null
+    }, withContext = false  ) }}
+{% endblock %}

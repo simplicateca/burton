@@ -1,9 +1,9 @@
 columnSuffix: null
 contentColumnType: string
-fieldGroup: e0dac603-c510-4bb5-8701-e25672d93744 # Common
+fieldGroup: dc717c0e-4ef4-4f7e-b352-1a7ba8e2ff40 # Assets
 handle: images
 instructions: null
-name: 'Feature Image'
+name: Image
 searchable: true
 settings:
   allowSelfRelations: false

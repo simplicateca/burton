@@ -1,0 +1,48 @@
+{## Common Card Base
+ ------------------------------------------------------------------------------------ ##
+    Most card layouts should extend from this template or other card layouts.
+
+    i.e.
+    (1) {% extends '_components/cards' %}
+    (2) {% extends '_components/cards/standard' %}
+
+    The primary reason for extending this template instead of 'cards/base' is to
+    automate the inclusion of content-specific overrides.
+
+
+ ## Content-Specific Overrides
+ ------------------------------------------------------------------------------------ ##
+    By dynamically modifying the inheritance chain of the block while it loads, we
+    ensure the proper inclusion of content-specific overrides.
+
+    This changes the inheritance order from something like:
+
+        _components/cards/base/_base.twig
+          ↳ _components/cards/_common.twig
+            ↳ _components/cards/standard.twig
+
+    To something like:
+
+        _components/cards/base/_base.twig
+          ↳ _components/cards/base/faqs.twig   <-- Great Success!!
+            ↳ _components/cards/_common.twig
+              ↳ _components/cards/standard.twig
+
+    Overrides can be created for various purposes but are commonly used to customize
+    card layouts based on Section or EntryType or purpose within a layout.
+
+    Learn more:
+    https://twig.symfony.com/doc/3.x/tags/extends.html#dynamic-inheritance
+------------------------------------------------------------------------------------ ##}
+{% set path = ["_components/cards/base/_base"] %}
+{% set sect = section ??? item.section.handle ??? item.section ??? null %}
+{% set type = type ??? item.type.handle ??? item.type ??? null %}
+{% set path = sect ? path|merge(["_components/cards/base/#{sect}"]) : path %}
+{% set path = type ? path|merge(["_components/cards/base/#{sect}.#{type}"]) : path %}
+
+{## IMPORTANT !!
+ ------------------------------------------------------------------------------------ ##
+    When make changes to the path or card naming conventions, notice that `path` above
+    is being populated backwards and then reversed in the {% extends %} tag below.
+------------------------------------------------------------------------------------ ##}
+{% extends path|reverse %}

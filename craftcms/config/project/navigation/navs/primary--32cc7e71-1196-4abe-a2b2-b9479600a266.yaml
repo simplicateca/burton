@@ -149,7 +149,7 @@ fieldLayouts:
         uid: 8c4fe6be-094c-4072-9ecb-2a91ff322b77
         userCondition: null
 handle: primary
-instructions: ''
+instructions: null
 maxNodes: null
 name: 'Header - Primary'
 permissions:

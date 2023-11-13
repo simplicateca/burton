@@ -1,0 +1,36 @@
+{% set card = {
+    item    : item     ??? null,
+    headline: headline ??? item.headline       ??? item.title   ??? null,
+    summary : summary  ??? item.dek            ??? item.summary ??? item.text ??? null,
+    images  : images   ??? item.images         ??? null,
+    section : section  ??? item.section.handle ??? item.section ??? null,
+    type    : type     ??? item.type.handle    ??? item.type    ??? null,
+    tag     : tag      ??? 'div',
+    loop    : loop     ??? null,
+    class   : class    ??? null,
+    action  : action   ??? null,
+    settings: settings ??? null,
+} %}
+
+{## lets us pull templates into this one and call it like a macro.
+    -> https://twig.symfony.com/doc/3.x/tags/use.html
+------------------------------------------------------------------------------------ ##}
+{% use "_components/cards/partials/_tag"     with open     as card_open,
+                                                  close    as card_close    %}
+{% use "_components/cards/partials/image"    with image    as card_image    %}
+{% use "_components/cards/partials/headline" with headline as card_headline,
+                                                  title    as card_title    %}
+{% use "_components/cards/partials/summary"  with summary  as card_summary  %}
+
+{% use "_components/cards/partials/action"   with action_default   as card_action,
+                                                  action_modalCard as card_actionModalCard %}
+
+{% block card %}
+    {% block open %}{{ block( 'card_open') }}{% endblock %}
+
+    {% block content %}
+        {% block title %}{{ block('card_title') }}{% endblock %}
+    {% endblock %}
+
+    {% block close %}{{ block( 'card_close') }}{% endblock %}
+{% endblock %}

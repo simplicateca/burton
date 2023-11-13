@@ -1,0 +1,17 @@
+{## Ajax Request Template
+ ------------------------------------------------------------------------------------- ##
+    If a page is being called via and AJAX request we don't need to return all of the
+    other <head> and <header> and <footer> junk. Just the main content.
+
+    This block can be overriden in child templates, but generally defaults to outputting
+    content from contentBuilder.
+
+    `_layouts/base/_base`
+        - Conditional extends
+        - 'hx-ext': 'ajax-header' in `blockOpenTag` override
+
+    `_layouts/base/ajax.twig`
+ ------------------------------------------------------------------------------------- ##}
+{% block html %}
+    {% block ajaxContent %}{% endblock %}
+{% endblock %}

@@ -1,72 +1,104 @@
-{# {% set _settings = _settings is defined and _settings is iterable ? _settings : {} %} #}
-{% set _settings = {
-    title           : null,
-    children        : [],
-    menuClass       : "absolute left-0 top-10 mt-0 w-48 bg-white shadow-md",
-    aClass          : "dropdownMenu
-                       flex
-                       items-center
-                       gap-2
-                       w-full
-                       p-2
-                       text-left
-                       text-lg
-                       no-underline
-                       text-gray-700
-                       hover:bg-blue-500
-                       hover:text-white
-                    ",
-    activeClass     : "navItem__isActive",
-    hasChildrenClass: "navItem__hasChildren",
-}|merge(_context) %}
+{% set dropdown = dropdown ??? null %}
 
-<div
-    x-cloak
-    x-data="{
-        open: false,
-        toggle() {
-            if (this.open) {
-                return this.close()
-            }
-            this.$refs.button.focus()
-            this.open = true
-        },
-        close(focusAfter) {
-            if (! this.open) return
-            this.open = false
-            focusAfter && focusAfter.focus()
-        }
-    }"
-    x-on:keydown.escape.prevent.stop="close($refs.button)"
-    x-on:focusin.window="!$refs.panel.contains($event.target) && close()"
-    x-id="['dropdown-button']"
-    class="relative"
->
-    <!-- Button -->
-    <button
-        x-ref="button"
-        x-on:click="toggle()"
-        :aria-expanded="open"
-        :aria-controls="$id('dropdown-button')"
-        type="button"
-        class="{{ _settings.buttonClass }}"
-    >
-        <span>{{ _settings.title }}</span>
-        {{ include( 'svg/chevron-down.svg' ) }}
-    </button>
-
-    <!-- Panel -->
+{% block dropdown %}
     <div
-        x-ref="panel"
-        x-show="open"
-        x-on:click.outside="close($refs.button)"
-        :id="$id('dropdown-button')"
-        class="{{_settings.menuClass}}"
+        x-cloak
+        x-data="{
+            open: false,
+            toggle() {
+                if (this.open) {
+                    return this.close()
+                }
+                this.$refs.button.focus()
+                this.open = true
+            },
+            close(focusAfter) {
+                if (! this.open) return
+                this.open = false
+                focusAfter && focusAfter.focus()
+            }
+        }"
+        x-on:keydown.escape.prevent.stop="close($refs.button)"
+        x-on:focusin.window="!$refs.panel.contains($event.target) && close()"
+        x-id="['dropdown-button']"
+        class="relative"
     >
-        {% for node in _settings.children %}
-            <a href="{{node.url}}" class="{{_settings.aClass}}">
-                {{node.title}}
-            </a>
-        {% endfor %}
+        <!-- Button -->
+        <button
+            x-ref="button"
+            x-on:click="toggle()"
+            :aria-expanded="open"
+            :aria-controls="$id('dropdown-button')"
+            type="button"
+            class="{{ block('buttonClass') }}"
+        >
+            {% block button %}
+                <span class="flex gap-2 items-center">
+                    {% block title %}{{ dropdown.title ??? null }}{% endblock %}
+                    {% block chevron %}{{ include( 'vectors/chevron-down.svg' ) }}{% endblock %}
+                </span>
+            {% endblock %}
+        </button>
+
+        <!-- Panel -->
+        <div
+            x-ref="panel"
+            x-show="open"
+            x-on:click.outside="close($refs.button)"
+            :id="$id('dropdown-button')"
+            class="{{ block( 'panelClass' ) }}"
+        >
+            {% block panel %}
+                {% block aboveItems %}{% endblock %}
+
+                {% block loop %}
+                    {% for item in dropdown.children.all() ??? null %}
+                        {% block item %}
+                            {{ tag( 'a', {
+                                href : item.url ??? null,
+                                class: block('itemClass'),
+                                html : "<span>#{item.title ??? null }</span>"
+                            }) }}
+                        {% endblock %}
+                    {% endfor %}
+                {% endblock %}
+
+                {% block belowItems %}{% endblock %}
+            {% endblock %}
+        </div>
     </div>
-</div>
+{% endblock %}
+
+{% if 0 %}
+    {% block buttonClass %}
+        text-lg
+        text-theme-accent
+        hover:text-white
+        hover:bg-theme-accent
+        p-4
+    {% endblock %}
+
+    {% block itemClass %}
+        flex
+        items-center
+        gap-2
+        w-full
+        p-4
+        hover:text-white
+        hover:bg-theme-accent
+    {% endblock %}
+
+    {% block panelClass %}
+        text-lg
+        no-underline
+        absolute
+        left-0
+        bottom-0
+        translate-y-full
+        w-48
+        bg-white
+        shadow-md
+        z-20
+    {% endblock %}
+
+{% endif %}

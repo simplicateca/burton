@@ -1,0 +1,42 @@
+[
+    {
+        "value": "standard",
+        "label": "Standard"
+    },
+
+    {
+        "value": "transparent",
+        "label": "Transparent"
+    },
+
+    {
+        "value": "bright",
+        "label": "Bright"
+    },
+
+    {
+        "value": "accent",
+        "label": "Accent"
+    },
+
+    {
+        "value": "knockout",
+        "label": "Knockout",
+
+        "settings" : {
+            "sectionClass" : "bg-theme-section py-16 px-10 @container -translate-y-16 -mb-16 relative mx-16",
+            "interspaceAbove": false,
+            "interspacePrevBottom": "xl"
+        }
+    },
+
+    {
+        "value": "dark",
+        "label": "Dark"
+    },
+
+    {
+        "label": "Inherit from Block Above",
+        "value": "INHERIT"
+    }
+]

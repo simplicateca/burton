@@ -1,0 +1,94 @@
+{## Splide Accordion Base Template
+ ------------------------------------------------------------------------------------ ##
+
+    {% import "components/accordion/_base" as accordion %}
+
+    {{ accordion.render( items, cardLayout, headerTag ) }}
+
+ ------------------------------------------------------------------------------------ ##}
+
+{% set hTag = hTag ??? 'h3' %}
+{% set uuid = create('craft\\helpers\\StringHelper').UUID() %}
+
+{% block accordion %}
+    <div x-data="{ active: '{{uuid}}-1' }" class="{{ block( 'accordionClass' ) }}">
+        {% block loop %}
+            {% for panel in items ??? null %}
+                {% block panel %}
+                    <div
+                        role="region"
+                        x-cloak
+                        x-data="{
+                            id: '{{uuid}}-{{loop.index}}',
+                            animatingOpen: false,
+                            get expanded() {
+                                return this.active === this.id
+                            },
+                            set expanded(value) {
+                                this.active = value ? this.id : null
+
+                                if( this.active == this.id ) {
+                                    this.animatingOpen = true
+                                    setTimeout(() => {
+                                        this.animatingOpen = false
+                                    }, 200 );
+                                }
+                            },
+                            handleLeaving() {
+                                if( this.animatingOpen ) {
+                                    setTimeout(() => {
+                                        document.getElementById('{{uuid}}-{{loop.index}}-header').scrollIntoView({ behavior: 'smooth' })
+                                    }, 100 );
+                                }
+                            }
+                        }"
+                        :class="{ 'shadow': expanded }"
+                    >
+                        <{{hTag}} class="h-full mb-0 scroll-mt-10" id="{{uuid}}-{{loop.index}}-header" x-intersect:leave="handleLeaving()">
+                            <button
+                                x-on:click="expanded = !expanded"
+                                :aria-expanded="expanded"
+                                class="{{ block( 'panelTitleClass' ) }}"
+                            >{% block panelLabel %}
+                                <span class="text-left">{% block panelTitle %}{{ panel.title ??? null }}}{% endblock %}</span>
+                                <span x-show="expanded"  aria-hidden="true" class="ml-4">&minus;</span>
+                                <span x-show="!expanded" aria-hidden="true" class="ml-4">+</span>
+                            {% endblock %}</button>
+                        </{{hTag}}>
+
+                        <div x-show="expanded" x-collapse.duration.200ms>
+                            <div class="{{ block( 'panelOpenClass' ) }}">
+                                {% block panelContent %}{% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endfor %}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+
+{% if 0 %}
+    {% block panelOpenClass %}
+        p-6 bg-white
+    {% endblock %}
+
+    {% block accordionClass %}
+        mx-auto max-w-4xl space-y-4 w-full
+    {% endblock %}
+
+    {% block panelTitleClass %}
+        flex
+        w-full
+        h-full
+        items-center
+        justify-between
+        p-4
+        text-base
+        bg-gray-700
+        text-white
+        font-medium
+        rounded hover:text-blue-500
+    {% endblock %}
+{% endif %}

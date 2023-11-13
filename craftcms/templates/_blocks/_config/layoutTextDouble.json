@@ -1,0 +1,25 @@
+[
+    {
+        "label": "50% / 50%",
+        "value": "textEvent",
+        "settings": {
+            "microLayout": "leftRight"
+        }
+    },
+
+    {
+        "label": "50% / 50%",
+        "value": "textEvent",
+        "settings": {
+            "microLayout": "leftRight"
+        }
+    },
+
+    {
+        "label": "50% / 50%",
+        "value": "textEvent",
+        "settings": {
+            "microLayout": "leftRight"
+        }
+    }
+]

@@ -1,0 +1,28 @@
+[
+    {
+        "value": "readableLeft",
+        "label": "Readable Width - Left",
+
+        "settings": {
+            "microLayout": "topBottom"
+        }
+    },
+
+    {
+        "value": "readableCenter",
+        "label": "Readable Width - Center",
+
+        "settings": {
+            "microLayout": "topBottom"
+        }
+    },
+
+    {
+        "value": "fullWidth",
+        "label": "Full Width",
+
+        "settings": {
+            "microLayout": "topBottomFull"
+        }
+    }
+]

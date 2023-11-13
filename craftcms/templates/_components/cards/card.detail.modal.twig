@@ -1,0 +1,21 @@
+{% extends '_components/cards/card.detail' %}
+{% set card_template = _self %}
+{% set card_type = 'detail' %}
+
+{% block content %}
+    <div class="w-full flex flex-col @3xl:flex-row gap-8">
+        <div class="flex-grow text-theme-foreground @container w-full">
+            <div>{{ block('card_headline') }}</div>
+            <div>{{ block('card_summary') }}</div>
+        </div>
+
+        <div class="max-w-1/2 w-full">
+            {{ block('card_image') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block card_headline %}
+    {% set headline = parent() ??? null %}
+    {{ headline | retconAttr( '[data-headline]', { ':id':"$id('modal-title')" } ) }}
+{% endblock %}

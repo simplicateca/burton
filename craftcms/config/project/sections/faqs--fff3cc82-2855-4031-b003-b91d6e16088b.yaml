@@ -1,0 +1,29 @@
+defaultPlacement: end
+enableVersioning: true
+handle: faqs
+name: FAQs
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary content entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
+siteSettings:
+  41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+  34463b82-dd3f-441c-b9c6-59c351e847aa: # Alternate Region/Lang
+    enabledByDefault: false
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

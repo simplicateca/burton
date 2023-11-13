@@ -149,7 +149,7 @@ fieldLayouts:
         uid: 8607ca9b-3afd-4371-bab4-aaf2f7140474
         userCondition: null
 handle: legal
-instructions: ''
+instructions: null
 maxNodes: null
 name: 'Footer - Legal Menu'
 permissions:

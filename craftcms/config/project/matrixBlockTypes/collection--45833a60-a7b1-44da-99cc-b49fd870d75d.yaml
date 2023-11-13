@@ -139,7 +139,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: 577dd7e1-eea7-4b11-9b21-1f402770e968 # Background
+            fieldUid: 577dd7e1-eea7-4b11-9b21-1f402770e968 # Theme
             instructions: null
             label: null
             required: false
@@ -151,7 +151,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: d761232e-d5c6-4df1-8817-dc7893409358 # Spacers & Dividers
+            fieldUid: d761232e-d5c6-4df1-8817-dc7893409358 # Interspace
             instructions: null
             label: null
             required: false
@@ -271,16 +271,16 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  577dd7e1-eea7-4b11-9b21-1f402770e968: # Background
+  577dd7e1-eea7-4b11-9b21-1f402770e968: # Theme
     columnSuffix: vjfuuosn
     contentColumnType: string
     fieldGroup: null
-    handle: bg
+    handle: theme
     instructions: 'Set the background style behind this block.'
-    name: Background
+    name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/_config/bgSidebar.json
+      referenceFile: _blocks/_config/themeSidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -322,7 +322,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1943415164
+      changedFieldIndicator: 328957973
       columns:
         __assoc__:
           -
@@ -346,7 +346,7 @@ fields:
                 -
                   - width
                   - ''
-      contentTable: '{{%stc_23_items}}'
+      contentTable: '{{%stc_21_items}}'
       fieldLayout: table
       maxRows: null
       minRows: null
@@ -459,7 +459,7 @@ fields:
                   -
                     - values
                     -
-                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Search
+                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Feeds
       selectionLabel: null
       showSiteMenu: false
       sources:
@@ -527,16 +527,16 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Dropdown
-  d761232e-d5c6-4df1-8817-dc7893409358: # Spacers & Dividers
+  d761232e-d5c6-4df1-8817-dc7893409358: # Interspace
     columnSuffix: tautdznt
     contentColumnType: string
     fieldGroup: null
-    handle: spacing
-    instructions: 'Change spacing & dividers above/below this block.'
-    name: 'Spacers & Dividers'
+    handle: interspace
+    instructions: 'Control the area between blocks'
+    name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/_config/spacingSidebar.json
+      referenceFile: _blocks/_config/interspaceSidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -585,7 +585,6 @@ fields:
                     -
                       - d3282cfb-d044-4890-b553-9a0b87393027 # SEO / Blog
                       - 8000f4a4-93b8-4f5b-b6b2-b26e6c12e366 # News
-                      - 64029a67-3d0c-4cad-8fc6-dc0eec8c112c # FAQs
                       - e0521335-ccc2-4893-a505-4baacf112dee # Standard
                       - 1da13089-e303-46d0-930f-aefd062df474 # Standard w/ Sidebar
                       - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Topics & Themes
