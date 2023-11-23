@@ -1,0 +1,100 @@
+[
+    {
+        "label": "Text Left / Special Element Right",
+        "value": "textLeft",
+
+        "settings": {
+            "microLayout": "leftRight"
+        }
+    },
+
+    {
+        "label": "Text Right / Special Element Left",
+        "value": "textRight",
+
+        "settings": {
+            "microLayout": "rightLeft"
+        }
+    },
+
+    {
+        "label": "Text Above Special Element",
+        "value": "textAbove",
+
+        "settings": {
+            "microLayout": "topBottom"
+        }
+    },
+
+    {
+        "label": "Collection Inside Accordion",
+        "value": "insideAccordion",
+
+        "settings": {
+            "microLayout": "topBottom"
+        }
+    },
+
+    {
+        "label": "Text Above 2 Columns",
+        "value": "textAbove2",
+
+        "settings": {
+            "microLayout": "topBottomCenter",
+            "cardGrid": "stacked2",
+            "carouselVariants": ["detail","summary"],
+            "columns": 2
+        }
+    },
+
+    {
+        "label": "Text Above 3 Columns",
+        "value": "textAbove3",
+
+        "settings": {
+            "microLayout": "topBottom",
+            "cardGrid": "stacked3",
+            "carouselVariants": ["detail","summary"],
+            "columns": 3
+        }
+    },
+
+    {
+        "label": "Text Above 4 Columns",
+        "value": "textAbove4",
+
+        "settings": {
+            "microLayout": "topBottom",
+            "cardGrid": "stack2grow4",
+            "cardLayout.default": "thumbnail",
+            "carouselVariants": ["detail","summary"],
+            "columns": 4
+        }
+    },
+
+    {
+        "label": "Text Above 6 Columns",
+        "value": "textAbove6",
+
+        "settings": {
+            "microLayout": "topBottom",
+            "cardGrid": "stacked6",
+            "cardLayout.default": "thumbnail",
+            "carouselVariants": ["detail","summary"],
+            "columns": 6
+        }
+    },
+
+    {
+        "label": "Text Left / 2 Columns Right",
+        "value": "textBeside2",
+
+        "settings": {
+            "microLayout": "leftRight",
+            "cardGrid": "stacked2",
+            "cardLayout.default": "thumbnail",
+            "carouselVariants": ["detail","summary"],
+            "columns": 2
+        }
+    }
+]

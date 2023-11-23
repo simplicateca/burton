@@ -1,7 +1,0 @@
-{% set _settings = {
-    class: "h-4 w-4 fill-currentColor"
-}|merge(_context) %}
-
-<svg xmlns="http://www.w3.org/2000/svg" class="{{ _settings.class }}" viewBox="120 -720 720 480">
-    <path d="M120-240v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/>
-</svg>

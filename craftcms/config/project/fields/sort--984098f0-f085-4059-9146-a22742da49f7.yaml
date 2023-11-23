@@ -6,7 +6,7 @@ instructions: null
 name: Sort
 searchable: false
 settings:
-  referenceFile: _sections/_config/contentIndex.sortOptions.json
+  referenceFile: _content/contentFeeds/sortOptions.json
 translationKeyFormat: null
 translationMethod: none
 type: simplicateca\referencefield\fields\Dropdown

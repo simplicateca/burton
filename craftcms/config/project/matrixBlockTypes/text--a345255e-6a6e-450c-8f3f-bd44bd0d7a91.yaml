@@ -78,7 +78,7 @@ fields:
     name: 'Background theme and colours'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/themeContent.json
+      referenceFile: _blocks/config/themeContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -119,7 +119,7 @@ fields:
     name: 'Content layout and positioning'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/layoutText.json
+      referenceFile: _blocks/config/layoutText.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -132,7 +132,7 @@ fields:
     name: 'Style variation'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/variantText.json
+      referenceFile: _blocks/config/variantText.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -145,7 +145,7 @@ fields:
     name: 'Area between and around the block'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/interspaceContent.json
+      referenceFile: _blocks/config/interspaceContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

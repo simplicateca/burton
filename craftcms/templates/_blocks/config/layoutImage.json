@@ -1,0 +1,59 @@
+[
+    {
+        "label": "Text Left / Image Right",
+        "value": "textLeft",
+
+        "settings": {
+            "microLayout": "leftRight",
+            "textHeaderToMicroHeader": true
+        }
+    },
+
+    {
+        "label": "Text Right / Image Left",
+        "value": "textRight",
+
+        "settings": {
+            "microLayout": "rightLeft",
+            "textHeaderToMicroHeader": true
+        }
+    },
+
+    {
+        "label": "Text Above Images",
+        "value": "textAbove",
+
+        "settings": {
+            "microLayout": "topBottomCenter"
+        }
+    },
+
+    {
+        "label": "Text Above - Narrow",
+        "value": "textAboveNarrow",
+
+        "settings": {
+            "microLayout": "topBottomCenter",
+            "container": "narrow"
+        }
+    },
+
+    {
+        "label": "Checkerboard",
+        "value": "checkerboard",
+
+        "settings": {
+            "microLayout": "topBottomCenter",
+            "container": "narrow"
+        }
+    },
+
+    {
+        "label": "Overlap",
+        "value": "overlap",
+
+        "settings": {
+            "microLayout": "overlap"
+        }
+    }
+]

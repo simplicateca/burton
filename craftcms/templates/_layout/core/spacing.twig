@@ -1,0 +1,73 @@
+{% block interspace_base %}
+    {{ tag('div', {
+        class: ['
+            @container
+            after:block
+            after:content-[""]
+            after:h-10
+            @3xl:after:h-16
+            @7xl:after:h-24
+        ' | spaceless | trim ]
+   }) }}
+{% endblock %}
+
+
+{% block interspace_sm %}
+
+    {{ tag('div', {
+        class: ['
+            after:block
+            after:content-[""]
+            after:h-6
+            @3xl:after:h-8
+            @7xl:after:h-14
+        ' | spaceless | trim ]
+    }) }}
+
+{% endblock %}
+
+
+{% block interspace_lg %}
+
+    {{ tag('div', {
+        class: ['
+            after:block
+            after:content-[""]
+            after:h-20
+            @3xl:after:h-28
+            @7xl:after:h-40
+        ' | spaceless | trim ]
+    }) }}
+
+{% endblock %}
+
+
+{% block interspace_xl %}
+    {{ tag('div', {
+        class: ['
+            after:block
+            after:content-[""]
+            after:h-32
+            @3xl:after:h-40
+            @7xl:after:h-52
+        ' | spaceless | trim ]
+    }) }}
+{% endblock %}
+
+
+{% block interspace_tilt %}
+    <div class="z-10 !bg-theme-background h-16 -my-1"  data-theme="{{ block.settings.theme ??? null }}" data-themeprev="{{ block.prev.theme ??? null }}" data-themenext="{{ block.next.theme ??? null }}">
+        <svg class="fill-prev-block-bg h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" style="transform: rotateY(180deg);">
+            <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill h-full w-full"></path>
+        </svg>
+    </div>
+{% endblock %}
+
+
+{% block interspace_wave %}
+    <div class="z-10 !bg-theme-background h-16 -my-1" data-theme="{{ block.settings.theme ??? null }}" data-themeprev="{{ block.prev.theme ??? null }}" data-themenext="{{ block.next.theme ??? null }}">
+        <svg class="fill-prev-block-bg h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+{% endblock %}

@@ -16,7 +16,7 @@ return GeneralConfig::create()
     ->devMode( (App::env('CRAFT_ENVIRONMENT') != 'production') )
 
     // run the queue automatically (or do we have a cron job setup)
-    ->runQueueAutomatically( ( App::env('RUN_QUEUE') == 'auto' ) )
+    ->runQueueAutomatically( ( App::env('CRAFT_RUN_QUEUE_AUTOMATICALLY') ) )
 
     // Allow administrative changes
     ->allowAdminChanges( (App::env('CRAFT_ENVIRONMENT') != 'production') )
@@ -35,11 +35,10 @@ return GeneralConfig::create()
     // https://craftcms.com/docs/4.x/config/general.html#sendpoweredbyheader
     ->sendPoweredByHeader(false)
 
+    // aliases for s3 / object storage assets
     ->aliases([
-        '@cdnUrl' => App::env('CDN_URL'),
-        '@cdnFolder' => App::env('CDN_FOLDER'),
-        '@web' => App::env('SITE_URL'),
-        '@webroot' => App::env('WEB_ROOT_PATH'),
+        '@assetsBaseUrl'   => implode("/", array_filter( [App::env('CDN_BASE'), App::env('CDN_FOLDER')] ) ),
+        '@assetsSubFolder' => App::env('CDN_FOLDER'),
     ])
 
     // Set the default week start day for date pickers (0 = Sunday, 1 = Monday, etc.)
@@ -54,13 +53,6 @@ return GeneralConfig::create()
     ->defaultSearchTermOptions([
         'subLeft'  => true,
         'subRight' => true,
-    ])
-
-    ->extraAllowedFileExtensions(['md','svg','code'])
-
-    ->extraFileKinds([
-        'markdown' => [ 'label' => 'Markdown', 'extensions' => ['md'],   ],
-        'code'     => [ 'label' => 'Code',     'extensions' => ['code'], ],
     ])
 
     // 100MB

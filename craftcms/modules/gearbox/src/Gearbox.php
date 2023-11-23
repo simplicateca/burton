@@ -22,6 +22,8 @@ use craft\web\View;
 
 use craft\elements\Entry;
 use craft\events\RegisterElementSourcesEvent;
+use craft\events\RegisterUrlRulesEvent;
+use craft\web\UrlManager;
 
 use yii\base\Module;
 use yii\base\Event;
@@ -37,6 +39,7 @@ use modules\gearbox\helpers\OpenAiHelper as OpenAiHelper;
 use modules\gearbox\assetbundles\gearbox\GearboxAsset;
 use modules\gearbox\twigextensions\GearboxTwigExtension;
 use modules\gearbox\twigextensions\NormalizeBlockTwigExtension;
+
 
 class Gearbox extends Module
 {
@@ -68,11 +71,24 @@ class Gearbox extends Module
         parent::init();
         self::$instance = $this;
 
-        // Add our TwigExtension(s)
+        $this->registerTwigExtensions();
+        $this->loadControlPanelAssetBundle();
+        $this->enableSitebookFunctionality();
+        $this->modifyHtmlPurifierConfig();
+        $this->enableAutoCompleteChatGPT();
+        $this->enableSidebarEntryTypeNav();
+    }
+
+
+    protected function registerTwigExtensions()
+    {
         Craft::$app->view->registerTwigExtension( new GearboxTwigExtension() );
         Craft::$app->view->registerTwigExtension( new NormalizeBlockTwigExtension() );
+    }
 
-        // Load our AssetBundle
+
+    protected function loadControlPanelAssetBundle()
+    {
         if (Craft::$app->getRequest()->getIsCpRequest()) {
             Event::on(
                 View::class,
@@ -89,24 +105,30 @@ class Gearbox extends Module
                 }
             );
         }
+    }
 
 
+    protected function modifyHtmlPurifierConfig()
+    {
         // Modify HTML Purifier config to allow new attribute (needed by Link Attribute Redactor plugin)
-        Event::on(
-            RedactorField::class,
-            RedactorField::EVENT_MODIFY_PURIFIER_CONFIG,
-            function (Event $event) {
-                if( $event->config ) {
-                    if( $def = $event->config->getDefinition('HTML', true) ) {
-                        $def->addAttribute('a', 'aria-label', 'Text');
-                        $def->addAttribute('a', 'data-ident', 'Text');
-                        $def->addAttribute('a', 'data-modal', 'Bool');
-                    }
-                }
-            }
-        );
+        // Event::on(
+        //     RedactorField::class,
+        //     RedactorField::EVENT_MODIFY_PURIFIER_CONFIG,
+        //     function (Event $event) {
+        //         if( $event->config ) {
+        //             if( $def = $event->config->getDefinition('HTML', true) ) {
+        //                 $def->addAttribute('a', 'aria-label', 'Text');
+        //                 $def->addAttribute('a', 'data-ident', 'Text');
+        //                 $def->addAttribute('a', 'data-modal', 'Bool');
+        //             }
+        //         }
+        //     }
+        // );
+    }
 
 
+    protected function enableSitebookFunctionality()
+    {
         // add sitebook user permissions
         Event::on(
             UserPermissions::class,
@@ -123,7 +145,20 @@ class Gearbox extends Module
             }
         );
 
+        // Register our site routes
+        Event::on(
+            UrlManager::class,
+            UrlManager::EVENT_REGISTER_SITE_URL_RULES,
+            function (RegisterUrlRulesEvent $event) {
+                $event->rules['sitebook/blocks/<type:\w+>'] = ['template' => 'sitebook/blocks/editor.twig'];
+            }
+        );
 
+    }
+
+
+    protected function enableAutoCompleteChatGPT()
+    {
         // use OpenAI to automatically summarize entry types that have a dek field using the text contents of matrix builder blocks
         Event::on(
             Entry::class,
@@ -157,10 +192,13 @@ class Gearbox extends Module
                 }
             }
         );
+    }
 
 
-        // Sidebar Entry Types / Section Navigation
-        // roughly based on: https://github.com/ethercreative/sidebar-entrytypes
+    // Sidebar Entry Types / Section Navigation
+    // roughly based on: https://github.com/ethercreative/sidebar-entrytypes
+    public function enableSidebarEntryTypeNav()
+    {
         Event::on(Entry::class, Entry::EVENT_REGISTER_SOURCES, function(RegisterElementSourcesEvent $event) {
 
             $singlesSource = null;
@@ -216,4 +254,5 @@ class Gearbox extends Module
             $event->sources = $newSources;
         });
     }
+
 }

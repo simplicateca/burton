@@ -1,0 +1,39 @@
+{## Page Main Content Base Elements & Defaults
+ ------------------------------------------------------------------------------------ ##
+
+    Defaults & common elements that appear in the <main> content area.
+
+------------------------------------------------------------------------------------ ##}
+
+{## just the content builder ##}
+{% block default_main %}
+    {{ block( 'mainTagOpen') }}
+    {% from "_blocks/core/builders" import content as buildContent %}
+    {{ buildContent( entry.contentBuilder.all() ??? null, 'fluidContainer' ) }}
+    {{ block( 'mainTagClose' ) }}
+{% endblock %}
+
+
+{## content + sidebar builder ##}
+{% block main_with_aside %}
+    {{ block( 'mainTagOpen') }}
+
+    {% from "_layout/core/markup"   import twoColumns as twoColumnLayout %}
+    {% from "_blocks/core/builders" import content as buildContent,
+                                           sidebar as buildSidebar %}
+
+    {{ twoColumnLayout(
+          buildContent( entry.contentBuilder.all() ??? null, 'innerColumn' ),
+          buildSidebar( entry.sidebarBuilder.all() ??? null ),
+          'fluidContainer'
+    ) }}
+
+    {{ block( 'mainTagClose' ) }}
+{% endblock %}
+
+
+{## <main> open / close tags ##}
+{% block mainTagOpen %}
+    <main id="content" class="relative z-10">
+{% endblock %}
+{% block mainTagClose %}</main>{% endblock %}

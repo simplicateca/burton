@@ -19,7 +19,7 @@ siteSettings:
   41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
     enabledByDefault: true
     hasUrls: true
-    template: _sections/pages/_entry
+    template: _content/pages/_router
     uriFormat: '{parent.uri}/{slug}'
 structure:
   maxLevels: null

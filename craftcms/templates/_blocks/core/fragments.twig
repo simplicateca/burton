@@ -1,0 +1,37 @@
+{## Macros for rending Fragments outsite of Builders
+ ------------------------------------------------------------------------------------ ##
+    {% import "_blocks/core/builders" as blocks %}
+
+    {{ blocks.builder( entry.contentBuilder.all(), 'content', { extra: 'settings' } }}
+
+ ------------------------------------------------------------------------------------ ##}
+
+
+
+{%- macro loadById( entryId, entry ) -%}
+    {% set modular = craft.entries().section('modular').id(entryId).one() ??? null  %}
+    {% if modular %}
+        {{ include( '_components/builders/builderContent.twig', {
+            entry: modular
+        }, withContext = false) }}
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro loadBySlug( slug, entry ) -%}
+    {% set modular = craft.entries().section('modular').slug(slug).one() ??? null %}
+    {% if modular %}
+        {{ include( '_components/builders/builderContent.twig', {
+            entry: modular
+        }, withContext = false) }}
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro loadByPresetID( presetID, entry ) -%}
+    {% set modular = craft.entries().section('modular').preset(presetID).one() ??? null %}
+
+    {% if modular %}
+        {{ include( '_components/builders/builderContent.twig', {
+            entry: modular
+        }, withContext = false) }}
+    {% endif %}
+{%- endmacro -%}

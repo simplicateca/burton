@@ -1,0 +1,46 @@
+
+{% set type   = type   ??? null %}
+{% set config = config ??? null %}
+
+{% if type and config %}
+
+    <div class="container">
+        <h1>{{ type|capitalize }} Block Previewer</h1>
+
+        {% set layout     = source( config.layout )     | spaceless | json_decode %}
+        {% set theme      = source( config.theme )      | spaceless | json_decode %}
+        {% set interspace = source( config.interspace ) | spaceless | json_decode %}
+        {% set variant    = source( config.variant )    | spaceless | json_decode %}
+
+        {% set block = {
+            text: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quae enim adhuc protulisti, popularia sunt, ego autem a te elegantiora desidero. Nam aliquando posse recte fieri dicunt nulla expectata nec quaesita voluptate. Duo Reges: constructio interrete. Pisone in eo gymnasio, quod Ptolomaeum vocatur, unaque nobiscum Q.</p>"
+
+        } %}
+
+    {# "microLayout" => "leftRight"
+    "cardLayout" => "thumbnail"
+    "container" => "fluidContainer"
+    "uuid" => 6084
+    "builder" => "content"
+    "entryID" => 6077
+    "entryUrl" => "http://localhost:8000/shuffle-2"
+    "entryType" => "standard"
+    "section" => "pages"
+    "blockType" => "media"
+    "variant" => "thumbnail"
+    "theme" => "standard"
+    "interspace" => "base"
+    "layout" => "textLeft" #}
+
+
+
+        {# {{ dump( layout ) }}
+        {{ dump( theme ) }}
+        {{ dump( interspace ) }}
+        {{ dump( variant ) }} #}
+
+
+
+    </div>
+
+{% endif %}

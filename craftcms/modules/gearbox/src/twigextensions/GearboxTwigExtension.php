@@ -96,7 +96,6 @@ class GearboxTwigExtension extends AbstractExtension
 
         // Create the starting query
         $collectionQuery = null;
-
         if ($section == 'products') {
             $collectionQuery = Entry::find()->section('products')->availableForPurchase(true);
             $orderBy = $sort == 'recent' ? 'dateUpdated DESC' : $orderBy;
@@ -469,19 +468,21 @@ class GearboxTwigExtension extends AbstractExtension
 
     public function embedInfo( $url )
     {
-        $embedData = \Craft::$app->cache->getOrSet( "embedData-$url", function () use ($url) {
+        $embedData = \Craft::$app->cache->getOrSet( "oembed2-$url", function () use ($url) {
             $embed = new Embed();
             $info = $embed->get($url);
 
             $data = [
-                'title'      => $info->title,
-                'summary'    => $info->description,
-                'url'        => (string) $info->url,
-                'images'     => [ ['url' => (string) $info->image] ],
-                'html'       => $info->code->html,
-                'ratio'      => $info->code->ratio,
-                'aspect'     => "",
-                'provider'   => mb_strtolower( $info->providerName ),
+                'title'       => $info->title,
+                'summary'     => $info->description,
+                'url'         => (string) $info->url,
+                'images'      => [ ['url' => (string) $info->image] ],
+                'html'        => $info->code->html,
+                'ratio'       => $info->code->ratio,
+                'aspect'      => "",
+                'provider'    => mb_strtolower( $info->providerName ),
+                'authorName'  => $info->authorName ?? null,
+                'authorUrl'   => $info->authorUrl  ?? null,
             ];
 
             if( (int) $data['ratio'] == 56 ) {

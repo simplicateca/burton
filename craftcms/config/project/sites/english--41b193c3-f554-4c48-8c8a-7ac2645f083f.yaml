@@ -1,4 +1,4 @@
-baseUrl: '@web/'
+baseUrl: $CRAFT_WEB_URL
 enabled: true
 handle: english
 hasUrls: true

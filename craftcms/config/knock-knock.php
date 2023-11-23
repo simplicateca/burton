@@ -12,9 +12,10 @@ return [
         'checkInvalidLogins' => false,
         'invalidLoginWindowDuration' => '3600',
         'maxInvalidLogins' => 10,
-        'allowIps' => '',
         'denyIps' => '',
         'useRemoteIp' => false,
+        'protectedUrls' => '',
+        'unprotectedUrls' => '',
 
         // buddy.works white list
         'allowIps' => [
@@ -24,9 +25,6 @@ return [
             '185.206.228.0/24',
             '93.179.255.178',
         ],
-
-        'protectedUrls' => '',
-        'unprotectedUrls' => '',
     ],
 
     'staging' => [

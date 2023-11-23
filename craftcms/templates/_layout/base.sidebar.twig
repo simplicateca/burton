@@ -1,0 +1,10 @@
+{## Two Column Base Layout
+ ------------------------------------------------------------------------------------ ##
+    Uses {% block sidebar_main %} to generate content for the <main> element so
+    that it includes two column layout with aside and sidebarBuilder content.
+ ------------------------------------------------------------------------------------ ##}
+{% extends "_layout/base" %}
+
+{% block page_main %}
+    {{ block( 'main_with_aside', '_layout/parts.main' ) }}
+{% endblock %}

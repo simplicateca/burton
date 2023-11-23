@@ -1,0 +1,47 @@
+{% extends "_content/images/base" %}
+
+{% block image %}
+
+    {% set images   = images   ??? null   %}
+    {% set frame    = frame    ??? 'auto' %}
+    {% set settings = settings ??? null   %}
+
+    {% if images %}
+        <div class="w-full relative">
+
+            {% set carousel %}
+                {% embed '_components/carousel/base' with {
+                    items   : images,
+                    frame   : frame,
+                    settings: settings
+                } %}
+                    {% block slide %}
+                        {% from "_content/images/frame" import framer %}
+                        {{ framer( item, frame, settings ) }}
+                    {% endblock %}
+                {% endembed %}
+            {% endset %}
+
+            {## fancy framed images don't look great inside a carousel due to overflow hiding
+                so instead we can add the fancy background behind the entire carousel component ##}
+            {% if frame == 'fancy' %}
+
+                {% set fancyBG = carousel
+                        | retconOnly( 'div[data-fancy-bg]' )
+                        | retconOnly( 'div:first-of-type' )
+                %}
+
+                {% set carousel = carousel | retconRemove( 'div[data-fancy-bg]' ) %}
+
+                {% if fancyBG %}
+                    <div class="absolute -inset-y-20 -inset-x-10">{{ fancyBG | retconUnwrap( 'div[data-fancy-bg] *' ) }}</div>
+                {% endif %}
+
+            {% endif %}
+
+            {{ carousel }}
+
+        </div>
+    {% endif %}
+
+{% endblock %}

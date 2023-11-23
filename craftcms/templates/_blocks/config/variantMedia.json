@@ -1,0 +1,31 @@
+[{
+    "label": "Auto",
+    "value": "auto",
+    "settings": {
+
+    }
+},{
+    "label": "Summary Cards",
+    "value": "summary",
+    "settings": {
+        "cardLayout": "standard.truncated"
+    }
+},{
+    "label": "Fancy Summary",
+    "value": "fancy",
+    "settings": {
+        "cardLayout": "fancy"
+    }
+},{
+    "label": "Thumbnail",
+    "value": "thumbnail",
+    "settings": {
+        "cardLayout": "thumbnail"
+    }
+},{
+    "label": "Detail",
+    "value": "detail",
+    "settings": {
+        "cardLayout": "detail"
+    }
+}]

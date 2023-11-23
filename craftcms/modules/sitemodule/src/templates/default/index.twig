@@ -1,13 +1,4 @@
-{% extends "_layouts/_common" %}
-
-{% block header %}
-    {{ include(
-        "_components/header/header",
-        { entry: {
-            title: "Site Module Custom Route"
-        } }, withContext = false
-    ) }}
-{% endblock %}
+{% extends "_layouts/base" %}
 
 {% block content %}
     <div class="container py-8">

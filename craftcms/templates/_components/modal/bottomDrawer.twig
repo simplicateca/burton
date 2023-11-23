@@ -1,4 +1,4 @@
-{% extends "_components/modal/_base" %}
+{% extends "_components/modal/base" %}
 
 {## Bottom Drawer Modal Style
 
@@ -13,11 +13,10 @@
 {% set xTrapConfig = "open && width < 1024" %}
 
 {## content wrapper ##}
-{% block contentWrapper %}
-    {% import "_layouts/base/containers" as containers %}
-    <div class="{{ containers.class( 'narrow' ) }}">
-        {{ parent() }}
-    </div>
+{% set content = content ??? null %}
+{% block content %}
+    {% import "_layout/core/containers" as containers %}
+    {{ containers.wrap( parent(), 'fluidContainer', 'h-full w-full' ) }}
 {% endblock %}
 
 {% block modalClass %}
@@ -28,7 +27,7 @@
     bottom-0
     overflow-y-auto
     h-full
-    lg:max-h-[40vh]
+    lg:max-h-[400px]
     flex
     items-center
     justify-center

@@ -1,4 +1,4 @@
-dateModified: 1699857153
+dateModified: 1700597981
 elementSources:
   craft\elements\Entry:
     -
@@ -154,9 +154,9 @@ fs:
       keyId: $S3_KEY
       region: $S3_REGION
       secret: $S3_SECRET
-      subfolder: '@cdnFolder/uploads'
+      subfolder: '@assetsSubFolder/uploads'
     type: vaersaagod\dospaces\Fs
-    url: $CDN_URL
+    url: $CDN_BASE
   localAssets:
     hasUrls: false
     name: 'Local Assets'
@@ -175,9 +175,9 @@ fs:
       keyId: $S3_KEY
       region: $S3_REGION
       secret: $S3_SECRET
-      subfolder: '@cdnFolder/static'
+      subfolder: '@assetsSubFolder/static'
     type: vaersaagod\dospaces\Fs
-    url: $CDN_URL
+    url: $CDN_BASE
 meta:
   __names__:
     0a39dfec-64a9-4ad4-98a8-f27aed7fbcd2: 'Intro Text' # Intro Text
@@ -549,6 +549,7 @@ meta:
     f0a79906-546e-4c0e-a7af-a359a2929dca: 'Data Table' # Data Table
     f1cff8b7-1d6e-4cdd-824a-520183822908: Entries # Entries
     f2bf26d7-ca02-4ca1-be4f-08d37fad24b4: Edges # Edges
+    f3b09199-ceec-4135-9801-4b7fcbaf0c46: 'Video Aspect' # Video Aspect
     f3fc91f4-ef9e-4532-beaf-1c80b55b7233: 'Content layout and positioning' # Content layout and positioning
     f6cc4c9c-7682-4448-bb2e-60fc180b4ee0: Eyebrow # Eyebrow
     f7b9a8d7-c436-467b-8a9e-b42540bd0149: 'Layout Variations' # Layout Variations
@@ -606,7 +607,7 @@ plugins:
     edition: standard
     enabled: true
     licenseKey: 0GDJ9ZDFIGQ33HRBL8WELPMP
-    schemaVersion: 2.0.10
+    schemaVersion: 2.0.11
     settings:
       ajaxTimeout: 10
       alertEmails: null
@@ -793,7 +794,7 @@ plugins:
     edition: standard
     enabled: true
     licenseKey: NPN86UELZGR32PH3JJEMQKSY
-    schemaVersion: 3.0.2
+    schemaVersion: 3.0.3
     settings:
       previewSubpath: content-builder
       previewVolumeUid: 3c05e593-d621-444e-8fb9-ddbb1b356a43 # Static Assets
@@ -944,5 +945,5 @@ system:
   edition: pro
   live: true
   name: Craft
-  schemaVersion: 4.4.0.4
+  schemaVersion: 4.5.3.0
   timeZone: America/Toronto

@@ -1,8 +1,0 @@
-{## Page Structure - Default EntryType Template
- ------------------------------------------------------------------------------------ ##
-    Looks for an EntryType specific template before falling back to the default layout.
- ------------------------------------------------------------------------------------ ##}
-{% extends [
-    "_sections/pages/_entry.#{entry.type.handle}",
-    "_layouts/_common"
-] %}

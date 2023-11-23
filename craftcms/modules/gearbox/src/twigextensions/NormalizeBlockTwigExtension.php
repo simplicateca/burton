@@ -37,11 +37,6 @@ class NormalizeBlockTwigExtension extends AbstractExtension
         $entry  = null;
         $blockArray = $blockArray ?? [];
 
-        if( ! is_array( $blockArray ) ) {
-            print_r( $blockArray );
-            exit;
-        }
-
         foreach( $blockArray as $block ) {
 
             // if $block is just an ID, look it up
@@ -92,13 +87,23 @@ class NormalizeBlockTwigExtension extends AbstractExtension
         }
 
         // add settings for next/previous siblings to each block
-        foreach( $blocks AS $key => $block ) {
-            if( $blocks[$key-1]->settings ?? null ) {
+        foreach( $blocks AS $key => $block )
+        {
+            if( $blocks[$key-1]->settings ?? null )
+            {
                 $block->prev = $blocks[$key-1]->settings;
             }
 
-            if( $blocks[$key+1]->settings ?? null ) {
+            if( $blocks[$key+1]->settings ?? null )
+            {
                 $block->next = $blocks[$key+1]->settings;
+
+                $blocks[$key+1]->settings['inheritTheme'] = ( $blocks[$key]->settings['theme'] == $blocks[$key+1]->settings['theme'] );
+            }
+
+            if( $blocks[$key]->settings['theme'] == 'INHERIT' || ( $blocks[$key]->settings['inheritTheme'] ?? null ) )
+            {
+                $blocks[$key]->settings['theme'] = $blocks[$key-1]->settings['theme'] ?? null;
             }
         }
 

@@ -21,7 +21,7 @@
 */
 ::selection {
     @apply
-        bg-hilite
+        bg-hilite text-gray-900
     ;
 }
 
@@ -33,6 +33,7 @@
 
     a:not(.button) {
         @apply
+            transition
             text-theme-accent
             hover:bg-theme-accent
             hover:text-white
@@ -177,11 +178,11 @@ p+h4, ul+h4, ol+h4, blockquote+h4 {
     }
 }
 
-/* .removeLastChildMargin {
+.removeLastChildMargin {
     & > *:last-child {
         margin-bottom: 0 !important;
     }
-} */
+}
 
 p.html {
     /* base formatting */
@@ -222,6 +223,9 @@ p.html {
             @xl:text-lg
             @3xl:text-xl
             @5xl:text-2xl
+
+            !mb-3
+            @3xl:!mb-6
         ;
     }
 }
@@ -258,17 +262,15 @@ ul.html {
         @5xl:text-3xl
     ;
 
-    &:not(ul):not(.checkmark):not(.twoColumns):not(.centerRows) {
-        @apply list-decimal;
+    &:not(ul):not(.checkList):not(.columnList):not(.rowList) {
+        @apply list-decimal pl-[2em];
     }
 
-    &:not(ol):not(.checkmark):not(.twoColumns):not(.centerRows) {
+    &:not(ol):not(.checkList):not(.columnList):not(.rowList) {
         @apply list-disc;
     }
 
-    &:not(.checkmark):not(.twoColumns):not(.centerRows) {
-        @apply pl-[1em];
-
+    &:not(.checkList):not(.columnList):not(.rowList) {
         li {
             @apply mb-3;
         }
@@ -359,14 +361,14 @@ blockquote.html {
  */
 
 mark {
-    @apply inline-block py-1 px-2 relative bg-transparent;
+    @apply inline-block relative bg-transparent;
 
     span {
-        @apply relative z-10 text-theme-foreground;
+        @apply relative z-10 text-gray-900;
     }
 
     &:before {
-        @apply content-[''] absolute inset-0 z-0;
+        @apply content-[''] absolute -inset-y-0 -inset-x-1 z-0;
     }
 
     &.m1 {
@@ -456,6 +458,13 @@ mark {
  *
  *
 */
+
+p[data-has-buttons] {
+    .button:not(:last-of-type) {
+        @apply !mr-4;
+    }
+}
+
 .button {
     @apply
         bg-shade
@@ -499,9 +508,17 @@ mark {
 .buttonText {
     @apply
         text-gray-500
+        text-base
         underline
         underline-offset-4
+        p-4
+
+        hover:no-underline
     ;
+
+    &:first-child {
+        @apply -ml-4;
+    }
 
     br {
         display: none;
@@ -524,57 +541,6 @@ mark {
         }
     }
 }
-
-
-/* .cButtonGroup {
-    @apply
-        flex
-        flex-col
-        items-center
-        md:flex-row
-        gap-4;
-
-    p {
-        @apply
-            flex
-            items-center
-            flex-col
-            md:flex-row
-            gap-4;
-    }
-
-    .button {
-        &:nth-of-type(2) {
-            @apply
-                bg-white
-                text-gray-500
-                hover:text-white
-                hover:bg-gray-700;
-        }
-
-        & + a:not(.button) {
-            &:after {
-                content: ' →';
-            }
-        }
-    }
-
-    &.cButtonGroup__left  {
-        @apply justify-start;
-    }
-
-    &.cButtonGroup__center  {
-        @apply justify-center;
-    }
-
-    &.cButtonGroup__right  {
-        @apply justify-end;
-    }
-
-    &.cButtonGroup__trailing {
-        @apply pt-6;
-    }
-} */
 
 
 a.clickCover,

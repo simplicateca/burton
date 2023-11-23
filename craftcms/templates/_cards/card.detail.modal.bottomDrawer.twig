@@ -1,0 +1,68 @@
+{% extends '_cards/card.detail' %}
+{% set card_template = _self %}
+{% set card_type = 'detail' %}
+{% use "_cards/parts.summaries" with summary_overflow as card_summary %}
+{% use "_cards/parts.actions"   with action_default   as action_modal_bottom  %}
+{% use "_cards/parts.headlines" with headline_default as card_headline %}
+
+{% block content %}
+    <div class="
+        flex
+        flex-col-reverse
+        justify-end
+        gap-4
+        lg:gap-8
+        2xl:gap-12
+        py-10
+        w-full
+        h-full
+        lg:flex-row
+        max-h-screen
+        overflow-hidden
+    ">
+
+        <div class="
+            flex
+            flex-col
+            flex-grow
+            gap-2
+            w-full
+            h-full
+            max-h-min
+            overflow-scroll
+            lg:overflow-auto
+            @container
+        ">
+            <div class="hidden lg:block">{{ block('card_headline') }}</div>
+
+            {{ block( 'card_before_summary' ) is defined ? block( 'card_before_summary' ) }}
+
+            <div class="
+                pr-4
+                lg:flex-grow
+                lg:overflow-scroll
+                removeLastChildMargin
+            ">
+                {{ block('card_summary') }}
+            </div>
+        </div>
+
+        <div class="
+            flex
+            flex-col
+            w-full
+            h-full
+            lg:max-w-lg
+            xl:max-w-xl
+            @container
+        ">
+            <div class="lg:hidden">{{ block('card_headline') }}</div>
+
+            <div class="">{{ block('card_image') }}</div>
+
+            {{ block( 'card_after_image' ) is defined ? block( 'card_after_image' ) }}
+        </div>
+
+        {{ block('card_action') }}
+    </div>
+{% endblock %}

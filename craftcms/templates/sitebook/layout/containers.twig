@@ -1,0 +1,30 @@
+{% extends "_layout/base" %}
+
+{% requirePermission 'allowSitebook' %}
+
+{% block page_main %}
+
+    {% set item %}
+        <div class="min-h-[16rem] bg-red-500/50 w-full h-full @container">
+            <h2>Content Area</h2>
+        </div>
+    {% endset %}
+
+    {% import "_layout/core/containers" as containers %}
+    {% set json = containers.definitions() | json_decode %}
+
+    {% for container in json['options'] | keys %}
+        <div class="{{ cycle(['bg-white', 'bg-gray-300'], loop.index0) }} py-20">
+            <div class="@container mb-20 max-w-3xl mx-auto px-4">
+                <h1 class="text-center html">{{ container }}</h1>
+                {% if json['options'][container]['_']|default() %}
+                    <p class="larger text-center html">{{ json['options'][container]['_'] | trim( '#' ) }}</p>
+                {% endif %}
+            </div>
+
+            {{ containers.wrap( item, container ) }}
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

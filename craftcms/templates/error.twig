@@ -1,4 +1,4 @@
-{% extends "_layouts/spotlight" %}
+{% extends "_layout/spotlight" %}
 
 {% set statusCode  = statusCode ??? craft.app.request.getParam('code') ??? '000' %}
 {% set systemPage  = craft.entries.section('systemPages').slug( 'error-' ~ statusCode ).one ?? null %}
@@ -77,10 +77,8 @@
 
 {% block content %}
     {% if systemPage %}
-        {% import "_blocks/_common" as blocks %}
-        {{ blocks.builder( systemPage.contentBuilder.all() ??? null, 'content', {
-            container: 'wideContainer'
-        } )}}
+        {% from "_blocks/core/builders" import content as buildContent %}
+        {{ buildContent( systemPage.contentBuilder.all() ??? null, 'fluidContainer' ) }}
     {% else %}
         <p>#{defaultText}</p>
     {% endif %}

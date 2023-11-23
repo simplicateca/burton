@@ -1,0 +1,112 @@
+{## Container Sizes
+ ------------------------------------------------------------------------------------ ##
+
+    It'd be nice if we only ever had a site that used a single container size, but
+    it seems like there's always a need for something a little different.
+
+    These can be used from within templates any time a container is needed through
+    `macros/layouts`.
+
+    They are also frequently used within block configuration files as modifiers for
+    *layout* or *interspace* options to make the content area wider or narrower.
+
+ ------------------------------------------------------------------------------------ ##
+
+    - http://localhost:8000/sitebook/layout/containers
+
+ ------------------------------------------------------------------------------------ ##
+
+ !! This macro outputs as JSON so that it can be read by the macro template or any
+    other place it might be useful (like Sitebook reference pages).
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro definitions() %}{{ {
+
+    _:'## defaults are used for any attributes left off an option definition',
+    defaults: {
+        tag: 'div',
+        base: '@container',
+        padding: ''
+    },
+
+    _:'## named container sizes',
+    options: {
+        container: {
+            _: '## Regular container',
+            container: 'container'
+        },
+
+        none: {
+            _: '## You know .. no container',
+            tag: false
+        },
+
+        fluidContainer: {
+            _: '## Fluid until 1536px wide. Otherwise a Regular container.',
+            container: '2xl:container',
+            padding: 'px-4 md:max-2xl:px-4'
+        },
+
+        innerColumn: {
+            _: '## Full width with minimal x-padding. For use in multi-column layouts.',
+            container: 'w-full',
+            padding: 'px-4 md:max-2xl:px-4',
+        },
+
+        narrow: {
+            _: '## Maximum width of 1024px. Minimal x-padding.',
+            container: 'max-w-5xl mx-auto container',
+            padding: 'px-4'
+        },
+
+        tablet: {
+            _: '## Maximum width of 768px. Minimal x-padding.',
+            container: 'max-w-3xl mx-auto container',
+            padding: 'px-4'
+        },
+
+        sidebar: {
+            _: '## Maximum width of 448px. Minimal x-padding.',
+            container: 'mx-auto max-w-md',
+            padding: 'px-4'
+        }
+    }
+} | json_encode() | raw }}{% endmacro %}
+
+
+{## wrap a grid around a string of html ##}
+{% macro wrap( html, name, extraClasses = null ) %}
+
+    {% set json = _self.definitions() | json_decode %}
+    {% set defs = json['defaults'] %}
+    {% set opts = json['options']  %}
+
+    {% set name = ( opts[name] ??? null ) ? name : opts | keys | first %}
+    {% set attr = opts[name] ??? opts|first %}
+
+    {## if the tag is null, output the html without wrapping it in a container #}
+    {% if ( attr.tag is defined ) and not attr.tag %}
+        {{ html }}
+
+    {## otherwise wrap the html in the container selected ##}
+    {% else %}
+        {{ tag( attr.tag ?? defs.tag ?? 'div', {
+            html : html,
+            class: [
+                attr.base      ??? defs.base      ??? null,
+                attr.container ??? defs.container ??? null,
+                attr.padding   ??? defs.padding   ??? null,
+                extraClasses
+            ]
+        } )}}
+    {% endif %}
+{% endmacro %}
+
+
+{## just get the class of for a named container without wrapping it around anything ##}
+{% macro class( name ) %}{% apply spaceless %}
+    {% set attr = _self.wrap( "empty", name ) | parseAttr %}
+    {{ attr ??? null and attr.class ??? null
+        ? attr.class | join( ' ' )
+        : "" }}
+{% endapply %}{% endmacro %}

@@ -1,0 +1,45 @@
+{## Image Block Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitebook/blocks/image
+ ------------------------------------------------------------------------------------ ##}
+{% extends "_blocks/core/block" %}
+
+
+{## Render the block using a two-zone micro-layout
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitebook/layout/micro-layouts
+    -> http://buildwithburton.com/docs/micro-layouts
+ ------------------------------------------------------------------------------------ ##}
+{% block content %}
+
+    {% from "_layout/core/micro" import layout as renderMicroLayout %}
+    {# renderMicroLayout( layoutName, [ zone1, zone2, header, footer ], { arg1: x, .. } )
+     -------------------------------------------------------------------------------- ##}
+    {{ renderMicroLayout(
+        block.settings.microLayout|default(),
+
+        [ block('content_text'), block('content_images'),
+          block('block_header'), block('block_footer') ],
+
+        { container : block.settings.container|default(),
+          imageFrame: block.settings.variant|default() }
+    ) }}
+
+{% endblock content %}
+
+
+{## Default handler for rendering image assets
+ ------------------------------------------------------------------------------------ ##
+    This block can be overridden in a child template
+ ------------------------------------------------------------------------------------ ##}
+{% block content_images %}
+
+    {% embed
+         block.settings.imageLayout ??? '_content/images/layout'
+       with {
+         images  : block.images.all() ??? block.images ??? null,
+         frame   : block.settings.imageFrame ??? 'auto',
+         settings: block.settings ??? null
+    } %}{% endembed %}
+
+{% endblock %}

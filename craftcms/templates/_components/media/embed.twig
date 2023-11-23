@@ -1,9 +1,0 @@
-{% set url  = url ??? null %}
-{% set item = item ??? null %}
-
-{% if url %}
-    {% set embedInfo = embedInfo( url ) %}
-    {% set provider  = embedInfo.provider %}
-
-    {{ embedInfo.html | raw }}
-{% endif %}

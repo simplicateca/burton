@@ -1,0 +1,23 @@
+{% extends "_content/images/base" %}
+
+{% set _defs = {
+    imageClass : "rounded-3xl relative mx-auto max-w-[16rem] sm:max-w-xs md:max-w-sm",
+    figureClass: "gridarea-overlap m-auto p-0 flex flex-col",
+    transform  : "square"
+} %}
+
+{% block image %}
+
+    {% from "_content/images/base" import generate %}
+    {% if image ??? images ??? null %}
+        <div class="grid justify-center items-center align-center h-full">
+            {{ generate( image ??? images ??? null, {
+                image    : imageClass     ??? settings.imageClass     ??? _defs.imageClass  ??? null,
+                figure   : imageFigure    ??? settings.imageFigure    ??? _defs.figureClass ??? null,
+                transform: imageTransform ??? settings.imageTransform ??? _defs.transform   ??? null
+            } ) }}
+            <div data-fancy-bg>{{ include( '_content/images/backgrounds/blob.twig' ) }}</div>
+        </div>
+    {% endif %}
+
+{% endblock %}

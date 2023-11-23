@@ -1,0 +1,43 @@
+{## Topic Content - Card Override
+ ------------------------------------------------------------------------------------ ##
+    This file not typically called directly. It is dynamically inserted to a cards
+    inheritence order when generated via the `render()` macro in `_cards/base`.
+
+    `extends` (the variable) should contain the path for the card layout to be rendered.
+    If it is empty for some reason, default to the base card layout.
+ ------------------------------------------------------------------------------------ ##}
+{% extends extends|default('_cards/base') %}
+
+
+{## use retcon + tailwind to modify specific elements after the card is renders ##}
+{% block card_headline %}
+    {% if card_type == 'detail' %}
+        {{ parent()
+            | retconAttr( '[data-headline]', {
+                class: "border-b-4 border-[var(--borderColor)] mb-4",
+                style: "--borderColor: #{card.item.color};",
+            }, false)
+        }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+
+{## use retcon + tailwind to modify specific elements after the card is renders ##}
+{% block card %}
+    {{ parent()
+        | retconAttr( '*[data-card-thumbnail]', {
+            class: "border-t-4 border-[var(--borderColor)]",
+            style: "--borderColor: #{card.item.color};"
+        }, false)
+    }}
+{% endblock %}
+
+
+{% block card_action %}
+    {% set modalCard = ['detail'] %}
+    {{ card_type ??? null == 'thumbnail'
+        ? block( 'card_action_modal' )
+        : parent() }}
+{% endblock %}

@@ -1,0 +1,196 @@
+{## Common Layout Elements and Base Configuration
+ ------------------------------------------------------------------------------------- ##
+    This template contains elements that are most commonly changed at the page or site
+    level, and also doubles as the default single column template.
+
+    By default it comes with everything you need to render contentBuilder blocks in a
+    single-column layout with a fully brandable <header> and fat <footer>.
+
+    Separate templates partials are responsible for rendering the default versions of
+    their respective sections.
+
+       <main>     ->   `_layout/parts.main`
+       <header>   ->   `_layout/parts.header`
+       <footer>   ->   `_layout/parts.footer`
+
+    Child templates may override any of the blocks being used either for other blocks
+    in the same template partial, or they can define their own versions of the block and
+    override the rendering directly.
+
+    Read more: https://twig.symfony.com/doc/3.x/tags/use.html
+
+
+------------------------------------------------------------------------------------- ##
+    Example - Two Column Layout
+ ------------------------------------------------------------------------------------- ##
+
+    Notice how `_layout/base.sidebar` overrides the block responsible for generating
+    the default content for <main>. It uses a different block `main_with_sidebar` from
+    the same partial file to override the content generate for `page_main`.
+
+    Since all other aspects of page assembly have been abstracted into more appropriate
+    places, we have kept our default two column template as minimal as possible.
+
+ ------------------------------------------------------------------------------------- ##}
+{% extends "_layout/core/web" %}
+
+{% block page %}
+    {% block page_top    %}{{ block( 'default_top',    '_layout/parts.header' ) }}{% endblock %}
+    {% block page_main   %}{{ block( 'default_main',   '_layout/parts.main'   ) }}{% endblock %}
+    {% block page_bottom %}{{ block( 'default_bottom', '_layout/parts.footer' ) }}{% endblock %}
+{% endblock %}
+
+
+{% block logo %}
+    {% embed "_content/images/logo" %}{% endembed %}
+{% endblock %}
+
+
+{## Ajax Request Content
+ ------------------------------------------------------------------------------------- ##
+    If a page is being called via and AJAX request, we can have a page respond with a
+    different set of content than it normally would.
+ ------------------------------------------------------------------------------------- ##}
+{% block ajaxContent %}{{ block( 'contentBuilder' ) }}{% endblock %}
+
+
+{% block styles %}
+    <style type="text/css">
+
+        [v-cloak], [x-cloak] { display: none !important; }
+        html{ visibility: hidden; opacity:0; }
+
+        :root,
+        *[data-theme="transparent"] {
+            --primaryColor: #030712;
+            --accentColor: #2563eb;
+            --backgroundColor: transparent;
+            --sectionBackgroundColor: transparent;
+            --hiliteColor: rgba(254,249,195,1);
+            --hiliteAltColor:rgba(219,234,254,1);
+            --shadeColor: #64748b;
+            --shadeLightColor: #e2e8f0;
+            --shadeDarkColor: #0f172a;
+        }
+
+        *[data-themeprev="transparent"] { --backgroundColorPrev: transparent; }
+        *[data-themenext="transparent"] { --backgroundColorNext: transparent; }
+
+
+        *[data-theme="standard"] {
+            --primaryColor: #030712;
+            --backgroundColor: #e2e8f0;
+            --backgroundColorOff: #f3f5f9;
+        }
+
+        *[data-themeprev="standard"] { --backgroundColorPrev: #e2e8f0; }
+        *[data-themenext="standard"] { --backgroundColorNext: #e2e8f0; }
+
+
+        *[data-theme="accent"] {
+            --primaryColor: #fff;
+            --backgroundColor: #2563eb;
+            --backgroundColorOff: #3a72ed;
+            --accentColor: #d946ef;
+            --sectionBackgroundColor: #163b8d;
+        }
+
+        *[data-themeprev="accent"] { --backgroundColorPrev: #2563eb; }
+        *[data-themenext="accent"] { --backgroundColorNext: #2563eb; }
+
+
+        *[data-theme="bright"] {
+            --primaryColor: #030712;
+            --backgroundColor: #fff;
+            --backgroundColorOff: #e2e8f0;
+        }
+
+        *[data-themeprev="bright"] { --backgroundColorPrev: #fff; }
+        *[data-themenext="bright"] { --backgroundColorNext: #fff; }
+
+
+
+        *[data-theme="footer"] {
+            --primaryColor: #fff;
+            --backgroundColor: #071028;
+            --backgroundColorOff: #030712;
+            --accentColor: #d946ef;
+            --sectionBackgroundColor: #1e293b;
+        }
+
+        *[data-theme="dark"] {
+            --primaryColor: #fff;
+            --backgroundColor: #030712;
+            --backgroundColorOff: #071028;
+            --accentColor: #d946ef;
+        }
+
+        *[data-themeprev="dark"] { --backgroundColorPrev: #030712; }
+        *[data-themenext="dark"] { --backgroundColorNext: #030712; }
+
+
+        *[data-theme="knockout"] {
+            --primaryColor: #fff;
+            --backgroundColor: #030712;
+            --sectionBackgroundColor: #1e293b;
+            --accentColor: #d946ef;
+        }
+
+        *[data-themeprev="knockout"] { --backgroundColorPrev: #030712; }
+        *[data-themenext="knockout"] { --backgroundColorNext: transparent; }
+    </style>
+{% endblock %}
+
+
+{% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+{% endblock %}
+
+
+{% block fonts %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Rubik:wght@800&display=swap">
+
+    {## load from google during development, serve from cdn in production.
+        download using: https://gwfh.mranftl.com/fonts
+
+        <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous"
+            href="{{ baseUrl }}dist/fonts/FONTNAME.woff2">
+
+        <style>
+        @font-face {
+            font-family: 'FONTNAME';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('{{ baseUrl }}dist/fonts/FONTNAME.woff2') format('woff2');
+        }
+        </style>
+    {## ----------------------------------------------------------------------------- ##}
+{% endblock %}
+
+
+{% block scripts %}
+    {## Polyfills detected by User-Agent as per: https://polyfill.io/v2/docs/examples#feature-detection ##}
+    <script src="https://cdn.polyfill.io/v3/polyfill.min.js?callback=polyfillsAreLoaded&flags=gated" defer async></script>
+
+    {## Ideally moved into the vite build process before launching to production ##}
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/htmx.org@1.8.0/dist/htmx.min.js"></script>
+    <script defer src="https://unpkg.com/htmx.org@1.8.0/dist/ext/ajax-header.js"></script>
+
+    {## JavaScript one-ish liners to ward off evil spirits and attracts life mates ##}
+    {{ block('js_cookie',        "_layout/core/web/js" ) }}
+    {{ block('js_htmx',          "_layout/core/web/js" ) }}
+    {{ block('js_enabledCheck',  "_layout/core/web/js" ) }}
+    {{ block('js_waitForGlobal', "_layout/core/web/js" ) }}
+    {{ block('js_globalVars',    "_layout/core/web/js" ) }}
+    {{ block('js_tabHandler',    "_layout/core/web/js" ) }}
+{% endblock %}

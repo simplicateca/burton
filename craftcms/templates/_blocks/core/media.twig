@@ -1,0 +1,70 @@
+{## Media Block Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitebook/blocks/media
+ ------------------------------------------------------------------------------------ ##}
+{% extends "_blocks/core/block" %}
+
+
+{## Render the block using a two-zone micro-layout
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitebook/layout/micro-layouts
+    -> http://buildwithburton.com/docs/micro-layouts
+ ------------------------------------------------------------------------------------ ##}
+{% block content %}
+
+    {% from "_layout/core/micro" import layout as renderMicroLayout %}
+    {# renderMicroLayout( layoutName, [ zone1, zone2, header, footer ], { arg1: x, .. } )
+     -------------------------------------------------------------------------------- ##}
+    {{ renderMicroLayout(
+        block.settings.microLayout|default(),
+
+        [ block('content_text'), block('content_media'),
+          block('block_header'), block('block_footer') ],
+
+        { container : block.settings.container|default() }
+    ) }}
+
+{% endblock content %}
+
+
+{## Default handler for rendering media assets
+ ------------------------------------------------------------------------------------ ##
+    This block can be overridden in a child template
+ ------------------------------------------------------------------------------------ ##}
+{% block content_media %}
+
+    {% set sourceItems = 'local' == block.source.value ??? null
+        ? block.assets.all() ??? null : block.embeds.all() ??? null %}
+
+    {% set items = [] %}
+    {% for item in sourceItems %}
+
+        {% set embedInfo = embedInfo( item.sourceUrl ) %}
+
+        {% set items = items|merge([{
+            headline : item.headline  ??? embedInfo.title   ??? null,
+            summary  : item.summary   ??? embedInfo.summary ??? null,
+            image    : item.images    ??? embedInfo.images  ??? null,
+            sourceUrl: item.sourceUrl ??? null,
+            url      : item.url       ??? null,
+            section  : 'media',
+            type     : 'iframe',
+            embed    : embedInfo,
+            entry    : item,
+            source   : block.source.value ??? null
+        }]) %}
+    {% endfor %}
+
+    {{ block( 'media_render_loop' ) }}
+{% endblock %}
+
+
+
+{## Render the Media items by passing them to a "loop" template.
+ ------------------------------------------------------------------------------------ ##}
+{% block media_render_loop %}
+    {{ include( block.settings.mediaLoop ??? block.settings['mediaLoop.default'] ??? '_blocks/loop.auto', {
+        items   : items          ??? null,
+        settings: block.settings ??? null
+    }, withContext = false  ) }}
+{% endblock %}

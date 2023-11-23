@@ -1,0 +1,32 @@
+{% extends "_layout/base" %}
+
+{% requirePermission 'allowSitebook' %}
+
+{% block page %}
+
+    {% set blockType = type ??? null %}
+
+    {% set allowedBlocks = {
+        image: {
+            layout    : "_blocks/config/layoutImage.json",
+            variant   : "_blocks/config/variantImage.json",
+            theme     : "_blocks/config/themeContent.json",
+            interspace: "_blocks/config/interspaceContent.json",
+            content   : "sitebook/blocks/content/image.twig",
+        },
+        collection: {
+            layout    : "_blocks/config/layoutCollection.json",
+            variant   : "_blocks/config/variantCollection.json",
+            theme     : "_blocks/config/themeContent.json",
+            interspace: "_blocks/config/interspaceContent.json",
+            content   : "sitebook/blocks/content/collection.twig",
+        }
+    } %}
+
+    {% set config = allowedBlocks[blockType]|default() %}
+
+    {% if config %}
+        {{ sprig('sitebook/blocks/preview.sprig', { type: blockType, config: config }) }}
+    {% endif %}
+
+{% endblock page %}

@@ -1,0 +1,11 @@
+fill: null
+format: null
+handle: videoAspect
+height: 513
+interlace: none
+mode: crop
+name: 'Video Aspect'
+position: center-center
+quality: null
+upscale: true
+width: 912

@@ -34,7 +34,7 @@ return [
     /**
      * @var string File system path (or URL) to the Vite-built manifest.json
      */
-    'manifestPath' => '@webroot/dist/manifest.json',
+    'manifestPath' => App::env( 'CRAFT_WEB_ROOT' ) . '/dist/manifest.json',
 
     /**
      * @var string The public URL to the dev server (what appears in `<script src="">` tags
@@ -44,7 +44,7 @@ return [
     /**
      * @var string The public URL to use when not using the dev server
      */
-    'serverPublic' => App::env('SITE_URL') . '/dist/',
+    'serverPublic' => App::env('CRAFT_WEB_URL') . '/dist/',
 
     /**
      * @var string The JavaScript entry from the manifest.json to inject on Twig error pages
@@ -82,7 +82,7 @@ return [
     /**
      * @var string File system path (or URL) to where the Critical CSS files are stored
      */
-    'criticalPath' => '@webroot/dist/criticalcss',
+    'criticalPath' => App::env( 'CRAFT_WEB_ROOT' ) . '/dist/criticalcss',
 
     /**
      * @var string the suffix added to the name of the currently rendering template for the critical css file name

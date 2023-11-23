@@ -68,10 +68,10 @@ class SiteModule extends Module
         // Base template directory - site
         Event::on(View::class, View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) {
             $e->roots['_blocks']     = CRAFT_BASE_PATH . '/templates/_blocks';
+            $e->roots['_cards']      = CRAFT_BASE_PATH . '/templates/_cards';
             $e->roots['_components'] = CRAFT_BASE_PATH . '/templates/_components';
-            $e->roots['_layouts']    = CRAFT_BASE_PATH . '/templates/_layouts';
-            $e->roots['_macros']     = CRAFT_BASE_PATH . '/templates/_macros';
-            $e->roots['_sections']   = CRAFT_BASE_PATH . '/templates/_sections';
+            $e->roots['_content']    = CRAFT_BASE_PATH . '/templates/_content';
+            $e->roots['_layout']     = CRAFT_BASE_PATH . '/templates/_layout';
             $e->roots['']            = CRAFT_BASE_PATH . '/templates/';
         });
 

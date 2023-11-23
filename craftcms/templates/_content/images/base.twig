@@ -1,0 +1,94 @@
+{% block image %}{% endblock %}
+
+
+{% macro generate( images = null, settings = null ) %}
+
+    {## test to make sure images wasn't passed as an array ##}
+    {% set image = null %}
+    {% set image = images.url ??? null ? images : null %}
+    {% set image = not image and images is iterable ? images.one() ??? images|first ??? null : image %}
+
+    {## passed an image object ##}
+    {% if image and image.url %}
+
+        {% if settings.transform|default() and image.url|default() and image.id|default() %}
+            {% do image.setTransform( settings.transform ) %}
+        {% endif %}
+
+        {{ tag( 'figure', {
+            class:  "relative z-10 " ~ settings.figure ??? null,
+            html: tag( 'img', {
+                src    : image.url,
+                width  : image.width    ??? null,
+                height : image.height   ??? null,
+                class  : settings.image ??? null,
+                loading: 'lazy'
+            })
+        }) }}
+    {% endif %}
+
+    {## passed something like <img src='whatever'> ##}
+    {% if not image and not images is iterable %}
+        {{ tag( 'figure', {
+            class:  settings.figure ??? null,
+            html : images | retconAttr( 'img', { class: settings.image ??? null, loading: 'lazy' }, false )
+        }) }}
+    {% endif %}
+
+    {## placeholder ##}
+    {% if images is iterable and not image %}
+        {% from "_content/images/base" import placeholder %}
+        {{ settings._placeholder ??? null == 'icon'
+            ? placeholder( 170, 170, 'icon' )
+            : placeholder()  }}
+    {% endif %}
+
+{% endmacro %}
+
+
+
+
+{% macro caption() %}
+    {# {% if caption == 'summary' and getenv('CRAFT_ENVIRONMENT') != 'production' %}
+        {% set caption = random([
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor, lectus sed hendrerit porta, urna nisl vehicula enim.',
+            'Vivamus sit amet nibh et nisi consequat vestibulum. Proin varius nunc ut sapien aliquam, et vestibulum enim pellentesque.',
+            'Duis fringilla mauris vel mi bibendum cursus. Integer vel tellus vel leo efficitur commodo.',
+            'Donec sed elit at ligula scelerisque laoreet. Praesent ut orci euismod, hendrerit nibh ac, aliquam quam.',
+            'Mauris viverra placerat congue. Fusce ut dapibus eros, et imperdiet neque. Sed quis risus et dolor bibendum pellentesque.'
+        ]) %}
+    {% endif %}
+
+    {% set class = class ??? "text-sm text-center py-2" %}
+
+    {{ caption ? tag( 'figcaption', { html: caption, class: class } ) }} #}
+{% endmacro %}
+
+
+
+
+{## automatic placeholder images during development ##}
+{% macro placeholder( transformNameOrWidth, height, type = null ) %}
+    {% if getenv('CRAFT_ENVIRONMENT') != 'production' %}
+
+        {% set width = 900 %}
+        {% if height ??? null %}
+            {% set width = transformNameOrWidth %}
+        {% else %}
+            {% set height = 500 %}
+        {% endif %}
+
+        {% if transformNameOrWidth ??? null != width %}
+            {% set transform = craft.app.getImageTransforms().getTransformByHandle( transformNameOrWidth|default('videoAspect') ) %}
+            {% set width  = transform.width|default(width)   %}
+            {% set height = transform.height|default(height) %}
+        {% endif %}
+
+        {{ _self.generate( tag( 'img', {
+            src: type == 'icon'
+                ? "https://placeskull.com/#{width}/#{height}/475569/#{random(1,24)}"
+                : "https://picsum.photos/seed/#{random(1,9999)}/#{width}/#{height}?grayscale&blur=2",
+            alt: 'Placeholder'
+        }) ) }}
+    {% endif %}
+{% endmacro %}

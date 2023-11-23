@@ -1,0 +1,81 @@
+{## Special Element Block Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitebook/blocks/special
+ ------------------------------------------------------------------------------------ ##}
+{% extends "_blocks/core/block" %}
+
+
+{## Render the block using a two-zone micro-layout
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitebook/layout/micro-layouts
+    -> http://buildwithburton.com/docs/micro-layouts
+ ------------------------------------------------------------------------------------ ##}
+{% block content %}
+
+    {% from "_layout/core/micro" import layout as renderMicroLayout %}
+    {# renderMicroLayout( layoutName, [ zone1, zone2, header, footer ], { arg1: x, .. } )
+     -------------------------------------------------------------------------------- ##}
+    {{ renderMicroLayout(
+        block.settings.microLayout|default(),
+
+        [ block('content_text'), block('content_special'),
+          block('block_header'), block('block_footer') ],
+
+        { container : block.settings.container|default() }
+    ) }}
+
+{% endblock content %}
+
+
+
+{## Default handler for rendering special elements
+ ------------------------------------------------------------------------------------ ##
+    These blocks can be overridden in a child template
+ ------------------------------------------------------------------------------------ ##}
+{% block content_special %}{% apply spaceless %}
+
+    {% set component = block.settings.specialComponent ??? null %}
+    {% if component %}
+        {% if '.sprig' in component %}
+            {{ sprig( component, {
+                content : processedText  ??? {},
+                settings: block.settings ??? {}
+            }) }}
+        {% else %}
+            {{ include( component, {
+                code: block.code ??? {}
+            }, withContext = false ) }}
+        {% endif %}
+    {% else %}
+        {% set blockName = 'special_' ~ block.variant %}
+        {{ block( blockName ) is defined ? block( blockName ) }}
+    {% endif %}
+
+{% endapply %}{% endblock %}
+
+
+{% block special_iframeCode %}
+    {{ block.code|default()
+        | retconAttr( 'iframe', { 'height' : false, 'width' : false } )
+        | retconAttr( 'iframe', { 'class' : 'w-full aspect-video' } ) }}
+{% endblock %}
+
+
+{% block special_siteSearch %}
+    {{ sprig( '_blocks/loop.contentFeedIndex', {
+        settings  : block.settings,
+        limit     : block.limit ??? null,
+        pagination: block.pagination.value ??? null,
+        searchID  : block.feeds.ids() ??? block.feeds ??? null,
+    }) }}
+{% endblock %}
+
+
+{% block special_navigation %}
+
+{% endblock %}
+
+
+{% block special_form %}
+
+{% endblock %}

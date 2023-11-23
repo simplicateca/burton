@@ -13,8 +13,8 @@ services:
         env_file: &env
             - ./craftcms/.env
 
-        # no package lock? -> full install
-        # no node_modules? -> clean install
+        # missing package lock? -> full install
+        # missing node_modules? -> clean install (ci)
         command: >
             bash -c "[ ! -f package-lock.json ] && npm install;
                      [ ! -d node_modules/vite ] && npm ci;

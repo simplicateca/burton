@@ -28,7 +28,7 @@ fieldLayouts:
             uid: 26724913-ce96-4be7-b2f5-86dc5ffff9eb
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
             elementCondition: null
             fieldUid: adc05109-eaa7-4f80-b156-5b250a28e878 # Content feed
@@ -154,7 +154,7 @@ fields:
     name: 'Background theme and colours'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/themeContent.json
+      referenceFile: _blocks/config/themeContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -167,7 +167,7 @@ fields:
     name: 'Area between and around the block'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/interspaceContent.json
+      referenceFile: _blocks/config/interspaceContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -234,7 +234,7 @@ fields:
     name: 'Choose element'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/variantSpecial.json
+      referenceFile: _blocks/config/variantSpecial.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -302,7 +302,7 @@ fields:
     name: 'Content layout and positioning'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/layoutSpecial.json
+      referenceFile: _blocks/config/layoutSpecial.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

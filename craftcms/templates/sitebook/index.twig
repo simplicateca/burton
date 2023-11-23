@@ -1,7 +1,7 @@
 {## Sitebook is the built in component & layout documentation
    system for content editors. It can be accessed at:
 
-    -> $SITE_URL/sitebook/
+    -> $CRAFT_WEB_URL/sitebook/
 
    Access is restricted to users with the permission:
 
@@ -22,7 +22,7 @@
 {% set entry     = craft.entries().section('modular').id(modularID).one() ??? null  %}
 {% set entryType = entry.type.handle ??? null %}
 {% set sidebar   = entry.sidebarBuilder.one() ??? null %}
-{% set template  = sidebar ? "_layouts/twoColumns" : "_layouts/_common" %}
+{% set template  = sidebar ? "_layout/base.sidebar" : "_layout/base" %}
 
 {% if not entry %}
     {% redirect "/sitebook/home" %}

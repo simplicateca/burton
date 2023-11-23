@@ -162,6 +162,7 @@ fields:
     name: 'Where are the Collection items located?'
     searchable: false
     settings:
+      columnType: string
       options:
         -
           __assoc__:
@@ -240,7 +241,7 @@ fields:
     name: 'Background theme and colours'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/themeContent.json
+      referenceFile: _blocks/config/themeContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -433,7 +434,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1850365523
+      changedFieldIndicator: 862698841
       columns:
         __assoc__:
           -
@@ -477,7 +478,7 @@ fields:
     name: 'Area between and around the block'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/interspaceContent.json
+      referenceFile: _blocks/config/interspaceContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -490,6 +491,7 @@ fields:
     name: 'Navigation and filtering'
     searchable: false
     settings:
+      columnType: string
       options:
         -
           __assoc__:
@@ -547,7 +549,7 @@ fields:
     name: 'Content layout and positioning'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/layoutCollection.json
+      referenceFile: _blocks/config/layoutCollection.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -560,7 +562,7 @@ fields:
     name: 'Style variation'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/variantCollection.json
+      referenceFile: _blocks/config/variantCollection.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

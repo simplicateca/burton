@@ -1,0 +1,65 @@
+{## What are we supposed to be rendering?
+ ------------------------------------------------------------------------------------ ##}
+{% set items      = items    ??? null %}
+{% set settings   = settings ??? null %}
+{% set cardLayout = settings.cardLayout ??? settings['cardLayout.default'] ??? 'standard' %}
+{% set cardGrid   = settings.cardGrid   ??? settings['cardGrid.default']   ??? 'stacked2' %}
+{% set layout     = settings.layout     ??? null %}
+{% set variant    = settings.variant    ??? null %}
+{% set isMedia    = items[0].source|default() in ['external','local'] %}
+
+
+{% set loopContent = null %}
+
+
+{## Custom Adjustment -- Move to a Carousel??
+ ------------------------------------------------------------------------------------ ##
+    Test if the `settings.variant` exists in `settings.carouselVariants`.
+    If so, move cards of this type to a carousel loop rather than a grid.
+ ------------------------------------------------------------------------------------ ##}
+{% if cardGrid and block.settings.carouselVariants ??? null and variant in block.settings.carouselVariants %}
+    {% set loopContent %}{% apply spaceless %}
+        {{ include( '_blocks/loop.carousel', {
+            items   : items,
+            settings: settings
+        }, withContext = false  ) }}
+    {% endapply %}{% endset %}
+{% endif %}
+
+
+
+{## Custom Adjustment -- Move Media to Accordion
+ ------------------------------------------------------------------------------------ ##
+ ------------------------------------------------------------------------------------ ##}
+{# {% set cardGrid   = cardGrid   ??? block.settings.cardGrid   ??? 'stacked2' %}
+{% set cardLayout = cardLayout ??? block.settings.cardLayout ??? 'standard' %}
+ #}
+
+{% if isMedia and variant == 'detail' %}
+    {% set loopContent %}{% apply spaceless %}
+        {{ include( '_blocks/loop.accordion', {
+            items   : items,
+            settings: settings
+        }, withContext = false  ) }}
+    {% endapply %}{% endset %}
+{% endif %}
+
+
+{## Nothing Custom?
+------------------------------------------------------------------------------------ ##
+    Jump the collection into a grid if we didn't already process it some other way
+ ------------------------------------------------------------------------------------ ##}
+{% if not loopContent %}
+    {% import "_layout/core/grids" as grids %}
+    {% from "_cards/base" import deck as renderDeck %}
+
+    {% set loopContent %}{% apply spaceless %}
+        {{ grids.generate( renderDeck( items, cardLayout, settings ), cardGrid ) }}
+    {% endapply %}{% endset %}
+
+{% endif %}
+
+
+{## Don't forget to output the loopContent
+------------------------------------------------------------------------------------ ##}
+{{ loopContent }}

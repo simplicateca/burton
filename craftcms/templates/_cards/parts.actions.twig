@@ -1,0 +1,126 @@
+{## Action Partials
+ ------------------------------------------------------------------------------------ ##
+    Reusable call-to-action buttons and other miscellaneous card interactions.
+
+    This file is a structured for Horizontal Reuse. As such, it CAN NOT {% extend %}
+    another template or declare a local {% macro %}. It also must not output any
+    content outside of a {% block %} tag.
+
+     -> https://twig.symfony.com/doc/3.x/tags/use.html
+
+    In return, each {% block %} in this file can be loaded into any other templates
+    as if they were native to that file. Imported blocks will retain their block names
+    unless new names are assigned during import.
+
+    By default `action_default` {% block %} is imported into the base card template
+    `_cards/base/_base` as the named block `card_action` using:
+
+        {% use "_cards/parts.actions" with action_default as card_action %}
+
+
+ ## Using an Action other than the default
+ ------------------------------------------------------------------------------------ ##
+    There are several options for modifying a card action:
+
+     1) Swap `action_default` for a different block from this (or another) file and
+        import it overtop of the default `card_action` named block.
+
+        {% use "_cards/parts.actions" with action_modal as card_action %}
+
+
+     2) Create a local override in a card template file:
+
+        {% block card_action %}
+            // -- do something custom and specific here
+        {% endblock %}
+
+
+     3) Combining both (1) and (2) for more complicated functionality
+
+        {% use "_cards/parts.actions" with action_modal, action_default %}
+        {% block card_action %}
+            {{ test_some_condition
+                  ? block( 'action_modal' )
+                  : block( 'action_default') }}
+        {% endblock %}
+
+        Don't forget about or underestimate the usefulness of the Twig `parent` function.
+        With `parent` the above code can be refactored to:
+
+        {% use "_cards/parts.actions" with action_modal %}
+        {% block card_action %}
+            {{ test_some_condition
+                  ? block( 'action_modal' )
+                  : parent() }}
+        {% endblock %}
+
+        Read more: https://twig.symfony.com/doc/3.x/functions/parent.html
+
+
+
+ ## Hidden Button (Default)
+ ------------------------------------------------------------------------------------ ##
+    If the item in this card has a public URL -- i.e. `entry.url`, create an invisble
+    button that expands it's clickable areas to the full card using a:after
+
+    -> https://docs.craftcms.com/api/v4/craft-base-element.html#url
+ ------------------------------------------------------------------------------------ ##}
+{% block action_default %}{% apply spaceless %}
+    {% if card.item.url %}
+        <a href="{{card.item.url}}" class="clickCover"
+            ><span class="hidden">Read More →</span></a>
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+
+{## Text Link
+ ------------------------------------------------------------------------------------ ##
+    Like the Default Action, but uses a visible text-based (non-button) link
+ ------------------------------------------------------------------------------------ ##}
+{% block action_textlink %}{% apply spaceless %}
+    {% if card.item.url %}
+        <a href="{{card.item.url}}" class="clickCover buttonText"
+            >Read More</a>
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+
+{## Modal Content (Basic)
+ ------------------------------------------------------------------------------------ ##
+    Creates a modal window that will load on-click to display extended card info.
+ ------------------------------------------------------------------------------------ ##}
+{% block action_modal %}{% apply spaceless %}
+
+    {% embed modalLayout ??? settings.modalLayout ??? "_components/modal/base" with {
+        item  : card.item ??? card ??? null,
+        layout: modalCard ??? settings.modalCard ??? [ "detail.modal", "detail" ],
+    } %}
+        {% block content %}
+            {% from "_cards/base" import render as renderCard %}
+            {{ renderCard( item, layout, settings ) }}
+        {% endblock %}
+    {% endembed %}
+
+{% endapply %}{% endblock %}
+
+
+
+{## Modal Content (Bottom Drawer)
+ ------------------------------------------------------------------------------------ ##
+    Like `action_modal` but redirects content into a bottom drawer modal.
+ ------------------------------------------------------------------------------------ ##}
+{% block action_modal_bottom %}{% apply spaceless %}
+
+    {% set modalLayout = [ "_components/modal/bottomDrawer", "_components/modal/base" ] %}
+    {% set modalCard   = [ "detail.modal.bottomDrawer", "detail.modal", "detail" ] %}
+
+    {% from "_cards/base" import render as renderCard %}
+
+    {{ include( modalLayout, {
+        item   : card.item|default(),
+        content: renderCard( card.item|default(), modalCard, settings|default() )
+    }, withContext = false ) }}
+
+{% endapply %}{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "_content/images/base" %}
+
+{% block image %}
+
+    {% if images ??? null and images|length == 3 %}
+
+        {% embed "_content/images/layout.cluster"
+           with {
+            images: images,
+            settings: settings ??? null
+        } %}{% endembed %}
+
+    {% else %}
+
+        {% embed "_content/images/layout.carousel"
+           with {
+            images: images ??? null,
+            frame : 'fancy',
+            settings: settings ??? null
+        } %}{% endembed %}
+
+    {% endif %}
+
+{% endblock %}

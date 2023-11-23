@@ -1,0 +1,42 @@
+{% extends "_layout/base" %}
+
+{% requirePermission 'allowSitebook' %}
+
+{% block page_main %}
+
+    {% set zone1 %}
+        <div class="min-h-[16rem] bg-red-500/50 w-full h-full">
+            <h2>Zone 1</h2>
+        </div>
+    {% endset %}
+
+    {% set zone2 %}
+        <div class="min-h-[16rem] bg-blue-500/50 w-full h-full">
+            <h2>Zone 2</h2>
+        </div>
+    {% endset %}
+
+    {% set header %}
+        <div class="min-h-[4rem] bg-green-500/50 w-full h-full">
+            <h2>Header</h2>
+        </div>
+    {% endset %}
+
+    {% set footer %}
+        <div class="min-h-[4rem] bg-yellow-500/50 w-full h-full">
+            <h2>Footer</h2>
+        </div>
+    {% endset %}
+
+    {% import "_layout/core/micro" as micro %}
+    {% set json = micro.definitions() | json_decode %}
+
+    {% for layout in json['options'] | keys %}
+        <div class="{{ cycle(['bg-white', 'bg-gray-300'], loop.index0) }} py-20">
+            <h1 class="text-center mb-20">{{ layout }}</h1>
+            {{ micro.layout( layout, [ zone1, zone2, header, footer ], { container: 'container' } ) }}
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

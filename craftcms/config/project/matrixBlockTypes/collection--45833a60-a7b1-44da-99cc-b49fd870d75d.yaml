@@ -174,7 +174,7 @@ fields:
     name: Variant
     searchable: false
     settings:
-      referenceFile: _blocks/_config/variantCollection.sidebar.json
+      referenceFile: _blocks/config/variantCollection.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -187,7 +187,7 @@ fields:
     name: 'Card design'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/cardDesigns.json
+      referenceFile: _blocks/config/cardDesigns.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -267,7 +267,7 @@ fields:
     name: Layout
     searchable: false
     settings:
-      referenceFile: _blocks/_config/layoutCollection.sidebar.json
+      referenceFile: _blocks/config/layoutCollection.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -280,7 +280,7 @@ fields:
     name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/_config/themeSidebar.json
+      referenceFile: _blocks/config/themeSidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -536,7 +536,7 @@ fields:
     name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/_config/interspaceSidebar.json
+      referenceFile: _blocks/config/interspaceSidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

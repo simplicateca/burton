@@ -54,7 +54,7 @@ fields:
     name: 'Area between and around the block'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/interspaceContent.json
+      referenceFile: _blocks/config/interspaceContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -67,7 +67,7 @@ fields:
     name: 'Background theme and colours'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/themeFragment.json
+      referenceFile: _blocks/config/themeFragment.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

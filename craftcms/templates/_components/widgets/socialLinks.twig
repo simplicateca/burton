@@ -1,4 +1,4 @@
-<div class="flex flex-row gap-2 mt-8">    
+<div class="flex flex-row gap-2 mt-8">
     {% for social in seomatic.site.sameAsLinks %}
         {% if social.url %}
             <div>
@@ -31,7 +31,7 @@
         fill="{{useColor}}" /><g
         stroke="#fff" stroke-width="30"><rect width="308" height="308" x="102" y="102" rx="81" fill="{{useColor}}"/><circle cx="256" cy="256" r="72" fill="{{useColor}}"/><circle cx="347" cy="165" r="6" /></g></svg>
     {% endif %}
-    
+
     {% if handle == 'youtube' %}
         {% set useColor = useColor ??? '#ed1d24' %}
         <svg xmlns="http://www.w3.org/2000/svg"

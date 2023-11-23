@@ -1,0 +1,16 @@
+{% extends '_cards/card.detail' %}
+{% set card_template = _self %}
+{% set card_type = 'detail' %}
+{% use "_cards/parts.summaries" with summary_overflow as card_summary %}
+{% use "_cards/parts.actions"   with action_default   as card_action  %}
+
+{% block card_headline %}
+    {% set headline = parent() ??? null %}
+    {{ headline | retconAttr( '[data-headline]', { ':id':"$id('modal-title')", class: "like-h1" } ) }}
+{% endblock %}
+
+{% block card_action %}
+    {% if card.item.url ??? null %}
+        <a href="{{ card.item.url }}" class="button">Continue Reading</a>
+    {% endif %}
+{% endblock %}

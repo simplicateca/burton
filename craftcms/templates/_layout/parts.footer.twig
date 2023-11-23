@@ -1,0 +1,103 @@
+{## Page Footer Base Elements & Defaults
+ ------------------------------------------------------------------------------------ ##
+
+    Defaults & common elements that appear in and around the site-wide page <footer>.
+
+    - http://localhost:8000/sitebook/layout/footer
+
+------------------------------------------------------------------------------------ ##}
+
+{% block default_bottom %}
+    {{ block( 'preFooterCta' ) }}
+    {{ block( 'footer_fat' ) }}
+{% endblock %}
+
+
+{% block preFooterCta %}
+    {# {{ fragments.loadBySlug('call-to-action') }} #}
+    {# {{ tag( 'div', {
+        text: fragments.loadBySlug('newsletter-subscribe')
+    } )}} #}
+{% endblock %}
+
+
+{% block footer_fat %}
+    {{ block( 'footerOpenTag' ) }}
+    {{ block( 'footerFat' ) }}
+    {{ block( 'footerMinimal' )}}
+    {{ block( 'footerCloseTag' ) }}
+{% endblock %}
+
+{% block footer_slim %}
+    {{ block( 'footerOpenTag' ) }}
+    {{ block( 'footerMinimal' )}}
+    {{ block( 'footerCloseTag' ) }}
+{% endblock %}
+
+
+{% block footerFatCta %}
+    <div data-theme="bright" class="h-full w-full min-h-[12rem] flex items-center justify-center text-lg font-medium">CALL TO ACTION</div>
+{% endblock %}
+
+
+{% block footerMessage %}
+    © {{"now"|date("Y")}} {{currentSite.name ??? null}} All rights reserved.
+{% endblock %}
+
+
+{% block footerOpenTag %}
+    <footer {{ attr({
+        id   : 'footer',
+        role : 'contentinfo',
+        class: 'relative z-10',
+        data : { theme: 'footer' }
+    }) }}>
+{% endblock %}
+{% block footerCloseTag %}</footer>{% endblock %}
+
+
+{% block footerQuickLinksMenu %}
+    {% use "_layout/menus" %}
+    {{ block( 'menu_quicklinks') }}
+{% endblock %}
+
+
+{% block footerContactMenu %}
+    {% use "_layout/menus" %}
+    {{ block( 'menu_contact') }}
+{% endblock %}
+
+
+{% block footerUtilityMenu %}
+    {% use "_layout/menus" %}
+    {{ block( 'menu_legal') }}
+{% endblock %}
+
+
+{% block footerFat %}
+    {% import "_layout/core/grids"      as grids %}
+    {% import "_layout/core/containers" as containers %}
+
+    {## TODO: this nested grid generate is fugly. replace with a twoOverOne option in the layout generator ##}
+    {{ containers.wrap(
+        tag( 'div', {
+            class: "pt-10 pb-6 flex flex-col gap-y-12",
+            html : grids.generate( grids.generate( block('footerQuickLinksMenu') ~ block('footerContactMenu'), "stacked2" ) ~ block( 'footerFatCta' ), "stacked2" ), }
+        ),
+        'fluidContainer'
+    ) }}
+{% endblock %}
+
+
+{% block footerMinimal %}
+    {% import "_layout/core/containers" as containers %}
+
+    {## TODO: this is also an ugly grid. it should be moved to the layout file ##}
+    {{ containers.wrap(
+        tag( 'div', {
+            class: "flex flex-col md:flex-row pt-6 items-center text-xs md:text-base gap-3",
+            html : block('footerMessage') ~ block('footerUtilityMenu')
+        } ),
+        'fluidContainer',
+    ) }}
+{% endblock %}

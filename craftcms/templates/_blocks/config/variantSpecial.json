@@ -1,0 +1,30 @@
+[
+    {
+        "label": "Content Search",
+        "value": "siteSearch"
+    },
+
+    {
+        "label": "Form",
+        "value": "form"
+    },
+
+    {
+        "label": "Navigation Menu",
+        "value": "navigation"
+    },
+
+    {
+        "label": "Google Map / iFrame Code Embed",
+        "value": "iframeCode"
+    },
+
+    {
+        "label": "Vue Component",
+        "value": "vueComponent",
+
+        "settings" : {
+            "specialComponent": "_blocks/special.vueExample"
+        }
+    }
+]

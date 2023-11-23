@@ -1,9 +1,0 @@
-{% embed '_components/carousel/_base' with {
-    items: items ??? null,
-    card : card  ??? null
-} %}
-    {% block slide %}
-        {% import "_components/cards" as cards %}
-        {{ cards.render( item, card ) }}
-    {% endblock %}
-{% endembed %}

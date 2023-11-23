@@ -1,0 +1,28 @@
+{% extends '_cards/base' %}
+{% set card_template = _self %}
+{% set card_type = 'summary' %}
+{% use "_cards/parts.summaries" with summary_truncated as card_summary %}
+{% use "_cards/parts.actions"   with action_modal      as card_action  %}
+
+{% block content %}
+    <div class="flex flex-col h-full gap-2 bg-theme-backgroundOff relative">
+        <div class="image">
+            {{ block('card_image') }}
+        </div>
+
+        <div class="@container p-2 lg:p-4 flex-grow flex flex-col gap-3">
+            {% set cardHeaderClass = 'mb-0' %}
+            {{ block('card_headline') }}
+
+            {{ block('card_summary') }}
+
+            {{ block('card_after_summary') is defined ? block( 'card_after_summary' ) }}
+        </div>
+
+        <div class="p-2 lg:p-4 pt-0 lg:pt-0">
+            {% block action %}
+                {{ block('card_action') }}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

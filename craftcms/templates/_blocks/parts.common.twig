@@ -1,0 +1,77 @@
+{% block headerHeadline %}{% apply spaceless %}
+    {% set headline = block.headline ??? null %}
+    {% if headline %}
+        <h1>{{ headline }}</h1>
+    {% endif %}
+{% endapply %}{%- endblock %}
+
+
+
+{## Base Text (Zone 1) Redactor Input
+ ------------------------------------------------------------------------------------ ##
+    Since pretty much every block has a "text" input this gets treated commonly.
+ ------------------------------------------------------------------------------------ ##}
+{% block text_zone_default %}{% apply spaceless %}
+
+    {% if processedText ??? null %}
+
+        {## Move the block headline to <header> when left/right cols stack on mobile
+        ----------------------------------------------------------------------------- ##}
+        {% if block.settings.textHeaderToMicroHeader|default(false)
+              and block.headline ??? processedText.eyebrow ??? processedText.headline %}
+            <div class="hidden lg:block">
+                {{ block('headerHeadline') }}
+                {{ processedText.eyebrow  | raw }}
+                {{ processedText.headline | raw }}
+            </div>
+        {% endif %}
+
+        {{ processedText.body| raw }}
+
+        {## If the block has a CTA, display it here unless it's been moved to the footer ##}
+        {% if not block.settings.textCtaToMicroFooter|default(false) %}
+            {{ processedText.cta | raw }}
+        {% endif %}
+
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+
+{## Default Block <header> zone content
+ ------------------------------------------------------------------------------------ ##
+ ------------------------------------------------------------------------------------ ##}
+{% block header_zone_default %}{% apply spaceless %}
+
+    {## Duplicates the block headline into the block <header> for better mobile display.
+     -------------------------------------------------------------------------------- ##}
+    {% if processedText ??? null %}
+        {% if block.settings.textHeaderToMicroHeader|default(false)
+              and block.headline ??? processedText.eyebrow ??? processedText.headline %}
+            <div class="lg:hidden relative z-30 pb-8">
+                {{ block('headerHeadline') }}
+                {{ processedText.eyebrow  | raw }}
+                {{ processedText.headline | raw }}
+            </div>
+        {% endif %}
+    {% endif %}
+
+
+{% endapply %}{% endblock %}
+
+
+
+{## Default Block <footer> zone content
+ ------------------------------------------------------------------------------------ ##
+ ------------------------------------------------------------------------------------ ##}
+{% block footer_zone_default %}{% apply spaceless %}
+
+    {## Moves Text CTA to block footer
+     -------------------------------------------------------------------------------- ##}
+    {% if block.settings.textCtaToMicroFooter|default(false) and processedText.cta ??? null %}
+        <div class="pt-8">
+            {{ processedText.cta | raw }}
+        </div>
+    {% endif %}
+
+{% endapply %}{% endblock %}

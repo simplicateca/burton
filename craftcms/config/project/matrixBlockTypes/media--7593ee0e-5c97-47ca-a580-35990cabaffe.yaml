@@ -114,7 +114,7 @@ fields:
     name: 'Content layout and positioning'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/layoutMedia.json
+      referenceFile: _blocks/config/layoutMedia.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -128,7 +128,7 @@ fields:
     searchable: false
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1707955543
+      changedFieldIndicator: 1177246485
       columns:
         __assoc__:
           -
@@ -179,6 +179,7 @@ fields:
     name: 'Where are the media files located?'
     searchable: false
     settings:
+      columnType: string
       options:
         -
           __assoc__:
@@ -272,7 +273,7 @@ fields:
     name: 'Area between and around the block'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/interspaceContent.json
+      referenceFile: _blocks/config/interspaceContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -285,7 +286,7 @@ fields:
     name: 'Style variation'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/variantMedia.json
+      referenceFile: _blocks/config/variantMedia.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -326,7 +327,7 @@ fields:
     name: 'Background theme and colours'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/themeContent.json
+      referenceFile: _blocks/config/themeContent.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

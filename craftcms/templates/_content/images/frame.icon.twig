@@ -1,0 +1,17 @@
+{% extends "_content/images/base" %}
+
+{% set _defs = {
+    imageClass : imageClass ??? "w-full max-w-full h-auto",
+    figureClass: imageClass ??? "block w-full",
+    transform  : imageClass ??? "square"
+} %}
+
+{% block image %}
+    {% from "_content/images/base" import generate %}
+    {{ generate( image ??? images ??? null, {
+        image        : imageClass     ??? settings.imageClass     ??? _defs.imageClass  ??? null,
+        figure       : imageFigure    ??? settings.imageFigure    ??? _defs.figureClass ??? null,
+        transform    : imageTransform ??? settings.imageTransform ??? _defs.transform   ??? null,
+        _placeholder : 'icon'
+    } ) }}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "_content/images/base" %}
+
+{% block image %}
+
+    {% set frame    = frame|default('auto') %}
+    {% set images   = images|default() %}
+    {% set settings = settings|default() %}
+
+    {% if images and images|length > 1 %}
+        {% embed "_content/images/layout.carousel"
+           with {
+             frame   : frame,
+             images  : images,
+             settings: settings
+        } %}{% endembed %}
+    {% else %}
+        {% from "_content/images/frame" import framer %}
+        {{ framer( images, frame, settings ) }}
+    {% endif %}
+
+{% endblock %}

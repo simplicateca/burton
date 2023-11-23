@@ -1,0 +1,274 @@
+{## Block Base Template
+ ------------------------------------------------------------------------------------ ##
+    Defines the the outermost (non-content) html layer for all base content blocks.
+
+        // (optional) divider above block
+        <div data-theme="themeName">
+            // (optional) interspace above content
+            <div class="container">
+                <section data-block="blockType">
+                    // block content
+                <section>
+            </div>
+            // (optional) interspace below content
+        </div>
+        // (optional) divider below block
+
+ ------------------------------------------------------------------------------------ ##
+
+ ## Load named blocks from other templates to be called like functions. These named
+    blocks rely on the current '_context' for data and do not accept arguments.
+
+    Child templates can override named blocks by creating a {% block %} with the
+    same name or by reassign the name to another template with {% use %}.
+
+    Learn more: https://twig.symfony.com/doc/3.x/tags/use.html
+
+ ------------------------------------------------------------------------------------ ##}
+{% use "_blocks/parts.common" with text_zone_default    as content_text,
+                                   header_zone_default  as block_header,
+                                   footer_zone_default  as block_footer  %}
+
+
+{## Extra Redactor/CKEditor Filtering
+    -------------------------------------------------------------------------------- ##
+    processRichHtml() is a custom twig function that parses the html DOM, makes
+    minor adjustments and does some rudimentary context-aware content separation.
+
+    The macro code is reviewable / edidable locally:
+        -> craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php
+--------------------------------------------------------------------------------- ##}
+{% set processedText = processRichHtml( block.text ??? null ) %}
+
+
+{## HTML Skeleton
+ ------------------------------------------------------------------------------------ ##
+    The output of this {% block %} becomes the rendered html for each content block.
+ ------------------------------------------------------------------------------------ ##}
+{% block block %}
+
+
+    {## Divider Above Block
+     -------------------------------------------------------------------------------- ##
+        Content to insert before opening the outer theme. Typically used for dividers.
+     -------------------------------------------------------------------------------- ##}
+    {{ block( 'block_between_above') }}
+
+
+
+    {## Outer Theme Wrapper
+     -------------------------------------------------------------------------------- ##
+        It can be useful for a child template to override this wrapper block and
+        combine it with the Twig `parent()` function to render the layout to a template
+        variable as html.
+
+        The rendered html can then be manipulated with something like Retcon before
+        sending it to the browser. Read more: https://github.com/mmikkel/Retcon-Craft
+
+        i.e.
+        {% block theme %}
+            {{ parent()
+                | retconAttr( 'div', { class: 'whatever' } )
+                | retconRemove( 'h1' ) }}
+        {% endblock %}
+     -------------------------------------------------------------------------------- ##}
+    {% block theme %}
+
+
+
+        {## Open Theme Tag
+         ---------------------------------------------------------------------------- ##
+            One wrapper theme tag (typically a <div>) will get wrapped around as many
+            blocks in a row that share the same theme. If every block uses a different
+            theme, each block will open and close an outer theme tag.
+
+            If this block theme matches the previous block theme, we can inherit the
+            already open theme tag instead of starting a new one. This also assumes
+            that the theme was not closed at the end of the previous block.
+         ---------------------------------------------------------------------------- ##}
+        {% if block.prev.theme|default() != block.settings.theme %}
+            {{ block( 'theme_open') }}
+        {% endif %}
+
+
+
+        {## Outer Block Wrapper
+         ---------------------------------------------------------------------------- ##
+            Basically the same as the Outer Theme Wrapper, just a little less .. outer
+         ---------------------------------------------------------------------------- ##}
+        {% block outer %}
+
+
+
+            {## Interspace Above Content
+            ------------------------------------------------------------------------- ##
+                Essentially top padding between the theme edge and the block content
+            ------------------------------------------------------------------------- ##}
+            {{ block( 'interspace_above') }}
+
+
+
+            {## Open <section> + .container
+            ------------------------------------------------------------------------- ##
+            ------------------------------------------------------------------------- ##}
+            {{ block( 'block_open') }}
+
+
+
+            {## Block Content
+            ------------------------------------------------------------------------- ##
+                Templates extending this base are responsible for populating content.
+            ------------------------------------------------------------------------- ##}
+            {% block content %}{% endblock %}
+
+
+
+            {## Close <section> + .container
+            ------------------------------------------------------------------------- ##
+            ------------------------------------------------------------------------- ##}
+            {{ block( 'block_close') }}
+
+
+
+            {## Interspace Below Content
+            ------------------------------------------------------------------------- ##
+                Essentially bottom padding between block content and the theme edge
+
+                To avoid double gaps, we typically exclude the bottom interspace element
+                in cases where the next block has the same theme as the current one.
+            ------------------------------------------------------------------------- ##}
+            {% if block.next.theme|default() != block.settings.theme %}
+                {{ block( 'interspace_below') }}
+            {% endif %}
+
+
+
+        {% endblock outer %}
+
+
+
+        {## Close Theme Tag
+        ----------------------------------------------------------------------------- ##
+            If the theme for this this block matches the theme for the next block we
+            can leave the outer theme open instead of closing it and starting a new one.
+        ----------------------------------------------------------------------------- ##}
+        {% if block.next.theme|default() != block.settings.theme %}
+            {{ block( 'theme_close') }}
+        {% endif %}
+
+
+
+    {% endblock theme %}
+
+
+    {## Divider Below Block
+     -------------------------------------------------------------------------------- ##
+        Content to insert after closing the outer theme. Typically used for dividers.
+     -------------------------------------------------------------------------------- ##}
+    {{ block( 'block_between_below' ) }}
+
+
+{% endblock block %}
+
+
+{## Prevents accidental render leakage. Named blocks inside {% if %} still reachable.
+ ------------------------------------------------------------------------------------ ##}
+{% if null %}
+
+
+
+{## Block Open & Close Tags
+ ------------------------------------------------------------------------------------ ##
+    Tag type and attributes for the inner block element. Typically something like:
+    <section data-block="blockType">
+ ------------------------------------------------------------------------------------ ##}
+{% block block_open %}{% apply spaceless %}
+    <{{block.settings.blockTag|default('section')}} {{attr({
+        class: block.settings.sectionClass|default('w-full'),
+        data : {
+            block   : block.settings.blockType ??? null,
+            uuid    : block.settings.uuid      ??? null,
+            viewport: true
+        }
+    })}}>
+{% endapply %}{% endblock %}
+
+{% block block_close %}</{{block.settings.blockTag|default('section')}}>{% endblock %}
+
+
+
+
+{## Theme Open & Close Tags
+ ------------------------------------------------------------------------------------ ##
+    Tag type and attributes for the outer theme tag. Typically something like:
+    <div data-theme="name">
+ ------------------------------------------------------------------------------------ ##}
+{% block theme_open %}{% apply spaceless %}
+    <{{block.settings.themeTag|default('div')}} {{attr({
+        class        : block.settings.themeClass|default( 'relative' ),
+        data: {
+            theme    : block.settings.theme      ??? null,
+            block    : block.settings.blockType  ??? null,
+            uuid     : block.settings.uuid       ??? null,
+            themenext: block.next.theme          ??? null,
+            themeprev: block.prev.theme          ??? null,
+            viewport : true,
+        }
+    })}}>
+{% endapply %}{% endblock %}
+
+{% block theme_close %}</{{block.settings.themeTag|default('div') }}>{% endblock %}
+
+
+
+
+{## Interspace Above / Below Content
+ ------------------------------------------------------------------------------------ ##
+ ------------------------------------------------------------------------------------ ##}
+{% block interspace_above %}{% apply spaceless %}
+    {% set spacer = block.settings.interspaceAbove ?? true %}
+    {% set spacer = spacer is same as(true) ? "base" : spacer %}
+    {% if spacer %}
+        {{ block( "interspace_#{spacer}", "_layout/core/spacing" ) }}
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+
+{% block interspace_below %}{% apply spaceless %}
+    {% set spacer = block.next.interspacePrevBottom ?? block.settings.interspaceBelow ?? true %}
+    {% set spacer = spacer is same as(true) ? "base" : spacer %}
+    {% if spacer %}
+        {{ block( "interspace_#{spacer}", "_layout/core/spacing" ) }}
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+
+
+{## Dividers Above Between and Below Between Full Block Rendering
+ ------------------------------------------------------------------------------------ ##
+ ------------------------------------------------------------------------------------ ##}
+{% block block_between_above %}{% apply spaceless %}
+    {% set spacer = block.settings.betweenAbove ??? false %}
+    {% set spacer = spacer and spacer is same as(true) ? "base" : spacer %}
+    {% if spacer %}
+        {{ block( "interspace_#{spacer}", "_layout/core/spacing" ) }}
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+
+{% block block_between_below %}{% apply spaceless %}
+    {% set spacer = block.settings.betweenBelow ??? false %}
+    {% set spacer = spacer and spacer is same as(true) ? "base" : spacer %}
+    {% if spacer %}
+        {{ block( "interspace_#{spacer}", "_layout/core/spacing" ) }}
+    {% endif %}
+{% endapply %}{% endblock %}
+
+
+
+{## Closes {% if null %} above. Prevents render leakage. Don't remove.
+ ------------------------------------------------------------------------------------ ##}
+{% endif %}

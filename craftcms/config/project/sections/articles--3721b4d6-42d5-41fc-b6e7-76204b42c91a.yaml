@@ -19,6 +19,6 @@ siteSettings:
   41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
     enabledByDefault: true
     hasUrls: true
-    template: _sections/articles/_entry
+    template: _content/articles/base
     uriFormat: '{{object.type|kebab}}/{{object.slug}}'
 type: channel

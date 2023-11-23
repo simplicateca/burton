@@ -1,0 +1,180 @@
+
+{% macro summaryMaxH4( summary = "" ) %}
+    {{ summary
+        | retconRemove( [ 'img', 'figure', 'iframe' ] )
+        | retconChange( [ 'h1', 'h2', 'h3' ], 'h4' )
+    }}
+{% endmacro %}
+
+
+{% macro summaryRetainEmphasis( summary = "" ) %}
+    {{ summary
+        | retconRemove( [ 'img', 'figure', 'iframe' ] )
+        | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ol', 'ul', 'li', 'blockquote', 'div', 'a' ], '' )
+    }}
+{% endmacro %}
+
+
+{% macro headline( headline = null, tag = null, class = null ) %}
+    {% set tag = tag | lower %}
+
+    {% switch tag %}
+        {% case 'h1' %} {{ _self.headlineH1( headline, class ) }}
+        {% case 'h2' %} {{ _self.headlineH2( headline, class ) }}
+        {% case 'h3' %} {{ _self.headlineH3( headline, class ) }}
+        {% case 'h4' %} {{ _self.headlineH4( headline, class ) }}
+        {% default   %} {{ _self.headlineH3( headline, class ) }}
+    {% endswitch %}
+{% endmacro %}
+
+
+{% macro headlineKnockout( headline = null, tag = null, class = null ) %}
+    {% set headline = "<span class='box-decoration-clone bg-theme-accent text-white p-1'>#{headline}</span>" %}
+    {{ _self.headline( headline, tag, class ~ " inline-block !mb-0 !leading-normal text-center relative z-20" | trim ) }}
+{% endmacro %}
+
+
+{% macro headlineWordRotator( headline = null ) %}
+
+    {% if headline | retconOnly( 'mark' ) %}
+        {% set mark = headline | retconOnly( 'mark:first-of-type' ) | striptags | split('|')  %}
+
+        {% if mark[1] ??? null %}
+            {% set wordRotator %}{% apply spaceless %}
+                <div class="flex items-center justify-center like-h2 !mb-0 pb-0 text-center min-h-[100px] relative">
+                    <span class="words grid text-center border-2 border-white bg-theme-section px-8 uppercase overflow-hidden">
+                        {% for word in mark %}
+                            <span>{{word}}</span>
+                        {% endfor %}
+                    </span>
+                </div>
+            {% endapply %}{% endset %}
+
+            {% set headline = headline
+                | retconChange( 'mark:first-of-type', 'template' )
+                | retconInject( 'template', wordRotator, true )
+                | retconChange( 'template', false ) %}
+
+
+            {% css %}
+                .words span {
+                    text-transform: uppercase;
+                    opacity: 0;
+                    animation: rotateWord {{( mark | length ) * 3}}s linear infinite 0s;
+                    grid-area: 1/-1;
+                }
+
+                {% for word in mark %}
+                    {% if not loop.last %}
+                        .words span:nth-child({{loop.index + 1}}) {
+                            animation-delay: {{loop.index * 3}}s;
+                        }
+                    {% endif %}
+                {% endfor %}
+
+                @keyframes rotateWord {
+                    0%   { opacity: 0; }
+                    2%   { opacity: 0; transform: translateY(-30px); }
+                    5%   { opacity: 1; transform: translateY(0px);}
+                    17%  { opacity: 1; transform: translateY(0px); }
+                    20%  { opacity: 0; transform: translateY(30px); }
+                    80%  { opacity: 0; }
+                    100% { opacity: 0; }
+                }
+            {% endcss %}
+
+        {% endif %}
+
+    {% endif %}
+
+    {{ headline | raw }}
+
+{% endmacro %}
+
+
+{% macro headlineH1( headline = null, class = null, eyebrow = null ) %}
+    {% if headline ??? null %}
+        {{ eyebrow ??? null }}
+        <h1 class="{{ class ??? null }}" data-headline="true">
+            {{ headline
+                | retconChange( ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], '' )
+            }}
+        </h1>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro headlineH2( headline = null, class = null, eyebrow = null ) %}
+    {% if headline ??? null %}
+        {{ eyebrow ??? null }}
+        <h2 class="{{ class ??? null }}" data-headline="true">
+            {{ headline
+                | retconChange( ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], '' )
+            }}
+        </h2>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro headlineH3( headline = null, class = null, eyebrow = null ) %}
+    {% if headline ??? null %}
+        {{ eyebrow ??? null }}
+        <h3 class="{{ class ??? null }}" data-headline="true">
+            {{ headline
+                | retconChange( ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], '' )
+            }}
+        </h3>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro headlineH4( headline = null, class = null, eyebrow = null ) %}
+    {% if headline ??? null %}
+        {{ eyebrow ??? null }}
+        <h4 class="{{ class ??? null }}" data-headline="true">
+            {{ headline
+                | retconChange( ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], '' )
+            }}
+        </h4>
+    {% endif %}
+{% endmacro %}
+
+
+{## Two Column "Sidebar" Layout Macro
+ ------------------------------------------------------------------------------------- ##
+
+    A consistent site-wide layout for displaying primary and <aside> content.
+
+    You could easily make the argument that this should just be part of
+    `_layout/core/micro` and maybe it will move there some day.
+
+    For now it feels better having the site-wide & page-level layout definitions here.
+
+ ------------------------------------------------------------------------------------- ##
+
+    This macro should only be used to duplicate the dimensions of `_layout/base.sidebar`
+    while populating the content areas manually.
+
+    Templates that need to simply display contentBuilder and sidebarBuilder content
+    in two layouts can extend `_layout/base.sidebar` and make additional modifications
+    from there.
+
+------------------------------------------------------------------------------------- ##}
+{% macro twoColumns( main = null, aside = null, container = "containerWide" ) %}
+    {% set defs = {
+        base : 'flex flex-col lg:flex-row gap-10 2xl:gap-28',
+        zone1: 'min-h-[30vh] grow @container',
+        zone2: 'w-full lg:max-w-sm @container'
+    } %}
+
+    {% import "_layout/core/containers" as containers %}
+
+    {{ containers.wrap(
+        tag( 'div', {
+            class: defs.base,
+            html:  tag( 'div',   { html: main,  class: defs.zone1 } )
+                 ~ tag( 'aside', { html: aside, class: defs.zone2 } )
+        }),
+        container
+    ) }}
+{% endmacro %}

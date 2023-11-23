@@ -102,7 +102,7 @@ fields:
     name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/_config/interspaceSidebar.json
+      referenceFile: _blocks/config/interspaceSidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -115,7 +115,7 @@ fields:
     name: 'Layout Variant'
     searchable: false
     settings:
-      referenceFile: _blocks/_config/variantMedia.sidebar.json
+      referenceFile: _blocks/config/variantMedia.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -186,7 +186,7 @@ fields:
     name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/_config/themeSidebar.json
+      referenceFile: _blocks/config/themeSidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

@@ -106,7 +106,7 @@ fields:
     name: Layout
     searchable: false
     settings:
-      referenceFile: _blocks/_config/layoutText.header.json
+      referenceFile: _blocks/config/layoutText.header.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -119,7 +119,7 @@ fields:
     name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/_config/interspaceHeader.json
+      referenceFile: _blocks/config/interspaceHeader.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -160,7 +160,7 @@ fields:
     name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/_config/themeHeader.json
+      referenceFile: _blocks/config/themeHeader.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

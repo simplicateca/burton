@@ -1,9 +1,0 @@
-{% set entry  = entry  ??? null  %}
-{% set blocks = blocks ??? entry.sidebarBuilder.all() ??? null %}
-{% if blocks %}
-    {{ include( '_components/builders/_loop', {
-        entry  : entry,
-        builder: 'sidebar',
-        blocks : blocks
-    }, withContext = false ) }}
-{% endif %}

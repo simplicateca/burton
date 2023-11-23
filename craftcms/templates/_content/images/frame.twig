@@ -1,0 +1,14 @@
+{% macro framer( image = null, frame = null, settings = null ) %}
+
+    {## allow `frame` to be passed as an array ##}
+    {% set frame = frame is iterable ? frame : [frame] %}
+    {% set frame = frame | merge(['auto']) | filter %}
+    {% set frame = frame | map( name => "_content/images/frame.#{name}" ) %}
+
+    {## embed the image into the frame ##}
+    {% embed frame with {
+        image   : image,
+        settings: settings,
+    } %}{% endembed %}
+
+{% endmacro %}

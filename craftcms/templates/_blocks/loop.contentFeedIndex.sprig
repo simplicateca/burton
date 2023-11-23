@@ -1,0 +1,122 @@
+{% set settings = {
+    searchID     : null,
+    cardGrid     : 'stacked3',
+    deckLayout   : null,
+    cardLayout   : 'standard',
+    entryUrl     : '/',
+    limit        : 12,
+    filter       : null,
+    query        : null,
+    pagination   : null,
+    requireQuery : false,
+    uuid         : create('craft\\helpers\\StringHelper').UUID()
+}|map( (item,key) => _context[key] ??? settings[key] ??? item ) %}
+
+{% macro urlWithQueryParams( entryUrl, page, params ) -%}
+    {%- set baseUrl  = ( page > 1 ) ? "#{entryUrl}/p#{page}" : "#{entryUrl}/" -%}
+    {{ siteUrl( baseUrl, params ) }}
+{%- endmacro %}
+
+{## searchID references a Saved Search Taxonomy entry containing default search parameters ##}
+{% set feeds = craft.entries.section('taxonomy').id(settings.searchID) ??? null %}
+
+{% if feeds.count() %}
+
+    {## collect query parameters ##}
+    {% set searchParams = {
+        page  : craft.app.request.getParam('page') ??? craft.app.request.pageNum ??? 1,
+        filter: craft.app.request.getParam('f')    ??? settings.filter ??? feeds.one().slug,
+        query : craft.app.request.getParam('q')    ??? settings.query  ??? null,
+        limit : settings.limit
+    } %}
+
+    {## convert a contentFeed entry into a Craft Query object using a custom twig function
+        from: `craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php` ##}
+    {% set collectionQuery = getContentFeedQuery( settings.searchID, searchParams ) ??? [] %}
+
+    {## treat it like a search result index page ##}
+    {% set pageInfo = null %}
+    {# {% if not settings.requireQuery or searchParams.query %} #}
+        {% set pageInfo = sprig.paginate( collectionQuery, searchParams.page ) %}
+    {# {% endif %} #}
+
+    {## make sure the url stays updated when moving between pages ##}
+    {% set pushUrl  = ( searchParams.page > 1 ) ? "#{settings.entryUrl}/p#{searchParams.page}" : settings.entryUrl %}
+    {% set queryStr = { q: searchParams.query, f: searchParams.filter }|url_encode %}
+    {% do sprig.pushUrl( queryStr ? "#{pushUrl}?#{queryStr}" : pushUrl ) %}
+
+    {## output the search results ##}
+    <div s-results="sprig-{{settings.uuid}}" class="grid grid-cols-1 gap-10">
+
+        {% if settings.pagination == 'standardWithSearch' %}
+            <form method="get" action="{{ settings.entryUrl }}" class="max-w-3xl w-full">
+
+                <div class="flex flex-col justify-between sm:flex-row border border-slate-700">
+                    <input
+                        id="query-{{settings.uuid}}"
+                        name="q"
+                        type="search"
+                        value="{{searchParams.query}}"
+                        placeholder="Enter search term..."
+                        class="
+                            flex-grow
+                            px-4
+                            py-4
+                            sm:py-1
+                            max-w-[calc(100%_-_7rem)]
+                            text-black
+                        "
+                        sprig
+                        s-val:page="1"
+                        s-trigger="keyup changed delay:300ms"
+                    >
+                    <button class="button" sprig>Search</button>
+                    {{ hiddenInput('filter', searchParams.filter ) }}
+                </div>
+
+                {% if feeds.count() > 1 %}
+                    <div class="flex mt-3">
+                        <ul class="list-none m-0 p-0 flex justify-center gap-4">
+                            {% for group in feeds %}
+                                <li>
+                                    <a
+                                        sprig
+                                        s-val:filter="{{group.slug}}"
+                                        class="cTag cTag__{{ searchParams.filter != group.slug ? 'inactive' : 'active' }}"
+                                        href="{{ _self.urlWithQueryParams(
+                                            settings.entryUrl,
+                                            searchParams.page,
+                                            { q: searchParams.query, f: group.slug }
+                                        ) }}"
+                                    >{{ group.label ??? group.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </form>
+        {% endif %}
+
+        {% if pageInfo.pageResults ??? null %}
+
+            {% import "_layout/core/grids" as grids %}
+            {% from "_cards/base" import deck as renderDeck %}
+
+            {{ grids.generate(
+                renderDeck( pageInfo.pageResults, settings.cardLayout ),
+                settings.cardGrid
+            ) }}
+
+        {% else %}
+            {% if searchParams.query %}
+                <p><strong>Sorry</strong>, we could not match any results to your search.</p>
+            {% endif %}
+        {% endif %}
+
+        {{ include( '_components/navigation/pagination', {
+            settings    : settings,
+            pageInfo    : pageInfo,
+            searchParams: searchParams
+        }, withContext = false ) }}
+    </div>
+{% endif %}

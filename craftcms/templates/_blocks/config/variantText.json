@@ -1,0 +1,16 @@
+[{
+    "label": "Standard",
+    "value": "standard",
+    "settings" : {
+
+    }
+},{
+    "value": "knockout",
+    "label": "Knockout",
+
+    "settings" : {
+        "sectionClass" : "bg-theme-section py-16 px-10 @container -translate-y-16 -mb-16 relative mx-16",
+        "interspaceAbove": false,
+        "interspacePrevBottom": "xl"
+    }
+}]

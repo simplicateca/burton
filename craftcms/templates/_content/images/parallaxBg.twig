@@ -1,0 +1,37 @@
+{% set _base = {
+    images        : images ??? null,
+    imageClass    : "object-cover object-center h-full w-full relative z-10",
+    imageTransform: null,
+    imageFigure   : "absolute top-0 left-0 right-0 bottom-0 before:absolute before:content-[''] before:block before:top-0 before:left-0 before:right-0 before:bottom-0 before:bg-brown-900/70 before:z-20 z-10",
+    figureID      : null,
+    uuid          : create('craft\\helpers\\StringHelper').UUID()
+} %}
+
+{% set _base = _base|merge({ figureID: "parallax-#{_base.uuid}" }) %}
+
+{## merge `_base` into variables passed into the template  ##}
+{% set settings = ( settings is defined and settings is iterable ) ? _base|merge(settings) : _base %}
+
+{% embed '_content/images/base' %}{% endembed %}
+
+{% js %}
+    {% if settings.blockID and settings.figureID %}
+        window.waitForGlobal("app.gsap", function() {
+            app.gsap.fromTo('#{{settings.figureID}}', {
+                y: '0px',
+                scale: 1.0
+            }, {
+                y: '50%',
+                scale: 1.0,
+                ease: "linear",
+                scrollTrigger: {
+                    trigger: '#cScene{{settings.blockID}}',
+                    start: () => "top top",
+                    end: "bottom top",
+                    scrub: true,
+                    invalidateOnRefresh: true // to make it responsive
+                }
+            });
+        });
+    {% endif %}
+{% endjs %}
