@@ -34,7 +34,7 @@ permissions:
   - 'editimages:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
   - 'editpeerimages:3c05e593-d621-444e-8fb9-ddbb1b356a43' # Static Assets
   - 'editpeerimages:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
-  - 'editsite:34463b82-dd3f-441c-b9c6-59c351e847aa' # Alternate Region/Lang
+  - 'editsite:34463b82-dd3f-441c-b9c6-59c351e847aa'
   - 'replacefiles:3c05e593-d621-444e-8fb9-ddbb1b356a43' # Static Assets
   - 'replacefiles:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
   - 'replacepeerfiles:3c05e593-d621-444e-8fb9-ddbb1b356a43' # Static Assets

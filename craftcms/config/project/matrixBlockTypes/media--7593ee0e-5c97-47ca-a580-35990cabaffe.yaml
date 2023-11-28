@@ -128,7 +128,7 @@ fields:
     searchable: false
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1177246485
+      changedFieldIndicator: 2009835989
       columns:
         __assoc__:
           -
@@ -220,11 +220,9 @@ fields:
       allowUploads: true
       allowedKinds:
         - audio
-        - code
         - compressed
         - excel
         - json
-        - markdown
         - pdf
         - powerpoint
         - video

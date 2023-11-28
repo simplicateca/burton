@@ -11,6 +11,8 @@
 
 {% block card_action %}
     {% if card.item.url ??? null %}
-        <a href="{{ card.item.url }}" class="button">Continue Reading</a>
+        <div class="flex">
+            <a href="{{ card.item.url }}" class="button clickCover">Continue Reading</a>
+        </div>
     {% endif %}
 {% endblock %}

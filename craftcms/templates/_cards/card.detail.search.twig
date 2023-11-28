@@ -3,15 +3,16 @@
 {% set card_type = 'detail' %}
 
 {% block content %}
-    <div class="w-full max-w-5xl text-theme-foreground relative @container">
+    <div class="w-full max-w-5xl mx-auto text-theme-foreground relative @container">
         {{ block('card_headline') }}
         {{ block('card_summary') }}
+        {{ block('card_action') }}
     </div>
 {% endblock %}
 
-{% block action %}
+{% block card_action %}
     {% if card.item.url ??? null %}
-        <div>
+        <div class="pt-2">
             {{ tag( 'a', {
                 text: card.item.url,
                 href: url( card.item.url ),
@@ -23,10 +24,10 @@
 
 {% block card_summary %}
     {% import "_layout/core/markup" as markup %}
-    {{ markup.summaryRetainEmphasis( card.summary ??? null ) }}
+    <p class="html !mb-0">{{ markup.summaryRetainEmphasis( card.summary ??? null ) }}</p>
 {% endblock %}
 
 {% block card_summary_short %}
     {% import "_layout/core/markup" as markup %}
-    {{ markup.summaryRetainEmphasis( card.summary ??? null ) }}
+    <p class="html line-clamp-3 !mb-0">{{ markup.summaryRetainEmphasis( card.summary ??? null ) }}</p>
 {% endblock %}

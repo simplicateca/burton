@@ -37,8 +37,9 @@ return GeneralConfig::create()
 
     // aliases for s3 / object storage assets
     ->aliases([
-        '@assetsBaseUrl'   => implode("/", array_filter( [App::env('CDN_BASE'), App::env('CDN_FOLDER')] ) ),
-        '@assetsSubFolder' => App::env('CDN_FOLDER'),
+        '@cdn'    => App::env('CDN_FOLDER'),
+        '@web'    => App::env('CRAFT_WEB_URL'),
+        '@webroot'=> App::env('CRAFT_WEB_ROOT'),
     ])
 
     // Set the default week start day for date pickers (0 = Sunday, 1 = Monday, etc.)

@@ -1,0 +1,92 @@
+{% set feedIds    = feedIds|default() %}
+{% set settings   = settings|default() %}
+{% set pagination = pagination|default() %}
+{% set baseurl    = settings.entryUrl ??? siteUrl( craft.app.request.pathInfo ) %}
+
+{% set pageInfo = null %}
+{% set searchParams = {
+    page  : craft.app.request.getParam('page')|default(1),
+    filter: craft.app.request.getParam('f')|default(),
+    query : craft.app.request.getParam('q')|default(),
+    limit : limit|default()
+} %}
+
+
+{## convert a contentFeed entry into a Craft Query object using a custom twig function
+    from: `craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php` ##}
+{% if searchParams.query or not ( settings.requireQuery ??? null ) %}
+    {% set query    = feedIds ? getContentFeedQuery( feedIds, searchParams ) : null %}
+    {% set pageInfo = query   ? sprig.paginate( query, searchParams.page )   : null %}
+{% endif %}
+
+{% if pagination in [ 'standardWithSearch', 'filterByFeed' ] %}
+    <form method="get" action="{{ baseurl }}">
+        <div class="max-w-3xl w-full pb-10 flex flex-col gap-4 mx-auto">
+            {% if pagination in [ 'standardWithSearch' ] %}
+                {{ include( '_components/search-filter/filter.keyword', {
+                    isSprig   : true,
+                    params    : searchParams,
+                    settings  : settings,
+                    pagination: pagination,
+                }, withContext = false ) }}
+            {% endif %}
+
+            {{ include( '_components/search-filter/filter.feed', {
+                isSprig   : true,
+                feedIds   : feedIds,
+                params    : searchParams,
+                settings  : settings,
+                baseurl   : baseurl,
+                pagination: pagination,
+            }, withContext = false ) }}
+        </div>
+    </form>
+{% endif %}
+
+
+{## output the search results ##}
+<div id="sprigResults">
+
+    {% if pageInfo.pageResults ??? null %}
+
+        {% if searchParams.query %}
+            <div class="max-w-4xl mx-auto @container mb-8">
+                <p class="html larger text-center">
+                    {% if pageInfo.totalPages > 1 %}
+                        Showing <em>{{ pageInfo.first }}-{{ pageInfo.last }}</em> of <mark class="m1"><span>{{ pageInfo.total }}</span></mark> total matches…
+                    {% else %}
+                        {% if pageInfo.total == 1 %}
+                            Only <mark class="m1"><span>{{ pageInfo.total }}</span></mark> match found…
+                        {% else %}
+                            Found <mark class="m1"><span>{{ pageInfo.total }}</span></mark> matches…
+                        {% endif %}
+                    {% endif %}
+                </p>
+            </div>
+        {% endif %}
+
+        {{ include( settings.cardLoop ??? settings['cardLoop.default'] ??? '_blocks/loop.auto', {
+            items: pageInfo.pageResults,
+            settings: settings|default()
+        }, withContext = false  ) }}
+
+        {{ include( '_components/search-filter/pagination', {
+            isSprig   : true,
+            settings  : settings,
+            paginate  : pageInfo,
+            params    : searchParams,
+            baseurl   : baseurl,
+            pagination: pagination,
+        }, withContext = false ) }}
+
+    {% else %}
+        {% if searchParams.query %}
+            <div class="max-w-4xl mx-auto @container mb-8">
+                <p class="html larger text-center">
+                    <strong>Sorry</strong>, we could not find any matches for your search.
+                </p>
+            </div>
+        {% endif %}
+    {% endif %}
+
+</div>

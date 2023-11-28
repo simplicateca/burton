@@ -40,7 +40,7 @@ fieldLayouts:
             uid: 8ecb71c9-cf08-4a15-a9cc-6560a4a97919
             userCondition: null
             warning: null
-            width: 50
+            width: 75
           -
             elementCondition: null
             fieldUid: ca0addca-320c-4b2c-94c4-f063b00c270a # Formie form
@@ -52,7 +52,7 @@ fieldLayouts:
             uid: b700b263-06f3-4225-b41a-4228bb12245a
             userCondition: null
             warning: null
-            width: 50
+            width: 75
           -
             elementCondition: null
             fieldUid: cbe5ac85-220c-41d2-b80f-6b2f4b4635c3 # Navigation menu
@@ -64,7 +64,7 @@ fieldLayouts:
             uid: 3c4a4aca-574b-4dea-9af7-ae7e9d393d6f
             userCondition: null
             warning: null
-            width: 50
+            width: 75
           -
             elementCondition: null
             fieldUid: e509399b-03f5-43c0-98b1-23b9d3a0f27b # Code
@@ -76,7 +76,7 @@ fieldLayouts:
             uid: 3e57703b-8a6c-401f-923c-446ad7213def
             userCondition: null
             warning: null
-            width: 50
+            width: 75
           -
             elementCondition: null
             fieldUid: 4e6dab12-ff70-4db1-9095-aec90d712602 # Copy to introduce and support the Element
@@ -88,7 +88,7 @@ fieldLayouts:
             uid: 9c6b1041-1de6-465d-af7e-5d2c49b231cd
             userCondition: null
             warning: null
-            width: 50
+            width: 75
           -
             elementCondition: null
             fieldUid: 8ecf45da-7553-48ac-b52d-a45f8bc90317 # Background theme and colours
@@ -141,7 +141,7 @@ fields:
       showHtmlButtonForNonAdmins: true
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
-      uiMode: normal
+      uiMode: enlarged
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field

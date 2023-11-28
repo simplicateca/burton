@@ -61,13 +61,13 @@ fieldLayouts:
             userCondition: null
           -
             elementCondition: null
-            fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Type
+            fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Source
             instructions: null
-            label: 'Content Source'
+            label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: f952607c-f84c-46d7-a096-64ffcbdcfa45
+            uid: eb9dad16-960a-439e-830f-cf16a8dfe560
             userCondition: null
             warning: null
             width: 75
@@ -77,7 +77,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: simplicateca\referencefield\fields\conditions\ReferenceFieldConditionRule
-                  fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Type
+                  fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Source
                   operator: ni
                   uid: a76bc1ab-c69d-4691-8dcd-0a64c463a3e0
                   values:
@@ -101,7 +101,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: simplicateca\referencefield\fields\conditions\ReferenceFieldConditionRule
-                  fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Type
+                  fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Source
                   operator: ni
                   uid: 9d0766ac-e00a-42ce-9129-de55a931c886
                   values:
@@ -124,7 +124,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: simplicateca\referencefield\fields\conditions\ReferenceFieldConditionRule
-                  fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Type
+                  fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Source
                   operator: ni
                   uid: 648908ae-db25-4aeb-be7b-56181d950c3e
                   values:
@@ -148,7 +148,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: simplicateca\referencefield\fields\conditions\ReferenceFieldConditionRule
-                  fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Type
+                  fieldUid: 8088055c-4494-404b-8adf-8c9e45da9a85 # Content Source
                   operator: in
                   uid: 2a59f3fd-2c86-4e1a-9519-d0448ea270e1
                   values:
@@ -184,6 +184,9 @@ handle: contentFeed
 hasTitleField: true
 name: 'Content Feeds'
 section: 942cbdfb-d50d-4dcd-9032-4f483562d1dd # Taxonomies
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 3
 titleFormat: null
 titleTranslationKeyFormat: null

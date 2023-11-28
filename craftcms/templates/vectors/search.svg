@@ -1,5 +1,5 @@
 {% set _settings = {
-    class: "h-4 w-4 fill-currentColor"
+    class: "h-4 w-4 fill-current"
 }|merge(_context) %}
 
 <svg xmlns="http://www.w3.org/2000/svg" class="{{ _settings.class }}" viewBox="0 0 24 24">

@@ -8,8 +8,12 @@
 {## just the content builder ##}
 {% block default_main %}
     {{ block( 'mainTagOpen') }}
-    {% from "_blocks/core/builders" import content as buildContent %}
-    {{ buildContent( entry.contentBuilder.all() ??? null, 'fluidContainer' ) }}
+
+    {% block default_main_content %}
+        {% from "_blocks/core/builders" import content as buildContent %}
+        {{ buildContent( entry.contentBuilder.all() ??? null, 'fluidContainer' ) }}
+    {% endblock %}
+
     {{ block( 'mainTagClose' ) }}
 {% endblock %}
 
@@ -21,7 +25,6 @@
     {% from "_layout/core/markup"   import twoColumns as twoColumnLayout %}
     {% from "_blocks/core/builders" import content as buildContent,
                                            sidebar as buildSidebar %}
-
     {{ twoColumnLayout(
           buildContent( entry.contentBuilder.all() ??? null, 'innerColumn' ),
           buildSidebar( entry.sidebarBuilder.all() ??? null ),

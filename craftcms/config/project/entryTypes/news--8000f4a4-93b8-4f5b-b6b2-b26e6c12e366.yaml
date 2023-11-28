@@ -146,8 +146,11 @@ fieldLayouts:
         userCondition: null
 handle: news
 hasTitleField: true
-name: News
+name: 'News & Updates'
 section: 3721b4d6-42d5-41fc-b6e7-76204b42c91a # Articles
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 2
 titleFormat: null
 titleTranslationKeyFormat: null

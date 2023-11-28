@@ -1,0 +1,9 @@
+baseUrl: '@web/alt-site'
+enabled: '1'
+handle: alt
+hasUrls: true
+language: fr-CA
+name: Alternate
+primary: false
+siteGroup: 2c73aaff-d9e2-4142-94e8-2ce27f32e7bd # Craft CMS
+sortOrder: 2

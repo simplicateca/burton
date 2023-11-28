@@ -16,7 +16,7 @@ previewTargets:
         - '1'
 propagationMethod: custom
 siteSettings:
-  41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
+  94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
     enabledByDefault: true
     hasUrls: true
     template: sitebook/_entry

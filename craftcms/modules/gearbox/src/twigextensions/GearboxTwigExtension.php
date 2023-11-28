@@ -66,23 +66,25 @@ class GearboxTwigExtension extends AbstractExtension
         return ucfirst($val);
     }
 
-    public function getContentFeedQuery( $feedID, $settings ): EntryQuery
+
+    public function getContentFeedQuery( $feedID, $searchParams ): EntryQuery
     {
         // Get the feeds entry
         $feeds = Entry::find()->section('taxonomy')->id( $feedID ) ?? null;
         $firstFeed = $feeds->one() ?? null;
 
         // Collect query parameters
-        $filter = Craft::$app->request->getParam('f') ?? $settings['filter'] ?? $firstFeed->slug ?? null;
-        $query  = Craft::$app->request->getParam('q') ?? $settings['query'] ?? null;
+        $filter = Craft::$app->request->getParam('f') ?? $searchParams['filter'] ?? $firstFeed->slug ?? null;
+        $query  = Craft::$app->request->getParam('q') ?? $searchParams['query']  ?? null;
 
         // Get the search entry
+        $search = $firstFeed ?? null;
         $search = $feeds->collect()->firstWhere('slug', $filter) ?? $firstFeed ?? null;
 
         // Get content type, section, and entry type
-        $contentType = $search ? $search->contentType->reference() : null;
-        $section     = $contentType ? ( $contentType['section']   ?? null ) : null;
-        $entryType   = $contentType ? ( $contentType['entryType'] ?? null ) : null;
+        $contentSource = $search->contentSource ? $search->contentSource->reference() : null;
+        $section       = $contentSource ? ( $contentSource['section']   ?? null ) : null;
+        $entryType     = $contentSource ? ( $contentSource['entryType'] ?? null ) : null;
 
         // Get sort, redirect, and topics
         $sort     = $search ? $search->sort->value : null;
@@ -109,11 +111,13 @@ class GearboxTwigExtension extends AbstractExtension
             $orderBy = 'score';
         }
 
-        $limit = $settings['limit'] ?? 3;
+        $limit = $searchParams['limit'] ?? 3;
         $collectionQuery = $collectionQuery->orderBy($orderBy)->limit( $limit );
 
         if( $entryType ) {
             $collectionQuery = $collectionQuery->type( $entryType );
+        } else {
+            $collectionQuery = $collectionQuery->type(['not', 'contentFeed', 'privateTag', 'redirect', 'contentFragment', 'sidebarFragment']);
         }
 
         if( $topics ) {
@@ -124,9 +128,9 @@ class GearboxTwigExtension extends AbstractExtension
     }
 
 
-    public function getContentFeedResults( $feedID, $settings ): Array
+    public function getContentFeedResults( $feedID, $searchParams ): Array
     {
-        return $this->getContentFeedQuery( $feedID, $settings )->all() ?? [];
+        return $this->getContentFeedQuery( $feedID, $searchParams )->all() ?? [];
     }
 
 

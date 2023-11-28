@@ -1,47 +1,59 @@
 {## [Topic] Entry Type Base
  ------------------------------------------------------------------------------------ ##}
 {% extends "_layout/base" %}
+{% use "_layout/parts.main" %}
+{% use "_layout/parts.header" %}
 
 {## double check that we're a topic and not a content feed or private tag ##}
 {% if ( entry.type.handle ??? null ) != 'topic' %}
     {% header "HTTP/1.0 404 Not Found" %}
 {% endif %}
 
-{# {% block page %}{% endblock %} #}
-
-{# {% block beforeContent %}
-    {% if entry.summary %}
-        <div class="container @container">
-            {{ processRichHtml( entry.summary ).text }}
-        </div>
-    {% endif %}
+{% block page_main %}
+    {{ block( 'default_main') }}
 {% endblock %}
 
-{% block afterContent %}
-    {% set taggedArticles = craft.entries()
-        .section('articles')
-        .relatedTo(entry)
-        .all() %}
+{% block default_main_content %}
+    {% if entry.contentBuilder.one() %}
+        {% from "_blocks/core/builders" import content as buildContent %}
+        {{ buildContent( entry.contentBuilder.all() ??? null, 'fluidContainer' ) }}
+    {% else %}
+        {% set query = craft.entries()
+            .section('articles')
+            .relatedTo( entry )
+            .limit(4)  %}
 
-    {% if taggedArticles %}
-        <div class="container py-16">
-            {% embed 'topBottom' %}
-                {% block cell1Body %}
-                    <h2>Articles related to {{ entry.title }}</h2>
-                {% endblock %}
+        {% paginate query as pageInfo, pageEntries %}
 
-                {% block cell2Body %}
-                    {% embed '_layout/core/micro/gridCols3' %}
-                        {% block items %}
-                            {% for item in taggedArticles %}
-                                {{ include('_cards/item/basic', {
-                                    entry: item
-                                }, withContext = false ) }}
-                            {% endfor %}
-                        {% endblock %}
-                    {% endembed %}
-                {% endblock %}
-            {% endembed %}
-        </div>
+        {% import "_blocks/core/builders" as blocks %}
+        {{ blocks.builder(
+            [{
+              source: 'entries',
+              entries: pageEntries,
+              settings: {
+                  section    : 'pages',
+                  builder    : 'content',
+                  blockType  : 'collection',
+                  theme      : 'standard',
+                  variant    : 'auto',
+                  cardGrid   : 'stacked2',
+                  interspace : 'base',
+                  container  : 'fluidContainer',
+                  microLayout: 'topBottom',
+                  microFooterHtml: include( '_components/search-filter/pagination', { paginate: pageInfo } )
+              }
+            }],
+            'content'
+        ) }}
     {% endif %}
-{% endblock %} #}
+
+{% endblock %}
+
+{% block page_top %}
+    {{ block( 'default_top') }}
+{% endblock %}
+
+{% block headerSubtitle %}
+    {% set subtitle = entry.summary %}
+    {{ parent() }}
+{% endblock %}

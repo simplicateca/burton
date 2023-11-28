@@ -151,7 +151,7 @@ fieldLayouts:
         name: Content
         uid: 259afe9f-bdf2-48fc-bb4b-23537e764dfa
         userCondition: null
-fs: contentAssets
+fs: contentUploads
 handle: contentAssets
 name: Uploads
 sortOrder: 0

@@ -74,4 +74,8 @@
         </div>
     {% endif %}
 
+    {% if block.settings.microFooterHtml ??? null %}
+        {{ block.settings.microFooterHtml | raw }}
+    {% endif %}
+
 {% endapply %}{% endblock %}

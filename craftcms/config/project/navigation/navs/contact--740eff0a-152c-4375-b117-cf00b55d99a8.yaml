@@ -173,9 +173,9 @@ permissions:
     enabled: '1'
 propagationMethod: all
 siteSettings:
-  41b193c3-f554-4c48-8c8a-7ac2645f083f: # Main Site
+  34463b82-dd3f-441c-b9c6-59c351e847aa:
     enabled: true
-  34463b82-dd3f-441c-b9c6-59c351e847aa: # Alternate Region/Lang
+  94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
     enabled: true
 sortOrder: 4
 structure:

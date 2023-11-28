@@ -146,8 +146,11 @@ fieldLayouts:
         userCondition: null
 handle: blog
 hasTitleField: true
-name: 'SEO / Blog'
+name: 'Insights & Ideas'
 section: 3721b4d6-42d5-41fc-b6e7-76204b42c91a # Articles
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

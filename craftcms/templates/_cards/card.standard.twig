@@ -1,8 +1,6 @@
 {% extends '_cards/base' %}
 {% set card_template = _self %}
 {% set card_type = 'summary' %}
-{% use "_cards/parts.summaries" with summary_truncated as card_summary %}
-{% use "_cards/parts.actions"   with action_modal      as card_action  %}
 
 {% block content %}
     <div class="flex flex-col h-full gap-2 bg-theme-backgroundOff relative">

@@ -62,11 +62,15 @@
 
 
 {% block special_siteSearch %}
-    {{ sprig( '_blocks/loop.contentFeedIndex', {
-        settings  : block.settings,
-        limit     : block.limit ??? null,
-        pagination: block.pagination.value ??? null,
-        searchID  : block.feeds.ids() ??? block.feeds ??? null,
+    {{ sprig( '_blocks/loop.searchResults.sprig', {
+        settings  : block.settings | merge({
+            cardGrid    : 'fixed1',
+            cardLayout  : 'detail.search',
+            requireQuery: true,
+        }),
+        limit     : 8,
+        feedIds   : block.feeds.ids() ?? block.feeds ??? null,
+        pagination: 'standardWithSearch',
     }) }}
 {% endblock %}
 

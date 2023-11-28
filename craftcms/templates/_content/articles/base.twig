@@ -2,3 +2,39 @@
  ------------------------------------------------------------------------------------ ##
  ------------------------------------------------------------------------------------ ##}
 {% extends "_layout/base" %}
+{% use "_layout/parts.header" %}
+
+{% block page_top %}
+    {{ block( 'default_top' ) }}
+{% endblock %}
+
+{% block headerBreadcrumb %}
+
+    {## rebuild the breadcrumbs for articles ##}
+    {% set crumbs = [] %}
+    {% for crumb in craft.navigation.breadcrumbs() ??? null %}
+        {% if not crumb.isElement %}
+            {% set parentPage = craft.entries.section('pages').slug('articles').one() %}
+            {% set crumb = not parentPage ? crumb : {
+                title       : parentPage.title,
+                url         : parentPage.url,
+                segment     : crumb.segment,
+                isElement   : true,
+                element     : parentPage,
+                elementId   : parentPage.id,
+                elementType : "craft\elements\Entry",
+                link        : tag( 'a', { href: parentPage.url, text: parentPage.title } )
+            } %}
+        {% endif %}
+
+        {% if crumb.isElement %}
+            {% set crumbs = crumbs|merge( [ crumb ] ) %}
+        {% endif %}
+    {% endfor %}
+
+    {% import "_layout/core/containers" as containers %}
+    {{ containers.wrap(
+        include( '_components/navigation/breadcrumb', { crumbs: crumbs } ),
+        'fluidContainer'
+    ) }}
+{% endblock %}

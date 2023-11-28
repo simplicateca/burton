@@ -58,11 +58,11 @@
     },
 
     {
-        "label": "All Primary Site Content",
+        "label": "Primary Content",
         "value": "siteSearch",
         "reference" : {
             "note" : "Search only Articles + Pages"
         },
-        "section": ["articles", "pages"]
+        "section": ["articles", "pages", "taxonomy"]
     }
 ]

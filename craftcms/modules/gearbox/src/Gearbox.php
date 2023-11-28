@@ -17,7 +17,6 @@ use craft\events\RegisterTemplateRootsEvent;
 use craft\events\RegisterUserPermissionsEvent;
 use craft\events\TemplateEvent;
 use craft\services\UserPermissions;
-use craft\redactor\Field AS RedactorField;
 use craft\web\View;
 
 use craft\elements\Entry;
@@ -33,6 +32,7 @@ use craft\base\Element;
 use craft\events\ModelEvent;
 use craft\helpers\ElementHelper;
 
+use craft\redactor\Field AS RedactorField;
 use nystudio107\seomatic\helpers\Text as SeoMaticTextHelper;
 use modules\gearbox\helpers\OpenAiHelper as OpenAiHelper;
 
@@ -201,8 +201,6 @@ class Gearbox extends Module
     {
         Event::on(Entry::class, Entry::EVENT_REGISTER_SOURCES, function(RegisterElementSourcesEvent $event) {
 
-            $singlesSource = null;
-
             if( $event->context == 'modal' ) { return $event->sources; }
 
             $newSources = [];
@@ -210,12 +208,6 @@ class Gearbox extends Module
 
                 $sectionType  = $source['data']['type'] ?? null;
                 $sectionId    = $source['criteria']['sectionId'] ?? null;
-                $sourceKey    = $source['key'] ?? null;
-
-                if( ( $sourceKey ?? null ) == 'singles' ) {
-                    $singlesSource = $source;
-                    continue;
-                }
 
                 if( !is_int( $sectionId ) ) {
                     $newSources[] = $source;
@@ -232,16 +224,40 @@ class Gearbox extends Module
                 $children = [];
                 foreach( $entryTypes AS $type ) {
 
-                    $typeSource = $source;
-                    $typeSource['key'] = $source['key'] . ':' . $type->handle;
-                    $typeSource['label'] = $type->name;
-                    $typeSource['criteria']['typeId'] = $type->id;
+                    $typeSource = [
+                        'type'  => 'custom',
+                        'label' => $type->name,
+                        'key'   => $source['key'] . ':' . $type->handle,
+                        'data'  => [
+                            'handle'     => $type->section->handle,
+                            'entry-type' => $type->handle,
+                        ],
+                        'criteria' => [
+                            'sectionId' => $source['criteria']['sectionId'],
+                            'editable'  => $source['criteria']['editable'],
+                            'typeId'    => $type->id,
+                        ],
+                        'condition' => [
+                            'class' => 'craft\elements\conditions\entries\EntryCondition',
+                            'conditionRules' => [[
+                                'class'    => 'craft\elements\conditions\entries\SectionConditionRule',
+                                'operator' => 'in',
+                                'uid'      => '',
+                                'values'   => [$type->section->uid]
+                            ],[
+                                'class'    => 'craft\elements\conditions\entries\TypeConditionRule',
+                                'operator' => 'in',
+                                'uid'      => '',
+                                'values'   => [$type->uid]
+                            ]],
+                        ],
+                        'elementType'     => 'craft\elements\Entry',
+                        'fieldContext'    => 'global',
+                        'defaultSort'     => $source['defaultSort'],
+                        'tableAttributes' => $source['tableAttributes'],
+                    ];
 
                     $children[] = $typeSource;
-                }
-
-                if( $sourceKey == 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f' && $singlesSource ) {
-                    $children[] = $singlesSource;
                 }
 
                 if( !empty( $children ) ) {
@@ -254,5 +270,4 @@ class Gearbox extends Module
             $event->sources = $newSources;
         });
     }
-
 }

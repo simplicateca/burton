@@ -1,9 +1,20 @@
-dateModified: 1700597981
+dateModified: 1701112431
 elementSources:
   craft\elements\Entry:
     -
       heading: 'Primary Content'
       type: heading
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # Articles
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - link
+      type: native
     -
       defaultSort:
         - structure
@@ -13,19 +24,6 @@ elementSources:
       tableAttributes:
         - postDate
         - expiryDate
-        - link
-        - type
-      type: native
-    -
-      defaultSort:
-        - postDate
-        - desc
-      disabled: false
-      key: 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # Articles
-      tableAttributes:
-        - type
-        - 'field:772247d2-d67e-40f2-a243-6e6eca55c5f5' # Topic/Theme/Tag
-        - postDate
         - link
       type: native
     -
@@ -40,19 +38,6 @@ elementSources:
       tableAttributes:
         - postDate
         - expiryDate
-        - author
-        - link
-      type: native
-    -
-      defaultSort:
-        - postDate
-        - desc
-      disabled: false
-      key: 'section:3552382f-ca3b-44ba-95f4-2be9f7773370' # Profiles
-      tableAttributes:
-        - postDate
-        - expiryDate
-        - author
         - link
       type: native
     -
@@ -64,7 +49,6 @@ elementSources:
       tableAttributes:
         - postDate
         - expiryDate
-        - author
         - link
       type: native
     -
@@ -74,23 +58,20 @@ elementSources:
       disabled: false
       key: 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
       tableAttributes:
-        - type
-        - 'field:772247d2-d67e-40f2-a243-6e6eca55c5f5' # Topic/Theme/Tag
+        - postDate
+        - expiryDate
         - link
       type: native
-    -
-      heading: 'Meta & System'
-      type: heading
     -
       defaultSort:
         - postDate
         - desc
       disabled: false
-      key: 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+      key: 'section:3552382f-ca3b-44ba-95f4-2be9f7773370' # Profiles
       tableAttributes:
-        - type
-        - uri
-        - 'field:16ea4eb8-377b-4740-955d-89f60729fce4' # Color
+        - postDate
+        - expiryDate
+        - link
       type: native
     -
       defaultSort:
@@ -101,7 +82,17 @@ elementSources:
       tableAttributes:
         - postDate
         - expiryDate
-        - author
+        - link
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+      tableAttributes:
+        - postDate
+        - expiryDate
         - link
       type: native
     -
@@ -111,8 +102,8 @@ elementSources:
       disabled: false
       key: 'section:fdb77561-cbd1-4a4e-a2a5-eb559a5361cb' # Sitebook
       tableAttributes:
-        - dateUpdated
-        - revisionCreator
+        - postDate
+        - expiryDate
         - link
       type: native
     -
@@ -127,25 +118,14 @@ elementSources:
         - expiryDate
         - link
       type: native
-    -
-      heading: ''
-      type: heading
 email:
-  fromEmail: $SMTP_SYSTEM_ADDRESS
-  fromName: $SMTP_SENDER_NAME
-  replyToEmail: $SMTP_REPLYTO_ADDRESS
-  template: _layouts/systemEmail.twig
-  transportSettings:
-    host: $SMTP_HOSTNAME
-    password: $SMTP_PASSWORD
-    port: $SMTP_PORT
-    useAuthentication: $SMTP_REQUIRE_AUTH
-    username: $SMTP_USERNAME
-  transportType: craft\mail\transportadapters\Smtp
+  fromEmail: craft-admin@example.com
+  fromName: 'Craft CMS'
+  transportType: craft\mail\transportadapters\Sendmail
 fs:
-  contentAssets:
+  contentUploads:
     hasUrls: true
-    name: Uploads
+    name: 'Content Uploads'
     settings:
       bucket: $S3_BUCKET
       contentDisposition: ''
@@ -154,15 +134,22 @@ fs:
       keyId: $S3_KEY
       region: $S3_REGION
       secret: $S3_SECRET
-      subfolder: '@assetsSubFolder/uploads'
+      subfolder: '@cdn/content'
     type: vaersaagod\dospaces\Fs
     url: $CDN_BASE
-  localAssets:
+  private:
     hasUrls: false
-    name: 'Local Assets'
+    name: Private
     settings:
-      path: '@root/local-assets'
-    type: craft\fs\Local
+      bucket: $S3_BUCKET
+      contentDisposition: ''
+      endpoint: $S3_ENDPOINT
+      expires: ''
+      keyId: $S3_KEY
+      region: $S3_REGION
+      secret: $S3_SECRET
+      subfolder: '@cdn/private'
+    type: vaersaagod\dospaces\Fs
     url: null
   staticAssets:
     hasUrls: true
@@ -175,163 +162,88 @@ fs:
       keyId: $S3_KEY
       region: $S3_REGION
       secret: $S3_SECRET
-      subfolder: '@assetsSubFolder/static'
+      subfolder: '@cdn/static'
     type: vaersaagod\dospaces\Fs
     url: $CDN_BASE
 meta:
   __names__:
-    0a39dfec-64a9-4ad4-98a8-f27aed7fbcd2: 'Intro Text' # Intro Text
     0ad703e2-37a9-478e-9ad4-b6b00485da31: Text # Text
     0b3f350c-7d90-4fe9-b1f9-739b0696f280: 'Page Extras' # Page Extras
-    0bcee758-a660-4162-8172-61eb22e388b1: Text # Text
-    0c63171d-538b-424b-90be-b733f52f2326: Test1 # Test1
     0d222dec-052d-44e2-b502-e9e1109f695d: Text # Text
-    0d2936c9-42b4-467f-9004-678230db8291: Background # Background
     0dabdba1-b0ed-4220-8bfd-115e5127ee42: 'Background theme and colours' # Background theme and colours
     0e2362da-4175-4b8f-a6f7-d881f03be73e: 'Where are the Collection items located?' # Where are the Collection items located?
     0f144f04-bdb4-4ad8-9279-376e39af170e: 'Standard (Single Column)' # Standard (Single Column)
     0f975294-dda3-4007-bbc3-3991fb0d15b9: Interspace # Interspace
-    0ff0357f-b500-4e0b-8e70-4be44829bed8: 'Anchor Link' # Anchor Link
-    1a73a849-2233-4157-a6bf-b59605d0f83c: 'Sort order' # Sort order
     1a28951d-82d5-47da-8ec8-ab405c40e0b8: 'Background theme and colours' # Background theme and colours
-    1a985008-f76e-481c-8f5b-0d30aec5998f: Variant # Variant
     1aa226f6-fbd8-4cb9-94b9-26bca8299a04: Theme # Theme
     1acf385f-ccfd-46ca-a526-91115dad48a5: Variant # Variant
     01bb381e-2417-4ee8-8473-40d48d27f2e7: Interspace # Interspace
-    1bd5ff27-b43b-4768-8fdd-170cf3a12f81: 'Anchor Link' # Anchor Link
     1cc41dda-2e96-4e16-967f-c1e9c567ad99: 'Card design' # Card design
     1d242d6f-f863-4979-b2af-bb1da5c2aee2: 'Copy to introduce and support the Image' # Copy to introduce and support the Image
-    1da11484-e4d8-4414-9b03-6dc1be10a931: Spacing # Spacing
     1da13089-e303-46d0-930f-aefd062df474: 'Standard w/ Sidebar' # Standard w/ Sidebar
     1ddd814c-a3f1-4689-bb67-33d04ad8307a: Headline # Headline
-    1edf3767-b37f-430e-8ffd-4bd1a3b9f478: 'Anchor Link' # Anchor Link
     1f910dd9-3b38-45b3-9b88-d01515f45a0c: 'Search navigation' # Search navigation
-    1fcfe5f1-d6bb-41d8-a50a-14c2998b0b66: 'Total results to return' # Total results to return
     2a64e6bd-a23b-4826-bc19-829c037e6e39: Widget # Widget
+    2c73aaff-d9e2-4142-94e8-2ce27f32e7bd: 'Craft CMS' # Craft CMS
     2d9e094a-7b59-4560-841c-138c5391fe7c: Interspace # Interspace
     2d27e08b-61f3-47ca-8a0a-e69fa2b1a226: 'Sidebar Fragments' # Sidebar Fragments
     2dd114a5-aaaa-4e4a-872d-7a61d224b0cb: 'Content Fragments' # Content Fragments
-    2e0671a7-eba0-42c5-a5ab-2b30a6fc1bf6: Layout # Layout
     3a8b6d9d-1ff5-4c4d-ade0-b43673ff5960: 'Reusable Bits' # Reusable Bits
-    3abe1fa4-77c1-4d66-a3da-ad8dc475b818: Headline # Headline
-    3b748353-8f9a-49de-9662-ee18c32578e3: Text # Text
     3be366bf-8e5e-4f28-8502-7ebf1d83e26e: 'Reference Fields' # Reference Fields
     3c05e593-d621-444e-8fb9-ddbb1b356a43: 'Static Assets' # Static Assets
-    3d132a28-a031-453f-8dcf-7c2f939cb34a: Button # Button
-    4bedd98c-1f69-4364-b00a-c104f29b836c: 'Number Result' # Number Result
-    4cef665b-8759-4bd2-af57-d2867d7447d3: Button # Button
     4d6046b4-d831-4f76-9de0-b7e11ac0fd78: 'Layout Variant' # Layout Variant
     4e1fbf94-015b-4a5b-880a-8e7051457536: Text # Text
     4e6dab12-ff70-4db1-9095-aec90d712602: 'Copy to introduce and support the Element' # Copy to introduce and support the Element
-    4ebdb729-ea5a-4ff4-b10f-e4b2d0da2292: Entry # Entry
     4f4fd272-518d-4ece-885a-b3912bcd5eff: Limit # Limit
     4f92b127-8107-4e42-b5d8-98c09fe30f97: 'Local assets' # Local assets
-    4f595261-8437-4ec8-918c-d02f09238a1c: Edges # Edges
     4fa97a99-7fb7-479d-aa34-e020e16ab4b8: 'Text (Double)' # Text (Double)
-    5ad1a48a-0387-4098-89e7-bf69eed8508e: 'Layout Variations' # Layout Variations
-    5af7b832-6533-4a17-8189-4cb4f8a8f712: 'Include Pagination?' # Include Pagination?
-    5bcbe5df-4160-4a4f-9920-b80fcb5ea72d: Button # Button
-    5c438d3a-ab99-4c94-9e0b-39ddb3e3100f: Buttons # Buttons
     5de1b0db-922b-408d-a23e-428e92dc0cc0: Image # Image
-    5e5e8708-727d-4a33-bb19-a9088ffb3345: Footer # Footer
     5e314e21-51d6-40e9-b3c3-711755cfe127: Media # Media
     5f8fc242-fe03-4416-9cd3-f32841e4b6ca: Widget # Widget
-    05fb8aa2-0c98-4cee-93c3-5ad2f2709822: 'Anchor Link' # Anchor Link
-    5ff7eb60-d8c3-46aa-812a-d1e865a3f872: Eyebrow # Eyebrow
     6a1ab78a-ce1d-4e06-944f-7fa172aaa06a: Text # Text
     6b7d0e03-182d-44ba-a6ef-08930a4253e1: 'Private Tags' # Private Tags
     6b671614-b4b6-4e0b-9aca-a007b289b197: Standard # Standard
     6bd61b45-415d-4702-8b93-c734e25ed41e: Subhead # Subhead
-    6c74006c-0a40-4ee2-8129-d384c43b0f37: Assets # Assets
-    6cf35dcf-8c52-416d-8ce6-736d91b93f74: Coverage # Coverage
     6f041ff5-12b3-44d7-8efe-5d70ddc8dbb0: URL # URL
-    6f23d0a6-104c-41be-8d66-f5e9a9a260ac: Background # Background
     6fe06c51-450b-43b8-8ff4-88f896048fd2: 'Limit to... ?' # Limit to... ?
     07a0012a-4bdf-4aaa-8415-bbe06adaf62c: __blank__ # __blank__
-    7b0a973f-bff0-4f46-bfb0-b6a50c8fe28a: 'Layout Variations' # Layout Variations
-    7b71f9f9-edbb-45b7-80c8-3d8bba143155: 'Title Style' # Title Style
     7b72b671-dcdc-49b2-95cd-44a8e8be7cad: 'Background theme and colours' # Background theme and colours
-    7ee37099-f386-42e2-b4fa-2442db13c547: Background # Background
-    07fd881e-0862-439b-a7f3-7232454c1947: 'Layout Variations' # Layout Variations
     8c9174b7-2c31-491e-a3f9-0374374c967c: 'Landing Pages' # Landing Pages
     8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Special # Special
-    8d76450d-4425-43d1-a9eb-b151c3cae1d0: Layout # Layout
     8ecf45da-7553-48ac-b52d-a45f8bc90317: 'Background theme and colours' # Background theme and colours
-    8eee0057-f0e3-4674-8fd8-6eae3cc9ae0d: Variant # Variant
-    8fb8abb9-c8de-487c-ae92-012e8f094ca2: Background # Background
     9a98ee26-bff8-4ae4-b942-9a367fca906d: Variant # Variant
     9a818c17-ad1d-488d-945a-777b6b8b702f: 'Entries in this Collection' # Entries in this Collection
-    9bc3780c-8a26-4b34-964e-9afe3f249654: 'Filter by Topic' # Filter by Topic
     9d4f8876-987f-46fc-9042-aaf824a7131d: 'Content layout and positioning' # Content layout and positioning
-    9d81e4ce-5846-4157-aebc-c26abc01d16e: 'Has Search?' # Has Search?
     9d712dc3-2d54-4b21-bbc3-251dad2d4dc9: Default # Default
-    9e4fa41f-fd14-4cd9-bc39-6ace1e57fe5c: 'External asset URLs' # External asset URLs
-    09e29257-428d-40f2-81a3-c594a739de68: Order # Order
-    9f0a0dc0-db3f-49d5-9656-b61ad0d5c452: 'Filter by Topic' # Filter by Topic
     10bfd69c-1702-4ad8-9f1d-db4e1a00aa53: Theme # Theme
     12ebd69f-28fa-42bb-ae95-8ff3d3eb5135: Assets # Assets
-    13d8c1ff-fb5e-44df-935d-fc33f1b35f6e: 'MP4 File' # MP4 File
     14d7d858-e4eb-4c44-90bc-a606a5a2372a: Hyperlink # Hyperlink
     14fd2961-f771-44f1-9b9c-aede9b59a565: 'Assets in this Collection' # Assets in this Collection
     16ea4eb8-377b-4740-955d-89f60729fce4: Color # Color
-    20aa7fd2-2f1f-4b3f-b505-a14c1c3cc164: Eyebrow # Eyebrow
-    20c62722-b003-461f-a9e8-763b2a9cbc21: 'How do you want to pick  which entries to embed?' # How do you want to pick  which entries to embed?
     26abec17-a1be-4c82-90e1-f6d48f7f4fb0: 'Style variation' # Style variation
     26f7dca6-d051-4598-8236-34d1403ab36c: Theme # Theme
     29ded7b8-e4a1-43ce-b030-eac97433cb97: 'Reusable Bits' # Reusable Bits
-    29f0f7bf-a7d4-4015-9ea2-cfd8f1530b1b: 'Has Search?' # Has Search?
-    29f157fc-9918-4177-bcd3-55c2c5c9a38f: Text # Text
     30b5253e-1f74-41f3-b484-e6c82e3210d5: 'Content layout and positioning' # Content layout and positioning
     32cc7e71-1196-4abe-a2b2-b9479600a266: 'Header - Primary' # Header - Primary
     34c8b184-a3df-4101-9525-d2c4a65aa9cb: Layout # Layout
-    38b98344-6260-45e3-92ea-d455cfa4afe1: Eyebrow # Eyebrow
-    39b3d1e6-0464-44f3-803e-8bf88da46270: Spacing # Spacing
     41a2bc31-369b-42aa-a92c-9cb6bf48b741: Message # Message
-    41b193c3-f554-4c48-8c8a-7ac2645f083f: 'Main Site' # Main Site
-    047acefc-818d-4df0-83c5-d8b5a1ebf27c: 'Asset Format' # Asset Format
-    47eb16b4-6839-4e1c-8feb-5808b3a74e6a: 'Alert Bar' # Alert Bar
     48ca3c9e-27f4-4fa0-aa40-711aa5baa658: 'Style variation' # Style variation
-    51b4cdd8-a3aa-47f5-bbb3-f01ce199d3d8: 'Title Style' # Title Style
-    053bfa49-6de1-439c-8e91-d2b6169eb5e7: Headline # Headline
-    54aa6fb8-4a59-4704-9956-2c47eb2f5ceb: 'Anchor Link' # Anchor Link
-    055d3887-062f-4180-bac4-65a9670f0440: Variant # Variant
     56c5070f-cf62-458c-9dc1-f775ee6f2380: 'Content layout and positioning' # Content layout and positioning
     60a99a1b-8081-4b05-959f-fe916ff2b96e: 'Footer - Legal Menu' # Footer - Legal Menu
-    61d7345d-34c5-4c93-8ae0-9f9b5f3b166b: Text # Text
-    67a0e610-9765-4200-9b9f-e59e4130f652: Background # Background
-    68b93e4b-8d64-4598-b7c7-7e34609198b2: Identifier # Identifier
-    69a283b4-6d7c-4669-895c-8474a32201f8: 'Limit / Per Page' # Limit / Per Page
     69c2d7dc-3df8-4df1-a444-d2ae376da00c: Text # Text
-    72b4a2cb-e557-468e-ac08-22f48060f192: Eyebrow # Eyebrow
-    074ac1b8-ff0c-4993-a607-0b94b74cc84a: 'Customize Buttons' # Customize Buttons
-    76d6a612-0d42-461e-9c00-05cac551f775: 'Custom Cover Image' # Custom Cover Image
     77f5e257-4db0-43d7-a465-e8cdc3915572: Fragment # Fragment
-    80ab6db6-b74b-4300-9d18-5f3a1f3eed59: Lightswitch # Lightswitch
-    83bbca72-25f6-496c-b095-52dcdf21323d: 'Room Light' # Room Light
     85a35bf9-39c4-475c-9abf-7839f75bb8e6: 'Content feed' # Content feed
-    86da4c73-7a95-496d-9abe-cd3807a11ead: 'Layout Variations' # Layout Variations
     87c55206-b434-47f6-844d-1d8664946c2b: Layout # Layout
-    088d28b2-b2cf-4b3d-8741-de59b3784d07: 'Show Related?' # Show Related?
-    183c2169-29b6-48fe-8dcd-c8b4945c8abd: 'Table Result' # Table Result
-    187bd4a1-b799-4996-9fbc-c74c2d8b7ce0: 'Background Image' # Background Image
     213c9175-81d2-4141-8993-904e59925583: Collection # Collection
-    237ef9a6-2022-4b3a-8925-f51a79590775: Layout # Layout
-    241f9726-2434-411d-bd66-29e9593ef5cb: 'Layout Variations' # Layout Variations
-    267c2f19-de6c-4986-a2fa-d0a8b2a5f969: Headline # Headline
-    267e0240-5cf1-4d41-b3ed-86fb8328dc1a: Background # Background
     295fe400-600f-4a2a-9cd8-3f2c174e08b3: 'Protected Elements' # Protected Elements
     429b6006-ddef-461f-be49-1c0e3ca3dd2e: 'Asset source' # Asset source
-    429f5ad0-34e7-4487-9035-39073e8ffcb7: 'Alternate Card' # Alternate Card
     468a14eb-fb24-4d42-85ea-51a108f68949: Layout # Layout
-    479c17fb-3144-43b4-9417-f940264f6a71: 'Title Style' # Title Style
     481eb25d-9439-4ee3-85c2-e1a0e6d62d11: Redactor # Redactor
-    500d3539-5d02-4c1a-97ba-890be8854857: 'Grid Columns' # Grid Columns
     514c0347-c4dd-4b9a-9979-452fc7db526e: 'Content Feeds' # Content Feeds
     0553ed4a-8d9c-42be-855a-82fb23a24aac: Theme # Theme
     577dd7e1-eea7-4b11-9b21-1f402770e968: Theme # Theme
     595b273f-27a3-4469-bbee-7a14141cadab: 'Text (Intro)' # Text (Intro)
     606e97ed-f3fc-481c-9cfb-980f44a2b807: 'Custom Bits' # Custom Bits
-    625a205f-5664-4223-840b-ec4c4e73b1bb: Limit # Limit
     650e7d1d-63e5-42f9-b3ab-4febfb502723: 'Primary Pages' # Primary Pages
     740eff0a-152c-4375-b117-cf00b55d99a8: 'Footer - Contact' # Footer - Contact
     780c9942-bfd5-4d94-82c7-5b323a47f5d4: Default # Default
@@ -340,71 +252,45 @@ meta:
     887c7e34-0b1f-40b8-b330-27d660a47d50: Interspace # Interspace
     912adfc2-2bca-47f1-9da2-f1ed5514623c: 'Topics & Themes' # Topics & Themes
     942cbdfb-d50d-4dcd-9032-4f483562d1dd: Taxonomies # Taxonomies
-    0976e4cf-6b48-45af-9477-99ac396436ae: Buttons # Buttons
     986a0a6d-c09c-4a78-b259-2190a004b305: Redirect # Redirect
     1239b2c2-2836-44d6-ae4a-a88cf2283493: Images # Images
     3721b4d6-42d5-41fc-b6e7-76204b42c91a: Articles # Articles
     4615f7fe-de67-4be4-8d0e-ad7b2e14c059: 'System Pages' # System Pages
-    5252a6fb-4088-4f59-980a-0d5f910ab392: Eyebrow # Eyebrow
     5347a201-6da8-47ff-bc5b-20a0dc63d44e: 'Items in this collection' # Items in this collection
-    5491cd12-3474-47e4-afb0-8239bbfe9dd9: 'Anchor Link' # Anchor Link
-    6337ada0-e669-440b-8463-48f5c021f9b1: Navigation # Navigation
     6788be2a-03be-4a82-8c88-9e8a1af1acf4: Preset # Preset
-    7574f2c5-ebea-4c7c-9efb-fabe0fc82275: 'Title Style' # Title Style
     7593ee0e-5c97-47ca-a580-35990cabaffe: Media # Media
-    7927f7ad-975c-4d46-948a-6bba692a6714: 'Table Test' # Table Test
-    8000f4a4-93b8-4f5b-b6b2-b26e6c12e366: News # News
+    8000f4a4-93b8-4f5b-b6b2-b26e6c12e366: 'News & Updates' # News & Updates
     8006fa4e-0481-4f7c-971a-f92d9bf871d1: 'External assets' # External assets
-    8196fcb8-fa8a-48b2-a62d-8163c8bdc14a: 'Button Text' # Button Text
-    8217fe05-a738-46ef-940d-19f1348f18d6: Background # Background
     8384d65a-1c88-4960-8c6e-7091bf390c9d: 'External embeds' # External embeds
-    8749fe2b-aa88-4c5b-a8d6-01dd11b919b9: Button # Button
-    9767bce4-dc9a-4cba-a7d9-3096b82bbac6: Button # Button
-    9844b6dc-6dbb-4203-9eec-5507fcee91f7: 'Limit / Per Page' # Limit / Per Page
     17687c83-d165-4736-b0ae-59020efcb749: 'Local assets' # Local assets
     20618b1a-5f20-4479-8fa4-842e4def10c7: 'Where are the media files located?' # Where are the media files located?
-    34463b82-dd3f-441c-b9c6-59c351e847aa: 'Alternate Region/Lang' # Alternate Region/Lang
-    041164a1-2d58-4fa0-9493-2de14aabe9ea: Order # Order
-    43048f2c-3b11-44e7-8c32-29d991c819cc: Spacing # Spacing
     45833a60-a7b1-44da-99cc-b49fd870d75d: Collection # Collection
-    67671be0-6716-4133-92fd-9b01454d8838: Button # Button
-    70911a70-fee3-4778-a591-9660d8187ca0: Entry # Entry
+    94414f3a-f6f6-40ce-b8ea-c865fc1fc491: 'Main Site' # Main Site
     096499a3-2127-49c5-be6c-165653e39d0e: Headline # Headline
     98433f5b-b542-41ff-a0ca-915026fb4455: Variant # Variant
-    138531be-7e43-4759-a397-5325db40a30b: Button # Button
     537988be-e9c5-43e8-8611-2256a41a72fe: New # New
     0554821f-40fc-4bf7-bd90-a3a2581c88ab: Layout # Layout
     563430f9-eadc-4a5b-8adf-3f784f79d901: Media # Media
-    0634113d-5014-46e7-a319-61f78258ce62: Form # Form
-    654452af-16fc-46e0-8dc7-0865935a5d62: 'Alternate card' # Alternate card
-    751770b9-039b-4d3b-8f92-3e31d5c0fba9: 'Anchor Link' # Anchor Link
     772247d2-d67e-40f2-a243-6e6eca55c5f5: Topic/Theme/Tag # Topic/Theme/Tag
     984098f0-f085-4059-9146-a22742da49f7: Sort # Sort
     2519536b-c608-4348-8c10-9b1ada109842: 'Content Entries' # Content Entries
     3552382f-ca3b-44ba-95f4-2be9f7773370: Profiles # Profiles
     4778051c-8236-4b81-8b84-f3f633841179: 'JS Event' # JS Event
     05016637-9828-4c3e-94f2-6db02f40308e: 'Style variation' # Style variation
-    05645178-c86a-4d11-87dd-8041e7c0407b: Method # Method
     6996714c-bbb3-4367-9b3f-90be15abbbee: 'Public Schema' # Public Schema
-    7506709b-79c3-40ab-b4d3-5ce0fa5ba5bc: Eyebrow # Eyebrow
-    8088055c-4494-404b-8adf-8c9e45da9a85: 'Content Type' # Content Type
-    9305104a-d7ea-4f07-b6a5-4f02e3232cbd: 'Include Search?' # Include Search?
-    10491714-9ba1-4777-bb3c-d4e1083979aa: 'Button Color' # Button Color
+    8088055c-4494-404b-8adf-8c9e45da9a85: 'Content Source' # Content Source
     21209162-922b-4edb-b952-1cd88d3ac05e: Text # Text
     25414516-f079-42de-9891-f9dd403af271: Image(s) # Image(s)
-    26431232-d9c5-41cd-9cad-3647ec59afbd: Text # Text
     43406218-0e65-4e33-bd0a-df130a7d2e6c: 'SEO Editor' # SEO Editor
     79001047-67b4-4b93-825f-333664a55c70: __blank__ # __blank__
     87482970-1ffe-4760-a28d-cf986bbb8c72: Theme # Theme
     99952233-d3be-45e5-87ff-46ff19ab7a9d: 'Sidebar Fragments' # Sidebar Fragments
     a021ef5c-0aa2-450d-ba8d-1740e0ababab: Headline # Headline
     a1a62d7a-5173-4caf-8d92-423b6dc0dede: 'Area between and around the block' # Area between and around the block
-    a2bd406d-dfd3-4190-aad1-ef06ff685696: Button # Button
     a4b149ed-cc92-46ad-bfb9-6fa96bb29e5c: 'Plain Text' # Plain Text
     a4f97962-52de-4b53-8422-5b833d1cd5fd: Uploads # Uploads
     a4fe99b5-7832-4eb2-9833-f551177bb821: 'Content Builder' # Content Builder
     a5e7245d-85fd-4eb2-a1af-93ebbadd17f3: Code # Code
-    a6c56b68-6955-44a2-a86d-198b65955f13: Image(s) # Image(s)
     a7b99dca-7b58-438c-b57e-9d7965c3093b: 'Area between and around the block' # Area between and around the block
     a8dc4c16-ac4a-41eb-b5cb-a83598b8313f: 'Navigation and filtering' # Navigation and filtering
     a9eefedb-b175-4baa-a9ee-903aa94e9c9b: 'Content Editor' # Content Editor
@@ -412,171 +298,95 @@ meta:
     a35a0beb-0cf7-4a2b-9ec3-91e953a18116: 'Sidebar Builder' # Sidebar Builder
     a39c9c32-2acb-47fd-ad36-7980c445a44e: Image # Image
     a52e2b08-2e30-4b00-8784-4104c409d3ed: 'Modular Content' # Modular Content
-    a57a80dd-895b-4db9-9fb1-02ecff2a9086: 'Choose Color' # Choose Color
-    a61ac261-5f37-431f-a92f-8b38277c3a8d: Background # Background
-    a62dcf2c-64d8-4cb9-82b6-73cf878eff3d: 'Video Source' # Video Source
     a99de532-088e-484b-94fc-945b766ee947: Image(s) # Image(s)
-    a479dbe3-176d-4b5b-b5e6-f6f5dab262ec: 'Include Pagination?' # Include Pagination?
     a7978e08-e908-4533-b20a-1fee67f3918f: 'Supporting Text' # Supporting Text
     a53977b7-95c0-4ac6-bd66-2547ac6caa22: Interspace # Interspace
     a345255e-6a6e-450c-8f3f-bd44bd0d7a91: Text # Text
-    a1609989-70ec-42e9-a2d0-ce1a902593c7: 'Content Entries' # Content Entries
     aa5de47f-bd21-4e66-9e6b-93f174062abc: 'Local media assets' # Local media assets
-    aaa3f092-4a89-4ed0-9389-471df91b59d1: 'Layout Variations' # Layout Variations
     abf72c9c-cdfc-4765-b71d-a03735da679d: 'Area between and around the block' # Area between and around the block
-    ad4c26f2-0839-4f69-bd4b-8f2f43c2d3f1: Edges # Edges
-    adb9f8b8-c638-4bcd-a698-ba5d8deb66d5: Test # Test
     adc05109-eaa7-4f80-b156-5b250a28e878: 'Content feed' # Content feed
     adcea45e-bf40-4faf-b0c8-4ce089696971: Image # Image
     ae3f34db-5fe5-4438-86f0-377cfaebf02a: 'Content layout and positioning' # Content layout and positioning
     aebe2498-55fa-4926-8908-8a0bc8d303ba: Widget # Widget
-    af48dd81-f2f9-4b6e-83b6-81012dc228db: Identifier # Identifier
-    b0be437c-c9b7-4725-b61e-01ae79d26892: 'Layout Variations' # Layout Variations
     b0cbe0d8-a566-4fd4-8b28-b361c2cd1441: 'Footer CTA' # Footer CTA
     b04167bb-2563-4547-99d7-2f6a3331a57b: Widget # Widget
-    b08a1d54-1fa7-49b1-a0aa-22920892b640: Edges # Edges
     b1c52a06-4990-43f5-90d3-898a48789556: Dek # Dek
     b1f008b2-9888-4564-baa3-efdc6644ac0e: Variant # Variant
-    b2c539bf-f3bf-4c27-81e6-cffc9cb8657d: Background # Background
     b2e76d3b-23d7-49b2-a6b0-44bfd598393e: 'Alert Message' # Alert Message
     b7ec333d-193c-4bfe-b1c2-637e039f302d: 'Choose element' # Choose element
-    b7f27b4f-7fd9-4b59-a422-46ec9280d3a6: 'Title Style' # Title Style
     b7f29b8a-788f-4f46-a93e-cdfdfa91d44b: 'URLs & Links' # URLs & Links
     b8f98eab-bd44-4073-b73b-c5c394a00643: 'Background theme and colours' # Background theme and colours
-    b9c0114e-75ed-4614-8290-a484cd43652b: Items # Items
     b59e7580-ace7-4006-92f2-1304047e2d68: 'External assets' # External assets
     b66cd5b9-c63b-48da-88e4-4f0af9f0c6e7: 'Uploaded assets' # Uploaded assets
-    b90dc7a3-3d38-40c1-81e0-0ff813fb6fd9: Background # Background
     b97d889b-174a-4908-b53e-13fbe7ad2d73: 'Contact Form' # Contact Form
-    b99b85fc-06c0-4960-bcda-7f07690ef20d: Background # Background
-    b161b327-4669-4d08-b51f-7b8c7091a2d4: Order # Order
     b431aa28-7fd8-4a95-8ace-467582d8e01f: __blank__ # __blank__
     b750d657-987a-41b2-953b-807b6c688a88: Subhead # Subhead
-    b911f8a5-3dbc-4aa9-8be2-9eb2c9c8a2ed: 'Text (Intro)' # Text (Intro)
-    b947d0e1-da59-4426-bb04-17175245afa2: Edges # Edges
-    b6015f85-adad-474b-afb4-ac34bb560c0c: 'Limit / Per Page' # Limit / Per Page
     b6689e78-2cda-4120-a5a3-7337cec63b2c: Text # Text
     b26498c0-236e-4738-85e6-666d3439cbc5: Default # Default
     b65678be-7ed0-4665-aaaa-bd9d406b60f4: 'Style variation' # Style variation
-    b114569d-4057-4cc7-acc0-04ff0d55ef41: Background # Background
     b181050f-eab8-45f0-906a-c8241c2d3cf2: 'Show Block Meta' # Show Block Meta
-    ba25b35f-89c4-4230-96a4-31904c63bbf7: Edges # Edges
-    bb08d0c0-bcc3-4d96-b172-572ca8f601a1: 'Anchor Link' # Anchor Link
     bc32472f-668b-443f-94a8-94873d0473d2: 'Saved searches' # Saved searches
-    bcb40c76-f64f-408f-b1da-edb455b3588d: 'Primary Site' # Primary Site
     bdb06b40-a3b0-4a5c-a000-82f87c2f70d0: 'Area between and around the block' # Area between and around the block
     bf30b8e7-f739-4f32-8795-a8c5b92d92bb: 'Style variation' # Style variation
     bf152e62-fb69-4e45-836d-7546488987e6: 'Background theme and colours' # Background theme and colours
     bfbcdaa7-793d-4876-911c-c943b49061dd: 'Content source' # Content source
     bfcd0468-97ee-40dd-9344-996e63ff7beb: Interspace # Interspace
-    c0bba8e0-117d-4192-b3a3-ac1a1ed80a6b: Buttons # Buttons
-    c0c7cafe-5642-4171-81fa-ef73b6d7a36d: 'Results per page' # Results per page
     c00d6261-7e8e-413b-816c-41326575c213: Image # Image
-    c2aae972-6c74-45e4-a721-cb093d6508db: Background # Background
-    c4d11cc3-ff49-4b48-ad2a-d5a30294d552: Eyebrow # Eyebrow
-    c4e2b9d0-07cf-41e9-9dc7-2d4e215bd72c: Edges # Edges
-    c9c14235-dfc3-4c81-bb97-f3e3be70fb14: Buttons # Buttons
-    c25e161a-2f9c-406c-9ace-21fa7f000c4a: Limit # Limit
-    c27f9fb5-d0cc-4e10-841c-c739bfbdb971: 'Supporting Content' # Supporting Content
     c62ec2a4-1966-4b3c-a5d1-b0842235c23e: 'Content Fragments' # Content Fragments
-    c71f0a73-bd49-42fd-8d60-075e1800d924: 'Filter by content type' # Filter by content type
-    c418b531-e6e7-4a06-bd70-e20e6e6e6950: 'Display Format' # Display Format
-    c441b407-6c5c-4101-b07b-1883f705c486: Buttons # Buttons
-    c832b847-2fbc-4a68-ac50-698b165e4fc3: Caption # Caption
-    c864b8d2-2de8-4995-9bb6-4647bee68943: Edges # Edges
     c1193bb1-b500-4050-8b68-a0a7bee4594f: Headline # Headline
-    c3237db2-d369-48c5-813e-2345a8581370: Background # Background
     c6677eab-6c78-4ca1-93cd-0faa266d1c45: 'Copy to introduce and support the Collection' # Copy to introduce and support the Collection
     c70698c5-9843-4d1a-9ce8-2e2e272bd096: Headline # Headline
     ca0addca-320c-4b2c-94c4-f063b00c270a: 'Formie form' # Formie form
     cbe5ac85-220c-41d2-b80f-6b2f4b4635c3: 'Navigation menu' # Navigation menu
-    cd660f34-a88e-4f6f-a63d-dac487f3c1b3: 'Anchor Link' # Anchor Link
     cf8b5aee-149d-48d8-b921-8e8d83991221: 'Footer - Features' # Footer - Features
     cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: 'Copy to introduce and support the Media' # Copy to introduce and support the Media
     d05f4009-0b38-4065-a1b1-65221aa65e63: 'Header Builder' # Header Builder
     d08c5ca6-5020-4ac5-9460-c831d0921585: Headline # Headline
-    d4b0af7c-aad2-41a6-9de2-49f00ef28aa5: Background # Background
     d7da6677-ed4d-4768-8519-8c3123f108ab: Fragment # Fragment
-    d29c3934-5af7-4d49-9515-9dea41e6d3c2: 'Include Pagination?' # Include Pagination?
-    d40f6841-ce5c-4010-b41a-f7d8a1b30c93: Caption # Caption
-    d3282cfb-d044-4890-b553-9a0b87393027: 'SEO / Blog' # SEO / Blog
+    d3282cfb-d044-4890-b553-9a0b87393027: 'Insights & Ideas' # Insights & Ideas
     d761232e-d5c6-4df1-8817-dc7893409358: Interspace # Interspace
     dc717c0e-4ef4-4f7e-b352-1a7ba8e2ff40: Assets # Assets
-    dc845fdf-e229-4765-9b4c-c77ca578bd52: Text # Text
-    dd06e3eb-fff5-4c16-b219-b53867573f86: Background # Background
     dda1fa64-dd45-42b6-8df9-476cbac15152: 'Images in this block' # Images in this block
     de70b474-8e41-4034-8450-229b89760037: Headline # Headline
-    de3083f1-a02b-4884-ae77-ddd215b34e40: Eyebrow # Eyebrow
-    dea0077f-b1c4-4d4d-be6c-72ae2f47e105: 'Layout Variant' # Layout Variant
     decc967b-80dd-4875-ab3f-b6c700b123eb: 'SEO Settings' # SEO Settings
-    dfaccb44-ab96-458f-8938-7bb7466b4e98: 'Title Style' # Title Style
-    dfcbd5d1-a56d-485a-bbe1-bb5fc49bec58: 'Radio Test' # Radio Test
     dff5de1e-c92e-47c2-bed2-2e31bca44a38: 'Existing entries' # Existing entries
     e0c81195-0381-4fd7-a65b-5aca8f093e71: Summary # Summary
     e0dac603-c510-4bb5-8701-e25672d93744: Common # Common
     e05e823a-7ea6-4c2e-8906-a71f41da91f0: Fragment # Fragment
     e0521335-ccc2-4893-a505-4baacf112dee: Standard # Standard
-    e1f06878-5f13-4be3-a010-2741b9b3c7f5: 'Include Search?' # Include Search?
     e2cdac24-87bd-4a5b-be66-d991b0323794: Fragment # Fragment
     e2d14d09-0715-4ab2-b3ea-5bea36055901: Square # Square
-    e2e0830e-80f8-4dfd-8edf-45b6f917cd2d: Eyebrow # Eyebrow
-    e3ee13e0-fc9a-44f0-bc39-783e24026d9c: 'Title Style' # Title Style
     e5d4f510-e52f-4791-afac-46a644f03003: 'Source URL' # Source URL
-    e6d20858-c077-4e76-b107-03166b8ba61d: Eyebrow # Eyebrow
-    e8af3e49-fbce-4621-a06d-a3d56f425497: 'Content Chunk' # Content Chunk
-    e8c41477-003c-46c3-b6fb-449126b08709: 'Radio Result' # Radio Result
-    e21b715b-d604-4b2b-936e-a9b9ab272d39: 'Number Test' # Number Test
-    e29f44d4-5676-46d2-9a24-b7dce4058c40: 'Filter by topic(s)' # Filter by topic(s)
     e44c7d4a-f794-4917-8a3f-e77e8162cc93: Widget # Widget
     e47b95bf-7a74-49e3-afa3-a938bd733ef7: Summary # Summary
     e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9: 'Background theme and colours' # Background theme and colours
     e125d51d-b35a-4313-8094-b235218d58d2: Member # Member
+    e278d4be-81b4-4575-b43f-75291ca49ada: Alternate # Alternate
     e511df66-41ea-4d8f-bfa5-538fec0fc45f: 'Site Owner' # Site Owner
     e2490fe0-802e-4be2-8173-d77847a05e26: Interspace # Interspace
     e509399b-03f5-43c0-98b1-23b9d3a0f27b: Code # Code
     e826463c-c088-426d-be5d-9630e1b872c9: 'Area between and around the block' # Area between and around the block
-    e8196605-52ba-47d2-ba43-8dc77de92903: 'Filter by Topic' # Filter by Topic
-    e8279648-aafc-4293-a410-7e3c587f89c2: Edges # Edges
     ea1a69ed-b5c5-46cf-a629-4435f7f7cad0: 'Matrix Builders' # Matrix Builders
     ea2610d5-eecb-4d99-916e-90ce7e2c2bbc: Theme # Theme
-    ebab35b1-2b82-4883-aa61-9c554557708f: Table # Table
     ebd33ea3-6d11-4647-b12c-a328fd814295: 'Header - Utility Menu' # Header - Utility Menu
     ec3f8985-4497-4f86-8396-86135c553080: 'Asset source' # Asset source
     ec26ccd6-8b77-446f-83e4-5a157ab84ee5: Subhead # Subhead
-    ec587ed8-a292-4c74-8dac-6d9ce03ed406: 'Custom Entry' # Custom Entry
     ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d: 'Content layout and positioning' # Content layout and positioning
     ef8f5bd0-5250-42da-b861-c220362619e2: 'Area between and around the block' # Area between and around the block
-    f0a79906-546e-4c0e-a7af-a359a2929dca: 'Data Table' # Data Table
     f1cff8b7-1d6e-4cdd-824a-520183822908: Entries # Entries
-    f2bf26d7-ca02-4ca1-be4f-08d37fad24b4: Edges # Edges
     f3b09199-ceec-4135-9801-4b7fcbaf0c46: 'Video Aspect' # Video Aspect
     f3fc91f4-ef9e-4532-beaf-1c80b55b7233: 'Content layout and positioning' # Content layout and positioning
-    f6cc4c9c-7682-4448-bb2e-60fc180b4ee0: Eyebrow # Eyebrow
-    f7b9a8d7-c436-467b-8a9e-b42540bd0149: 'Layout Variations' # Layout Variations
-    f8f98780-0d0a-46aa-b8bf-3986a32262ac: Recipient # Recipient
-    f92a01b3-02b6-427e-9141-3dd789bbef6f: Code # Code
     f121e5ad-eddc-485f-8d18-8f74c406c771: Layout # Layout
-    f318c0b9-c05e-4e37-b455-1c9372cd602e: 'Item List' # Item List
-    f800cb7c-e505-4e86-ae6a-31a286813755: 'Layout Variations' # Layout Variations
-    f981cb80-dd00-4b09-b682-78bfa0abccad: 'Include Search?' # Include Search?
-    f550181c-24c3-4a0a-b98c-93332f009dd0: Edges # Edges
-    fa8b5ac4-70bd-4a10-8f53-e75b245a33c7: Image # Image
-    fa8573f7-ea9b-4f06-8ecd-1b91a778dbd9: Identifier # Identifier
-    fac14507-5966-4d29-8eeb-fb358414aaaf: Buttons # Buttons
-    fb9aac65-9df8-4d6f-b3e8-dec682391eb1: 'External URL' # External URL
     fb8236c7-dc6f-45c6-b62d-6d6ffaaf1657: Theme # Theme
     fd647249-c4ea-4ade-99ab-13f9e53bba3f: Image # Image
     fdb77561-cbd1-4a4e-a2a5-eb559a5361cb: Sitebook # Sitebook
-    fdddeb54-6dc3-4563-a953-78d9c99db44a: Edges # Edges
     fde3769d-9be8-400b-a915-9c3c06469466: Label # Label
-    ffb53008-0128-493f-9c96-5f66a6a83565: Attachment # Attachment
-    ffda0f34-d718-475b-b8ed-99c25f516b8b: Spacing # Spacing
     fff3cc82-2855-4031-b003-b91d6e16088b: FAQs # FAQs
 plugins:
   blitz:
     edition: standard
-    enabled: true
-    licenseKey: XU37DE0Q9IJS585ED5V8E2UX
+    enabled: false
+    licenseKey: R20PJ9IRD5QI9PGLDKLO2BJJ
     schemaVersion: 4.5.0
   dospaces:
     edition: standard
@@ -586,206 +396,23 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
-  entriessubset:
-    edition: standard
-    enabled: false
-    licenseKey: RHY4EAWJUP9SHOQERYQLC7QW
-    schemaVersion: 1.1.1
   environment-label:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
-  fastcgi-cache-bust:
+  feed-me:
     edition: standard
     enabled: true
-    schemaVersion: 1.0.0
+    schemaVersion: 5.1.0.0
   field-manager:
     edition: standard
-    enabled: true
+    enabled: false
     schemaVersion: 1.0.0
   formie:
     edition: standard
     enabled: true
-    licenseKey: 0GDJ9ZDFIGQ33HRBL8WELPMP
+    licenseKey: W6U52IPFQJVACJTHTR88L624
     schemaVersion: 2.0.11
-    settings:
-      ajaxTimeout: 10
-      alertEmails: null
-      captchas:
-        __assoc__:
-          -
-            - recaptcha
-            -
-              __assoc__:
-                -
-                  - type
-                  - verbb\formie\integrations\captchas\Recaptcha
-                -
-                  - enabled
-                  - '0'
-                -
-                  - saveSpam
-                  - true
-                -
-                  - settings
-                  -
-                    __assoc__:
-                      0:
-                        - handle
-                        - recaptcha
-                      1:
-                        - secretKey
-                        - $GOOGLE_RECAPTCHA_V3_SECRET_KEY
-                      2:
-                        - siteKey
-                        - $GOOGLE_RECAPTCHA_V3_SITE_KEY
-                      3:
-                        - type
-                        - v3
-                      4:
-                        - size
-                        - normal
-                      5:
-                        - theme
-                        - light
-                      6:
-                        - badge
-                        - bottomright
-                      7:
-                        - language
-                        - en
-                      8:
-                        - minScore
-                        - 0.5
-                      10:
-                        - scriptLoadingMethod
-                        - asyncDefer
-          -
-            - hcaptcha
-            -
-              __assoc__:
-                -
-                  - type
-                  - verbb\formie\integrations\captchas\Hcaptcha
-                -
-                  - enabled
-                  - '0'
-                -
-                  - saveSpam
-                  - true
-                -
-                  - settings
-                  -
-                    __assoc__:
-                      0:
-                        - handle
-                        - hcaptcha
-                      3:
-                        - size
-                        - normal
-                      4:
-                        - theme
-                        - light
-                      5:
-                        - language
-                        - en
-                      6:
-                        - minScore
-                        - 0.5
-                      7:
-                        - scriptLoadingMethod
-                        - asyncDefer
-          -
-            - duplicate
-            -
-              __assoc__:
-                -
-                  - type
-                  - verbb\formie\integrations\captchas\Duplicate
-                -
-                  - enabled
-                  - '0'
-                -
-                  - saveSpam
-                  - true
-                -
-                  - settings
-                  -
-                    __assoc__:
-                      -
-                        - handle
-                        - duplicate
-          -
-            - honeypot
-            -
-              __assoc__:
-                -
-                  - type
-                  - verbb\formie\integrations\captchas\Honeypot
-                -
-                  - enabled
-                  - '0'
-                -
-                  - saveSpam
-                  - true
-                -
-                  - settings
-                  -
-                    __assoc__:
-                      -
-                        - handle
-                        - honeypot
-          -
-            - javascript
-            -
-              __assoc__:
-                -
-                  - type
-                  - verbb\formie\integrations\captchas\Javascript
-                -
-                  - enabled
-                  - '1'
-                -
-                  - saveSpam
-                  - true
-                -
-                  - settings
-                  -
-                    __assoc__:
-                      -
-                        - handle
-                        - javascript
-      defaultDateDisplayType: calendar
-      defaultDateTime: null
-      defaultDateValueOption: ''
-      defaultEmailTemplate: ''
-      defaultFileUploadVolume: ''
-      defaultFormTemplate: ''
-      defaultInstructionsPosition: verbb\formie\positions\AboveInput
-      defaultLabelPosition: verbb\formie\positions\AboveInput
-      defaultPage: forms
-      emptyValuePlaceholder: 'No response.'
-      enableBackSubmission: true
-      enableCsrfValidationForGuests: true
-      enableUnloadWarning: true
-      includeDraftElementUsage: false
-      includeRevisionElementUsage: false
-      maxIncompleteSubmissionAge: 30
-      maxSentNotificationsAge: 30
-      pdfPaperOrientation: portrait
-      pdfPaperSize: letter
-      pluginName: Formie
-      queuePriority: null
-      saveSpam: true
-      sendEmailAlerts: false
-      sentNotifications: true
-      spamBehaviour: showSuccess
-      spamBehaviourMessage: ''
-      spamEmailNotifications: false
-      spamKeywords: ''
-      spamLimit: 500
-      useQueueForIntegrations: true
-      useQueueForNotifications: true
   knock-knock:
     edition: standard
     enabled: true
@@ -793,11 +420,8 @@ plugins:
   matrix-field-preview:
     edition: standard
     enabled: true
-    licenseKey: NPN86UELZGR32PH3JJEMQKSY
+    licenseKey: GJQS3D3NE7D1748RYRV06L2A
     schemaVersion: 3.0.3
-    settings:
-      previewSubpath: content-builder
-      previewVolumeUid: 3c05e593-d621-444e-8fb9-ddbb1b356a43 # Static Assets
   matrixmate:
     edition: standard
     enabled: true
@@ -809,7 +433,7 @@ plugins:
   navigation:
     edition: standard
     enabled: true
-    licenseKey: G19OV2T2VPB193I9HH5HQD9K
+    licenseKey: PJS0VY119GKZ2HSJCMJXDUXM
     schemaVersion: 2.0.7
   redactor:
     edition: standard
@@ -817,7 +441,7 @@ plugins:
     schemaVersion: 2.3.0
   redirect:
     edition: standard
-    enabled: true
+    enabled: false
     schemaVersion: 1.0.5
   referencefield:
     edition: standard
@@ -827,40 +451,6 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
-    settings:
-      adminCanOverride: ''
-      disableForConsoleRequests: ''
-      disableForFrontRequests: ''
-      policies:
-        __assoc__:
-          -
-            - 3721b4d6-42d5-41fc-b6e7-76204b42c91a # Articles
-            - none
-          -
-            - a52e2b08-2e30-4b00-8784-4104c409d3ed # Modular Content
-            - none
-          -
-            - 8c9174b7-2c31-491e-a3f9-0374374c967c # Landing Pages
-            - none
-          -
-            - 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Primary Pages
-            - all
-          -
-            - 89093e20-515d-4e3c-b4c4-c6733d8ab56f
-            - all
-          -
-            - fdb77561-cbd1-4a4e-a2a5-eb559a5361cb # Sitebook
-            - all
-          -
-            - 942cbdfb-d50d-4dcd-9032-4f483562d1dd # Taxonomies
-            - all
-          -
-            - a4f97962-52de-4b53-8422-5b833d1cd5fd # Uploads
-            - all
-          -
-            - 3c05e593-d621-444e-8fb9-ddbb1b356a43 # Static Assets
-            - all
-      userPolicy: all
   retcon:
     edition: standard
     enabled: true
@@ -868,55 +458,292 @@ plugins:
   seomatic:
     edition: standard
     enabled: true
-    licenseKey: IBL61TQYRBL4JGRTUDGO1XC2
+    licenseKey: HLOROBSK1L6EIH30DU3K8AC2
     schemaVersion: 3.0.12
-    settings:
-      addHrefLang: true
-      addPaginatedHreflang: true
-      addXDefaultHrefLang: true
-      cpTitlePrefix: '⚙ '
-      cspNonce: ''
-      cspScriptSrcPolicies:
-        -
-          __assoc__:
-            -
-              - policy
-              - '''self'''
-      devModeCpTitlePrefix: '&#x1f6a7;⚙ '
-      devModeTitlePrefix: '&#x1f6a7; '
-      displayAnalysisSidebar: true
-      displayPreviewSidebar: true
-      enableJsonLdEndpoint: false
-      enableMetaContainerEndpoint: false
-      enableSeoFileLinkEndpoint: false
-      environment: live
-      generatorEnabled: true
-      headersEnabled: true
-      lowercaseCanonicalUrl: '1'
-      maxDescriptionLength: 155
-      maxTitleLength: 70
-      metaCacheDuration: 'null'
-      pluginName: SEOmatic
-      regenerateSitemapsAutomatically: true
-      renderEnabled: true
-      separatorChar: '|'
-      sidebarDisplayPreviewTypes:
-        - google
-        - twitter
-        - facebook
-      siteGroupsSeparate: '1'
-      siteUrlOverride: ''
-      sitemapsEnabled: true
-      socialMediaPreviewTarget: true
-      submitSitemaps: true
   sherlock:
     edition: lite
-    enabled: true
+    enabled: false
     schemaVersion: 4.1.0
     settings:
+      apiKey: wmvzkkduvvrlthaxswmspmciwfuhxakb
+      blowfishHashCost:
+        __assoc__:
+          -
+            - threshold
+            - 13
+      contentSecurityPolicy:
+        __assoc__:
+          -
+            - canFail
+            - true
+      contentSecurityPolicySettings:
+        __assoc__:
+          -
+            - enabled
+            - false
+          -
+            - enforce
+            - false
+          -
+            - header
+            - true
+          -
+            - directives
+            -
+              -
+                - 1
+                - default-src
+                - '''self'''
+      cooldownDuration:
+        __assoc__:
+          -
+            - threshold
+            - 300
+      cors:
+        __assoc__:
+          -
+            - forceFail
+            - true
+      craftFilePermissions:
+        __assoc__:
+          -
+            - canFail
+            - true
+      craftFolderPermissions:
+        __assoc__:
+          -
+            - canFail
+            - true
+      craftFoldersAboveWebRoot:
+        __assoc__:
+          -
+            - canFail
+            - true
+      criticalCraftUpdates:
+        __assoc__:
+          -
+            - forceFail
+            - true
+      criticalPluginUpdates:
+        __assoc__:
+          -
+            - forceFail
+            - true
+      defaultDirMode:
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - threshold
+            - 509
+      defaultFileMode:
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - threshold
+            - 436
+      defaultTokenDuration:
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - threshold
+            - 86400
+      devMode:
+        __assoc__:
+          -
+            - forceFail
+            - true
+      disabledTests: null
+      elevatedSessionDuration:
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - threshold
+            - 300
+      enableCsrfProtection:
+        __assoc__:
+          -
+            - canFail
+            - true
+      expectCT:
+        __assoc__:
+          -
+            - canFail
+            - true
+      headerProtectionSettings:
+        __assoc__:
+          -
+            - enabled
+            - true
+          -
+            - headers
+            -
+              -
+                - true
+                - Referrer-Policy
+                - no-referrer-when-downgrade
+              -
+                - true
+                - Strict-Transport-Security
+                - max-age=15552000
+              -
+                - true
+                - X-Content-Type-Options
+                - nosniff
+              -
+                - true
+                - X-Frame-Options
+                - SAMEORIGIN
+              -
+                - true
+                - X-Xss-Protection
+                - '1; mode=block'
+      highSecurityLevel: false
+      httpsControlPanel:
+        __assoc__:
+          -
+            - forceFail
+            - true
+      httpsFrontEnd:
+        __assoc__:
+          -
+            - forceFail
+            - true
+      integrationSettings: null
+      invalidLoginWindowDuration:
+        __assoc__:
+          -
+            - threshold
+            - 3600
+      maxInvalidLogins:
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - threshold
+            - 5
+      monitor: false
+      notificationEmailAddresses: craft-admin@example.com
+      phpComposerVersion:
+        __assoc__:
+          -
+            - canFail
+            - true
+      phpVersion:
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - thresholds
+            -
+              __assoc__:
+                -
+                  - '8.0'
+                  - '2023-11-26'
+                -
+                  - '8.1'
+                  - '2024-11-25'
+                -
+                  - '8.2'
+                  - '2025-12-08'
+      preventUserEnumeration:
+        __assoc__:
+          -
+            - canFail
+            - true
+      referrerPolicy:
+        __assoc__:
+          -
+            - canFail
+            - true
+      rememberedUserSessionDuration:
+        __assoc__:
+          -
+            - threshold
+            - 12096004
+      requireEmailVerification:
+        __assoc__:
+          -
+            - canFail
+            - true
+      sanitizeSvgUploads:
+        __assoc__:
+          -
+            - canFail
+            - true
+      sendPoweredByHeader:
+        __assoc__:
+          -
+            - canFail
+            - false
       strictTransportSecurity:
-        canFail: true
-        threshold: 15552000
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - threshold
+            - 15552000
+      testToEmailAddress:
+        __assoc__:
+          -
+            - canFail
+            - true
+      translationDebugOutput:
+        __assoc__:
+          -
+            - canFail
+            - true
+      useSecureCookies:
+        __assoc__:
+          -
+            - canFail
+            - true
+      userSessionDuration:
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - threshold
+            - 3600
+      verificationCodeDuration:
+        __assoc__:
+          -
+            - canFail
+            - true
+          -
+            - threshold
+            - 86400
+      webAliasInSiteBaseUrl:
+        __assoc__:
+          -
+            - forceFail
+            - true
+      webAliasInVolumeBaseUrl:
+        __assoc__:
+          -
+            - forceFail
+            - true
+      xContentTypeOptions:
+        __assoc__:
+          -
+            - canFail
+            - true
+      xFrameOptions:
+        __assoc__:
+          -
+            - canFail
+            - true
   sprig:
     edition: standard
     enabled: true
@@ -925,10 +752,6 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 3.0.0
-  twigpack:
-    edition: standard
-    enabled: true
-    schemaVersion: 1.0.0
   typedlinkfield:
     edition: standard
     enabled: true
@@ -944,6 +767,6 @@ plugins:
 system:
   edition: pro
   live: true
-  name: Craft
+  name: 'Craft CMS'
   schemaVersion: 4.5.3.0
-  timeZone: America/Toronto
+  timeZone: America/Los_Angeles

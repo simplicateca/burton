@@ -1,0 +1,62 @@
+[
+    {
+      "name": "Victoria Jensen",
+      "title": "Chief Executive Officer",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Victoria leads our organization with a vision for innovation and sustainable growth. With a proven track record in executive leadership, she is dedicated to driving success and fostering a culture of excellence."
+    },
+    {
+      "name": "Dylan Morales",
+      "title": "Chief Technology Officer",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Dylan is our technology visionary, orchestrating cutting-edge solutions. With a passion for emerging technologies, he leads our technical teams in developing transformative and scalable products."
+    },
+    {
+      "name": "Megan Chang",
+      "title": "Director of Marketing",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Megan is a seasoned marketing strategist with a creative flair. Her expertise lies in crafting compelling campaigns that resonate with audiences, driving brand awareness and engagement."
+    },
+    {
+      "name": "Nathan Turner",
+      "title": "Senior Software Engineer",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Nathan is a highly skilled software engineer, dedicated to crafting robust and scalable solutions. With expertise in multiple programming languages, he contributes to the backbone of our technological innovations."
+    },
+    {
+      "name": "Alyssa Rodriguez",
+      "title": "Human Resources Manager",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Alyssa ensures our team thrives in a positive and inclusive workplace. With a passion for employee development, she fosters a collaborative culture that empowers each individual to excel."
+    },
+    {
+      "name": "Carlos Ramirez",
+      "title": "Data Scientist",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Carlos is our data wizard, leveraging analytics to derive actionable insights. His expertise in machine learning and statistical analysis contributes to data-driven decision-making across the organization."
+    },
+    {
+      "name": "Grace Li",
+      "title": "UX/UI Designer",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Grace brings creativity and user-centric design to our products. With an eye for detail, she ensures our interfaces are not only visually appealing but also provide an optimal user experience."
+    },
+    {
+      "name": "Elijah Bennett",
+      "title": "Customer Success Manager",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Elijah is dedicated to ensuring our customers thrive. With a customer-first approach, he builds strong relationships, addresses concerns, and ensures a seamless experience throughout the customer journey."
+    },
+    {
+      "name": "Isabella Wong",
+      "title": "Finance Manager",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Isabella oversees our financial strategy and operations. With a keen eye for numbers and a commitment to fiscal responsibility, she plays a crucial role in our organization's financial success."
+    },
+    {
+      "name": "Cameron Foster",
+      "title": "Product Manager",
+      "headshot": "https://100k-faces.glitch.me/random-image",
+      "bio": "Cameron is the driving force behind our product development. With a passion for innovation and a strategic mindset, he ensures our products align with market needs and exceed customer expectations."
+    }
+]

@@ -288,8 +288,8 @@ fields:
                   -
                     - values
                     -
-                      - d3282cfb-d044-4890-b553-9a0b87393027 # SEO / Blog
-                      - 8000f4a4-93b8-4f5b-b6b2-b26e6c12e366 # News
+                      - d3282cfb-d044-4890-b553-9a0b87393027 # Insights & Ideas
+                      - 8000f4a4-93b8-4f5b-b6b2-b26e6c12e366 # News & Updates
                       - 9d712dc3-2d54-4b21-bbc3-251dad2d4dc9 # Default
                       - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
                       - e0521335-ccc2-4893-a505-4baacf112dee # Standard
@@ -325,11 +325,9 @@ fields:
       allowUploads: true
       allowedKinds:
         - audio
-        - code
         - compressed
         - excel
         - json
-        - markdown
         - pdf
         - powerpoint
         - text
@@ -434,7 +432,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 862698841
+      changedFieldIndicator: 512361442
       columns:
         __assoc__:
           -
@@ -458,7 +456,7 @@ fields:
                 -
                   - width
                   - ''
-      contentTable: '{{%stc_1_items}}'
+      contentTable: '{{%stc_16_items}}'
       fieldLayout: matrix
       maxRows: null
       minRows: null
@@ -519,10 +517,10 @@ fields:
           __assoc__:
             -
               - label
-              - 'Link to feed homepage (if one exists)'
+              - 'Full search interface'
             -
               - value
-              - all
+              - standardWithSearch
             -
               - default
               - ''
@@ -530,10 +528,21 @@ fields:
           __assoc__:
             -
               - label
-              - 'Full search interface'
+              - 'Filter by Feed'
             -
               - value
-              - standardWithSearch
+              - filterByFeed
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Link to feed homepage (if one exists)'
+            -
+              - value
+              - all
             -
               - default
               - ''

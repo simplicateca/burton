@@ -1,10 +1,7 @@
 <?php
 
-$isAdmin = ( Craft::$app->getUser()->getIdentity()->admin ?? null );
-
 return [
     '*' => [
-        'showLabel'      => ($isAdmin),
         'labelText'      => "LIVE SITE",
         'prefixText'     => "{{siteName}} --- ",
         'suffixText'     => " --- {{siteUrl|replace('https://','')|replace('http://','')|trim('/', 'right')}}",
@@ -12,7 +9,7 @@ return [
         'textColor'      => '#ffffff',
         'targetSelector' => '#global-header:before',
     ],
-    
+
     'staging' => [
         'showLabel'  => true,
         'labelColor' => '#ffe08a',

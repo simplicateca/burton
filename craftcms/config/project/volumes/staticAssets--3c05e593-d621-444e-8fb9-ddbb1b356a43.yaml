@@ -39,5 +39,5 @@ name: 'Static Assets'
 sortOrder: 0
 titleTranslationKeyFormat: null
 titleTranslationMethod: site
-transformFs: null
+transformFs: ''
 transformSubpath: ''

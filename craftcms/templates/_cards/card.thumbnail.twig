@@ -2,6 +2,7 @@
 {% set card_template = _self %}
 {% set card_type = 'thumbnail' %}
 {% use "_cards/parts.headlines" with headline_knockout as card_headline %}
+{% use "_cards/parts.actions"   with action_modal      as card_action  %}
 
 {% block content %}
     <div class="flex flex-col h-full w-full gap-2 relative @container" data-card="thumbnail">

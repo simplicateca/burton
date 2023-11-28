@@ -1,0 +1,30 @@
+{# Create an array with the homepages #}
+{% set langSwitcher = craft.app.sites.getAllSites() %}
+<ul>
+	{% for lang in langSwitcher %}
+        {% if lang.id != currentSite.id %}
+            {% set alternateUrl = null %}
+
+            {# Entry is defined #}
+            {% if entry is defined %}
+                {% set otherLocaleEntry = craft.entries.siteId(lang.id).id(entry.id).one() %}
+                {% set alternateUrl = otherLocaleEntry.url|default() %}
+            {% endif %}
+
+            {% if alternateUrl %}
+                <li>
+                    <a href="{{alternateUrl}}"
+                       class="
+                        flex
+                        px-4
+                        py-2
+                        text-sm
+                        hover:text-white
+                        hover:bg-theme-accent
+                       "
+                    ><span class="w-4 text-center">{{lang.language|upper|slice(0,2) }}</span></a>
+                </li>
+            {% endif %}
+        {% endif %}
+	{% endfor %}
+</ul>

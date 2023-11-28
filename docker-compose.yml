@@ -80,10 +80,20 @@ services:
         # test craft installed. clear caches.
         # update project config. do migrations.
         command: >
-            bash -c "./craft install/check &&
-                     ./craft setup/keys &&
-                     ./craft clear-caches/all --interactive=0 &&
-                     ./craft up --interactive=0"
+          bash -c "./craft install/check &&
+                 ./craft setup/keys &&
+                 ./craft clear-caches/all --interactive=0 &&
+                 ./craft up --interactive=0"
+        #
+        # ---------------------------------------------------------
+        #
+        # re-install craft database
+        # if the craft database is deleted, swap out the above command for the one to recreate it.
+        # once complete, swap back to the above command.
+        # command: >
+        #   bash -c "./craft install/craft --interactive=0 --email='craft-admin@example.com' --username='craft-admin@example.com' --password='letmein' --site-name='Craft CMS' --site-url='http://localhost:8000' --language='en-CA'"
+        #
+
         volumes:
             - ./craftcms:/app:cached
             - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini

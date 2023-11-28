@@ -42,7 +42,7 @@
         the items. Sprig templates only accept simple objects as arguments, so item
         collection will happen inside the sprig template.
      -------------------------------------------------------------------------------- ##}
-    {% if ( source == 'feed' ) and ( block.pagination.value ??? null in [ 'standard', 'standardWithSearch' ] ) %}
+    {% if ( source == 'feed' ) and ( block.pagination.value ??? null in [ 'standard', 'standardWithSearch', 'filterByFeed' ] ) %}
 
         {{ block('collection_render_sprig') }}
 
@@ -81,11 +81,11 @@
 {## Render dynamically using sprig
  ------------------------------------------------------------------------------------ ##}
 {% block collection_render_sprig %}
-    {{ sprig( '_blocks/loop.contentFeedIndex', {
+    {{ sprig( '_blocks/loop.searchResults.sprig', {
         settings  : block.settings,
         limit     : block.limit ??? null,
         pagination: block.pagination.value ??? null,
-        searchID  : block.feeds.ids() ??? block.feeds ??? null,
+        feedIds   : block.feeds.ids() ?? block.feeds ??? null,
     }) }}
 {% endblock %}
 

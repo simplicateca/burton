@@ -10,7 +10,7 @@
             // this is variable with modal HTML body
             'listclass': '<form action=""></form>'
         },
-    
+
         ondropdown: {
             list: {
                 observe: function (dd) {
@@ -86,7 +86,7 @@
         _setup: function () {
 
             if (0 === (e = this.$modal.find("#redactor-list-styles")).length) {
-                
+
                 var n = this.$modal.getBody();
                 fi = t.dom('<div class="form-item" />');
                 lb = t.dom('<label for="redactor-list-styles">' + this.lang.get('listClass') + '</label>');
@@ -100,7 +100,7 @@
                     opt = t.dom(`<option value='${element.class}'>${element.label}</option>`);
                     se.append(opt);
                 })
-                
+
                 fi.append(lb).append(se);
                 n.children().first().append(fi);
             }
@@ -112,12 +112,11 @@
          */
          _startingClass: function() {
             this.selectedClass = '';
-            
+
             var currentList = this._getSelectedList()
 
             if( currentList && currentList.nodes[0].className ) {
                 var className = currentList.nodes[0].className
-                console.log( className )
                     className = className.replaceAll( /redactor[\w\-]*/ig, '' ).trim()
 
                 // create an array of possible class name string

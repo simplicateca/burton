@@ -563,7 +563,7 @@ button.clickCover {
  *
  *
 */
-.cTag {
+a.pill {
     @apply
         text-xs
         inline-flex
@@ -576,14 +576,17 @@ button.clickCover {
         rounded-full
         border
         transition-transform
-        hover:scale-110
+        bg-theme-backgroundOff
+        text-theme-foreground
     ;
 
-    &.cTag__inactive {
-        @apply bg-white text-gray-700;
+    &:not(.isActive) {
+        @apply
+            hover:scale-110
+        ;
     }
 
-    &.cTag__active {
-        @apply bg-gray-700 text-white;
+    &.isActive {
+        @apply bg-theme-accent text-white cursor-default;
     }
 }
