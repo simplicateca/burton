@@ -80,8 +80,10 @@
  ------------------------------------------------------------------------------------ ##}
 {% block action_textlink %}{% apply spaceless %}
     {% if card.item.url %}
-        <a href="{{card.item.url}}" class="clickCover buttonText"
-            >Read More</a>
+        <div class="flex">
+            <a href="{{card.item.url}}" class="clickCover buttonText"
+                >Read More</a>
+        </div>
     {% endif %}
 {% endapply %}{% endblock %}
 

@@ -1,0 +1,5 @@
+{% if craft.app.request.isPost %}
+    <p>This is a POST request.</p>
+{% else %}
+    <p>This is not a POST request.</p>
+{% endif %}

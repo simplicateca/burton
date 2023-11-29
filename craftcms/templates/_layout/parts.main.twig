@@ -9,10 +9,7 @@
 {% block default_main %}
     {{ block( 'mainTagOpen') }}
 
-    {% block default_main_content %}
-        {% from "_blocks/core/builders" import content as buildContent %}
-        {{ buildContent( entry.contentBuilder.all() ??? null, 'fluidContainer' ) }}
-    {% endblock %}
+    {{ block( 'default_main_contentBuilder' ) }}
 
     {{ block( 'mainTagClose' ) }}
 {% endblock %}
@@ -37,6 +34,12 @@
 
 {## <main> open / close tags ##}
 {% block mainTagOpen %}
-    <main id="content" class="relative z-10">
+    <main id="content" class="relative z-10 @container">
 {% endblock %}
 {% block mainTagClose %}</main>{% endblock %}
+
+
+{% block default_main_contentBuilder %}
+    {% from "_blocks/core/builders" import content as buildContent %}
+    {{ buildContent( entry.contentBuilder.all() ??? null, 'fluidContainer' ) }}
+{% endblock %}

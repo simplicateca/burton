@@ -34,7 +34,7 @@
 {% block content_media %}
 
     {% set sourceItems = 'local' == block.source.value ??? null
-        ? block.assets.all() ??? null : block.embeds.all() ??? null %}
+        ? block.assets.all() ??? block.assets ??? null : block.embeds.all() ??? block.embeds ??? null %}
 
     {% set items = [] %}
     {% for item in sourceItems %}

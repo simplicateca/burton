@@ -2,6 +2,11 @@
 
 {% requirePermission 'allowSitebook' %}
 
+{% html %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+{% endhtml %}
+
 {% block page %}
 
     {% set blockType = type ??? null %}
@@ -12,21 +17,41 @@
             variant   : "_blocks/config/variantImage.json",
             theme     : "_blocks/config/themeContent.json",
             interspace: "_blocks/config/interspaceContent.json",
-            content   : "sitebook/blocks/content/image.twig",
+            content   : [
+                "sitebook/blocks/_content/image.single",
+                "sitebook/blocks/_content/image.single.tallimage",
+                "sitebook/blocks/_content/image.single.longtext",
+                "sitebook/blocks/_content/image.three",
+                "sitebook/blocks/_content/image.gallery"
+            ],
         },
         collection: {
             layout    : "_blocks/config/layoutCollection.json",
             variant   : "_blocks/config/variantCollection.json",
             theme     : "_blocks/config/themeContent.json",
             interspace: "_blocks/config/interspaceContent.json",
-            content   : "sitebook/blocks/content/collection.twig",
+            content   : [
+                "sitebook/blocks/_content/collection.simple"
+            ],
+        },
+        media: {
+            layout    : "_blocks/config/layoutMedia.json",
+            variant   : "_blocks/config/variantMedia.json",
+            theme     : "_blocks/config/themeContent.json",
+            interspace: "_blocks/config/interspaceContent.json",
+            content   : [
+                "sitebook/blocks/_content/media.one.youtube",
+                "sitebook/blocks/_content/media.four.youtube",
+                "sitebook/blocks/_content/media.four.youtube.centered",
+            ],
         }
     } %}
 
     {% set config = allowedBlocks[blockType]|default() %}
 
     {% if config %}
-        {{ sprig('sitebook/blocks/preview.sprig', { type: blockType, config: config }) }}
+        {{ sprig( 'sitebook/blocks/_previewer.sprig', { type: blockType, config: config } ) }}
     {% endif %}
+
 
 {% endblock page %}

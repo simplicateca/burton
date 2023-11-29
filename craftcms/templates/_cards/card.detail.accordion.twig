@@ -2,17 +2,33 @@
 {% set card_template = _self %}
 {% set card_type = 'detail' %}
 
-{# {% block content %}
+{% block content %}
+    {% block detail_accordion_card %}
+        {% block detail_card %}{{ parent() }}{% endblock %}
+    {% endblock %}
+{% endblock %}
+
+
+{% block detail_card_with_images %}
     <div class="w-full flex flex-col @3xl:flex-row gap-8">
         <div class="@container flex-grow text-theme-foreground flex flex-col gap-2 w-full">
             <div>{{ block('card_summary') }}</div>
-            <div class="hlock">{{ block('action_textlink') }}</div>
+            {{ block('action_textlink') }}
         </div>
 
         <div class="image max-w-1/2 w-full flex flex-col">
             {{ block('card_image') }}
-
             {{ block( 'card_after_image' ) is defined ? block( 'card_after_image' ) }}
         </div>
     </div>
-{% endblock %} #}
+{% endblock %}
+
+
+{% block detail_card_just_text %}
+    <div class="w-full flex flex-col @3xl:flex-row gap-8">
+        <div class="@container flex-grow text-theme-foreground flex flex-col gap-2 w-full">
+            <div>{{ block('card_summary') }}</div>
+            {{ block('action_textlink') }}
+        </div>
+    </div>
+{% endblock %}

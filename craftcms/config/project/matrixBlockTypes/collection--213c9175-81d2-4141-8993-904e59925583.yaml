@@ -64,7 +64,7 @@ fieldLayouts:
             uid: 3683d32b-df1e-4a5a-b7ed-621696fce332
             userCondition: null
             warning: null
-            width: 50
+            width: 100
           -
             elementCondition: null
             fieldUid: 14fd2961-f771-44f1-9b9c-aede9b59a565 # Assets in this Collection
@@ -76,7 +76,7 @@ fieldLayouts:
             uid: 0fd46570-e8f2-4db3-89dd-0b979b0dedc4
             userCondition: null
             warning: null
-            width: 50
+            width: 100
           -
             elementCondition: null
             fieldUid: 85a35bf9-39c4-475c-9abf-7839f75bb8e6 # Content feed
@@ -432,7 +432,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 512361442
+      changedFieldIndicator: 1611092262
       columns:
         __assoc__:
           -

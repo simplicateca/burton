@@ -16,7 +16,18 @@
     from: `craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php` ##}
 {% if searchParams.query or not ( settings.requireQuery ??? null ) %}
     {% set query    = feedIds ? getContentFeedQuery( feedIds, searchParams ) : null %}
-    {% set pageInfo = query   ? sprig.paginate( query, searchParams.page )   : null %}
+
+    {% if query|first.section ??? null == 'rss' %}
+        {% set pageInfo = {
+            pageResults: query,
+            currentPage: 1,
+            totalPages: 1
+        } %}
+    {% else %}
+        {% set pageInfo = query   ? sprig.paginate( query, searchParams.page )   : null %}
+    {% endif %}
+
+
 {% endif %}
 
 {% if pagination in [ 'standardWithSearch', 'filterByFeed' ] %}
@@ -66,9 +77,14 @@
         {% endif %}
 
         {{ include( settings.cardLoop ??? settings['cardLoop.default'] ??? '_blocks/loop.auto', {
-            items: pageInfo.pageResults,
-            settings: settings|default()
+            items     : pageInfo.pageResults,
+            limit     : searchParams.limit,
+            feedIds   : feedIds,
+            pagination: pagination,
+            settings  : settings|default()
         }, withContext = false  ) }}
+
+{{pagination}}
 
         {{ include( '_components/search-filter/pagination', {
             isSprig   : true,

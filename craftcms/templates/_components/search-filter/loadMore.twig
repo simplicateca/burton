@@ -1,0 +1,38 @@
+{## arguments passed to this template ##}
+{% set isSprig  = isSprig  ??? false %}
+{% set paginate = paginate ??? null %}
+{% set settings = settings ??? null %}
+{% set baseurl  = baseurl  ??? siteUrl( craft.app.request.pathInfo ) ??? null %}
+
+{## output the actual pagination component ##}
+{% if paginate.totalPages > 1 and paginate.currentPage < paginate.totalPages %}
+
+    {## prepare the url params ##}
+    {% set params    = params ??? null %}
+    {% set urlParams = {} %}
+    {% set urlParams = params.query|default()  ? urlParams|merge({ q: params.query  }) : urlParams %}
+    {% set urlParams = params.filter|default() ? urlParams|merge({ f: params.filter }) : urlParams %}
+
+
+    {## prepare the next page link ##}
+    {% set nextPage = paginate.currentPage >= paginate.totalPages ? paginate.totalPages : paginate.currentPage + 1 %}
+    {% set nextUrl  = siteUrl( baseurl ~ "/p" ~ nextPage, urlParams ) %}
+    {% set nextAttr = {
+        text : "Load More…"|t,
+        href : nextUrl,
+        class: "button",
+    } | merge( not isSprig ? {} : {
+        sprig: true,
+        's-push-url': nextUrl,
+        's-target': 'closest nav',
+        's-swap': 'outerHTML',
+        's-val:page': nextPage }
+    ) %}
+
+    <nav
+        role="navigation"
+        aria-label="Pagination Navigation"
+        class="{{ setting.class|default('w-full text-center') }}"
+        data-theme="{{ setting.theme|default('standard') }}"
+    >{{ tag( 'a', nextAttr )}}</nav>
+{% endif %}

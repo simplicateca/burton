@@ -1,0 +1,102 @@
+[
+    {
+      "title": "[IG] 2023-08-22 (@InnovateTech)",
+      "platform": "Instagram",
+      "username": "@InnovateTech",
+      "post_date": "2023-08-22",
+      "content": "🚀 Exciting news! Unveiling groundbreaking innovations at the Tech Expo 2023. Join us in shaping the future. #TechInnovation #FutureTech 🔗 example.com/tech-expo",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/CaUsPbUquKV/",
+      "tags": ["tech-innovation", "future-tech"]
+    },
+    {
+      "title": "[IG] 2022-10-15 (@SustainableStyle)",
+      "platform": "Instagram",
+      "username": "@SustainableStyle",
+      "post_date": "2022-10-15",
+      "content": "🌿 Embrace sustainable fashion! Our latest collection combines style and eco-friendliness. Explore the revolution. #SustainableFashion #FashionRevolution 🔗 example.com/sustainable-fashion",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/CeRFBGPrNq8/",
+      "tags": ["sustainable-fashion", "fashion-revolution"]
+    },
+    {
+      "title": "[IG] 2021-05-08 (@FitnessTech)",
+      "platform": "Instagram",
+      "username": "@FitnessTech",
+      "post_date": "2021-05-08",
+      "content": "🏋️ Elevate your workouts with smart technology! Introducing the latest in fitness tech. Join the revolution. #SmartFitness #FitnessInnovation 🔗 example.com/smart-fitness",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/CmUv48DLvxd/",
+      "tags": ["smart-fitness", "fitness-innovation"]
+    },
+    {
+      "title": "[IG] 2020-04-01 (@EmpowerTech)",
+      "platform": "Instagram",
+      "username": "@EmpowerTech",
+      "post_date": "2020-04-01",
+      "content": "👩‍💻 Breaking barriers in STEM! Celebrating the achievements of women in tech. Join the movement for equality. #WomenInSTEM #TechEquality 🔗 example.com/women-in-stem",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/BsOGulcndj-/",
+      "tags": ["women-in-stem", "tech-equality"]
+    },
+    {
+      "title": "[IG] 2019-11-10 (@NatureDiscoveries)",
+      "platform": "Instagram",
+      "username": "@NatureDiscoveries",
+      "post_date": "2019-11-10",
+      "content": "🌍 Explore hidden wonders of eco-tourism! Pin your favorite eco-adventures and connect with nature. #EcoTourism #NatureExploration 🔗 example.com/eco-tourism",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/ClJqW1ZtmIl/",
+      "tags": ["eco-tourism", "nature-exploration"]
+    },
+    {
+      "title": "[IG] 2023-12-10 (@GlobalCuisine)",
+      "platform": "Instagram",
+      "username": "@GlobalCuisine",
+      "post_date": "2023-12-10",
+      "content": "🍜 Dive into a world of flavors! Our chefs are crafting culinary masterpieces. Explore global cuisine at its finest. #FoodieAdventures #GlobalFlavors 🔗 example.com/global-cuisine",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/ogSSO6uS9C/",
+      "tags": ["foodie-adventures", "global-flavors"]
+    },
+    {
+      "title": "[IG] 2023-06-25 (@ArtistryInMotion)",
+      "platform": "Instagram",
+      "username": "@ArtistryInMotion",
+      "post_date": "2023-06-25",
+      "content": "🎨 Immerse yourself in the world of art! Our latest exhibition showcases creativity in motion. Join us for an artistic journey. #ArtisticExpression #GalleryShowcase 🔗 example.com/artistry-in-motion",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/dAu7UPgvn0/",
+      "tags": ["artistic-expression", "gallery-showcase"]
+    },
+    {
+      "title": "[IG] 2022-03-05 (@MindfulLiving)",
+      "platform": "Instagram",
+      "username": "@MindfulLiving",
+      "post_date": "2022-03-05",
+      "content": "🌱 Embrace mindfulness! Discover the art of living in the present moment. Join our community for daily inspiration. #MindfulLiving #WellnessJourney 🔗 example.com/mindful-living",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/BDJwd9XAvho/",
+      "tags": ["mindful-living", "wellness-journey"]
+    },
+    {
+      "title": "[IG] 2021-08-18 (@TechGadgets)",
+      "platform": "Instagram",
+      "username": "@TechGadgets",
+      "post_date": "2021-08-18",
+      "content": "🔥 Explore the latest tech gadgets! From smart devices to futuristic innovations, we've got it all. #TechGadgets #GadgetLovers 🔗 example.com/tech-gadgets",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/p/BP-rXUGBPJa/",
+      "tags": ["tech-gadgets", "gadget-lovers"]
+    },
+    {
+      "title": "[IG] 2020-01-20 (@AdventureSeeker)",
+      "platform": "Instagram",
+      "username": "@AdventureSeeker",
+      "post_date": "2020-01-20",
+      "content": "🌄 Embark on thrilling adventures! Discover hidden gems and breathtaking landscapes. Join us for the ultimate escapade. #AdventureAwaits #ExploreNature 🔗 example.com/adventure-seeker",
+      "image_url": "https://unsplash.it/900/900",
+      "source_url": "https://www.instagram.com/reel/CvkWer_gHCf/",
+      "tags": ["adventure-awaits", "explore-nature"]
+    }
+]

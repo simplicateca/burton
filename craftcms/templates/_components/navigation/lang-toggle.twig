@@ -6,7 +6,7 @@
             {% set alternateUrl = null %}
 
             {# Entry is defined #}
-            {% if entry is defined %}
+            {% if entry.id ??? null %}
                 {% set otherLocaleEntry = craft.entries.siteId(lang.id).id(entry.id).one() %}
                 {% set alternateUrl = otherLocaleEntry.url|default() %}
             {% endif %}

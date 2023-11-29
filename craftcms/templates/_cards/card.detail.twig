@@ -1,26 +1,41 @@
 {% extends '_cards/base' %}
 {% set card_template = _self %}
 {% set card_type = 'detail' %}
-{% use "_cards/parts.headlines" with headline_knockout as card_headline %}
-{% use "_cards/parts.actions"   with action_textlink   as card_action %}
+{% use "_cards/parts.headlines" %}
+{% use "_cards/parts.actions" with action_textlink as card_action %}
+
 
 {% block content %}
-    <div class="flex flex-col w-full gap-4">
+    {% block detail_card %}
+        {{ card.images ? block('detail_card_with_images') : block('detail_card_just_text') }}
+    {% endblock %}
+{% endblock %}
+
+
+{% block detail_card_with_images %}
+    <div class="flex flex-col w-full gap-4 @container bg-theme-backgroundOff">
         <div class="image @3xl:max-w-1/2 w-full overflow-hidden relative">
-            {{ block('card_headline') }}
-
+            {{ block('headline_knockout') }}
             {{ block('card_image') }}
-
-            {{ block( 'card_after_image' ) is defined ? block( 'card_after_image' ) }}
+            {{ block('card_after_image') is defined ? block('card_after_image') }}
         </div>
 
-        <div class="text-theme-foreground flex flex-col gap-2 w-full px-4">
-
-            {{ block( 'card_before_summary' ) is defined ? block( 'card_before_summary' ) }}
-
+        <div class="text-theme-foreground flex flex-col gap-2 w-full px-4 lg:px-8">
+            {{ block('card_before_summary') is defined ? block('card_before_summary') }}
             {{ block('card_summary') }}
-
             {{ block('card_action') }}
         </div>
+    </div>
+{% endblock %}
+
+
+{% block detail_card_just_text %}
+    <div class="flex flex-col w-full gap-4 bg-theme-backgroundOff p-4 lg:px-8 @container">
+        {{ block('card_before_summary') is defined ? block('card_before_summary') }}
+        {{ block('headline_default') }}
+        <div class="flex-grow">
+            {{ block('card_summary') }}
+        </div>
+        {{ block('card_action') }}
     </div>
 {% endblock %}

@@ -54,20 +54,20 @@
     _:'## defaults are used for any attributes left off an option definition',
     defaults: {
         base : 'w-full relative',
-        gap  : 'gap-8 @4xl:gap-x-12 @7xl:gap-x-16',
+        gap  : 'gap-8 @4xl:gap-12 @7xl:gap-16',
 
         zone1: 'w-full @container',
         zone2: 'w-full @container',
 
-        header          : 'w-full max-w-3xl @container',
-        header__left    : 'w-full max-w-3xl @container mr-auto',
-        header__center  : 'w-full max-w-3xl @container mx-auto',
-        header__right   : 'w-full max-w-3xl @container ml-auto',
+        header          : 'w-full max-w-3xl pb-8 @container',
+        header__left    : 'w-full max-w-3xl pb-8 @container mr-auto',
+        header__center  : 'w-full max-w-3xl pb-8 @container mx-auto',
+        header__right   : 'w-full max-w-3xl pb-8 @container ml-auto',
 
-        footer          : 'w-full max-w-3xl @container',
-        footer__left    : 'w-full max-w-3xl @container mr-auto',
-        footer__center  : 'w-full max-w-3xl @container mx-auto',
-        footer__right   : 'w-full max-w-3xl @container ml-auto',
+        footer          : 'w-full max-w-3xl pt-8 @container',
+        footer__left    : 'w-full max-w-3xl pt-8 @container mr-auto',
+        footer__center  : 'w-full max-w-3xl pt-8 @container mx-auto',
+        footer__right   : 'w-full max-w-3xl pt-8 @container ml-auto',
     },
 
     _:'## named microlayout definitions',
@@ -185,7 +185,7 @@
 
         overlap: {
             _:'## Zone 2 behind Zone 1 (Full Width)',
-            base : 'w-full relative',
+            base : 'w-full overflow-hidden',
             zone1: 'p-10 max-w-3xl @container relative z-20',
             zone2: 'absolute inset-0 w-full h-full z-10',
 

@@ -39,7 +39,7 @@
     If a page is being called via and AJAX request, we can have a page respond with a
     different set of content than it normally would.
  ------------------------------------------------------------------------------------- ##}
-{% block ajaxContent %}{{ block( 'contentBuilder' ) }}{% endblock %}
+{% block ajaxContent %}{{ block( 'default_main_contentBuilder', '_layout/parts.main' ) }}{% endblock %}
 
 
 {% block styles %}

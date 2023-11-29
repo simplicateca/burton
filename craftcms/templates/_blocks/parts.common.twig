@@ -17,13 +17,20 @@
 
         {## Move the block headline to <header> when left/right cols stack on mobile
         ----------------------------------------------------------------------------- ##}
-        {% if block.settings.textHeaderToMicroHeader|default(false)
-              and block.headline ??? processedText.eyebrow ??? processedText.headline %}
-            <div class="hidden lg:block">
-                {{ block('headerHeadline') }}
-                {{ processedText.eyebrow  | raw }}
-                {{ processedText.headline | raw }}
-            </div>
+        {% if block.headline ??? processedText.eyebrow ??? processedText.headline %}
+            {% if not block.settings.leadingTextHeadlinesToMicroHeader|default(false) %}
+                {% set class = collect(['LEFT','RIGHT']) | filter( v => v in block.settings.microLayout|upper )
+                    ? "!hidden lg:!block"
+                    : null %}
+
+                    {% set header %}
+                        {{ block('headerHeadline') }}
+                        {{ processedText.eyebrow | raw }}
+                        {{ processedText.headline | raw }}
+                    {% endset %}
+
+                    {{ header | retconAttr( '*', { class: class }, false ) }}
+            {% endif %}
         {% endif %}
 
         {{ processedText.body| raw }}
@@ -45,17 +52,24 @@
 
     {## Duplicates the block headline into the block <header> for better mobile display.
      -------------------------------------------------------------------------------- ##}
-    {% if processedText ??? null %}
-        {% if block.settings.textHeaderToMicroHeader|default(false)
-              and block.headline ??? processedText.eyebrow ??? processedText.headline %}
-            <div class="lg:hidden relative z-30 pb-8">
-                {{ block('headerHeadline') }}
-                {{ processedText.eyebrow  | raw }}
-                {{ processedText.headline | raw }}
-            </div>
-        {% endif %}
-    {% endif %}
+    {% if block.headline ??? processedText.eyebrow ??? processedText.headline %}
 
+        {% set header %}
+            {{ block('headerHeadline') }}
+            {{ processedText.eyebrow | raw }}
+            {{ processedText.headline | raw }}
+        {% endset %}
+
+        {% if block.settings.leadingTextHeadlinesToMicroHeader|default(false) %}
+            {{ header }}
+        {% else %}
+            {% if collect(['LEFT','RIGHT']) | filter( v => v in block.settings.microLayout|upper ) %}
+                {% set class = "lg:!hidden" %}
+                {{ header | retconAttr( '*', { class: class }, false ) }}
+            {% endif %}
+        {% endif %}
+
+    {% endif %}
 
 {% endapply %}{% endblock %}
 

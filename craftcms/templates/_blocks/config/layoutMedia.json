@@ -19,7 +19,7 @@
         "value": "textRight",
 
         "settings": {
-            "microLayout": "leftRightReverse"
+            "microLayout": "rightLeft"
         }
     },
 
@@ -39,7 +39,8 @@
         "settings": {
             "microLayout": "topBottom",
             "cardGrid": "stacked3",
-            "cardLayout": "thumbnail"
+            "carouselVariants": ["detail","summary"],
+            "columns": 3
         }
     }
 ]

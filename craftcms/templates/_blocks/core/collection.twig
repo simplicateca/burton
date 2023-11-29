@@ -34,7 +34,8 @@
  ------------------------------------------------------------------------------------ ##}
 {% block content_collection %}
 
-    {% set source = block.source|default('items') %}
+    {% set source     = block.source|default('items') %}
+    {% set pagination = block.pagination.value ??? block.pagination ??? null %}
 
     {## Rendering in Sprig?
      -------------------------------------------------------------------------------- ##
@@ -42,7 +43,7 @@
         the items. Sprig templates only accept simple objects as arguments, so item
         collection will happen inside the sprig template.
      -------------------------------------------------------------------------------- ##}
-    {% if ( source == 'feed' ) and ( block.pagination.value ??? null in [ 'standard', 'standardWithSearch', 'filterByFeed' ] ) %}
+    {% if ( source == 'feed' ) and ( pagination in [ 'standard', 'standardWithSearch', 'filterByFeed', 'loadMore' ] ) %}
 
         {{ block('collection_render_sprig') }}
 
@@ -57,6 +58,13 @@
         {% set collection = source == 'assets'  ? block.assets.all()  ??? block.assets  ??? null : collection %}
         {% set collection = source == 'entries' ? block.entries.all() ??? block.entries ??? null : collection %}
         {% set collection = source == 'items'   ? block.items.all()   ??? block.items   ??? null : collection %}
+
+        {% if source == 'items' %}
+            {% set collection = collection | map( i => i | merge({
+                section: 'assets',
+                type: i.kind ??? null
+             }) ) %}
+        {% endif %}
 
         {## getContentFeedResults() is a custom macro that is a shortcut for
             collecting the items described within a Content Feed entry.
@@ -84,7 +92,7 @@
     {{ sprig( '_blocks/loop.searchResults.sprig', {
         settings  : block.settings,
         limit     : block.limit ??? null,
-        pagination: block.pagination.value ??? null,
+        pagination: block.pagination.value ??? block.pagination ??? null,
         feedIds   : block.feeds.ids() ?? block.feeds ??? null,
     }) }}
 {% endblock %}
@@ -95,7 +103,10 @@
  ------------------------------------------------------------------------------------ ##}
 {% block collection_render_loop %}
     {{ include( block.settings.cardLoop ??? block.settings['cardLoop.default'] ??? '_blocks/loop.auto', {
-        items: collection|default(),
-        settings: block.settings|default()
+        items     : collection|default(),
+        limit     : block.limit ??? null,
+        feedIds   : block.feeds.ids() ?? block.feeds ??? null,
+        settings  : block.settings|default(),
+        pagination: block.pagination.value ??? block.pagination ??? null,
     }, withContext = false  ) }}
 {% endblock %}

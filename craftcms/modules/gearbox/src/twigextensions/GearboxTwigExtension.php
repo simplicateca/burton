@@ -29,6 +29,7 @@ use Twig\Extension\AbstractExtension;
 
 use Embed\Embed;
 use mmikkel\retcon\Retcon;
+use GuzzleHttp;
 
 class GearboxTwigExtension extends AbstractExtension
 {
@@ -67,7 +68,7 @@ class GearboxTwigExtension extends AbstractExtension
     }
 
 
-    public function getContentFeedQuery( $feedID, $searchParams ): EntryQuery
+    public function getContentFeedQuery( $feedID, $searchParams ): mixed
     {
         // Get the feeds entry
         $feeds = Entry::find()->section('taxonomy')->id( $feedID ) ?? null;
@@ -86,51 +87,109 @@ class GearboxTwigExtension extends AbstractExtension
         $section       = $contentSource ? ( $contentSource['section']   ?? null ) : null;
         $entryType     = $contentSource ? ( $contentSource['entryType'] ?? null ) : null;
 
-        // Get sort, redirect, and topics
-        $sort     = $search ? $search->sort->value : null;
-        $topics   = $search ? $search->taxonomies->all() : null;
 
-        // Set search/sort/filter settings
-        $orderBy = 'postDate DESC';
-        $orderBy = $sort == 'random' ? 'RAND()' : $orderBy;
-        $orderBy = $sort == 'alphabetical' ? 'title DESC' : $orderBy;
-        $orderBy = $sort == 'upcoming' ? 'startDate ASC' : $orderBy;
+        // parse an rss feed
+        if( $contentSource['value'] == 'rss' && $search->sourceUrl )
+        {
+            // parse an rss feed using Guzzle
+            // keep the feed results cached for 24 hours
+            $feedUrl   = $search->sourceUrl;
+            $xmlString = \Craft::$app->cache->getOrSet( "rss-$feedUrl", function () use ($feedUrl) {
+                $client = new GuzzleHttp\Client();
+                $response = $client->get($feedUrl);
+                return $response->getBody()->getContents();
+            }, 86400 );
 
-        // Create the starting query
-        $collectionQuery = null;
-        if ($section == 'products') {
-            $collectionQuery = Entry::find()->section('products')->availableForPurchase(true);
-            $orderBy = $sort == 'recent' ? 'dateUpdated DESC' : $orderBy;
-        } else {
-            $collectionQuery = Entry::find();
-            $collectionQuery = $section ? $collectionQuery->section($section) : $collectionQuery;
+            // you cannot serialize `simplexml_load_string`, so we convert it after
+            $feed = simplexml_load_string( $xmlString );
+
+            $items = [];
+            foreach( $feed->channel->item as $i ) {
+
+                $item = [
+                    'headline'    => (string) $i->title,
+                    'url'         => (string) $i->link,
+                    'summary'     => (string) $i->description ?? (string) $i->content,
+                    'text'        => (string) $i->content ?? null,
+                    'topics'      => (array)  $i->category ?? [],
+                    'postDate'    => (string) $i->pubDate,
+                    'guid'        => (string) $i->guid,
+                    'section'     => 'rss',
+                    'type'        => $search->slug,
+                    'source'      => (string) $feed->channel->title,
+                ];
+
+                $item['image']   = $this->retconOnly( $item['summary'], 'img' );
+                $item['summary'] = $this->retconRemove( $item['summary'], 'img' );
+                $item['summary'] = $this->retconRemove( $item['summary'], 'figure' );
+                $item['summary'] = Retcon::getInstance()->retcon->change( $item['summary'], "p", false );
+
+                $item['topics']  = array_map(function ($a) { return (string) $a; }, $item['topics'] );
+
+                $items[] = $item;
+                if( count( $items ) >= $searchParams['limit']  ) {
+                    break;
+                }
+            }
+
+            return $items;
         }
 
-        if ($query) {
-            $collectionQuery = $collectionQuery->search($query);
-            $orderBy = 'score';
+        // prepare a Craft query based on the content feed settings
+        else
+        {
+            // Get sort, redirect, and topics
+            $sort     = $search ? $search->sort->value : null;
+            $topics   = $search ? $search->taxonomies->all() : null;
+
+            // Set search/sort/filter settings
+            $orderBy = 'postDate DESC';
+            $orderBy = $sort == 'random' ? 'RAND()' : $orderBy;
+            $orderBy = $sort == 'alphabetical' ? 'title DESC' : $orderBy;
+            $orderBy = $sort == 'upcoming' ? 'startDate ASC' : $orderBy;
+
+            // Create the starting query
+            $collectionQuery = null;
+            if ($section == 'products') {
+                $collectionQuery = Entry::find()->section('products')->availableForPurchase(true);
+                $orderBy = $sort == 'recent' ? 'dateUpdated DESC' : $orderBy;
+            } else {
+                $collectionQuery = Entry::find();
+                $collectionQuery = $section ? $collectionQuery->section($section) : $collectionQuery;
+            }
+
+            if ($query) {
+                $collectionQuery = $collectionQuery->search($query);
+                $orderBy = 'score';
+            }
+
+            $limit = $searchParams['limit'] ?? -1;
+            $collectionQuery = $collectionQuery->orderBy($orderBy)->limit( $limit );
+
+            if( $entryType ) {
+                $collectionQuery = $collectionQuery->type( $entryType );
+            } else {
+                $collectionQuery = $collectionQuery->type(['not', 'contentFeed', 'privateTag', 'redirect', 'contentFragment', 'sidebarFragment']);
+            }
+
+            if( $topics ) {
+                $collectionQuery = $collectionQuery->relatedTo( $topics );
+            }
+
+            return $collectionQuery;
         }
 
-        $limit = $searchParams['limit'] ?? 3;
-        $collectionQuery = $collectionQuery->orderBy($orderBy)->limit( $limit );
 
-        if( $entryType ) {
-            $collectionQuery = $collectionQuery->type( $entryType );
-        } else {
-            $collectionQuery = $collectionQuery->type(['not', 'contentFeed', 'privateTag', 'redirect', 'contentFragment', 'sidebarFragment']);
-        }
-
-        if( $topics ) {
-            $collectionQuery = $collectionQuery->relatedTo( $topics );
-        }
-
-        return $collectionQuery;
     }
 
 
     public function getContentFeedResults( $feedID, $searchParams ): Array
     {
-        return $this->getContentFeedQuery( $feedID, $searchParams )->all() ?? [];
+        $feedQueryOrResults = $this->getContentFeedQuery( $feedID, $searchParams );
+
+        return is_array( $feedQueryOrResults )
+            ? $feedQueryOrResults ?? []
+            : $feedQueryOrResults->all() ?? [];
     }
 
 

@@ -112,8 +112,8 @@
         Content specific override cards are passed the desired card layout as a variable
         called `extends` which they should use to dynamically extend themselves from.
      -------------------------------------------------------------------------------- ##}
-    {% set section   = item.section   ??? item.section.handle ??? null %}
-    {% set entryType = item.type      ??? item.entryType      ??? item.type.handle ??? null %}
+    {% set section   = item.section.handle ??? item.section ??? null %}
+    {% set entryType = item.entryType      ??? item.type.handle ??? item.type ??? null %}
 
     {% set cardPath  = [ "_content/#{section}/card" ] | merge( layout ) %}
 

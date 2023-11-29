@@ -86,6 +86,27 @@
     ] %}
 
     {% for block in blocks %}
+
+        {# <pre>
+            {% set data = {} %}
+            {% for field in block.fieldLayout.getCustomFieldElements() %}
+
+                {% set data = data | merge({ (field.field.handle): block.getFieldValue(field.field.handle) }) %}
+
+                {% if 'SuperTableField' in className(field.field) %}
+                    {% set superTableRows = [] %}
+                    {% for tableRow in craft.superTable.blocks({ ownerId: block.id, fieldId: field.field.id }).all() %}
+                        {% set superTableRows = superTableRows | merge([tableRow.getFieldValues()]) %}
+                    {% endfor %}
+
+                    {% set data = data | merge({ (field.field.handle): superTableRows }) %}
+                {% endif %}
+            {% endfor %}
+
+            {{ dump( block.settings ) }}
+
+        </pre> #}
+
         {{ include( path | map( p => p|replace({
             '%section%'  : block.settings.section   ??? null,
             '%builder%'  : block.settings.builder   ??? null,

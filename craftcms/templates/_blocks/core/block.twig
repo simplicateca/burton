@@ -227,7 +227,7 @@
  ------------------------------------------------------------------------------------ ##}
 {% block interspace_above %}{% apply spaceless %}
     {% set spacer = block.settings.interspaceAbove ?? true %}
-    {% set spacer = spacer is same as(true) ? "base" : spacer %}
+    {% set spacer = spacer is same as(true) ? block.settings.interspace ??? "base" : spacer %}
     {% if spacer %}
         {{ block( "interspace_#{spacer}", "_layout/core/spacing" ) }}
     {% endif %}
@@ -237,7 +237,7 @@
 
 {% block interspace_below %}{% apply spaceless %}
     {% set spacer = block.next.interspacePrevBottom ?? block.settings.interspaceBelow ?? true %}
-    {% set spacer = spacer is same as(true) ? "base" : spacer %}
+    {% set spacer = spacer is same as(true) ? block.settings.interspace ??? "base" : spacer %}
     {% if spacer %}
         {{ block( "interspace_#{spacer}", "_layout/core/spacing" ) }}
     {% endif %}

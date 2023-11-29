@@ -1,4 +1,4 @@
-{## FAQ Content - Card Override
+{## Asset - Card Override
  ------------------------------------------------------------------------------------ ##
     This file not typically called directly. It is dynamically inserted to a cards
     inheritence order when generated via the `render()` macro in `_cards/base`.
@@ -8,4 +8,6 @@
  ------------------------------------------------------------------------------------ ##}
 {% extends layout|default('_cards/base') %}
 
-{% block detail_accordion_card %}{{ block('detail_card_just_text') }}{% endblock %}
+{% block card_headline %}
+    WWWWWHHHHH
+{% endblock %}

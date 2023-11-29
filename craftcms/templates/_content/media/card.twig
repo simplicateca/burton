@@ -10,6 +10,15 @@
 {% use "_cards/parts.images" with images_media_player as media_player %}
 
 
+
+{% block standard_card_image %}
+    {{ block('media_player') }}
+{% endblock %}
+
+{% block standard_card_text   %}{% endblock %}
+{% block standard_card_action %}{% endblock %}
+
+
 {% block card_image %}
     {% if card_type|default() == 'detail' %}
         {{ block('media_player') }}

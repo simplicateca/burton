@@ -3,48 +3,51 @@
 {% set card_type = 'summary' %}
 
 {% block content %}
-
     {% set cardHeaderClass = 'mb-0 text-lg' %}
     {% set headline = block('card_headline') %}
     {% set hasLink  = headline | retconOnly( 'a' ) | length %}
-
     {% set summary  = block( 'card_summary' ) %}
 
-    <div class="
-        flex
-        justify-center
-        items-center
-        w-full
-        rounded-xl
-        overflow-hidden
-        transition
-        bg-theme-backgroundOff
-        {% if hasLink %}
-            hover:-translate-y-1
-            hover:shadow-lg
-            hover:bg-theme-accent
-        {% endif %}
-    ">
-        <div class="image mx-auto text-center">
-            <div class="w-24">
-                {% from "_content/images/frame" import framer %}
-                {{ framer( card.images, card.settings.cardImageFrame ??? 'icon', card.settings ) }}
-            </div>
-        </div>
-
-        <div class="p-2 lg:p-4 flex-grow flex flex-col h-full gap-1.5 justify-center">
-
-            {{ headline | raw }}
-
-            {% if summary %}
-                <div class="@container line-clamp-1">
-                    {{ summary }}
-                </div>
+    {% block iconbullet_card %}
+        <div class="
+            flex
+            justify-center
+            items-center
+            w-full
+            rounded-xl
+            overflow-hidden
+            transition
+            bg-theme-backgroundOff
+            {% if hasLink %}
+                hover:-translate-y-1
+                hover:shadow-lg
+                hover:bg-theme-accent
             {% endif %}
+        ">
 
-            {% block action %}
-                {{ hasLink ? null : block('card_action') }}
+            {% block iconbullet_card_image %}
+                <div class="image mx-auto text-center">
+                    <div class="w-24">
+                        {% from "_content/images/frame" import framer %}
+                        {{ framer( card.images, card.settings.cardImageFrame ??? 'icon', card.settings ) }}
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% block iconbullet_card_text %}
+                <div class="p-2 lg:p-4 flex-grow flex flex-col h-full gap-1.5 justify-center">
+
+                    {{ headline | raw }}
+
+                    {% if summary %}
+                        <div class="@container line-clamp-1">{{ summary }}</div>
+                    {% endif %}
+
+                    {% block action %}
+                        {{ hasLink ? null : block('card_action') }}
+                    {% endblock %}
+                </div>
             {% endblock %}
         </div>
-    </div>
+    {% endblock %}
 {% endblock %}

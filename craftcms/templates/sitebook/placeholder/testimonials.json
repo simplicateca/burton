@@ -1,64 +1,80 @@
-{
-  "testimonials": [
+[
     {
       "title": "Game-Changing Solutions!",
-      "body": "Implementing their innovative synergies was a game-changer for us. The transformative impact on our operations exceeded expectations. Truly visionary!",
+      "headline": "Emma Thompson, Director of Operations @ Stratosphere Innovations",
+      "body": "<p>Implementing their innovative synergies was a game-changer for us. The transformative impact on our operations exceeded expectations. Truly visionary!</p>",
       "author": {
         "name": "Emma Thompson",
+        "headshot": "https://thispersondoesnotexist.com/",
         "title": "Director of Operations",
         "company": "Stratosphere Innovations",
         "url": "http://www.stratosphereinnovations.com"
-      }
+      },
+      "tag": [ "Testimonials - Group A"]
     },
     {
       "title": "Strategic Excellence",
-      "body": "Their holistic approach to cross-functional value propositions brought strategic excellence to our projects. A reliable partner for sustained growth and success.",
+      "headline": "Alexander Rodriguez, Chief Strategy Officer @ Quantum Dynamics",
+      "body": "<p>Their holistic approach to cross-functional value propositions brought strategic excellence to our projects. A reliable partner for sustained growth and success.</p>",
       "author": {
         "name": "Alexander Rodriguez",
+        "headshot": "https://thispersondoesnotexist.com/",
         "title": "Chief Strategy Officer",
         "company": "Quantum Dynamics",
         "url": "http://www.quantumdynamics.net"
-      }
+      },
+      "tag": [ "Testimonials - Group A"]
     },
     {
       "title": "Future-Proofing Expertise",
-      "body": "We appreciate their proactive stance on future-proofing. Their expertise in collaborative infrastructures ensures our readiness for what lies ahead.",
+      "headline": "Olivia Johnson, VP of Technology @ Epic Innovations",
+      "body": "<p>We appreciate their proactive stance on future-proofing. Their expertise in collaborative infrastructures ensures our readiness for what lies ahead.</p>",
       "author": {
         "name": "Olivia Johnson",
+        "headshot": "https://thispersondoesnotexist.com/",
         "title": "VP of Technology",
         "company": "Epic Innovations",
         "url": "http://www.epicinnovations.org"
-      }
+      },
+      "tag": [ "Testimonials - Group A"]
     },
     {
       "title": "Global Success Partner",
-      "body": "Our global positioning has reached new heights with their strategies. They're more than a partner; they're instrumental in our international success.",
+      "headline": "Jonathan Lee, Global Expansion Manager @ Nexa Ventures",
+      "body": "<p>Our global positioning has reached new heights with their strategies. They're more than a partner; they're instrumental in our international success.</p>",
       "author": {
         "name": "Jonathan Lee",
+        "headshot": "https://thispersondoesnotexist.com/",
         "title": "Global Expansion Manager",
         "company": "Nexa Ventures",
         "url": "http://www.nexaventures.com"
-      }
+      },
+      "tag": [ "Testimonials - Group B"]
     },
     {
       "title": "Revolutionary Knowledge Transfer",
-      "body": "Their interactive knowledge transfer methodologies transformed our learning culture. Dynamic synergies have elevated our team’s collaborative intelligence.",
+      "headline": "Sophia Baker, Learning and Development Manager @ Synergetic Solutions",
+      "body": "<p>Their interactive knowledge transfer methodologies transformed our learning culture. Dynamic synergies have elevated our team’s collaborative intelligence.</p>",
       "author": {
         "name": "Sophia Baker",
+        "headshot": "https://thispersondoesnotexist.com/",
         "title": "Learning and Development Manager",
         "company": "Synergetic Solutions",
         "url": "http://www.synergeticsolutions.biz"
-      }
+      },
+      "tag": [ "Testimonials - Group B"]
     },
     {
       "title": "Thought Leadership Personified",
-      "body": "Their transformative thought leadership is personified in every project. Innovative narratives and a commitment to excellence make them industry leaders.",
+      "headline": "Maxwell Foster, CEO @ Paragon Innovations",
+      "body": "<p>Their transformative thought leadership is personified in every project. Innovative narratives and a commitment to excellence make them industry leaders.</p>",
       "author": {
         "name": "Maxwell Foster",
+        "headshot": "https://thispersondoesnotexist.com/",
         "title": "CEO",
         "company": "Paragon Innovations",
         "url": "http://www.paragoninnovations.com"
-      }
+      },
+      "tag": [ "Testimonials - Group B"]
     }
-  ]
-}
+]

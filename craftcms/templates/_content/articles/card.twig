@@ -3,10 +3,10 @@
     This file not typically called directly. It is dynamically inserted to a cards
     inheritence order when generated via the `render()` macro in `_cards/base`.
 
-    `extends` (the variable) should contain the path for the card layout to be rendered.
+    `layout` (the variable) should contain the path for the card layout to be rendered.
     If it is empty for some reason, default to the base card layout.
  ------------------------------------------------------------------------------------ ##}
-{% extends extends|default('_cards/base') %}
+{% extends layout|default('_cards/base') %}
 
 
 {% block card_before_summary %}

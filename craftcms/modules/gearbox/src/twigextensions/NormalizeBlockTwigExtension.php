@@ -153,7 +153,6 @@ class NormalizeBlockTwigExtension extends AbstractExtension
             }
 
             // interspace
-
             if( $fragmentParent->interspace && $fragmentParent->interspace != 'FROMFRAGMENT' ) {
                 $interspace = $fragmentParent->interspace->reference() ?? $interspace;
             }
@@ -166,17 +165,7 @@ class NormalizeBlockTwigExtension extends AbstractExtension
             $interspace['settings'] ?? []
         );
 
-        $important = array_merge(
-            $interspace['important'] ?? [],
-            $theme['important']      ?? [],
-            $variant['important']    ?? [],
-            $layout['important']     ?? []
-        );
-
-        return array_merge(
-            $settings,
-            $important
-        );
+        return $settings;
     }
 }
 

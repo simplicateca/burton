@@ -18,35 +18,13 @@
         {% from "_blocks/core/builders" import content as buildContent %}
         {{ buildContent( entry.contentBuilder.all() ??? null, 'fluidContainer' ) }}
     {% else %}
-        {% set query = craft.entries()
-            .section('articles')
-            .relatedTo( entry )
-            .limit(4)  %}
-
-        {% paginate query as pageInfo, pageEntries %}
-
-        {% import "_blocks/core/builders" as blocks %}
-        {{ blocks.builder(
-            [{
-              source: 'entries',
-              entries: pageEntries,
-              settings: {
-                  section    : 'pages',
-                  builder    : 'content',
-                  blockType  : 'collection',
-                  theme      : 'standard',
-                  variant    : 'auto',
-                  cardGrid   : 'stacked2',
-                  interspace : 'base',
-                  container  : 'fluidContainer',
-                  microLayout: 'topBottom',
-                  microFooterHtml: include( '_components/search-filter/pagination', { paginate: pageInfo } )
-              }
-            }],
-            'content'
-        ) }}
+        {{ sprig( '_content/articles/related.sprig', {
+            entry  : entry.id,
+            limit  : 2,
+            page   : craft.app.request.getParam('page')|default(1),
+            baseurl: entry.url
+        }) }}
     {% endif %}
-
 {% endblock %}
 
 {% block page_top %}

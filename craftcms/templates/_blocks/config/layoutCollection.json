@@ -96,6 +96,7 @@
 
         "settings": {
             "microLayout": "leftRight",
+            "leadingTextHeadlinesToMicroHeader": true,
             "cardGrid": "stacked2",
             "cardLayout.default": "thumbnail",
             "carouselVariants": ["detail","summary"],

@@ -1,0 +1,33 @@
+{% macro content() %}
+    {% set text %}
+        <div class="eyebrow eyebrowStandard">Quibusnam praeteritis?</div>
+        <h2 class="rd-h2">Nihil enim hoc differt</h2>
+        <p>Istam voluptatem perpetuam quis potest praestare sapienti? Nam illud vehementer repugnat, eundem beatum esse et multis malis oppressum.</p>
+
+        <ul class="checkList">
+            <li>Vide, ne etiam menses! nisi forte eum dicis, qui, simul atque arripuit, interficit.</li>
+            <li>Intellegi quidem, ut propter aliam quampiam rem, verbi gratia propter voluptatem, nos amemus;</li>
+            <li>Et si turpitudinem fugimus in statu et motu corporis, quid est cur pulchritudinem non sequamur?</li>
+        </ul>
+
+        <h3>Istam voluptatem perpetuam quis potest praestare sapienti?</h3>
+        <p>Nam illud vehementer repugnat, eundem beatum esse et multis malis oppressum.</p>
+        <p>Isto modo ne improbos quidem, si essent boni viri. Quo studio Aristophanem putamus aetatem in litteris duxisse? Sed potestne rerum maior esse dissensio? Torquatus, is qui consul cum Cn.</p>
+
+        <p><a href="#" class="button">Click me!</a></p>
+    {% endset %}
+
+    {{ [{
+
+        text  : text,
+        images: [{
+            url: 'https://unsplash.it/1280/1020'
+        }],
+        settings: {
+            builder   : 'content',
+            section   : 'pages',
+            entryType : 'standard',
+            blockType : 'image',
+        }
+    }] | json_encode | raw }}
+{% endmacro %}

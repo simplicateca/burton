@@ -1,26 +1,44 @@
 [
     {
-      "headline": "Innovative Synergies",
-      "text": "Leverage our cutting-edge synergies to drive innovation, transforming industry paradigms and ensuring your solutions are at the forefront of technological advancements."
+        "purpose": "Value Proposition #1",
+        "headline": "Innovative Synergies",
+        "image": "https://placeskull.com/120/120/d946ef/",
+        "text": "Leverage our cutting-edge synergies to drive innovation, transforming industry paradigms and ensuring your solutions are at the forefront of technological advancements.",
+        "tags": ["Value Props"]
     },
     {
-      "headline": "Holistic Growth Strategies",
-      "text": "Embark on a journey of holistic growth with our deeply rooted approach to cross-functional value propositions. Catalyze transformative solutions that redefine success."
+        "purpose": "Value Proposition #2",
+        "headline": "Holistic Growth Strategies",
+        "image": "https://placeskull.com/120/120/d946ef/",
+        "text": "Embark on a journey of holistic growth with our deeply rooted approach to cross-functional value propositions. Catalyze transformative solutions that redefine success.",
+        "tags": ["Value Props"]
     },
     {
-      "headline": "Proactive Future-Proofing",
-      "text": "Stay ahead in a dynamic landscape with our proactive stance on future-proofing collaborative infrastructures. Align seamlessly with emerging trends for sustained growth and resilience."
+        "purpose": "Value Proposition #3",
+        "headline": "Proactive Future-Proofing",
+        "image": "https://placeskull.com/120/120/d946ef/",
+        "text": "Stay ahead in a dynamic landscape with our proactive stance on future-proofing collaborative infrastructures. Align seamlessly with emerging trends for sustained growth and resilience.",
+        "tags": ["Value Props"]
     },
     {
-      "headline": "Global Positioning Excellence",
-      "text": "Strategically position your organization globally with our expertise. Curate organic growth strategies by synergizing market intelligence and transcending traditional boundaries."
+        "purpose": "Customer Pain Point #1",
+        "headline": "Global Positioning Excellence",
+        "image": "https://unsplash.it/1300/900",
+        "text": "Strategically position your organization globally with our expertise. Curate organic growth strategies by synergizing market intelligence and transcending traditional boundaries.",
+        "tags": ["Pain Points"]
     },
     {
-      "headline": "Interactive Knowledge Transfer",
-      "text": "Foster seamless knowledge transfer through innovative methodologies and interactive ecosystems. Catalyze a paradigm shift towards collaborative intelligence and dynamic synergies."
+        "purpose": "Customer Pain Point #2",
+        "headline": "Interactive Knowledge Transfer",
+        "image": "https://unsplash.it/1300/900",
+        "text": "Foster seamless knowledge transfer through innovative methodologies and interactive ecosystems. Catalyze a paradigm shift towards collaborative intelligence and dynamic synergies.",
+        "tags": ["Pain Points"]
     },
     {
-      "headline": "Transformative Thought Leadership",
-      "text": "Pivot towards transformative thought leadership. Weave innovative narratives and embrace a culture of continuous learning for unparalleled excellence in the dynamic marketplace."
+        "purpose": "Customer Pain Point #3",
+        "headline": "Transformative Thought Leadership",
+        "image": "https://unsplash.it/1300/900",
+        "text": "Pivot towards transformative thought leadership. Weave innovative narratives and embrace a culture of continuous learning for unparalleled excellence in the dynamic marketplace.",
+        "tags": ["Pain Points"]
     }
 ]
