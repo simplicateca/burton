@@ -41,7 +41,7 @@
     "putyourlightson/craft-sprig": "^2.7.2",
     "ryssbowh/craft-restrict-deletions": "^2.2",
     "sebastianlenz/linkfield": "^2.1.5",
-    "simplicateca/craft-reference-field": "^0.4",
+    "simplicateca/craft-reference-field": "^1.0",
     "topshelfcraft/environment-label": "^4.0.3",
     "vaersaagod/dospaces": "^2.0.0",
     "vaersaagod/matrixmate": "^2.1.4",
