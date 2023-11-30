@@ -1,13 +1,12 @@
-{% extends "_layout/base" %}
-
-{% requirePermission 'allowSitebook' %}
+{% set entry = { title: 'Content Blocks' } %}
+{% extends "sitebook/_core/base" %}
 
 {% html %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 {% endhtml %}
 
-{% block page %}
+{% block page_main %}
 
     {% set blockType = type ??? null %}
 
@@ -48,10 +47,17 @@
     } %}
 
     {% set config = allowedBlocks[blockType]|default() %}
-
     {% if config %}
         {{ sprig( 'sitebook/blocks/_previewer.sprig', { type: blockType, config: config } ) }}
+    {% else %}
+
+        <ul>
+        {% for type, config in allowedBlocks %}
+            <li><a href="{{ url( 'sitebook/blocks/' ~ type ) }}">{{ type|capitalize }} Blocks</a></li>
+        {% endfor %}
+        </ul>
+
     {% endif %}
 
 
-{% endblock page %}
+{% endblock page_main %}

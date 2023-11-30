@@ -150,7 +150,7 @@ class Gearbox extends Module
             UrlManager::class,
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['sitebook/blocks/<type:\w+>'] = ['template' => 'sitebook/blocks/editor.twig'];
+                $event->rules['sitebook/blocks/<type:\w+>'] = ['template' => 'sitebook/blocks/index'];
             }
         );
 

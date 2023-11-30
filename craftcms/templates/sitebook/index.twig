@@ -18,8 +18,8 @@
 #}
 {% requirePermission 'allowSitebook' %}
 
-{% set modularID = craft.app.request.getQueryParam('modular') %}
-{% set entry     = craft.entries().section('modular').id(modularID).one() ??? null  %}
+{% set modularID = craft.app.request.getQueryParam('modular') ??? null %}
+{% set entry     = modularID ? craft.entries().section('modular').id(modularID).one() ??? null  %}
 {% set entryType = entry.type.handle ??? null %}
 {% set sidebar   = entry.sidebarBuilder.one() ??? null %}
 {% set template  = sidebar ? "_layout/base.sidebar" : "_layout/base" %}

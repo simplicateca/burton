@@ -1,8 +1,19 @@
-{% set entry = { title: 'Layout Specs' } %}
-{% extends "sitebook/_core/base" %}
+{% extends "_layout/base" %}
+{% use "sitebook/_core/header" %}
+
+{% requirePermission 'allowSitebook' %}
+
+{% block page_top %}
+    {{ block( 'default_top' ) }}
+{% endblock %}
+
+{% block logo %}
+    <a href="{{ siteUrl('/sitebook/') }}" class="font-display text-3xl text-theme-accent flex items-center hover:text-theme-accentAlt py-4">
+        <span class="text-shade">[</span>sitebook<span class="text-shade">]</span>
+    </a>
+{% endblock %}
 
 {% block page_main %}
-
     <div class="container @container py-16">
         <div class="max-w-5xl @container">
 
@@ -14,5 +25,4 @@
             </ul>
         </div>
     </div>
-
 {% endblock %}

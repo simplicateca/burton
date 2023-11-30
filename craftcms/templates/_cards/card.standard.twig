@@ -15,7 +15,9 @@
 
 {% block standard_card_image %}
     {% if card.images ??? null %}
-        <div class="image">{{ parent() }}</div>
+        {% block card_image %}
+            <div class="image">{{ parent() }}</div>
+        {% endblock %}
     {% endif %}
 {% endblock %}
 
