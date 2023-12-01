@@ -36,9 +36,9 @@ class DefaultController extends Controller
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected array|bool|int $allowAnonymous = ['index'];
+    protected array|bool|int $allowAnonymous = ['index', 'filter'];
 
-    
+
     /**
      * Handle a request going to our module's index action URL,
      * e.g.: actions/site-module/default
@@ -53,5 +53,20 @@ class DefaultController extends Controller
 
         \Craft::$app->view->setTemplatesPath(__DIR__ . '/../templates');
         return $this->renderTemplate('default/index.twig', $variables);
+    }
+
+
+
+    public function actionFilter(): Response {
+
+        $variables = [
+
+        ];
+
+        dump( \Craft::$app->request );
+        exit;
+
+        // \Craft::$app->view->setTemplatesPath(__DIR__ . '/../templates');
+        // return $this->renderTemplate('default/filter.twig', $variables);
     }
 }

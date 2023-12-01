@@ -26,6 +26,10 @@ use craft\redactor\Field AS RedactorField;
 use craft\web\UrlManager;
 use craft\web\twig\variables\CraftVariable;
 
+use craft\controllers\NotFoundController;
+use yii\base\ActionEvent;
+
+
 use modules\sitemodule\assetbundles\sitemodule\SiteModuleAsset;
 use modules\sitemodule\variables\SiteVariable;
 use modules\sitemodule\twigextensions\SiteModuleTwigExtension;
@@ -109,13 +113,17 @@ class SiteModule extends Module
 
 
         // Register our frontend Controller Routes
-        Event::on(
-            UrlManager::class,
-            UrlManager::EVENT_REGISTER_SITE_URL_RULES,
-            function (RegisterUrlRulesEvent $event) {
-                $event->rules['sitemodule-custom-route'] = 'site-module/default/index';
+        Event::on(UrlManager::class, UrlManager::EVENT_REGISTER_SITE_URL_RULES,
+            function(RegisterUrlRulesEvent $event) {
+                $event->rules = array_merge($event->rules, [
+                    'site-module/whatever' => 'site-module/default/index',
+                    '<entrySlug:{slug}>:<filterSlug:{slug}>' => 'site-module/default/filter',
+                    // '<partOne:{slug}>/<entrySlug:{slug}>:<filterSlug:{slug}>' => 'site-module/default/filter',
+                    // '<partOne:{slug}>/<partTwo:{slug}>/<entrySlug:{slug}>:<filterSlug:{slug}>' => 'site-module/default/filter',
+               ]);
             }
         );
+
 
 
         // Register our Console Commands

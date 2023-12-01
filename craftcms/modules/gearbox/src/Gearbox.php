@@ -233,8 +233,8 @@ class Gearbox extends Module
                             'entry-type' => $type->handle,
                         ],
                         'criteria' => [
-                            'sectionId' => $source['criteria']['sectionId'],
-                            'editable'  => $source['criteria']['editable'],
+                            'sectionId' => $source['criteria']['sectionId'] ?? null,
+                            'editable'  => $source['criteria']['editable'] ?? null,
                             'typeId'    => $type->id,
                         ],
                         'condition' => [
@@ -243,18 +243,18 @@ class Gearbox extends Module
                                 'class'    => 'craft\elements\conditions\entries\SectionConditionRule',
                                 'operator' => 'in',
                                 'uid'      => '',
-                                'values'   => [$type->section->uid]
+                                'values'   => [$type->section->uid] ?? null
                             ],[
                                 'class'    => 'craft\elements\conditions\entries\TypeConditionRule',
                                 'operator' => 'in',
                                 'uid'      => '',
-                                'values'   => [$type->uid]
+                                'values'   => [$type->uid] ?? null
                             ]],
                         ],
                         'elementType'     => 'craft\elements\Entry',
                         'fieldContext'    => 'global',
-                        'defaultSort'     => $source['defaultSort'],
-                        'tableAttributes' => $source['tableAttributes'],
+                        'defaultSort'     => $source['defaultSort'] ?? null,
+                        'tableAttributes' => $source['tableAttributes'] ?? null,
                     ];
 
                     $children[] = $typeSource;

@@ -1,4 +1,4 @@
-dateModified: 1701211964
+dateModified: 1701376170
 elementSources:
   craft\elements\Entry:
     -
@@ -80,9 +80,9 @@ elementSources:
       disabled: false
       key: 'section:4615f7fe-de67-4be4-8d0e-ad7b2e14c059' # System Pages
       tableAttributes:
-        - postDate
-        - expiryDate
         - link
+        - slug
+        - uri
       type: native
     -
       defaultSort:
@@ -91,9 +91,9 @@ elementSources:
       disabled: false
       key: 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
       tableAttributes:
-        - postDate
-        - expiryDate
         - link
+        - slug
+        - 'field:b1c52a06-4990-43f5-90d3-898a48789556' # Dek
       type: native
     -
       defaultSort:

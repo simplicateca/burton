@@ -23,10 +23,37 @@
 {% extends "_layout/core/web" %}
 
 {% block page %}
-    {% block page_top    %}{{ block( 'default_top',    '_layout/parts.header' ) }}{% endblock %}
-    {% block page_main   %}{{ block( 'default_main',   '_layout/parts.main'   ) }}{% endblock %}
+    {% block page_top %}
+        {{ block( 'default_top', '_layout/parts.header' ) }}
+    {% endblock %}
+
+    {% block page_main %}
+
+        {{ block( 'mainTagOpen', '_layout/parts.main' ) }}
+
+        {% block page_main_content %}
+            {% set content = block('content') | spaceless %}
+            {% if content %}
+                {% import "_layout/core/containers" as containers %}
+                <div class="{{ containers.class('fluidContainer') }}">
+                    {{ block( "interspace_base", "_layout/core/spacing" ) }}
+                    {{ content | raw }}
+                    {{ block( "interspace_base", "_layout/core/spacing" ) }}
+                </div>
+            {% else %}
+                {{ block( 'default_main_contentBuilder', '_layout/parts.main' ) }}
+            {% endif %}
+        {% endblock %}
+
+        {{ block( 'mainTagClose', '_layout/parts.main' ) }}
+
+    {% endblock %}
+
     {% block page_bottom %}{{ block( 'default_bottom', '_layout/parts.footer' ) }}{% endblock %}
 {% endblock %}
+
+
+{% block content %}{% endblock %}
 
 
 {% block logo %}
