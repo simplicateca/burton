@@ -31,6 +31,7 @@
             :aria-controls="$id('dropdown-button')"
             type="button"
             class="{{ block('buttonClass') }}"
+            :class="open ? '{{ block('buttonClassActive') | replace({"\n": "", "\r": "", "\t": ""}) | spaceless }}' : ''"
         >
             {% block button %}
                 <span class="flex gap-2 items-center">
@@ -52,7 +53,7 @@
                 {% block aboveItems %}{% endblock %}
 
                 {% block loop %}
-                    {% for item in dropdown.children.all() ??? null %}
+                    {% for item in dropdown.children.all() ??? dropdown.children ??? null %}
                         {% block item %}
                             {{ tag( 'a', {
                                 href : item.url ??? null,
@@ -78,18 +79,24 @@
         p-4
     {% endblock %}
 
+    {% block buttonClassActive %}
+        bg-theme-accent
+        text-white
+    {% endblock %}
+
     {% block itemClass %}
         flex
         items-center
         gap-2
         w-full
-        p-4
+        px-4
+        py-2
         hover:text-white
         hover:bg-theme-accent
     {% endblock %}
 
     {% block panelClass %}
-        text-lg
+        text-base
         no-underline
         absolute
         left-0

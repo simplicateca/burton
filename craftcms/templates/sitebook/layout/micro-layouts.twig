@@ -1,8 +1,35 @@
-{% set entry = { title: 'Micro Layout Definitions' } %}
-
 {% extends "sitebook/_core/base" %}
 
-{% block page_main %}
+{% import "_layout/core/grids" as grids %}
+{% set json = grids.definitions() | json_decode %}
+
+{% block page_main_content %}
+
+    <div data-theme="standard">
+        <div class="container @container py-16">
+            <h1>Micro Layouts</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
+                <div class="@container w-full">
+                    <p class="html larger"> Mobile ready named layouts for creating some kind of relationship between two or more pieces of content.</p>
+
+                    <p>Used extensively in pretty much all blocks. Available within in any template by using:</p>
+
+                    <strong class="mt-8 block">Usage:</strong>
+                    <code class="bg-theme-backgroundOff p-4 block text-xs font-mono leading-6">
+                        {% verbatim %}{% import "_layout/core/micro-layouts" as micro %}{% endverbatim %}<br>
+                        {% verbatim %}{{ micro.layout( layoutName, [zone1, zone2, header, footer], 'extra-classes' ) }}{% endverbatim %}
+                    </code>
+                </div>
+
+                <div class="w-full h-full @container bg-theme-backgroundOff" data-theme="dark">
+                    <div class="bg-theme-backgroundOff p-3">Micro Layouts are defined as JSON: <strong class="text-theme-accent whitespace-nowrap">_layout/core/micro-layouts.twig</strong></div>
+                    <div class="h-full w-full p-5 max-h-[400px] overflow-scroll">
+                        {{ dump( json ) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {% from "_layout/core/containers" import definitions as containerDefs %}
     {% set containers = ( containerDefs() | json_decode ).options %}

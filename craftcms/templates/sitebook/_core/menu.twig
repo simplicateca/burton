@@ -1,0 +1,35 @@
+    {% embed '_components/navigation/_base.list' with {
+        title : 'Sitebook Menu',
+        handle: 'sitebook',
+        items : [
+            { title: 'Sitebook', url: siteUrl( 'sitebook' ) },
+            { title: 'Playbooks', url: siteUrl( 'sitebook/playbooks' ) },
+            { title: 'Tools', hasDescendants: true, children: [
+                { title: 'Grids',           url: siteUrl( 'sitebook/layout/grids' ) },
+                { title: 'Containers',      url: siteUrl( 'sitebook/layout/containers' ) },
+                { title: 'Micro Layouts',   url: siteUrl( 'sitebook/layout/micro-layouts' ) },
+                { title: 'Spacing',         url: siteUrl( 'sitebook/layout/spacing' ) },
+                { title: 'Typography',      url: siteUrl( 'sitebook/layout/typography' ) },
+                { title: 'Themes',          url: siteUrl( 'sitebook/layout/themes' ) },
+                { title: 'Block Previewer', url: siteUrl( 'sitebook/blocks' ) },
+                { title: 'Card Previewer',  url: siteUrl( 'sitebook/cards' ) },
+                { title: 'Sample Pages',    url: siteUrl( 'sitebook/samples' ) }
+            ] },
+            { title: 'Help', url: siteUrl( 'sitebook/help' ) },
+        ],
+    } %}
+        {% block item %}
+            {{ node.hasDescendants ??? null
+                ? block('dropdownMenu') : parent() }}
+        {% endblock %}
+
+        {% block dropdownMenu %}
+            {% embed "_components/navigation/dropdown" with
+                { dropdown: node, itemClass: block( 'itemClass' ) }
+            %}
+                {% block buttonClass %}
+                    {{ itemClass }}
+                {% endblock %}
+            {% endembed %}
+        {% endblock %}
+    {% endembed %}

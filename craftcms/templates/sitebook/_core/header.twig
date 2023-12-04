@@ -5,16 +5,15 @@
 
     - http://localhost:8000/sitebook/layout/header
 
------------------------------------------------------------------------------------- ##}
+ ------------------------------------------------------------------------------------ ##}
 {% use "_layout/parts.header" %}
 
 {% block topbar_primaryMenu %}
     {{ include( "sitebook/_core/menu" ) }}
-
 {% endblock %}
 
 {% block topbar_utilityMenu %}
-    <a href="{{ siteUrl( '/' ) }}">Home</a>
+    <a href="{{ siteUrl( '/' ) }}" class="block p-2 text-sm hover:underline">Return to Public Site →</a>
 {% endblock %}
 
 {% block headerTagOpen %}

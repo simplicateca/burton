@@ -1,4 +1,4 @@
-dateModified: 1701376170
+dateModified: 1701698170
 elementSources:
   craft\elements\Entry:
     -
@@ -97,17 +97,6 @@ elementSources:
       type: native
     -
       defaultSort:
-        - structure
-        - asc
-      disabled: false
-      key: 'section:fdb77561-cbd1-4a4e-a2a5-eb559a5361cb' # Sitebook
-      tableAttributes:
-        - postDate
-        - expiryDate
-        - link
-      type: native
-    -
-      defaultSort:
         - postDate
         - desc
       disabled: true
@@ -116,6 +105,20 @@ elementSources:
         - section
         - postDate
         - expiryDate
+        - link
+      type: native
+    -
+      heading: ''
+      type: heading
+    -
+      defaultSort:
+        - structure
+        - asc
+      disabled: false
+      key: 'section:e70f7199-a1ea-4508-93cb-7d2e02acd2dc' # Sitebook
+      tableAttributes:
+        - type
+        - 'field:b1c52a06-4990-43f5-90d3-898a48789556' # Dek
         - link
       type: native
 email:
@@ -232,6 +235,7 @@ meta:
     60a99a1b-8081-4b05-959f-fe916ff2b96e: 'Footer - Legal Menu' # Footer - Legal Menu
     69c2d7dc-3df8-4df1-a444-d2ae376da00c: Text # Text
     77f5e257-4db0-43d7-a465-e8cdc3915572: Fragment # Fragment
+    84b2124f-a596-4c73-bb14-d89b1d877eb5: 'Sample Page' # Sample Page
     85a35bf9-39c4-475c-9abf-7839f75bb8e6: 'Content feed' # Content feed
     87c55206-b434-47f6-844d-1d8664946c2b: Layout # Layout
     213c9175-81d2-4141-8993-904e59925583: Collection # Collection
@@ -246,7 +250,6 @@ meta:
     606e97ed-f3fc-481c-9cfb-980f44a2b807: 'Custom Bits' # Custom Bits
     650e7d1d-63e5-42f9-b3ab-4febfb502723: 'Primary Pages' # Primary Pages
     740eff0a-152c-4375-b117-cf00b55d99a8: 'Footer - Contact' # Footer - Contact
-    780c9942-bfd5-4d94-82c7-5b323a47f5d4: Default # Default
     846fcb98-b56b-479d-9d99-3502ed63ef09: 'Area between and around the block' # Area between and around the block
     874c1a25-ef53-4cb7-84b3-3f09a80fa387: Fragment # Fragment
     887c7e34-0b1f-40b8-b330-27d660a47d50: Interspace # Interspace
@@ -291,6 +294,7 @@ meta:
     a4f97962-52de-4b53-8422-5b833d1cd5fd: Uploads # Uploads
     a4fe99b5-7832-4eb2-9833-f551177bb821: 'Content Builder' # Content Builder
     a5e7245d-85fd-4eb2-a1af-93ebbadd17f3: Code # Code
+    a6df8d17-3c00-43e8-9bb2-5763c88de2de: Playbook # Playbook
     a7b99dca-7b58-438c-b57e-9d7965c3093b: 'Area between and around the block' # Area between and around the block
     a8dc4c16-ac4a-41eb-b5cb-a83598b8313f: 'Navigation and filtering' # Navigation and filtering
     a9eefedb-b175-4baa-a9ee-903aa94e9c9b: 'Content Editor' # Content Editor
@@ -360,6 +364,7 @@ meta:
     e44c7d4a-f794-4917-8a3f-e77e8162cc93: Widget # Widget
     e47b95bf-7a74-49e3-afa3-a938bd733ef7: Summary # Summary
     e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9: 'Background theme and colours' # Background theme and colours
+    e70f7199-a1ea-4508-93cb-7d2e02acd2dc: Sitebook # Sitebook
     e125d51d-b35a-4313-8094-b235218d58d2: Member # Member
     e278d4be-81b4-4575-b43f-75291ca49ada: Alternate # Alternate
     e511df66-41ea-4d8f-bfa5-538fec0fc45f: 'Site Owner' # Site Owner
@@ -379,10 +384,13 @@ meta:
     f121e5ad-eddc-485f-8d18-8f74c406c771: Layout # Layout
     fb8236c7-dc6f-45c6-b62d-6d6ffaaf1657: Theme # Theme
     fd647249-c4ea-4ade-99ab-13f9e53bba3f: Image # Image
-    fdb77561-cbd1-4a4e-a2a5-eb559a5361cb: Sitebook # Sitebook
     fde3769d-9be8-400b-a915-9c3c06469466: Label # Label
     fff3cc82-2855-4031-b003-b91d6e16088b: FAQs # FAQs
 plugins:
+  architect:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.0
   blitz:
     edition: standard
     enabled: false

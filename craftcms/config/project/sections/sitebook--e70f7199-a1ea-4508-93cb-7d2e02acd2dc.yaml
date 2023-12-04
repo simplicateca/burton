@@ -7,21 +7,21 @@ previewTargets:
     __assoc__:
       -
         - label
-        - 'Content Layout'
+        - 'Primary content entry page'
       -
         - urlFormat
         - '{url}'
       -
         - refresh
         - '1'
-propagationMethod: custom
+propagationMethod: all
 siteSettings:
   94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
     enabledByDefault: true
     hasUrls: true
-    template: sitebook/_entry
-    uriFormat: '{{parent.uri ?? ''sitebook''}}/{{slug}}'
+    template: sitebook/_core/entry
+    uriFormat: '{{parent.uri ?? "sitebook/#{object.type.handle}"}}/{{slug}}'
 structure:
   maxLevels: null
-  uid: d5688cfd-6a2b-4609-bc18-7e1f0c00426f
+  uid: 39b68498-7951-42fa-a7ec-f051d09ba2dd
 type: structure

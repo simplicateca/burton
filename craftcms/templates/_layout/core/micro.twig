@@ -59,15 +59,15 @@
         zone1: 'w-full @container',
         zone2: 'w-full @container',
 
-        header          : 'w-full max-w-3xl pb-8 @container',
-        header__left    : 'w-full max-w-3xl pb-8 @container mr-auto',
-        header__center  : 'w-full max-w-3xl pb-8 @container mx-auto',
-        header__right   : 'w-full max-w-3xl pb-8 @container ml-auto',
+        header          : 'w-full max-w-3xl pb-8 last:mb-8 @container',
+        header__left    : 'w-full max-w-3xl pb-8 last:mb-8 @container mr-auto',
+        header__center  : 'w-full max-w-3xl pb-8 last:mb-8 @container mx-auto',
+        header__right   : 'w-full max-w-3xl pb-8 last:mb-8 @container ml-auto',
 
-        footer          : 'w-full max-w-3xl pt-8 @container',
-        footer__left    : 'w-full max-w-3xl pt-8 @container mr-auto',
-        footer__center  : 'w-full max-w-3xl pt-8 @container mx-auto',
-        footer__right   : 'w-full max-w-3xl pt-8 @container ml-auto',
+        footer          : 'w-full max-w-3xl pt-8 first:mt-8 @container',
+        footer__left    : 'w-full max-w-3xl pt-8 first:mt-8 @container mr-auto',
+        footer__center  : 'w-full max-w-3xl pt-8 first:mt-8 @container mx-auto',
+        footer__right   : 'w-full max-w-3xl pt-8 first:mt-8 @container ml-auto',
     },
 
     _:'## named microlayout definitions',
@@ -90,8 +90,8 @@
             _:'## Zone 1 (1024px max) above Zone 2 (full). Centered Zone 1 / Header / Footer.',
             base  : 'w-full relative flex flex-col',
             zone1 : 'w-full max-w-5xl mx-auto @container',
-            header: 'w-full max-w-3xl mx-auto @container',
-            footer: 'w-full max-w-3xl mx-auto @container',
+            header: 'w-full max-w-3xl last:mb-8 mx-auto @container',
+            footer: 'w-full max-w-3xl last:mt-8 mx-auto @container',
 
             _type: 'twozone',
             _reverse: 'bottomTop'
@@ -114,8 +114,8 @@
             _:'## Zone 2 (full) above Zone 1 (1024px max). Centered Zone 1 / Header / Footer.',
             base  : 'w-full relative flex flex-col-reverse',
             zone1 : 'w-full max-w-5xl mx-auto @container',
-            header: 'w-full max-w-3xl mx-auto @container',
-            footer: 'w-full max-w-3xl mx-auto @container',
+            header: 'w-full max-w-3xl last:mb-8 mx-auto @container',
+            footer: 'w-full max-w-3xl last:mt-8 mx-auto @container',
 
             _type: 'twozone',
             _reverse: 'topBottomCenter'

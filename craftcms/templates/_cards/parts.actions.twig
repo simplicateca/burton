@@ -66,7 +66,7 @@
     -> https://docs.craftcms.com/api/v4/craft-base-element.html#url
  ------------------------------------------------------------------------------------ ##}
 {% block action_default %}{% apply spaceless %}
-    {% if card.item.url %}
+    {% if card.item.url|default() %}
         <a href="{{card.item.url}}" class="clickCover"
             ><span class="hidden">Read More →</span></a>
     {% endif %}
@@ -79,7 +79,7 @@
     Like the Default Action, but uses a visible text-based (non-button) link
  ------------------------------------------------------------------------------------ ##}
 {% block action_textlink %}{% apply spaceless %}
-    {% if card.item.url %}
+    {% if card.item.url|default() %}
         <div class="flex">
             <a href="{{card.item.url}}" class="clickCover buttonText"
                 >Read More</a>

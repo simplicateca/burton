@@ -1,23 +1,5 @@
 [
     {
-        "label": "Text Left / Collection Right",
-        "value": "textLeft",
-
-        "settings": {
-            "microLayout": "leftRight"
-        }
-    },
-
-    {
-        "label": "Text Right / Collection Left",
-        "value": "textRight",
-
-        "settings": {
-            "microLayout": "rightLeft"
-        }
-    },
-
-    {
         "label": "Text Above Collection",
         "value": "textAbove",
 
@@ -91,6 +73,15 @@
     },
 
     {
+        "label": "Text Left / Collection Right",
+        "value": "textLeft",
+
+        "settings": {
+            "microLayout": "leftRight"
+        }
+    },
+
+    {
         "label": "Text Left / 2 Columns Right",
         "value": "textBeside2",
 
@@ -102,5 +93,14 @@
             "carouselVariants": ["detail","summary"],
             "columns": 2
         }
-    }
+    },
+
+    {
+        "label": "Text Right / Collection Left",
+        "value": "textRight",
+
+        "settings": {
+            "microLayout": "rightLeft"
+        }
+    },
 ]

@@ -1,5 +1,5 @@
 fieldLayouts:
-  40684536-4ae6-410b-9ab9-ce1f423c9427:
+  13821c7c-afe6-4234-a46f-38b129805bcc:
     tabs:
       -
         elementCondition: null
@@ -13,7 +13,7 @@ fieldLayouts:
             elementCondition: null
             id: null
             instructions: null
-            label: 'Page Title'
+            label: null
             max: null
             min: null
             name: null
@@ -26,7 +26,7 @@ fieldLayouts:
             tip: null
             title: null
             type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: 47231d35-0018-4377-b46c-ae84f4e46fcc
+            uid: f48ea302-f11f-4ebc-9209-d57a79d27491
             userCondition: null
             warning: null
             width: 100
@@ -34,7 +34,7 @@ fieldLayouts:
             elementCondition: null
             template: _blocks/craft-ui/instructionsHeader.twig
             type: craft\fieldlayoutelements\Template
-            uid: ea61fb96-468b-4427-a0b4-a1b5dbb29752
+            uid: ae9e568a-28f0-4f42-abbe-724cde42b868
             userCondition: null
             width: 100
           -
@@ -45,7 +45,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 77db6e21-1b04-4dc7-b055-8b4e14e30ef3
+            uid: 291a3dc9-cad0-4fb4-b628-ce70f68e6130
             userCondition: null
             warning: null
             width: 100
@@ -53,7 +53,7 @@ fieldLayouts:
             elementCondition: null
             template: _blocks/craft-ui/instructionsContent.twig
             type: craft\fieldlayoutelements\Template
-            uid: 0a342393-374b-4c57-8dcc-e08a394b84fd
+            uid: 311bd510-ab4d-4ab1-8f4a-9d92bd2de78a
             userCondition: null
             width: 100
           -
@@ -64,7 +64,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 90dfabd8-446b-40c7-958c-984a9647211d
+            uid: c63a2305-ce36-436c-b64b-c6f179107a1a
             userCondition: null
             warning: null
             width: 100
@@ -72,11 +72,11 @@ fieldLayouts:
             elementCondition: null
             template: _blocks/craft-ui/matrixConditionalFields.twig
             type: craft\fieldlayoutelements\Template
-            uid: e8450ae2-36ee-4f3b-837c-dd11c1cf4538
+            uid: 921fe4cc-63d8-4c1d-9b80-34cf65812e73
             userCondition: null
             width: 100
         name: Content
-        uid: 201e19ec-430f-436f-bc75-9985641f2352
+        uid: a2be0119-154b-47e3-bdf4-3dee47410b47
         userCondition: null
       -
         elementCondition: null
@@ -89,7 +89,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: d2afd6a8-b5fe-4b5f-8d55-af5c501dcb75
+            uid: 0c055b2c-3d07-404a-82f4-eebff764f97b
             userCondition: null
             warning: null
             width: 50
@@ -101,7 +101,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 373a4f64-b4a5-40fc-a09d-030d18293177
+            uid: 6df802f9-ba2c-4d27-8877-c697e973f983
             userCondition: null
             warning: null
             width: 50
@@ -113,14 +113,14 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: e4125718-7942-4545-8e0a-edb64323c89a
+            uid: 5ae874e8-7102-4cb0-a529-44108c4c3265
             userCondition: null
             warning: null
             width: 100
           -
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
-            uid: 4201b712-518a-4250-b610-a6c9ad84551b
+            uid: 8a6ddae1-80ce-4f4d-b28c-5b7433aef4d3
             userCondition: null
           -
             elementCondition: null
@@ -130,7 +130,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: d0ec0ce3-948d-466a-b62d-152254ed89cd
+            uid: 2ab7594a-c85f-49a0-bd7e-f3b5a6c5798a
             userCondition: null
             warning: null
             width: 100
@@ -142,18 +142,21 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 1186f787-685b-4ee4-a652-56c9f9e3d554
+            uid: 60f71bf8-d6e1-4ec1-97fd-751dd1663ddf
             userCondition: null
             warning: null
             width: 100
         name: 'Page Settings'
-        uid: 2b82df5f-5521-4d7c-b079-1432a96c9a75
+        uid: 138f73f8-d45a-42ed-8c08-d68f9dd18c62
         userCondition: null
-handle: default
+handle: playbooks
 hasTitleField: true
-name: Default
-section: fdb77561-cbd1-4a4e-a2a5-eb559a5361cb # Sitebook
-sortOrder: 1
+name: Playbook
+section: e70f7199-a1ea-4508-93cb-7d2e02acd2dc # Sitebook
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+sortOrder: 2
 titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

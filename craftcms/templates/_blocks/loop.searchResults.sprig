@@ -1,4 +1,5 @@
-{% set feedIds    = feedIds|default() %}
+{% set feedIds    = feedIds|default()  %}
+{% set source     = source|default()   %}
 {% set settings   = settings|default() %}
 {% set pagination = pagination|default() %}
 {% set baseurl    = settings.entryUrl ??? siteUrl( craft.app.request.pathInfo ) %}
@@ -11,11 +12,19 @@
     limit : limit|default()
 } %}
 
-
-{## convert a contentFeed entry into a Craft Query object using a custom twig function
-    from: `craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php` ##}
 {% if searchParams.query or not ( settings.requireQuery ??? null ) %}
-    {% set query    = feedIds ? getContentFeedQuery( feedIds, searchParams ) : null %}
+
+    {## convert a contentFeed entry into a Craft Query object using a custom twig function
+        from: `craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php` ##}
+    {% set query = feedIds ? getContentFeedQuery( feedIds, searchParams ) : null %}
+
+    {% if source and not query %}
+        {% set query = craft.entries() %}
+        {% set query = source.section|default() ? query.section( source.section ) : query %}
+        {% set query = source.type|default()    ? query.type( source.type       ) : query %}
+        {% set query = source.orderBy|default() ? query.orderBy( source.orderBy ) : query %}
+        {% set query = searchParams.query       ? query.search( searchParams.query ) : query %}
+    {% endif %}
 
     {% if query|first.section ??? null == 'rss' %}
         {% set pageInfo = {
@@ -24,10 +33,8 @@
             totalPages: 1
         } %}
     {% else %}
-        {% set pageInfo = query   ? sprig.paginate( query, searchParams.page )   : null %}
+        {% set pageInfo = query ? sprig.paginate( query, searchParams.page ) : null %}
     {% endif %}
-
-
 {% endif %}
 
 {% if pagination in [ 'standardWithSearch', 'filterByFeed' ] %}
@@ -79,12 +86,10 @@
         {{ include( settings.cardLoop ??? settings['cardLoop.default'] ??? '_blocks/loop.auto', {
             items     : pageInfo.pageResults,
             limit     : searchParams.limit,
-            feedIds   : feedIds,
             pagination: pagination,
             settings  : settings|default()
         }, withContext = false  ) }}
-
-{{pagination}}
+        {#  feedIds   : feedIds, #}
 
         {{ include( '_components/search-filter/pagination', {
             isSprig   : true,

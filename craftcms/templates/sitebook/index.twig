@@ -16,46 +16,144 @@
    2) acts as a preview template for modular content without
       a public URL using /sitebook/?modular={{entry.id}}
 #}
-{% requirePermission 'allowSitebook' %}
+{% set extends = 'sitebook/_core/base' %}
+{% set extends = craft.app.request.getQueryParam('bit')             ??? null ? 'sitebook/_core/moduleBit' : extends %}
+{% set extends = craft.app.request.getQueryParam('contentFragment') ??? null ? 'sitebook/_core/fragment'  : extends %}
+{% set extends = craft.app.request.getQueryParam('sidebarFragment') ??? null ? 'sitebook/_core/fragment'  : extends %}
+{% set extends = craft.app.request.getQueryParam('system')          ??? null ? 'sitebook/_core/system'    : extends %}
 
-{% set modularID = craft.app.request.getQueryParam('modular') ??? null %}
-{% set entry     = modularID ? craft.entries().section('modular').id(modularID).one() ??? null  %}
-{% set entryType = entry.type.handle ??? null %}
-{% set sidebar   = entry.sidebarBuilder.one() ??? null %}
-{% set template  = sidebar ? "_layout/base.sidebar" : "_layout/base" %}
+{% extends extends %}
 
-{% if not entry %}
-    {% redirect "/sitebook/home" %}
-{% endif %}
+{% block page_main_content %}
 
-{% extends template %}
+    <div data-theme="standard">
+        <div class="container @container py-28 text-center">
+            {{ include( 'vectors/star.svg', { class: 'h-24 w-24 fill-current mx-auto' } ) }}
+            <h1>Welcome to Sitebook</h1>
 
-{% block content %}
-    {% if entryType == 'contentFragment' %}
-        {{ include( '_components/builders/builderContent.twig', {
-            entry: entry,
-            container: 'container @container'
-        }, withContext = false) }}
-    {% endif %}
-
-    {% if not ( 'Fragment' in entryType ) %}
-        <div class="container @container">
-            <div class="max-w-sm py-20">
-                {{ include( '_cards/item/basic', { entry: entry }, withContext = false ) }}
+            <div class="max-w-5xl @container mx-auto">
+                <p class="html larger">Sitebook is your hub for mastering the content management and design tools of your website.</p>
             </div>
         </div>
-    {% endif %}
-{% endblock %}
+    </div>
 
-{% block sidebar %}
-    {% if entryType == 'sidebarFragment' %}
-        {{ include( '_components/builders/builderSidebar.twig', {
-            entry: entry
-        }, withContext = false) }}
-    {% endif %}
-{% endblock %}
+    <div data-theme="bright">
+        <div class="container @container py-20">
 
-{% block header %}{% endblock %}
-{% block pageTitle %}{% endblock %}
-{% block aboveFooter %}{% endblock %}
-{% block footer %}{% endblock %}
+            <div class="max-w-5xl @container mx-auto text-center mb-20">
+                <h2 id="tools">Playbooks & Tutorials</h2>
+                <p class="html text-center">Explore tutorials tailored to your websites features and self-document internal processes as playbooks to improve content & design consistency.</p>
+            </div>
+
+            {{ sprig( '_blocks/loop.searchResults.sprig', {
+                limit : 9,
+                source: {
+                    section: 'sitebook',
+                    type: 'playbooks',
+                },
+                pagination: 'standardWithSearch',
+                settings: {
+                    microLayout: 'topBottom',
+                    cardGrid: 'stacked3',
+
+                    cardLayout: 'standard',
+                    columns: 3
+                }
+            }) }}
+        </div>
+    </div>
+
+    <div data-theme="dark">
+        <div class="container @container py-20">
+
+            <div class="max-w-5xl @container mx-auto text-center mb-20">
+                <h2 id="tools">Tools to Fuel Your Journey</h2>
+                <p class="html text-center">Discover an array of tools, patterns, and components designed to simplify and enhance your work.</p>
+            </div>
+
+            {% set toolContent %}
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( 'vectors/grid.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Grids, Containers, and Micro&#8209;Layouts</h4>
+                            <p class="html smaller">Explore responsive design like never before. Dive into our references for grids, containers, and micro-layouts. Discover how to make your designs shine across various resolutions and monitors.</p>
+
+                            <ul class="flex flex-col gap-2">
+                                <li><a href="/sitebook/layout/grids">Grids →</a></li>
+                                <li><a href="/sitebook/layout/containers">Containers →</a></li>
+                                <li><a href="/sitebook/layout/micro-layouts">Micro Layouts →</a></li>
+                                <li><a href="/sitebook/layout/spacing">Spacing →</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( 'vectors/text.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Typography & Styles</h4>
+                            <p class="html smaller">Craft visually stunning and consistent designs with our typography and style references. Uncover the secrets to creating beautiful, harmonious interfaces effortlessly.</p>
+
+                            <ul class="flex flex-col gap-2">
+                                <li><a href="/sitebook/layout/typography">Typography Base →</a></li>
+                                <li><a href="/sitebook/layout/themes">Themes & Backgrounds →</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( 'vectors/brick.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Variation Previewer</h4>
+                            <p class="html smaller">Create dynamic, adaptive matrix-based content blocks. Streamline your development process by testing and perfecting diverse block variations in real-time with ease.</p>
+
+                            <ul class="flex flex-col gap-2">
+                                <li><a href="/sitebook/blocks">Block Previewer →</a></li>
+                                <li><a href="/sitebook/cards">Card Previewer →</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( 'vectors/design.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Sample Page Layouts</h4>
+                            <p class="html smaller">For editors seeking guidance, these ready-made examples simplify the creation of specific page types. Explore and adapt these layouts to streamline your specific content.</p>
+
+                            {% set samples = craft.entries.section('sitebook').type('samples').all() %}
+                            {% if samples|length %}
+                                <ul class="flex flex-col gap-2">
+                                {% for sample in samples %}
+                                    <li><a href="{{ sample.url }}">{{ sample.title }} →</a></li>
+                                {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p class="html smaller flex gap-2 m-2">
+                                    {{ include( 'vectors/circle-error.svg', { class: 'h-10 w-10 fill-current' } ) }}
+                                    <em>Pages created in the Sitebook section will automatically appear here.</em>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endset %}
+            {% import "_layout/core/grids" as grids %}
+            {{ grids.generate( toolContent, 'stacked2Narrow' ) }}
+
+        </div>
+    </div>
+{% endblock %}

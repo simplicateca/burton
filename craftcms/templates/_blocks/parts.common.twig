@@ -24,8 +24,8 @@
                     : null %}
 
                     {% set header %}
-                        {{ block('headerHeadline') }}
                         {{ processedText.eyebrow | raw }}
+                        {{ block('headerHeadline') }}
                         {{ processedText.headline | raw }}
                     {% endset %}
 
@@ -55,8 +55,8 @@
     {% if block.headline ??? processedText.eyebrow ??? processedText.headline %}
 
         {% set header %}
-            {{ block('headerHeadline') }}
             {{ processedText.eyebrow | raw }}
+            {{ block('headerHeadline') }}
             {{ processedText.headline | raw }}
         {% endset %}
 

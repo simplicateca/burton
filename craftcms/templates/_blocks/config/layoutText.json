@@ -23,7 +23,7 @@
 
         "settings": {
             "microLayout": "topBottomCenter",
-            "container": "narrow"
+            "container": "tablet"
         }
     }
 

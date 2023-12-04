@@ -59,10 +59,16 @@
         {% set collection = source == 'entries' ? block.entries.all() ??? block.entries ??? null : collection %}
         {% set collection = source == 'items'   ? block.items.all()   ??? block.items   ??? null : collection %}
 
-        {% if source == 'items' %}
+        {% if source == 'assets' %}
             {% set collection = collection | map( i => i | merge({
                 section: 'assets',
                 type: i.kind ??? null
+             }) ) %}
+        {% endif %}
+
+        {% if source == 'items' %}
+            {% set collection = collection | map( i => i | merge({
+                section: 'items'
              }) ) %}
         {% endif %}
 
