@@ -86,8 +86,13 @@
  ------------------------------------------------------------------------------------ ##
  ------------------------------------------------------------------------------------ ##}
 {% block summary_overflow %}{% apply spaceless %}
-    <div class="overflow-y-scroll max-h-44">
+    <div class="overflow-y-scroll max-h-[50vh] @container">
         {% import "_layout/core/markup" as markup %}
-        {{ markup.summaryMaxH4( card.summary ??? null ) }}
+        {{ markup.summaryMaxH4(
+            card.summary|default()
+                | retconAttr( 'p,ul,ol', { class: "html" }, false )
+                | retconAttr( 'ul,ol',   { class: "pl-8" }, false )
+            )
+        }}
     </div>
 {% endapply %}{% endblock %}

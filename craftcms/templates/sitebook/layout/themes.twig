@@ -64,18 +64,16 @@
             </ul>
         </div>
 
-        <div class="container @container">
-            <section class="my-16">
-                {% set item = {
-                    headline: 'Quid enim de amicitia',
-                    summary: 'Istam voluptatem perpetuam quis potest? Nam illud vehementer repugnat, eundem beatum esse et multis malis oppressum.',
-                    image: ''
-                } %}
+        <section class="my-16">
+            {% set item = {
+                headline: 'Quid enim de amicitia',
+                summary: 'Istam voluptatem perpetuam quis potest? Nam illud vehementer repugnat, eundem beatum esse et multis malis oppressum.',
+                image: ''
+            } %}
 
-                {% set cardContent = renderCard( item, 'standard' ) ~ renderCard( item, 'standard' ) ~ renderCard( item, 'standard' ) %}
-                {{ grids.generate( cardContent, 'stacked3' ) }}
-            </section>
-        </div>
+            {% set cardContent = renderCard( item, 'standard' ) ~ renderCard( item, 'standard' ) ~ renderCard( item, 'standard' ) %}
+            {{ grids.generate( cardContent, 'stacked3' ) }}
+        </section>
 
         <div class="max-w-5xl mx-auto @container">
             <p class="html !mb-0 text-center" data-has-buttons>
@@ -86,9 +84,11 @@
     {% endset %}
 
     {% for theme in themeOpts | keys %}
-        <div data-theme="{{theme}}" class="py-16">
-            <h2 class="text-center mb-16">{{ themeOpts[theme].label }}</h2>
-            {{text}}
+        <div data-theme="{{theme}}">
+            <div class="container @container py-16">
+                <h2 class="text-center mb-16">{{ themeOpts[theme].label }}</h2>
+                {{text}}
+            </div>
         </div>
     {% endfor %}
 

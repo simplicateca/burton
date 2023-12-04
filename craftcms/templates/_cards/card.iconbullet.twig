@@ -11,13 +11,15 @@
     {% block iconbullet_card %}
         <div class="
             flex
+            flex-col
+            @md:flex-row
             justify-center
             items-center
             w-full
-            rounded-xl
-            overflow-hidden
-            transition
             bg-theme-backgroundOff
+            rounded-xl
+            p-4
+            gap-4
             {% if hasLink %}
                 hover:-translate-y-1
                 hover:shadow-lg
@@ -26,8 +28,8 @@
         ">
 
             {% block iconbullet_card_image %}
-                <div class="image mx-auto text-center">
-                    <div class="w-24">
+                <div class="image text-center self-start">
+                    <div class="w-24 rounded-full overflow-hidden">
                         {% from "_content/images/frame" import framer %}
                         {{ framer( card.images, card.settings.cardImageFrame ??? 'icon', card.settings ) }}
                     </div>
@@ -35,18 +37,27 @@
             {% endblock %}
 
             {% block iconbullet_card_text %}
-                <div class="p-2 lg:p-4 flex-grow flex flex-col h-full gap-1.5 justify-center">
+                {% if hasLink %}
+                    <div class="h-full w-full flex-grow flex flex-col gap-4">
+                        {{ headline | raw }}
 
-                    {{ headline | raw }}
+                        {% if summary %}
+                            {{ tag( 'div', {
+                                class: 'line-clamp-3 @container',
+                                html : summary
+                            })}}
+                        {% endif %}
 
-                    {% if summary %}
-                        <div class="@container line-clamp-1">{{ summary }}</div>
-                    {% endif %}
+                        {{ block('card_action') }}
 
-                    {% block action %}
-                        {{ hasLink ? null : block('card_action') }}
-                    {% endblock %}
-                </div>
+                    </div>
+                {% else %}
+                    <div class="h-full w-full flex-grow flex flex-col gap-4">
+                        {{ headline | raw }}
+
+                        {{ summary|default() }}
+                    </div>
+                {% endif %}
             {% endblock %}
         </div>
     {% endblock %}

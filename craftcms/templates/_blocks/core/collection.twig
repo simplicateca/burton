@@ -62,7 +62,8 @@
         {% if source == 'assets' %}
             {% set collection = collection | map( i => i | merge({
                 section: 'assets',
-                type: i.kind ??? null
+                type   : i.kind ??? null,
+                images : i.images.all() ??? null
              }) ) %}
         {% endif %}
 

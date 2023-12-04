@@ -50,7 +50,7 @@
                                 :aria-expanded="expanded"
                                 class="{{ block( 'panelTitleClass' ) }}"
                             >{% block panelLabel %}
-                                <span class="text-left">{% block panelTitle %}{{ panel.title ??? null }}}{% endblock %}</span>
+                                <span class="text-left w-full block">{% block panelTitle %}{{ panel.title ??? null }}}{% endblock %}</span>
                                 <span x-show="expanded"  aria-hidden="true" class="ml-4">&minus;</span>
                                 <span x-show="!expanded" aria-hidden="true" class="ml-4">+</span>
                             {% endblock %}</button>

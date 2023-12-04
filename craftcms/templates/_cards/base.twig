@@ -2,7 +2,7 @@
     item    : item     ??? null,
     headline: headline ??? item.headline       ??? item.title   ??? null,
     summary : summary  ??? item.dek            ??? item.summary ??? item.text ??? null,
-    images  : images   ??? item.images         ??? null,
+    images  : images   ??? item.images.all()   ??? item.images  ??? null,
     section : section  ??? item.section.handle ??? item.section ??? null,
     type    : type     ??? item.type.handle    ??? item.type    ??? null,
     tag     : tag      ??? 'div',
@@ -59,7 +59,7 @@
  ------------------------------------------------------------------------------------ ##}
 {% block card_open_tag %}{% apply spaceless %}
     <{{card.tag|default('div')}} {{attr({
-        class: card.class|default('relative flex w-full h-full'),
+        class: card.class|default('relative flex w-full h-full @container'),
         data : {
             card   : card_template|default(),
             section: card.section|default(),

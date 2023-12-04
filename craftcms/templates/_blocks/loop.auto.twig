@@ -13,7 +13,7 @@
 
 {## Custom Adjustment -- Move to single column if only one result
  ------------------------------------------------------------------------------------ ##}
-{# {% set cardGrid  = items|length == 1 ? 'fixed1' : cardGrid %} #}
+{% set cardGrid  = items|length == 1 ? 'fixed1Narrow' : cardGrid %}
 
 {## Custom Adjustment -- Move to a Carousel??
  ------------------------------------------------------------------------------------ ##
@@ -21,11 +21,12 @@
     If so, move cards of this type to a carousel loop rather than a grid.
  ------------------------------------------------------------------------------------ ##}
 {% if cardGrid and settings.carouselVariants ??? null and variant in settings.carouselVariants %}
-    {% if not ( pagination ??? null ) %}
+    {% if not pagination|default() or pagination == 'all' %}
         {% set loopContent %}{% apply spaceless %}
             {{ include( '_blocks/loop.carousel', {
-                items   : items,
-                settings: settings
+                items     : items,
+                settings  : settings,
+                pagination: pagination
             }, withContext = false  ) }}
         {% endapply %}{% endset %}
     {% endif %}
@@ -68,3 +69,30 @@
 {## Don't forget to output the loopContent
 ------------------------------------------------------------------------------------ ##}
 {{ loopContent }}
+
+
+{## Do we have footer pagination?
+------------------------------------------------------------------------------------ ##}
+{% if feedIds|default() and pagination|default() == 'all' %}
+
+    {% set feeds = craft.entries()
+        .id(feedIds)
+        .fixedOrder(true)
+        .section('taxonomy')
+        .type('contentFeed')
+        .all()
+    %}
+
+    {% set activeFeed = null %}
+    {% for feed in feeds %}
+        {% set activeFeed = params.filter ??? feeds|first.slug == feed.slug ? feed : activeFeed %}
+    {% endfor %}
+
+    {% if activeFeed.hyperlink %}
+        <div class="text-center @container max-w-5xl mx-auto pt-10">
+            <a href="{{ activeFeed.hyperlink.url }}" class="button">
+                {{ activeFeed.hyperlink.text ?? "View All "}}
+            </a>
+        </div>
+    {% endif %}
+{% endif %}

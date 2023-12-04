@@ -1,6 +1,6 @@
 {% set content     = content     ??? null %}
 {% set headline    = headline    ??? null %}
-{% set theme       = theme       ??? null %}
+{% set theme       = theme       ??? 'bright' %}
 {% set triggerText = triggerText  ?? 'See More' %}
 {% set xTrapConfig = xTrapConfig ??? 'open' %}
 {% set uuid        = create('craft\\helpers\\StringHelper').UUID() %}
@@ -93,7 +93,7 @@ can still be called by {{ block('blockName') }} and/or overridden by child templ
     {% block modalClass %}
         relative
         w-full
-        max-w-2xl
+        max-w-4xl
         overflow-y-auto
         rounded-xl
         bg-white

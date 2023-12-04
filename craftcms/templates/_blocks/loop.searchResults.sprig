@@ -86,15 +86,16 @@
         {{ include( settings.cardLoop ??? settings['cardLoop.default'] ??? '_blocks/loop.auto', {
             items     : pageInfo.pageResults,
             limit     : searchParams.limit,
+            feedIds   : feedIds,
             pagination: pagination,
             settings  : settings|default()
         }, withContext = false  ) }}
-        {#  feedIds   : feedIds, #}
 
         {{ include( '_components/search-filter/pagination', {
             isSprig   : true,
             settings  : settings,
             paginate  : pageInfo,
+            feedIds   : feedIds,
             params    : searchParams,
             baseurl   : baseurl,
             pagination: pagination,

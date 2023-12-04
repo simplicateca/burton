@@ -27,10 +27,12 @@
 
     <div class="flex {{align}}" x-data="{ active: '{{ activeFilter }}' }">
         <ul class="list-none m-0 p-0 flex justify-center gap-4">
+            {% set activeFeed = null %}
             {% for feed in feeds %}
 
                 {% set feedUrl  = siteUrl( baseurl, urlParams|merge({ f: feed.slug }) ) %}
-                {% set isActive = ( params.filter == feed.slug ) %}
+                {% set isActive = ( activeFilter == feed.slug ) %}
+                {% set activeFeed = isActive ? feed : activeFeed %}
 
                 <li>{{ tag( 'a', {
                     text : feed.label ??? feed.title,
@@ -43,10 +45,14 @@
                     's-push-url': feedUrl,
                     's-val:f': feed.slug }
                 ) )}}</li>
-
             {% endfor %}
         </ul>
 
         <input type="hidden" name="f" :value="active" />
+    </div>
+
+    <div class="text-center @container max-w-5xl">
+        {{ activeFeed.dek ??? activeFeed.summary ??? null
+            | retconAttr( 'p', { class: 'html' }, false ) }}
     </div>
 {% endif %}

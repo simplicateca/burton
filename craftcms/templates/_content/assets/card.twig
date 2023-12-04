@@ -7,7 +7,49 @@
     If it is empty for some reason, default to the base card layout.
  ------------------------------------------------------------------------------------ ##}
 {% extends layout|default('_cards/base') %}
+{% use "_cards/parts.actions" %}
 
 {% block card_headline %}
-    WWWWWHHHHH
+    {% if card_type in [ 'modal', 'detail' ] %}
+        {% set card = card|merge({ headline: card.item.alt ??? card.item.title ??? null }) %}
+        {% if card.item.url|default() and card.item.type|default()|lower in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
+            <div class="eyebrow">FREE Downloadable {{card.item.type|upper}}</div>
+        {% endif %}
+        {{ parent() }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+
+{% block card_image %}
+    {% if card_type in [ 'modal', 'detail' ] and card.item.url|default() and card.item.type|default()|lower in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
+
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+
+{% block card_summary %}
+    {% if card_type in [ 'modal', 'detail' ] %}
+        {% set card = card|merge({ summary: card.item.text ??? card.item.summary ??? card.item.dek ??? null }) %}
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+
+{% block card_action %}
+    {% if card_type|default('thumbnail') == 'thumbnail' %}
+        {{ block('action_modal', '_cards/parts.actions' ) }}
+    {% else %}
+        {% if card.item.url|default() and card.item.type|default()|lower in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
+            <form class="flex w-full gap-8 mt-10 p-2 border rounded-lg bg-theme-backgroundOff">
+                <input type="email" placeholder="Enter your email address" class="input w-full flex-grow !border-0 !p-0" />
+                <a href="{{ card.item.url }}" class="button" target="_blank">Download {{card.item.type|upper}}</a>
+            </form>
+        {% else %}
+            {{ block('action_default', '_cards/parts.actions' ) }}
+        {% endif %}
+    {% endif %}
 {% endblock %}

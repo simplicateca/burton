@@ -97,7 +97,7 @@
 
     {% embed modalLayout ??? settings.modalLayout ??? "_components/modal/base" with {
         item  : card.item ??? card ??? null,
-        layout: modalCard ??? settings.modalCard ??? [ "detail.modal", "detail" ],
+        layout: modalCard ??? settings.modalCard ??? [ "modal", "detail" ],
     } %}
         {% block content %}
             {% from "_cards/base" import render as renderCard %}
@@ -116,7 +116,7 @@
 {% block action_modal_bottom %}{% apply spaceless %}
 
     {% set modalLayout = [ "_components/modal/bottomDrawer", "_components/modal/base" ] %}
-    {% set modalCard   = [ "detail.modal.bottomDrawer", "detail.modal", "detail" ] %}
+    {% set modalCard   = [ "modal.bottomDrawer", "modal", "detail" ] %}
 
     {% from "_cards/base" import render as renderCard %}
 

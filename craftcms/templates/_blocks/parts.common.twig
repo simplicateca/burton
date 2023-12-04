@@ -19,7 +19,7 @@
         ----------------------------------------------------------------------------- ##}
         {% if block.headline ??? processedText.eyebrow ??? processedText.headline %}
             {% if not block.settings.leadingTextHeadlinesToMicroHeader|default(false) %}
-                {% set class = collect(['LEFT','RIGHT']) | filter( v => v in block.settings.microLayout|upper )
+                {% set class = collect(['LEFT','RIGHT']) | filter( v => v in block.settings.microLayout|default()|upper )
                     ? "!hidden lg:!block"
                     : null %}
 

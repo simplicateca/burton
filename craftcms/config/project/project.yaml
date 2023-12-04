@@ -1,4 +1,4 @@
-dateModified: 1701698170
+dateModified: 1701727049
 elementSources:
   craft\elements\Entry:
     -
@@ -389,7 +389,7 @@ meta:
 plugins:
   architect:
     edition: standard
-    enabled: true
+    enabled: false
     schemaVersion: 2.0.0
   blitz:
     edition: standard

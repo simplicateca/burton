@@ -28,7 +28,7 @@
     {% endif %}
 
     {## passed something like <img src='whatever'> ##}
-    {% if not image and not images is iterable %}
+    {% if not image and images and not images is iterable %}
         {{ tag( 'figure', {
             class:  settings.figure ??? null,
             html : images | retconAttr( 'img', { class: settings.image ??? null, loading: 'lazy' }, false )
@@ -36,7 +36,7 @@
     {% endif %}
 
     {## placeholder ##}
-    {% if images is iterable and not image %}
+    {% if ( images is iterable and not image ) or not images %}
         {% from "_content/images/base" import placeholder %}
         {{ settings._placeholder ??? null == 'icon'
             ? placeholder( 170, 170, 'icon' )

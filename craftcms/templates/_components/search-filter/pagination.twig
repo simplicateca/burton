@@ -12,53 +12,69 @@
 {% set urlParams = params.filter|default() ? urlParams|merge({ f: params.filter }) : urlParams %}
 
 
-{## prepare the previous page link ##}
-{% set prevPage = paginate.currentPage <= 1 ? paginate.totalPages : paginate.currentPage - 1 %}
-{% set prevUrl  = prevPage > 1 ? siteUrl( baseurl ~ "/p" ~ prevPage, urlParams ) : siteUrl( baseurl, urlParams ) %}
-{% set prevAttr = {
-    text : "← Previous"|t,
-    href : prevUrl,
-    class: "whitespace-nowrap",
-} | merge( not isSprig ? {} : {
-    sprig: true,
-    's-push-url': prevUrl,
-    's-val:page': prevPage }
-) %}
+{% if pagination|default() in ['filterByFeed', 'all'] and feedIds %}
+
+    {% set feeds = craft.entries()
+        .id(feedIds)
+        .fixedOrder(true)
+        .section('taxonomy')
+        .type('contentFeed')
+        .all()
+    %}
+
+    {% set activeFeed = params.filter ??? feeds|first.slug %}
 
 
-{## prepare the next page link ##}
-{% set nextPage = paginate.currentPage >= paginate.totalPages ? paginate.totalPages : paginate.currentPage + 1 %}
-{% set nextUrl  = siteUrl( baseurl ~ "/p" ~ nextPage, urlParams ) %}
-{% set nextAttr = {
-    text : "Next →"|t,
-    href : nextUrl,
-    class: "",
-} | merge( not isSprig ? {} : {
-    sprig: true,
-    's-push-url': nextUrl,
-    's-val:page': nextPage }
-) %}
+{% else %}
+
+    {## prepare the previous page link ##}
+    {% set prevPage = paginate.currentPage <= 1 ? paginate.totalPages : paginate.currentPage - 1 %}
+    {% set prevUrl  = prevPage > 1 ? siteUrl( baseurl ~ "/p" ~ prevPage, urlParams ) : siteUrl( baseurl, urlParams ) %}
+    {% set prevAttr = {
+        text : "← Previous"|t,
+        href : prevUrl,
+        class: "whitespace-nowrap",
+    } | merge( not isSprig ? {} : {
+        sprig: true,
+        's-push-url': prevUrl,
+        's-val:page': prevPage }
+    ) %}
 
 
-{## output the actual pagination component ##}
-{% if paginate.totalPages > 1 %}
-    <nav
-        role="navigation"
-        aria-label="Pagination Navigation"
-        class="pt-10 w-full max-w-xs mx-auto items-center justify-center flex flex-col gap-6 text-center"
-    >
-        <ul class="flex w-full gap-6 text-center">
-            <li class="w-1/2">
-                {{ tag( paginate.currentPage <= 1 ? 'span' : 'a', prevAttr )}}
-            </li>
+    {## prepare the next page link ##}
+    {% set nextPage = paginate.currentPage >= paginate.totalPages ? paginate.totalPages : paginate.currentPage + 1 %}
+    {% set nextUrl  = siteUrl( baseurl ~ "/p" ~ nextPage, urlParams ) %}
+    {% set nextAttr = {
+        text : "Next →"|t,
+        href : nextUrl,
+        class: "",
+    } | merge( not isSprig ? {} : {
+        sprig: true,
+        's-push-url': nextUrl,
+        's-val:page': nextPage }
+    ) %}
 
-            <li class="w-1/2">
-                {{ tag( paginate.currentPage >= paginate.totalPages ? 'span' : 'a', nextAttr )}}
-            </li>
-        </ul>
 
-        <p>
-            Page <strong>{{paginate.currentPage}} <span>of</span> {{paginate.totalPages}}</strong>
-        </p>
-    </nav>
+    {## output the actual pagination component ##}
+    {% if paginate.totalPages > 1 %}
+        <nav
+            role="navigation"
+            aria-label="Pagination Navigation"
+            class="pt-10 w-full max-w-xs mx-auto items-center justify-center flex flex-col gap-6 text-center"
+        >
+            <ul class="flex w-full gap-6 text-center">
+                <li class="w-1/2">
+                    {{ tag( paginate.currentPage <= 1 ? 'span' : 'a', prevAttr )}}
+                </li>
+
+                <li class="w-1/2">
+                    {{ tag( paginate.currentPage >= paginate.totalPages ? 'span' : 'a', nextAttr )}}
+                </li>
+            </ul>
+
+            <p>
+                Page <strong>{{paginate.currentPage}} <span>of</span> {{paginate.totalPages}}</strong>
+            </p>
+        </nav>
+    {% endif %}
 {% endif %}

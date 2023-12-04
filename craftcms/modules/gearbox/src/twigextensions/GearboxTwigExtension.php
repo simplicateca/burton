@@ -71,7 +71,7 @@ class GearboxTwigExtension extends AbstractExtension
     public function getContentFeedQuery( $feedID, $searchParams ): mixed
     {
         // Get the feeds entry
-        $feeds = Entry::find()->section('taxonomy')->id( $feedID ) ?? null;
+        $feeds = Entry::find()->section('taxonomy')->id( $feedID )->fixedOrder(true) ?? null;
         $firstFeed = $feeds->one() ?? null;
 
         // Collect query parameters
