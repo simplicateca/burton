@@ -132,6 +132,17 @@
             _reverse: 'rightLeft'
         },
 
+        checkerboard: {
+            _:'## Even width columns. Zone 1 left.',
+            base             : 'w-full flex flex-col-reverse lg:flex-row',
+            zone1            : 'w-full lg:w-1/2 @container',
+            zone1__vertCenter: 'w-full lg:w-1/2 @container self-center',
+            zone2            : 'w-full lg:w-1/2 @container',
+
+            _type: 'twozone',
+            _reverse: 'rightLeft'
+        },
+
         rightLeft: {
             _:'## Even width columns. Zone 1 right.',
             base             : 'w-full flex flex-col-reverse lg:flex-row-reverse',

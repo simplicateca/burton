@@ -43,8 +43,8 @@
         "value": "checkerboard",
 
         "settings": {
-            "microLayout": "topBottomCenter",
-            "container": "narrow"
+            "microLayout": "checkerboard",
+            "container": "none"
         }
     },
 

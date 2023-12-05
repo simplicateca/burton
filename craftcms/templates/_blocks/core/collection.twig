@@ -59,19 +59,6 @@
         {% set collection = source == 'entries' ? block.entries.all() ??? block.entries ??? null : collection %}
         {% set collection = source == 'items'   ? block.items.all()   ??? block.items   ??? null : collection %}
 
-        {% if source == 'assets' %}
-            {% set collection = collection | map( i => i | merge({
-                section: 'assets',
-                type   : i.kind ??? null,
-                images : i.images.all() ??? null
-             }) ) %}
-        {% endif %}
-
-        {% if source == 'items' %}
-            {% set collection = collection | map( i => i | merge({
-                section: 'items'
-             }) ) %}
-        {% endif %}
 
         {## getContentFeedResults() is a custom macro that is a shortcut for
             collecting the items described within a Content Feed entry.

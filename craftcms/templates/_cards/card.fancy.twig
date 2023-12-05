@@ -3,24 +3,37 @@
 {% set card_type = 'summary' %}
 
 {% block content %}
-    {% block standard_card %}
-        <div class="w-full flex flex-col h-full relative @container">
-            {{ block('standard_card_image') }}
-            {{ block('standard_card_text') }}
-            {{ block('standard_card_action') }}
+    {% block fancy_card %}
+        <div class="w-full relative @container py-10 @xl:py-20">
+            <div class="relative z-10 flex flex-col h-full">
+                {{ block('standard_card_image') }}
+                {{ block('standard_card_text') }}
+                {{ block('standard_card_action') }}
+            </div>
+            <div class="absolute inset-0 -inset-y-8 @xl:-inset-y-14">
+                <lottie-player
+                    autoplay
+                    loop
+                    mode="bounce"
+                    preserveAspectRatio="none"
+                    speed="0.35"
+                    src="{{ siteUrl( 'vectors/lottie-blob.json' ) }}"
+                    class="w-full"
+                ></lottie-player>
+            </div>
         </div>
     {% endblock %}
 {% endblock %}
 
 
-{% block standard_card_image %}
+{% block fancy_card_image %}
     {% if card.images ??? null %}
         <div class="image">{{ parent() }}</div>
     {% endif %}
 {% endblock %}
 
 
-{% block standard_card_text %}
+{% block fancy_card_text %}
     <div class="p-2 @md:p-4 flex flex-grow flex-col gap-2 bg-theme-backgroundOff">
         {% set cardHeaderClass = 'mb-0' %}
         {{ block('card_headline') }}
@@ -32,7 +45,7 @@
 {% endblock %}
 
 
-{% block standard_card_action %}
+{% block fancy_card_action %}
     <div class="px-2 @md:px-4">
         {% block action %}
             {{ block('card_action') }}

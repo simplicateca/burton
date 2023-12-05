@@ -30,17 +30,6 @@
                                    footer_zone_default  as block_footer  %}
 
 
-{## Extra Redactor/CKEditor Filtering
-    -------------------------------------------------------------------------------- ##
-    processRichHtml() is a custom twig function that parses the html DOM, makes
-    minor adjustments and does some rudimentary context-aware content separation.
-
-    The macro code is reviewable / edidable locally:
-        -> craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php
---------------------------------------------------------------------------------- ##}
-{% set processedText = processRichHtml( block.text ??? null ) %}
-
-
 {## HTML Skeleton
  ------------------------------------------------------------------------------------ ##
     The output of this {% block %} becomes the rendered html for each content block.
@@ -114,7 +103,6 @@
             {{ block( 'block_open') }}
 
 
-
             {## Block Content
             ------------------------------------------------------------------------- ##
                 Templates extending this base are responsible for populating content.
@@ -150,7 +138,8 @@
         {## Close Theme Tag
         ----------------------------------------------------------------------------- ##
             If the theme for this this block matches the theme for the next block we
-            can leave the outer theme open instead of closing it and starting a new one.
+            can leave the outer theme open instead of closing it and starting a new one,
+            essentially following the same logic as the above "Interspace Below" element.
         ----------------------------------------------------------------------------- ##}
         {% if block.next.theme|default() != block.settings.theme %}
             {{ block( 'theme_close') }}
@@ -171,7 +160,8 @@
 {% endblock block %}
 
 
-{## Prevents accidental render leakage. Named blocks inside {% if %} still reachable.
+
+{## The below blocks are still accessible. {% if null %} prevents accidental rendering.
  ------------------------------------------------------------------------------------ ##}
 {% if null %}
 
@@ -269,6 +259,6 @@
 
 
 
-{## Closes {% if null %} above. Prevents render leakage. Don't remove.
+{## Closes {% if null %} above. Prevents accidental rendering of named blocks.
  ------------------------------------------------------------------------------------ ##}
 {% endif %}

@@ -26,7 +26,7 @@
             {{ include( '_blocks/loop.carousel', {
                 items     : items,
                 settings  : settings,
-                pagination: pagination
+                pagination: pagination|default()
             }, withContext = false  ) }}
         {% endapply %}{% endset %}
     {% endif %}

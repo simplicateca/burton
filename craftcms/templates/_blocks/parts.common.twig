@@ -13,31 +13,33 @@
  ------------------------------------------------------------------------------------ ##}
 {% block text_zone_default %}{% apply spaceless %}
 
-    {% if processedText ??? null %}
+    {% set processedText1 = processRichHtml( block.text ??? null ) %}
+
+    {% if processedText1 ??? null %}
 
         {## Move the block headline to <header> when left/right cols stack on mobile
         ----------------------------------------------------------------------------- ##}
-        {% if block.headline ??? processedText.eyebrow ??? processedText.headline %}
+        {% if block.headline ??? processedText1.eyebrow ??? processedText1.headline %}
             {% if not block.settings.leadingTextHeadlinesToMicroHeader|default(false) %}
                 {% set class = collect(['LEFT','RIGHT']) | filter( v => v in block.settings.microLayout|default()|upper )
                     ? "!hidden lg:!block"
                     : null %}
 
                     {% set header %}
-                        {{ processedText.eyebrow | raw }}
+                        {{ processedText1.eyebrow | raw }}
                         {{ block('headerHeadline') }}
-                        {{ processedText.headline | raw }}
+                        {{ processedText1.headline | raw }}
                     {% endset %}
 
                     {{ header | retconAttr( '*', { class: class }, false ) }}
             {% endif %}
         {% endif %}
 
-        {{ processedText.body| raw }}
+        {{ processedText1.body| raw }}
 
         {## If the block has a CTA, display it here unless it's been moved to the footer ##}
         {% if not block.settings.textCtaToMicroFooter|default(false) %}
-            {{ processedText.cta | raw }}
+            {{ processedText1.cta | raw }}
         {% endif %}
 
     {% endif %}
@@ -52,12 +54,14 @@
 
     {## Duplicates the block headline into the block <header> for better mobile display.
      -------------------------------------------------------------------------------- ##}
-    {% if block.headline ??? processedText.eyebrow ??? processedText.headline %}
+    {% set processedText1 = processRichHtml( block.text ??? null ) %}
+
+    {% if block.headline ??? processedText1.eyebrow ??? processedText1.headline %}
 
         {% set header %}
-            {{ processedText.eyebrow | raw }}
+            {{ processedText1.eyebrow | raw }}
             {{ block('headerHeadline') }}
-            {{ processedText.headline | raw }}
+            {{ processedText1.headline | raw }}
         {% endset %}
 
         {% if block.settings.leadingTextHeadlinesToMicroHeader|default(false) %}
@@ -80,11 +84,13 @@
  ------------------------------------------------------------------------------------ ##}
 {% block footer_zone_default %}{% apply spaceless %}
 
+    {% set processedText1 = processRichHtml( block.text ??? null ) %}
+
     {## Moves Text CTA to block footer
      -------------------------------------------------------------------------------- ##}
-    {% if block.settings.textCtaToMicroFooter|default(false) and processedText.cta ??? null %}
+    {% if block.settings.textCtaToMicroFooter|default(false) and processedText1.cta ??? null %}
         <div class="pt-8">
-            {{ processedText.cta | raw }}
+            {{ processedText1.cta | raw }}
         </div>
     {% endif %}
 

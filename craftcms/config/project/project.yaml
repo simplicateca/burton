@@ -1,4 +1,4 @@
-dateModified: 1701727049
+dateModified: 1701803262
 elementSources:
   craft\elements\Entry:
     -
@@ -69,9 +69,9 @@ elementSources:
       disabled: false
       key: 'section:3552382f-ca3b-44ba-95f4-2be9f7773370' # Profiles
       tableAttributes:
-        - postDate
-        - expiryDate
         - link
+        - 'field:772247d2-d67e-40f2-a243-6e6eca55c5f5' # Topic/Theme/Tag
+        - 'field:b1c52a06-4990-43f5-90d3-898a48789556' # Dek
       type: native
     -
       defaultSort:

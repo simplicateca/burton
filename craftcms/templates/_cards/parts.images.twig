@@ -74,8 +74,14 @@
     For cards with media content, embed media player in place of any images.
  ------------------------------------------------------------------------------------ ##}
 {% block images_media_player %}{% apply spaceless %}
+
+    {% set html = card.item.embed.html|default()
+        | retconAttr( 'iframe', { 'height' : false, 'width' : false } )
+        | retconAttr( 'iframe', { 'class' : 'w-full aspect-video' } )
+    %}
+
     {% embed "_content/media/embed" with {
-        html : card.item.embed.html ??? null,
+        html : html,
         media: card
     } %}{% endembed %}
 {% endapply %}{% endblock %}

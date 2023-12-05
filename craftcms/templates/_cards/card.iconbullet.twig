@@ -44,7 +44,7 @@
                         {% if summary %}
                             {{ tag( 'div', {
                                 class: 'line-clamp-3 @container',
-                                html : summary
+                                html : summary | raw
                             })}}
                         {% endif %}
 
@@ -55,7 +55,7 @@
                     <div class="h-full w-full flex-grow flex flex-col gap-4">
                         {{ headline | raw }}
 
-                        {{ summary|default() }}
+                        {{ summary | raw }}
                     </div>
                 {% endif %}
             {% endblock %}

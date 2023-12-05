@@ -2,6 +2,7 @@
 .env
 vendor
 license.key
+license.key.*
 craftcms/web/dist
 
 # UNCOMPRESSED DATABASE SEED FILES

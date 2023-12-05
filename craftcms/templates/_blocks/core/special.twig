@@ -38,7 +38,7 @@
     {% if component %}
         {% if '.sprig' in component %}
             {{ sprig( component, {
-                content : processedText  ??? {},
+                content : processRichHtml( block.text ??? null ),
                 settings: block.settings ??? {}
             }) }}
         {% else %}

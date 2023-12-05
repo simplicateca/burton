@@ -60,7 +60,7 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                                 'content'  => $fragBlock,
                                 'entry'    => $entry,
                                 'builder'  => $builder,
-                                'settings' => array_merge( $settings, $originalSettings )
+                                'settings' => array_merge( $originalSettings, $settings )
                             ]);
                         }
                     } else {
@@ -70,7 +70,7 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                             'entry'    => $entry,
                             'fragment' => $fragment,
                             'builder'  => $builder,
-                            'settings' => array_merge( $settings, $originalSettings )
+                            'settings' => array_merge( $originalSettings, $settings)
                         ]);
                     }
                 }
@@ -81,7 +81,7 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                     'content'  => $block,
                     'entry'    => $entry,
                     'builder'  => $builder,
-                    'settings' => array_merge( $settings, $originalSettings )
+                    'settings' => array_merge( $originalSettings, $settings )
                 ]);
             }
         }
