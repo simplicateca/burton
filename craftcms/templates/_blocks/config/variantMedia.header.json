@@ -8,7 +8,7 @@
     "label": "Summary Cards",
     "value": "summary",
     "settings": {
-        "cardLayout": "standard.truncated"
+        "cardLayout": "summary"
     }
 },{
     "label": "Thumbnail",

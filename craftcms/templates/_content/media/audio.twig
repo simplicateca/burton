@@ -1,32 +1,40 @@
-{% set media  = media  ??? null %}
-{% set config = config ??? null %}
+{% set asset    = asset    ??? null %}
+{% set settings = settings ??? null %}
 
-{% if media %}
-    {% set class     = config.class ??? '' %}
-    {% set poster    = media.images|first    ??? null %}
-    {% set transform = config.coverTransform ??? null %}
+{% if asset %}
+    {% set poster = asset.images|first %}
 
-    {% if poster and transform %}
-        {% do poster.setTransform(transform) %}
-    {% endif %}
+    {% set audioCover = {
+        mode    : 'crop',
+        width   : 800,
+        height  : 150,
+        quality : 75,
+        position: 'top-center'
+    } %}
 
-    <div class="{{class}}" x-data="{ poster: true }">
-        {% if poster %}
+    <div class="{{settings.audioPlayerClass|default()}}" x-data="{ poster: {{ poster ? 'true' : 'false' }} }" x-cloak>
+        {% if poster.url|default() %}
+            {% if poster.id|default() %}
+                {% do poster.setTransform(audioCover) %}
+            {% endif %}
+
             <img
-                src="{{poster.url}}"    
-                class="h-full w-full object-cover cursor-pointer"
-                @click="document.getElementById('audio--{{media.id}}').play()"
+                src="{{poster.url}}"
+                class="h-full w-full object-cover cursor-pointer min-h-48 block"
+                x-on:click="document.getElementById('audio--{{asset.id??null}}').play()"
             >
         {% endif %}
 
-        
-
-        <audio id="audio--{{media.id}}" controls class="w-full max-w-3xl bg-[#f1f3f4] rounded-none">
-            <source src="{{media.url}}" type="{{media.mimeType}}">
+        <audio
+            id="audio--{{asset.id??null}}"
+            controls
+            {% if settings.autoplay|default() %}autoplay{% endif %}
+            class="block w-full max-w-4xl bg-[#f1f3f4] rounded-none"
+            ><source src="{{asset.url??null}}" type="{{asset.mimeType??null}}" />
         </audio>
 
-        <div class="text-right mt-1">
+        {# <div class="text-right mt-1">
             <a href="#">Read transcript →</a>
-        </div>
+        </div> #}
     </div>
 {% endif %}

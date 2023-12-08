@@ -9,26 +9,36 @@
 {% extends layout|default('_cards/base') %}
 {% use "_cards/parts.images" with images_media_player as media_player %}
 
-
-
-{% block standard_card_image %}
-    {{ block('media_player') }}
-{% endblock %}
-
-{% block standard_card_text   %}{% endblock %}
-{% block standard_card_action %}{% endblock %}
-
+{% block summary_card_text   %}{% endblock %}
+{% block summary_card_action %}{% endblock %}
 
 {% block card_image %}
-    {% if card_type|default() == 'detail' %}
+    {% if card_type|default() in ['summary','detail'] %}
         {{ block('media_player') }}
     {% else %}
-        {% from "_content/images/frame" import framer %}
-        {% set images = card.images ??? card.item.embed.images %}
-        {{ framer( images, card.settings.cardImageFrame ??? null, card.settings ) }}
+        {% if card_type|default() in ['thumbnail'] %}
+            {% from "_content/images/frame" import framer %}
+            {% set images = card.item.entry.images.all() ??? card.images ??? card.item.embed.images %}
+            {{ framer( images, card.settings.cardImageFrame|default('fill'), card.settings ) }}
+        {% endif %}
     {% endif %}
 {% endblock %}
 
+
+{% block card_headline %}
+    {% if card_type|default() in ['modal'] %}
+        {% set card = card|merge({ 'settings': card.settings|merge({ autoplay: true }) }) %}
+        {% if card.images %}
+            <div class="mb-8">{{ block('media_player') }}</div>
+            {{ parent() }}
+        {% else %}
+            {{ parent() }}
+            <div class="mb-8">{{ block('media_player') }}</div>
+        {% endif %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
 
 {% block card_after_image %}
     {% if card.item.embed.authorName|default() and card.item.embed.authorUrl|default() %}
@@ -43,7 +53,7 @@
 
 
 {% block card_summary %}
-    {% if card_type|default() == 'detail' %}
+    {% if card_type|default() in ['detail','modal'] %}
         {% import "_layout/core/markup" as markup %}
         {{ markup.summaryMaxH4( card.summary ??? null ) | retconAttr( 'p', { class: 'html smaller' } ) }}
     {% else %}
@@ -53,9 +63,9 @@
 
 
 {% block card_action %}
-    {% if card_type|default() != 'detail' %}
-        {{ block( 'action_modal_bottom', "_cards/parts.actions" ) }}
+    {% if card_type|default() in ['thumbnail'] %}
+        {{ block( 'action_modal', "_cards/parts.actions" )}}
     {% else %}
-        {{ parent() }}
+
     {% endif %}
 {% endblock %}

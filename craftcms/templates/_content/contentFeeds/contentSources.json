@@ -27,6 +27,12 @@
     },
 
     {
+        "label": "Testimonials",
+        "value": "testimonials",
+        "section": "testimonials"
+    },
+
+    {
         "label": "Pages",
         "value": "pages",
         "section": "pages"

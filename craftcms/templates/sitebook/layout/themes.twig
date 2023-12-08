@@ -71,7 +71,7 @@
                 image: ''
             } %}
 
-            {% set cardContent = renderCard( item, 'standard' ) ~ renderCard( item, 'standard' ) ~ renderCard( item, 'standard' ) %}
+            {% set cardContent = renderCard( item, 'summary' ) ~ renderCard( item, 'summary' ) ~ renderCard( item, 'summary' ) %}
             {{ grids.generate( cardContent, 'stacked3' ) }}
         </section>
 

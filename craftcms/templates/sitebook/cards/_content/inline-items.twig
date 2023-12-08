@@ -1,0 +1,68 @@
+{% macro content() %}
+    {% set text %}
+        <div class="eyebrow eyebrowStandard">Quibusnam praeteritis?</div>
+        <h2 class="rd-h2">Nihil enim hoc differt</h2>
+        <p>Istam voluptatem perpetuam quis potest praestare sapienti? Isto modo ne improbos quidem, nam illud vehementer repugnat, eundem beatum.</p>
+        <p><a href="#" class="button">Do a thing</a></p>
+    {% endset %}
+
+    {{ [{
+        text  : text,
+        source: 'external',
+        embeds: [{
+            "headline": "Synergizing Paradigms for Sustainable Growth",
+            "summary": "<p>Istam voluptatem perpetuam quis potest praestare sapienti? Isto modo ne improbos quidem, nam illud vehementer repugnat, eundem beatum.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/1" }]
+          },{
+            "headline": "Innovative Solutions Driving Market Transformation",
+            "summary": "<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/2" }]
+          },{
+            "headline": "Strategic Visionaries Paving the Path to Success",
+            "summary": "<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/3" }]
+          },{
+            "headline": "Optimizing Operational Excellence for Peak Performance",
+            "summary": "<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/4" }]
+          },{
+            "headline": "Cultivating Collaborative Synergy in Global Markets",
+            "summary": "<p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/5" }]
+          },{
+            "headline": "Revolutionizing Business Strategies for the Digital Era",
+            "summary": "<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/6" }]
+          },{
+            "headline": "Elevating Customer Experience Through Innovation",
+            "summary": "<p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/7" }]
+          },{
+            "headline": "Navigating Global Markets with Strategic Precision",
+            "summary": "<p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/8" }]
+          },{
+            "headline": "Unlocking the Potential of Data-Driven Decision-Making",
+            "summary": "<p>Sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/9" }]
+          },{
+            "headline": "Fostering Innovation for a Sustainable Future",
+            "summary": "<p>Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/10" }]
+          },{
+            "headline": "Building Resilient Teams for Long-Term Success",
+            "summary": "<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/11" }]
+          },{
+            "headline": "Maximizing ROI Through Strategic Business Partnerships",
+            "summary": "<p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>",
+            "images": [{ url: "https://placeskull.com/150/150/475569/12" }]
+        }],
+        settings: {
+            builder   : 'content',
+            section   : 'pages',
+            entryType : 'standard',
+            blockType : 'media',
+        }
+    }] | json_encode | raw }}
+{% endmacro %}

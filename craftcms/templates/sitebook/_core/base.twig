@@ -13,4 +13,16 @@
     </a>
 {% endblock %}
 
+{% block styles %}
+    {{ parent() }}
+    <style type="text/css">
+        *[data-theme="debug"] {
+            --primaryColor: #fff;
+            --backgroundColor: #2f2f2f;
+            --backgroundColorOff: #0f0f0f;
+            --accentColor: #cc7832;
+        }
+    </style>
+{% endblock %}
+
 {% block page_bottom %}{{ block( 'footer_slim', '_layout/parts.footer' ) }}{% endblock %}

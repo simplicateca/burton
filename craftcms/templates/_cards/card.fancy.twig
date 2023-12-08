@@ -6,9 +6,9 @@
     {% block fancy_card %}
         <div class="w-full relative @container py-10 @xl:py-20">
             <div class="relative z-10 flex flex-col h-full">
-                {{ block('standard_card_image') }}
-                {{ block('standard_card_text') }}
-                {{ block('standard_card_action') }}
+                {{ block('fancy_card_image') }}
+                {{ block('fancy_card_text') }}
+                {{ block('fancy_card_action') }}
             </div>
             <div class="absolute inset-0 -inset-y-8 @xl:-inset-y-14">
                 <lottie-player
@@ -27,9 +27,10 @@
 
 
 {% block fancy_card_image %}
-    {% if card.images ??? null %}
-        <div class="image">{{ parent() }}</div>
-    {% endif %}
+    {% block card_image %}
+        {% set cardImage %}{{ parent() }}{% endset %}
+        {% if cardImage %}<div class="image">{{ cardImage }}</div>{% endif %}
+    {% endblock %}
 {% endblock %}
 
 

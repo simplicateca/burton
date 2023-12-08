@@ -5,16 +5,16 @@
 
     }
 },{
-    "label": "Summary Cards",
+    "label": "Summary / Teaser",
     "value": "summary",
     "settings": {
-        "cardLayout": "standard.truncated"
+        "cardLayout": "summary"
     }
 },{
-    "label": "Fancy Summary",
-    "value": "fancy",
+    "label": "Detail View",
+    "value": "detail",
     "settings": {
-        "cardLayout": "fancy"
+        "cardLayout": "detail"
     }
 },{
     "label": "Thumbnail",
@@ -23,9 +23,9 @@
         "cardLayout": "thumbnail"
     }
 },{
-    "label": "Detail",
-    "value": "detail",
+    "label": "Attention Grabber",
+    "value": "fancy",
     "settings": {
-        "cardLayout": "detail"
+        "cardLayout": "fancy"
     }
 }]

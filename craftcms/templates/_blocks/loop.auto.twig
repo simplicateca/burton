@@ -2,7 +2,7 @@
  ------------------------------------------------------------------------------------ ##}
 {% set items      = items    ??? null %}
 {% set settings   = settings ??? null %}
-{% set cardLayout = settings.cardLayout ??? settings['cardLayout.default'] ??? 'standard' %}
+{% set cardLayout = settings.cardLayout ??? settings['cardLayout.default'] ??? 'summary' %}
 {% set cardGrid   = settings.cardGrid   ??? settings['cardGrid.default']   ??? 'stacked2' %}
 {% set layout     = settings.layout     ??? null %}
 {% set variant    = settings.variant    ??? null %}
@@ -14,6 +14,7 @@
 {## Custom Adjustment -- Move to single column if only one result
  ------------------------------------------------------------------------------------ ##}
 {% set cardGrid  = items|length == 1 ? 'fixed1Narrow' : cardGrid %}
+
 
 {## Custom Adjustment -- Move to a Carousel??
  ------------------------------------------------------------------------------------ ##
@@ -38,10 +39,10 @@
  ------------------------------------------------------------------------------------ ##
  ------------------------------------------------------------------------------------ ##}
 {# {% set cardGrid   = cardGrid   ??? block.settings.cardGrid   ??? 'stacked2' %}
-{% set cardLayout = cardLayout ??? block.settings.cardLayout ??? 'standard' %}
+{% set cardLayout = cardLayout ??? block.settings.cardLayout ??? 'summary' %}
  #}
 
-{% if ( isMedia or isFAQ ) and variant == 'detail' %}
+{% if ( isMedia or isFAQ ) and variant == 'detail' and items|length > 1 %}
     {% set loopContent %}{% apply spaceless %}
         {{ include( '_blocks/loop.accordion', {
             items   : items,
@@ -62,7 +63,6 @@
     {% set loopContent %}{% apply spaceless %}
         {{ grids.generate( renderDeck( items, cardLayout, settings ), cardGrid, 'w-full' ) }}
     {% endapply %}{% endset %}
-
 {% endif %}
 
 

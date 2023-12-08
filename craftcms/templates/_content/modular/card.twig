@@ -1,0 +1,20 @@
+{## Modular Bit Content - Card Override
+ ------------------------------------------------------------------------------------ ##
+    This file not typically called directly. It is dynamically inserted to a cards
+    inheritence order when generated via the `render()` macro in `_cards/base`.
+
+    `layout` (the variable) should contain the path for the card layout to be rendered.
+    If it is empty for some reason, default to the base card layout.
+ ------------------------------------------------------------------------------------ ##}
+{% extends layout|default('_cards/base') %}
+
+
+{% block card_image %}
+    here
+    {{ parent() }}
+
+    {# {{ dump( _context ) }} #}
+    {# {% if card_type in [ 'modal', 'detail' ] and card.item.url|default() and kind in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %} #}
+    {# {% else %}
+    {% endif %} #}
+{% endblock %}

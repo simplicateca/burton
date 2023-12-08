@@ -106,23 +106,3 @@
     {% endembed %}
 
 {% endapply %}{% endblock %}
-
-
-
-{## Modal Content (Bottom Drawer)
- ------------------------------------------------------------------------------------ ##
-    Like `action_modal` but redirects content into a bottom drawer modal.
- ------------------------------------------------------------------------------------ ##}
-{% block action_modal_bottom %}{% apply spaceless %}
-
-    {% set modalLayout = [ "_components/modal/bottomDrawer", "_components/modal/base" ] %}
-    {% set modalCard   = [ "modal.bottomDrawer", "modal", "detail" ] %}
-
-    {% from "_cards/base" import render as renderCard %}
-
-    {{ include( modalLayout, {
-        item   : card.item|default(),
-        content: renderCard( card.item|default(), modalCard, settings|default() )
-    }, withContext = false ) }}
-
-{% endapply %}{% endblock %}

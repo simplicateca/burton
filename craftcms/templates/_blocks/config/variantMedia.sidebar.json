@@ -5,27 +5,21 @@
 
     }
 },{
-    "label": "Summary Cards",
+    "label": "Summary / Teaser",
     "value": "summary",
     "settings": {
-        "cardLayout": "standard.truncated"
+        "cardLayout": "summary"
+    }
+},{
+    "label": "Detail View",
+    "value": "detail",
+    "settings": {
+        "cardLayout": "detail"
     }
 },{
     "label": "Thumbnail",
     "value": "thumbnail",
     "settings": {
         "cardLayout": "thumbnail"
-    }
-},{
-    "label": "Detail",
-    "value": "detail",
-    "settings": {
-        "cardLayout": "detail"
-    }
-},{
-    "label": "Icon Bullet",
-    "value": "iconbullet",
-    "settings": {
-        "cardLayout": "iconbullet"
     }
 }]

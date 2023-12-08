@@ -9,88 +9,90 @@
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 {% endhtml %}
 
-{% set blockType = type ??? null %}
-
-{% set allowedCards = {
-    text: {
-        layout    : "_blocks/config/layoutText.json",
-        variant   : "_blocks/config/variantText.json",
-        theme     : "_blocks/config/themeContent.json",
-        interspace: "_blocks/config/interspaceContent.json",
-        content   : [
-            "sitebook/blocks/_content/text.simple"
-        ],
-    },
-
-    textDouble: {
-        layout    : "_blocks/config/layoutTextDouble.json",
-        variant   : "_blocks/config/variantTextDouble.json",
-        theme     : "_blocks/config/themeContent.json",
-        interspace: "_blocks/config/interspaceContent.json",
-        content   : [
-            "sitebook/blocks/_content/textDouble.simple"
-        ],
-    },
-
-    image: {
-        layout    : "_blocks/config/layoutImage.json",
-        variant   : "_blocks/config/variantImage.json",
-        theme     : "_blocks/config/themeContent.json",
-        interspace: "_blocks/config/interspaceContent.json",
-        content   : [
-            "sitebook/blocks/_content/image.single",
-            "sitebook/blocks/_content/image.single.tallimage",
-            "sitebook/blocks/_content/image.single.longtext",
-            "sitebook/blocks/_content/image.three",
-            "sitebook/blocks/_content/image.gallery"
-        ],
-    },
-    collection: {
-        layout    : "_blocks/config/layoutCollection.json",
-        variant   : "_blocks/config/variantCollection.json",
-        theme     : "_blocks/config/themeContent.json",
-        interspace: "_blocks/config/interspaceContent.json",
-        content   : [
-            "sitebook/blocks/_content/collection.simple"
-        ],
-    },
-    media: {
-        layout    : "_blocks/config/layoutMedia.json",
-        variant   : "_blocks/config/variantMedia.json",
-        theme     : "_blocks/config/themeContent.json",
-        interspace: "_blocks/config/interspaceContent.json",
-        content   : [
-            "sitebook/blocks/_content/media.one.youtube",
-            "sitebook/blocks/_content/media.four.youtube",
-            "sitebook/blocks/_content/media.four.youtube.centered",
-        ],
-    },
-
-} %}
-
-{% set config = allowedBlocks[blockType]|default() %}
-
 {% block page_main_content %}
-    {% if config %}
-        {{ sprig( 'sitebook/blocks/_previewer.sprig', { type: blockType, config: config } ) }}
-    {% else %}
-        <div data-theme="standard">
-            <div class="container @container py-28 text-center">
-                <h1>Content Blocks</h1>
+    {{ sprig( 'sitebook/cards/_previewer.sprig', {
+        content: [
+            "sitebook/cards/_content/articles",
+            "sitebook/cards/_content/content-bits",
+            "sitebook/cards/_content/external-media",
+            "sitebook/cards/_content/faqs",
+            "sitebook/cards/_content/inline-item-buttons",
+            "sitebook/cards/_content/inline-item",
+            "sitebook/cards/_content/pdf-assets",
+            "sitebook/cards/_content/profiles",
+        ],
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-20">
-                    {% for blockType, config in allowedBlocks %}
-                        <div class="shadow rounded-lg p-8 relative bg-theme-backgroundOff @container">
-                            <h2 class="capitalize">{{ blockType | kebab | replace({ '-': ' ' }) }}</h2>
-                            <p class="html">{{ config.content|length }} content samples</p>
-                            <p class="html"><a href="{{ url( "sitebook/blocks/#{blockType}"  ) }}" class="clickCover">Preview</a></p>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+        cards: {
+            auto: {
+                label : "Auto",
+                value : "auto",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+            },
 
+            summary: {
+                label : "Summary Teaser",
+                value : "summary",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+                cardLayout: "summary",
+            },
 
-    {% endif %}
+            detail: {
+                label: "Detail View",
+                value : "detail",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+                cardLayout: "detail",
+            },
 
+            thumbnail: {
+                label: "Thumbnail",
+                value : "thumbnail",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+                cardLayout: "thumbnail",
+            },
+
+            iconbullet: {
+                label: "Icon Bullet",
+                value : "iconbullet",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+                cardLayout: "iconbullet",
+            },
+
+            fancy: {
+                label: "Attention Grabber",
+                value : "fancy",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+                cardLayout: "fancy",
+            },
+
+            modal: {
+                label: "Modal View",
+                value : "modal",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+                cardLayout: "modal",
+            },
+
+            'detail-search': {
+                label: "Text Search Result",
+                value : "detail.search",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+                cardLayout: "detail.search",
+            },
+
+            'detail-accordion': {
+                label: "Accordion View",
+                value : "detail.accordion",
+                layout: "_blocks/config/layoutCollection.json",
+                theme : "_blocks/config/themeContent.json",
+                cardLayout: "detail.accordion",
+            },
+        }
+    } ) }}
 {% endblock page_main_content %}

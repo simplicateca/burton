@@ -74,14 +74,18 @@
     For cards with media content, embed media player in place of any images.
  ------------------------------------------------------------------------------------ ##}
 {% block images_media_player %}{% apply spaceless %}
-
-    {% set html = card.item.embed.html|default()
-        | retconAttr( 'iframe', { 'height' : false, 'width' : false } )
-        | retconAttr( 'iframe', { 'class' : 'w-full aspect-video' } )
-    %}
-
-    {% embed "_content/media/embed" with {
-        html : html,
-        media: card
-    } %}{% endembed %}
+    {% if card.item.embed.html|default() %}
+        {{ card.item.embed.html|default()
+            | retconAttr( 'iframe', { 'height' : false, 'width' : false } )
+            | retconAttr( 'iframe', { 'class' : 'w-full aspect-video' } )
+        }}
+    {% else %}
+        {% set kind = card.item.entry.kind|default() %}
+        {% if kind in ['video','audio'] %}
+            {% embed "_content/media/#{kind}" with {
+                asset   : card.item.entry,
+                settings: card.settings|default(),
+            } %}{% endembed %}
+        {% endif %}
+    {% endif %}
 {% endapply %}{% endblock %}

@@ -150,6 +150,7 @@ class SiteModule extends Module
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
                 $event->rules['sitebook/blocks/<type:\w+>'] = ['template' => 'sitebook/blocks/index'];
+                $event->rules['sitebook/cards/<type:\w+>']  = ['template' => 'sitebook/cards/index'];
             }
         );
     }

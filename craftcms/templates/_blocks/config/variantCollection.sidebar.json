@@ -5,22 +5,16 @@
 
     }
 },{
-    "label": "Summary Cards",
+    "label": "Summary / Teaser",
     "value": "summary",
     "settings": {
-        "cardLayout": "standard.truncated"
+        "cardLayout": "summary"
     }
 },{
     "label": "Thumbnail",
     "value": "thumbnail",
     "settings": {
         "cardLayout": "thumbnail"
-    }
-},{
-    "label": "Detail",
-    "value": "detail",
-    "settings": {
-        "cardLayout": "detail"
     }
 },{
     "label": "Icon Bullet",

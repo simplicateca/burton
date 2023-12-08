@@ -33,25 +33,26 @@
  ------------------------------------------------------------------------------------ ##}
 {% block content_media %}
 
-    {% set sourceItems = 'local' == block.source.value ??? null
+    {% set sourceItems = 'local' == block.source.value ??? block.source ??? null
         ? block.assets.all() ??? block.assets ??? null : block.embeds.all() ??? block.embeds ??? null %}
 
     {% set items = [] %}
     {% for item in sourceItems %}
 
-        {% set embedInfo = embedInfo( item.sourceUrl ) %}
+        {## if there's a sourceUrl, we're embedding an external resource, lets use
+            oEmbed to get the title, summary, and images from the source.
+         ---------------------------------------------------------------------------- ##}
+        {% set embedInfo = item.sourceUrl|default() ? embedInfo( item.sourceUrl ) : null %}
 
         {% set items = items|merge([{
-            headline : item.headline  ??? embedInfo.title   ??? null,
-            summary  : item.summary   ??? embedInfo.summary ??? null,
-            image    : item.images    ??? embedInfo.images  ??? null,
-            sourceUrl: item.sourceUrl ??? null,
-            url      : item.url       ??? null,
+            headline : item.alt           ??? item.title  ??? embedInfo.title  ??? null,
+            summary  : item.summary       ??? item.dek    ??? item.text        ??? embedInfo.summary ??? null,
+            image    : item.images.all()  ??? item.images ??? embedInfo.images ??? null,
+            sourceUrl: item.sourceUrl     ??? null,
+            source   : block.source.value ??? null,
             section  : 'media',
-            type     : 'iframe',
             embed    : embedInfo,
             entry    : item,
-            source   : block.source.value ??? null
         }]) %}
     {% endfor %}
 
@@ -64,7 +65,7 @@
  ------------------------------------------------------------------------------------ ##}
 {% block media_render_loop %}
     {{ include( block.settings.mediaLoop ??? block.settings['mediaLoop.default'] ??? '_blocks/loop.auto', {
-        items   : items          ??? null,
-        settings: block.settings ??? null
+        items   : items|default(),
+        settings: block.settings|default()
     }, withContext = false  ) }}
 {% endblock %}

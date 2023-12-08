@@ -48,6 +48,12 @@
         "label": "Text Above 4 Columns",
         "value": "textAbove4",
 
+        "reference": {
+            "note": "Text above 4 columns blah blah blah blah.",
+            "image": "https://simplicate.nyc3.digitaloceanspaces.com/undevelopment/burton/static/media-featured-v2.jpg",
+            "moreUrl": "/sitebook/layout/micro-layouts"
+        },
+
         "settings": {
             "microLayout": "topBottom",
             "textCtaToMicroFooter": true,
