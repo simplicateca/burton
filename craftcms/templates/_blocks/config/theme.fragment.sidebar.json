@@ -1,0 +1,10 @@
+[
+    {
+        "label": "Use Fragment Settings",
+        "value": "FROMFRAGMENT"
+    }
+
+    {% for item in source('_blocks/config/theme.sidebar.json') | json_decode() %}
+    ,{{ item | json_encode() | raw }}
+    {% endfor %}
+]

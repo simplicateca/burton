@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 9d4f8876-987f-46fc-9042-aaf824a7131d # Content layout and positioning
+            fieldUid: 9d4f8876-987f-46fc-9042-aaf824a7131d # Layout
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 26abec17-a1be-4c82-90e1-f6d48f7f4fb0 # Style variation
+            fieldUid: 26abec17-a1be-4c82-90e1-f6d48f7f4fb0 # Variant
             instructions: null
             label: null
             required: false
@@ -43,7 +43,7 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: 0dabdba1-b0ed-4220-8bfd-115e5127ee42 # Background theme and colours
+            fieldUid: 0dabdba1-b0ed-4220-8bfd-115e5127ee42 # Theme
             instructions: null
             label: null
             required: false
@@ -55,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: a7b99dca-7b58-438c-b57e-9d7965c3093b # Area between and around the block
+            fieldUid: a7b99dca-7b58-438c-b57e-9d7965c3093b # Interspace
             instructions: null
             label: null
             required: false
@@ -69,16 +69,16 @@ fieldLayouts:
         uid: 17da5594-72ac-4f5d-9596-133476199500
         userCondition: null
 fields:
-  0dabdba1-b0ed-4220-8bfd-115e5127ee42: # Background theme and colours
+  0dabdba1-b0ed-4220-8bfd-115e5127ee42: # Theme
     columnSuffix: dqtdfrpw
     contentColumnType: string
     fieldGroup: null
     handle: theme
     instructions: null
-    name: 'Background theme and colours'
+    name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/config/themeContent.json
+      referenceFile: _blocks/config/theme.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -110,42 +110,42 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-  9d4f8876-987f-46fc-9042-aaf824a7131d: # Content layout and positioning
+  9d4f8876-987f-46fc-9042-aaf824a7131d: # Layout
     columnSuffix: qfgjxwao
     contentColumnType: string
     fieldGroup: null
     handle: layout
     instructions: null
-    name: 'Content layout and positioning'
+    name: Layout
     searchable: false
     settings:
-      referenceFile: _blocks/config/layoutText.json
+      referenceFile: _blocks/config/layout.text.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  26abec17-a1be-4c82-90e1-f6d48f7f4fb0: # Style variation
+  26abec17-a1be-4c82-90e1-f6d48f7f4fb0: # Variant
     columnSuffix: dcsjywnh
     contentColumnType: string
     fieldGroup: null
     handle: variant
     instructions: null
-    name: 'Style variation'
+    name: Variant
     searchable: false
     settings:
-      referenceFile: _blocks/config/variantText.json
+      referenceFile: _blocks/config/variant.text.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  a7b99dca-7b58-438c-b57e-9d7965c3093b: # Area between and around the block
+  a7b99dca-7b58-438c-b57e-9d7965c3093b: # Interspace
     columnSuffix: lhqmhzea
     contentColumnType: string
     fieldGroup: null
     handle: interspace
     instructions: null
-    name: 'Area between and around the block'
+    name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/config/interspaceContent.json
+      referenceFile: _blocks/config/interspace.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

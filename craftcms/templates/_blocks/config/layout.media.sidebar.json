@@ -1,0 +1,21 @@
+[
+    {
+        "label": "Text Above Media",
+        "value": "textAboveMedia",
+
+        "settings": {
+            "microLayout": "topBottom"
+        }
+    },
+
+    {
+        "label": "Headline Above, Text Below",
+        "value": "headlineAboveMedia",
+
+        "settings": {
+            "microLayout": "topBottom",
+            "leadingTextHeadlinesToMicroHeader": true
+        }
+    }
+
+]

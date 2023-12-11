@@ -1,0 +1,220 @@
+changedFieldIndicator: 352297921
+field: 5aacbfe1-d68f-4215-a87f-818ec5dc8f80 # Items in this collection
+fieldLayouts:
+  63d1a037-1795-4154-a02b-38744305729b:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 6312c62d-00d4-4b29-8c70-1edd6d095729 # Bit
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0ab84c7b-a7fb-4821-8872-bcff26920e73
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 1e247634-9eec-49af-b31d-19e6888dbc95 # Headline
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4e6d96ad-d1c6-4f22-8fb2-7ae9ed9a9489
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: b4f98162-512f-4866-9808-0187101c848e # Text
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 98f508a7-c3ff-4d68-bd7f-73fa3f86adc1
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 0b65e8f2-d920-47d0-ada3-db139c088699 # Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1c5dbe2a-ccc2-4492-b3a9-2ec32731165d
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: fe062de6-1a7c-4a52-8bcd-a822ee5c99f4
+        userCondition: null
+fields:
+  0b65e8f2-d920-47d0-ada3-db139c088699: # Image
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: images
+    instructions: null
+    name: Image
+    searchable: true
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: false
+      allowUploads: true
+      allowedKinds:
+        - image
+        - json
+      branchLimit: null
+      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      defaultUploadLocationSubpath: '{# for fields inside a supertable inside a matrix block #} {{- ( object.owner.owner.variants   ?? null  ) ? "products/#{object.owner.owner.type.handle|lower}/" : '''' -}} {{- ( object.owner.owner.product    ?? null  ) ? "products/#{object.owner.owner.product.type.handle|lower}/" : '''' -}} {{- ( object.owner.owner.section    ?? null  ) ? "#{object.owner.owner.section.handle|lower}/" : '''' -}} {{- ( object.owner.owner.parentUri  ?? null  ) ? "#{object.owner.owner.parentUri|replace(''__'','''')}/" : '''' -}} {{object.owner.owner.slug}}'
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      previewMode: full
+      restrictFiles: true
+      restrictLocation: false
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: 'Choose image'
+      showSiteMenu: true
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: large
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+  1e247634-9eec-49af-b31d-19e6888dbc95: # Headline
+    columnSuffix: bcvzsxtk
+    contentColumnType: text
+    fieldGroup: null
+    handle: headline
+    instructions: null
+    name: Headline
+    searchable: true
+    settings:
+      availableTransforms: ''
+      availableVolumes: ''
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: HeadlineWithLink.json
+      removeEmptyTags: true
+      removeInlineStyles: false
+      removeNbsp: false
+      showHtmlButtonForNonAdmins: true
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  6312c62d-00d4-4b29-8c70-1edd6d095729: # Bit
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: bit
+    instructions: null
+    name: Bit
+    searchable: true
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: 1
+      minRelations: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Entry
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\entries\EntryCondition
+          -
+            - conditionRules
+            -
+              -
+                __assoc__:
+                  -
+                    - class
+                    - craft\elements\conditions\entries\TypeConditionRule
+                  -
+                    - uid
+                    - 485dc7de-83a8-4e9a-994a-e1319b14c270
+                  -
+                    - operator
+                    - in
+                  -
+                    - values
+                    -
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
+      selectionLabel: 'Pick Bit'
+      showSiteMenu: false
+      sources:
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
+  b4f98162-512f-4866-9808-0187101c848e: # Text
+    columnSuffix: xtnsimmk
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: null
+    name: Text
+    searchable: true
+    settings:
+      availableTransforms: '*'
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Simple.json
+      removeEmptyTags: true
+      removeInlineStyles: true
+      removeNbsp: true
+      showHtmlButtonForNonAdmins: true
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field

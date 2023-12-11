@@ -4,7 +4,7 @@
     Mobile ready named layouts for creating some kind of relationship between two or
     more pieces of content. Used extensively in pretty much all blocks.
 
-    - http://localhost:8000/sitebook/layout/micro-layouts
+    - http://localhost:8000/sitehub/layout/micro-layouts
 
 
  ## Two Zone Layouts
@@ -46,7 +46,7 @@
  ------------------------------------------------------------------------------------ ##
 
  !! This macro outputs as JSON so that it can be read by the macro template or any
-    other place it might be useful (like Sitebook reference pages).
+    other place it might be useful (like Sitehub reference pages).
 
  ------------------------------------------------------------------------------------ ##}
 {% macro definitions() %}{{ {
@@ -59,15 +59,15 @@
         zone1: 'w-full @container',
         zone2: 'w-full @container',
 
-        header          : 'w-full max-w-3xl pb-8 last:mb-8 @container',
-        header__left    : 'w-full max-w-3xl pb-8 last:mb-8 @container mr-auto',
-        header__center  : 'w-full max-w-3xl pb-8 last:mb-8 @container mx-auto',
-        header__right   : 'w-full max-w-3xl pb-8 last:mb-8 @container ml-auto',
+        header          : 'w-full max-w-3xl last:mb-8 @container',
+        header__left    : 'w-full max-w-3xl last:mb-8 @container mr-auto',
+        header__center  : 'w-full max-w-3xl last:mb-8 @container mx-auto',
+        header__right   : 'w-full max-w-3xl last:mb-8 @container ml-auto',
 
-        footer          : 'w-full max-w-3xl pt-8 first:mt-8 @container',
-        footer__left    : 'w-full max-w-3xl pt-8 first:mt-8 @container mr-auto',
-        footer__center  : 'w-full max-w-3xl pt-8 first:mt-8 @container mx-auto',
-        footer__right   : 'w-full max-w-3xl pt-8 first:mt-8 @container ml-auto',
+        footer          : 'w-full max-w-3xl first:mt-8 @container',
+        footer__left    : 'w-full max-w-3xl first:mt-8 @container mr-auto',
+        footer__center  : 'w-full max-w-3xl first:mt-8 @container mx-auto',
+        footer__right   : 'w-full max-w-3xl first:mt-8 @container ml-auto',
     },
 
     _:'## named microlayout definitions',
@@ -130,6 +130,28 @@
 
             _type: 'twozone',
             _reverse: 'rightLeft'
+        },
+
+        leftFourFifths: {
+            _:'## Even width columns. Zone 1 left.',
+            base             : 'w-full flex',
+            zone1            : 'w-4/5 @container',
+            zone1__vertCenter: 'w-4/5 @container self-center',
+            zone2            : 'w-1/5 @container',
+
+            _type: 'twozone',
+            _reverse: 'rightFourFifths'
+        },
+
+        rightFourFifths: {
+            _:'## Even width columns. Zone 1 left.',
+            base             : 'w-full flex',
+            zone1            : 'w-1/5 @container',
+            zone1__vertCenter: 'w-1/5 @container self-center',
+            zone2            : 'w-4/5 @container',
+
+            _type: 'twozone',
+            _reverse: 'leftFourFifths'
         },
 
         checkerboard: {

@@ -33,14 +33,25 @@
 
         {% block page %}{% endblock %}
 
-        {## hidden area for absolute positioned elements (modals, alertbars, etc)
-         ---------------------------------------------------------------------------- ##}
-        <div class="hidden">
-            {% block alertbar   %}{{ sprig( "_components/alertbar/bottom"   ) }}{% endblock %}
-            {% block modal      %}{{ include( "_components/modal/dynamic"   ) }}{% endblock %}
-            {% block allynav    %}{{ include( "_components/navigation/a11y" ) }}{% endblock %}
-            {% block components %}{% endblock %}
-        </div>
+        {% for alert in entry.pageExtras.collect().where( 'type', 'alertMessage' )|default() %}
+            {{ sprig( "_components/alertbar/bottom.sprig", {
+                bitID: alert.message.one().id
+            } ) }}
+        {% endfor %}
+
+        {% for modal in entry.pageExtras.collect().where( 'type', 'entranceModal' )|default() %}
+            {{ sprig( "_components/modal/entrance.sprig", {
+                fragmentID: modal.fragment.one().id
+            } ) }}
+        {% endfor %}
+
+        {% block modal      %}{{ include( "_components/modal/dynamic"   ) }}{% endblock %}
+        {% block allynav    %}{{ include( "_components/navigation/a11y" ) }}{% endblock %}
+        {% block components %}{% endblock %}
+
+            {% for jsEvent in entry.pageExtras.collect().where( 'type', 'jsEvent' )|default() %}
+            {{ jsEvent.code | raw }}
+        {% endfor %}
 
         {{ endBody() }}
 

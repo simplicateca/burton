@@ -2,11 +2,11 @@
 
 cat << EOF
      _                 _ _           _
- ___(_)_ __ ___  _ __ | (_) ___ __ _| |_ ___ 
+ ___(_)_ __ ___  _ __ | (_) ___ __ _| |_ ___
 / __| | '_ \` _ \| '_ \| | |/ __/ _\` | __/ _ \\
 \__ \ | | | | | | |_) | | | (_| (_| | ||  __/
 |___/_|_| |_| |_| .__/|_|_|\___\__,_|\__\___|
-                |_|                          
+                |_|
 
 Your Docker Development Environment is Ready!
 _______________________________________________
@@ -20,7 +20,7 @@ Craft CMS Admin
  p: letmein
 
 Editor Facing Style/Layout/Component Guide
- >> http://localhost:8000/sitebook
+ >> http://localhost:8000/sitehub
 
 Development Documentation Wiki
  >> http://localhost:5000

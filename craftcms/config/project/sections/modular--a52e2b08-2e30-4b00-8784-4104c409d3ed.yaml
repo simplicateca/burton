@@ -10,7 +10,7 @@ previewTargets:
         - 'Content Layout'
       -
         - urlFormat
-        - 'sitebook/?{{object.type.handle}}={{object.id}}'
+        - 'sitehub/?{{object.type.handle}}={{object.id}}'
       -
         - refresh
         - '1'

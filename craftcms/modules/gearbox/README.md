@@ -6,11 +6,11 @@ Ideally you should use this module to add functionality you want to re-use acros
 
 Don't go out of your way to avoid making small edits to this module if it makes life easier / faster. It's not a plugin for a reason.
 
-But the majority of site-specific functionality should be added to the default custom module `modules/sitemodule` or a new module.  
+But the majority of site-specific functionality should be added to the default custom module `modules/sitemodule` or a new module.
 
 
 ## What's in the box?
-  
+
 ### New Twig Functions
 
 #### normalizeBlocks( entry.matrixBuilder.all() )
@@ -40,8 +40,8 @@ Works for:
 - YouTube
 - Vimeo
 - Spotify
-- SoundCloud 
-- Twitter 
+- SoundCloud
+- Twitter
 - Giphy
 - Reddit
 - Codepen
@@ -109,7 +109,7 @@ Allow the following attributes to appear on `<a>` tags:
 This allows the Redactor Link Attributes plugin to provide an interface for content editors to manage those fields.
 
 
-### User Permission Group for Sitebook Access
+### User Permission Group for Sitehub Access
 
 
 ### Sidebar Entry Types
@@ -144,7 +144,7 @@ You'll also need to make sure that you add the following to your project's `comp
 		"modules\\gearbox\\": "modules/gearbox/src/"
 	}
 },
-```  
+```
 
 After you have added this, you will need to do:
 

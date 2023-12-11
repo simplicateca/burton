@@ -31,7 +31,7 @@ use craft\services\UserPermissions;
 
 use craft\services\Dashboard;
 use craft\events\RegisterComponentTypesEvent;
-use modules\sitemodule\widgets\SitebookWidget;
+use modules\sitemodule\widgets\SitehubWidget;
 
 use modules\sitemodule\assetbundles\sitemodule\SiteModuleAsset;
 use modules\sitemodule\variables\SiteVariable;
@@ -98,7 +98,7 @@ class SiteModule extends Module
         parent::init();
         self::$instance = $this;
 
-        $this->_enableSitebookFunctionality();
+        $this->_enableSitehubFunctionality();
 
         // $this->_registerFrontendRoutes();
         // $this->_registerTwigExtensions();
@@ -118,18 +118,18 @@ class SiteModule extends Module
     }
 
 
-    private function _enableSitebookFunctionality()
+    private function _enableSitehubFunctionality()
     {
-        // add sitebook user permissions
+        // add sitehub user permissions
         Event::on(
             UserPermissions::class,
             UserPermissions::EVENT_REGISTER_PERMISSIONS,
             function(RegisterUserPermissionsEvent $event) {
                 $event->permissions[] = [
-                    'heading' => 'Sitebook',
+                    'heading' => 'Sitehub',
                     'permissions' => [
-                        'allowSitebook' => [
-                            'label' => 'Access to Sitebook',
+                        'allowSitehub' => [
+                            'label' => 'Access to Sitehub',
                         ],
                     ],
                 ];
@@ -141,16 +141,20 @@ class SiteModule extends Module
             Dashboard::class,
             Dashboard::EVENT_REGISTER_WIDGET_TYPES,
             function(RegisterComponentTypesEvent $event) {
-                $event->types[] = SitebookWidget::class;
+                $event->types[] = SitehubWidget::class;
         });
 
-        // frontend routers ( /sitebook/*/ )
+        // frontend routers ( /sitehub/*/ )
         Event::on(
             UrlManager::class,
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['sitebook/blocks/<type:\w+>'] = ['template' => 'sitebook/blocks/index'];
-                $event->rules['sitebook/cards/<type:\w+>']  = ['template' => 'sitebook/cards/index'];
+                $event->rules['sitehub/blocks/header'] = ['template' => 'sitehub/blocks/header'];
+                $event->rules['sitehub/blocks/header/<type:\w+>'] = ['template' => 'sitehub/blocks/header'];
+                $event->rules['sitehub/blocks/sidebar'] = ['template' => 'sitehub/blocks/sidebar'];
+                $event->rules['sitehub/blocks/sidebar/<type:\w+>'] = ['template' => 'sitehub/blocks/sidebar'];
+                $event->rules['sitehub/blocks/<type:\w+>'] = ['template' => 'sitehub/blocks/index'];
+                $event->rules['sitehub/cards/<type:\w+>']  = ['template' => 'sitehub/cards/index'];
             }
         );
     }

@@ -1,5 +1,5 @@
-changedFieldIndicator: 1194198551
-field: 8384d65a-1c88-4960-8c6e-7091bf390c9d # External embeds
+changedFieldIndicator: 647461452
+field: 8384d65a-1c88-4960-8c6e-7091bf390c9d # External Embeds
 fieldLayouts:
   0fa7a6fb-6ba8-4d5d-8a9b-6c67db8cd10d:
     tabs:
@@ -8,7 +8,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 6f041ff5-12b3-44d7-8efe-5d70ddc8dbb0 # URL
+            fieldUid: 6f041ff5-12b3-44d7-8efe-5d70ddc8dbb0 # Source URL
             instructions: null
             label: null
             required: true
@@ -44,7 +44,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: 1239b2c2-2836-44d6-ae4a-a88cf2283493 # Images
+            fieldUid: 1239b2c2-2836-44d6-ae4a-a88cf2283493 # Poster
             instructions: null
             label: null
             required: false
@@ -58,13 +58,13 @@ fieldLayouts:
         uid: 5927549d-571c-4e0b-84dc-96cb1403d957
         userCondition: null
 fields:
-  6f041ff5-12b3-44d7-8efe-5d70ddc8dbb0: # URL
+  6f041ff5-12b3-44d7-8efe-5d70ddc8dbb0: # Source URL
     columnSuffix: lqxcodkr
     contentColumnType: string(255)
     fieldGroup: null
     handle: sourceUrl
     instructions: null
-    name: URL
+    name: 'Source URL'
     searchable: false
     settings:
       maxLength: 255
@@ -73,13 +73,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Url
-  1239b2c2-2836-44d6-ae4a-a88cf2283493: # Images
+  1239b2c2-2836-44d6-ae4a-a88cf2283493: # Poster
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: images
     instructions: null
-    name: Images
+    name: Poster
     searchable: false
     settings:
       allowSelfRelations: false
@@ -112,7 +112,7 @@ fields:
           -
             - class
             - craft\elements\conditions\assets\AssetCondition
-      selectionLabel: 'Choose cover image'
+      selectionLabel: Choose
       showSiteMenu: false
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
@@ -160,8 +160,8 @@ fields:
     name: Summary
     searchable: false
     settings:
-      availableTransforms: '*'
-      availableVolumes: '*'
+      availableTransforms: ''
+      availableVolumes: ''
       columnType: text
       configSelectionMode: choose
       defaultTransform: ''
@@ -172,10 +172,10 @@ fields:
       removeEmptyTags: false
       removeInlineStyles: false
       removeNbsp: false
-      showHtmlButtonForNonAdmins: false
+      showHtmlButtonForNonAdmins: true
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
-      uiMode: enlarged
+      uiMode: normal
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field

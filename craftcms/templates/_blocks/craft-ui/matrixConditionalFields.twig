@@ -22,8 +22,8 @@ var matrixConditionalsConfig = {
         },
 
         'feed': {
-            showOnEqual: ['feeds','limit','pagination'],
-            hideOnUnequal: ['feeds','limit','pagination'],
+            showOnEqual: ['feeds','limit','interface'],
+            hideOnUnequal: ['feeds','limit','interface'],
         },
 
         'assets': {
@@ -35,6 +35,15 @@ var matrixConditionalsConfig = {
             showOnEqual: 'items',
             hideOnUnequal: 'items',
         },
+    },
+
+    // collections items
+    '*.collection.bit': {
+
+        ':notempty:': {
+            showOnUnequal: ['headline','text','images'],
+            hideOnEqual: ['headline','text','images']
+        }
     },
 
     // special element block type
@@ -81,6 +90,8 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
     Craft.MatrixConditionals = {
 
         findMatchingConditional(value, field, block, matrix) {
+
+            console.log( `testing: ${value} for ${field} in ${block} in ${matrix}` )
 
             this.currentValue = this.cleanValue( value )
 
@@ -160,7 +171,10 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
                         ? toggleMe.classList.add('matrixConditionals--hidden' )
                         : toggleMe.classList.remove('matrixConditionals--hidden' )
 
-                    if( this.debug ) { console.log( `applying "${value}" for rule matching: ${cond}\n  ${method}: ${item}   (${onoff})`) }
+                    if( this.debug ) {
+                        console.log( `applying "${value}" for rule matching: ${cond}\n  ${method}: ${item}   (${onoff})`)
+                        console.log( block )
+                    }
                 }
             });
         },
@@ -180,7 +194,7 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
                 return
             }
 
-            if( type == 'hidden' && input.parentElement.getAttribute('type') != 'button' ) {
+            if( type == 'hidden' && ! input.nextElementSibling.classList.contains('elementselect') ) {
                 return
             }
 
@@ -214,7 +228,14 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
             }
 
             if( conditions ) {
-                this.evaluateConditions( block, value, conditions )
+
+                // check and see if we're inside a super table, and if so,
+                // isolate the block context to the super table row instead
+                if( input.closest('.superTableMatrix') ?? null ) {
+                    this.evaluateConditions( input.closest('.superTableMatrix'), value, conditions )
+                } else {
+                    this.evaluateConditions( block, value, conditions )
+                }
             }
         },
 
@@ -287,7 +308,6 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
             this.config = config
             this.debug  = ( debug )
 
-
             // add listeners to input fields (text,radio,checkbox)
             document.addEventListener('input', (event) => {
                 if( event.target.type == 'checkbox' ) {
@@ -314,6 +334,11 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
             this.childCountObserver = new MutationObserver(function(mutations) {
                 const childCount = mutations[0].target.childElementCount ?? null
                 const parentID   = mutations[0].target.parentElement.id ?? null
+
+                console.log( "HERE ---- " )
+                console.log( mutations[0].target )
+                console.log( mutations[0].target.parentElement )
+
                 const parentElem = document.querySelector( `#${parentID}`)
                 if( parentElem ) Craft.MatrixConditionals.testField( parentElem, ( childCount > 0 ) ? childCount : '' )
             });
@@ -329,6 +354,7 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
             // find div.elements used for asset / entries and table.body elements used for tables
             this.watchForChildren( document.querySelectorAll(`
                 .matrix.matrix-field>.blocks fieldset.field div.elementselect div.elements,
+                .matrix.matrix-field>.blocks .superTableContainer div.elementselect div.elements,
                 .matrix.matrix-field>.blocks fieldset.field table.editable tbody
             `) )
 
@@ -363,6 +389,7 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
                     // find div.elements used for asset / entries and table.body elements used for tables
                     Craft.MatrixConditionals.watchForChildren( document.querySelectorAll(`
                         .matrixblock[data-id="${dataid}"] fieldset.field div.elementselect div.elements,
+                        .matrixblock[data-id="${dataid}"] div.superTableContainer div.elementselect div.elements,
                         .matrixblock[data-id="${dataid}"] fieldset.field table.editable tbody
                     `) )
                 }
@@ -387,11 +414,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 {% css %}
     .matrixConditionals--hidden {
-        height : 1px !important;
+        {# height : 1px !important;
         max-height : 1px !important;
         overflow: hidden !important;
         opacity: 0 !important;
-        margin-bottom: 0 !important;
+        margin-bottom: 0 !important; #}
+        display: none;
     }
 
     #content :not(.meta) > .flex-fields > .matrixConditionals--hidden {

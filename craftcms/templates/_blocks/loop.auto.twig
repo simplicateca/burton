@@ -22,12 +22,12 @@
     If so, move cards of this type to a carousel loop rather than a grid.
  ------------------------------------------------------------------------------------ ##}
 {% if cardGrid and settings.carouselVariants ??? null and variant in settings.carouselVariants %}
-    {% if not pagination|default() or pagination == 'all' %}
+    {% if not interface|default() or interface == 'linkFeedHome' %}
         {% set loopContent %}{% apply spaceless %}
             {{ include( '_blocks/loop.carousel', {
-                items     : items,
-                settings  : settings,
-                pagination: pagination|default()
+                items    : items,
+                settings : settings,
+                interface: interface|default()
             }, withContext = false  ) }}
         {% endapply %}{% endset %}
     {% endif %}
@@ -73,7 +73,7 @@
 
 {## Do we have footer pagination?
 ------------------------------------------------------------------------------------ ##}
-{% if feedIds|default() and pagination|default() == 'all' %}
+{% if feedIds|default() and interface|default() == 'linkFeedHome' %}
 
     {% set feeds = craft.entries()
         .id(feedIds)

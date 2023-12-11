@@ -1,13 +1,13 @@
 {## Collection Block Base
  ------------------------------------------------------------------------------------ ##
-    -> http://localhost:8000/sitebook/blocks/collection
+    -> http://localhost:8000/sitehub/blocks/collection
  ------------------------------------------------------------------------------------ ##}
 {% extends "_blocks/core/block" %}
 
 
 {## Render the block using a two-zone micro-layout
  ------------------------------------------------------------------------------------ ##
-    -> http://localhost:8000/sitebook/layout/micro-layouts
+    -> http://localhost:8000/sitehub/layout/micro-layouts
     -> http://buildwithburton.com/docs/micro-layouts
  ------------------------------------------------------------------------------------ ##}
 {% block content %}
@@ -34,8 +34,8 @@
  ------------------------------------------------------------------------------------ ##}
 {% block content_collection %}
 
-    {% set source     = block.source|default('items') %}
-    {% set pagination = block.pagination.value ??? block.pagination ??? null %}
+    {% set source    = block.source|default('items') %}
+    {% set interface = block.interface.value ??? block.interface ??? null %}
 
     {## Rendering in Sprig?
      -------------------------------------------------------------------------------- ##
@@ -43,7 +43,7 @@
         the items. Sprig templates only accept simple objects as arguments, so item
         collection will happen inside the sprig template.
      -------------------------------------------------------------------------------- ##}
-    {% if ( source == 'feed' ) and ( pagination in [ 'standard', 'standardWithSearch', 'filterByFeed', 'loadMore' ] ) %}
+    {% if ( source == 'feed' ) and ( interface in [ 'pagination', 'fullSearch', 'filterByFeed', 'loadMore' ] ) %}
 
         {{ block('collection_render_sprig') }}
 
@@ -84,10 +84,10 @@
  ------------------------------------------------------------------------------------ ##}
 {% block collection_render_sprig %}
     {{ sprig( '_blocks/loop.searchResults.sprig', {
-        settings  : block.settings,
-        limit     : block.limit ??? null,
-        pagination: block.pagination.value ??? block.pagination ??? null,
-        feedIds   : block.feeds.ids() ?? block.feeds ??? null,
+        settings : block.settings,
+        limit    : block.limit ??? null,
+        interface: block.interface.value ??? block.interface ??? null,
+        feedIds  : block.feeds.ids() ?? block.feeds ??? null,
     }) }}
 {% endblock %}
 
@@ -97,10 +97,10 @@
  ------------------------------------------------------------------------------------ ##}
 {% block collection_render_loop %}
     {{ include( block.settings.cardLoop ??? block.settings['cardLoop.default'] ??? '_blocks/loop.auto', {
-        items     : collection|default(),
-        limit     : block.limit ??? null,
-        feedIds   : block.feeds.ids() ?? block.feeds ??? null,
-        settings  : block.settings|default(),
-        pagination: block.pagination.value ??? block.pagination ??? null,
+        items    : collection|default(),
+        limit    : block.limit ??? null,
+        feedIds  : block.feeds.ids() ?? block.feeds ??? null,
+        settings : block.settings|default(),
+        interface: block.interface.value ??? block.interface ??? null,
     }, withContext = false  ) }}
 {% endblock %}

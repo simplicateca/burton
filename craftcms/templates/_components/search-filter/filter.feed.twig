@@ -1,10 +1,10 @@
 {## arguments passed to this template ##}
-{% set isSprig    = isSprig    ??? false %}
-{% set params     = params     ??? null %}
-{% set settings   = settings   ??? null %}
-{% set feedIds    = feedIds    ??? [] %}
-{% set pagination = pagination ??? null %}
-{% set baseurl    = baseurl    ??? siteUrl( craft.app.request.pathInfo ) ??? null %}
+{% set isSprig   = isSprig   ??? false %}
+{% set params    = params    ??? null %}
+{% set settings  = settings  ??? null %}
+{% set feedIds   = feedIds   ??? [] %}
+{% set interface = interface ??? null %}
+{% set baseurl   = baseurl   ??? siteUrl( craft.app.request.pathInfo ) ??? null %}
 
 {## prepare the url params ##}
 {% set params    = params ??? null %}
@@ -23,7 +23,7 @@
 
     {% set activeFilter = params.filter ??? feeds|first.slug %}
 
-    {% set align = pagination == 'filterByFeed' ? 'justify-center' : '' %}
+    {% set align = interface == 'filterByFeed' ? 'justify-center' : '' %}
 
     <div class="flex {{align}}" x-data="{ active: '{{ activeFilter }}' }">
         <ul class="list-none m-0 p-0 flex justify-center gap-4">

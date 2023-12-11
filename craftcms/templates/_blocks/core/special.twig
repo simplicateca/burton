@@ -1,13 +1,13 @@
 {## Special Element Block Base
  ------------------------------------------------------------------------------------ ##
-    -> http://localhost:8000/sitebook/blocks/special
+    -> http://localhost:8000/sitehub/blocks/special
  ------------------------------------------------------------------------------------ ##}
 {% extends "_blocks/core/block" %}
 
 
 {## Render the block using a two-zone micro-layout
  ------------------------------------------------------------------------------------ ##
-    -> http://localhost:8000/sitebook/layout/micro-layouts
+    -> http://localhost:8000/sitehub/layout/micro-layouts
     -> http://buildwithburton.com/docs/micro-layouts
  ------------------------------------------------------------------------------------ ##}
 {% block content %}
@@ -68,9 +68,9 @@
             cardLayout  : 'detail.search',
             requireQuery: true,
         }),
-        limit     : 8,
-        feedIds   : block.feeds.ids() ?? block.feeds ??? null,
-        pagination: 'standardWithSearch',
+        limit    : 8,
+        feedIds  : block.feeds.ids() ?? block.feeds ??? null,
+        interface: 'fullSearch',
     }) }}
 {% endblock %}
 

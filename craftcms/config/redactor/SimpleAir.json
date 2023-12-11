@@ -1,34 +1,35 @@
 {
-  "buttons": ["html", "formatting", "bold", "italic", "unorderedlist", "orderedlist", "link", "line"],
-  "plugins": ["email", "listclass", "linkclass"],
-  "linkNewTab": true,
-  "formattingAdd": {
-    "larger": {
-      "title": "Larger Paragraph",
-      "api": "module.block.format",
-      "args": {
-          "tag": "p",
-          "class": "larger"
+    "buttons": ["html", "formatting", "bold", "italic", "unorderedlist", "orderedlist", "alignment", "link" ],
+    "plugins": [ "alignment", "linkclass", "listclass", "baukasten" ],
+    "linkNewTab": true,
+    "toolbarFixed": false,
+    "air" : true,
+    "imagePosition": false,
+    "formatting": ["p"],
+    "formattingAdd": {
+      "larger": {
+        "title": "Larger",
+        "api": "module.block.format",
+        "args": {
+            "tag": "p",
+            "class": "larger"
+        }
+      },
+      "smaller": {
+        "title": "Smaller",
+        "api": "module.block.format",
+        "args": {
+            "tag": "p",
+            "class": "smaller"
+        }
       }
     },
-    "smaller": {
-      "title": "Smaller Paragraph",
-      "api": "module.block.format",
-      "args": {
-          "tag": "p",
-          "class": "smaller"
-      }
-    }
-  },
-  "toolbarFixed": false,
-  "air" : true,
-  "linkClasses" : [
-    { "label": "Button", "class": "button" },
-    { "label": "Text w/ Arrow", "class": "buttonText" }
-  ],
-  "listClasses" : [
-    { "label": "Checkmarks",     "class": "checkList" },
-    { "label": "2 Columns",      "class": "columnList" },
-    { "label": "Separated Rows", "class": "rowList" }
-  ]
+    "linkClasses" : [
+      { "label": "Button", "class": "button" },
+      { "label": "Text w/ Arrow", "class": "buttonText" }
+    ],
+    "listClasses" : [
+        { "label": "Checkmarks",     "class": "checkList" },
+        { "label": "Separated Rows", "class": "rowList" }
+    ]
 }

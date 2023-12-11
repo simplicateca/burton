@@ -39,13 +39,13 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: a35a0beb-0cf7-4a2b-9ec3-91e953a18116 # Sidebar Builder
+            fieldUid: 89834163-b3fe-4c51-9a02-e205e03b9067 # Sidebar Builder
             instructions: null
             label: __blank__
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: ca7e8d40-da07-41ae-84e1-ef29dcf80316
+            uid: b38465d3-874c-42e3-8ee3-2db8c893c53a
             userCondition: null
             warning: null
             width: 100
@@ -63,6 +63,9 @@ handle: sidebarFragment
 hasTitleField: true
 name: 'Sidebar Fragments'
 section: a52e2b08-2e30-4b00-8784-4104c409d3ed # Modular Content
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 5
 titleFormat: null
 titleTranslationKeyFormat: null

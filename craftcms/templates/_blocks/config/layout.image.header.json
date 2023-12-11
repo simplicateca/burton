@@ -1,0 +1,22 @@
+[
+    {
+        "label": "Text Left / Image Right",
+        "value": "textLeftImageRight",
+
+        "settings": {
+            "microLayout": "leftRight",
+            "headlinesToMicroHeaderOnMobile": true
+        }
+    },
+
+    {
+        "label": "Background Overlap",
+        "value": "overlap",
+
+        "settings": {
+            "microLayout": "overlap",
+            "container" : false,
+            "themeClass": "relative overflow-hidden"
+        }
+    }
+]

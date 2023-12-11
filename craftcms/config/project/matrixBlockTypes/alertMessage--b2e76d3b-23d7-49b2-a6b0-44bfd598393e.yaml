@@ -35,7 +35,7 @@ fields:
       localizeRelations: false
       maintainHierarchy: false
       maxRelations: null
-      minRelations: null
+      minRelations: 1
       selectionCondition:
         __assoc__:
           -
@@ -64,10 +64,11 @@ fields:
                   -
                     - values
                     -
-                      - 7ba53c7d-afe6-4a6e-9208-a5c0d39b002d
-      selectionLabel: null
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
+      selectionLabel: 'Choose Bit'
       showSiteMenu: false
-      sources: '*'
+      sources:
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

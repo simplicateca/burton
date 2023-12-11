@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 30b5253e-1f74-41f3-b484-e6c82e3210d5 # Content layout and positioning
+            fieldUid: 30b5253e-1f74-41f3-b484-e6c82e3210d5 # Layout
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 05016637-9828-4c3e-94f2-6db02f40308e # Style variation
+            fieldUid: 05016637-9828-4c3e-94f2-6db02f40308e # Variant
             instructions: null
             label: null
             required: false
@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: dda1fa64-dd45-42b6-8df9-476cbac15152 # Images in this block
+            fieldUid: dda1fa64-dd45-42b6-8df9-476cbac15152 # Images
             instructions: null
             label: null
             required: false
@@ -43,7 +43,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 1d242d6f-f863-4979-b2af-bb1da5c2aee2 # Copy to introduce and support the Image
+            fieldUid: 1d242d6f-f863-4979-b2af-bb1da5c2aee2 # Copy
             instructions: null
             label: null
             required: false
@@ -55,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: b8f98eab-bd44-4073-b73b-c5c394a00643 # Background theme and colours
+            fieldUid: b8f98eab-bd44-4073-b73b-c5c394a00643 # Theme
             instructions: null
             label: null
             required: false
@@ -67,7 +67,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: e826463c-c088-426d-be5d-9630e1b872c9 # Area between and around the block
+            fieldUid: e826463c-c088-426d-be5d-9630e1b872c9 # Interspace
             instructions: null
             label: null
             required: false
@@ -77,29 +77,17 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 50
-          -
-            elementCondition: null
-            fieldUid: e44c7d4a-f794-4917-8a3f-e77e8162cc93 # Widget
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 510ff4bf-39e4-4dd7-ad78-851b7df7b254
-            userCondition: null
-            warning: null
-            width: 100
         name: Content
         uid: cac765d1-21c1-46d6-addb-0dfd3c50eb9e
         userCondition: null
 fields:
-  1d242d6f-f863-4979-b2af-bb1da5c2aee2: # Copy to introduce and support the Image
+  1d242d6f-f863-4979-b2af-bb1da5c2aee2: # Copy
     columnSuffix: null
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: 'Copy to introduce and support the Image'
+    name: Copy
     searchable: true
     settings:
       availableTransforms: ''
@@ -121,52 +109,52 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-  30b5253e-1f74-41f3-b484-e6c82e3210d5: # Content layout and positioning
+  30b5253e-1f74-41f3-b484-e6c82e3210d5: # Layout
     columnSuffix: payanbyx
     contentColumnType: string
     fieldGroup: null
     handle: layout
     instructions: null
-    name: 'Content layout and positioning'
+    name: Layout
     searchable: false
     settings:
-      referenceFile: _blocks/config/layoutImage.json
+      referenceFile: _blocks/config/layout.image.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  05016637-9828-4c3e-94f2-6db02f40308e: # Style variation
+  05016637-9828-4c3e-94f2-6db02f40308e: # Variant
     columnSuffix: tdkiykfz
     contentColumnType: string
     fieldGroup: null
     handle: variant
     instructions: null
-    name: 'Style variation'
+    name: Variant
     searchable: false
     settings:
-      referenceFile: _blocks/config/variantImage.json
+      referenceFile: _blocks/config/variant.image.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  b8f98eab-bd44-4073-b73b-c5c394a00643: # Background theme and colours
+  b8f98eab-bd44-4073-b73b-c5c394a00643: # Theme
     columnSuffix: cpekkbhk
     contentColumnType: string
     fieldGroup: null
     handle: theme
     instructions: null
-    name: 'Background theme and colours'
+    name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/config/themeContent.json
+      referenceFile: _blocks/config/theme.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  dda1fa64-dd45-42b6-8df9-476cbac15152: # Images in this block
+  dda1fa64-dd45-42b6-8df9-476cbac15152: # Images
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: images
     instructions: null
-    name: 'Images in this block'
+    name: Images
     searchable: true
     settings:
       allowSelfRelations: false
@@ -199,7 +187,7 @@ fields:
           -
             - class
             - craft\elements\conditions\assets\AssetCondition
-      selectionLabel: 'Choose Image'
+      selectionLabel: Choose
       showSiteMenu: true
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
@@ -210,29 +198,16 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Assets
-  e44c7d4a-f794-4917-8a3f-e77e8162cc93: # Widget
-    columnSuffix: mdoonwrh
-    contentColumnType: string
-    fieldGroup: null
-    handle: widget
-    instructions: null
-    name: Widget
-    searchable: false
-    settings:
-      referenceFile: _blocks/config/widgets.json
-    translationKeyFormat: null
-    translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
-  e826463c-c088-426d-be5d-9630e1b872c9: # Area between and around the block
+  e826463c-c088-426d-be5d-9630e1b872c9: # Interspace
     columnSuffix: eqfigngd
     contentColumnType: string
     fieldGroup: null
     handle: interspace
     instructions: null
-    name: 'Area between and around the block'
+    name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/config/interspaceContent.json
+      referenceFile: _blocks/config/interspace.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

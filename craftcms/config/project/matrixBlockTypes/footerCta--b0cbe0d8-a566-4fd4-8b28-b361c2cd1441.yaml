@@ -35,7 +35,7 @@ fields:
       localizeRelations: false
       maintainHierarchy: false
       maxRelations: null
-      minRelations: null
+      minRelations: 1
       selectionCondition:
         __assoc__:
           -
@@ -64,11 +64,11 @@ fields:
                   -
                     - values
                     -
-                      - 174cd975-f457-4998-8bcc-3d25963f9c3b
-      selectionLabel: null
+                      - 2dd114a5-aaaa-4e4a-872d-7a61d224b0cb # Content Fragments
+      selectionLabel: 'Choose Fragment'
       showSiteMenu: false
       sources:
-        - 'section:89093e20-515d-4e3c-b4c4-c6733d8ab56f'
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

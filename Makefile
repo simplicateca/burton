@@ -1,4 +1,4 @@
-.PHONY: dev run prep craft composer npm lint build exportdb exportdbseed ssh clean wipedb nuke
+.PHONY: dev run down prep craft composer npm lint build exportdb exportdbseed ssh clean wipedb nuke
 
 SEED_DIR  :=./etc/database-seed
 SQL_FILES :=$(SEED_DIR)/*.sql
@@ -15,6 +15,9 @@ dev: prep
 
 run: prep
 	[ $(IS_RUNNING) ] || docker compose up -d
+
+down:
+	docker compose down
 
 
 # > make prep

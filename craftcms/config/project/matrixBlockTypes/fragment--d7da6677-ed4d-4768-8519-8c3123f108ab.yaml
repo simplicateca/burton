@@ -19,7 +19,7 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: bf152e62-fb69-4e45-836d-7546488987e6 # Background theme and colours
+            fieldUid: bf152e62-fb69-4e45-836d-7546488987e6 # Theme
             instructions: null
             label: null
             required: false
@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: abf72c9c-cdfc-4765-b71d-a03735da679d # Area between and around the block
+            fieldUid: abf72c9c-cdfc-4765-b71d-a03735da679d # Interspace
             instructions: null
             label: null
             required: false
@@ -45,29 +45,29 @@ fieldLayouts:
         uid: d9dcfac7-2f95-4e7f-8dff-5e8f93eb6332
         userCondition: null
 fields:
-  abf72c9c-cdfc-4765-b71d-a03735da679d: # Area between and around the block
+  abf72c9c-cdfc-4765-b71d-a03735da679d: # Interspace
     columnSuffix: gslywyag
     contentColumnType: string
     fieldGroup: null
     handle: interspace
     instructions: null
-    name: 'Area between and around the block'
+    name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/config/interspaceContent.json
+      referenceFile: _blocks/config/interspace.fragment.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  bf152e62-fb69-4e45-836d-7546488987e6: # Background theme and colours
+  bf152e62-fb69-4e45-836d-7546488987e6: # Theme
     columnSuffix: nfwtlclo
     contentColumnType: string
     fieldGroup: null
     handle: theme
     instructions: null
-    name: 'Background theme and colours'
+    name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/config/themeFragment.json
+      referenceFile: _blocks/config/theme.fragment.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -115,7 +115,7 @@ fields:
                     - values
                     -
                       - 2dd114a5-aaaa-4e4a-872d-7a61d224b0cb # Content Fragments
-      selectionLabel: 'Choose fragment'
+      selectionLabel: Choose
       showSiteMenu: false
       sources:
         - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content

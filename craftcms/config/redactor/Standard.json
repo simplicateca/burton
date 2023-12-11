@@ -1,5 +1,5 @@
 {
-  "buttons": ["html", "formatting", "bold", "italic", "unorderedlist", "orderedlist", "alignment", "link", "image"],
+  "buttons": ["html", "formatting", "bold", "italic", "image", "unorderedlist", "orderedlist", "alignment", "link"],
   "plugins": [ "alignment", "imageclass", "listclass", "linkclass", "baukasten", "h2h3h4", "eyebrow" ],
   "linkNewTab": true,
   "toolbarFixed": true,
@@ -33,11 +33,10 @@
     { "label": "Separated Rows", "class": "rowList" }
   ],
   "imageClasses" : [
-    { "label": "Basic", "class": "cImageTreatment__basic", "default": true }
+    { "label": "Full Width", "class": "redactor__fullWidth", "default": true }
   ],
   "eyebrows" : [
     { "label": "Standard", "class": "eyebrowStandard", "default": true },
-    { "label": "Knockout", "class": "eyebrowKnockout", "default": false },
     { "label": "Icon",     "class": "eyebrowIcon",     "default": false }
   ]
 }

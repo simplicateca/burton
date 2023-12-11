@@ -1,5 +1,11 @@
 {% set content     = content     ??? null %}
 {% set headline    = headline    ??? null %}
+{% set outerClass  = outerClass  ??? null %}
+{% set panelClass  = panelClass  ??? null %}
+{% set modalClass  = modalClass  ??? null %}
+{% set overlay     = overlay     ??? null %}
+{% set buttonClass = buttonClass ??? null %}
+{% set open        = open        ??? false %}
 {% set theme       = theme       ??? 'bright' %}
 {% set triggerText = triggerText  ?? 'See More' %}
 {% set xTrapConfig = xTrapConfig ??? 'open' %}
@@ -15,7 +21,7 @@
     <template x-teleport="body">
         <div
             x-data="{
-                open: false,
+                open: {{ open ? 'true' : 'false' }},
                 id: '{{uuid}}'
             }"
 
@@ -23,9 +29,9 @@
                 if( value ) { $dispatch( 'closemodals', { except: '{{uuid}}' } ) }
             } )"
 
-            @openmodal.window="if( id == event.detail.uuid ){ open = true }"
+            {{'@'}}openmodal.window="if( id == event.detail.uuid ){ open = true }"
 
-            @closemodals.window="if( id != event.detail.except ){ open = false }"
+            {{'@'}}closemodals.window="if( id != event.detail.except ){ open = false }"
 
             x-show="open"
             style="display: none"
@@ -35,14 +41,12 @@
             x-id="['modal-title']"
             :aria-labelledby="$id('modal-title')"
             class="{{ block( 'outerClass' ) }}"
-            data-theme="{{theme ??? null}}"
+            {# data-theme="{{theme ??? null}}" #}
         >
-            <!-- Overlay -->
             {% block overlay %}
                 <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50"></div>
             {% endblock %}
 
-            <!-- Panel -->
             <div
                 x-show="open" x-transition
                 x-on:click="open = false"
@@ -52,7 +56,7 @@
                     width: 0,
                     setWidth() { this.width = window.innerWidth > 0 ? window.innerWidth : screen.width }
                 }"
-                @resize.window.debounce="setWidth()"
+                {{'@'}}resize.window.debounce="setWidth()"
                 x-init="setWidth()"
             >
                 <template x-if="open">

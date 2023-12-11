@@ -1,7 +1,6 @@
 {
   "buttons": ["html", "bold"],
   "plugins": ["counter"],
-  "linkNewTab": true,
   "toolbarFixed": false,
   "air" : true
 }

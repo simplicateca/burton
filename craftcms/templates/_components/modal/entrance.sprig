@@ -1,0 +1,10 @@
+{% set fragmentID = fragmentID|default() %}
+
+{% embed "_components/modal/base" with {
+    open: true
+} %}
+    {% block content %}
+        {% import "_blocks/core/fragments" as fragments %}
+        {{ fragments.loadById( fragmentID ) }}
+    {% endblock %}
+{% endembed %}

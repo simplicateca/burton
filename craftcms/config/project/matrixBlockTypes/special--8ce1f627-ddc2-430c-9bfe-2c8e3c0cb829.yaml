@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d # Content layout and positioning
+            fieldUid: ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d # Layout
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: b7ec333d-193c-4bfe-b1c2-637e039f302d # Choose element
+            fieldUid: b7ec333d-193c-4bfe-b1c2-637e039f302d # Element
             instructions: null
             label: null
             required: false
@@ -31,7 +31,19 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: adc05109-eaa7-4f80-b156-5b250a28e878 # Content feed
+            fieldUid: 4e6dab12-ff70-4db1-9095-aec90d712602 # Copy
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9c6b1041-1de6-465d-af7e-5d2c49b231cd
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: adc05109-eaa7-4f80-b156-5b250a28e878 # Feed
             instructions: null
             label: null
             required: false
@@ -40,10 +52,10 @@ fieldLayouts:
             uid: 8ecb71c9-cf08-4a15-a9cc-6560a4a97919
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
-            fieldUid: ca0addca-320c-4b2c-94c4-f063b00c270a # Formie form
+            fieldUid: ca0addca-320c-4b2c-94c4-f063b00c270a # Form
             instructions: null
             label: null
             required: false
@@ -52,10 +64,10 @@ fieldLayouts:
             uid: b700b263-06f3-4225-b41a-4228bb12245a
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
-            fieldUid: cbe5ac85-220c-41d2-b80f-6b2f4b4635c3 # Navigation menu
+            fieldUid: cbe5ac85-220c-41d2-b80f-6b2f4b4635c3 # Menu
             instructions: null
             label: null
             required: false
@@ -64,7 +76,7 @@ fieldLayouts:
             uid: 3c4a4aca-574b-4dea-9af7-ae7e9d393d6f
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
             fieldUid: e509399b-03f5-43c0-98b1-23b9d3a0f27b # Code
@@ -76,22 +88,10 @@ fieldLayouts:
             uid: 3e57703b-8a6c-401f-923c-446ad7213def
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
-            fieldUid: 4e6dab12-ff70-4db1-9095-aec90d712602 # Copy to introduce and support the Element
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 9c6b1041-1de6-465d-af7e-5d2c49b231cd
-            userCondition: null
-            warning: null
-            width: 75
-          -
-            elementCondition: null
-            fieldUid: 8ecf45da-7553-48ac-b52d-a45f8bc90317 # Background theme and colours
+            fieldUid: 8ecf45da-7553-48ac-b52d-a45f8bc90317 # Theme
             instructions: null
             label: null
             required: false
@@ -103,7 +103,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 846fcb98-b56b-479d-9d99-3502ed63ef09 # Area between and around the block
+            fieldUid: 846fcb98-b56b-479d-9d99-3502ed63ef09 # Interspace
             instructions: null
             label: null
             required: false
@@ -117,13 +117,13 @@ fieldLayouts:
         uid: 4e479aee-581c-4e9e-9c85-c891dca6fd51
         userCondition: null
 fields:
-  4e6dab12-ff70-4db1-9095-aec90d712602: # Copy to introduce and support the Element
+  4e6dab12-ff70-4db1-9095-aec90d712602: # Copy
     columnSuffix: wwmudfrl
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: 'Copy to introduce and support the Element'
+    name: Copy
     searchable: true
     settings:
       availableTransforms: ''
@@ -141,43 +141,43 @@ fields:
       showHtmlButtonForNonAdmins: true
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
-      uiMode: enlarged
+      uiMode: normal
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-  8ecf45da-7553-48ac-b52d-a45f8bc90317: # Background theme and colours
+  8ecf45da-7553-48ac-b52d-a45f8bc90317: # Theme
     columnSuffix: sbrwrmrk
     contentColumnType: string
     fieldGroup: null
     handle: theme
     instructions: null
-    name: 'Background theme and colours'
+    name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/config/themeContent.json
+      referenceFile: _blocks/config/theme.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  846fcb98-b56b-479d-9d99-3502ed63ef09: # Area between and around the block
+  846fcb98-b56b-479d-9d99-3502ed63ef09: # Interspace
     columnSuffix: svjbxtmy
     contentColumnType: string
     fieldGroup: null
     handle: interspace
     instructions: null
-    name: 'Area between and around the block'
+    name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/config/interspaceContent.json
+      referenceFile: _blocks/config/interspace.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  adc05109-eaa7-4f80-b156-5b250a28e878: # Content feed
+  adc05109-eaa7-4f80-b156-5b250a28e878: # Feed
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: feeds
     instructions: null
-    name: 'Content feed'
+    name: Feed
     searchable: false
     settings:
       allowSelfRelations: false
@@ -215,7 +215,7 @@ fields:
                     - values
                     -
                       - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Feeds
-      selectionLabel: 'Choose Search'
+      selectionLabel: Choose
       showSiteMenu: false
       sources:
         - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
@@ -225,26 +225,26 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  b7ec333d-193c-4bfe-b1c2-637e039f302d: # Choose element
+  b7ec333d-193c-4bfe-b1c2-637e039f302d: # Element
     columnSuffix: fvriqqes
     contentColumnType: string
     fieldGroup: null
     handle: variant
     instructions: null
-    name: 'Choose element'
+    name: Element
     searchable: false
     settings:
-      referenceFile: _blocks/config/variantSpecial.json
+      referenceFile: _blocks/config/variant.special.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  ca0addca-320c-4b2c-94c4-f063b00c270a: # Formie form
+  ca0addca-320c-4b2c-94c4-f063b00c270a: # Form
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: form
     instructions: null
-    name: 'Formie form'
+    name: Form
     searchable: false
     settings:
       allowSelfRelations: false
@@ -253,7 +253,7 @@ fields:
       maintainHierarchy: false
       maxRelations: 1
       minRelations: null
-      selectionLabel: 'Choose Form'
+      selectionLabel: Choose
       showSiteMenu: true
       sources: '*'
       targetSiteId: null
@@ -262,13 +262,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: verbb\formie\fields\Forms
-  cbe5ac85-220c-41d2-b80f-6b2f4b4635c3: # Navigation menu
+  cbe5ac85-220c-41d2-b80f-6b2f4b4635c3: # Menu
     columnSuffix: czuybujj
     contentColumnType: text
     fieldGroup: null
     handle: menu
     instructions: null
-    name: 'Navigation menu'
+    name: Menu
     searchable: false
     translationKeyFormat: null
     translationMethod: none
@@ -293,16 +293,16 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\PlainText
-  ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d: # Content layout and positioning
+  ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d: # Layout
     columnSuffix: htdbqbuc
     contentColumnType: string
     fieldGroup: null
     handle: layout
     instructions: null
-    name: 'Content layout and positioning'
+    name: Layout
     searchable: false
     settings:
-      referenceFile: _blocks/config/layoutSpecial.json
+      referenceFile: _blocks/config/layout.special.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

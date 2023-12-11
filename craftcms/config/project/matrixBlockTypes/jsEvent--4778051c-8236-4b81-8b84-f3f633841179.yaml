@@ -43,4 +43,4 @@ fields:
     type: craft\fields\PlainText
 handle: jsEvent
 name: 'JS Event'
-sortOrder: 3
+sortOrder: 4

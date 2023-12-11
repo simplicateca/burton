@@ -1,11 +1,23 @@
-changedFieldIndicator: 1237474629
-field: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Items in this collection
+changedFieldIndicator: 123846082
+field: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Content
 fieldLayouts:
   79dd7d9f-7ef5-438e-9e9f-d231cc488aca:
     tabs:
       -
         elementCondition: null
         elements:
+          -
+            elementCondition: null
+            fieldUid: 4b14309d-1992-4d32-aea0-2585f21d1fb9 # Bit
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8978cb97-7161-41c7-bfd4-6e8890b3d4f2
+            userCondition: null
+            warning: null
+            width: 100
           -
             elementCondition: null
             fieldUid: 1ddd814c-a3f1-4689-bb67-33d04ad8307a # Headline
@@ -74,6 +86,60 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
+  4b14309d-1992-4d32-aea0-2585f21d1fb9: # Bit
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: bit
+    instructions: null
+    name: Bit
+    searchable: true
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: 1
+      minRelations: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Entry
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\entries\EntryCondition
+          -
+            - conditionRules
+            -
+              -
+                __assoc__:
+                  -
+                    - class
+                    - craft\elements\conditions\entries\TypeConditionRule
+                  -
+                    - uid
+                    - 5a4c8535-70c3-404a-8732-9cedb6841df2
+                  -
+                    - operator
+                    - in
+                  -
+                    - values
+                    -
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
+      selectionLabel: 'Pick Bit'
+      showSiteMenu: false
+      sources:
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
   69c2d7dc-3df8-4df1-a444-d2ae376da00c: # Text
     columnSuffix: null
     contentColumnType: text
@@ -141,7 +207,7 @@ fields:
           -
             - class
             - craft\elements\conditions\assets\AssetCondition
-      selectionLabel: 'Choose image'
+      selectionLabel: Choose
       showSiteMenu: true
       showUnpermittedFiles: false
       showUnpermittedVolumes: false

@@ -1,0 +1,10 @@
+[
+    {
+        "label": "Plain",
+        "value": "plain",
+
+        "settings": {
+            "microLayout": "topBottom"
+        }
+    }
+]

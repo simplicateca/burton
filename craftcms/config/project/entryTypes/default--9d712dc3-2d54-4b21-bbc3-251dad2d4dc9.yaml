@@ -93,13 +93,13 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: d05f4009-0b38-4065-a1b1-65221aa65e63 # Header Builder
+            fieldUid: 4e35d6a3-a782-43b2-9eef-24ce9981139c # Header Builder
             instructions: null
             label: __blank__
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 020b6538-cc5e-4d1a-80c3-2c4efe267e23
+            uid: f4027ef5-c801-46e8-aa8b-4d6a3a3d774b
             userCondition: null
             warning: null
             width: 100
@@ -144,6 +144,9 @@ handle: default
 hasTitleField: true
 name: Default
 section: fff3cc82-2855-4031-b003-b91d6e16088b # FAQs
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

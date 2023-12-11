@@ -81,13 +81,13 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: d05f4009-0b38-4065-a1b1-65221aa65e63 # Header Builder
+            fieldUid: 4e35d6a3-a782-43b2-9eef-24ce9981139c # Header Builder
             instructions: null
             label: __blank__
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: cb56826e-ab79-4bcc-aad4-1e84eb90872b
+            uid: a1fabf7d-0352-4790-a3a0-c88b486d0373
             userCondition: null
             warning: null
             width: 100
@@ -154,6 +154,9 @@ handle: topic
 hasTitleField: true
 name: 'Topics & Themes'
 section: 942cbdfb-d50d-4dcd-9032-4f483562d1dd # Taxonomies
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

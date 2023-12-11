@@ -2,13 +2,6 @@
  * Gearbox - Matrix layout tweaks
  */
 
-/* align & enlarge 25% / 50% / 75% select fields */
-/* .field.width-25,
-.field.width-50,
-.field.width-75 {
-     display: flex;
-     flex-direction: column;
-} */
 
 .field.width-25 div.input .select,
 .field.width-50 div.input .select {
@@ -70,9 +63,34 @@
     margin-bottom: 30px !important;
 }
 
-.superTableMatrix.matrixblock.collapsed {
-    margin-bottom: 20px;
+.superTableContainer .matrixLayoutContainer .fields {
+    padding-top: 0 !important;
 }
+
+.superTableContainer .matrixLayoutContainer .fields,
+.superTableContainer .matrixLayoutContainer .superTableMatrix {
+    background: var(--gray-200) !important;
+}
+
+
+#content div.matrix-field .flex-fields .superTableContainer .flex-fields > *:not(.matrixConditionals--hidden) {
+    margin-bottom: 0px !important;
+}
+
+#content div.matrix-field .flex-fields .superTableContainer .flex-fields .field > *:not(.matrixConditionals--hidden) {
+    margin-bottom: 18px !important;
+}
+
+/* #content div.matrix-field .flex-fields .superTableContainer .flex-fields .matrixConditionals--hidden {
+    margin-top: -18px !important;
+} */
+
+.superTableMatrix.matrixblock.collapsed {
+    margin-bottom: 10px;
+}
+
+
+
 
 .matrixblock > .titlebar .blocktype {
     font-weight: 700;
@@ -158,9 +176,13 @@
 @media only screen and (max-width:1535px) {
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="source"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="images"],
-    #content div.matrix-field .flex-fields .field.width-50[data-attribute="externalUrls"],
-    #content div.matrix-field .flex-fields .field.width-50[data-attribute="localAssets"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="embeds"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="assets"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="items"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="code"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="form"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="feeds"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="menu"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="fragments"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="text2"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="text"] {

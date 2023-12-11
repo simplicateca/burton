@@ -1,0 +1,28 @@
+[
+    {
+        "label": "Text Above Special Element",
+        "value": "textAboveSpecial",
+
+        "settings": {
+            "microLayout": "topBottomCenter"
+        }
+    },
+
+    {
+        "label": "Text Left / Special Right",
+        "value": "textLeftSpecialRight",
+
+        "settings": {
+            "microLayout": "leftRight"
+        }
+    },
+
+    {
+        "label": "Text Right / Special Left",
+        "value": "textRightSpecialLeft",
+
+        "settings": {
+            "microLayout": "rightLeft"
+        }
+    }
+]

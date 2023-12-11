@@ -1,0 +1,218 @@
+{% set cards   = cards|default()   %}
+{% set card    = craft.app.request.getParam('card') ?? cards | keys | first  %}
+{% set content = content|default() %}
+{% set config  = cards[card]|default() %}
+
+{% if card and config %}
+
+{% set defContainer = 'container' %}
+{% set layoutOpts   = source( config.layout ) | spaceless | json_decode %}
+{% set themeOpts    = source( config.theme )  | spaceless | json_decode %}
+{% set contentOpts  = config.content ??? content %}
+
+{% set layout       = craft.app.request.getParam('layout')  ?? layoutOpts[0].value   ?? null %}
+{% set theme        = craft.app.request.getParam('theme')   ?? themeOpts[0].value    ?? null %}
+{% set content      = craft.app.request.getParam('content') ?? contentOpts[0]        ?? null %}
+{% set limit        = craft.app.request.getParam('limit')   ?? 2 %}
+{% set show         = craft.app.request.getParam('show')    ??? null %}
+
+<div class="sticky top-0" data-theme="standard" x-data="{
+    showall: []
+}">
+    <div class="container @container py-6">
+        <form hx-post hx-trigger="change" hx-select="#preview" hx-swap="outerHTML" hx-target="#preview">
+            <div class="flex gap-4 flex-wrap w-full justify-between text-sm">
+                <div class="field flex-grow">
+                    <label class="uppercase">Content</label>
+                    <select name="content" class="w-full">
+                        {% for c in contentOpts %}
+                            <option value="{{ c }}" {% if content == c %}selected{% endif %}>{{ c | replace({ 'sitehub/cards/_content/' : '' }) }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field flex-grow">
+                    <label class="uppercase">Limit</label>
+                    <select name="limit" class="w-full">
+                        {% for x in range(1,12) %}
+                            <option value="{{ x }}" {% if limit == x %}selected{% endif %}>{{ x }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field flex-grow" x-data="{ isDisabled: false }">
+                    <div class="flex justify-between items-center">
+                        <label class="uppercase">Layout</label>
+                        <span><input type="checkbox" name="showall" x-model="showall" value="layout" @change="isDisabled = showall.includes('layout')"></span>
+                    </div>
+
+                    {{ _self.dropdownField( 'layout', layoutOpts, layout ) }}
+                </div>
+
+                <div class="field flex-grow" x-data="{ isDisabled: false }">
+                    <div class="flex justify-between items-center">
+                        <label class="uppercase">Card</label>
+                        <span><input type="checkbox" name="showall" x-model="showall" value="cards" @change="isDisabled = showall.includes('cards')"></span>
+                    </div>
+
+                    {{ _self.dropdownField( 'card', cards, card ) }}
+                </div>
+
+                <div class="field flex-grow" x-data="{ isDisabled: false }">
+                    <div class="flex justify-between items-center">
+                        <label class="uppercase">Theme</label>
+                        <span><input type="checkbox" name="showall" x-model="showall" value="themes" @change="isDisabled = showall.includes('themes')"></span>
+                    </div>
+                    <input type="hidden" name="show" :value="showall">
+                    {{ _self.dropdownField( 'theme', themeOpts, theme ) }}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="preview" data-themeprev="standard">
+    {% import "_blocks/core/builders" as blocks %}
+    {% from content import content as blockContent %}
+    {% set blocks = blockContent() | spaceless | json_decode %}
+
+    {% if show %}
+        {% set show = show | split( "," ) %}
+
+        {% if 'layout' in show %}
+            {{ block( 'doAllLayouts' ) }}
+        {% else %}
+            {% if 'cards' in show %}
+                {{ block( 'doAllCards' ) }}
+            {% else %}
+                {{ block( 'doAllThemes' ) }}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {{ block( 'doBlock' ) }}
+    {% endif %}
+</div>
+
+{% if null %}
+
+    {% block doAllThemes %}
+        {% set prevtheme = null %}
+        {% for themeOpt in themeOpts %}
+            {% if themeOpt.value ??? null != 'INHERIT' %}
+                {% set theme = themeOpt.value %}
+                {{ block( 'doBlock' ) }}
+            {% endif %}
+        {% endfor %}
+    {% endblock %}
+
+
+    {% block doAllLayouts %}
+        {% for layoutOpt in layoutOpts %}
+            {% set layout = layoutOpt.value %}
+
+            {% if 'cards' in show %}
+                {{ block( 'doAllCards' )}}
+            {% else %}
+                {% if 'themes' in show %}
+                    {{ block( 'doAllThemes' )}}
+                {% else %}
+                    {{ block( 'doBlock' ) }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endblock %}
+
+
+    {% block doAllCards %}
+        {% for cardOpt in cards %}
+            {% set card = cardOpt.value %}
+            {% set config  = cards[card]|default() %}
+            {% if 'themes' in show %}
+                {{ block( 'doAllThemes' )}}
+            {% else %}
+                {{ block( 'doBlock' ) }}
+            {% endif %}
+        {% endfor %}
+    {% endblock %}
+
+
+    {% block doBlock %}
+        {% set thisLayout     = collect( layoutOpts ).firstWhere( 'value', layout ) ??? {} %}
+        {% set thisTheme      = collect( themeOpts ).firstWhere( 'value', theme ) ??? {} %}
+        {% set layoutSettings = thisLayout.settings ??? {} %}
+        {% set themeSettings  = thisTheme.settings  ??? {} %}
+
+        {% set settings = {
+            layout    : layout,
+            variant   : config.value|default('auto'),
+            theme     : theme,
+            interspace: 'base',
+            container : defContainer,
+            cardLayout: config.cardLayout|default(),
+        } %}
+
+        {% set settings = layoutSettings     ? settings | merge( layoutSettings )     : settings %}
+        {% set settings = themeSettings      ? settings | merge( themeSettings )      : settings %}
+        {% set settings = blocks[0].settings ? settings | merge( blocks[0].settings ) : settings %}
+
+        {% set source = 'items' %}
+        {% set source = blocks[0].entries|default() ? 'entries' : source %}
+        {% set source = blocks[0].assets|default()  ? 'assets'  : source %}
+
+        {% set query  = blocks[0].entries ?? blocks[0].assets ?? { limit: limit, section: 'pages' } %}
+        {% set query  = query | merge( { limit: limit } ) %}
+
+        {% set thisBlock = {
+            text    : blocks[0].text,
+            source  : source,
+            items   : blocks[0].items ?? null,
+            entries : source == 'entries' ? craft.entries(query).all() : null,
+            assets  : source == 'assets'  ? craft.assets(query).all()  : null,
+            settings: settings
+        } %}
+
+        <div class="" data-theme="debug">
+            <div class="container @container">
+                <div class="flex w-full p-8">
+                    <div class="w-full lg:w-1/2">
+                        <dl class="@container w-full">
+                            <dt class="text-theme-accent text-sm uppercase">Content</dt>
+                            <dd class="mb-4 like-h4">{{ content | replace({ 'sitehub/cards/_content/' : '' }) | capitalize }} ({{limit}})</dd>
+
+                            <dt class="text-theme-accent text-sm uppercase">Layout</dt>
+                            <dd class="mb-4 like-h4">{{ thisLayout.label ??? null }}</dd>
+
+                            <dt class="text-theme-accent text-sm uppercase">Card</dt>
+                            <dd class="mb-4 like-h4">{{ config.label ??? null }}</dd>
+
+                            <dt class="text-theme-accent text-sm uppercase">Theme</dt>
+                            <dd class="mb-4 like-h4">{{ thisTheme.label ??? null }}</dd>
+                        </dl>
+                    </div>
+                    <div class="w-full lg:w-1/2">
+                        <div class="h-full w-full p-5 max-h-[400px] overflow-scroll bg-theme-backgroundOff">
+                            {{ dump( settings ) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ blocks.builder( [thisBlock], 'content' ) }}
+    {% endblock %}
+{% endif %}
+{# null #}
+
+
+{% endif %}
+{# card and config #}
+
+{% macro dropdownField(fieldname, options, selected = null) %}
+    <select name="{{ fieldname }}" class="w-full" :disabled="isDisabled" :class="{ 'opacity-50' : isDisabled } ">
+        {% for opts in options %}
+            {% if not ( opts.value in ['INHERIT'] ) %}
+                <option value="{{ opts.value }}" {% if selected == opts.value %}selected{% endif %}>{{ opts.label }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+{% endmacro %}

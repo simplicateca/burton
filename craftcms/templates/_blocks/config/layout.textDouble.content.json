@@ -1,0 +1,33 @@
+[
+    {
+        "label": "50% / 50%",
+        "value": "textEven",
+        "settings": {
+            "microLayout": "leftRight"
+        }
+    },
+
+    {
+        "label": "50% / 50% Reverse",
+        "value": "textEvenReverse",
+        "settings": {
+            "microLayout": "rightLeft"
+        }
+    },
+
+    {
+        "label": "Heavy Right",
+        "value": "textRightHeavy",
+        "settings": {
+            "microLayout": "heavyRight"
+        }
+    },
+
+    {
+        "label": "Heavy Left",
+        "value": "textLeftHeavy",
+        "settings": {
+            "microLayout": "heavyLeft"
+        }
+    }
+]

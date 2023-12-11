@@ -39,13 +39,13 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: d05f4009-0b38-4065-a1b1-65221aa65e63 # Header Builder
-            instructions: 'Use the block below to customize the hero section for this page'
+            fieldUid: 4e35d6a3-a782-43b2-9eef-24ce9981139c # Header Builder
+            instructions: null
             label: __blank__
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 45d1c2b8-3ae2-4ac7-b698-663d5e301564
+            uid: 18c6f49f-5e2e-4625-8e4e-dc1728b09287
             userCondition: null
             warning: null
             width: 100
@@ -102,13 +102,13 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: a35a0beb-0cf7-4a2b-9ec3-91e953a18116 # Sidebar Builder
-            instructions: 'Use the blocks below to construct the sidebar of your entry. Each block contains specific settings and content requirements.'
+            fieldUid: 89834163-b3fe-4c51-9a02-e205e03b9067 # Sidebar Builder
+            instructions: null
             label: __blank__
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: f6cccab6-cc19-437f-84cc-fcbd912b8ae6
+            uid: 0fdc99ce-ca84-4029-abb4-1efa7a1efdf6
             userCondition: null
             warning: null
             width: 100
@@ -178,6 +178,9 @@ handle: sidebar
 hasTitleField: true
 name: 'Standard w/ Sidebar'
 section: 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Primary Pages
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 3
 titleFormat: null
 titleTranslationKeyFormat: null

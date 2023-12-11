@@ -12,7 +12,7 @@
 {% set urlParams = params.filter|default() ? urlParams|merge({ f: params.filter }) : urlParams %}
 
 
-{% if pagination|default() in ['filterByFeed', 'all'] and feedIds %}
+{% if interface|default() in ['filterByFeed', 'linkFeedHome'] and feedIds %}
 
     {% set feeds = craft.entries()
         .id(feedIds)

@@ -1,0 +1,334 @@
+field: 89834163-b3fe-4c51-9a02-e205e03b9067 # Sidebar Builder
+fieldLayouts:
+  be2887ff-bddd-4b7e-b3dc-9e3f08052a27:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: bbc5a62f-278f-4d6b-9dd3-2c1f5611e8f2 # Layout
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 02f12a4f-72f4-4b82-980b-4202d9fcf41c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 1820287b-9937-481b-b0fa-32c553322e74 # Variant
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c2a2eb44-ca5b-4ed2-b083-68f880a25cf3
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 6121c8c0-7185-4c3e-aa78-86b30d084f7b # Where are the media files located?
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f5731786-8141-4335-996e-757ce39b1b2c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 5eb93d5b-c488-4274-83e6-868fdbf4d978 # Supporting Copy
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ddd376cd-b6d5-4610-a3c8-9abb4ccdf5f1
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: df0019c9-abb4-44e8-b46d-269688560f53 # Local media assets
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9c8bc599-ce0b-4b98-ad13-7e725e1bf9fe
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: c3f20b8d-cdd0-43a3-99eb-82b7227efd55 # External embeds
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: de0d767a-6ba8-4d50-a72e-5a49b2a3ae17
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 33fd644a-5f96-496f-966b-efe72ca8a70c # Theme
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 70fd2381-37b0-484f-aa0e-a5199a12f87f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 26ae834d-2271-496c-bb49-46507ebe148d # Interspace
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1fabbfb2-acde-4c99-902a-ff12bb1bdca4
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: 4c6c88cb-19ac-40f2-97de-569a629c9ae5
+        userCondition: null
+fields:
+  5eb93d5b-c488-4274-83e6-868fdbf4d978: # Supporting Copy
+    columnSuffix: myhpmfgs
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: null
+    name: 'Supporting Copy'
+    searchable: true
+    settings:
+      availableTransforms: ''
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Standard.json
+      removeEmptyTags: false
+      removeInlineStyles: false
+      removeNbsp: false
+      showHtmlButtonForNonAdmins: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  26ae834d-2271-496c-bb49-46507ebe148d: # Interspace
+    columnSuffix: jxuqmuqb
+    contentColumnType: string
+    fieldGroup: null
+    handle: interspace
+    instructions: null
+    name: Interspace
+    searchable: true
+    settings:
+      referenceFile: _blocks/config/interspace.sidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  33fd644a-5f96-496f-966b-efe72ca8a70c: # Theme
+    columnSuffix: rqvisvzq
+    contentColumnType: string
+    fieldGroup: null
+    handle: theme
+    instructions: null
+    name: Theme
+    searchable: true
+    settings:
+      referenceFile: _blocks/config/theme.sidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  6121c8c0-7185-4c3e-aa78-86b30d084f7b: # Where are the media files located?
+    columnSuffix: ndvakrbw
+    contentColumnType: string
+    fieldGroup: null
+    handle: source
+    instructions: null
+    name: 'Where are the media files located?'
+    searchable: true
+    settings:
+      columnType: string
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - 'External - on site like Youtube or Vimeo'
+            -
+              - value
+              - external
+            -
+              - default
+              - '1'
+        -
+          __assoc__:
+            -
+              - label
+              - 'Locally - as Craft CMS Assets'
+            -
+              - value
+              - local
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\RadioButtons
+  1820287b-9937-481b-b0fa-32c553322e74: # Variant
+    columnSuffix: opbuebhi
+    contentColumnType: string
+    fieldGroup: null
+    handle: variant
+    instructions: null
+    name: Variant
+    searchable: true
+    settings:
+      referenceFile: _blocks/config/variant.media.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  bbc5a62f-278f-4d6b-9dd3-2c1f5611e8f2: # Layout
+    columnSuffix: ezdviyfv
+    contentColumnType: string
+    fieldGroup: null
+    handle: layout
+    instructions: null
+    name: Layout
+    searchable: true
+    settings:
+      referenceFile: _blocks/config/layout.media.sidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  c3f20b8d-cdd0-43a3-99eb-82b7227efd55: # External embeds
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: embeds
+    instructions: null
+    name: 'External embeds'
+    searchable: true
+    settings:
+      blockTypeFields: 0
+      changedFieldIndicator: 1417929590
+      columns:
+        __assoc__:
+          -
+            - e2b4c062-1d0e-44da-b5ad-e58d576cb573 # URL
+            -
+              __assoc__:
+                -
+                  - width
+                  - ''
+          -
+            - 701f481b-981f-47d6-92c9-55d90b39a67e # Images
+            -
+              __assoc__:
+                -
+                  - width
+                  - ''
+          -
+            - 6521930c-ca7f-49d9-978b-f0d0d7fe98c1 # Headline
+            -
+              __assoc__:
+                -
+                  - width
+                  - ''
+          -
+            - fca5420c-cfc5-4a47-a768-e76e28e66dbf # Summary
+            -
+              __assoc__:
+                -
+                  - width
+                  - ''
+      contentTable: '{{%stc_31_embeds}}'
+      fieldLayout: matrix
+      maxRows: null
+      minRows: null
+      propagationKeyFormat: null
+      propagationMethod: none
+      selectionLabel: 'Add media'
+      staticField: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: verbb\supertable\fields\SuperTableField
+  df0019c9-abb4-44e8-b46d-269688560f53: # Local media assets
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: assets
+    instructions: null
+    name: 'Local media assets'
+    searchable: true
+    settings:
+      allowSelfRelations: false
+      allowSubfolders: false
+      allowUploads: true
+      allowedKinds:
+        - audio
+        - compressed
+        - excel
+        - json
+        - pdf
+        - powerpoint
+        - video
+        - word
+      branchLimit: null
+      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      defaultUploadLocationSubpath: '{{- ( object.owner.variants   ?? null  ) ? "products/#{object.owner.type.handle|lower}/" : '''' -}} {{- ( object.owner.product    ?? null  ) ? "products/#{object.owner.product.type.handle|lower}/" : '''' -}} {{- ( object.owner.section    ?? null  ) ? "#{object.owner.section.handle|lower}/" : '''' -}} {{- ( object.owner.parentUri  ?? null  ) ? "#{object.owner.parentUri|replace(''__'','''')}/" : '''' -}} {{object.owner.slug}}'
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      previewMode: full
+      restrictFiles: true
+      restrictLocation: false
+      restrictedDefaultUploadSubpath: null
+      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
+      restrictedLocationSubpath: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Asset
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\assets\AssetCondition
+      selectionLabel: 'Choose media'
+      showSiteMenu: true
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      sources: '*'
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: large
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Assets
+handle: media
+name: Media
+sortOrder: 3

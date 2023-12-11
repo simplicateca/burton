@@ -29,7 +29,7 @@ fieldLayouts:
             uid: a35b0ea6-af36-4ee1-9dec-b5d051a64c75
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
             elementCondition: null
             fieldUid: fde3769d-9be8-400b-a915-9c3c06469466 # Label
@@ -51,6 +51,18 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 43ab46a3-9caf-48a2-9bb9-ab7990833ad0
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Image
+            instructions: null
+            label: 'Image / Icon'
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1178eb62-66a8-4dcf-a243-f1bda8b43a4b
             userCondition: null
             warning: null
             width: 50

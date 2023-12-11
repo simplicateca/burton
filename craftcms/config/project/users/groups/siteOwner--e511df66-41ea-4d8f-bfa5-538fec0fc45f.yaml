@@ -6,7 +6,7 @@ permissions:
   - accesscpwhensystemisoff
   - accesssitewhensystemisoff
   - administrateusers
-  - allowsitebook
+  - allowsitehub
   - 'assignusergroup:a9eefedb-b175-4baa-a9ee-903aa94e9c9b' # Content Editor
   - 'assignusergroup:e511df66-41ea-4d8f-bfa5-538fec0fc45f' # Site Owner
   - assignuserpermissions

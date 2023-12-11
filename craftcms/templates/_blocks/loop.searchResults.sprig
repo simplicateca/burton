@@ -1,8 +1,8 @@
-{% set feedIds    = feedIds|default()  %}
-{% set source     = source|default()   %}
-{% set settings   = settings|default() %}
-{% set pagination = pagination|default() %}
-{% set baseurl    = settings.entryUrl ??? siteUrl( craft.app.request.pathInfo ) %}
+{% set feedIds   = feedIds|default()  %}
+{% set source    = source|default()   %}
+{% set settings  = settings|default() %}
+{% set interface = interface|default() %}
+{% set baseurl   = settings.entryUrl ??? siteUrl( craft.app.request.pathInfo ) %}
 
 {% set pageInfo = null %}
 {% set searchParams = {
@@ -37,25 +37,25 @@
     {% endif %}
 {% endif %}
 
-{% if pagination in [ 'standardWithSearch', 'filterByFeed' ] %}
+{% if interface in [ 'fullSearch', 'filterByFeed' ] %}
     <form method="get" action="{{ baseurl }}">
         <div class="max-w-3xl w-full pb-10 flex flex-col gap-4 mx-auto">
-            {% if pagination in [ 'standardWithSearch' ] %}
+            {% if interface in [ 'fullSearch' ] %}
                 {{ include( '_components/search-filter/filter.keyword', {
-                    isSprig   : true,
-                    params    : searchParams,
-                    settings  : settings,
-                    pagination: pagination,
+                    isSprig  : true,
+                    params   : searchParams,
+                    settings : settings,
+                    interface: interface,
                 }, withContext = false ) }}
             {% endif %}
 
             {{ include( '_components/search-filter/filter.feed', {
-                isSprig   : true,
-                feedIds   : feedIds,
-                params    : searchParams,
-                settings  : settings,
-                baseurl   : baseurl,
-                pagination: pagination,
+                isSprig  : true,
+                feedIds  : feedIds,
+                params   : searchParams,
+                settings : settings,
+                baseurl  : baseurl,
+                interface: interface,
             }, withContext = false ) }}
         </div>
     </form>
@@ -84,21 +84,21 @@
         {% endif %}
 
         {{ include( settings.cardLoop ??? settings['cardLoop.default'] ??? '_blocks/loop.auto', {
-            items     : pageInfo.pageResults,
-            limit     : searchParams.limit,
-            feedIds   : feedIds,
-            pagination: pagination,
-            settings  : settings|default()
+            items    : pageInfo.pageResults,
+            limit    : searchParams.limit,
+            feedIds  : feedIds,
+            interface: interface,
+            settings : settings|default()
         }, withContext = false  ) }}
 
         {{ include( '_components/search-filter/pagination', {
-            isSprig   : true,
-            settings  : settings,
-            paginate  : pageInfo,
-            feedIds   : feedIds,
-            params    : searchParams,
-            baseurl   : baseurl,
-            pagination: pagination,
+            isSprig  : true,
+            settings : settings,
+            paginate : pageInfo,
+            feedIds  : feedIds,
+            params   : searchParams,
+            baseurl  : baseurl,
+            interface: interface,
         }, withContext = false ) }}
 
     {% else %}
