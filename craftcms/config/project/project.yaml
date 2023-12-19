@@ -457,7 +457,6 @@ plugins:
   blitz:
     edition: standard
     enabled: false
-    licenseKey: R20PJ9IRD5QI9PGLDKLO2BJJ
     schemaVersion: 4.5.0
   dospaces:
     edition: standard
@@ -482,7 +481,6 @@ plugins:
   formie:
     edition: standard
     enabled: true
-    licenseKey: W6U52IPFQJVACJTHTR88L624
     schemaVersion: 2.0.11
   knock-knock:
     edition: standard
@@ -491,7 +489,6 @@ plugins:
   matrix-field-preview:
     edition: standard
     enabled: true
-    licenseKey: GJQS3D3NE7D1748RYRV06L2A
     schemaVersion: 3.0.3
   matrixmate:
     edition: standard
@@ -504,7 +501,6 @@ plugins:
   navigation:
     edition: standard
     enabled: true
-    licenseKey: PJS0VY119GKZ2HSJCMJXDUXM
     schemaVersion: 2.0.7
   redactor:
     edition: standard
@@ -529,7 +525,6 @@ plugins:
   seomatic:
     edition: standard
     enabled: true
-    licenseKey: HLOROBSK1L6EIH30DU3K8AC2
     schemaVersion: 3.0.12
   sherlock:
     edition: lite
