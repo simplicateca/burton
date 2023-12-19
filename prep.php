@@ -16,8 +16,8 @@ if( !file_exists('docs/README.md') ) {
 copy( 'craftcms/.env.example', 'craftcms/.env' );
 
 // gunzip the seed file (incase `docker compose up` is run instead of `make dev`)
-$gz  = gzopen('./etc/database-seed/craft-cms--2023-12-04-220320--v4.5.11.1.sql.gz', 'rb');
-$sql = fopen( './etc/database-seed/craft-cms--2023-12-04-220320--v4.5.11.1.sql',    'wb');
+$gz  = gzopen('./etc/database-seed/craft-cms--2023-12-19-041132--v4.5.13.sql.gz', 'rb');
+$sql = fopen( './etc/database-seed/craft-cms--2023-12-19-041132--v4.5.13.sql',    'wb');
 while(!gzeof($gz)) { fwrite($sql, gzread($gz, 4096)); }
 fclose($sql);
 gzclose($gz);
