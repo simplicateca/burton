@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: d2c9d5fd-0d2a-4a8e-9e7c-fd5e16765aa0 # Headline
+            fieldUid: d2c9d5fd-0d2a-4a8e-9e7c-fd5e16765aa0 # Primary Headline
             instructions: null
             label: null
             required: true
@@ -43,7 +43,7 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: 2fb76310-c2a0-4942-b6a3-236be0ed07aa # Where are the media files located?
+            fieldUid: 2fb76310-c2a0-4942-b6a3-236be0ed07aa # Media Type
             instructions: null
             label: null
             required: false
@@ -52,10 +52,10 @@ fieldLayouts:
             uid: 2a60c6aa-3baf-4795-b332-c0c6e3b94f95
             userCondition: null
             warning: null
-            width: 50
+            width: 75
           -
             elementCondition: null
-            fieldUid: 2415d7da-11b8-41f6-a8d2-727054fa6716 # Supporting Copy
+            fieldUid: 2415d7da-11b8-41f6-a8d2-727054fa6716 # Copy
             instructions: null
             label: null
             required: false
@@ -67,7 +67,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 24a59426-007c-43f8-9fc1-864c6a06718f # Local media assets
+            fieldUid: 24a59426-007c-43f8-9fc1-864c6a06718f # Local Assets
             instructions: null
             label: null
             required: false
@@ -76,10 +76,10 @@ fieldLayouts:
             uid: 2804e2af-834d-47ed-9a6b-58ea21417db3
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
-            fieldUid: 6f3a7e60-9dca-477c-a7ae-5036b3eb5b3a # External embeds
+            fieldUid: 6f3a7e60-9dca-477c-a7ae-5036b3eb5b3a # External Embeds
             instructions: null
             label: null
             required: false
@@ -88,7 +88,7 @@ fieldLayouts:
             uid: ac78f2c8-2fc4-402c-abd4-7868ec57e6e0
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
             fieldUid: fa4c8810-f277-45dc-b00c-074c3f1b4685 # Theme
@@ -117,13 +117,13 @@ fieldLayouts:
         uid: 76a86970-2923-471e-ab81-2397d964c802
         userCondition: null
 fields:
-  2fb76310-c2a0-4942-b6a3-236be0ed07aa: # Where are the media files located?
+  2fb76310-c2a0-4942-b6a3-236be0ed07aa: # Media Type
     columnSuffix: qwptkrnz
     contentColumnType: string
     fieldGroup: null
     handle: source
     instructions: null
-    name: 'Where are the media files located?'
+    name: 'Media Type'
     searchable: true
     settings:
       columnType: string
@@ -153,17 +153,17 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\RadioButtons
-  6f3a7e60-9dca-477c-a7ae-5036b3eb5b3a: # External embeds
+  6f3a7e60-9dca-477c-a7ae-5036b3eb5b3a: # External Embeds
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: embeds
     instructions: null
-    name: 'External embeds'
+    name: 'External Embeds'
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 781655452
+      changedFieldIndicator: 1979749216
       columns:
         __assoc__:
           -
@@ -205,13 +205,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: verbb\supertable\fields\SuperTableField
-  24a59426-007c-43f8-9fc1-864c6a06718f: # Local media assets
+  24a59426-007c-43f8-9fc1-864c6a06718f: # Local Assets
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: assets
     instructions: null
-    name: 'Local media assets'
+    name: 'Local Assets'
     searchable: true
     settings:
       allowSelfRelations: false
@@ -261,13 +261,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Assets
-  2415d7da-11b8-41f6-a8d2-727054fa6716: # Supporting Copy
+  2415d7da-11b8-41f6-a8d2-727054fa6716: # Copy
     columnSuffix: nvvyicsz
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: 'Supporting Copy'
+    name: Copy
     searchable: true
     settings:
       availableTransforms: ''
@@ -328,13 +328,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  d2c9d5fd-0d2a-4a8e-9e7c-fd5e16765aa0: # Headline
+  d2c9d5fd-0d2a-4a8e-9e7c-fd5e16765aa0: # Primary Headline
     columnSuffix: gvkfkblx
     contentColumnType: text
     fieldGroup: null
     handle: headline
     instructions: 'Replaces the page <title> and acts as the default SEO <h1> tag'
-    name: Headline
+    name: 'Primary Headline'
     searchable: false
     settings:
       availableTransforms: ''

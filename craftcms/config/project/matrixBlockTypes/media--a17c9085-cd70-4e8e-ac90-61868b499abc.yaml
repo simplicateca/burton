@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 6121c8c0-7185-4c3e-aa78-86b30d084f7b # Where are the media files located?
+            fieldUid: 6121c8c0-7185-4c3e-aa78-86b30d084f7b # Media Type
             instructions: null
             label: null
             required: false
@@ -40,10 +40,10 @@ fieldLayouts:
             uid: f5731786-8141-4335-996e-757ce39b1b2c
             userCondition: null
             warning: null
-            width: 50
+            width: 75
           -
             elementCondition: null
-            fieldUid: 5eb93d5b-c488-4274-83e6-868fdbf4d978 # Supporting Copy
+            fieldUid: 5eb93d5b-c488-4274-83e6-868fdbf4d978 # Copy
             instructions: null
             label: null
             required: false
@@ -55,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: df0019c9-abb4-44e8-b46d-269688560f53 # Local media assets
+            fieldUid: df0019c9-abb4-44e8-b46d-269688560f53 # Local Assets
             instructions: null
             label: null
             required: false
@@ -64,10 +64,10 @@ fieldLayouts:
             uid: 9c8bc599-ce0b-4b98-ad13-7e725e1bf9fe
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
-            fieldUid: c3f20b8d-cdd0-43a3-99eb-82b7227efd55 # External embeds
+            fieldUid: c3f20b8d-cdd0-43a3-99eb-82b7227efd55 # External Embeds
             instructions: null
             label: null
             required: false
@@ -76,7 +76,7 @@ fieldLayouts:
             uid: de0d767a-6ba8-4d50-a72e-5a49b2a3ae17
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
             fieldUid: 33fd644a-5f96-496f-966b-efe72ca8a70c # Theme
@@ -105,13 +105,13 @@ fieldLayouts:
         uid: 4c6c88cb-19ac-40f2-97de-569a629c9ae5
         userCondition: null
 fields:
-  5eb93d5b-c488-4274-83e6-868fdbf4d978: # Supporting Copy
+  5eb93d5b-c488-4274-83e6-868fdbf4d978: # Copy
     columnSuffix: myhpmfgs
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: 'Supporting Copy'
+    name: Copy
     searchable: true
     settings:
       availableTransforms: ''
@@ -159,13 +159,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  6121c8c0-7185-4c3e-aa78-86b30d084f7b: # Where are the media files located?
+  6121c8c0-7185-4c3e-aa78-86b30d084f7b: # Media Type
     columnSuffix: ndvakrbw
     contentColumnType: string
     fieldGroup: null
     handle: source
     instructions: null
-    name: 'Where are the media files located?'
+    name: 'Media Type'
     searchable: true
     settings:
       columnType: string
@@ -221,17 +221,17 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  c3f20b8d-cdd0-43a3-99eb-82b7227efd55: # External embeds
+  c3f20b8d-cdd0-43a3-99eb-82b7227efd55: # External Embeds
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: embeds
     instructions: null
-    name: 'External embeds'
+    name: 'External Embeds'
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1417929590
+      changedFieldIndicator: 2109754693
       columns:
         __assoc__:
           -
@@ -273,13 +273,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: verbb\supertable\fields\SuperTableField
-  df0019c9-abb4-44e8-b46d-269688560f53: # Local media assets
+  df0019c9-abb4-44e8-b46d-269688560f53: # Local Assets
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: assets
     instructions: null
-    name: 'Local media assets'
+    name: 'Local Assets'
     searchable: true
     settings:
       allowSelfRelations: false

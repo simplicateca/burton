@@ -59,15 +59,15 @@
         zone1: 'w-full @container',
         zone2: 'w-full @container',
 
-        header          : 'w-full max-w-3xl last:mb-8 @container',
-        header__left    : 'w-full max-w-3xl last:mb-8 @container mr-auto',
-        header__center  : 'w-full max-w-3xl last:mb-8 @container mx-auto',
-        header__right   : 'w-full max-w-3xl last:mb-8 @container ml-auto',
+        header          : 'w-full max-w-3xl [&>:last-child]:pb-4 @container',
+        header__left    : 'w-full max-w-3xl [&>:last-child]:pb-4 @container mr-auto',
+        header__center  : 'w-full max-w-3xl [&>:last-child]:pb-4 @container mx-auto',
+        header__right   : 'w-full max-w-3xl [&>:last-child]:pb-4 @container ml-auto',
 
-        footer          : 'w-full max-w-3xl first:mt-8 @container',
-        footer__left    : 'w-full max-w-3xl first:mt-8 @container mr-auto',
-        footer__center  : 'w-full max-w-3xl first:mt-8 @container mx-auto',
-        footer__right   : 'w-full max-w-3xl first:mt-8 @container ml-auto',
+        footer          : 'w-full max-w-3xl [&>:first-child]:pt-4 @container',
+        footer__left    : 'w-full max-w-3xl [&>:first-child]:pt-4 @container mr-auto',
+        footer__center  : 'w-full max-w-3xl [&>:first-child]:pt-4 @container mx-auto',
+        footer__right   : 'w-full max-w-3xl [&>:first-child]:pt-4 @container ml-auto',
     },
 
     _:'## named microlayout definitions',
@@ -208,7 +208,7 @@
 
         heavyRightReverse: {
             _:'## Wider width Zone 2 on the left.',
-            base : 'w-full flex flex-col-reverse lg:flex-row-reverse',
+            base : 'w-full flex flex-col-reverse lg:flex-row-reverse items-center justify-center',
             zone1: 'lg:w-2/5 @container',
             zone2: 'lg:w-3/5 @container',
 

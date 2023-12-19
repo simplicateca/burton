@@ -127,4 +127,4 @@ fields:
     type: craft\fields\Entries
 handle: fragment
 name: Fragment
-sortOrder: 6
+sortOrder: 7

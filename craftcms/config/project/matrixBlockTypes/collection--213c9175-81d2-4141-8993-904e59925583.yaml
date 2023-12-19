@@ -91,7 +91,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Content
+            fieldUid: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Content Items
             instructions: null
             label: null
             required: false
@@ -422,17 +422,17 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  5347a201-6da8-47ff-bc5b-20a0dc63d44e: # Inline Content
+  5347a201-6da8-47ff-bc5b-20a0dc63d44e: # Inline Content Items
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: items
     instructions: null
-    name: 'Inline Content'
+    name: 'Inline Content Items'
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 477502669
+      changedFieldIndicator: 1523917242
       columns:
         __assoc__:
           -

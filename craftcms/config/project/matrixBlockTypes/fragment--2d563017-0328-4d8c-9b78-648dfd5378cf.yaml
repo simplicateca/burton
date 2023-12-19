@@ -127,4 +127,4 @@ fields:
     type: simplicateca\referencefield\fields\Dropdown
 handle: fragment
 name: Fragment
-sortOrder: 5
+sortOrder: 6

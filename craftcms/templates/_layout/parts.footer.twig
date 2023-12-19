@@ -57,8 +57,7 @@
 
 
 {% block footerQuickLinksMenu %}
-    {% use "_layout/menus" %}
-    {{ block( 'menu_quicklinks') }}
+    {{ block( 'menu_quicklinks', "_layout/menus" ) }}
 {% endblock %}
 
 

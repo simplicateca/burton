@@ -31,6 +31,18 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
+            fieldUid: 896fe078-b30d-407c-b479-675c927199b7 # Copy
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3c5aeef5-84e8-459a-a579-b634de64440f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
             fieldUid: 7960626b-627f-4ad2-9238-697a9534e0dc # Images
             instructions: null
             label: null
@@ -38,18 +50,6 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 77351e9a-e2f4-4d5f-8897-4007a84a0e93
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: 896fe078-b30d-407c-b479-675c927199b7 # Supporting Copy
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 3c5aeef5-84e8-459a-a579-b634de64440f
             userCondition: null
             warning: null
             width: 50
@@ -120,13 +120,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  896fe078-b30d-407c-b479-675c927199b7: # Supporting Copy
+  896fe078-b30d-407c-b479-675c927199b7: # Copy
     columnSuffix: lcvxkgrp
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: 'Supporting Copy'
+    name: Copy
     searchable: true
     settings:
       availableTransforms: ''

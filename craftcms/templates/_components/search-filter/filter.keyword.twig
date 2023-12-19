@@ -2,6 +2,7 @@
 {% set isSprig  = isSprig  ??? false %}
 {% set params   = params   ??? null %}
 {% set settings = settings ??? null %}
+{% set resultId = resultId|default('#sprigResults') %}
 
 <div class="
     border
@@ -28,7 +29,7 @@
         {% if isSprig %}
             sprig
             s-val:page="1"
-            s-replace="#sprigResults"
+            s-replace="{{resultId}}"
             s-trigger="keyup changed delay:300ms"
         {% endif %}
     >

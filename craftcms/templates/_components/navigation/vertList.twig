@@ -1,12 +1,12 @@
-{% set title  = title  ??? null  %}
-{% set handle = handle ??? null  %}
-{% set items  = items  ??? null  %}
-{% set tag    = tag    ??? 'nav' %}
+{% set title  = title|default() %}
+{% set nodes  = handle|default() ? craft.navigation.nodes().handle( handle ).level(1) : [] %}
+{% set items  = nodes.all() ??? items|default([]) %}
+{% set tag    = tag|default('nav') %}
 
 {% block menu %}
     {% block openNav %}
         <{{ tag }} {{attr({
-            id  : "nav-#{handle ??? null }",
+            id  : "nav-#{handle}",
             role: "navigation",
             aria: { label: title ??? null }
         })}}>
@@ -50,7 +50,9 @@
         m-0
         p-0
         list-none
-        flex gap-8
+        flex
+        flex-col
+        gap-4
     {% endblock %}
 
     {% block itemClass %}
@@ -61,8 +63,6 @@
         hover:bg-theme-accent
         flex
         flex-col
-        items-center
         px-2
-        gap-2
     {% endblock %}
 {% endif %}

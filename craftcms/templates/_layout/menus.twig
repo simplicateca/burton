@@ -19,10 +19,10 @@
 {% endblock %}
 
 {% block menu_quicklinks %}
-    {% tag 'div' %}
+    {% tag 'div' with { class: '@container' } %}
+        <div class="like-h3">Quick Links</div>
         {{ include( "_components/navigation/vertList", {
-            title     : 'Quick Links',
-            handle    : 'features'
+            handle: 'features'
         }, withContext = false ) }}
     {% endtag %}
 {% endblock %}

@@ -41,10 +41,10 @@ return [
                     ]],
                 ],
 
-                'special' => [
+                'highlight' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'feeds', 'form', 'menu', 'code', 'theme', 'interspace'],
+                        'fields' => ['layout', 'variant', 'text', 'feeds', 'entries', 'special', 'form', 'menu', 'code', 'theme', 'interspace'],
                     ]],
                 ],
             ]
@@ -81,10 +81,10 @@ return [
                     ]],
                 ],
 
-                'special' => [
+                'highlight' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'feeds', 'form', 'menu', 'code', 'theme', 'interspace'],
+                        'fields' => ['layout', 'variant', 'text', 'feeds', 'entries', 'special', 'form', 'menu', 'code', 'theme', 'interspace'],
                     ]],
                 ],
             ]
@@ -128,10 +128,10 @@ return [
                     ]],
                 ],
 
-                'special' => [
+                'highlight' => [
                     'tabs' => [[
                         'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'feeds', 'form', 'menu', 'code', 'theme', 'interspace'],
+                        'fields' => ['layout', 'variant', 'text', 'feeds', 'entries', 'special', 'form', 'menu', 'code', 'theme', 'interspace'],
                     ]],
                 ],
             ],

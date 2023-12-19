@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: fdebeb5f-8977-4ea4-9b4d-289e2b73e4c9 # Where are the Collection items located?
+            fieldUid: fdebeb5f-8977-4ea4-9b4d-289e2b73e4c9 # Collection Type
             instructions: null
             label: null
             required: false
@@ -40,70 +40,10 @@ fieldLayouts:
             uid: 5b039ea9-c0fa-487a-9480-0c42c52c2618
             userCondition: null
             warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: d35c9f45-ed1c-41ee-9880-b05333b17af0 # Supporting Copy
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: d9da0279-9b94-49f6-becd-241e7a1653fb
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: cf42e194-fb4c-4218-a6f2-661ccc51b768 # Entries in this Collection
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 33192a1e-5c48-47b7-9187-5301b5b3f87f
-            userCondition: null
-            warning: null
             width: 75
           -
             elementCondition: null
-            fieldUid: 7ce6af04-c2ee-4ef2-b6a7-f529d2b7b65f # Assets in this Collection
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 4331acec-66a8-4fc5-af8e-e0ba8db93183
-            userCondition: null
-            warning: null
-            width: 75
-          -
-            elementCondition: null
-            fieldUid: 1be9127a-60e5-4888-bcb0-cc5b7ee55f6f # Content feed
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 8992465c-be62-4530-be42-78c2937d963e
-            userCondition: null
-            warning: null
-            width: 25
-          -
-            elementCondition: null
-            fieldUid: b5987eaa-5a19-4169-8bde-3cfe1ac7d3b0 # Limit
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 3c376f0b-4d68-4726-bba1-00fbbdfea6b6
-            userCondition: null
-            warning: null
-            width: 25
-          -
-            elementCondition: null
-            fieldUid: bd2471a2-f2db-4375-979e-234df61dd0a7 # Feed interface
+            fieldUid: bd2471a2-f2db-4375-979e-234df61dd0a7 # Extra User Interface
             instructions: null
             label: null
             required: false
@@ -115,7 +55,43 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 5aacbfe1-d68f-4215-a87f-818ec5dc8f80 # Items in this collection
+            fieldUid: b5987eaa-5a19-4169-8bde-3cfe1ac7d3b0 # Limit Results
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3c376f0b-4d68-4726-bba1-00fbbdfea6b6
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: d35c9f45-ed1c-41ee-9880-b05333b17af0 # Copy
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d9da0279-9b94-49f6-becd-241e7a1653fb
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 1be9127a-60e5-4888-bcb0-cc5b7ee55f6f # Content Feed
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8992465c-be62-4530-be42-78c2937d963e
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 5aacbfe1-d68f-4215-a87f-818ec5dc8f80 # Inline Content Items
             instructions: null
             label: null
             required: false
@@ -124,7 +100,31 @@ fieldLayouts:
             uid: ddfd2e25-029a-43a5-bf98-61ae1b945ae8
             userCondition: null
             warning: null
-            width: 75
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: cf42e194-fb4c-4218-a6f2-661ccc51b768 # Content Entries
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 33192a1e-5c48-47b7-9187-5301b5b3f87f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 7ce6af04-c2ee-4ef2-b6a7-f529d2b7b65f # Downloadable Files
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4331acec-66a8-4fc5-af8e-e0ba8db93183
+            userCondition: null
+            warning: null
+            width: 50
           -
             elementCondition: null
             fieldUid: fd384d46-719e-4da0-9a0e-0e372bc88593 # Theme
@@ -153,13 +153,13 @@ fieldLayouts:
         uid: 001fbfbb-dc6b-4250-94d4-1a6973fecd9b
         userCondition: null
 fields:
-  1be9127a-60e5-4888-bcb0-cc5b7ee55f6f: # Content feed
+  1be9127a-60e5-4888-bcb0-cc5b7ee55f6f: # Content Feed
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: feeds
     instructions: null
-    name: 'Content feed'
+    name: 'Content Feed'
     searchable: true
     settings:
       allowSelfRelations: false
@@ -207,17 +207,17 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  5aacbfe1-d68f-4215-a87f-818ec5dc8f80: # Items in this collection
+  5aacbfe1-d68f-4215-a87f-818ec5dc8f80: # Inline Content Items
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: items
     instructions: null
-    name: 'Items in this collection'
+    name: 'Inline Content Items'
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1020779775
+      changedFieldIndicator: 425387396
       columns:
         __assoc__:
           -
@@ -259,13 +259,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: verbb\supertable\fields\SuperTableField
-  7ce6af04-c2ee-4ef2-b6a7-f529d2b7b65f: # Assets in this Collection
+  7ce6af04-c2ee-4ef2-b6a7-f529d2b7b65f: # Downloadable Files
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: assets
     instructions: null
-    name: 'Assets in this Collection'
+    name: 'Downloadable Files'
     searchable: true
     settings:
       allowSelfRelations: false
@@ -355,13 +355,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  b5987eaa-5a19-4169-8bde-3cfe1ac7d3b0: # Limit
+  b5987eaa-5a19-4169-8bde-3cfe1ac7d3b0: # Limit Results
     columnSuffix: tqxpzwva
     contentColumnType: integer(10)
     fieldGroup: null
     handle: limit
     instructions: null
-    name: Limit
+    name: 'Limit Results'
     searchable: true
     settings:
       decimals: 0
@@ -376,13 +376,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Number
-  bd2471a2-f2db-4375-979e-234df61dd0a7: # Feed interface
+  bd2471a2-f2db-4375-979e-234df61dd0a7: # Extra User Interface
     columnSuffix: wpyokwcy
     contentColumnType: string
     fieldGroup: null
     handle: interface
     instructions: null
-    name: 'Feed interface'
+    name: 'Extra User Interface'
     searchable: true
     settings:
       columnType: string
@@ -445,13 +445,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\Dropdown
-  cf42e194-fb4c-4218-a6f2-661ccc51b768: # Entries in this Collection
+  cf42e194-fb4c-4218-a6f2-661ccc51b768: # Content Entries
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: entries
     instructions: null
-    name: 'Entries in this Collection'
+    name: 'Content Entries'
     searchable: true
     settings:
       allowSelfRelations: false
@@ -511,13 +511,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  d35c9f45-ed1c-41ee-9880-b05333b17af0: # Supporting Copy
+  d35c9f45-ed1c-41ee-9880-b05333b17af0: # Copy
     columnSuffix: pbbjjyzf
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: 'Supporting Copy'
+    name: Copy
     searchable: true
     settings:
       availableTransforms: ''
@@ -552,13 +552,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  fdebeb5f-8977-4ea4-9b4d-289e2b73e4c9: # Where are the Collection items located?
+  fdebeb5f-8977-4ea4-9b4d-289e2b73e4c9: # Collection Type
     columnSuffix: xrizyblc
     contentColumnType: string
     fieldGroup: null
     handle: source
     instructions: null
-    name: 'Where are the Collection items located?'
+    name: 'Collection Type'
     searchable: true
     settings:
       columnType: string
@@ -567,7 +567,7 @@ fields:
           __assoc__:
             -
               - label
-              - 'Inline - create items in this block'
+              - 'Single-Use Inline Content Items'
             -
               - value
               - items
@@ -578,18 +578,7 @@ fields:
           __assoc__:
             -
               - label
-              - 'Specific - select existing content entries'
-            -
-              - value
-              - entries
-            -
-              - default
-              - ''
-        -
-          __assoc__:
-            -
-              - label
-              - 'Dynamic - choose a predefined content feed'
+              - 'Dynamic Content Feed'
             -
               - value
               - feed
@@ -600,7 +589,18 @@ fields:
           __assoc__:
             -
               - label
-              - 'Assets - specific files uploaded inside Craft'
+              - 'Specific Content Entries'
+            -
+              - value
+              - entries
+            -
+              - default
+              - ''
+        -
+          __assoc__:
+            -
+              - label
+              - 'Downloadable Files (PDF, ZIP, XLS, etc)'
             -
               - value
               - assets

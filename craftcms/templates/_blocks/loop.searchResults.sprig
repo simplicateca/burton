@@ -3,6 +3,7 @@
 {% set settings  = settings|default() %}
 {% set interface = interface|default() %}
 {% set baseurl   = settings.entryUrl ??? siteUrl( craft.app.request.pathInfo ) %}
+{% set uuid      = create('craft\\helpers\\StringHelper').UUID() %}
 
 {% set pageInfo = null %}
 {% set searchParams = {
@@ -37,78 +38,114 @@
     {% endif %}
 {% endif %}
 
-{% if interface in [ 'fullSearch', 'filterByFeed' ] %}
-    <form method="get" action="{{ baseurl }}">
-        <div class="max-w-3xl w-full pb-10 flex flex-col gap-4 mx-auto">
-            {% if interface in [ 'fullSearch' ] %}
-                {{ include( '_components/search-filter/filter.keyword', {
-                    isSprig  : true,
-                    params   : searchParams,
-                    settings : settings,
-                    interface: interface,
-                }, withContext = false ) }}
+{% set microZone1 %}
+    {% if interface in [ 'fullSearch', 'filterByFeed' ] %}
+        <div class="w-full relative">
+
+            <form method="get" action="{{ baseurl }}">
+
+                {{ settings.aboveForm|default() | raw }}
+
+                <div class="max-w-3xl w-full pb-10 flex flex-col gap-4 mx-auto">
+                    {% if interface in [ 'fullSearch' ] %}
+                        {{ include( '_components/search-filter/filter.keyword', {
+                            isSprig  : true,
+                            resultId : "sprigResults-#{uuid}",
+                            params   : searchParams,
+                            settings : settings,
+                            interface: interface,
+                        }, withContext = false ) }}
+                    {% endif %}
+
+                    {{ include( '_components/search-filter/filter.feed', {
+                        isSprig  : true,
+                        feedIds  : feedIds,
+                        params   : searchParams,
+                        settings : settings,
+                        baseurl  : baseurl,
+                        interface: interface,
+                    }, withContext = false ) }}
+                </div>
+
+                {{ settings.belowForm|default() | raw }}
+            </form>
+        </div>
+    {% endif %}
+{% endset %}
+
+
+{% set microZone2 %}
+    <div id="sprigResults-{{uuid}}" class="w-full">
+
+        {% if pageInfo.pageResults ??? null %}
+
+            {% if searchParams.query %}
+                <div class="max-w-4xl mx-auto @container mb-8">
+                    <p class="html smaller p-2 bg-theme-backgroundOff text-center">
+                        {% if pageInfo.totalPages > 1 %}
+                            Showing <em>{{ pageInfo.first }}-{{ pageInfo.last }}</em> of <mark class="m1"><span>{{ pageInfo.total }}</span></mark> total matches…
+                        {% else %}
+                            {% if pageInfo.total == 1 %}
+                                Only <mark class="m1"><span>{{ pageInfo.total }}</span></mark> match found…
+                            {% else %}
+                                Found <mark class="m1"><span>{{ pageInfo.total }}</span></mark> matches…
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
             {% endif %}
 
-            {{ include( '_components/search-filter/filter.feed', {
+            {{ include( settings.cardLoop ??? settings['cardLoop.default'] ??? '_blocks/loop.auto', {
+                items    : pageInfo.pageResults,
+                limit    : searchParams.limit,
+                feedIds  : feedIds,
+                interface: interface,
+                settings : settings|default()
+            }, withContext = false  ) }}
+
+            {{ include( '_components/search-filter/pagination', {
                 isSprig  : true,
+                settings : settings,
+                paginate : pageInfo,
                 feedIds  : feedIds,
                 params   : searchParams,
-                settings : settings,
                 baseurl  : baseurl,
                 interface: interface,
             }, withContext = false ) }}
-        </div>
-    </form>
+
+        {% else %}
+            {% if searchParams.query %}
+                <div class="max-w-4xl mx-auto @container mb-8">
+                    <p class="html larger text-center">
+                        <strong>Sorry</strong>, we could not find any matches for your search.
+                    </p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endset %}
+
+{% if settings.microLayout|default() %}
+
+    {% from "_layout/core/micro" import layout as renderMicroLayout %}
+    {# renderMicroLayout( layoutName, [ zone1, zone2, header, footer ], { arg1: x, .. } )
+     -------------------------------------------------------------------------------- ##}
+    {{ renderMicroLayout(
+        settings.microLayout,
+
+        [ microZone1|default(), microZone2|default(),
+          settings.microHeader|default(), settings.microFooter|default() ],
+
+        { container : settings.container|default() }
+    ) }}
+
+{% else %}
+
+    {{ microZone1 }}
+    {{ microZone2 }}
+
 {% endif %}
 
-
-{## output the search results ##}
-<div id="sprigResults">
-
-    {% if pageInfo.pageResults ??? null %}
-
-        {% if searchParams.query %}
-            <div class="max-w-4xl mx-auto @container mb-8">
-                <p class="html larger text-center">
-                    {% if pageInfo.totalPages > 1 %}
-                        Showing <em>{{ pageInfo.first }}-{{ pageInfo.last }}</em> of <mark class="m1"><span>{{ pageInfo.total }}</span></mark> total matches…
-                    {% else %}
-                        {% if pageInfo.total == 1 %}
-                            Only <mark class="m1"><span>{{ pageInfo.total }}</span></mark> match found…
-                        {% else %}
-                            Found <mark class="m1"><span>{{ pageInfo.total }}</span></mark> matches…
-                        {% endif %}
-                    {% endif %}
-                </p>
-            </div>
-        {% endif %}
-
-        {{ include( settings.cardLoop ??? settings['cardLoop.default'] ??? '_blocks/loop.auto', {
-            items    : pageInfo.pageResults,
-            limit    : searchParams.limit,
-            feedIds  : feedIds,
-            interface: interface,
-            settings : settings|default()
-        }, withContext = false  ) }}
-
-        {{ include( '_components/search-filter/pagination', {
-            isSprig  : true,
-            settings : settings,
-            paginate : pageInfo,
-            feedIds  : feedIds,
-            params   : searchParams,
-            baseurl  : baseurl,
-            interface: interface,
-        }, withContext = false ) }}
-
-    {% else %}
-        {% if searchParams.query %}
-            <div class="max-w-4xl mx-auto @container mb-8">
-                <p class="html larger text-center">
-                    <strong>Sorry</strong>, we could not find any matches for your search.
-                </p>
-            </div>
-        {% endif %}
-    {% endif %}
-
-</div>
+{% css %}
+    .sprig-component { width: 100%; }
+{% endcss %}

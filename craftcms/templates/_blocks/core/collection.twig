@@ -57,7 +57,16 @@
         {% set collection = [] %}
         {% set collection = source == 'assets'  ? block.assets.all()  ??? block.assets  ??? null : collection %}
         {% set collection = source == 'entries' ? block.entries.all() ??? block.entries ??? null : collection %}
-        {% set collection = source == 'items'   ? block.items.all()   ??? block.items   ??? null : collection %}
+
+        {## For inline items, we need to consider Content Bit overrides
+         ---------------------------------------------------------------------------- ##}
+        {% if source == 'items' %}
+            {% set inlineItems = [] %}
+            {% for item in block.items.all() ??? null %}
+                {% set inlineItems = inlineItems|merge([ item.bit.one() ??? item ]) %}
+            {% endfor %}
+            {% set collection = inlineItems ??? block.items ??? collection %}
+        {% endif %}
 
 
         {## getContentFeedResults() is a custom macro that is a shortcut for

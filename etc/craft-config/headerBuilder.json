@@ -870,8 +870,8 @@
                     ]
                 },
                 {
-                    "name": "Special",
-                    "handle": "special",
+                    "name": "Highlight",
+                    "handle": "highlight",
                     "fields": [
                         {
                             "required": false,
@@ -879,7 +879,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/layout.special.header.json"
+                                "referenceFile": "_blocks\/config\/layout.highlight.header.json"
                             }
                         },
                         {
@@ -888,7 +888,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/variant.special.json"
+                                "referenceFile": "_blocks\/config\/variant.highlight.json"
                             }
                         },
                         {

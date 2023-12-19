@@ -1,4 +1,4 @@
-dateModified: 1702240330
+dateModified: 1702931616
 elementSources:
   craft\elements\Entry:
     -
@@ -179,23 +179,23 @@ meta:
     1a610fca-cc19-4e52-af85-49ab1ed1c26c: Theme # Theme
     1a28951d-82d5-47da-8ec8-ab405c40e0b8: Theme # Theme
     1aa1599b-4b0c-41aa-bdd3-118ae1985884: Layout # Layout
-    1be9127a-60e5-4888-bcb0-cc5b7ee55f6f: 'Content feed' # Content feed
+    1be9127a-60e5-4888-bcb0-cc5b7ee55f6f: 'Content Feed' # Content Feed
     1d22a7a4-94bb-4293-bbeb-0af34e916200: Layout # Layout
     1d99c693-2d2d-4add-a303-b47f06797e0e: Theme # Theme
     1d242d6f-f863-4979-b2af-bb1da5c2aee2: Copy # Copy
     1da13089-e303-46d0-930f-aefd062df474: 'Standard w/ Sidebar' # Standard w/ Sidebar
     1ddd814c-a3f1-4689-bb67-33d04ad8307a: Headline # Headline
     1e247634-9eec-49af-b31d-19e6888dbc95: Headline # Headline
-    2b179173-573d-47e7-8ec4-cc9a091b68a0: Headline # Headline
+    2b179173-573d-47e7-8ec4-cc9a091b68a0: 'Primary Headline' # Primary Headline
     2c73aaff-d9e2-4142-94e8-2ce27f32e7bd: 'Craft CMS' # Craft CMS
     2d5bb889-39ec-4fa2-a335-4da112f02883: URL # URL
     2d27e08b-61f3-47ca-8a0a-e69fa2b1a226: 'Sidebar Fragments' # Sidebar Fragments
     2d1298a6-f3ac-43be-9784-161acaa0c823: Layout # Layout
     2d563017-0328-4d8c-9b78-648dfd5378cf: Fragment # Fragment
     2dd114a5-aaaa-4e4a-872d-7a61d224b0cb: 'Content Fragments' # Content Fragments
-    2fb76310-c2a0-4942-b6a3-236be0ed07aa: 'Where are the media files located?' # Where are the media files located?
+    2fb76310-c2a0-4942-b6a3-236be0ed07aa: 'Media Type' # Media Type
     3a8b6d9d-1ff5-4c4d-ade0-b43673ff5960: 'Reusable Bits' # Reusable Bits
-    3bcee476-f047-43a5-aac1-4ab876c81fc9: 'Content feed' # Content feed
+    3bcee476-f047-43a5-aac1-4ab876c81fc9: 'Content Feed' # Content Feed
     3be366bf-8e5e-4f28-8502-7ebf1d83e26e: 'Reference Fields' # Reference Fields
     3c05e593-d621-444e-8fb9-ddbb1b356a43: 'Static Assets' # Static Assets
     3d53ca80-b329-484f-bad5-8d4a79f0e3f0: Fragment # Fragment
@@ -207,9 +207,9 @@ meta:
     4f577f48-b93a-4e3f-b645-62bb283d8097: Summary # Summary
     4fa97a99-7fb7-479d-aa34-e020e16ab4b8: 'Text (Double)' # Text (Double)
     5a201db9-2e0b-480d-80e0-8ce0a885dea5: Interspace # Interspace
-    5aacbfe1-d68f-4215-a87f-818ec5dc8f80: 'Items in this collection' # Items in this collection
+    5aacbfe1-d68f-4215-a87f-818ec5dc8f80: 'Inline Content Items' # Inline Content Items
     5c18b32e-4378-443b-8e6f-cae0f58c1966: __blank__ # __blank__
-    5eb93d5b-c488-4274-83e6-868fdbf4d978: 'Supporting Copy' # Supporting Copy
+    5eb93d5b-c488-4274-83e6-868fdbf4d978: Copy # Copy
     5fc7b5d1-d8af-42a0-9f24-3c491c58dff8: Theme # Theme
     6a1ab78a-ce1d-4e06-944f-7fa172aaa06a: Text # Text
     6b4b70f0-a4b8-4bd1-b45f-62ab122d4d49: Layout # Layout
@@ -218,16 +218,17 @@ meta:
     6b671614-b4b6-4e0b-9aca-a007b289b197: Standard # Standard
     6e078e5b-0730-4dd6-8eea-b2ba88f6ebe7: Fragment # Fragment
     6f041ff5-12b3-44d7-8efe-5d70ddc8dbb0: 'Source URL' # Source URL
-    6f3a7e60-9dca-477c-a7ae-5036b3eb5b3a: 'External embeds' # External embeds
+    6f3a7e60-9dca-477c-a7ae-5036b3eb5b3a: 'External Embeds' # External Embeds
     6fe06c51-450b-43b8-8ff4-88f896048fd2: 'Limit Results' # Limit Results
     07a0012a-4bdf-4aaa-8415-bbe06adaf62c: __blank__ # __blank__
     7b72b671-dcdc-49b2-95cd-44a8e8be7cad: Theme # Theme
     7cdd6c44-0763-4da7-b111-11aab2acc10a: Images # Images
-    7ce6af04-c2ee-4ef2-b6a7-f529d2b7b65f: 'Assets in this Collection' # Assets in this Collection
+    7ce6af04-c2ee-4ef2-b6a7-f529d2b7b65f: 'Downloadable Files' # Downloadable Files
     7daa91a4-3926-420c-bbe9-ff190309a2a2: Text # Text
+    7dd2f8f9-5066-4cef-a93d-ddfce83dce0f: Component # Component
     8c9174b7-2c31-491e-a3f9-0374374c967c: 'Landing Pages' # Landing Pages
-    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Special # Special
-    8e370b88-72e3-41b5-bff5-db03cb11a1d1: 'Supporting Copy' # Supporting Copy
+    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Highlight # Highlight
+    8e370b88-72e3-41b5-bff5-db03cb11a1d1: Copy # Copy
     8ecf45da-7553-48ac-b52d-a45f8bc90317: Theme # Theme
     9a818c17-ad1d-488d-945a-777b6b8b702f: 'Content Entries' # Content Entries
     9b0e0463-89fb-4b43-8572-8ac1ae6f54c8: Images # Images
@@ -241,10 +242,10 @@ meta:
     12ebd69f-28fa-42bb-ae95-8ff3d3eb5135: Assets # Assets
     14d7d858-e4eb-4c44-90bc-a606a5a2372a: Hyperlink # Hyperlink
     14fd2961-f771-44f1-9b9c-aede9b59a565: 'Downloadable Files' # Downloadable Files
-    15a49573-5f4a-4cbe-9f48-01ef2d09552a: Limit # Limit
+    15a49573-5f4a-4cbe-9f48-01ef2d09552a: 'Limit Results' # Limit Results
     016afe08-0081-4f5e-865f-22a360ee839f: Theme # Theme
     16ea4eb8-377b-4740-955d-89f60729fce4: Color # Color
-    24a59426-007c-43f8-9fc1-864c6a06718f: 'Local media assets' # Local media assets
+    24a59426-007c-43f8-9fc1-864c6a06718f: 'Local Assets' # Local Assets
     26abec17-a1be-4c82-90e1-f6d48f7f4fb0: Variant # Variant
     26ae834d-2271-496c-bb49-46507ebe148d: Interspace # Interspace
     27afafd1-b38c-460b-954d-5cb2f1685d00: Interspace # Interspace
@@ -263,19 +264,19 @@ meta:
     60a99a1b-8081-4b05-959f-fe916ff2b96e: 'Footer - Legal Menu' # Footer - Legal Menu
     69c2d7dc-3df8-4df1-a444-d2ae376da00c: Text # Text
     69de3901-b8b0-4645-a490-7afca5d48622: Code # Code
-    83e0e738-2b3a-412b-9ca3-a81fef9fc5cf: 'Assets in this Collection' # Assets in this Collection
+    83e0e738-2b3a-412b-9ca3-a81fef9fc5cf: 'Downloadable Files' # Downloadable Files
     84b2124f-a596-4c73-bb14-d89b1d877eb5: 'Sample Page' # Sample Page
     85a35bf9-39c4-475c-9abf-7839f75bb8e6: 'Content Feed' # Content Feed
-    86b1c524-24aa-43bb-8d89-c0105b9ee59d: Element # Element
+    86b1c524-24aa-43bb-8d89-c0105b9ee59d: Variant # Variant
     88dfb544-1b30-42b0-b2e8-e53ac0ec7dd0: Text # Text
     89ad23cf-644f-448c-acca-40cb82f76c79: Variant # Variant
     90ac0f32-4e6f-4b9e-af75-82b27267e15e: Theme # Theme
-    93f90adb-ea61-4a42-9c1b-8e8cd9cd401a: 'Items in this collection' # Items in this collection
+    93f90adb-ea61-4a42-9c1b-8e8cd9cd401a: 'Inline Content Items' # Inline Content Items
     116b2d60-dfda-45af-91ba-a4d2af3e89ca: Theme # Theme
     178db8f8-8bb2-4400-add2-6a5817532c73: Interspace # Interspace
     213c9175-81d2-4141-8993-904e59925583: Collection # Collection
     295fe400-600f-4a2a-9cd8-3f2c174e08b3: 'Protected Elements' # Protected Elements
-    311d44ff-fb95-46d2-9543-6f7870ae4425: 'Supporting Copy' # Supporting Copy
+    311d44ff-fb95-46d2-9543-6f7870ae4425: Copy # Copy
     408b8fdb-5c76-4eb5-b083-f24f5d85b207: Text # Text
     481eb25d-9439-4ee3-85c2-e1a0e6d62d11: Redactor # Redactor
     514c0347-c4dd-4b9a-9979-452fc7db526e: 'Content Feeds' # Content Feeds
@@ -285,28 +286,30 @@ meta:
     846fcb98-b56b-479d-9d99-3502ed63ef09: Interspace # Interspace
     853c6986-607a-4f2a-8c5a-f58cd75f9122: Theme # Theme
     874c1a25-ef53-4cb7-84b3-3f09a80fa387: Fragment # Fragment
-    896fe078-b30d-407c-b479-675c927199b7: 'Supporting Copy' # Supporting Copy
+    896fe078-b30d-407c-b479-675c927199b7: Copy # Copy
     912adfc2-2bca-47f1-9da2-f1ed5514623c: 'Topics & Themes' # Topics & Themes
     942cbdfb-d50d-4dcd-9032-4f483562d1dd: Taxonomies # Taxonomies
     986a0a6d-c09c-4a78-b259-2190a004b305: Redirect # Redirect
     1239b2c2-2836-44d6-ae4a-a88cf2283493: Poster # Poster
     1853a4db-be6e-457e-8b1e-ce36b7077568: Variant # Variant
-    2415d7da-11b8-41f6-a8d2-727054fa6716: 'Supporting Copy' # Supporting Copy
+    2415d7da-11b8-41f6-a8d2-727054fa6716: Copy # Copy
+    3382d393-09d2-42d7-8459-07cd8933ece5: Entry # Entry
     3721b4d6-42d5-41fc-b6e7-76204b42c91a: Articles # Articles
     4400a25e-4506-4603-9b56-395e261f730e: Interspace # Interspace
     4602be9c-52c5-4352-9a75-9c4115407764: Variant # Variant
     4615f7fe-de67-4be4-8d0e-ad7b2e14c059: 'System Pages' # System Pages
     5252fb95-039a-4ed3-8f5f-7a00d5c3aae0: Interspace # Interspace
-    5347a201-6da8-47ff-bc5b-20a0dc63d44e: 'Inline Content' # Inline Content
-    5632bd29-d09e-45e2-bf23-3dcddc864796: Headline # Headline
-    6121c8c0-7185-4c3e-aa78-86b30d084f7b: 'Where are the media files located?' # Where are the media files located?
+    5347a201-6da8-47ff-bc5b-20a0dc63d44e: 'Inline Content Items' # Inline Content Items
+    5632bd29-d09e-45e2-bf23-3dcddc864796: 'Primary Headline' # Primary Headline
+    6121c8c0-7185-4c3e-aa78-86b30d084f7b: 'Media Type' # Media Type
     6312c62d-00d4-4b29-8c70-1edd6d095729: Bit # Bit
     6788be2a-03be-4a82-8c88-9e8a1af1acf4: Preset # Preset
     7593ee0e-5c97-47ca-a580-35990cabaffe: Media # Media
-    7924e3d9-3886-49e6-b154-7f04f943b3e1: 'Feed interface' # Feed interface
+    7924e3d9-3886-49e6-b154-7f04f943b3e1: 'Extra User Interface' # Extra User Interface
     8000f4a4-93b8-4f5b-b6b2-b26e6c12e366: 'News & Updates' # News & Updates
     8384d65a-1c88-4960-8c6e-7091bf390c9d: 'External Embeds' # External Embeds
     20618b1a-5f20-4479-8fa4-842e4def10c7: 'Media Type' # Media Type
+    35567f32-2c8d-4cd4-8092-06c1fde0cf1f: Entry # Entry
     40926b24-4c70-4466-a8f0-80678128f196: Layout # Layout
     70558cf5-f7c9-43f1-b02f-783f7f6e9f59: Layout # Layout
     88718d0f-b28f-4e0c-98b8-39c904573790: Interspace # Interspace
@@ -325,13 +328,14 @@ meta:
     6996714c-bbb3-4367-9b3f-90be15abbbee: 'Public Schema' # Public Schema
     7960626b-627f-4ad2-9238-697a9534e0dc: Images # Images
     8088055c-4494-404b-8adf-8c9e45da9a85: 'Content Source' # Content Source
-    8143564b-14ab-43e0-9281-9c48f493ee63: Headline # Headline
+    8143564b-14ab-43e0-9281-9c48f493ee63: 'Primary Headline' # Primary Headline
+    9588272c-eb48-44c0-bb46-e95f8c0d6016: Component # Component
     25748488-1092-4758-b3e6-e7f7212faae6: Interspace # Interspace
-    36897794-c1e2-4ca1-ac86-2d3db66ed467: Element # Element
+    36897794-c1e2-4ca1-ac86-2d3db66ed467: Variant # Variant
     43406218-0e65-4e33-bd0a-df130a7d2e6c: 'SEO Editor' # SEO Editor
     54792750-7dcd-49e2-9a83-37079d4198aa: Layout # Layout
     79001047-67b4-4b93-825f-333664a55c70: __blank__ # __blank__
-    84723807-ab78-45b7-974f-89e997ea3fbe: Special # Special
+    84723807-ab78-45b7-974f-89e997ea3fbe: Highlight # Highlight
     89834163-b3fe-4c51-9a02-e205e03b9067: 'Sidebar Builder' # Sidebar Builder
     99952233-d3be-45e5-87ff-46ff19ab7a9d: 'Sidebar Fragments' # Sidebar Fragments
     a1a62d7a-5173-4caf-8d92-423b6dc0dede: Interspace # Interspace
@@ -351,7 +355,7 @@ meta:
     a682b6da-4268-4ee7-a71e-c9f97623b643: Media # Media
     a345255e-6a6e-450c-8f3f-bd44bd0d7a91: Text # Text
     aa5de47f-bd21-4e66-9e6b-93f174062abc: 'Local Assets' # Local Assets
-    ab34c21b-4d43-41da-8301-8da25a28b912: 'Supporting Copy' # Supporting Copy
+    ab34c21b-4d43-41da-8301-8da25a28b912: Copy # Copy
     ab1853e6-bbb8-43c4-8fd0-66e48c1a5763: Collection # Collection
     abf72c9c-cdfc-4765-b71d-a03735da679d: Interspace # Interspace
     adc05109-eaa7-4f80-b156-5b250a28e878: Feed # Feed
@@ -362,26 +366,28 @@ meta:
     b1c52a06-4990-43f5-90d3-898a48789556: Dek # Dek
     b2e76d3b-23d7-49b2-a6b0-44bfd598393e: 'Alert Message' # Alert Message
     b4f98162-512f-4866-9808-0187101c848e: Text # Text
-    b7ec333d-193c-4bfe-b1c2-637e039f302d: Element # Element
+    b7ec333d-193c-4bfe-b1c2-637e039f302d: Variant # Variant
     b7f29b8a-788f-4f46-a93e-cdfdfa91d44b: 'URLs & Links' # URLs & Links
     b8f98eab-bd44-4073-b73b-c5c394a00643: Theme # Theme
     b97d889b-174a-4908-b53e-13fbe7ad2d73: 'Contact Form' # Contact Form
     b130a72c-dabb-415c-a574-ef5e0188716f: Interspace # Interspace
     b431aa28-7fd8-4a95-8ace-467582d8e01f: __blank__ # __blank__
-    b5987eaa-5a19-4169-8bde-3cfe1ac7d3b0: Limit # Limit
+    b5987eaa-5a19-4169-8bde-3cfe1ac7d3b0: 'Limit Results' # Limit Results
     b26498c0-236e-4738-85e6-666d3439cbc5: Default # Default
     b54524f7-9081-4ed3-9be8-7efa9ebb3e46: Form # Form
     b65678be-7ed0-4665-aaaa-bd9d406b60f4: Variant # Variant
     b181050f-eab8-45f0-906a-c8241c2d3cf2: 'Show Block Meta' # Show Block Meta
     bbc5a62f-278f-4d6b-9dd3-2c1f5611e8f2: Layout # Layout
     bc336883-4624-4d26-97f1-7d8cd0d15399: Feed # Feed
-    bd2471a2-f2db-4375-979e-234df61dd0a7: 'Feed interface' # Feed interface
+    bd2471a2-f2db-4375-979e-234df61dd0a7: 'Extra User Interface' # Extra User Interface
     bdb06b40-a3b0-4a5c-a000-82f87c2f70d0: Interspace # Interspace
     bf30b8e7-f739-4f32-8795-a8c5b92d92bb: Variant # Variant
     bf152e62-fb69-4e45-836d-7546488987e6: Theme # Theme
-    c0c00bd8-1df8-4457-a72f-f89762bc7398: Special # Special
+    bf158f34-b564-4314-b990-3d676ed0abb8: Entries # Entries
+    bfabb251-636d-4529-a89c-44da8ba61efc: Component # Component
+    c0c00bd8-1df8-4457-a72f-f89762bc7398: Highlight # Highlight
     c1f7dece-b19f-492b-9649-56955cfa6e0a: Theme # Theme
-    c3f20b8d-cdd0-43a3-99eb-82b7227efd55: 'External embeds' # External embeds
+    c3f20b8d-cdd0-43a3-99eb-82b7227efd55: 'External Embeds' # External Embeds
     c62ec2a4-1966-4b3c-a5d1-b0842235c23e: 'Content Fragments' # Content Fragments
     c6677eab-6c78-4ca1-93cd-0faa266d1c45: Copy # Copy
     c70698c5-9843-4d1a-9ce8-2e2e272bd096: Headline # Headline
@@ -391,17 +397,17 @@ meta:
     cf8b5aee-149d-48d8-b921-8e8d83991221: 'Footer - Features' # Footer - Features
     cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: Copy # Copy
     cf40ed12-2f61-4865-b636-bff9d855e9fd: Headline # Headline
-    cf42e194-fb4c-4218-a6f2-661ccc51b768: 'Entries in this Collection' # Entries in this Collection
-    d2c9d5fd-0d2a-4a8e-9e7c-fd5e16765aa0: Headline # Headline
+    cf42e194-fb4c-4218-a6f2-661ccc51b768: 'Content Entries' # Content Entries
+    d2c9d5fd-0d2a-4a8e-9e7c-fd5e16765aa0: 'Primary Headline' # Primary Headline
     d7da6677-ed4d-4768-8519-8c3123f108ab: Fragment # Fragment
-    d35c9f45-ed1c-41ee-9880-b05333b17af0: 'Supporting Copy' # Supporting Copy
+    d35c9f45-ed1c-41ee-9880-b05333b17af0: Copy # Copy
     d3282cfb-d044-4890-b553-9a0b87393027: 'Insights & Ideas' # Insights & Ideas
     daf78780-c7dc-47d5-8a11-37b3a80d7e33: Variant # Variant
     dc528f5e-a71f-43ed-a993-ed1d99129689: Collection # Collection
     dc717c0e-4ef4-4f7e-b352-1a7ba8e2ff40: Assets # Assets
     dda1fa64-dd45-42b6-8df9-476cbac15152: Images # Images
     decc967b-80dd-4875-ab3f-b6c700b123eb: 'SEO Settings' # SEO Settings
-    df0019c9-abb4-44e8-b46d-269688560f53: 'Local media assets' # Local media assets
+    df0019c9-abb4-44e8-b46d-269688560f53: 'Local Assets' # Local Assets
     e0c81195-0381-4fd7-a65b-5aca8f093e71: Summary # Summary
     e0dac603-c510-4bb5-8701-e25672d93744: Common # Common
     e0521335-ccc2-4893-a505-4baacf112dee: Standard # Standard
@@ -416,7 +422,7 @@ meta:
     e278d4be-81b4-4575-b43f-75291ca49ada: Alternate # Alternate
     e511df66-41ea-4d8f-bfa5-538fec0fc45f: 'Site Owner' # Site Owner
     e984e441-f7d6-49ce-8f1d-6131ddb57480: Form # Form
-    e77036ce-5f69-4250-aec4-76f98b0cd9f1: Headline # Headline
+    e77036ce-5f69-4250-aec4-76f98b0cd9f1: 'Primary Headline' # Primary Headline
     e509399b-03f5-43c0-98b1-23b9d3a0f27b: Code # Code
     e826463c-c088-426d-be5d-9630e1b872c9: Interspace # Interspace
     ea1a69ed-b5c5-46cf-a629-4435f7f7cad0: 'Matrix Builders' # Matrix Builders
@@ -427,21 +433,21 @@ meta:
     ee1dde07-1de2-45af-a270-440bd55baf11: Interspace # Interspace
     ef8f5bd0-5250-42da-b861-c220362619e2: Interspace # Interspace
     f1cff8b7-1d6e-4cdd-824a-520183822908: Entries # Entries
-    f2b51270-1b49-4e0a-9754-9489a1448bd1: 'Supporting Copy' # Supporting Copy
+    f2b51270-1b49-4e0a-9754-9489a1448bd1: Copy # Copy
     f3b09199-ceec-4135-9801-4b7fcbaf0c46: 'Video Aspect' # Video Aspect
     f3fc91f4-ef9e-4532-beaf-1c80b55b7233: Layout # Layout
     f7ee617a-aa34-4177-8a64-6d5b73c22307: Layout # Layout
     f3990ba1-e658-47ab-b64a-0b6d14610084: Code # Code
-    f3397041-ad37-43bc-a34d-a9fd1098dc5d: 'Where are the Collection items located?' # Where are the Collection items located?
+    f3397041-ad37-43bc-a34d-a9fd1098dc5d: 'Collection Type' # Collection Type
     fa4c8810-f277-45dc-b00c-074c3f1b4685: Theme # Theme
-    fa5bb5a3-a50d-4e85-b791-d7fa879c4cc3: 'Entries in this Collection' # Entries in this Collection
-    fc6a5bc8-a476-4c9b-abc1-03951e7655b2: Headline # Headline
+    fa5bb5a3-a50d-4e85-b791-d7fa879c4cc3: 'Content Entries' # Content Entries
+    fc6a5bc8-a476-4c9b-abc1-03951e7655b2: 'Primary Headline' # Primary Headline
     fca5420c-cfc5-4a47-a768-e76e28e66dbf: Summary # Summary
     fd6d87e0-2eb5-4d92-a444-248b2b64cdc9: Layout # Layout
     fd384d46-719e-4da0-9a0e-0e372bc88593: Theme # Theme
     fd647249-c4ea-4ade-99ab-13f9e53bba3f: Image # Image
     fde3769d-9be8-400b-a915-9c3c06469466: Label # Label
-    fdebeb5f-8977-4ea4-9b4d-289e2b73e4c9: 'Where are the Collection items located?' # Where are the Collection items located?
+    fdebeb5f-8977-4ea4-9b4d-289e2b73e4c9: 'Collection Type' # Collection Type
     fff3cc82-2855-4031-b003-b91d6e16088b: FAQs # FAQs
 plugins:
   architect:

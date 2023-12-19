@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 8143564b-14ab-43e0-9281-9c48f493ee63 # Headline
+            fieldUid: 8143564b-14ab-43e0-9281-9c48f493ee63 # Primary Headline
             instructions: null
             label: null
             required: true
@@ -43,6 +43,18 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
+            fieldUid: ab34c21b-4d43-41da-8301-8da25a28b912 # Copy
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 848f3fb3-f9f9-4070-b16c-8b33797d2afe
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
             fieldUid: 9b0e0463-89fb-4b43-8572-8ac1ae6f54c8 # Images
             instructions: null
             label: null
@@ -50,18 +62,6 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: c4e07ad8-d54e-4934-ad26-b1100f81be89
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: ab34c21b-4d43-41da-8301-8da25a28b912 # Supporting Copy
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 848f3fb3-f9f9-4070-b16c-8b33797d2afe
             userCondition: null
             warning: null
             width: 50
@@ -182,13 +182,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  8143564b-14ab-43e0-9281-9c48f493ee63: # Headline
+  8143564b-14ab-43e0-9281-9c48f493ee63: # Primary Headline
     columnSuffix: zkkfpekw
     contentColumnType: text
     fieldGroup: null
     handle: headline
     instructions: 'Replaces the page <title> and acts as the default SEO <h1> tag'
-    name: Headline
+    name: 'Primary Headline'
     searchable: false
     settings:
       availableTransforms: ''
@@ -223,13 +223,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  ab34c21b-4d43-41da-8301-8da25a28b912: # Supporting Copy
+  ab34c21b-4d43-41da-8301-8da25a28b912: # Copy
     columnSuffix: jldqsloe
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: 'Supporting Copy'
+    name: Copy
     searchable: true
     settings:
       availableTransforms: ''

@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: e77036ce-5f69-4250-aec4-76f98b0cd9f1 # Headline
+            fieldUid: e77036ce-5f69-4250-aec4-76f98b0cd9f1 # Primary Headline
             instructions: null
             label: null
             required: true
@@ -188,13 +188,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
-  e77036ce-5f69-4250-aec4-76f98b0cd9f1: # Headline
+  e77036ce-5f69-4250-aec4-76f98b0cd9f1: # Primary Headline
     columnSuffix: tvlfceyy
     contentColumnType: text
     fieldGroup: null
     handle: headline
     instructions: 'Replaces the page <title> and acts as the default SEO <h1> tag'
-    name: Headline
+    name: 'Primary Headline'
     searchable: false
     settings:
       availableTransforms: ''

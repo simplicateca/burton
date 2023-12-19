@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 2b179173-573d-47e7-8ec4-cc9a091b68a0 # Headline
+            fieldUid: 2b179173-573d-47e7-8ec4-cc9a091b68a0 # Primary Headline
             instructions: null
             label: null
             required: true
@@ -81,13 +81,13 @@ fieldLayouts:
         uid: 5c9d18a2-a299-4988-8743-441a3bfd307d
         userCondition: null
 fields:
-  2b179173-573d-47e7-8ec4-cc9a091b68a0: # Headline
+  2b179173-573d-47e7-8ec4-cc9a091b68a0: # Primary Headline
     columnSuffix: sdpzhhlj
     contentColumnType: text
     fieldGroup: null
     handle: headline
     instructions: 'Replaces the page <title> and acts as the default SEO <h1> tag'
-    name: Headline
+    name: 'Primary Headline'
     searchable: false
     settings:
       availableTransforms: ''

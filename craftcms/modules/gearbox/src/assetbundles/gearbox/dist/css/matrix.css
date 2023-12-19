@@ -73,23 +73,26 @@
 }
 
 
-#content div.matrix-field .flex-fields .superTableContainer .flex-fields > *:not(.matrixConditionals--hidden) {
+#content div.matrix-field .flex-fields .superTableContainer .flex-fields {
+    margin-top: -8px !important;
+    margin-bottom: 0px !important;
+}
+
+#content div.matrix-field .flex-fields .superTableContainer .flex-fields .field {
     margin-bottom: 0px !important;
 }
 
 #content div.matrix-field .flex-fields .superTableContainer .flex-fields .field > *:not(.matrixConditionals--hidden) {
-    margin-bottom: 18px !important;
+    margin: 0px !important;
 }
 
-/* #content div.matrix-field .flex-fields .superTableContainer .flex-fields .matrixConditionals--hidden {
-    margin-top: -18px !important;
-} */
+#content div.matrix-field .flex-fields .superTableContainer .flex-fields .field:not(:first-of-type) > *:not(.matrixConditionals--hidden):not(.input) {
+    margin-top:20px !important;
+}
 
 .superTableMatrix.matrixblock.collapsed {
     margin-bottom: 10px;
 }
-
-
 
 
 .matrixblock > .titlebar .blocktype {

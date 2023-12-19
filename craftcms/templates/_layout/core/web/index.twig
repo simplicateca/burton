@@ -32,14 +32,14 @@
         content:
             ["contentBuilder"] |
             merge([
-                "image:images","media:localAssets","fragment:modular","special:taxonomies",
+                "image:images","media:localAssets","fragment:modular","highlight:taxonomies",
                 "collection:items","collection:entries","collection:assets","collection:taxonomies",
             ] | map( p => "contentBuilder.#{p}") ),
 
         sidebar:
             ["sidebarBuilder"] |
             merge([
-                "image:images","media:localAssets","fragment:modular","special:taxonomies",
+                "image:images","media:localAssets","fragment:modular","highlight:taxonomies",
                 "collection:items","collection:entries","collection:assets","collection:taxonomies",
             ] | map( p => "sidebarBuilder.#{p}") ),
     } %}
