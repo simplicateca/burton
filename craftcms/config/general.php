@@ -40,6 +40,9 @@ return GeneralConfig::create()
         '@cdn'    => App::env('CDN_FOLDER'),
         '@web'    => App::env('CRAFT_WEB_URL'),
         '@webroot'=> App::env('CRAFT_WEB_ROOT'),
+        '@fonts'  => App::env('CRAFT_ENVIRONMENT') === 'dev'
+                        ? App::env('VITE_DEV_SERVER_PUBLIC') . '/public/static/fonts'
+                        : App::env('CRAFT_WEB_URL') . '/dist/static/fonts'
     ])
 
     // Set the default week start day for date pickers (0 = Sunday, 1 = Monday, etc.)

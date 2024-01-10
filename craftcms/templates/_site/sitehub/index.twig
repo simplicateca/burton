@@ -1,0 +1,181 @@
+{## Sitehub is the built in component & layout documentation
+   system for content editors. It can be accessed at:
+
+    -> $CRAFT_WEB_URL/sitehub/
+
+   Access is restricted to users with the permission:
+
+    -> allowSitehub
+
+   This template serves two purposes:
+
+   1) helps redirect requests out of the pages structure
+      and into the secondary /sitehub/ structure without
+      having to do any weird nesting
+
+   2) acts as a preview template for modular content without
+      a public URL using /sitehub/?modular={{entry.id}}
+#}
+{% set extends = "_site/sitehub/base" %}
+{% set extends = craft.app.request.getQueryParam('bit')             ??? null ? '_site/sitehub/core/moduleBit' : extends %}
+{% set extends = craft.app.request.getQueryParam('contentFragment') ??? null ? '_site/sitehub/core/fragment'  : extends %}
+{% set extends = craft.app.request.getQueryParam('sidebarFragment') ??? null ? '_site/sitehub/core/fragment'  : extends %}
+{% set extends = craft.app.request.getQueryParam('system')          ??? null ? '_site/sitehub/core/system'    : extends %}
+
+{% extends extends %}
+
+{% block main__content %}
+
+    <div data-theme="base-contrast">
+        <div class="container @container py-28 text-center">
+            {{ include( '_site/atoms/icons/star.svg', { class: 'h-24 w-24 fill-current mx-auto' } ) }}
+            <h1>Welcome to Sitehub</h1>
+
+            <div class="max-w-5xl @container mx-auto">
+                <p class="html larger">Explore a wealth of resources, tools, and guides to enhance your workflow and create exceptional digital experiences.</p>
+            </div>
+        </div>
+    </div>
+
+    <div data-theme="base">
+        <div class="container @container py-20">
+
+            <div class="max-w-5xl @container mx-auto text-center mb-20">
+                <h2 id="tools">Playbooks & Tutorials</h2>
+                <p class="html text-center">Contribute to our knowledge base and improve content consistency with tutorials and playbooks tailored directly to site features & functionality.</p>
+            </div>
+
+            {{ sprig( "_site/loops/loop.paginate.sprig", {
+                limit : 9,
+                source: {
+                    section: 'sitehub',
+                    type: 'playbooks',
+                },
+                interface: 'fullSearch',
+                settings: {
+                    microLayout: 'topBottom__center',
+                    cardGrid: 'stacked3',
+
+                    cardLayout: 'summary',
+                    columns: 3
+                }
+            }) }}
+        </div>
+    </div>
+
+    <div data-theme="dark">
+        <div class="container @container py-20">
+
+            <div class="max-w-5xl @container mx-auto text-center mb-20">
+                <h2 id="tools">Tools & Patterns</h2>
+                <p class="html text-center">Designed to simplify and enhance the process of integrating content and design into the CMS.</p>
+            </div>
+
+            {% set toolContent %}
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( '_site/atoms/icons/grid.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Grids, Containers, and Micro&#8209;Layouts</h4>
+                            <p class="html smaller">Dive into responsive design with our references for grids, containers, and micro-layouts. Learn how to create designs that shine across various resolutions and monitors, ensuring a seamless user experience.</p>
+
+                            <ul class="flex flex-col gap-2">
+                                <li><a href="/sitehub/layout/grids">Grids →</a></li>
+                                <li><a href="/sitehub/layout/containers">Containers →</a></li>
+                                <li><a href="/sitehub/layout/micro">Micro Layouts →</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( '_site/atoms/icons/text.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Styles & Blocks Themes</h4>
+                            <p class="html smaller">Craft visually stunning and consistent designs with our typography and style references. Unlock the secrets to creating beautiful, harmonious interfaces effortlessly.</p>
+
+                            <ul class="flex flex-col gap-2">
+                                <li><a href="/sitehub/layout/typography">Typography Base →</a></li>
+                                <li><a href="/sitehub/layout/themes">Themes & Backgrounds →</a></li>
+                                <li><a href="/sitehub/layout/spacing">Spacing →</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( '_site/atoms/icons/brick.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Block Previewer</h4>
+                            <p class="html smaller">Test and perfect diverse block variations in real-time with our dynamic, adaptive matrix-based content blocks. Streamline your development process and achieve perfection with ease.</p>
+
+                            <ul class="flex flex-col gap-2">
+                                <li><a href="/sitehub/blocks">Content Blocks →</a></li>
+                                <li><a href="/sitehub/blocks/header">Header Blocks →</a></li>
+                                <li><a href="/sitehub/blocks/sidebar">Sidebar Blocks →</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( '_site/atoms/icons/widget.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Content Frames</h4>
+                            <p class="html smaller">Review the design & integration nuance of the various frames, layouts, and interactive players used to present rich content components.</p>
+
+                            <ul class="flex flex-col gap-2">
+                                <li><a href="/sitehub/cards">UI Cards →</a></li>
+                                <li><a href="/sitehub/images">Image Frames →</a></li>
+                                <li><a href="/sitehub/media">Media Players →</a></li>
+                                <li><a href="/sitehub/modals">Modals & Drawers →</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="@container w-full">
+                    <div class="flex flex-col @md:flex-row w-full gap-2">
+                        <div class="px-4 pt-2">
+                            {{ include( '_site/atoms/icons/design.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                        </div>
+                        <div class="flex-grow @container">
+                            <h4>Sample Page Layouts</h4>
+                            <p class="html smaller">For editors seeking guidance, explore ready-made examples to simplify the creation of specific page types. Adapt these layouts to streamline your content creation process.</p>
+                            {% set samples = craft.entries.section('sitehub').type('samples').all() %}
+                            {% if samples|length %}
+                                <ul class="flex flex-col gap-2">
+                                {% for sample in samples %}
+                                    <li><a href="{{ sample.url }}">{{ sample.title }} →</a></li>
+                                {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p class="html smaller flex gap-2 m-2">
+                                    {{ include( '_site/atoms/icons/circle-error.svg', { class: 'h-10 w-10 fill-current' } ) }}
+                                    <em>Pages created in the Sitehub section will automatically appear here.</em>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endset %}
+
+            <section data-theme="dark-contrast" class="p-4 -mx-4 @xl:p-10 @xl:-mx-10 @6xl:py-20 rounded-2xl">
+                {% import "_site/layout/assemble" as layout %}
+                {{ layout.grid( 'stacked2Narrow', toolContent ) }}
+            </section>
+
+        </div>
+    </div>
+{% endblock %}

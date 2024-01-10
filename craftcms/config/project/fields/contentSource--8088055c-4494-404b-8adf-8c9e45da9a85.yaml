@@ -6,7 +6,7 @@ instructions: null
 name: 'Content Source'
 searchable: false
 settings:
-  referenceFile: _content/contentFeeds/contentSources.json
+  referenceFile: _site/config/feed.sources.json
 translationKeyFormat: null
 translationMethod: none
 type: simplicateca\referencefield\fields\Dropdown

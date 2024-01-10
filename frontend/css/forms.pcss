@@ -1,13 +1,15 @@
 select,
 textarea,
-input[type="text"], input[type="search"],
-input[type="password"],input[type="email"] {
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"] {
     @apply
-        bg-theme-backgroundOff
-        text-theme-foreground
         p-2
+        text-theme
         rounded-lg
         border
-        border-theme-foreground
+        border-canvas-light
+        bg-canvas-dark
     ;
 }

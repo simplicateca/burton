@@ -1,0 +1,134 @@
+{% block styles %}
+    <style type="text/css">
+
+        [v-cloak], [x-cloak] { display: none !important; }
+        html{ visibility: hidden; opacity:0; }
+
+        :root {
+            /* Backgrounds */
+            --color-white      : #FFFFFF;
+            --color-white-50   : #FCFCFC;
+            --color-white-100  : #F8F8F8;
+            --color-white-200  : #F1F1F1;
+            --color-white-300  : #EAEAEA;
+            --color-white-400  : #E3E3E3;
+            --color-white-500  : #DCDCDC;
+            --color-white-600  : #D5D5D5;
+
+            /* Text Colors */
+            --color-grey-100   : #434548;
+            --color-grey-200   : #4B4E51;
+            --color-grey-300   : #54575A;
+            --color-grey-400   : #65676A;
+            --color-grey-500   : #76787A;
+
+            --color-grey-light : #797D82;
+            --color-grey       : #54575A;
+            --color-grey-dark  : #2F3132;
+
+            /* Brand Colors */
+            --color-corp        : #0F3140;
+            --color-corp-light  : #1B5974;
+            --color-corp-dark   : #040D11;
+
+            --color-alert       : #ECA520;
+            --color-alert-light : #F2C166;
+            --color-alert-dark  : #B0780F;
+
+            /* Primary Colors */
+            {% block theme__colors %}
+            --color-primary      : var(--color-corp);
+            --color-primary-light: var(--color-corp-light);
+            --color-primary-dark : var(--color-corp-dark);
+            {% endblock %}
+        }
+
+        :root,
+        *[data-theme="base"],
+        *[data-next-theme="base"],
+        *[data-prev-theme="base"] {
+        {% block theme__base %}
+            --theme-canvas        : transparent;
+            --theme-canvas-light  : var(--color-white-50);
+            --theme-canvas-dark   : var(--color-white-100);
+            --theme-text-light    : var(--color-grey-300);
+            --theme-text          : var(--color-grey-400);
+            --theme-text-dark     : var(--color-grey-500);
+            --theme-accent        : var(--color-primary-light);
+            --theme-headline      : var(--color-primary);
+            --theme-eyebrow       : var(--color-primary-light);
+            --theme-link          : var(--color-primary-light);
+            --theme-link-bg       : transparent;
+            --theme-link-active   : var(--color-primary-light);
+            --theme-link-active-bg: transparent;
+            --theme-btn           : var(--color-primary);
+            --theme-btn-b         : var(--color-primary);
+            --theme-btn-bg        : var(--color-white-100);
+            --theme-btn-active    : var(--color-alert);
+            --theme-btn-active-bg : var(--color-primary-light);
+            --theme-btn-active-b  : var(--color-primary);
+        {% endblock %}
+        }
+
+        *[data-theme="subtle-box"],
+        *[data-theme="subtle-band"],
+        *[data-prev-theme="subtle-box"],
+        *[data-prev-theme="subtle-band"],
+        *[data-next-theme="subtle-box"],
+        *[data-next-theme="subtle-band"]
+        {
+        {% block theme__subtle %}
+            --theme-canvas-light  : var(--color-white);
+            --theme-canvas        : var(--color-white-50);
+            --theme-canvas-dark   : var(--color-white-200);
+            --theme-text          : var(--color-grey-300);
+            --theme-text-light    : var(--color-grey-200);
+            --theme-text-dark     : var(--color-grey-400);
+            --theme-accent        : var(--color-primary-light);
+            --theme-headline      : var(--color-primary);
+            --theme-eyebrow       : var(--color-primary-light);
+            --theme-link          : var(--color-primary-light);
+            --theme-link-bg       : transparent;
+            --theme-link-active   : var(--color-primary-light);
+            --theme-link-active-bg: transparent;
+            --theme-btn           : var(--color-primary);
+            --theme-btn-b         : var(--color-primary);
+            --theme-btn-bg        : transparent;
+            --theme-btn-active    : var(--color-alert);
+            --theme-btn-active-bg : var(--color-primary-light);
+            --theme-btn-active-b  : var(--color-primary);
+        {% endblock %}
+        }
+
+        *[data-theme="accent-box"],
+        *[data-theme="accent-band"],
+        *[data-theme="accent-header"],
+        *[data-prev-theme="accent-box"],
+        *[data-prev-theme="accent-band"],
+        *[data-next-theme="accent-box"],
+        *[data-next-theme="accent-band"]
+        {
+        {% block theme__accent %}
+            --theme-canvas-light  : var(--color-primary-light);
+            --theme-canvas        : var(--color-primary);
+            --theme-canvas-dark   : var(--color-primary-dark);
+            --theme-text          : var(--color-white-50);
+            --theme-text-light    : var(--color-white);
+            --theme-text-dark     : var(--color-white-100);
+            --theme-accent        : var(--color-primary-light);
+            --theme-headline      : var(--color-white);
+            --theme-eyebrow       : var(--color-primary-light);
+            --theme-link          : var(--color-white);
+            --theme-link-bg       : transparent;
+            --theme-link-active   : var(--color-alert);
+            --theme-link-active-bg: transparent;
+            --theme-btn           : var(--color-white);
+            --theme-btn-b         : var(--color-white);
+            --theme-btn-bg        : transparent;
+            --theme-btn-active    : var(--color-alert);
+            --theme-btn-active-bg : var(--color-primary-light);
+            --theme-btn-active-b  : var(--color-primary-light);
+        {% endblock %}
+        }
+    </style>
+{% endblock %}

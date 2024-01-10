@@ -1,0 +1,54 @@
+{% extends "sitehub/_core/base" %}
+
+{% import "_layout/core/containers" as containers %}
+{% set json = containers.definitions() | json_decode %}
+
+{% block main__content %}
+
+    <div data-theme="shade">
+        <div class="container @container py-16">
+            <h1>Containers</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
+                <div class="@container w-full">
+                    <p class="html larger">It'd be nice if we only ever had a site that used a single container size, but it seems like there's always a need for something a little different.</p>
+
+                    <p>Frequently used within block configuration files as modifiers for <strong>layout</strong> or <strong>interspace</strong> options to make the content area wider or narrower.</p>
+
+                    <strong class="mt-8 block">Usage:</strong>
+                    <code class="bg-theme-contrast-light p-4 block text-xs font-mono leading-6">
+                        {% verbatim %}{% import "_layout/core/containers" as containers %}{% endverbatim %}<br>
+                        {% verbatim %}{{ containers.wrap( 'html to wrap', 'fluidContainer', 'h-full w-full' ) }}{% endverbatim %}
+                    </code>
+                </div>
+
+                <div class="w-full h-full @container bg-theme-contrast-light" data-theme="dark">
+                    <div class="bg-theme-contrast-light p-3">Containers are defined as JSON: <strong class="text-theme-accent whitespace-nowrap">_layout/core/containers.twig</strong></div>
+                    <div class="h-full w-full p-5 max-h-[400px] overflow-scroll">
+                        {{ dump( json ) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% set item %}
+        <div class="min-h-[16rem] bg-red-500/50 w-full h-full @container">
+            <h2>Content Area</h2>
+        </div>
+    {% endset %}
+
+    {% for container in json['options'] | keys %}
+        <div data-theme="{{ cycle(['base', 'shade'], loop.index0) }}" class="py-20">
+            <div class="@container mb-20 max-w-3xl mx-auto px-4">
+                <h1 class="text-center html">{{ container }}</h1>
+                {% if json['options'][container]['_']|default() %}
+                    <p class="larger text-center html">{{ json['options'][container]['_'] | trim( '#' ) }}</p>
+                {% endif %}
+            </div>
+
+            {{ containers.wrap( item, container ) }}
+        </div>
+    {% endfor %}
+
+
+{% endblock %}

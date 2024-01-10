@@ -1,0 +1,53 @@
+{% extends "_components/modal/base" %}
+
+{## Bottom Drawer Modal Style
+
+    Basically just a style adjustment to the modal base component to change it from
+    center / center to full-width bottom.
+
+    TODO: in / out animation
+        : pick a better theme name than 'footer'
+ ------------------------------------------------------------------------------------ ##}
+{% set theme       = theme      ??? 'footer' %}
+{% set buttonText  = buttonText ??? 'See More' %}
+{% set xTrapConfig = "open && width < 1024" %}
+
+{## content wrapper ##}
+{% set content = content ??? null %}
+{% block content %}
+    {% import "_layout/core/containers" as containers %}
+    {{ containers.wrap( parent(), 'fluidContainer', 'h-full w-full' ) }}
+{% endblock %}
+
+{% block modalClass %}
+    w-full
+    z-100
+    fixed
+    inset-x-0
+    bottom-0
+    overflow-y-auto
+    h-full
+    lg:max-h-[400px]
+    flex
+    items-center
+    justify-center
+    shadow-lg
+    bg-theme-contrast
+{% endblock %}
+
+{% block buttonClass %}
+    clickCover
+    h-0
+    overflow-hidden
+{% endblock %}
+
+{% block overlay %}{% endblock %}
+
+{% block panelClass %}
+    relative
+    flex
+    items-center
+    justify-center
+{% endblock %}
+
+{% block outerClass %}{% endblock %}

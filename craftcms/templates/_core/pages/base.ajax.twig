@@ -1,0 +1,9 @@
+{## Ajax Request Template
+ ------------------------------------------------------------------------------------- ##
+    If a page is being called via and AJAX request we don't need to return all of the
+    other <head> and <header> and <footer> junk. Just the main content.
+
+    The {% page__ajax %} block can be overriden in child templates, but generally
+    defaults to outputting content from contentBuilder.
+ ------------------------------------------------------------------------------------- ##}
+{% block html %}{% block page__ajax %}{% endblock %}{% endblock %}

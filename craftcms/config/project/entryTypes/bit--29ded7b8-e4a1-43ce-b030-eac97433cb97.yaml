@@ -6,7 +6,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            template: _blocks/craft-ui/instructionsContentBit.twig
+            template: _site/sitehub/craft-ui/instructionsContentBit.twig
             type: craft\fieldlayoutelements\Template
             uid: 11a7f554-79a5-4d2e-a14b-dd6e844e1158
             userCondition: null

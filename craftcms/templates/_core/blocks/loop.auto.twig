@@ -1,0 +1,11 @@
+{% import "_site/layout/assemble" as layout %}
+{% import "_core/cards/assemble"  as cards  %}
+
+{{ layout.grid(
+    settings.cardGrid ??? 'stacked2',
+    cards.multiple(
+        items ??? [],
+        settings.cardLayout ??? 'summary',
+        settings ??? {}
+    )
+) }}

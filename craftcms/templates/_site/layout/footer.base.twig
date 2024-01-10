@@ -1,0 +1,94 @@
+{## Page Footer Base Elements & Defaults
+ ------------------------------------------------------------------------------------ ##
+
+    Defaults & common elements that appear in and around the site-wide page <footer>.
+
+    - http://localhost:8000/sitehub/layout/footer
+
+------------------------------------------------------------------------------------ ##}
+
+{% block footer__base %}
+    {% import "_site/layout/assemble" as layout %}
+    {{ layout.openFooter() }}
+
+    {{ block( 'footer__fat'     ) }}
+    {{ block( 'footer__minimal' ) }}
+
+    {{ layout.closeFooter() }}
+    {{ block( 'footer__theme' ) }}
+{% endblock %}
+
+
+{% block footer__slim %}
+    {% import "_site/layout/assemble" as layout %}
+    {{ layout.openFooter() }}
+    {{ block( 'footer__minimal' ) }}
+    {{ layout.closeFooter() }}
+    {{ block( 'footer__theme' ) }}
+{% endblock %}
+
+
+{% block footer__fat %}
+    {% import "_site/layout/assemble" as layout %}
+
+    {{ layout.openContainer( 'fluid' ) }}
+
+    <div class="pt-10 pb-6 flex flex-col gap-y-12">
+        {{ layout.grid(
+            "stacked2",
+            [ layout.grid( "stacked2", [ layout.menu('footer.contact'), layout.menu('footer.trending') ] ),
+              block( 'footer__fatCta' ) ]
+        ) }}
+    </div>
+
+    {{ layout.closeContainer() }}
+{% endblock %}
+
+
+{% block footer__message %}
+    © 1970-{{ "now"|date("Y") }} {{ currentSite.name ??? null }} All rights reserved.
+{% endblock %}
+
+
+{% block footer__fatCta %}
+    <div data-theme="dark-contrast" class="h-full w-full min-h-[12rem] flex items-center justify-center text-lg font-medium">CALL TO ACTION</div>
+{% endblock %}
+
+
+{% block footer__minimal %}
+    {% import "_site/layout/assemble" as layout %}
+    {{ layout.container(
+        'fluid',
+        tag( 'div', {
+            class: "flex flex-col md:flex-row py-4 items-center text-xs md:text-base gap-3",
+            html : block('footer__message') ~ layout.menu( 'footer.legal' )
+        } )
+    ) }}
+{% endblock %}
+
+
+{% block footer__theme %}
+    {% css %}
+        *[data-theme="footer"] {
+            --theme-canvas-light  : var(--color-primary);
+            --theme-canvas        : var(--color-primary-dark);
+            --theme-canvas-dark   : var(--color-primary-dark);
+            --theme-text          : var(--color-white-50);
+            --theme-text-light    : var(--color-white);
+            --theme-text-dark     : var(--color-white-100);
+            --theme-accent        : var(--color-primary);
+            --theme-headline      : var(--color-primary-light);
+            --theme-eyebrow       : var(--color-primary-light);
+            --theme-link          : var(--color-white);
+            --theme-link-bg       : transparent;
+            --theme-link-active   : var(--color-alert);
+            --theme-link-active-bg: transparent;
+            --theme-btn           : var(--color-white);
+            --theme-btn-b         : var(--color-white);
+            --theme-btn-bg        : transparent;
+            --theme-btn-active    : var(--color-alert);
+            --theme-btn-active-bg : var(--color-primary-dark);
+            --theme-btn-active-b  : var(--color-alert);
+        }
+    {% endcss %}
+{% endblock %}

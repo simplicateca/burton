@@ -1,0 +1,17 @@
+<div class="absolute inset-x-4 -inset-y-10">
+    {% set uuid = create('craft\\helpers\\StringHelper').UUID() %}
+    <lottie-player
+        id="{{ uuid }}"
+        autoplay
+        loop
+        mode="bounce"
+        preserveAspectRatio="none"
+        speed="0.35"
+        class="w-full"
+    ></lottie-player>
+
+    {% js %}
+        const player = document.querySelector("{{ uuid }}");
+        player.load( svg( '_site/atoms/lottie-blob.json' ) );
+    {% endjs %}
+</div>

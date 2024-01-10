@@ -1,0 +1,25 @@
+{## Page Header (<header>) Base Elements & Defaults
+ ------------------------------------------------------------------------------------ ##
+
+    Defaults & common elements that appear in and around the site-wide page <header>.
+
+    - http://localhost:8000/sitehub/layout/header
+
+ ------------------------------------------------------------------------------------ ##}
+{% use "_site/layout/header.base" %}
+
+{% block topbar_primaryMenu %}
+    {{ include( "sitehub/_core/menu" ) }}
+{% endblock %}
+
+{% block topbar_utilityMenu %}
+    <a href="{{ siteUrl( '/' ) }}" class="block p-2 text-sm hover:underline">Return to Public Site →</a>
+{% endblock %}
+
+{% block headerTagOpen %}
+    {{ parent() | retconAttr( "header", { "data-theme": "dark", class: "bg-theme-contrast" }, false ) | replace({ '</header>': '' }) | raw  }}
+{% endblock %}
+
+{% block topbar_logo %}
+    {{ block( "logo",  "sitehub/_core/base"  ) }}
+{% endblock %}

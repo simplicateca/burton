@@ -20,7 +20,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/layout.text.content.json"
+                                "referenceFile": "_site\/config\/layout.text.content.json"
                             }
                         },
                         {
@@ -29,7 +29,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/variant.text.json"
+                                "referenceFile": "_site\/config\/variant.text.json"
                             }
                         },
                         {
@@ -61,7 +61,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/theme.content.json"
+                                "referenceFile": "_site\/config\/theme.content.json"
                             }
                         },
                         {
@@ -70,7 +70,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/interspace.content.json"
+                                "referenceFile": "_site\/config\/interspace.content.json"
                             }
                         }
                     ]
@@ -85,7 +85,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/layout.textDouble.content.json"
+                                "referenceFile": "_site\/config\/layout.textDouble.content.json"
                             }
                         },
                         {
@@ -94,7 +94,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/variant.textDouble.json"
+                                "referenceFile": "_site\/config\/variant.textDouble.json"
                             }
                         },
                         {
@@ -149,7 +149,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/theme.content.json"
+                                "referenceFile": "_site\/config\/theme.content.json"
                             }
                         },
                         {
@@ -158,7 +158,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/interspace.content.json"
+                                "referenceFile": "_site\/config\/interspace.content.json"
                             }
                         }
                     ]
@@ -173,7 +173,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/layout.image.content.json"
+                                "referenceFile": "_site\/config\/layout.image.content.json"
                             }
                         },
                         {
@@ -182,7 +182,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/variant.image.json"
+                                "referenceFile": "_site\/config\/variant.image.json"
                             }
                         },
                         {
@@ -250,7 +250,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/theme.content.json"
+                                "referenceFile": "_site\/config\/theme.content.json"
                             }
                         },
                         {
@@ -259,7 +259,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/interspace.content.json"
+                                "referenceFile": "_site\/config\/interspace.content.json"
                             }
                         }
                     ]
@@ -274,7 +274,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/layout.media.content.json"
+                                "referenceFile": "_site\/config\/layout.media.content.json"
                             }
                         },
                         {
@@ -283,7 +283,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/variant.media.json"
+                                "referenceFile": "_site\/config\/variant.media.json"
                             }
                         },
                         {
@@ -502,7 +502,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/theme.content.json"
+                                "referenceFile": "_site\/config\/theme.content.json"
                             }
                         },
                         {
@@ -511,7 +511,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/interspace.content.json"
+                                "referenceFile": "_site\/config\/interspace.content.json"
                             }
                         }
                     ]
@@ -526,7 +526,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/layout.collection.content.json"
+                                "referenceFile": "_site\/config\/layout.collection.content.json"
                             }
                         },
                         {
@@ -535,7 +535,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/variant.collection.json"
+                                "referenceFile": "_site\/config\/variant.collection.json"
                             }
                         },
                         {
@@ -910,7 +910,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/theme.content.json"
+                                "referenceFile": "_site\/config\/theme.content.json"
                             }
                         },
                         {
@@ -919,7 +919,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/interspace.content.json"
+                                "referenceFile": "_site\/config\/interspace.content.json"
                             }
                         }
                     ]
@@ -966,7 +966,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/theme.fragment.content.json"
+                                "referenceFile": "_site\/config\/theme.fragment.content.json"
                             }
                         },
                         {
@@ -975,7 +975,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/interspace.fragment.content.json"
+                                "referenceFile": "_site\/config\/interspace.fragment.content.json"
                             }
                         }
                     ]
@@ -990,7 +990,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/layout.highlight.content.json"
+                                "referenceFile": "_site\/config\/layout.highlight.content.json"
                             }
                         },
                         {
@@ -999,7 +999,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/variant.highlight.json"
+                                "referenceFile": "_site\/config\/variant.highlight.json"
                             }
                         },
                         {
@@ -1098,7 +1098,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/theme.content.json"
+                                "referenceFile": "_site\/config\/theme.content.json"
                             }
                         },
                         {
@@ -1107,7 +1107,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_blocks\/config\/interspace.content.json"
+                                "referenceFile": "_site\/config\/interspace.content.json"
                             }
                         }
                     ]

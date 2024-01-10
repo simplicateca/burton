@@ -54,7 +54,7 @@ fields:
     name: Interspace
     searchable: false
     settings:
-      referenceFile: _blocks/config/interspace.fragment.content.json
+      referenceFile: _site/config/interspace.fragment.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -67,7 +67,7 @@ fields:
     name: Theme
     searchable: false
     settings:
-      referenceFile: _blocks/config/theme.fragment.content.json
+      referenceFile: _site/config/theme.fragment.content.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

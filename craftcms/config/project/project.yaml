@@ -1,4 +1,4 @@
-dateModified: 1702931616
+dateModified: 1704757024
 elementSources:
   craft\elements\Entry:
     -
@@ -457,6 +457,7 @@ plugins:
   blitz:
     edition: standard
     enabled: false
+    licenseKey: SWD1UYGMPZP04JF40EF4H2WJ
     schemaVersion: 4.5.0
   dospaces:
     edition: standard
@@ -481,6 +482,7 @@ plugins:
   formie:
     edition: standard
     enabled: true
+    licenseKey: 6DYR1QHYMNO6V0QBQRQXMJXK
     schemaVersion: 2.0.11
   knock-knock:
     edition: standard
@@ -489,6 +491,7 @@ plugins:
   matrix-field-preview:
     edition: standard
     enabled: true
+    licenseKey: KO34R9E0EIIGN98KUKKKBO1G
     schemaVersion: 3.0.3
   matrixmate:
     edition: standard
@@ -501,6 +504,7 @@ plugins:
   navigation:
     edition: standard
     enabled: true
+    licenseKey: N7MZHA9IISQOWJ62F1CGOKV4
     schemaVersion: 2.0.7
   redactor:
     edition: standard
@@ -525,6 +529,7 @@ plugins:
   seomatic:
     edition: standard
     enabled: true
+    licenseKey: U3LOH82G48RN5HVNLRXHNGU8
     schemaVersion: 3.0.12
   sherlock:
     edition: lite

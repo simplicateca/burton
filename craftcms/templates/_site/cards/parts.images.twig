@@ -1,0 +1,91 @@
+{## Image Partials
+ ------------------------------------------------------------------------------------ ##
+    Reusable image layout options for cards.
+
+    This file is a structured for Horizontal Reuse. As such, it CAN NOT {% extend %}
+    another template or declare a local {% macro %}. It also must not output any
+    content outside of a {% block %} tag.
+
+     -> https://twig.symfony.com/doc/3.x/tags/use.html
+
+    In return, each {% block %} in this file can be loaded into any other templates
+    as if they were native to that file. Imported blocks will retain their block names
+    unless new names are assigned during import.
+
+    By default `images_default` {% block %} is imported into the base card template
+    `_cards/base/_base` as the named block `card_image` using:
+
+        {% use "_cards/parts.images" with images_default as card_image %}
+
+
+ ## Using an Image other than the default
+ ------------------------------------------------------------------------------------ ##
+    There are several options for modifying a card image:
+
+     1) Swap `images_default` for a different block from this (or another) file and
+        import it overtop of the default `card_image` named block.
+
+        {% use "_cards/parts.images" with image_media_player as card_image %}
+
+
+     2) Create a local override in a card template file:
+
+        {% block card_image %}
+            // -- do something custom and specific here
+        {% endblock %}
+
+
+     3) Combining both (1) and (2) for more complicated functionality
+
+        {% use "_cards/parts.images" with image_media_player, images_default %}
+        {% block card_image %}
+            {{ test_some_condition
+                  ? block( 'image_media_player' )
+                  : block( 'images_default') }}
+        {% endblock %}
+
+        Don't forget about or underestimate the usefulness of the Twig `parent` function.
+        With `parent` the above code can be refactored to:
+
+        {% use "_cards/parts.images" with image_media_player %}
+        {% block card_image %}
+            {{ test_some_condition
+                  ? block( 'image_media_player' )
+                  : parent() }}
+        {% endblock %}
+
+        Read more: https://twig.symfony.com/doc/3.x/functions/parent.html
+
+
+
+ ## Frame Card Images (Default)
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{% block images_default -%}
+    {% from "_content/images/frame" import framer %}
+    {{ framer( card.images, card.settings.cardImageFrame ??? null, card.settings ) }}
+{%- endblock %}
+
+
+
+{## Embedded Media Player
+ ------------------------------------------------------------------------------------ ##
+    For cards with media content, embed media player in place of any images.
+ ------------------------------------------------------------------------------------ ##}
+{% block images_media_player %}
+    {%- if card.item.embed.html|default() -%}
+        {{ card.item.embed.html|default()
+            | retconAttr( 'iframe', { 'height' : false, 'width' : false } )
+            | retconAttr( 'iframe', { 'class' : 'w-full aspect-video' } )
+        }}
+    {%- else -%}
+        {% set kind = card.item.entry.kind|default() %}
+        {% if kind in ['video','audio'] %}
+            {% embed "_content/media/#{kind}" with {
+                asset   : card.item.entry,
+                settings: card.settings|default(),
+            } %}{% endembed %}
+        {% endif %}
+    {%- endif -%}
+{% endblock %}

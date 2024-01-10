@@ -1,0 +1,45 @@
+{## Article Content - Card Override
+ ------------------------------------------------------------------------------------ ##
+    This file not typically called directly. It is dynamically inserted to a cards
+    inheritence order when generated via the `render()` macro in `_cards/base`.
+
+    `layout` (the variable) should contain the path for the card layout to be rendered.
+    If it is empty for some reason, default to the base card layout.
+ ------------------------------------------------------------------------------------ ##}
+{% extends layout|default(["_site/cards/base","_core/cards/base"]) %}
+
+
+{% block card_before_summary %}
+    {{ block( 'article_byline' ) }}
+{% endblock %}
+
+
+{% block card_after_summary %}
+    <span class="flex font-extrabold text-xs uppercase">
+        By {{ card.item.author.name ??? null }}
+    </span>
+{% endblock %}
+
+
+{% block article_byline %}
+    <div class="flex items-center gap-3 text-sm uppercase my-4">
+        {{ block( 'article_author' ) }}
+        <span>&bull;</span>
+        {{ block( 'article_timedate' ) }}
+    </div>
+{% endblock %}
+
+
+{% block article_timedate %}
+    <timedate>
+        {{ card.item.postDate|date('long') ??? null }}
+    </timedate>
+{% endblock %}
+
+
+{% block article_author %}
+    <span class="flex items-center gap-2">
+        <div class="bg-theme-accent h-10 w-10 rounded-full flex">&nbsp;</div>
+        {{ card.item.author.name ??? null }}
+    </span>
+{% endblock %}

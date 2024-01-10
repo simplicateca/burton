@@ -74,12 +74,9 @@ class SiteModule extends Module
 
         // Base template directory - site
         Event::on(View::class, View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) {
-            $e->roots['_blocks']     = CRAFT_BASE_PATH . '/templates/_blocks';
-            $e->roots['_cards']      = CRAFT_BASE_PATH . '/templates/_cards';
-            $e->roots['_components'] = CRAFT_BASE_PATH . '/templates/_components';
-            $e->roots['_content']    = CRAFT_BASE_PATH . '/templates/_content';
-            $e->roots['_layout']     = CRAFT_BASE_PATH . '/templates/_layout';
-            $e->roots['']            = CRAFT_BASE_PATH . '/templates/';
+            $e->roots['_core'] = CRAFT_BASE_PATH . '/templates/_core';
+            $e->roots['_site'] = CRAFT_BASE_PATH . '/templates/_site';
+            $e->roots['']      = CRAFT_BASE_PATH . '/templates';
         });
 
 
@@ -149,12 +146,29 @@ class SiteModule extends Module
             UrlManager::class,
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event) {
-                $event->rules['sitehub/blocks/header'] = ['template' => 'sitehub/blocks/header'];
-                $event->rules['sitehub/blocks/header/<type:\w+>'] = ['template' => 'sitehub/blocks/header'];
-                $event->rules['sitehub/blocks/sidebar'] = ['template' => 'sitehub/blocks/sidebar'];
-                $event->rules['sitehub/blocks/sidebar/<type:\w+>'] = ['template' => 'sitehub/blocks/sidebar'];
-                $event->rules['sitehub/blocks/<type:\w+>'] = ['template' => 'sitehub/blocks/index'];
-                $event->rules['sitehub/cards/<type:\w+>']  = ['template' => 'sitehub/cards/index'];
+                $event->rules['sitehub/blocks/header']              = ['template' => '_site/sitehub/blocks/header'];
+                $event->rules['sitehub/blocks/header/<type:\w+>']   = ['template' => '_site/sitehub/blocks/header'];
+                $event->rules['sitehub/blocks/sidebar']             = ['template' => '_site/sitehub/blocks/sidebar'];
+                $event->rules['sitehub/blocks/sidebar/<type:\w+>']  = ['template' => '_site/sitehub/blocks/sidebar'];
+
+                $event->rules['sitehub/blocks/<type:\w+>']  = ['template' => '_site/sitehub/blocks/index'];
+                $event->rules['sitehub/blocks']             = ['template' => '_site/sitehub/blocks/index'];
+
+                $event->rules['sitehub/cards/<type:\w+>']   = ['template' => '_site/sitehub/cards/index'];
+                $event->rules['sitehub/cards']              = ['template' => '_site/sitehub/cards/index'];
+
+                $event->rules['sitehub/layout/containers']  = ['template' => '_site/sitehub/layout/containers'];
+                $event->rules['sitehub/layout/grids']       = ['template' => '_site/sitehub/layout/grids'];
+                $event->rules['sitehub/layout/micro']       = ['template' => '_site/sitehub/layout/micro'];
+                $event->rules['sitehub/layout/spacing']     = ['template' => '_site/sitehub/layout/spacing'];
+                $event->rules['sitehub/layout/themes']      = ['template' => '_site/sitehub/layout/themes'];
+                $event->rules['sitehub/layout/typography']  = ['template' => '_site/sitehub/layout/typography'];
+                $event->rules['sitehub/layout']             = ['template' => '_site/sitehub/layout/index'];
+
+                $event->rules['sitehub/playbooks']  = ['template' => '_site/sitehub/playbooks'];
+                $event->rules['sitehub/samples']    = ['template' => '_site/sitehub/samples'];
+
+                $event->rules['sitehub']  = ['template' => '_site/sitehub/index'];
             }
         );
     }

@@ -1,0 +1,33 @@
+{## RSS Feed - Card Override
+ ------------------------------------------------------------------------------------ ##
+    This file not typically called directly. It is dynamically inserted to a cards
+    inheritence order when generated via the `render()` macro in `_cards/base`.
+
+    `layout` (the variable) should contain the path for the card layout to be rendered.
+    If it is empty for some reason, default to the base card layout.
+ ------------------------------------------------------------------------------------ ##}
+{% extends layout|default(["_site/cards/base","_core/cards/base"]) %}
+
+{% block card_headline %}
+    {% if card.item.source %}
+        <div class="eyebrow eyebrowSmall">{{ card.item.source }}</div>
+    {% endif %}
+
+    {{ parent() }}
+
+    {% if card.item.postDate %}
+        <timedate class="flex gap-2 items-center">
+            <span>{{ include( 'vectors/calendar.svg' ) }}</span>
+            <span>{{ card.item.postDate|date('F j, Y') }}</span>
+        </timedate>
+    {% endif %}
+{% endblock %}
+
+
+{% block card_after_summary %}
+    {% if card.item.topics %}
+        <div class="text-xs">
+            {{ card.item.topics|join(', ') }}
+        </div>
+    {% endif %}
+{% endblock %}

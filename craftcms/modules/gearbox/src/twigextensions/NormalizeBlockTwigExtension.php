@@ -30,9 +30,6 @@ class NormalizeBlockTwigExtension extends AbstractExtension
     // find any fragment blocks and splice them into the block array
     public function normalizeBlocks( $blockArray, $builder = 'content', $originalSettings )
     {
-        // if $entry is just an ID, look it up
-        // $entry  = is_int($entry) ? Entry::find()->id($entry)->one() ?? [] : $entry;
-
         $blocks = [];
         $entry  = null;
         $blockArray = $blockArray ?? [];
@@ -48,35 +45,26 @@ class NormalizeBlockTwigExtension extends AbstractExtension
             }
 
             $blockType = $block->type->handle ?? $block->type ?? null;
+            $settings  = $this->mergeBlockSettings( $block );
 
-            if( $blockType == 'fragment' ) {
-                foreach( $block->fragments->all() as $fragment ) {
-                    $fragmentType = $fragment->type->handle ?? null;
-                    if( in_array( $fragmentType, ['contentFragment', 'sidebarFragment', 'headerFragment'] ) ) {
-                        $fragBlocks = $fragment->contentBuilder->all() ?? $fragment->sidebarBuilder->all() ?? $fragment->headerBuilder->all();
-                        foreach( $fragBlocks as $fragBlock ) {
-                            $settings = $this->mergeBlockSettings( $fragBlock, $block );
-                            $blocks[] = $this->beforeRenderBlock([
-                                'content'  => $fragBlock,
-                                'entry'    => $entry,
-                                'builder'  => $builder,
-                                'settings' => array_merge( $originalSettings, $settings )
-                            ]);
-                        }
-                    } else {
-                        $settings = $this->mergeBlockSettings( $fragment, $block );
+            if( $blockType == 'fragment' )
+            {
+                foreach( $block->fragments->all() as $fragment )
+                {
+                    $fragBlocks = $fragment->contentBuilder->all() ?? $fragment->sidebarBuilder->all() ?? null;
+
+                    foreach( $fragBlocks as $fragBlock )
+                    {
+                        $fragSettings = $this->mergeBlockSettings( $fragBlock, $settings );
                         $blocks[] = $this->beforeRenderBlock([
-                            'content'  => $block,
+                            'content'  => $fragBlock,
                             'entry'    => $entry,
-                            'fragment' => $fragment,
                             'builder'  => $builder,
-                            'settings' => array_merge( $originalSettings, $settings)
+                            'settings' => array_merge( $originalSettings, $fragSettings )
                         ]);
                     }
                 }
             } else {
-                $settings = $this->mergeBlockSettings( $block );
-
                 $blocks[] = $this->beforeRenderBlock([
                     'content'  => $block,
                     'entry'    => $entry,
@@ -85,6 +73,7 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                 ]);
             }
         }
+
 
         // add settings for next/previous siblings to each block
         foreach( $blocks AS $key => $block )
@@ -120,19 +109,15 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                 'builder'    => $block['builder']    ?? null,
                 'entryID'    => $block['entry']->id  ?? null,
                 'entryUrl'   => $block['entry']->url ?? null,
-                'entryType'  => $block['entry']->type->handle ?? null,
-                'section'    => $block['fragment']->section->handle  ?? $block['entry']->section->handle ?? null,
-                'blockType'  => $block['content']->type->handle      ?? $block['content']->type ?? $block['content']['type'] ?? null,
-                'variant'    => $block['content']->variant->value    ?? null,
-                'theme'      => $block['content']->theme->value      ?? null,
-                'interspace' => $block['content']->interspace->value ?? null,
-                'layout'     => $block['content']->layout->value     ?? null,
+                'entryType'  => $block['entry']->type->handle    ?? null,
+                'section'    => $block['entry']->section->handle ?? null,
+                'blockType'  => $block['content']->type->handle  ?? $block['content']->type ?? $block['content']['type'] ?? null,
             ] )
         );
     }
 
 
-    private function mergeBlockSettings( $block, $fragmentParent = null )
+    private function mergeBlockSettings( $block, $parentSettings = null )
     {
         if( empty( $block ) ) {
             return [];
@@ -145,25 +130,34 @@ class NormalizeBlockTwigExtension extends AbstractExtension
 
         // if this is a content block that was inside a fragment container,
         // figure out where to grab background/interspace settings from
-        if( $fragmentParent )
+        if( $parentSettings )
         {
-            // background
-            if( $fragmentParent->theme && $fragmentParent->theme != 'FROMFRAGMENT' ) {
-                $theme = $fragmentParent->theme->reference() ?? $theme;
+            if( $parentSettings['theme'] == 'FROMFRAGMENT' ) {
+                unset( $parentSettings['theme'] );
+            } else {
+                $theme = [];
             }
 
-            // interspace
-            if( $fragmentParent->interspace && $fragmentParent->interspace != 'FROMFRAGMENT' ) {
-                $interspace = $fragmentParent->interspace->reference() ?? $interspace;
+            if( $parentSettings['interspace'] == 'FROMFRAGMENT' ) {
+                unset( $parentSettings['interspace'] );
+            } else {
+                $interspace = [];
             }
         }
 
-        $settings = array_merge(
-            $layout['settings']     ?? [],
-            $variant['settings']    ?? [],
-            $theme['settings']      ?? [],
-            $interspace['settings'] ?? []
-        );
+        $settings = array_merge( ...array_filter([
+            $layout['settings']     ?? null,
+            $variant['settings']    ?? null,
+            $theme['settings']      ?? null,
+            $interspace['settings'] ?? null,
+            [
+                'theme'      => $theme['value']      ?? null,
+                'variant'    => $variant['value']    ?? null,
+                'layout'     => $layout['value']     ?? null,
+                'interspace' => $interspace['value'] ?? null
+            ],
+            $parentSettings
+        ]));
 
         return $settings;
     }

@@ -1,0 +1,18 @@
+{## Article Template Router
+ ------------------------------------------------------------------------------------ ##}
+{% set template  = null %}
+{% set entryType = entry.type.handle|default(null) %}
+
+{% if entryType == 'blog' %}
+    {% set template = "_site/articles/base" %}
+{% endif %}
+
+{% if entryType == 'news' %}
+    {% set template = "_site/articles/base" %}
+{% endif %}
+
+{% if entryType and template %}
+    {{ include( template ) }}
+{% else %}
+    {% header "HTTP/1.0 404 Not Found" %}
+{% endif %}

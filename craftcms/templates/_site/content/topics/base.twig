@@ -1,0 +1,37 @@
+{## [Topic] Entry Type Base
+ ------------------------------------------------------------------------------------ ##}
+{% extends "_site/layout/layout.base" %}
+
+{% use "_site/layout/header.base" %}
+
+{## double check that we're a topic and not a content feed or private tag ##}
+{% if ( entry.type.handle ??? null ) != 'topic' %}
+    {% header "HTTP/1.0 404 Not Found" %}
+{% endif %}
+
+{% block page__top %}
+    {{ block( 'header__base') }}
+{% endblock %}
+
+{% block headerSubtitle %}
+    {% set subtitle = entry.summary %}
+    {{ parent() }}
+{% endblock %}
+
+{% block page__main %}
+    {{ block( 'default_main') }}
+{% endblock %}
+
+{# {% block default_main_contentBuilder %}
+    {% if entry.contentBuilder.one() %}
+        {% from "_core/blocks/assemble" import content as buildContent %}
+        {{ buildContent( entry.contentBuilder.all() ??? null, 'fluidContainer' ) }}
+    {% else %}
+        {{ sprig( '_content/articles/related.sprig', {
+            entry  : entry.id,
+            limit  : 2,
+            page   : craft.app.request.getParam('page')|default(1),
+            baseurl: entry.url
+        }) }}
+    {% endif %}
+{% endblock %} #}

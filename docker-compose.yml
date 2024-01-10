@@ -1,6 +1,14 @@
 version: '3.9'
 
 services:
+    adminer:
+        image: adminer:latest
+        restart: unless-stopped
+        env_file: &env
+            - ./craftcms/.env
+        ports:
+          - 7777:8080
+
     # frontend - node/vite
     # https://github.com/nodejs/docker-node/tree/cd41dbe222da1ce72d61d8fbaa06ac79316ac6d5/16
     frontend:

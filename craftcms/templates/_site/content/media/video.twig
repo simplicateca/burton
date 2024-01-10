@@ -1,0 +1,43 @@
+{% set asset    = asset    ??? null %}
+{% set settings = settings ??? null %}
+
+{% if asset %}
+    {% set poster = asset.images|first %}
+
+    {% if poster.url|default() and poster.id|default() %}
+        {% do poster.setTransform('videoAspect') %}
+    {% endif %}
+
+    <div class="{{settings.videoPlayerClass|default()}} relative overflow-hidden" x-data="{ poster: {{ poster ? 'true' : 'false' }} }" x-cloak>
+        <button
+            @click="
+                poster=false;
+                document.getElementById('video--{{asset.id??null}}').play()"
+            class="
+                group
+                bg-none
+                absolute
+                z-10
+                top-0
+                left-0
+                right-0
+                bottom-0
+                p-0
+                m-0"
+            x-show="poster">
+            <img class="h-full w-full object-cover transition scale-[101%] group-hover:scale-100" src="{{poster.url??null}}">
+            <span class="block h-24 w-24 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-theme-contrast group-hover:scale-110 transition">
+                <svg class="h-full w-full" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path class="fill-theme-accent transition group-hover:fill-theme-accent-dark" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm8.856-3.845A1.25 1.25 0 0 0 9 9.248v5.504a1.25 1.25 0 0 0 1.856 1.093l5.757-3.189a.75.75 0 0 0 0-1.312l-5.757-3.189Z" /></svg>
+            </span>
+        </button>
+
+        <video
+            id="video--{{asset.id??null}}"
+            controls
+            {% if settings.autoplay|default() %}autoplay{% endif %}
+            class="w-full aspect-video"
+            poster="{{poster.url??null}}"
+        ><source src="{{asset.url??null}}" type="{{asset.mimeType??null}}" />
+        </video>
+    </div>
+{% endif %}

@@ -1,5 +1,49 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
+const blockColors =
+{
+    // background colours.
+    // accessibly in tailwind by:
+    // bg-canvas / bg-canvas-light / bg-canvas-dark
+    canvas: {
+        DEFAULT: 'var(--theme-canvas)',
+        light  : 'var(--theme-canvas-light)',
+        dark   : 'var(--theme-canvas-dark)',
+    },
+
+    // foreground / text colours.
+    // accessibly in tailwind by:
+    // text-theme / border-theme-accent / etc
+    theme: {
+        DEFAULT : 'var(--theme-text)',
+        lead    : 'var(--theme-text)',
+        light   : 'var(--theme-text-light)',
+        dark    : 'var(--theme-text-dark)',
+        accent  : 'var(--theme-accent)',
+        headline: 'var(--theme-headline)',
+        eyebrow : 'var(--theme-eyebrow)',
+    },
+
+    // link & button colours.
+    // accessibly in tailwind by:
+    // text-link / bg-button-base / etc / etc
+    link: {
+        DEFAULT: 'var(--theme-link)',
+        base   : 'var(--theme-link-bg)',
+        active : 'var(--theme-link-active)',
+        'active-base': 'var(--theme-link-active-bg)',
+    },
+
+    button: {
+        DEFAULT: 'var(--theme-btn)',
+        base   : 'var(--theme-btn-bg)',
+        border : 'var(--theme-btn-b)',
+        active : 'var(--theme-btn-active)',
+        'active-base': 'var(--theme-btn-active-bg)',
+        'active-border': 'var(--theme-btn-active-b)',
+    },
+}
+
 // module exports
 module.exports = {
     content: [
@@ -12,7 +56,6 @@ module.exports = {
             padding: {
                 DEFAULT: '1rem',
                 sm: '2rem'
-
             }
         },
 
@@ -46,10 +89,6 @@ module.exports = {
                 },
             },
 
-            //backgroundImage: {
-            //    '': "url('')",
-            //},
-
             maxWidth: {
                 '2xs': '16rem',
             },
@@ -63,36 +102,11 @@ module.exports = {
             },
 
             colors: {
-                transparent: 'transparent',
-                current    : 'currentColor',
-
-                theme: {
-                    DEFAULT: 'var(--primaryColor)',
-                    foreground: 'var(--primaryColor)',
-                    accent    : 'var(--accentColor)',
-                    background: 'var(--backgroundColor)',
-                    backgroundOff: 'var(--backgroundColorOff)',
-                    section: 'var(--sectionBackgroundColor)',
-                },
-
-                next: {
-                    'block-bg': 'var(--backgroundColorNext)',
-                },
-
-                prev: {
-                    'block-bg': 'var(--backgroundColorPrev)',
-                },
-
-                hilite: {
-                    DEFAULT : 'var(--hiliteColor)',
-                    alt     : 'var(--hiliteAltColor)',
-                },
-
-                shade: {
-                   DEFAULT : 'var(--shadeColor)',
-                   light   : 'var(--shadeLightColor)',
-                   dark    : 'var(--shadeDarkColor)',
-                }
+                ...blockColors,
+                'next-theme': blockColors,
+                'prev-theme': blockColors,
+                transparent : 'transparent',
+                current     : 'currentColor',
             },
         }
     },

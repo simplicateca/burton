@@ -1,0 +1,97 @@
+[{
+    "label": "Auto",
+    "value": "auto",
+    "settings": {
+
+    }
+},{
+    "label": "Summary Card (1x1)",
+    "value": "summary_1x1",
+    "settings": {
+        "cardLayout" : "summary",
+        "cardGlitter": "_site/widgets/bg.blob.twig",
+        "cardLoop"   : "_site/loops/carousel",
+        "cardLoopMin": 2
+    }
+},{
+    "label": "Summary Cards (2x1)",
+    "value": "summary_2x1",
+    "settings": {
+        "cardLayout": "summary",
+        "cardGrid"  : "stacked2",
+        "cardLoop"   : "_site/loops/carousel",
+        "cardLoopMin": 3
+    }
+},{
+    "label": "Summary Cards (3x1)",
+    "value": "summary_3x1",
+    "settings": {
+        "cardLayout": "summary",
+        "cardGrid"  : "stacked3",
+        "cardLoop"   : "_site/loops/carousel",
+        "cardLoopMin": 4
+    }
+},{
+    "label": "Summary Cards (3x𝑛)",
+    "value": "summary_3xn",
+    "settings": {
+        "cardLayout": "summary",
+        "cardGrid"  : "stacked3"
+    }
+},{
+    "label": "Thumbnail ➔ Modal (4x1)",
+    "value": "thumbnail_4x1",
+    "settings": {
+        "cardLayout" : "thumbnail",
+        "cardGrid"   : "stacked4",
+        "cardModal"  : "modal",
+        "cardLoop"   : "_site/loops/carousel",
+        "cardLoopMin": 4
+    }
+},{
+    "label": "Thumbnail ➔ Modal (6x𝑛)",
+    "value": "thumbnail_6x𝑛",
+    "settings": {
+        "cardLayout": "thumbnail",
+        "cardModal" : "modal",
+        "cardGrid"  : "stacked6"
+    }
+},{
+    "label": "Feature Card (1x1)",
+    "value": "feature_1x1",
+    "settings": {
+        "cardLayout" : "feature",
+        "cardGlitter": "_site/widgets/bg.blob.twig",
+        "cardGrid"   : "fixed1",
+        "cardLoop"   : "_site/loops/carousel"
+    }
+},{
+    "label": "Feature Card (Auto Grid)",
+    "value": "feature_autogrid",
+    "settings": {
+        "cardLayout": "feature",
+        "cardLoop"  : "_site/loops/autogrid"
+    }
+},{
+    "label": "Bullets ➔ Modal (Auto Grid)",
+    "value": "icon_autogrid",
+    "settings": {
+        "cardLayout": "icon",
+        "cardModal" : "modal",
+        "cardLoop"  : "_site/loops/autogrid"
+    }
+},{
+    "label": "Accordion Panels",
+    "value": "accordion",
+    "settings": {
+        "cardLayout": "panel",
+        "cardLoop"  : "_site/loops/accordion"
+    }
+},{
+    "label": "Tab Panels",
+    "value": "tab_panels",
+    "settings": {
+        "cardLayout": "panel",
+        "cardLoop"  : "_site/loops/tabs"
+    }
+}]

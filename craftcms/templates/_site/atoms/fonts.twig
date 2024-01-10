@@ -1,0 +1,35 @@
+{## Font Management
+ -------------------------------------------------------------------------------- ##
+    - Automatically included via `templates/_core/pages/base.browser`
+    - Load directly from Google during development
+    - Serve from CDN in production
+    - Download from Goolge using: https://gwfh.mranftl.com/fonts
+ -------------------------------------------------------------------------------- ##}
+
+{% block fonts %}
+
+    {## Load from Google ##}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Rubik:wght@800&display=swap">
+
+    {## Serve Locally or from CDN
+     -------------------------------------------------------------------------------- ##}
+    {# <style>
+        {{ _self.fontface( 'Roboto Mono', 'Roboto-Mono', 400 ) }}
+        {{ _self.fontface( 'Rubik', 'Rubik', 800 ) }}
+    </style> #}
+
+{% endblock fonts %}
+
+
+{% macro fontface( family, filename, weight ) %}
+    {% css alias( "@fonts/#{filename}.woff2" ) with { rel: "preload", as: "font", type: "font/woff2", crossorigin:"anonymous" } %}
+
+    @font-face {
+        font-family: '{{family}}';
+        src: url('{{ alias( '@fonts' ) }}/{{filename}}.woff2') format('woff2'),
+            url('{{ alias( '@fonts' ) }}/{{filename}}.woff') format('woff');
+        font-weight: {{weight}};
+        font-style: normal;
+        font-display: swap;
+    }
+{% endmacro %}

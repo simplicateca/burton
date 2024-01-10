@@ -32,7 +32,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _blocks/craft-ui/instructionsSidebar.twig
+            template: _site/sitehub/craft-ui/instructionsSidebar.twig
             type: craft\fieldlayoutelements\Template
             uid: 9e863f6d-a200-4a22-aae4-4f7c2a64cf80
             userCondition: null
@@ -51,7 +51,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _blocks/craft-ui/matrixConditionalFields.twig
+            template: _site/sitehub/craft-ui/matrixConditionalFields.twig
             type: craft\fieldlayoutelements\Template
             uid: df217d7f-fc95-4ea7-8c8d-b09b16f897b6
             userCondition: null

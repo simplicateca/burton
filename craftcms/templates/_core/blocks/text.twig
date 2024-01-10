@@ -1,0 +1,22 @@
+{## Text Block Base
+ ------------------------------------------------------------------------------------ ##
+    Renders the block using a two-zone micro-layout
+
+    -> http://localhost:8000/sitehub/blocks/text
+    -> http://localhost:8000/sitehub/layout/micro
+ ------------------------------------------------------------------------------------ ##}
+{% extends [ "_site/content/blocks/base", "_core/blocks/base" ] %}
+
+{% block content %}
+    {% import "_site/layout/assemble" as layout %}
+
+    {{ layout.micro(
+        block.settings.microLayout|default('topBottom'),
+        {
+            zone1     : block('block__text'),
+            header    : block('block__header'),
+            footer    : block('block__footer'),
+            container : block.settings.container|default()
+        }
+    ) }}
+{% endblock %}

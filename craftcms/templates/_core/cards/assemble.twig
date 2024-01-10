@@ -1,0 +1,99 @@
+{## Card Rendering Macros
+ ------------------------------------------------------------------------------------ ##
+
+    Maintains path and inheritence consistency when generating content cards.
+
+ ## Render a Single Card
+ ------------------------------------------------------------------------------------ ##
+    {% from "_cards/base" import render as renderCard %}
+    {{ renderCard( item, 'summary', { additional: 'settings' } ) }}
+ ------------------------------------------------------------------------------------ ##}
+{% macro single( item = null, layout = null, settings = null, loop = null, onlyBlock = null ) %}
+{%- if item -%}
+
+    {## Content specific cards can override and/or inject content into any part of
+        the requested card layout. Default path: `_content/<sectionHandle>/card.twig`
+
+        Variations for different entryTypes can generally be dealt with inside the
+        section-level card file. If separate entryType specific card overrides are
+        necessary, the card path below can be adjusted to something like:
+
+        {% set cardPath = [
+            "_content/#{section}/card.#{entryType}",
+            "_content/#{section}/card",
+        ] %}
+
+        Content specific override cards are passed the desired card layout as a variable
+        called `extends` which they should use to dynamically extend themselves from.
+     -------------------------------------------------------------------------------- ##}
+    {% set card = {
+        item    : item,
+        settings: settings            ??? item.settings    ??? null,
+        headline: item.headline       ??? item.title       ??? null,
+        summary : item.dek            ??? item.summary     ??? item.text ??? null,
+        images  : item.images.all()   ??? item.images      ??? null,
+        section : item.section.handle ??? item.section     ??? null,
+        type    : item.kind           ??? item.type.handle ??? item.type ??? null,
+        loop    : loop,
+    } %}
+
+    {% if card.item.id|default() and not card.section %}
+        {% set section = 'ASSET'      in className( item ) | upper ? 'assets' %}
+        {% set section = 'SUPERTABLE' in className( item ) | upper ? 'bits'   %}
+
+        {% set card = card|merge({ section: section }) %}
+    {% endif %}
+
+    {{ include( [
+        "_site/content/#{card.section}/card.#{card.type}.#{layout}",
+        "_site/content/#{card.section}/card.#{card.type}",
+        "_site/content/#{card.section}/card.#{layout}",
+        "_site/content/#{card.section}/card",
+        "_site/cards/card.#{layout}",
+        "_site/cards/base",
+        "_core/cards/base"
+    ], { card: card }, withContext = false ) }}
+
+    {% if onlyBlock %}
+        {% embed path with {
+            card: card,
+            path: path,
+            only: onlyBlock,
+        } only %}
+            {% block card %}{{ block( only ) }}{% endblock %}
+        {% endembed %}
+    {% else %}
+
+    {% endif %}
+
+{% endif %}{% endmacro %}
+
+
+
+{## Render Multiple Cards
+ ------------------------------------------------------------------------------------ ##
+    {% from "_cards/base" import render as renderDeck %}
+    {{ renderDeck( item, 'summary', { additional: 'settings' } ) }}
+ ------------------------------------------------------------------------------------ ##}
+{% macro multiple( collection, layout, settings ) %}
+    {% for item in collection %}
+        {{ _self.single( item, layout, settings, loop ) }}
+    {% endfor %}
+{% endmacro %}
+
+
+
+{## Card Title Shortcut
+ ------------------------------------------------------------------------------------ ##
+    Card Titles are typically used for things like tab names or accordion headers.
+
+    {% from "_cards/base" import title as cardTitle %}
+    {{ cardTitle( item, 'summary', { additional: 'settings' } ) }}
+ ------------------------------------------------------------------------------------ ##}
+{% macro title( item ) -%}
+    {{ item.headline ??? item.title ??? null
+        | retconRemove( [ 'img', 'figure', 'iframe' ] )
+        | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ol', 'ul', 'li', 'blockquote', 'div', 'a' ], '' )
+        | trim
+    }}
+{%- endmacro %}

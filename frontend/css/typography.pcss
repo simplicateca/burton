@@ -21,22 +21,39 @@
 */
 ::selection {
     @apply
-        bg-hilite text-gray-900
+      bg-theme-accent text-white
     ;
 }
 
 *[data-theme] {
     @apply
-        bg-theme-background
-        text-theme-foreground
+        text-theme
     ;
 
-    a:not(.button) {
+    &[data-theme="accent-band"],
+    &[data-theme="accent-header"],
+    &[data-theme="subtle-band"] {
+        @apply bg-canvas-light;
+    }
+
+    &[data-theme="accent-box"],
+    &[data-theme="subtle-box"] {
+        @apply mx-auto xl:max-w-screen-xl 2xl:max-w-screen-2xl;
+    }
+
+    a[class*=""],
+    a:not([class]) {
         @apply
             transition
-            text-theme-accent
-            hover:bg-theme-accent
-            hover:text-white
+            underline
+            underline-offset-2
+            decoration-link
+            text-link
+            bg-link-base
+            hover:underline-offset-4
+            hover:text-link-active
+            hover:bg-link-active-base
+            hover:decoration-link-active
         ;
     }
 }
@@ -53,14 +70,15 @@
  * Each headline should have a `.like-h#` class that allows <div> or <p> tags to be styled
  * as if they were headlines, but without using the actual h# tag for seo / a11y reasons.
  *
-*/
+ */
 
 h1,
 .like-h1 {
     /* base formatting */
     @apply
+        text-theme-headline
         font-display
-        font-normal
+        font-black
         !leading-snug
         mb-5
 
@@ -75,7 +93,6 @@ h1,
     /* adjustments related to children/sibling/parent */
     strong {
         @apply
-            !font-normal
             text-theme-accent
         ;
     }
@@ -85,8 +102,9 @@ h2,
 .like-h2 {
     /* base formatting */
     @apply
+        text-theme-headline
         font-headline
-        font-medium
+        font-black
         !leading-tight
         mb-5
 
@@ -108,8 +126,9 @@ h3,
 .like-h3 {
     /* base formatting */
     @apply
+        text-theme-headline
         font-headline
-        font-medium
+        font-black
         !leading-tight
         mb-5
 
@@ -131,8 +150,10 @@ h4,
 .like-h4 {
     /* base formatting */
     @apply
+        text-theme-headline
         font-headline
-        font-medium
+        font-bold
+        uppercase
         !leading-tight
         mb-5
 
@@ -147,9 +168,13 @@ h4,
     /* adjustments related to children/sibling/parent */
 }
 
+/* add a little extra spacing before inline headlines */
 p+h2, ul+h2, ol+h2, blockquote+h2,
-p+h3, ul+h3, ol+h3, blockquote+h3
-p+h4, ul+h4, ol+h4, blockquote+h4 {
+p+h3, ul+h3, ol+h3, blockquote+h3,
+p+h4, ul+h4, ol+h4, blockquote+h4,
+p+.like-h2, ul+.like-h2, ol+.like-h2, blockquote+.like-h2,
+p+.like-h3, ul+.like-h3, ol+.like-h3, blockquote+.like-h3,
+p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
     @apply
         mt-4
         @xl:mt-6
@@ -172,8 +197,11 @@ p+h4, ul+h4, ol+h4, blockquote+h4 {
 */
 
 .\@container,
-*[data-zone="1"] {
-    & > *.html:last-child {
+*[data-bodytext] {
+    & > p:last-child,
+    & > ol:last-child,
+    & > ul:last-child,
+    & > blockquote:last-child {
         margin-bottom: 0 !important;
     }
 }
@@ -184,10 +212,13 @@ p+h4, ul+h4, ol+h4, blockquote+h4 {
     }
 }
 
-p.html {
+
+*[data-bodytext] p {
+
     /* base formatting */
     @apply
         font-body
+        text-theme
         !leading-snug
         mb-6
         @xl:mb-8
@@ -208,6 +239,7 @@ p.html {
 
     &.larger {
         @apply
+            text-theme-lead
             text-lg
             @md:text-xl
             @xl:text-2xl
@@ -223,7 +255,6 @@ p.html {
             @xl:text-lg
             @3xl:text-xl
             @5xl:text-2xl
-
             !mb-3
             @3xl:!mb-6
         ;
@@ -242,11 +273,13 @@ p.html {
  *
 */
 
-ol.html,
-ul.html {
+*[data-bodytext] ol,
+*[data-bodytext] ul {
+
     @apply
-        /* base formatting */
+    	/* base formatting */
         font-body
+    	text-theme
         !leading-tight
 
         /* container query based sizing */
@@ -307,7 +340,7 @@ ul.html {
             @apply
                 max-w-2xl
                 border-b
-                border-gray-500
+                border-theme-light
                 p-4
                 mx-auto
                 my-0
@@ -326,7 +359,8 @@ ul.html {
  *
 */
 
-blockquote.html {
+*[data-bodytext] blockquote {
+
     /* base formatting */
     @apply
         font-body
@@ -341,13 +375,10 @@ blockquote.html {
         @3xl:text-xl
         @5xl:text-2xl
 
-        ml-5
+        p-5
+		ml-5
         @xl:ml-10
         @3xl:ml-20
-
-        p-5
-        @xl:p-10
-        @3xl:p-20
     ;
 }
 
@@ -362,27 +393,36 @@ blockquote.html {
  */
 
 mark {
-    @apply inline-block relative bg-transparent;
-
-    span {
-        @apply relative z-10 text-gray-900;
-    }
-
-    &:before {
-        @apply content-[''] absolute -inset-y-0 -inset-x-1 z-0;
-    }
+    @apply
+        inline-block
+        relative
+        bg-transparent
+    ;
 
     &.m1 {
-        &:before {
-            @apply bg-hilite;
-        }
-    }
+    	&::before {
+      		@apply
+        		bg-theme-accent
+        		content-[""]
+                absolute
+                bottom-1
+                -translate-y-1/3
+                top-1/2
+                -inset-x-0.5
+                z-0
+            ;
+    	}
 
-    &.m2 {
-        &:before {
-            @apply bg-hilite-alt;
-        }
-    }
+		span {
+			@apply relative z-10;
+		}
+  	}
+
+  	&.m2 {
+    	span {
+      		@apply whitespace-nowrap text-theme;
+    	}
+  	}
 }
 
 
@@ -400,32 +440,17 @@ mark {
     @apply
         table
         font-black
-        text-theme-accent
+        text-theme-eyebrow
         uppercase
         font-body
         text-base
-        -translate-y-2
+        pb-3
     ;
-
-    strong {
-        display: none;
-    }
-
-    &.eyebrowKnockout {
-        @apply py-1.5 px-4 rounded-full bg-theme-foreground text-theme-background -translate-y-4;
-    }
 
     & + h2,
     & + h3,
     & + h4 {
         @apply mt-0;
-    }
-
-    &.eyebrowSmall {
-        @apply
-            text-sm
-            translate-y-1
-        ;
     }
 
 
@@ -436,21 +461,20 @@ mark {
             pt-16
         ;
 
-        min-width: 48px;
+        min-width: 64px;
 
-
-        &:before {
+        &::before {
             content: '';
             position: absolute;
             top: 0;
             right: 0;
             left: 0;
-            min-width: 48px;
-            height: 48px;
-            background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.209 3.103c-.495-1.004-1.926-1.004-2.421 0L8.43 7.88l-5.273.766c-1.107.161-1.55 1.522-.748 2.303l3.815 3.72-.9 5.25c-.19 1.103.968 1.944 1.959 1.424l4.715-2.48 4.716 2.48c.99.52 2.148-.32 1.96-1.424l-.902-5.25 3.816-3.72c.8-.78.359-2.142-.748-2.303l-5.273-.766-2.358-4.777ZM9.74 8.615l2.258-4.576 2.259 4.576a1.35 1.35 0 0 0 1.016.738l5.05.734-3.654 3.562a1.35 1.35 0 0 0-.388 1.195l.862 5.03-4.516-2.375a1.35 1.35 0 0 0-1.257 0l-4.516 2.374.862-5.029a1.35 1.35 0 0 0-.388-1.195l-3.654-3.562 5.05-.734c.44-.063.82-.34 1.016-.738ZM1.164 3.782a.75.75 0 0 0 .118 1.054l2.5 2a.75.75 0 1 0 .937-1.172l-2.5-2a.75.75 0 0 0-1.055.118Z' fill='%23212121'/%3E%3Cpath d='M22.836 18.218a.75.75 0 0 0-.117-1.054l-2.5-2a.75.75 0 0 0-.938 1.172l2.5 2a.75.75 0 0 0 1.055-.117ZM1.282 17.164a.75.75 0 1 0 .937 1.172l2.5-2a.75.75 0 0 0-.937-1.172l-2.5 2ZM22.836 3.782a.75.75 0 0 1-.117 1.054l-2.5 2a.75.75 0 0 1-.938-1.172l2.5-2a.75.75 0 0 1 1.055.118Z' fill='%23212121'/%3E%3C/svg%3E");
-            background-size: contain;
-            background-repeat: no-repeat;
+            min-width: 64px;
+            height: 64px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23ECA520' d='M13.21 3.1c-.5-1-1.93-1-2.42 0L8.43 7.88l-5.27.77a1.35 1.35 0 0 0-.75 2.3l3.82 3.72-.9 5.25a1.35 1.35 0 0 0 1.95 1.42L12 18.86l4.72 2.48c.99.52 2.14-.32 1.96-1.42l-.9-5.25 3.81-3.72c.8-.78.36-2.14-.75-2.3l-5.27-.77-2.36-4.78Zm-12.05.68a.75.75 0 0 0 .12 1.06l2.5 2a.75.75 0 1 0 .94-1.18l-2.5-2a.75.75 0 0 0-1.06.12Z'/%3E%3Cpath fill='%23ECA520' d='M22.84 18.22a.75.75 0 0 0-.12-1.06l-2.5-2a.75.75 0 0 0-.94 1.18l2.5 2a.75.75 0 0 0 1.06-.12ZM1.28 17.16a.75.75 0 1 0 .94 1.18l2.5-2a.75.75 0 0 0-.94-1.18l-2.5 2ZM22.84 3.78a.75.75 0 0 1-.12 1.06l-2.5 2a.75.75 0 0 1-.94-1.18l2.5-2a.75.75 0 0 1 1.06.12Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat no-repeat;
             background-position: center center;
+            background-size: cover;
 
             .theme-dark & {
                 background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.209 3.103c-.495-1.004-1.926-1.004-2.421 0L8.43 7.88l-5.273.766c-1.107.161-1.55 1.522-.748 2.303l3.815 3.72-.9 5.25c-.19 1.103.968 1.944 1.959 1.424l4.715-2.48 4.716 2.48c.99.52 2.148-.32 1.96-1.424l-.902-5.25 3.816-3.72c.8-.78.359-2.142-.748-2.303l-5.273-.766-2.358-4.777ZM9.74 8.615l2.258-4.576 2.259 4.576a1.35 1.35 0 0 0 1.016.738l5.05.734-3.654 3.562a1.35 1.35 0 0 0-.388 1.195l.862 5.03-4.516-2.375a1.35 1.35 0 0 0-1.257 0l-4.516 2.374.862-5.029a1.35 1.35 0 0 0-.388-1.195l-3.654-3.562 5.05-.734c.44-.063.82-.34 1.016-.738ZM1.164 3.782a.75.75 0 0 0 .118 1.054l2.5 2a.75.75 0 1 0 .937-1.172l-2.5-2a.75.75 0 0 0-1.055.118Z' fill='%23ffffff'/%3E%3Cpath d='M22.836 18.218a.75.75 0 0 0-.117-1.054l-2.5-2a.75.75 0 0 0-.938 1.172l2.5 2a.75.75 0 0 0 1.055-.117ZM1.282 17.164a.75.75 0 1 0 .937 1.172l2.5-2a.75.75 0 0 0-.937-1.172l-2.5 2ZM22.836 3.782a.75.75 0 0 1-.117 1.054l-2.5 2a.75.75 0 0 1-.938-1.172l2.5-2a.75.75 0 0 1 1.055.118Z' fill='%23ffffff'/%3E%3C/svg%3E");
@@ -475,53 +499,61 @@ p[data-has-buttons] {
 
 .button {
     @apply
-        bg-shade
-        border-shade
-        text-shade-light
-        hover:bg-shade-dark
-        text-base
-        border-2
-        rounded-md
-        !m-0
-        p-4
-        px-6
-        inline-block
-        whitespace-nowrap
-        no-underline
-        !leading-none
-    ;
+      bg-button-base
+      border-button-border
+      text-button
+      hover:bg-button-active-base
+      hover:border-button-active-border
+      hover:text-button-active
+      text-sm
+      border-2
+      rounded-md
+      !m-0
+      p-4
+      px-6
+      inline-block
+      whitespace-nowrap
+      uppercase
+      no-underline
+      font-semibold
+      !leading-none
+      transition
+  ;
 }
 
-
 .buttonSmall {
-    @apply
-        bg-shade
-        border-shade
-        text-shade-light
-        hover:bg-shade-dark
-        text-sm
-        border-2
-        rounded-full
-        !m-0
-        p-2
-        px-4
-        inline-block
-        whitespace-nowrap
-        no-underline
-        !leading-none
-    ;
+@apply
+      bg-button-base
+      border-button-border
+      text-button
+      hover:bg-button-active-base
+      hover:border-button-active-border
+      hover:text-button-active
+      text-sm
+      border-2
+      !m-0
+      p-2
+      px-4
+      inline-block
+      whitespace-nowrap
+      no-underline
+      !leading-none
+  ;
 }
 
 
 .buttonText {
     @apply
-        text-gray-500
-        text-base
-        underline
-        underline-offset-4
         p-4
+        text-base
+        text-theme
+        underline
+        underline-offset-2
+        decoration-theme-accent
 
-        hover:no-underline
+        hover:underline-offset-4
+        hover:text-theme-accent
+        hover:decoration-theme-accent
     ;
 
     &:first-child {
@@ -529,12 +561,13 @@ p[data-has-buttons] {
     }
 
     br {
-        display: none;
+        display: none !important;
     }
 
-    &:after {
+    &::after {
         @apply transition;
-        content: ' ›';
+
+        content: " ›";
         right: -12px;
         top: 50%;
         transform: translateY(-50%);
@@ -542,21 +575,18 @@ p[data-has-buttons] {
     }
 
     &:hover {
-        @apply text-theme-accent;
-
-        &:after {
-            @apply translate-x-0.5;
+        &::after {
+        @apply translate-x-0.5;
         }
     }
 }
 
-
 a.clickCover,
 button.clickCover {
-    &:before {
+    &::before {
         @apply
             absolute
-            content-['']
+            content-[""]
             inset-0
             z-20
         ;
@@ -583,18 +613,18 @@ a.pill {
         py-2
         rounded-full
         border
-        transition-transform
-        bg-theme-backgroundOff
-        text-theme-foreground
+        border-button-border
+        bg-button-base
+        text-button
+        hover:text-button-active
+        hover:bg-button-active-base
     ;
 
-    &:not(.isActive) {
-        @apply
-            hover:scale-110
-        ;
-    }
-
     &.isActive {
-        @apply bg-theme-accent text-white cursor-default;
+        @apply
+            text-button-active
+            bg-button-active-base
+            cursor-default
+        ;
     }
 }

@@ -1,0 +1,150 @@
+{% set entry = { title: 'Typography Test' } %}
+
+{% extends "sitehub/_core/base" %}
+
+{% block page_main %}
+
+    {% from "_layout/core/containers" import definitions as containerDefs %}
+    {% from "_layout/core/containers" import class as containerClass %}
+    {% set containers = ( containerDefs() | json_decode ).options %}
+
+    {% set themes = source( '_site/config/theme.content.json' ) | json_decode %}
+
+    <div data-theme="dark">
+        <div class="container py-16 @container">
+            <h2>Settings</h2>
+            <form>
+                {% set useContainer = craft.app.request.getQueryParam('container')|default('container') %}
+                <div>
+                    <label>Container</label>
+                    <select name="container">
+                        {% for container in containers | keys %}
+                            <option {{ useContainer == container ? 'selected' }}>{{ container }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {% set useTheme = craft.app.request.getQueryParam('theme')|default('transparent') %}
+                <div>
+                    <label>Theme</label>
+                    <select name="theme">
+                        {% for theme in themes %}
+                            <option {{ useTheme == theme.value ? 'selected' }} value="{{theme.value}}">{{ theme.label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="mt-8">
+                    <button class="buttonSmall">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div data-theme="{{ useTheme }}" class="py-16">
+
+        <div class="{{ containerClass( useContainer ) }}">
+            <h1>This is an H1 Heading</h1>
+
+            <h2>This is an H2 Heading</h2>
+
+            <h3>This is an H3 Heading</h3>
+
+            <h4>This is an H4 Heading</h4>
+
+            <p class="html">Normal paragraph text with <strong>strong</strong> and <em>emphasized</em> text. Also, some <mark class="m1"><span>highlighted</span></mark> words. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Parvi enim primo ortu sic iacent, tamquam omnino sine animo sint. Hoc sic expositum dissimile est superiori. Bork Bork </p>
+
+            <p class="html larger">Larger paragraph text with <a href="#">a link</a>. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+            <p class="html smaller">Smaller paragraph text with <strong>strong</strong>, <em>emphasized</em>, and <mark class="m1"><span>highlighted</span></mark> text. Also, a <a href="#">link</a>.</p>
+
+            <blockquote class="html">Blockquote officium, aequitatem, dignitatem, fidem, recta, honesta, digna imperio, digna populo Romano, omnia pericula pro re publica, mori pro patria, haec cum loqueris, nos barones stupemus, tu videlicet tecum ipse rides. </blockquote>
+
+            <ul class="html">
+                <li>Unordered List Item 1 Quid autem habent admirationis, cum prope accesseris?</li>
+                <li>Unordered List Item 2 Mihi enim satis est, ipsis non satis.</li>
+                <li>Unordered List Item 3 Putabam equidem satis, inquit, me dixisse Semovenda est igitur voluptas, non solum ut recta sequamini, sed etiam ut loqui deceat frugaliter.</li>
+            </ul>
+
+            <ul class="html checkList">
+                <li>Checklist Item 1</li>
+                <li>Checklist Item 2</li>
+                <li>Checklist Item 3</li>
+            </ul>
+
+            <ol class="html">
+                <li>Ordered List Item 1</li>
+                <li>Ordered List Item 2</li>
+                <li>Ordered List Item 3</li>
+            </ol>
+
+            <ul class="html columnList">
+                <li>Column List Item 1</li>
+                <li>Column List Item 2</li>
+                <li>Column List Item 3</li>
+                <li>Column List Item 4</li>
+            </ul>
+
+            <ul class="html rowList">
+                <li>Row List Item 1</li>
+                <li>Row List Item 2</li>
+                <li>Row List Item 3</li>
+                <li>Row List Item 4</li>
+            </ul>
+
+            <form class="flex flex-col gap-4">
+                <div class="">
+                    <label for="textInput">Text Input:</label>
+                    <input type="text" id="textInput" name="textInput" placeholder="Placeholder Text">
+                </div>
+
+                <div class="">
+                    <label for="textInput">Text Input:</label>
+                    <input type="text" id="textInput" name="textInput" value="Text Input">
+                </div>
+
+                <div class="">
+                    <label for="radioInput">Radio Input:</label>
+                    <input type="radio" id="radioInput" name="radioInput">
+                </div>
+
+                <div class="">
+                    <label for="checkboxInput">Checkbox Input:</label>
+                    <input type="checkbox" id="checkboxInput" name="checkboxInput">
+                </div>
+
+                <div class="">
+                    <label for="textareaInput">Textarea:</label>
+                    <textarea id="textareaInput" name="textareaInput"></textarea>
+                </div>
+
+                <div class="">
+                    <label for="selectInput">Select:</label>
+                    <select id="selectInput" name="selectInput">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                    </select>
+                </div>
+
+                <p class="html !mb-0">
+                    <a href="#" class="button">Button</a>
+                </p>
+
+                <p class="html !mb-0">
+                    <button class="buttonSmall">Small Button</button>
+                </p>
+
+                <p class="html !mb-0">
+                    <a href="#" class="buttonText">Text Button</a>
+                </p>
+
+                <p class="html !mb-0" data-has-buttons>
+                    <a href="#" class="button">Button</a>
+                    <a href="#" class="buttonText">Text Button</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

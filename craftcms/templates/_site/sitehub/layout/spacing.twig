@@ -1,0 +1,109 @@
+{% extends "sitehub/_core/base" %}
+
+{% import "_site/atoms/spacers" as spacing %}
+
+{% block main__content %}
+
+    <div data-theme="shade">
+        <div class="container @container py-16">
+            <h1>Interspace & Spacers</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
+                <div class="@container w-full">
+                    <p class="html larger"></p>
+
+                    <p>Spacers are used around and between each block in a builder to provide a consistent gaps and transitions between content elements.</p>
+
+                    <strong class="mt-8 block">Usage:</strong>
+                    <code class="bg-theme-contrast-light p-4 block text-xs font-mono leading-6">
+                        {% verbatim %}{{ block( 'interspace__base', '_site/atoms/spacers' )}}{% endverbatim %}
+                    </code>
+                </div>
+
+                <div class="w-full h-full @container bg-theme-contrast-light" data-theme="dark">
+                    <div class="bg-theme-contrast-light p-3">Spacers are defined as JSON: <strong class="text-theme-accent whitespace-nowrap">_site/atoms/spacers.twig</strong></div>
+                    <div class="h-full w-full p-5 max-h-[400px] overflow-scroll">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% set spacerOpts = {
+        base: {
+            label: 'Base Gap',
+            theme: 'standard',
+            next:  'dark',
+            between: false,
+        },
+
+        brush1: {
+            label: 'Brush 1',
+            theme: 'standard',
+            next:  'dark',
+            between: true
+        },
+
+        brush2: {
+            label: 'Brush 2',
+            theme: 'standard',
+            next:  'dark',
+            between: true
+        },
+
+        sm: {
+            label: 'Small Gap',
+            theme: 'standard',
+            next:  'dark',
+            between: false,
+        },
+
+        lg: {
+            label: 'Large Gap',
+            theme: 'standard',
+            next:  'dark',
+            between: false,
+        },
+
+        xl: {
+            label: 'Extra Large Gap',
+            theme: 'standard',
+            next:  'dark',
+            between: false,
+        },
+    } %}
+
+
+        {% for spacer in spacerOpts | keys %}
+            {% set block = {
+                settings: { theme: spacerOpts[spacer].next  },
+                next:     { theme: spacerOpts[spacer].next  },
+                prev:     { theme: spacerOpts[spacer].theme },
+            } %}
+
+            <div class="@container container">
+                <h2 class="text-center my-10">{{ spacerOpts[spacer].label }}</h2>
+            </div>
+
+            {% if spacerOpts[spacer].between ??? null %}
+                <div data-theme="{{block.prev.theme}}">
+                    {{ block( "interspace__base", "_site/atoms/spacers" ) }}
+                </div>
+                {{ block( "interspace__#{spacer}", "_site/atoms/spacers" ) }}
+                <div data-theme="{{block.next.theme}}">
+                    {{ block( "interspace__base", "_site/atoms/spacers" ) }}
+                </div>
+            {% else %}
+                <div data-theme="{{block.prev.theme}}">
+                    {{ block( "interspace__#{spacer}", "_site/atoms/spacers" ) }}
+                </div>
+                <div data-theme="{{block.next.theme}}">
+                    {{ block( "interspace__#{spacer}", "_site/atoms/spacers" ) }}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <br><br>
+    </div>
+
+{% endblock %}
