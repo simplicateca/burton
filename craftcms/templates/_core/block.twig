@@ -1,0 +1,226 @@
+{## Matrix Block & Builder Macros
+ ------------------------------------------------------------------------------------ ##
+    This file mostly contains macros for assembling matrix blocks and builders.
+
+    It *can* be inherited as a base block, but ideally only as a last resort fallback.
+
+    A more robust block base should be created in `_site/base/block`, which all default
+    blocks already look for in their inheritence chain before falling back to this file.
+ ------------------------------------------------------------------------------------ ##}
+{% extends template_from_string("{% block block %}{% endblock %}") %}
+{% block block _self.brick( block ??? null ) %}
+{% block block__text block.text ??? null %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Macro: blockOrBuilder
+ ------------------------------------------------------------------------------------ ##
+    Parameters:
+    - content: The static content to be displayed if not empty.
+    - builder: The builder to be used if 'content' is empty.
+    - entry: The entry object, if provided.
+    - settings: Additional settings for customization, such as container and spacer.
+
+    Description:
+    This macro is used to output a named twig {% block %} from the calling template
+    with proper interspace around it. In the absence of html from a {% block %}, it
+    will attempt to render the desired builder from the provided entry.
+
+    Also allows for customization of additional block settings.
+
+    Example Usage:
+    {% set settings = { container: "fluid", spacer: "base" } %}
+    {{ blockOrBuilder( block('content'), 'content', entry, settings ) }}
+
+    In the above case, if {% block content %} is empty on the calling template, the
+    macro will attempt to build the `contentBuilder` matrix field on `entry`.
+ ------------------------------------------------------------------------------------ ##}
+{% macro blockOrBuilder( html = "", builder = "content", entry = null, settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% if builder == 'content' %}
+        {% set settings = { container: "fluid", spacer: "base" } | merge( settings ) %}
+    {% endif %}
+
+    {% if builder == 'header' %}
+        {% set settings = { container: "fluid", spacer: false } | merge( settings ) %}
+    {% endif %}
+
+    {% if builder == 'sidebar' %}
+        {% set settings = { container: "sidebar", spacer: "sm" } | merge( settings ) %}
+    {% endif %}
+
+    {% if html | trim %}
+        {% set spacer = assemble.spacer( settings.spacer ) %}
+        {{ assemble.container( settings.container, "#{spacer}#{html}#{spacer}" | raw ) }}
+    {% else %}
+        {% if builder == 'content' %}
+            {{ _self.assembleBlocks( entry.contentBuilder.all() ??? null, 'content', settings )}}
+        {% endif %}
+
+        {% if builder == 'header' %}
+            {{ _self.assembleBlocks( entry.headerBuilder.all() ??? null, 'header', settings )}}
+        {% endif %}
+
+        {% if builder == 'sidebar' %}
+            {{ _self.assembleBlocks( entry.sidebarBuilder.all() ??? null, 'sidebar', settings )}}
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+
+{## This macro is only used as part of the fallback template above and doesn't create
+    properly inheritable and overloadable blocks ##}
+{% macro brick( block ) %}
+    {% import "_core/assemble" as assemble %}
+    {{ assemble.spacer( block.settings.betweenBefore ??? false ) }}
+    {{ _self.openTheme( block.settings, true ) }}
+    {{ _self.openBlock( block.settings ) }}
+    {{ _self.closeBlock( block.settings ) }}
+    {{ _self.closeTheme( block.settings, true ) }}
+    {{ assemble.spacer( block.settings.betweenAfter ??? false ) }}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+{## Opens a theme wrapper inside a block (or anywhere else really) ##}
+{## --------------------------------------------------------------------------------- ##}
+{% macro openTheme( settings = {}, autoSpace = false ) -%}
+    {% import "_core/assemble" as assemble %}
+    {% set settings = {
+        theme   : "base",
+        class   : settings.themeClass ?? "relative",
+        tag     : settings.themeTag   ?? "div",
+        block   : settings.blockType  ?? "unknown",
+        viewport: true,
+        uuid    : null,
+        next    : ( settings.themeNext ??? null )
+                    ? { theme: settings.themeNext }
+                    : settings.next ??? null,
+        prev    : ( settings.themePrev ??? null )
+                    ? { theme: settings.themePrev }
+                    : settings.prev ??? null,
+    } | merge( settings ) %}
+
+    {## We only open the theme tag if it's different from the previous block ##}
+    {%- if settings.prev.theme ??? null != settings.theme -%}
+        <{{settings.tag}} {{attr({
+            class: settings.class,
+            data : settings | withoutKey(['class', 'tag'])
+        })}}>
+    {%- endif -%}
+
+    {## BUT we need to add a spacer regardless as it creates a buffer between theme
+        edge and its content, but also between consecutive blocks of the same theme.
+     -------------------------------------------------------------------------------- ##}
+    {{ assemble.spacer( settings.interspaceAbove ?? autoSpace ) }}
+{% endmacro %}
+
+
+{% macro closeTheme( settings = {}, autoSpace = false ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set settings = {
+        tag      : settings.themeTag ?? "div",
+        theme    : "base",
+        themeNext: null,
+    } | merge( settings ) %}
+
+    {## We only close the theme tag if it's different from the next block, and
+        unlink openTheme(), we only add a spacer if we're closing the theme
+     -------------------------------------------------------------------------------- ##}
+    {%- if settings.themeNext != settings.theme -%}
+        {{ assemble.spacer( settings.interspaceBelow ?? autoSpace ) }}
+        </{{settings.tag}}>
+    {%- endif -%}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Block Related Macros ##}
+{## --------------------------------------------------------------------------------- ##}
+{% macro assembleBlocks( blocks, builder, settings ) -%}
+
+    {% set settings = {
+        container: "none"
+    } | merge( settings ) %}
+
+    {% set blocks = ( blocks[0].settings.normalized ??? false ) ? blocks : normalizeBlocks( blocks, builder, settings ) %}
+
+    {% set path = [
+        "_site/content/%section%/_%builder%/block.%blockType%.%entryType%.%layout%",
+        "_site/content/%section%/_%builder%/block.%blockType%.%entryType%.%variant%",
+        "_site/content/%section%/_%builder%/block.%blockType%.%entryType%",
+        "_site/content/%section%/_%builder%/block.%blockType%.%layout%",
+        "_site/content/%section%/_%builder%/block.%blockType%.%variant%",
+        "_site/content/%section%/_%builder%/block.%blockType%",
+        "_site/content/%section%/block.%blockType%.%entryType%.%layout%",
+        "_site/content/%section%/block.%blockType%.%entryType%.%variant%",
+        "_site/content/%section%/block.%blockType%.%entryType%",
+        "_site/content/%section%/block.%blockType%.%layout%",
+        "_site/content/%section%/block.%blockType%.%variant%",
+        "_site/content/%section%/block.%blockType%",
+        "_site/content/_%builder%/%blockType%.%entryType%.%layout%",
+        "_site/content/_%builder%/%blockType%.%entryType%.%variant%",
+        "_site/content/_%builder%/%blockType%.%entryType%",
+        "_site/content/_%builder%/%blockType%.%layout%",
+        "_site/content/_%builder%/%blockType%.%variant%",
+        "_site/content/_%builder%/%blockType%",
+        "_site/content/block.%blockType%.%entryType%.%layout%",
+        "_site/content/block.%blockType%.%entryType%.%variant%",
+        "_site/content/block.%blockType%.%entryType%",
+        "_site/content/block.%blockType%.%layout%",
+        "_site/content/block.%blockType%.%variant%",
+        "_site/content/block.%blockType%",
+        "_site/base/block",
+        "_core/block.%blockType%",
+    ] %}
+
+    {% for block in blocks %}
+        {{ include( path | map( p => p|replace({
+            '%section%'  : block.settings.section   ??? null,
+            '%builder%'  : block.settings.builder   ??? null,
+            '%blockType%': block.settings.blockType ??? null,
+            '%entryType%': block.settings.entryType ??? null,
+            '%variant%'  : block.settings.variant   ??? null,
+        }) ), { block: block }, withContext = false ) }}
+    {% endfor %}
+{% endmacro %}
+
+
+{% macro openBlock( settings = {} ) -%}
+    {% set settings = {
+        viewport: true,
+        class   : settings.blockClass ?? "w-full relative z-20",
+        tag     : settings.blockTag   ?? "section",
+        block   : settings.blockType  ?? "unknown",
+        uuid    : null,
+    } | merge( settings ) %}
+
+    <{{settings.tag}} {{attr({
+        class: settings.class,
+        data : settings | withoutKey(['class', 'tag'])
+    })}}>
+{%- endmacro %}
+
+{% macro closeBlock( settings = {} ) -%}</{{settings.tag ?? settings.blockTag ?? "section"}}>{%- endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Modular Content (Fragments & Bits) ##}
+{## --------------------------------------------------------------------------------- ##}
+{% macro fragment( query = null, builder = 'content', settings = {} ) %}
+    {%- if query.id ??? query.slug ??? query.preset ??? null -%}
+        {% set fragment = craft.entries({section:"modular"}|merge( query )).one() ??? null %}
+        {% if fragment %}
+            {{ _self.blockOrBuilder( null, builder, fragment, settings ) }}
+        {% endif %}
+    {%- endif -%}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}

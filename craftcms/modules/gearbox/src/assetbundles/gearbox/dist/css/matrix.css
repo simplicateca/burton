@@ -258,7 +258,7 @@
     max-width: 720px;
 }
 
-.fieldTemplate__contentChunks,
+.fieldTemplate__pageExtras,
 .fieldTemplate__sidebarBuilder,
 .fieldTemplate__headerBuilder {
     padding-top: 1.5rem;

@@ -1,0 +1,68 @@
+{% extends "_site/layout.base" %}
+
+{## Two Column Base Layout
+ ------------------------------------------------------------------------------------- ##
+    Inherits everything from `_site/layout.base` with the following changes:
+
+    - Content Column (Wide)
+        - Overload {% block content "" %} if using as a base template for static routes.
+        - Automatically adds a spacer before and after the content block.
+        - Otherwise, renders `entry.contentBuilder` matrix builder (if present)
+
+    - Sidebar Aside (Narrow)
+        - Overload {% block sidebar "" %} if using as a base template for static routes.
+        - Automatically adds a spacer before and after the sidebar block.
+        - Otherwise, renders `entry.sidebarBuilder` matrix builder (if present)
+
+    - Slim Footer
+        - Branding & About
+        - Legal Navigation
+ ------------------------------------------------------------------------------------- ##}
+{% block content "" %}
+{% block sidebar "" %}
+
+{% import "_core/assemble" as assemble %}
+{% block main__content %}{{ _self.twoColumns(
+    assemble.blockOrBuilder( block('content'), 'content', entry ),
+    assemble.blockOrBuilder( block('sidebar'), 'sidebar', entry )
+) }}{% endblock %}
+
+{% block page__bottom %}
+    {{ block( 'footer__slim', '_site/footer' ) }}
+{% endblock %}
+
+
+{% macro twoColumns( main = null, aside = null, settings = {} ) %}
+    {% set settings = {
+        outer: 'flex flex-col lg:flex-row gap-10 2xl:gap-28',
+        main : 'min-h-[30vh] grow @container',
+        aside: 'w-full lg:max-w-sm @container'
+    } | merge(settings) %}
+
+    {% import "_core/assemble" as assemble %}
+
+    {{ assemble.container(
+        container,
+        tag( 'div', {
+            class: defs.outer,
+            html:  tag( 'main',  { html: main,  class: defs.main  } )
+                 ~ tag( 'aside', { html: aside, class: defs.aside } )
+        })
+    ) }}
+{% endmacro %}
+
+
+{## content + sidebar builder ##}
+{% block twoColumns %}
+
+    {% from "_layout/core/markup"   import twoColumns as twoColumnLayout %}
+    {% from "_blocks/core/builders" import content as buildContent,
+                                           sidebar as buildSidebar %}
+    {{ twoColumnLayout(
+          buildContent( entry.contentBuilder.all() ??? null, 'innerColumn' ),
+          buildSidebar( entry.sidebarBuilder.all() ??? null ),
+          'fluidContainer'
+    ) }}
+
+    {{ block( 'mainTagClose' ) }}
+{% endblock %}

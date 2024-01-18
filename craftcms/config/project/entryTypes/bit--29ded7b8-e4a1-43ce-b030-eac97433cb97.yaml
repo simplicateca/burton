@@ -126,6 +126,9 @@ handle: bit
 hasTitleField: true
 name: 'Reusable Bits'
 section: a52e2b08-2e30-4b00-8784-4104c409d3ed # Modular Content
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 3
 titleFormat: null
 titleTranslationKeyFormat: null

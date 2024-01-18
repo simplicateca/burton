@@ -1,0 +1,212 @@
+{% extends template_from_string("{% block card %}{% endblock %}") %}
+{% block card__template _self %}
+
+{## Primary Card Block
+ ------------------------------------------------------------------------------------- ##
+    This is the primary block for the card template. It is responsible for rendering
+    the card's primary content, including the image, headline, text, and action.
+    It also handles the card's layout and wrapping.
+ ------------------------------------------------------------------------------------- ##}
+{% block card -%}
+    {% block card__open _self.openCard( card.settings | merge({ cardTemplate: block('template') }) ) %}
+
+    {% block content %}
+        {{ block( 'card__image'    ) }}
+        {{ block( 'card__headline' ) }}
+        {{ block( 'card__text'     ) }}
+        {{ block( 'card__action'   ) }}
+    {% endblock %}
+    {% block card__close _self.closeCard( card.settings ) %}
+{%- endblock %}
+
+
+{## Card Rendering Macros
+ ------------------------------------------------------------------------------------ ##
+
+    Maintains path and inheritence consistency when generating content cards.
+
+ ## Render a Single Card
+ ------------------------------------------------------------------------------------ ##
+    {% from "_cards/base" import render as renderCard %}
+    {{ renderCard( item, 'summary', { additional: 'settings' } ) }}
+ ------------------------------------------------------------------------------------ ##}
+    {## Content specific cards can override and/or inject content into any part of
+        the requested card layout. Default path: `_content/<sectionHandle>/card.twig`
+
+        Variations for different entryTypes can generally be dealt with inside the
+        section-level card file. If separate entryType specific card overrides are
+        necessary, the card path below can be adjusted to something like:
+
+        {% set cardPath = [
+            "_content/#{section}/card.#{entryType}",
+            "_content/#{section}/card",
+        ] %}
+
+        Content specific override cards are passed the desired card layout as a variable
+        called `extends` which they should use to dynamically extend themselves from.
+     -------------------------------------------------------------------------------- ##}
+
+
+{% macro single( item = null, layout = null, settings = null, loop = null, onlyBlock = null ) %}
+{%- if item -%}
+
+    {% set card = {
+        item    : item,
+        settings: settings            ??? item.settings    ??? null,
+        headline: item.headline       ??? item.title       ??? null,
+        summary : item.dek            ??? item.summary     ??? item.text ??? null,
+        images  : item.images.all()   ??? item.images      ??? null,
+        section : item.section.handle ??? item.section     ??? null,
+        type    : item.kind           ??? item.type.handle ??? item.type ??? null,
+        loop    : loop,
+    } %}
+
+    {% if card.item.id|default() and not card.section %}
+        {% set section = 'ASSET'      in className( item ) | upper ? 'assets' %}
+        {% set section = 'SUPERTABLE' in className( item ) | upper ? 'bits'   %}
+
+        {% set card = card|merge({ section: section }) %}
+    {% endif %}
+
+    {{ include( [
+        "_site/content/#{card.section}/card.#{card.type}.#{layout}",
+        "_site/content/#{card.section}/card.#{card.type}",
+        "_site/content/#{card.section}/card.#{layout}",
+        "_site/content/#{card.section}/card",
+        "_site/content/card.#{layout}",
+        "_site/base/card",
+        "_core/card"
+    ], { card: card }, withContext = false ) }}
+
+    {% if onlyBlock %}
+        {% embed path with {
+            card: card,
+            path: path,
+            only: onlyBlock,
+        } only %}
+            {% block card %}{{ block( only ) }}{% endblock %}
+        {% endembed %}
+    {% else %}
+        {% embed path with {
+            card: card,
+            path: path,
+        } only %}
+
+        {% endembed %}
+    {% endif %}
+
+{% endif %}{% endmacro %}
+
+
+
+{## Render Multiple Cards
+ ------------------------------------------------------------------------------------ ##
+    {% from "_cards/base" import render as renderDeck %}
+    {{ renderDeck( item, 'summary', { additional: 'settings' } ) }}
+ ------------------------------------------------------------------------------------ ##}
+{% macro multiple( collection, layout, settings ) %}
+    {% for item in collection %}
+        {{ _self.single( item, layout, settings, loop ) }}
+    {% endfor %}
+{% endmacro %}
+
+
+
+{## Card Title Shortcut
+ ------------------------------------------------------------------------------------ ##
+    Card Titles are typically used for things like tab names or accordion headers.
+
+    {% from "_cards/base" import title as cardTitle %}
+    {{ cardTitle( item, 'summary', { additional: 'settings' } ) }}
+ ------------------------------------------------------------------------------------ ##}
+{% macro title( item ) -%}
+    {{ item.headline ??? item.title ??? null
+        | retconRemove( [ 'img', 'figure', 'iframe' ] )
+        | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ol', 'ul', 'li', 'blockquote', 'div', 'a' ], '' )
+        | trim
+    }}
+{%- endmacro %}
+
+
+
+
+
+{## Text Link
+ ------------------------------------------------------------------------------------ ##
+    Like the Default Action, but uses a visible text-based (non-button) link
+ ------------------------------------------------------------------------------------ ##}
+{% block action_default %}
+    {%- if card.item.url|default() -%}
+        <a href="{{card.item.url}}" class="clickCover"
+            ><span class="hidden">Read More →</span></a>
+    {%- endif -%}
+{% endblock %}
+
+{% block action_textlink %}
+    {%- if card.item.url|default() -%}
+        <div class="flex">
+            <a href="{{card.item.url}}" class="clickCover buttonText"
+                >Read More</a>
+        </div>
+    {%- endif -%}
+{% endblock %}
+
+
+
+{## Modal Content (Basic)
+ ------------------------------------------------------------------------------------ ##
+    Creates a modal window that will load on-click to display extended card info.
+ ------------------------------------------------------------------------------------ ##}
+{% block action_modal -%}
+
+    {% embed modalLayout ??? settings.modalLayout ??? "_core/modal/base" with {
+        item  : card.item ??? card ??? null,
+        layout: modalCard ??? settings.modalCard ??? [ "modal", "detail" ],
+    } %}
+        {% block content %}
+            {% from "_cards/base" import render as renderCard %}
+            {{ renderCard( item, layout, settings ) }}
+        {% endblock %}
+    {% endembed %}
+
+{%- endblock %}
+
+
+
+
+
+
+{% block summary_default -%}
+    {% import "_layout/core/markup" as markup %}
+    {{ markup.summaryMaxH4( card.summary ??? null ) }}
+{%- endblock %}
+
+
+
+{## Truncated Summary
+ ------------------------------------------------------------------------------------ ##
+    Same formatting as a Full Summary, but line-clamped to limit length
+ ------------------------------------------------------------------------------------ ##}
+{% block summary_truncated -%}
+    <div class="line-clamp-3">
+        {% import "_layout/core/markup" as markup %}
+        {{ markup.summaryMaxH4( card.summary ??? null ) }}
+    </div>
+{%- endblock %}
+
+
+
+{## Overflow Summary
+ ------------------------------------------------------------------------------------ ##
+ ------------------------------------------------------------------------------------ ##}
+{% block summary_overflow -%}
+    <div class="overflow-y-scroll max-h-[50vh] @container">
+        {% import "_layout/core/markup" as markup %}
+        {{ markup.summaryMaxH4(
+            card.summary|default()
+                | retconAttr( 'p,ul,ol', { class: "html" }, false )
+                | retconAttr( 'ul,ol',   { class: "pl-8" }, false )
+            )
+        }}
+    </div>
+{%- endblock %}

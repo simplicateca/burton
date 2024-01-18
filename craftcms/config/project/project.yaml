@@ -1,4 +1,4 @@
-dateModified: 1704757024
+dateModified: 1705604328
 elementSources:
   craft\elements\Entry:
     -
@@ -186,6 +186,7 @@ meta:
     1da13089-e303-46d0-930f-aefd062df474: 'Standard w/ Sidebar' # Standard w/ Sidebar
     1ddd814c-a3f1-4689-bb67-33d04ad8307a: Headline # Headline
     1e247634-9eec-49af-b31d-19e6888dbc95: Headline # Headline
+    2b05c141-a297-4820-ac7d-81e736dbf84b: Collections # Collections
     2b179173-573d-47e7-8ec4-cc9a091b68a0: 'Primary Headline' # Primary Headline
     2c73aaff-d9e2-4142-94e8-2ce27f32e7bd: 'Craft CMS' # Craft CMS
     2d5bb889-39ec-4fa2-a335-4da112f02883: URL # URL
@@ -273,6 +274,7 @@ meta:
     90ac0f32-4e6f-4b9e-af75-82b27267e15e: Theme # Theme
     93f90adb-ea61-4a42-9c1b-8e8cd9cd401a: 'Inline Content Items' # Inline Content Items
     116b2d60-dfda-45af-91ba-a4d2af3e89ca: Theme # Theme
+    139c9eb6-21c3-4f46-8093-bee95aa483a6: Static # Static
     178db8f8-8bb2-4400-add2-6a5817532c73: Interspace # Interspace
     213c9175-81d2-4141-8993-904e59925583: Collection # Collection
     295fe400-600f-4a2a-9cd8-3f2c174e08b3: 'Protected Elements' # Protected Elements
@@ -421,6 +423,7 @@ meta:
     e125d51d-b35a-4313-8094-b235218d58d2: Member # Member
     e278d4be-81b4-4575-b43f-75291ca49ada: Alternate # Alternate
     e511df66-41ea-4d8f-bfa5-538fec0fc45f: 'Site Owner' # Site Owner
+    e538acd8-e040-48f9-a491-910ad88f9a08: Dynamic # Dynamic
     e984e441-f7d6-49ce-8f1d-6131ddb57480: Form # Form
     e77036ce-5f69-4250-aec4-76f98b0cd9f1: 'Primary Headline' # Primary Headline
     e509399b-03f5-43c0-98b1-23b9d3a0f27b: Code # Code
@@ -457,7 +460,7 @@ plugins:
   blitz:
     edition: standard
     enabled: false
-    licenseKey: SWD1UYGMPZP04JF40EF4H2WJ
+    licenseKey: R20PJ9IRD5QI9PGLDKLO2BJJ
     schemaVersion: 4.5.0
   dospaces:
     edition: standard
@@ -482,7 +485,7 @@ plugins:
   formie:
     edition: standard
     enabled: true
-    licenseKey: 6DYR1QHYMNO6V0QBQRQXMJXK
+    licenseKey: W6U52IPFQJVACJTHTR88L624
     schemaVersion: 2.0.11
   knock-knock:
     edition: standard
@@ -491,7 +494,7 @@ plugins:
   matrix-field-preview:
     edition: standard
     enabled: true
-    licenseKey: KO34R9E0EIIGN98KUKKKBO1G
+    licenseKey: GJQS3D3NE7D1748RYRV06L2A
     schemaVersion: 3.0.3
   matrixmate:
     edition: standard
@@ -504,7 +507,7 @@ plugins:
   navigation:
     edition: standard
     enabled: true
-    licenseKey: N7MZHA9IISQOWJ62F1CGOKV4
+    licenseKey: PJS0VY119GKZ2HSJCMJXDUXM
     schemaVersion: 2.0.7
   redactor:
     edition: standard
@@ -529,7 +532,7 @@ plugins:
   seomatic:
     edition: standard
     enabled: true
-    licenseKey: U3LOH82G48RN5HVNLRXHNGU8
+    licenseKey: HLOROBSK1L6EIH30DU3K8AC2
     schemaVersion: 3.0.12
   sherlock:
     edition: lite

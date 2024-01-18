@@ -1,0 +1,39 @@
+{% block html %}
+
+{% block doctype %}<!doctype html>{% endblock %}
+
+{% block html__open %}
+<html {{ attr({
+    prefix: "og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#",
+    lang  : craft.app.language | slice(0,2)
+} )}} class="{% block html__class 'no-js opacity-100 visible scroll-smooth' %}">
+{% endblock %}
+
+    <head>
+        {% block head__top head() %}
+
+        {% block head__meta %}
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width,minimum-scale=1">
+            <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,viewport-fit=cover">
+            <meta name="format-detection" content="telephone=no">
+        {% endblock %}
+
+        {% block head__fonts   "" %}
+        {% block head__styles  "" %}
+        {% block head__scripts "" %}
+    </head>
+
+    {% block body__open %}
+        <body class="{% block body__class 'font-body text-theme m-0 p-0 min-h-screen h-full' %}">
+    {% endblock %}
+
+        {{ beginBody() }}
+
+        {% block page "" %}
+
+        {{ endBody() }}
+
+    {% block body__close "</body>" %}
+</html>
+{% endblock html %}

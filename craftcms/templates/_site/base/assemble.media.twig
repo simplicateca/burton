@@ -1,0 +1,130 @@
+{% macro auto( image = null, settings = {} ) %}
+    {% set settings = {
+        class    : settings.imageClass  ?? settings.class  ?? "w-full h-full",
+        figure   : settings.figureClass ?? settings.figure ?? "w-full h-full relative z-20",
+        transform: settings.transform   ?? "square"
+    } %}
+
+    {%- if image -%}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.img( image, settings ) }}
+    {%- endif -%}
+{% endmacro %}
+
+
+{% macro grid( images = [], settings = {} ) %}
+    {% if images %}
+        {% set frame   = settings.imageFrame ??? 'auto' %}
+        {% set minCols = images|length < 3 ? images|length : 3 %}
+        {% set columns = images|length > 5 ? 6 : minCols %}
+
+        {## Make sure tailwind finds dynamicallly generated class names:
+         ---------------------------------------------------------------------------- ##
+            lg:grid-cols-3
+            lg:grid-cols-6
+            grid-cols-1
+            grid-cols-2
+            grid-cols-3
+         ---------------------------------------------------------------------------- ##}
+
+        {% import "_core/assemble" as assemble %}
+        <div class="w-full grid grid-cols-{{minCols}} lg:grid-cols-{{columns}} gap-8 lg:gap-12 xl:gap-18 items-start">
+            {% for image in images %}
+                {{ assemble.frame( image, frame, settings ) }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro fancy( image = null, settings = {} ) %}
+
+    {% set settings = {
+        class    : settings.imageClass  ?? settings.class  ?? "rounded-3xl relative mx-auto max-w-[16rem] sm:max-w-xs md:max-w-sm",
+        figure   : settings.figureClass ?? settings.figure ?? "gridarea-overlap m-auto p-0 flex flex-col",
+        transform: settings.transform   ?? "square"
+    } %}
+
+    {%- if image -%}
+        {% import "_core/assemble" as assemble %}
+        <div class="grid justify-center items-center align-center h-full">
+            {{ assemble.img( image, settings ) }}
+            <div data-fancy-bg>{{ include( '_site/partials/blob' ) }}</div>
+        </div>
+    {%- endif -%}
+{% endmacro %}
+
+
+{% macro fill( image = null, settings = {} ) %}
+    {% set settings = {
+        class    : settings.imageClass  ?? settings.class  ?? "object-cover object-center h-full w-full",
+        figure   : settings.figureClass ?? settings.figure ?? "h-full w-full relative z-20",
+        transform: settings.transform   ?? "square"
+    } %}
+
+    {%- if image -%}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.img( image, settings ) }}
+    {%- endif -%}
+{% endmacro %}
+
+
+{% macro icon( image = null, settings = {} ) %}
+    {% set settings = {
+        class    : settings.imageClass  ?? settings.class  ?? "w-full max-w-full h-auto",
+        figure   : settings.figureClass ?? settings.figure ?? "block w-full",
+        transform: settings.transform   ?? "square",
+        _placeholder: "icon"
+    } %}
+
+    {%- if image -%}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.img( image, settings ) }}
+    {%- endif -%}
+{% endmacro %}
+
+
+{% macro carousel( images = [], settings = {} ) %}
+
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame  = settings.imageFrame ??? 'auto' %}
+    {% set slides = images | map( item => assemble.frame( item, frame, settings ) ) %}
+
+    {% set carousel = include( '_site/base/module.carousel', { items: slides } ) %}
+
+    {## fancy framed images don't look great inside a carousel due to overflow hiding
+        so instead we can add the fancy background behind the entire carousel component ##}
+
+    {# {% if frame == 'fancy' %}
+        {% set fancyBG = carousel
+            | retconOnly( 'div[data-fancy-bg]' )
+            | retconOnly( 'div:first-of-type' )
+        %}
+
+        {% set carousel = carousel | retconRemove( 'div[data-fancy-bg]' ) %}
+        {% if fancyBG %}
+            <div class="absolute -inset-y-20 -inset-x-10">{{ fancyBG | retconUnwrap( 'div[data-fancy-bg] *' ) }}</div>
+        {% endif %}
+    {% endif %} #}
+
+    {{ carousel }}
+{% endmacro %}
+
+
+{% macro cluster( images = [], settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame = {
+        class    : 'rounded-lg',
+        figure   : null,
+        transform: 'square'
+    } %}
+
+    {{ include( "_site/partials/cluster", {
+        position1: assemble.img( ( images[0:1]|first ) ??? null, frame )
+        position2: assemble.img( ( images[1:1]|first ) ??? null, frame )
+        position3: assemble.img( ( images[2:1]|first ) ??? null, frame )
+        settings : settings,
+    } ) }}
+{% endmacro %}

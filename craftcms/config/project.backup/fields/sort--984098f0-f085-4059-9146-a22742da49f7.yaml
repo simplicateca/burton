@@ -1,0 +1,12 @@
+columnSuffix: srktevcn
+contentColumnType: string
+fieldGroup: 3be366bf-8e5e-4f28-8502-7ebf1d83e26e # Reference Fields
+handle: sort
+instructions: null
+name: Sort
+searchable: false
+settings:
+  referenceFile: _site/settings/feed.sorting.json
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\referencefield\fields\Dropdown

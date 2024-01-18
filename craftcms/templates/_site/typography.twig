@@ -1,0 +1,94 @@
+{% macro plainPageHeader( title = null, subtitle = null ) %}
+    {%- if title -%}
+        {{ tag( 'h1', { text: title } ) }}
+        {% if subtitle %}
+            <div class="max-w-5xl @container" data-bodytext>
+                {{ tag( 'p', { html: subtitle, class: 'larger' } ) }}
+            </div>
+        {% endif %}
+    {%- endif -%}
+{% endmacro %}
+
+
+{% macro summaryMaxH4( summary = "" ) %}
+    {{ summary
+        | retconRemove( [ 'img', 'figure', 'iframe' ] )
+        | retconChange( [ 'h1', 'h2', 'h3' ], 'h4' )
+    }}
+{% endmacro %}
+
+
+{% macro summaryRetainEmphasis( summary = "" ) %}
+    {{ summary
+        | retconRemove( [ 'img', 'figure', 'iframe' ] )
+        | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ol', 'ul', 'li', 'blockquote', 'div', 'a' ], '' )
+    }}
+{% endmacro %}
+
+
+{% macro headline( headline = null, tag = null, class = null ) %}
+    {% set tag = tag | lower %}
+
+    {% switch tag %}
+        {% case 'h1' %} {{ _self.headlineH1( headline, class ) }}
+        {% case 'h2' %} {{ _self.headlineH2( headline, class ) }}
+        {% case 'h3' %} {{ _self.headlineH3( headline, class ) }}
+        {% case 'h4' %} {{ _self.headlineH4( headline, class ) }}
+        {% default   %} {{ _self.headlineH3( headline, class ) }}
+    {% endswitch %}
+{% endmacro %}
+
+
+{% macro headlineKnockout( headline = null, tag = null, class = null ) %}
+    {% set headline = "<span class='box-decoration-clone bg-theme-accent text-theme-accent-contrast p-1'>#{headline}</span>" %}
+    {{ _self.headline( headline, tag, class ~ " inline-block !mb-0 !leading-normal text-center relative z-20" | trim ) }}
+{% endmacro %}
+
+
+
+{% macro headlineH1( headline = null, class = null, eyebrow = null ) %}
+    {% if headline ??? null %}
+        {{ eyebrow ??? null }}
+        <h1 class="{{ class ??? null }}" data-headline="true">
+            {{ headline
+                | retconChange( ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], '' )
+            }}
+        </h1>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro headlineH2( headline = null, class = null, eyebrow = null ) %}
+    {% if headline ??? null %}
+        {{ eyebrow ??? null }}
+        <h2 class="{{ class ??? null }}" data-headline="true">
+            {{ headline
+                | retconChange( ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], '' )
+            }}
+        </h2>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro headlineH3( headline = null, class = null, eyebrow = null ) %}
+    {% if headline ??? null %}
+        {{ eyebrow ??? null }}
+        <h3 class="{{ class ??? null }}" data-headline="true">
+            {{ headline
+                | retconChange( ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], '' )
+            }}
+        </h3>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro headlineH4( headline = null, class = null, eyebrow = null ) %}
+    {% if headline ??? null %}
+        {{ eyebrow ??? null }}
+        <h4 class="{{ class ??? null }}" data-headline="true">
+            {{ headline
+                | retconChange( ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'], '' )
+            }}
+        </h4>
+    {% endif %}
+{% endmacro %}

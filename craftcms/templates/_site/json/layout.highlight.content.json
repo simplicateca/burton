@@ -1,0 +1,29 @@
+[
+    {
+        "label": "Text Above Highlight",
+        "value": "textAboveHighlight",
+
+        "settings": {
+            "microLayout": "topBottom__center"
+        }
+    },
+
+    {
+        "label": "Text Left / Highlight Right",
+        "value": "textLeftHighlightRight",
+
+        "settings": {
+            "microLayout": "heavyRight",
+            "leadingTextHeadlinesToMicroHeader": true
+        }
+    },
+
+    {
+        "label": "Text Right / Highlight Left",
+        "value": "textRightHighlightLeft",
+
+        "settings": {
+            "microLayout": "heavyRightReverse"
+        }
+    }
+]

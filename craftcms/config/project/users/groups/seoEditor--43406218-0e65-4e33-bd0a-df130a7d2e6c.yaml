@@ -5,7 +5,7 @@ permissions:
   - accesscp
   - accessplugin-seomatic
   - accesssitewhensystemisoff
-  - allowsitehub
+  - allowsitebook
   - 'seomatic:content-meta'
   - 'seomatic:content-meta:facebook'
   - 'seomatic:content-meta:general'

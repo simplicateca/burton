@@ -49,6 +49,9 @@ handle: redirect
 hasTitleField: true
 name: Redirect
 section: 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Primary Pages
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 5
 titleFormat: null
 titleTranslationKeyFormat: null

@@ -1,0 +1,161 @@
+{## Site Base Card Template
+ ------------------------------------------------------------------------------------- ##
+    This is the base card template that all other cards extend from. It provides the
+    basic structure and layout for all cards, along with a variety of common elements.
+
+    Most card templates should inherit directly from thie template.
+ ------------------------------------------------------------------------------------- ##}
+{% extends template_from_string("{% block card %}{% endblock %}") %}
+{% block card__template _self %}
+
+
+{## Card Block
+ ------------------------------------------------------------------------------------- ##
+    This is the primary block for the card template. It is responsible for rendering
+    the card's primary content, including the image, headline, text, and action.
+    It also handles the card's layout and wrapping.
+ ------------------------------------------------------------------------------------- ##}
+{% block card -%}
+    {% block card__open _self.openCard( card.settings | merge({ cardTemplate: block('card__template') }) ) %}
+
+    {% block content %}
+        {{ block( 'card__image'    ) }}
+        {{ block( 'card__headline' ) }}
+        {{ block( 'card__text'     ) }}
+        {{ block( 'card__action'   ) }}
+    {% endblock %}
+    {% block card__close _self.closeCard( card.settings ) %}
+{%- endblock %}
+
+
+{## Image Rendering ##}
+{% block card__image %}
+    {% import "_core/assemble" as assemble %}
+    {{ assemble.frame( card.images, card.settings.cardImageFrame ??? 'auto', card.settings ) }}
+{% endblock %}
+
+
+{## Media Player Rendering ##}
+{% block card__media %}
+    {%- if card.item.embed.html|default() -%}
+        {{ card.item.embed.html|default()
+            | retconAttr( 'iframe', { 'height' : false, 'width' : false } )
+            | retconAttr( 'iframe', { 'class' : 'w-full aspect-video' } )
+        }}
+    {%- else -%}
+        {% set kind = card.item.entry.kind|default() %}
+        {% if kind in ['video','audio'] %}
+            {% embed "_content/media/#{kind}" with {
+                asset   : card.item.entry,
+                settings: card.settings|default(),
+            } %}{% endembed %}
+        {% endif %}
+    {%- endif -%}
+{% endblock %}
+
+
+{## Item Headline ##}
+{% block card__headline -%}
+    {% import "_site/typography" as type %}
+    {{ type.headline(
+        card.headline ??? null,
+        card.settings.cardHeadlineTag   ?? 'h3',
+        card.settings.cardHeadlineClass ?? null
+    ) }}
+{%- endblock %}
+
+
+{## Item Text Summary ##}
+{%- block card__text -%}{%- endblock -%}
+
+
+{## Item Action ##}
+{%- block card__action -%}{%- endblock -%}
+
+
+
+
+
+
+
+
+
+{## Text Link
+ ------------------------------------------------------------------------------------ ##
+    Like the Default Action, but uses a visible text-based (non-button) link
+ ------------------------------------------------------------------------------------ ##}
+{% block action_default %}
+    {%- if card.item.url|default() -%}
+        <a href="{{card.item.url}}" class="clickCover"
+            ><span class="hidden">Read More →</span></a>
+    {%- endif -%}
+{% endblock %}
+
+{% block action_textlink %}
+    {%- if card.item.url|default() -%}
+        <div class="flex">
+            <a href="{{card.item.url}}" class="clickCover buttonText"
+                >Read More</a>
+        </div>
+    {%- endif -%}
+{% endblock %}
+
+
+
+{## Modal Content (Basic)
+ ------------------------------------------------------------------------------------ ##
+    Creates a modal window that will load on-click to display extended card info.
+ ------------------------------------------------------------------------------------ ##}
+{% block action_modal -%}
+
+    {% embed modalLayout ??? settings.modalLayout ??? "_core/modal/base" with {
+        item  : card.item ??? card ??? null,
+        layout: modalCard ??? settings.modalCard ??? [ "modal", "detail" ],
+    } %}
+        {% block content %}
+            {% from "_cards/base" import render as renderCard %}
+            {{ renderCard( item, layout, settings ) }}
+        {% endblock %}
+    {% endembed %}
+
+{%- endblock %}
+
+
+
+
+
+
+{% block summary_default -%}
+    {% import "_layout/core/markup" as markup %}
+    {{ markup.summaryMaxH4( card.summary ??? null ) }}
+{%- endblock %}
+
+
+
+{## Truncated Summary
+ ------------------------------------------------------------------------------------ ##
+    Same formatting as a Full Summary, but line-clamped to limit length
+ ------------------------------------------------------------------------------------ ##}
+{% block summary_truncated -%}
+    <div class="line-clamp-3">
+        {% import "_layout/core/markup" as markup %}
+        {{ markup.summaryMaxH4( card.summary ??? null ) }}
+    </div>
+{%- endblock %}
+
+
+
+{## Overflow Summary
+ ------------------------------------------------------------------------------------ ##
+ ------------------------------------------------------------------------------------ ##}
+{% block summary_overflow -%}
+    <div class="overflow-y-scroll max-h-[50vh] @container">
+        {% import "_layout/core/markup" as markup %}
+        {{ markup.summaryMaxH4(
+            card.summary|default()
+                | retconAttr( 'p,ul,ol', { class: "html" }, false )
+                | retconAttr( 'ul,ol',   { class: "pl-8" }, false )
+            )
+        }}
+    </div>
+{%- endblock %}

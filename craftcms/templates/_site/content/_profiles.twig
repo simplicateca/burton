@@ -1,0 +1,19 @@
+{% extends "_site/layout.base" %}
+
+{## Default Profile Entry
+ ------------------------------------------------------------------------------------ ##}
+{% set entryType = entry.type.handle|default(null) %}
+
+
+
+{## Generate the URI for profile entries
+ ------------------------------------------------------------------------------------ ##
+    Often easier than trying to cram a bunch of conditional twig logic into the tiny
+    space provided by the URI Format field in the control panel.
+
+    However, you do need to trigger a manual resave of all entries if you change
+    the URI sturcture in the below macro for existing records.
+ ------------------------------------------------------------------------------------ ##}
+{% macro uri( object ) -%}
+    profile/{{object.slug}}
+{%- endmacro %}

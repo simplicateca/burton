@@ -1,0 +1,31 @@
+[
+    {
+        "label": "Content Spotlight",
+        "value": "spotlight"
+    },
+
+    {
+        "label": "Text Search",
+        "value": "search"
+    },
+
+    {
+        "label": "Contact Form",
+        "value": "form"
+    },
+
+    {
+        "label": "Navigation Menu",
+        "value": "menu"
+    },
+
+    {
+        "label": "Embed <iframe> Code",
+        "value": "iframe"
+    },
+
+    {
+        "label": "Special Component",
+        "value": "special"
+    }
+]

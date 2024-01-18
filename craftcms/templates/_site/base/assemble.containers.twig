@@ -1,0 +1,42 @@
+{## Containers
+
+ !! This macro outputs as JSON so that it can be read by the macro template or any
+    other place it might be useful (like Sitehub reference pages).
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro definitions() %}{{ {
+    base  : [ '@container container' ],
+    fluid : [ '@container 2xl:container px-4 md:max-2xl:px-4' ],
+    narrow: [ '@container container max-w-5xl mx-auto px-4' ],
+    title : [ '@container 2xl:container px-4 md:max-2xl:px-4 py-6 lg:py-16 removeLastChildMargin' ],
+    none  : [],
+} | json_encode() | raw }}{% endmacro %}
+
+
+
+{## Wrap a Grid layout around a string of html
+ ------------------------------------------------------------------------------------ ##
+
+ {% import "_layout/core/grids" as grids %}
+
+ {{ grids.generate( 'gridName' [items],  ) }}
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro generate( grid = null, html = [] ) %}
+
+    {% set grid = grid | trim ??? 'fixed1' %}
+    {% set json = _self.definitions() | json_decode %}
+
+    {% set defs = json[grid] ??? json.fixed1 ??? null %}
+    {% set html = html is iterable ? html : [html] %}
+
+    {{ tag( 'div', {
+        html : html|join(''),
+        data : { grid: grid },
+        class: [
+            defs.base|default("w-full"),
+            defs.cols|default(),
+            defs.gap|default()
+        ]
+    }) }}
+{% endmacro %}

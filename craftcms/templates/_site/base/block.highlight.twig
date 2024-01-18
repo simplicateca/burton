@@ -1,0 +1,82 @@
+{## Highlight Block Site Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitehub/blocks/highlight
+ ------------------------------------------------------------------------------------ ##}
+{% extends [ "_core/block.highlight" ] %}
+{% import "_core/assemble" as assemble %}
+
+
+{% block highlight__menu %}
+    <div class="@container text-xl">
+        {{ craft.navigation.render( block.menu|default(), {
+            ulClass: 'flex flex-wrap justify-center w-full gap-6',
+            aClass: 'px-4 py-2 font-display block border-2',
+        } ) }}
+    </div>
+{% endblock %}
+
+
+{% block highlight__form %}
+    {% set form = block.form.one() ??? null %}
+    {% if form %}
+        <div class="bg-theme-backgroundOff p-10">
+            {{ craft.formie.renderForm(form) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block highlight__special %}
+    {% set uuid = create('craft\\helpers\\StringHelper').UUID() %}
+
+    {% set simpleObj = {
+        id: block.id|default(),
+        text: processedText1 ??? richHtml( block.text|default() ),
+        settings: block.settings|default({}),
+        owner: {
+            id   : block.owner.id|default(),
+            title: block.owner.title|default(),
+            dek  : block.owner.dek ??? entry.summary ??? entry.text ??? null,
+            image: block.owner.images.asArray ??? null,
+            slug : block.owner.slug|default(),
+            url  : block.owner.url|default(),
+            date : block.owner.postDate|default(),
+        }
+    } %}
+
+    {% set vueComponent = block.special.reference().settings.vueComponent ??? null %}
+    {% if vueComponent %}
+        <div id="vue-{{uuid}}"></div>
+
+        {% js %}
+            window.waitForGlobal("app.createApp", function() {
+                app.createApp(
+                    app.{{ vueComponent }},
+                    { block: {{ simpleObj | json_encode() | raw }} }
+                ).mount( '#vue-{{uuid}}' )
+            })
+        {% endjs %}
+    {% else %}
+        {{ uuid }}
+        {{ dump( simpleObj )}}
+    {% endif %}
+{% endblock %}
+
+
+{% block highlight__search %}
+    {{ sprig( "_site/partials/search.keyword.sprig", {
+        settings  : block.settings | merge({
+            cardGrid    : 'fixed1',
+            cardLayout  : 'search',
+            microLayout : block.settings.microLayout|default(),
+            microHeader : block('block__header'),
+            microFooter : block('block__footer'),
+            aboveForm   : block('block__text'),
+            container   : block.settings.container|default(),
+            requireQuery: true,
+        }),
+        limit    : 8,
+        feedIds  : block.feeds.ids() ?? block.feeds ??? null,
+        interface: 'fullSearch'
+    }) }}
+{% endblock %}

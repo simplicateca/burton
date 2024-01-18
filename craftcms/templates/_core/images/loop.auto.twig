@@ -1,9 +1,0 @@
-{## Since this is the core auto loop, it's actually going to ignore the
-    fact that there might be more than one image and just frame the first
-    image in the list.
-
-    A custom image loop would probably want to do something different with
-    each image, but this isn't that loop. ##}
-
-{% import "_site/images/assemble" as image %}
-{{ image.frame( images[0] ??? null, frame ??? null, settings ??? null )}}

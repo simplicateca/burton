@@ -30,8 +30,9 @@
 
 
 ### Removed
- 
- - Code snippets and default settings related to specific vendors/tools used internally, but not universally have been moved to a private repo that can be included locally after running `composer create project`
+
+ - Code snippets and default settings related to specific vendors/tools used internally, but not universally
+   have been moved to a private repo that can be included locally after running `composer create project`
  - Cleaned up some of the default block type examples & tests and moved them to a playground release.
  - Disabled updating & plugin installation from within the control panel - even on development
  - Disabled powered by Craft CMS header

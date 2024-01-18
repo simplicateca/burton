@@ -1,0 +1,46 @@
+{## Collection Block Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitehub/blocks/collection
+ ------------------------------------------------------------------------------------ ##}
+{% extends [ "_site/base/block", "_core/block" ] %}
+{% import "_core/assemble" as assemble %}
+
+{% block content %}
+    {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
+        zone1    : block('block__text'),
+        zone2    : block('block__collection'),
+        header   : block('block__header'),
+        footer   : block('block__footer'),
+        container: block.settings.container|default()
+    } ) }}
+{% endblock content %}
+
+
+{% block block__collection %}
+
+    {## used for dynamic collection blocks with pagination ##}
+    {% set _searchParams = {
+        page  : craft.app.request.getParam('page') ??? craft.app.request.pageNum ??? 1,
+        filter: craft.app.request.getParam('f')    ??? block.filter ??? null,
+        query : craft.app.request.getParam('q')    ??? block.query  ??? null,
+        limit : block.limit ??? null
+    } %}
+
+    {## Curate the Collection. The `collectionLookup()` custom macro is editable at:
+        -> craftcms/modules/gearbox/src/twigextensions/CollectionsTwigExtension.php
+     -------------------------------------------------------------------------------- ##}
+    {% set source = block.source|default('items') %}
+    {% set collection = [] %}
+    {% set collection = source == 'assets'  ? block.assets.all()  ??? block.assets  : [] %}
+    {% set collection = source == 'entries' ? block.entries.all() ??? block.entries : [] %}
+    {% set collection = source == 'feed'    ? collectionLookup( block.feeds.ids(), _searchParams ) : [] %}
+    {% set collection = source == 'items'   ? block.items.all() ??? block.items ??? [] | map ( i => i.bit.one() ??? i ) : [] %}
+
+    {## Render a Grid of Cards ##}
+    {{ assemble.cardGrid(
+        collection,
+        settings.cardGrid   ??? null,
+        settings.cardLayout ??? null,
+        settings ??? {}
+    ) }}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% set handle = 'primary' %}
+
+{% set title  = title ??? craft.navigation.getNavByHandle( handle ).name ??? null %}
+{% set nodes  = craft.navigation.nodes().handle( handle ).level(1) %}
+
+{% embed '_site/base/menu.list' with {
+    title : title,
+    handle: handle,
+    items : nodes.all() ??? null,
+} %}
+    {% block item %}
+        {{ node.hasDescendants ??? null
+            ? block('dropdownMenu') : parent() }}
+    {% endblock %}
+
+    {% block dropdownMenu %}
+        {% embed "_core/menu.dropdown" with
+            { dropdown: node, itemClass: block( 'itemClass' ) }
+        %}
+            {% block buttonClass %}
+                {{ itemClass }}
+            {% endblock %}
+        {% endembed %}
+    {% endblock %}
+
+    {% block lastItem %}
+        {{ block( 'openItem' ) }}
+
+        {{ tag( 'a', {
+            href : siteUrl('/search'),
+            class: block('itemClass'),
+            html : include( '_site/svg/search.svg' )
+        }) }}
+
+        {{ block( 'closeItem' ) }}
+    {% endblock %}
+{% endembed %}

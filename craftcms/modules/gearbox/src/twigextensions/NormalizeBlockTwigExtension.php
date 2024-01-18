@@ -81,11 +81,14 @@ class NormalizeBlockTwigExtension extends AbstractExtension
             if( $blocks[$key-1]->settings ?? null )
             {
                 $block->prev = $blocks[$key-1]->settings;
+                $blocks[$key]->settings['themePrev'] = $blocks[$key-1]->settings['theme'] ?? null;
             }
 
             if( $blocks[$key+1]->settings ?? null )
             {
                 $block->next = $blocks[$key+1]->settings;
+
+                $blocks[$key]->settings['themeNext'] = $blocks[$key+1]->settings['theme'] ?? null;
 
                 $blocks[$key+1]->settings['inheritTheme'] = ( $blocks[$key]->settings['theme'] == $blocks[$key+1]->settings['theme'] );
             }
@@ -112,6 +115,7 @@ class NormalizeBlockTwigExtension extends AbstractExtension
                 'entryType'  => $block['entry']->type->handle    ?? null,
                 'section'    => $block['entry']->section->handle ?? null,
                 'blockType'  => $block['content']->type->handle  ?? $block['content']->type ?? $block['content']['type'] ?? null,
+                'normalized' => true,
             ] )
         );
     }

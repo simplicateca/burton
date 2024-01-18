@@ -49,6 +49,9 @@ handle: privateTag
 hasTitleField: true
 name: 'Private Tags'
 section: 942cbdfb-d50d-4dcd-9032-4f483562d1dd # Taxonomies
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 2
 titleFormat: null
 titleTranslationKeyFormat: null

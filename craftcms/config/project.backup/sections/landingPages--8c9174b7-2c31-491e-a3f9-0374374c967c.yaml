@@ -1,0 +1,24 @@
+defaultPlacement: end
+enableVersioning: true
+handle: landingPages
+name: 'Landing Pages'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Content Layout'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
+siteSettings:
+  94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
+    enabledByDefault: true
+    hasUrls: true
+    template: _site/content/pages/_router
+    uriFormat: 'go/{slug}'
+type: channel

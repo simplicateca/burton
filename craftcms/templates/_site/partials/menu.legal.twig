@@ -1,0 +1,25 @@
+    {% embed '_site/base/menu.list' with {
+        title : 'Legal Policies & Conditions',
+        items : craft.navigation.nodes().handle( 'legal' ).level(1).all()|default(),
+    } %}
+        {% block menuClass %}
+            m-0
+            p-0
+            list-none
+            flex
+            leading-none
+            gap-4
+            text-xs
+            no-underline
+            underline-offset-2
+        {% endblock %}
+
+        {% block itemClass %}
+            flex
+            flex-col
+            items-center
+            whitespace-nowrap
+            hover:underline
+            hover:text-link-active
+        {% endblock %}
+    {% endembed %}

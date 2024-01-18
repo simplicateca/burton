@@ -1,0 +1,29 @@
+defaultPlacement: end
+enableVersioning: true
+handle: collections
+name: Collections
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Preview Collection'
+      -
+        - urlFormat
+        - 'sitehub/collection/{slug}'
+      -
+        - refresh
+        - '1'
+propagationMethod: none
+siteSettings:
+  94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+  e278d4be-81b4-4575-b43f-75291ca49ada: # Alternate
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

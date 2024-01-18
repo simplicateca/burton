@@ -20,8 +20,6 @@ use craft\web\View;
 
 use craft\elements\Entry;
 use craft\events\RegisterElementSourcesEvent;
-use craft\events\RegisterUrlRulesEvent;
-use craft\web\UrlManager;
 
 use yii\base\Module;
 use yii\base\Event;
@@ -36,7 +34,10 @@ use modules\gearbox\helpers\OpenAiHelper as OpenAiHelper;
 
 use modules\gearbox\assetbundles\gearbox\GearboxAsset;
 use modules\gearbox\twigextensions\GearboxTwigExtension;
+use modules\gearbox\twigextensions\CollectionsTwigExtension;
+use modules\gearbox\twigextensions\EmbedInfoTwigExtension;
 use modules\gearbox\twigextensions\NormalizeBlockTwigExtension;
+use modules\gearbox\twigextensions\RichHtmlTwigExtension;
 
 
 class Gearbox extends Module
@@ -78,8 +79,11 @@ class Gearbox extends Module
 
     private function _registerTwigExtensions()
     {
-        Craft::$app->view->registerTwigExtension( new GearboxTwigExtension() );
+        // Craft::$app->view->registerTwigExtension( new GearboxTwigExtension() );
+        Craft::$app->view->registerTwigExtension( new CollectionsTwigExtension() );
+        Craft::$app->view->registerTwigExtension( new EmbedInfoTwigExtension() );
         Craft::$app->view->registerTwigExtension( new NormalizeBlockTwigExtension() );
+        Craft::$app->view->registerTwigExtension( new RichHtmlTwigExtension() );
     }
 
 

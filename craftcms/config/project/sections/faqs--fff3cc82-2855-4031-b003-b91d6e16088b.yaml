@@ -16,11 +16,6 @@ previewTargets:
         - '1'
 propagationMethod: custom
 siteSettings:
-  34463b82-dd3f-441c-b9c6-59c351e847aa:
-    enabledByDefault: false
-    hasUrls: false
-    template: null
-    uriFormat: null
   94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
     enabledByDefault: true
     hasUrls: false

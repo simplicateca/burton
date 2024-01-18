@@ -1,0 +1,15 @@
+{## Text Block Base
+ ------------------------------------------------------------------------------------ ##
+    http://localhost:8000/sitehub/blocks/text
+ ------------------------------------------------------------------------------------ ##}
+{% extends [ "_site/base/block", "_core/block" ] %}
+{% import "_core/assemble" as assemble %}
+
+{% block content %}
+    {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
+        zone1    : block('block__text'),
+        header   : block('block__header'),
+        footer   : block('block__footer'),
+        container: block.settings.container|default()
+    } ) }}
+{% endblock %}

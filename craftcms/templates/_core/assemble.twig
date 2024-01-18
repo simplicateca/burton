@@ -1,0 +1,312 @@
+{## Render a spacer or divider from `_site/base/assemble.spacing` if defined
+ ------------------------------------------------------------------------------------ ##}
+{% macro spacer( spacer, default = "base" ) %}
+    {% set spacer = spacer and spacer is same as(true) ? default : spacer %}
+    {% if spacer and block( "interspace__#{spacer}", "_site/base/assemble.spacing" ) is defined %}
+        {{ block( "interspace__#{spacer}", "_site/base/assemble.spacing" ) }}
+    {% endif %}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+{## Two-Zone Micro Layouts
+ ------------------------------------------------------------------------------------ ##
+    Maintains layout consistency across the site with named macros for frequently used,
+    non-grid layouts. i.e. things like:
+
+    - Text Left / Image Right
+    - Text Top / Collection Bottom
+    - etc.
+
+    Micro Layouts also allow for the use of a "header" and "footer" zone that can be
+    populated with additional content as determined (mostly) by the individual blocks.
+
+    Individual macro definitions can be found in: `_site/base/assemble.micro.twig`
+ ------------------------------------------------------------------------------------ ##}
+{% macro micro( layout = null, data = {} ) %}
+    {% set data = {
+        zone1 : null,
+        zone2 : null,
+        zone3 : null,
+        header: null,
+        footer: null,
+        gap   : 'gap-8 @7xl:gap-16',
+    } | merge(data) %}
+
+    {%- if layout and [ data.zone1, data.zone2, data.zone3, data.header, data.footer ] | join | trim -%}
+        {{ tag( 'div', {
+            class: [ "relative" ],
+            data : { micro: layout | kebab },
+            html : include( template_from_string(
+                "{% from '_site/base/assemble.micro' import #{layout} as m %}{{m(d)}}"
+             ), { d: data }
+        ) } ) }}
+    {%- endif -%}
+{% endmacro %}
+
+
+
+{## Grid Layout
+ ------------------------------------------------------------------------------------ ##
+    Maintains layout consistency across the site by using named layout grids with
+    pre-set gaps, margins, column widths, breakpoints, etc.
+
+    Grid definitions can be found in: `_site/base/assemble.grids.twig`
+ ------------------------------------------------------------------------------------ ##}
+{% macro grid( gridName, itemsToWrap ) %}
+    {% import "_site/base/assemble.grids" as grids %}
+    {{ grids.generate( gridName, itemsToWrap ) }}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Render a Collection of Cards in a Grid
+ ------------------------------------------------------------------------------------ ##}
+{% macro cardGrid( collection = [], grid = "stacked2", card = "summary", settings = {} ) %}
+    {% import "_core/card" as cards %}
+    {{ _self.grid( grid, cards.multiple( collection, card, settings ) ) }}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Better Rich HTML / WYSIWYG Code Formatting
+    -------------------------------------------------------------------------------- ##
+    This macro handles provides an interface to the custom twig function `richHtml()`.
+
+    The macro, handle the heavy lifting of parsing the rich html from a Redactor or
+    CKEditor field, makes some minor formatting adjustments, and then attempts to
+    separate the content into separate parts.
+
+    - Eyebrow elements
+    - Any (h1,h2,h3) headlines appearing before body text (p, ol, ul, etc)
+    - CTA Buttons & Links (along with their kicker text), appearing after body text.
+
+    These individual text parts can then be used to customize the layout of the text
+    without having to worry about the order of the content or creating complicated
+    interfaces to editors.
+
+    The macro also tests the alignment of text (as set in the WYSIWYG editor), and
+    can adjust the layout of surrounding elements to match.
+
+    Editable at: craftcms/modules/gearbox/src/twigextensions/RichHtmlTwigExtension.php
+------------------------------------------------------------------------------------ ##}
+{% macro richtext( richtext = "", settings = {} ) %}
+
+    {% set processed = richtext ??? richHtml( richtext ??? null ) %}
+
+    {## this is equivilent to just outputting {{ richtext }} ##}
+    {% if processed -%}
+        {{ processed.eyebrow  | raw }}
+        {{ processed.headline | raw }}
+        {{ processed.body     | raw }}
+        {{ processed.cta      | raw }}
+    {%- endif %}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Twig Block or Matrix Builder
+ ------------------------------------------------------------------------------------ ##
+    Renders the content of the HTML string, unless it's empty, in-which case, try
+    to render the content of the builder field attached to the provided entry.
+
+    Typically this is called in a parent template with the html variable being provided
+    as `block('content')` so that a child template can overload {% block content %}
+    as needed and still have the builder content available as a fallback.
+
+    Can be particularly useful for sidebars.
+
+    Additional documentation available in: `_core/block.twig`
+ ------------------------------------------------------------------------------------ ##}
+{% macro blockOrBuilder( html = "", builder = "content", entry = null, settings = {} ) %}
+    {% from "_core/block" import blockOrBuilder as base %}
+    {{ base( html, builder, entry, settings ) }}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Menu Stuff
+ ------------------------------------------------------------------------------------ ##}
+{% macro menu( menu ) %}
+    {{ include( "_site/partials/menu.#{menu}" ) }}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Containers & Interspace
+ ------------------------------------------------------------------------------------ ##}
+{% macro container( container = false, html = null ) %}
+    {% import "_site/base/assemble.containers" as containers %}
+    {% set json  = containers.definitions() | json_decode %}
+    {% set class = json[container] ?? containers.base ??? null %}
+
+    {{ html and class
+        ? tag( 'div', { class: class, html: html })
+        : html }}
+{% endmacro %}
+
+{% macro openContainer( container = false ) -%}
+    {{ _self.container( container, "123456" ) | replace({
+        '123456': '',
+        '</div>': ''
+    }) | trim | raw }}
+{%- endmacro %}
+{% macro closeContainer() %}</div>{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Wrap something (usually an image) in a frame
+ ------------------------------------------------------------------------------------ ##}
+{% macro frame( images = null, frame = null, settings = null ) %}
+
+    {% set framed = frame and image ? include( template_from_string(
+        "{% from '_site/base/assemble.media' import #{frame} as m %}{% if m is defined -%}{{m(i,s)}}{% endif %}"
+    ), { i: image, s: settings } ) ??? null %}
+
+    {% if framed -%}
+        {{ framed }}
+    {%- else -%}
+        {{ _self.img( image, {
+            class        : settings.imageClass     ??? "w-full max-w-full h-auto",
+            figure       : settings.imageFigure    ??? "w-full block",
+            transform    : settings.imageTransform ??? null,
+            _placeholder : settings._placeholder   ??? null
+        } ) }}
+    {%- endif -%}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Basic <img> tag
+ ------------------------------------------------------------------------------------ ##}
+{% macro img( images = null, settings = null ) %}
+
+    {## test to make sure images wasn't passed as an array ##}
+    {% set image = null %}
+    {% set image = images.url ??? null ? images : null %}
+    {% set image = not image and images is iterable ? images.one() ??? images|first ??? null : image %}
+
+    {## passed an image object ##}
+    {% if image and image.url %}
+        {% if settings.transform|default() and image.url|default() and image.id|default() %}
+            {% do image.setTransform( settings.transform ) %}
+        {% endif %}
+
+        {{ tag( 'figure', {
+            class:  "relative z-10 " ~ settings.figure ??? null,
+            html: tag( 'img', {
+                src    : image.url,
+                width  : image.width    ??? null,
+                height : image.height   ??? null,
+                class  : settings.class ??? null,
+                loading: 'lazy'
+            })
+        }) }}
+    {% endif %}
+
+    {## passed something like <img src='whatever'> ##}
+    {% if not image and images and not images is iterable %}
+        {{ tag( 'figure', {
+            class:  settings.figure ??? null,
+            html : images | retconAttr( 'img', { class: settings.class ??? null, loading: 'lazy' }, false )
+        }) }}
+    {% endif %}
+
+    {## placeholder ##}
+    {% if ( images is iterable and not image ) or not images %}
+        {{ settings._placeholder ??? null == 'icon'
+            ? _self.placeholder( 170, 170, 'icon' )
+            : _self.placeholder()  }}
+    {% endif %}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Basic <audio> player tag
+ ------------------------------------------------------------------------------------ ##}
+{% macro audio( asset = null, settings = {} ) %}
+    {%- if asset -%}
+        <audio
+            id="audio--{{ asset.id ?? null }}"
+            controls
+            {% if settings.autoplay|default() %}autoplay{% endif %}
+            class="block w-full max-w-4xl bg-[#f1f3f4] rounded-none"
+            ><source src="{{ asset.url ?? null }}" type="{{ asset.mimeType ?? null }}" />
+        </audio>
+    {%- endif -%}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Basic <video> player tag
+ ------------------------------------------------------------------------------------ ##}
+{% macro video( asset = null, settings = {} ) %}
+    {%- if asset -%}
+
+        {% set poster = asset.images.one() ??? null %}
+
+        {% if poster.url|default() and poster.id|default() %}
+            {% do poster.setTransform('videoAspect') %}
+        {% endif %}
+
+        <video
+            id="video--{{ asset.id ?? null }}"
+            controls
+            {% if settings.autoplay|default() %}autoplay{% endif %}
+            class="w-full aspect-video"
+            poster="{{ poster.url ?? null }}"
+            ><source src="{{ asset.url ?? null }}" type="{{ asset.mimeType ?? null }}" />
+        </video>
+    {%- endif -%}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Basic <iframe> embed
+ ------------------------------------------------------------------------------------ ##}
+{% macro iframe( iframe = "" ) %}
+    {{ iframe
+        | retconAttr( 'iframe', { 'height' : false, 'width' : false } )
+        | retconAttr( 'iframe', { 'class' : 'w-full aspect-video' } ) }}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Placeholder images (for wireframing & development)
+ ------------------------------------------------------------------------------------ ##}
+{% macro placeholder( transformNameOrWidth, height, type = null ) %}
+    {% if getenv('CRAFT_ENVIRONMENT') != 'production' %}
+
+        {% set width = 900 %}
+        {% if height ??? null %}
+            {% set width = transformNameOrWidth %}
+        {% else %}
+            {% set height = 500 %}
+        {% endif %}
+
+        {% if transformNameOrWidth ??? null != width %}
+            {% set transform = craft.app.getImageTransforms().getTransformByHandle( transformNameOrWidth|default('videoAspect') ) %}
+            {% set width  = transform.width|default(width)   %}
+            {% set height = transform.height|default(height) %}
+        {% endif %}
+
+        {{ _self.generate( tag( 'img', {
+            src: type == 'icon'
+                ? "https://placeskull.com/#{width}/#{height}/475569/#{random(1,24)}"
+                : "https://picsum.photos/seed/#{random(1,9999)}/#{width}/#{height}?grayscale&blur=2",
+            alt: 'Placeholder'
+        }) ) }}
+    {% endif %}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}

@@ -1,0 +1,30 @@
+<div class="@container">
+    <div class="like-h3">Contact</div>
+
+    {% embed '_site/base/menu.list' with {
+        title : 'Contact',
+        items : craft.navigation.nodes().handle( 'contact' ).level(1).all()|default(),
+    } %}
+        {% block menuClass %}
+            m-0
+            p-0
+            list-none
+            flex
+            flex-col
+            leading-none
+            gap-4
+            text-xs
+            no-underline
+            underline-offset-2
+        {% endblock %}
+
+        {% block itemClass %}
+            flex
+            flex-col
+            items-center
+            whitespace-nowrap
+            hover:underline
+            hover:text-link-active
+        {% endblock %}
+    {% endembed %}
+</div>

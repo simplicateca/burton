@@ -1,0 +1,41 @@
+{% set entry   = entry ??? null %}
+{% set limit   = limit|default(4) %}
+{% set page    = page|default(1) %}
+{% set baseurl = baseurl|default() %}
+
+{% if entry %}
+    {% set query = craft.entries()
+        .section('articles')
+        .relatedTo( entry )
+        .limit(limit) %}
+
+    {% set pageInfo = query ? sprig.paginate( query, page ) : null %}
+
+{##    {{ blocks.builder(
+        [{
+            source: 'entries',
+            entries: pageInfo.pageResults,
+            settings: {
+                section    : 'pages',
+                builder    : 'content',
+                blockType  : 'collection',
+                theme      : cycle(['bright', 'standard'], page),
+                variant    : 'auto',
+                cardGrid   : 'stacked2',
+                interspace : 'base',
+                container  : 'fluidContainer',
+                microLayout: 'topBottom'
+            }
+        }],
+        'content'
+    ) }} #}
+
+    {# {{ include( '_core/collections/paginate.more', {
+        isSprig : true,
+        paginate: pageInfo,
+        setting: {
+            theme: 'dark',
+            class: 'p-12 flex w-full justify-center'
+        }
+    } ) }} #}
+{% endif %}

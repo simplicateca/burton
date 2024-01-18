@@ -1,0 +1,37 @@
+{## Image Block Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitehub/blocks/image
+ ------------------------------------------------------------------------------------ ##}
+{% extends [ "_site/base/block", "_core/block" ] %}
+{% import "_core/assemble" as assemble %}
+
+
+{## Render the block using a two-zone micro-layout
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitehub/layout/micro
+    -> http://buildwithburton.com/docs/micro-layouts
+ ------------------------------------------------------------------------------------ ##}
+{% block content %}
+    {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
+        zone1     : block('block__text'),
+        zone2     : block('block__media'),
+        header    : block('block__header'),
+        footer    : block('block__footer'),
+        container : block.settings.container|default()
+        imageFrame: block.settings.variant|default()
+    } ) }}
+{% endblock %}
+
+
+{## Default handler for rendering image assets
+ ------------------------------------------------------------------------------------ ##
+    This block can be overridden in a child template
+ ------------------------------------------------------------------------------------ ##}
+{% block block__images %}
+    {% import "_core/assemble" as assemble %}
+    {{ assemble.frame(
+        block.images.all() ??? block.images ??? null,
+        block.settings.imageFrame ??? 'auto',
+        block.settings ??? null
+    )}}
+{% endblock %}

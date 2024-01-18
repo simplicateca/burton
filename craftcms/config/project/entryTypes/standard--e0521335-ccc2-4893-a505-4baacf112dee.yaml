@@ -39,18 +39,6 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: d05f4009-0b38-4065-a1b1-65221aa65e63
-            instructions: null
-            label: __blank__
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 618ae43d-0a54-4835-a637-3662dbf41d4d
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
             template: _site/sitehub/craft-ui/instructionsContent.twig
             type: craft\fieldlayoutelements\Template
             uid: 31763d74-d9d5-429f-8fe7-1d8ba7d5f229
@@ -153,6 +141,9 @@ handle: standard
 hasTitleField: true
 name: Standard
 section: 650e7d1d-63e5-42f9-b3ab-4febfb502723 # Primary Pages
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
 sortOrder: 1
 titleFormat: null
 titleTranslationKeyFormat: null

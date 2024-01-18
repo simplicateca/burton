@@ -1,0 +1,154 @@
+field: 89834163-b3fe-4c51-9a02-e205e03b9067 # Sidebar Builder
+fieldLayouts:
+  3143889e-6ec2-48da-9959-830eaf84fc12:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 70558cf5-f7c9-43f1-b02f-783f7f6e9f59 # Layout
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b353ca3f-187a-4591-b8b3-136980830238
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: ecc2353c-b6d9-4466-9f40-7bdf9a981be7 # Variant
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6e80a5e2-4fef-440a-9e1c-10e0c326ca87
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 12c56732-e1cd-4737-86b7-06a0e20e53e5 # __blank__
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 27b1e30b-c006-494b-890a-e7bb5bccada1
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 853c6986-607a-4f2a-8c5a-f58cd75f9122 # Theme
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a40449be-ac46-4709-aae0-01ea652efa00
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a2e2dea4-bcfd-4197-8a09-ecfdc3cb7109 # Interspace
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 644e84f5-c6ed-4933-ac36-ae882e5a0de7
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: 913a8b35-0a2f-4da7-8f67-349852b43966
+        userCondition: null
+fields:
+  12c56732-e1cd-4737-86b7-06a0e20e53e5: # __blank__
+    columnSuffix: bjxjnkwr
+    contentColumnType: text
+    fieldGroup: null
+    handle: text
+    instructions: null
+    name: __blank__
+    searchable: true
+    settings:
+      availableTransforms: ''
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Standard.json
+      removeEmptyTags: true
+      removeInlineStyles: true
+      removeNbsp: true
+      showHtmlButtonForNonAdmins: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  853c6986-607a-4f2a-8c5a-f58cd75f9122: # Theme
+    columnSuffix: mzahfcww
+    contentColumnType: string
+    fieldGroup: null
+    handle: theme
+    instructions: null
+    name: Theme
+    searchable: true
+    settings:
+      referenceFile: _site/config/theme.sidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  70558cf5-f7c9-43f1-b02f-783f7f6e9f59: # Layout
+    columnSuffix: fobpmrpj
+    contentColumnType: string
+    fieldGroup: null
+    handle: layout
+    instructions: null
+    name: Layout
+    searchable: true
+    settings:
+      referenceFile: _site/config/layout.text.sidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  a2e2dea4-bcfd-4197-8a09-ecfdc3cb7109: # Interspace
+    columnSuffix: ldsudmyc
+    contentColumnType: string
+    fieldGroup: null
+    handle: interspace
+    instructions: null
+    name: Interspace
+    searchable: true
+    settings:
+      referenceFile: _site/config/interspace.sidebar.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+  ecc2353c-b6d9-4466-9f40-7bdf9a981be7: # Variant
+    columnSuffix: qspfzqpu
+    contentColumnType: string
+    fieldGroup: null
+    handle: variant
+    instructions: null
+    name: Variant
+    searchable: true
+    settings:
+      referenceFile: _site/config/variant.text.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\Dropdown
+handle: text
+name: Text
+sortOrder: 1
