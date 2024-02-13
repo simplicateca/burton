@@ -1,0 +1,41 @@
+{% macro content() %}
+    {% set text %}
+        <div class="eyebrow eyebrowStandard">Quibusnam praeteritis?</div>
+        <h2 class="rd-h2 text-center">Nihil enim hoc differt</h2>
+        <p>Istam voluptatem perpetuam quis potest praestare sapienti? Nam illud vehementer repugnat, eundem beatum esse et multis malis oppressum.</p>
+        <p>Isto modo ne improbos quidem, si essent boni viri. Quo studio Aristophanem putamus aetatem in litteris duxisse? Sed potestne rerum maior esse dissensio? Torquatus, is qui consul cum Cn.</p>
+    {% endset %}
+
+    {{ {
+
+        text  : text,
+        source: 'external',
+        embeds: [{
+            sourceUrl : "https://www.youtube.com/watch?v=bbQTzLVl7Uw",
+            headline  : null,
+            summary   : null,
+            images    : []
+        },{
+            sourceUrl : "https://www.youtube.com/watch?v=1LVxg70rEVs",
+            headline  : null,
+            summary   : null,
+            images    : []
+        },{
+            sourceUrl : "https://www.youtube.com/watch?v=19LfvmyBCFk",
+            headline  : null,
+            summary   : null,
+            images    : []
+        },{
+            sourceUrl : "https://www.youtube.com/watch?v=NA80zmq6iAo",
+            headline  : null,
+            summary   : null,
+            images    : []
+        }],
+        settings: {
+            builder   : 'content',
+            section   : 'pages',
+            entryType : 'standard',
+            blockType : 'media',
+        }
+    } | json_encode | raw }}
+{% endmacro %}

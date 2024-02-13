@@ -1,0 +1,110 @@
+{% extends template_from_string('{% block sprig %}{% endblock %}') %}
+
+{% macro dropdownField(fieldname, options, selected = null) %}
+    <select name="{{ fieldname }}" class="w-full" :disabled="isDisabled" :class="{ 'opacity-50' : isDisabled } ">
+        {% for opts in options %}
+            {% if not ( opts.value in ['INHERIT'] ) %}
+                <option value="{{ opts.value }}" {% if selected == opts.value %}selected{% endif %}>{{ opts.label }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+{% endmacro %}
+
+{% block sprig %}
+    {% set type   = type|default()   %}
+    {% set config = config|default() %}
+    {% if type and config %}{{ block( 'previewer' ) }}{% endif %}
+{% endblock %}
+
+{% block previewer %}
+
+    {% set contentOpts    = config.content %}
+    {% set layoutOpts     = source( config.layout )     | spaceless | json_decode %}
+    {% set themeOpts      = source( config.theme )      | spaceless | json_decode %}
+    {% set interspaceOpts = source( config.interspace ) | spaceless | json_decode %}
+    {% set variantOpts    = source( config.variant )    | spaceless | json_decode %}
+    {% set layout         = craft.app.request.getParam('layout')     ?? layoutOpts[0].value     ?? null %}
+    {% set variant        = craft.app.request.getParam('variant')    ?? variantOpts[0].value    ?? null %}
+    {% set theme          = craft.app.request.getParam('theme')      ?? themeOpts[0].value      ?? null %}
+    {% set interspace     = craft.app.request.getParam('interspace') ?? interspaceOpts[0].value ?? null %}
+    {% set content        = craft.app.request.getParam('content')    ?? contentOpts[0]          ?? null %}
+    {% set show           = craft.app.request.getParam('show')      ??? null %}
+    {% set debug          = craft.app.request.getParam('debug')     ??? null %}
+
+    <div x-data="{
+        showall: [],
+        debug: 'off'
+    }">
+
+        <div class="sticky top-0 z-100" data-theme="subtle-band">
+            <div class="container @container py-6">
+                <form hx-post hx-trigger="change" hx-select="#preview" hx-swap="outerHTML" hx-target="#preview">
+                    <div class="flex gap-4 flex-wrap w-full justify-between text-sm">
+                        <div class="field flex-grow">
+                            <label class="uppercase">Content</label>
+                            <select name="content" class="w-full">
+                                {% for c in config.content %}
+                                    <option value="{{ c }}" {% if content == c %}selected{% endif %}>{{ c | replace({ '_sitehub/content/block.' : '' }) }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="field flex-grow" x-data="{ isDisabled: false }">
+                            <div class="flex justify-between items-center">
+                                <label class="uppercase">Layout</label>
+                                <span><input type="checkbox" name="showall" x-model="showall" value="layout" @change="isDisabled = showall.includes('layout')"></span>
+                            </div>
+
+                            {{ _self.dropdownField( 'layout', layoutOpts, layout ) }}
+                        </div>
+
+                        <div class="field flex-grow" x-data="{ isDisabled: false }">
+                            <div class="flex justify-between items-center">
+                                <label class="uppercase">Variant</label>
+                                <span><input type="checkbox" name="showall" x-model="showall" value="variants" @change="isDisabled = showall.includes('variants')"></span>
+                            </div>
+
+                            {{ _self.dropdownField( 'variant', variantOpts, variant ) }}
+                        </div>
+
+                        <div class="field flex-grow" x-data="{ isDisabled: false }">
+                            <div class="flex justify-between items-center">
+                                <label class="uppercase">Theme</label>
+                                <span><input type="checkbox" name="showall" x-model="showall" value="themes" @change="isDisabled = showall.includes('themes')"></span>
+                            </div>
+                            <input type="hidden" name="show" :value="showall">
+                            {{ _self.dropdownField( 'theme', themeOpts, theme ) }}
+                        </div>
+
+                        <div class="field flex-grow" x-data="{ isDisabled: false }">
+                            <label class="uppercase">Interspace</label>
+                            {{ _self.dropdownField( 'interspace', interspaceOpts, interspace ) }}
+                        </div>
+
+                        <div class="field">
+                            <label class="uppercase block text-right">Debug</label>
+                            <select name="debug" x-model="debug">
+                                <option value="off" selected>Off</option>
+                                <option value="on">On</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="preview">
+            {{ include( "_sitehub/blocks/_builder", {
+                content   : content,
+                show      : show,
+                layout    : layout,
+                variant   : variant,
+                theme     : theme,
+                interspace: interspace,
+                debug     : debug,
+                type      : type,
+                config    : config,
+            } ) }}
+        </div>
+    </div>
+{% endblock %}

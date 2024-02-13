@@ -1,0 +1,95 @@
+fieldLayouts:
+  46ee2164-e4d7-4c3c-b8aa-0109cd2c99ae:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 8b846980-066e-4554-b7f3-74476a66cbae
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: fde3769d-9be8-400b-a915-9c3c06469466 # Label
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5c2b5d25-652c-481d-b4b8-d11ce8be2f13
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: e5d4f510-e52f-4791-afac-46a644f03003 # Source URL
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 97681e41-752f-4193-af74-021572a23452
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: b1c52a06-4990-43f5-90d3-898a48789556 # Dek
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 26167349-ac22-4a7b-8f19-506e2bbe2ba7
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Image
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 69921983-95a9-4211-8a20-4c8b96792a7d
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: 5587c1cd-8281-4a70-bf48-e6bda139a7c8
+        userCondition: null
+handle: rss
+hasTitleField: true
+name: 'External RSS'
+section: 2b05c141-a297-4820-ac7d-81e736dbf84b # Collections
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+sortOrder: 3
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

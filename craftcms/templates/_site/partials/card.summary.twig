@@ -1,8 +1,14 @@
-{% extends ["_site/cards/base", "_core/cards/base"] %}
+{% extends ["_site/base/card", "_core/card"] %}
+{% block _template _self %}
 
-{% set _card_tmpl = _self %}
+{# {% block content %}
+    {% set parentContent = parent() %}
+    {% block summary__content %}
+        {{ parentContent }}
+    {% endblock %}
+{% endblock %} #}
 
-{% block content %}
+{# {% block content %}
     {% block summary_card %}
         <div class="w-full flex flex-col h-full relative @container">
             {{ block('summary_card_image') }}
@@ -39,4 +45,4 @@
             {{ block('card_action') }}
         {% endblock %}
     </div>
-{% endblock %}
+{% endblock %} #}

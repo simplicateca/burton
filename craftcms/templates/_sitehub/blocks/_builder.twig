@@ -1,0 +1,65 @@
+{## grab variables passed from _previewer.twig ##}
+{% set content    = content    ??? null %}
+{% set layout     = layout     ??? null %}
+{% set variant    = variant    ??? null %}
+{% set theme      = theme      ??? null %}
+{% set interspace = interspace ??? null %}
+{% set debug      = debug      ??? null %}
+{% set show       = show       ??? null %}
+{% set type       = type       ??? null %}
+{% set config     = config     ??? null %}
+{% set container  = container  ??? 'container' %}
+{% set builder    = builder    ??? 'content' %}
+
+{## load the placeholder content we'll be using ##}
+{% from content import content as blockContent %}
+{% set content = blockContent() | spaceless | json_decode %}
+
+{## load the json settings for each block attribute ##}
+{## based on the values in the placeholder content. ##}
+{% set layoutOpts     = source( config.layout )     | spaceless | json_decode %}
+{% set themeOpts      = source( config.theme )      | spaceless | json_decode %}
+{% set interspaceOpts = source( config.interspace ) | spaceless | json_decode %}
+{% set variantOpts    = source( config.variant )    | spaceless | json_decode %}
+{% set contentOpts    = config.content %}
+
+{## create the first/only block to display depending on whether
+    or not the users has checked any of the "show all" buttons. ##}
+{% set blockArray = [content|merge({ settings: content.settings|merge({
+    layout    : layout,
+    variant   : variant,
+    theme     : theme,
+    interspace: interspace,
+    container : container  ??? 'container',
+    builder   : builder    ??? 'content',
+}) })] %}
+
+{## collect all layout variations ##}
+{% if 'layout' in show %}
+    {% set variations = [] %}
+    {% for b in blockArray %}
+        {% set variations = layoutOpts | map( opt => b|merge({ settings: b.settings|merge({layout:opt.value}) | merge(opt.settings ??? {}) }) ) %}
+    {% endfor %}
+    {% set blockArray = blockArray|length == 1 and variations ? variations : blockArray|merge(variations) %}
+{% endif %}
+
+{## collect all variant/card variations ##}
+{% if 'variants' in show %}
+    {% set variations = [] %}
+    {% for b in blockArray %}
+        {% set variations = variantOpts | map( opt => b|merge({ settings: b.settings|merge({variant:opt.value}) | merge(opt.settings ??? {}) }) ) %}
+    {% endfor %}
+    {% set blockArray = blockArray|length == 1 and variations ? variations : blockArray|merge(variations) %}
+{% endif %}
+
+{## collect all theme variations ##}
+{% if 'themes' in show %}
+    {% set variations = [] %}
+    {% for b in blockArray %}
+        {% set variations = themeOpts | map( opt => b|merge({ settings: b.settings|merge({theme:opt.value}) | merge(opt.settings ??? {}) }) ) %}
+    {% endfor %}
+    {% set blockArray = blockArray|length == 1 and variations ? variations : blockArray|merge(variations) %}
+{% endif %}
+
+{% import "_core/block" as blocks %}
+{{ blocks.assembleBlocks( shuffle( blockArray ), builder ) }}

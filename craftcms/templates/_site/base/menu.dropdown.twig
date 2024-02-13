@@ -40,7 +40,7 @@
                     :class="open ? '{{ block('buttonClassActive') | replace({"\n": "", "\r": "", "\t": ""}) | trim }}' : '{{ block('buttonClassInactive') | replace({"\n": "", "\r": "", "\t": ""}) | trim }}'"
                     >
                     {% block title %}{{ dropdown.title ??? null }}{% endblock %}
-                    {% block chevron %}{{ include( 'vectors/chevron-down.svg' ) }}{% endblock %}
+                    {% block chevron %}{{ include( '_site/svg/chevron-down.svg' ) }}{% endblock %}
                 </span>
             {% endblock %}
         </button>
@@ -81,11 +81,11 @@
     {% endblock %}
 
     {% block buttonClassInactive %}
-        bg-theme-dark text-theme-contrast
+        bg-canvas-light text-theme
     {% endblock %}
 
     {% block buttonClassActive %}
-        bg-theme-contrast-light cursor-auto !no-underline
+        bg-canvas cursor-auto !no-underline
     {% endblock %}
 
     {% block itemClass %}
@@ -95,9 +95,9 @@
         w-full
         px-4
         py-2
-        bg-theme-contrast-light
-        hover:bg-theme-contrast
-        hover:text-theme-alert
+        bg-canvas
+        hover:bg-canvas-dark
+        hover:text-theme
     {% endblock %}
 
     {% block panelClass %}

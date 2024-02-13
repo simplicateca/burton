@@ -31,16 +31,18 @@
         header: null,
         footer: null,
         gap   : 'gap-8 @7xl:gap-16',
+        container: 'relative',
     } | merge(data) %}
 
+    {## sanitize this variable a bit before letting it execute as code ##}
+    {% set layout = layout | replace('/[^\\w]+/', '') %}
+
     {%- if layout and [ data.zone1, data.zone2, data.zone3, data.header, data.footer ] | join | trim -%}
-        {{ tag( 'div', {
-            class: [ "relative" ],
-            data : { micro: layout | kebab },
-            html : include( template_from_string(
-                "{% from '_site/base/assemble.micro' import #{layout} as m %}{{m(d)}}"
-             ), { d: data }
-        ) } ) }}
+        {{ _self.container(
+            data.container,
+            include( template_from_string("{% from '_site/base/assemble.micro' import #{layout} as m %}{{m is defined ? m(d)}}"), { d: data } ),
+            { data: { micro: layout | kebab } }
+        ) }}
     {%- endif -%}
 {% endmacro %}
 
@@ -55,19 +57,45 @@
  ------------------------------------------------------------------------------------ ##}
 {% macro grid( gridName, itemsToWrap ) %}
     {% import "_site/base/assemble.grids" as grids %}
-    {{ grids.generate( gridName, itemsToWrap ) }}
+    {{ grids.generate( gridName, itemsToWrap ) | raw }}
 {% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
 
 
 
-{## Render a Collection of Cards in a Grid
+
+{## Run a group of things (Collection, Assets, Media, etc) through a loop macro
+ ------------------------------------------------------------------------------------ ##
+
+    Loop macros can be found in: `_site/base/assemble.loops.twig`
  ------------------------------------------------------------------------------------ ##}
-{% macro cardGrid( collection = [], grid = "stacked2", card = "summary", settings = {} ) %}
-    {% import "_core/card" as cards %}
-    {{ _self.grid( grid, cards.multiple( collection, card, settings ) ) }}
+{% macro loop( loopName = '', items = [], settings = {} ) %}
+
+    {## sanitize this variable a bit before letting it execute as code ##}
+    {% set loopName = loopName | replace('/[^\\w]+/', '') %}
+
+    {## try the loopName macro first ##}
+    {% set content = loopName and items ? include( template_from_string(
+        "{% from '_site/base/assemble.loops' import #{loopName} as m %}{{ m is defined ? m(i,s) }}"
+    ), { i: items, s: settings } ) ??? null %}
+
+    {## if that doesn't work, check if there's an auto loop ##}
+    {% if not content %}
+        {% from '_site/base/assemble.loops' import auto as auto %}
+        {% set content = auto is defined ? auto( items, settings ) %}
+    {% endif %}
+
+    {## if that doesn't work, use the default core auto loop ##}
+    {% if not content %}
+        {% import "_core/card" as cards %}
+        {% set content = _self.grid( "fixed1", cards.multiple( items, "summary", settings ) ) %}
+    {% endif %}
+
+    {{ content | raw }}
+
 {% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
+
 
 
 
@@ -90,19 +118,27 @@
     The macro also tests the alignment of text (as set in the WYSIWYG editor), and
     can adjust the layout of surrounding elements to match.
 
-    Editable at: craftcms/modules/gearbox/src/twigextensions/RichHtmlTwigExtension.php
+    Editable at: craftcms/modules/sitemodule/src/twigextensions/RichHtmlTwig.php
 ------------------------------------------------------------------------------------ ##}
-{% macro richtext( richtext = "", settings = {} ) %}
+{% macro richtext( formatter = "", rawhtml = "", settings = {} ) %}
 
-    {% set processed = richtext ??? richHtml( richtext ??? null ) %}
+    {## process the raw html block into something a little more managable ##}
+    {% set richtext = richHtml( rawhtml ) %}
 
-    {## this is equivilent to just outputting {{ richtext }} ##}
-    {% if processed -%}
-        {{ processed.eyebrow  | raw }}
-        {{ processed.headline | raw }}
-        {{ processed.body     | raw }}
-        {{ processed.cta      | raw }}
-    {%- endif %}
+    {## sanitize this variable a bit before letting it execute as code ##}
+    {% set formatter = formatter | replace('/[^\\w]+/', '') %}
+
+    {## output the content ##}
+    {% if formatter and richtext %}
+        {{ include( template_from_string(
+            "{% from '_site/base/assemble.typography' import #{formatter} as m %}{{ m is defined ? m(r,s) }}"
+        ), { r: richtext, s: settings } ) }}
+    {% else %}
+        {{ richtext.eyebrow  | raw }}
+        {{ richtext.headline | raw }}
+        {{ richtext.body     | raw }}
+        {{ richtext.cta      | raw }}
+    {% endif %}
 {% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
 
@@ -140,14 +176,14 @@
 
 {## Containers & Interspace
  ------------------------------------------------------------------------------------ ##}
-{% macro container( container = false, html = null ) %}
+{% macro container( container = false, html = null, settings = {} ) %}
     {% import "_site/base/assemble.containers" as containers %}
     {% set json  = containers.definitions() | json_decode %}
-    {% set class = json[container] ?? containers.base ??? null %}
+    {% set class = json[container] ?? json['base'] ??? null %}
 
     {{ html and class
-        ? tag( 'div', { class: class, html: html })
-        : html }}
+        ? tag( 'div', settings | merge({ class: class, html: html }) )
+        : html | raw }}
 {% endmacro %}
 
 {% macro openContainer( container = false ) -%}
@@ -163,10 +199,13 @@
 
 {## Wrap something (usually an image) in a frame
  ------------------------------------------------------------------------------------ ##}
-{% macro frame( images = null, frame = null, settings = null ) %}
+{% macro frame( image = null, frame = null, settings = null ) %}
+
+    {## sanitize this variable a bit before letting it execute as code ##}
+    {% set frame = frame | replace('/[^\\w]+/', '') %}
 
     {% set framed = frame and image ? include( template_from_string(
-        "{% from '_site/base/assemble.media' import #{frame} as m %}{% if m is defined -%}{{m(i,s)}}{% endif %}"
+        "{% from '_site/base/assemble.media' import #{frame} as m %}{{ m is defined ? m(i,s) }}"
     ), { i: image, s: settings } ) ??? null %}
 
     {% if framed -%}
@@ -179,16 +218,49 @@
             _placeholder : settings._placeholder   ??? null
         } ) }}
     {%- endif -%}
+
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+richtext
+
+
+
+{## Wrap something (usually an image) in a frame
+ ------------------------------------------------------------------------------------ ##}
+{% macro frame( image = null, frame = null, settings = null ) %}
+
+    {## sanitize this variable a bit before letting it execute as code ##}
+    {% set frame = frame | replace('/[^\\w]+/', '') %}
+
+    {% set framed = frame and image ? include( template_from_string(
+        "{% from '_site/base/assemble.media' import #{frame} as m %}{{ m is defined ? m(i,s) }}"
+    ), { i: image, s: settings } ) ??? null %}
+
+    {% if framed -%}
+        {{ framed }}
+    {%- else -%}
+        {{ _self.img( image, {
+            class        : settings.imageClass     ??? "w-full max-w-full h-auto",
+            figure       : settings.imageFigure    ??? "w-full block",
+            transform    : settings.imageTransform ??? null,
+            _placeholder : settings._placeholder   ??? null
+        } ) }}
+    {%- endif -%}
+
 {% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
 
 
 
 {## Basic <img> tag
+ ------------------------------------------------------------------------------------ ##
+    You can pass it as many images as you like, but we're only gonna use the first one.
  ------------------------------------------------------------------------------------ ##}
 {% macro img( images = null, settings = null ) %}
 
-    {## test to make sure images wasn't passed as an array ##}
+    {## test to make sure images wasn't passed as an array,
+        or if it was, just grab the first one ##}
     {% set image = null %}
     {% set image = images.url ??? null ? images : null %}
     {% set image = not image and images is iterable ? images.one() ??? images|first ??? null : image %}
@@ -301,7 +373,7 @@
             {% set height = transform.height|default(height) %}
         {% endif %}
 
-        {{ _self.generate( tag( 'img', {
+        {{ _self.img( tag( 'img', {
             src: type == 'icon'
                 ? "https://placeskull.com/#{width}/#{height}/475569/#{random(1,24)}"
                 : "https://picsum.photos/seed/#{random(1,9999)}/#{width}/#{height}?grayscale&blur=2",

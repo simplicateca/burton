@@ -38,7 +38,7 @@ class SitehubWidget extends Widget
     {
         // Render the widget body template
         return Craft::$app->getView()->renderTemplate(
-            'site-module/_components/sitehub-widget-body',
+            'site-module/sitehub-widget-body',
             [
                 //'someProperty' => $this->someProperty,
             ]

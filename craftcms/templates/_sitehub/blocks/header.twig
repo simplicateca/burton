@@ -1,0 +1,90 @@
+{% extends "_sitehub/base" %}
+
+{% html %}
+    {## we need to include these here because they don't get loaded via the sprig/htmx
+        based previewer, but they do load normally. moving them into app.js would also
+        fix the issue, but this is a quick fix for demo purposes.
+     -------------------------------------------------------------------------------- ##}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+{% endhtml %}
+
+{% set blockType = type ??? null %}
+
+{% set allowedBlocks = {
+    text: {
+        variant   : "_site/json/variant.text.json",
+        theme     : "_site/json/theme.header.json",
+        layout    : "_site/json/layout.text.header.json",
+        interspace: "_site/json/interspace.header.json",
+        content   : [
+            "_sitehub/content/block.text.simple",
+            "_sitehub/content/block.text.double"
+        ],
+    },
+    image: {
+        variant   : "_site/json/variant.image.json",
+        theme     : "_site/json/theme.header.json",
+        layout    : "_site/json/layout.image.header.json",
+        interspace: "_site/json/interspace.header.json",
+        content   : [
+            "_sitehub/content/block.image.single",
+            "_sitehub/content/block.image.single.tallimage",
+            "_sitehub/content/block.image.single.longtext",
+            "_sitehub/content/block.image.three",
+            "_sitehub/content/block.image.gallery"
+        ],
+    },
+    media: {
+        variant   : "_site/json/variant.media.json",
+        theme     : "_site/json/theme.header.json",
+        layout    : "_site/json/layout.media.header.json",
+        interspace: "_site/json/interspace.header.json",
+        content   : [
+            "_sitehub/content/block.media.one.youtube",
+            "_sitehub/content/block.media.four.youtube",
+            "_sitehub/content/block.media.four.youtube.centered",
+        ],
+    },
+    collection: {
+        variant   : "_site/json/variant.collection.json",
+        theme     : "_site/json/theme.header.json",
+        layout    : "_site/json/layout.collection.header.json",
+        interspace: "_site/json/interspace.header.json",
+        content   : [
+            "_sitehub/content/block.collection.simple"
+        ],
+    }
+} %}
+
+{% set config = allowedBlocks[blockType]|default() %}
+
+{% block main__content %}
+    {% if config %}
+        {{ sprig( 'sitehub/blocks/_previewer.sprig', {
+            type     : blockType,
+            config   : config,
+            builder  : 'header',
+            container: 'fluidContainer'
+        } ) }}
+    {% else %}
+        <div data-theme="base">
+            <div class="container @container py-28 text-center">
+                <h1>Header Blocks</h1>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-20">
+                    {% for blockType, config in allowedBlocks %}
+                        <div class="shadow rounded-lg p-8 relative bg-theme-contrast-light @container">
+                            <h2 class="capitalize">{{ blockType | kebab | replace({ '-': ' ' }) }}</h2>
+                            <p class="html">{{ config.content|length }} content samples</p>
+                            <p class="html"><a href="{{ url( "sitehub/blocks/header/#{blockType}"  ) }}" class="clickCover">Preview</a></p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+    {% endif %}
+
+{% endblock main__content %}

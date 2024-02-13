@@ -196,11 +196,11 @@ fields:
                   -
                     - values
                     -
-                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Feeds
+                      - 514c0347-c4dd-4b9a-9979-452fc7db526e
       selectionLabel: 'Choose feed'
       showSiteMenu: false
       sources:
-        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Topics & Tags
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null
@@ -325,7 +325,7 @@ fields:
     name: Layout
     searchable: true
     settings:
-      referenceFile: _site/config/layout.collection.sidebar.json
+      referenceFile: _site/json/layout.collection.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -338,7 +338,7 @@ fields:
     name: Variant
     searchable: true
     settings:
-      referenceFile: _site/config/variant.collection.json
+      referenceFile: _site/json/variant.collection.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -351,7 +351,7 @@ fields:
     name: Interspace
     searchable: true
     settings:
-      referenceFile: _site/config/interspace.sidebar.json
+      referenceFile: _site/json/interspace.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -491,20 +491,20 @@ fields:
                       - d3282cfb-d044-4890-b553-9a0b87393027 # Insights & Ideas
                       - 8000f4a4-93b8-4f5b-b6b2-b26e6c12e366 # News & Updates
                       - 9d712dc3-2d54-4b21-bbc3-251dad2d4dc9 # Default
-                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content ‘Bits’
                       - e0521335-ccc2-4893-a505-4baacf112dee # Standard
                       - 1da13089-e303-46d0-930f-aefd062df474 # Standard w/ Sidebar
                       - b26498c0-236e-4738-85e6-666d3439cbc5 # Default
-                      - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Topics & Themes
+                      - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Public
       selectionLabel: 'Choose entry'
       showSiteMenu: false
       sources:
         - 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # Articles
         - 'section:fff3cc82-2855-4031-b003-b91d6e16088b' # FAQs
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
         - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Primary Pages
         - 'section:3552382f-ca3b-44ba-95f4-2be9f7773370' # Profiles
-        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Topics & Tags
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null
@@ -548,7 +548,7 @@ fields:
     name: Theme
     searchable: true
     settings:
-      referenceFile: _site/config/theme.sidebar.json
+      referenceFile: _site/json/theme.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

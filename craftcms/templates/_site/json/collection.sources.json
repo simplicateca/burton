@@ -1,0 +1,82 @@
+[
+    {
+        "label": "Any Article",
+        "value": "articles.all",
+        "query": {
+            "section": "articles",
+            "type": ["blog","news"]
+        }
+    },
+
+    {
+        "label": "Blog Articles",
+        "value": "articles.blog",
+        "query": {
+            "section": "articles",
+            "type": ["blog"]
+        }
+    },
+
+    {
+        "label": "News Releases",
+        "value": "articles.news",
+        "query": {
+            "section": "articles",
+            "type": ["news"]
+        }
+    },
+
+    {
+        "label": "FAQs",
+        "value": "faqs.all",
+        "query": {
+            "section": "faqs"
+        }
+    },
+
+    {
+        "label": "Pages",
+        "value": "pages",
+        "query": {
+            "section": "pages"
+        }
+    },
+
+    {
+        "label": "Topics",
+        "value": "topic",
+        "query": {
+            "section": "taxonomy",
+            "type": "topic"
+        }
+    },
+
+    {
+        "label": "Profiles",
+        "value": "profiles.all",
+        "query": {
+            "section": "profiles"
+        }
+    },
+
+    {
+        "label": "Content Bits",
+        "value": "reusable.bit",
+        "query": {
+            "section": "reusable",
+            "type": "bit"
+        }
+    },
+
+    {
+        "label": "Searchable Content",
+        "value": "site.search",
+        "reference" : {
+            "note" : "Articles + Pages + Topics"
+        },
+        "query": {
+            "section": ["articles", "pages", "taxonomy"],
+            "type": "!= tag"
+        }
+    }
+]

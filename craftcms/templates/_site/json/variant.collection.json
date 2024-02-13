@@ -1,97 +1,204 @@
 [{
-    "label": "Auto",
-    "value": "auto",
-    "settings": {
+    "label": "Card Grid",
+    "value": "card",
+    "docs" : {
+        "brief": "Present users with a grid of cards, each representing an item from the collection."
+    },
+    "inputs": [
 
-    }
-},{
-    "label": "Summary Card (1x1)",
-    "value": "summary_1x1",
-    "settings": {
-        "cardLayout" : "summary",
-        "cardGlitter": "_site/partials/blob.twig",
-        "cardLoop"   : "_site/loops/carousel",
-        "cardLoopMin": 2
-    }
-},{
-    "label": "Summary Cards (2x1)",
-    "value": "summary_2x1",
-    "settings": {
-        "cardLayout": "summary",
-        "cardGrid"  : "stacked2",
-        "cardLoop"   : "_site/loops/carousel",
-        "cardLoopMin": 3
-    }
-},{
-    "label": "Summary Cards (3x1)",
-    "value": "summary_3x1",
-    "settings": {
-        "cardLayout": "summary",
-        "cardGrid"  : "stacked3",
-        "cardLoop"   : "_site/loops/carousel",
-        "cardLoopMin": 4
-    }
-},{
-    "label": "Summary Cards (3x𝑛)",
-    "value": "summary_3xn",
-    "settings": {
-        "cardLayout": "summary",
-        "cardGrid"  : "stacked3"
-    }
-},{
-    "label": "Thumbnail ➔ Modal (4x1)",
-    "value": "thumbnail_4x1",
-    "settings": {
-        "cardLayout" : "thumbnail",
-        "cardGrid"   : "stacked4",
-        "cardModal"  : "modal",
-        "cardLoop"   : "_site/loops/carousel",
-        "cardLoopMin": 4
-    }
-},{
-    "label": "Thumbnail ➔ Modal (6x𝑛)",
-    "value": "thumbnail_6x𝑛",
-    "settings": {
-        "cardLayout": "thumbnail",
-        "cardModal" : "modal",
-        "cardGrid"  : "stacked6"
-    }
-},{
-    "label": "Feature Card (1x1)",
-    "value": "feature_1x1",
-    "settings": {
-        "cardLayout" : "feature",
-        "cardGlitter": "_site/partials/blob.twig",
-        "cardGrid"   : "fixed1",
-        "cardLoop"   : "_site/loops/carousel"
-    }
-},{
-    "label": "Feature Card (Auto Grid)",
-    "value": "feature_autogrid",
-    "settings": {
-        "cardLayout": "feature",
-        "cardLoop"  : "_site/loops/autogrid"
-    }
-},{
-    "label": "Bullets ➔ Modal (Auto Grid)",
-    "value": "icon_autogrid",
-    "settings": {
-        "cardLayout": "icon",
-        "cardModal" : "modal",
-        "cardLoop"  : "_site/loops/autogrid"
-    }
+    ],
+
+    "settings": {}
 },{
     "label": "Accordion Panels",
     "value": "accordion",
+    "docs" : {
+        "brief": "Present users with a list of items, each represented by an accordion panel."
+    },
+    "inputs": [
+        {
+            "label": "Start with first panel open?",
+            "field": "firstOpen",
+            "default": "1",
+            "type" : "lightswitch"
+        }
+       ,{
+            "label": "Panel Card",
+            "field": "card",
+            "type" : "select",
+            "instructions": "Which card layout should be used to present the panel content?",
+            "options" : {
+                "summary": "Summary",
+                "full"   : "Full"
+            }
+        }
+    ],
     "settings": {
         "cardLayout": "panel",
-        "cardLoop"  : "_site/loops/accordion"
+        "cardLoop"  : "accordion"
+    }
+},{
+    "label": "Bento Boxes",
+    "value": "bento",
+    "docs" : {
+        "brief": ""
+    },
+    "inputs": [],
+    "settings": {
+        "cardLayout": "bento",
+        "cardLoop"  : "bento"
     }
 },{
     "label": "Tab Panels",
-    "value": "tab_panels",
+    "value": "tabs",
+    "docs" : {
+        "brief": ""
+    },
+    "inputs": [],
     "settings": {
         "cardLayout": "panel",
-        "cardLoop"  : "_site/loops/tabs"
+        "cardLoop"  : "tabs"
     }
+},{
+    "label": "Search Interface",
+    "value": "search",
+    "docs" : {
+        "brief": "Present users an opportunity to search and filter one or more collections.",
+        "modalLabel": "Collection Search + Results User Interface",
+        "modalIntro": "Customize the appearance and behavior of the search results interface for this collection block."
+    },
+    "inputs": [
+        {
+            "label": "Paginatation",
+            "field": "pagination",
+            "type" : "select",
+            "instructions": "How do you want to handle more than one 'page' of results?",
+            "fieldClass": "width-50",
+            "options" : [
+                {
+                    "value" : "none",
+                    "label" : "No Pagination"
+                }
+               ,{
+                    "value" : "nextprev",
+                    "label" : "Next / Previous"
+                }
+               ,{
+                    "value" : "loadmore",
+                    "label" : "Load More"
+                }
+               ,{
+                    "value" : "infinite",
+                    "label" : "Infinite Scroll"
+                }
+            ]
+        }
+
+       ,{
+            "label"  : "Results per page",
+            "field"  : "perpage",
+            "type"   : "number",
+            "fieldClass": "width-50",
+            "instructions": "How many results should be shown per page?",
+            "default": 12,
+            "size"   : 8
+        }
+
+       ,{
+            "label": "Search By Keyword?",
+            "field": "filterByKeyword",
+            "instructions": "Allow users to search the collection by keyword?",
+            "fieldClass": "width-50",
+            "type" : "lightswitch"
+        }
+
+       ,{
+            "label": "Filter by Topic?",
+            "field": "filterByTopic",
+            "instructions": "Allow toggling between Topics associated with this Collection",
+            "fieldClass": "width-50",
+            "type" : "lightswitch"
+        }
+
+       ,{
+            "label": "Show Results without Search?",
+            "instructions": "Display results without requiring a search or filter?",
+            "field": "requireKeyword",
+            "default": "1",
+            "type" : "lightswitch"
+        }
+
+       ,{
+            "label": "Card Type",
+            "field": "card",
+            "type" : "select",
+            "instructions": "Which card layout should be used to present the items?",
+            "fieldClass": "width-50",
+            "options" : {
+                "summary"   : "Summary",
+                "thumbnail" : "Thumbnail",
+                "textOnly"  : "Text List"
+            }
+        }
+
+       ,{
+            "label": "Click Action",
+            "field": "action",
+            "type" : "select",
+            "instructions": "What will happen when a user clicks on an item?",
+            "fieldClass": "width-50",
+            "options" : [
+                {
+                    "label" : "Auto Link",
+                    "value" : "autolink"
+                }
+               ,{
+                    "label" : "Summary Modal",
+                    "value" : "modal"
+                }
+               ,{
+                    "label" : "Dynamic Modal",
+                    "value" : "dynamic"
+                }
+               ,{
+                    "label" : "No clickthrough",
+                    "value" : "none"
+                }
+            ]
+        }
+
+       ,{
+            "label": "# of Columns",
+            "field": "columns",
+            "type" : "select",
+            "instructions": "How many columns should be used to display the items?",
+            "fieldClass": "width-50",
+            "options" : [
+                {
+                    "value" : "1",
+                    "label" : "One (1)"
+                }
+               ,{
+                    "value" : "2",
+                    "label" : "Two (2)"
+                }
+               ,{
+                    "value" : "3",
+                    "label" : "Three (3)"
+                }
+               ,{
+                    "value" : "4",
+                    "label" : "Four (4)"
+                }
+               ,{
+                    "value" : "5",
+                    "label" : "Five (5)"
+                }
+               ,{
+                    "value" : "6",
+                    "label" : "Six (6)"
+                }
+            ]
+        }
+    ]
 }]

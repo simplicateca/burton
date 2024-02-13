@@ -1,5 +1,5 @@
 {% extends craft.app.request.isAjax() and not craft.app.request.getIsPreview()
-    ? template_from_string("{% block html %}{% block page__ajax '' %}{% endblock %}")
+    ? template_from_string('{% block html %}{% block page__ajax "" %}{% endblock %}')
     : "_core/html" %}
 
 {% import '_site/base/html.javascript' as js %}
@@ -31,21 +31,22 @@
         header:
             ["headerBuilder"] |
             merge([
-                "image:images","media:localAssets","fragment:modular"
+                "image:images","media:assets","fragment:reusable","focus:collections",
+                "collection:items","collection:entries","collection:assets","collection:collections",
             ] | map( p => "headerBuilder.#{p}") ),
 
         content:
-            ["contentBuilder"] |
+            ["bodyBuilder"] |
             merge([
-                "image:images","media:localAssets","fragment:modular","highlight:taxonomies",
-                "collection:items","collection:entries","collection:assets","collection:taxonomies",
-            ] | map( p => "contentBuilder.#{p}") ),
+                "image:images","media:assets","fragment:reusable","focus:collections",
+                "collection:items","collection:entries","collection:assets","collection:collections",
+            ] | map( p => "bodyBuilder.#{p}") ),
 
         sidebar:
             ["sidebarBuilder"] |
             merge([
-                "image:images","media:localAssets","fragment:modular","highlight:taxonomies",
-                "collection:items","collection:entries","collection:assets","collection:taxonomies",
+                "image:images","media:assets","fragment:reusable","focus:collections",
+                "collection:items","collection:entries","collection:assets","collection:collections",
             ] | map( p => "sidebarBuilder.#{p}") ),
     } %}
 

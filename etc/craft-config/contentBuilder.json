@@ -6,7 +6,7 @@
         {
             "group": "Matrix Builders",
             "name": "Content Builder",
-            "handle": "contentBuilder",
+            "handle": "bodyBuilder",
             "type": "craft\\fields\\Matrix",
             "propagationMethod": "none",
             "blockTypes": [
@@ -36,94 +36,6 @@
                             "required": false,
                             "name": "__blank__",
                             "handle": "text",
-                            "type": "craft\\redactor\\Field",
-                            "typesettings": {
-                                "uiMode": "normal",
-                                "redactorConfig": "Standard.json",
-                                "availableVolumes": "*",
-                                "availableTransforms": "",
-                                "showUnpermittedVolumes": false,
-                                "showUnpermittedFiles": false,
-                                "showHtmlButtonForNonAdmins": false,
-                                "configSelectionMode": "choose",
-                                "manualConfig": "",
-                                "defaultTransform": "",
-                                "removeInlineStyles": true,
-                                "removeEmptyTags": true,
-                                "removeNbsp": true,
-                                "purifyHtml": true,
-                                "columnType": "text"
-                            }
-                        },
-                        {
-                            "required": false,
-                            "name": "Theme",
-                            "handle": "theme",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
-                            "typesettings": {
-                                "referenceFile": "_site\/config\/theme.content.json"
-                            }
-                        },
-                        {
-                            "required": false,
-                            "name": "Interspace",
-                            "handle": "interspace",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
-                            "typesettings": {
-                                "referenceFile": "_site\/config\/interspace.content.json"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "name": "Text (Double)",
-                    "handle": "textDouble",
-                    "fields": [
-                        {
-                            "required": false,
-                            "name": "Layout",
-                            "handle": "layout",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
-                            "typesettings": {
-                                "referenceFile": "_site\/config\/layout.textDouble.content.json"
-                            }
-                        },
-                        {
-                            "required": false,
-                            "name": "Variant",
-                            "handle": "variant",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
-                            "typesettings": {
-                                "referenceFile": "_site\/config\/variant.textDouble.json"
-                            }
-                        },
-                        {
-                            "required": false,
-                            "name": "__blank__",
-                            "handle": "text",
-                            "type": "craft\\redactor\\Field",
-                            "typesettings": {
-                                "uiMode": "normal",
-                                "redactorConfig": "Standard.json",
-                                "availableVolumes": "*",
-                                "availableTransforms": "",
-                                "showUnpermittedVolumes": false,
-                                "showUnpermittedFiles": false,
-                                "showHtmlButtonForNonAdmins": false,
-                                "configSelectionMode": "choose",
-                                "manualConfig": "",
-                                "defaultTransform": "",
-                                "removeInlineStyles": true,
-                                "removeEmptyTags": true,
-                                "removeNbsp": true,
-                                "purifyHtml": true,
-                                "columnType": "text"
-                            }
-                        },
-                        {
-                            "required": false,
-                            "name": "__blank__",
-                            "handle": "text2",
                             "type": "craft\\redactor\\Field",
                             "typesettings": {
                                 "uiMode": "normal",
@@ -605,7 +517,7 @@
                                 "sources": [
                                     "section:articles",
                                     "section:faqs",
-                                    "section:modular",
+                                    "section:reusable",
                                     "section:pages",
                                     "section:profiles",
                                     "section:taxonomy"
@@ -880,7 +792,7 @@
                                             "selectionLabel": "Pick Bit",
                                             "showSiteMenu": false,
                                             "sources": [
-                                                "section:modular"
+                                                "section:reusable"
                                             ],
                                             "validateRelatedElements": false,
                                             "maintainHierarchy": false,
@@ -939,7 +851,7 @@
                                 "selectionLabel": "Choose fragment",
                                 "showSiteMenu": false,
                                 "sources": [
-                                    "section:modular"
+                                    "section:reusable"
                                 ],
                                 "validateRelatedElements": false,
                                 "maintainHierarchy": false,
@@ -981,8 +893,8 @@
                     ]
                 },
                 {
-                    "name": "Highlight",
-                    "handle": "highlight",
+                    "name": "Focus",
+                    "handle": "focus",
                     "fields": [
                         {
                             "required": false,
@@ -990,7 +902,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/layout.highlight.content.json"
+                                "referenceFile": "_site\/config\/layout.focus.content.json"
                             }
                         },
                         {
@@ -999,7 +911,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/variant.highlight.json"
+                                "referenceFile": "_site\/config\/variant.focus.json"
                             }
                         },
                         {

@@ -7,7 +7,7 @@
     A more robust block base should be created in `_site/base/block`, which all default
     blocks already look for in their inheritence chain before falling back to this file.
  ------------------------------------------------------------------------------------ ##}
-{% extends template_from_string("{% block block %}{% endblock %}") %}
+{% extends template_from_string('{% block block %}{% endblock %}') %}
 {% block block _self.brick( block ??? null ) %}
 {% block block__text block.text ??? null %}
 {## --------------------------------------------------------------------------------- ##}
@@ -34,7 +34,7 @@
     {{ blockOrBuilder( block('content'), 'content', entry, settings ) }}
 
     In the above case, if {% block content %} is empty on the calling template, the
-    macro will attempt to build the `contentBuilder` matrix field on `entry`.
+    macro will attempt to build the `bodyBuilder` matrix field on `entry`.
  ------------------------------------------------------------------------------------ ##}
 {% macro blockOrBuilder( html = "", builder = "content", entry = null, settings = {} ) %}
     {% import "_core/assemble" as assemble %}
@@ -56,7 +56,7 @@
         {{ assemble.container( settings.container, "#{spacer}#{html}#{spacer}" | raw ) }}
     {% else %}
         {% if builder == 'content' %}
-            {{ _self.assembleBlocks( entry.contentBuilder.all() ??? null, 'content', settings )}}
+            {{ _self.assembleBlocks( entry.bodyBuilder.all() ??? null, 'content', settings )}}
         {% endif %}
 
         {% if builder == 'header' %}
@@ -91,26 +91,33 @@
 {## --------------------------------------------------------------------------------- ##}
 {% macro openTheme( settings = {}, autoSpace = false ) -%}
     {% import "_core/assemble" as assemble %}
-    {% set settings = {
-        theme   : "base",
-        class   : settings.themeClass ?? "relative",
-        tag     : settings.themeTag   ?? "div",
+
+    {% set wrapper = {
+        tag  : settings.tag   ?? settings.themeTag   ?? "div",
+        class: settings.class ?? settings.themeClass ?? "theme relative"
+    } %}
+
+    {% set data = {
+        theme   : settings.theme      ?? "base",
         block   : settings.blockType  ?? "unknown",
+        uuid    : settings.uuid       ?? null,
+        bodytext: true,
         viewport: true,
-        uuid    : null,
         next    : ( settings.themeNext ??? null )
                     ? { theme: settings.themeNext }
                     : settings.next ??? null,
+
         prev    : ( settings.themePrev ??? null )
                     ? { theme: settings.themePrev }
                     : settings.prev ??? null,
-    } | merge( settings ) %}
+    } %}
+
 
     {## We only open the theme tag if it's different from the previous block ##}
-    {%- if settings.prev.theme ??? null != settings.theme -%}
-        <{{settings.tag}} {{attr({
-            class: settings.class,
-            data : settings | withoutKey(['class', 'tag'])
+    {%- if settings.prev.theme ??? null != data.theme -%}
+        <{{wrapper.tag}} {{attr({
+            class: wrapper.class,
+            data : data
         })}}>
     {%- endif -%}
 
@@ -125,16 +132,17 @@
     {% import "_core/assemble" as assemble %}
 
     {% set settings = {
-        tag      : settings.themeTag ?? "div",
-        theme    : "base",
-        themeNext: null,
-    } | merge( settings ) %}
+        tag       : settings.tag ?? settings.themeTag ?? "div",
+        theme     : settings.theme      ?? "base",
+        themeNext : settings.themeNext  ?? null,
+        spaceBelow: settings.spaceBelow ?? settings.interspaceBelow ?? autoSpace,
+    } %}
 
     {## We only close the theme tag if it's different from the next block, and
         unlink openTheme(), we only add a spacer if we're closing the theme
      -------------------------------------------------------------------------------- ##}
     {%- if settings.themeNext != settings.theme -%}
-        {{ assemble.spacer( settings.interspaceBelow ?? autoSpace ) }}
+        {{ assemble.spacer( settings.spaceBelow ) }}
         </{{settings.tag}}>
     {%- endif -%}
 {% endmacro %}
@@ -144,7 +152,7 @@
 
 {## Block Related Macros ##}
 {## --------------------------------------------------------------------------------- ##}
-{% macro assembleBlocks( blocks, builder, settings ) -%}
+{% macro assembleBlocks( blocks = [], builder = 'content', settings = {} ) -%}
 
     {% set settings = {
         container: "none"
@@ -177,30 +185,33 @@
         "_site/content/block.%blockType%.%layout%",
         "_site/content/block.%blockType%.%variant%",
         "_site/content/block.%blockType%",
-        "_site/base/block",
+        "_site/base/block.%blockType%",
         "_core/block.%blockType%",
     ] %}
 
     {% for block in blocks %}
-        {{ include( path | map( p => p|replace({
+        {% set path = path | map( p => p|replace({
+            '%layout%'   : block.settings.layout    ??? null,
             '%section%'  : block.settings.section   ??? null,
             '%builder%'  : block.settings.builder   ??? null,
             '%blockType%': block.settings.blockType ??? null,
             '%entryType%': block.settings.entryType ??? null,
             '%variant%'  : block.settings.variant   ??? null,
-        }) ), { block: block }, withContext = false ) }}
+        }) ) %}
+
+        {{ include( path, { block: block }, withContext = false ) }}
     {% endfor %}
 {% endmacro %}
 
 
 {% macro openBlock( settings = {} ) -%}
     {% set settings = {
+        tag     : settings.tag   ?? settings.blockTag   ?? "section",
+        class   : settings.class ?? settings.blockClass ?? "w-full relative z-20",
+        block   : settings.type  ?? settings.blockType  ?? "unknown",
+        uuid    : settings.uuid  ?? null,
         viewport: true,
-        class   : settings.blockClass ?? "w-full relative z-20",
-        tag     : settings.blockTag   ?? "section",
-        block   : settings.blockType  ?? "unknown",
-        uuid    : null,
-    } | merge( settings ) %}
+    } %}
 
     <{{settings.tag}} {{attr({
         class: settings.class,
@@ -208,16 +219,16 @@
     })}}>
 {%- endmacro %}
 
-{% macro closeBlock( settings = {} ) -%}</{{settings.tag ?? settings.blockTag ?? "section"}}>{%- endmacro %}
+{% macro closeBlock( settings = {} ) -%}</{{settings.tag ??? settings.blockTag ??? "section"}}>{%- endmacro %}
 {## --------------------------------------------------------------------------------- ##}
 
 
 
-{## Modular Content (Fragments & Bits) ##}
+{## Reusable Content (Fragments & Bits) ##}
 {## --------------------------------------------------------------------------------- ##}
 {% macro fragment( query = null, builder = 'content', settings = {} ) %}
     {%- if query.id ??? query.slug ??? query.preset ??? null -%}
-        {% set fragment = craft.entries({section:"modular"}|merge( query )).one() ??? null %}
+        {% set fragment = craft.entries({section:"reusable"}|merge( query )).one() ??? null %}
         {% if fragment %}
             {{ _self.blockOrBuilder( null, builder, fragment, settings ) }}
         {% endif %}

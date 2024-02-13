@@ -10,13 +10,13 @@ fieldLayouts:
             fieldUid: 41a2bc31-369b-42aa-a92c-9cb6bf48b741 # Message
             instructions: null
             label: null
-            required: false
+            required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 1311b334-8edd-4c6c-b5f0-9e00791a5c12
             userCondition: null
             warning: null
-            width: 100
+            width: 50
         name: Content
         uid: 6487ec97-c30b-4453-afaa-a9e4b2d0c0f2
         userCondition: null
@@ -35,7 +35,7 @@ fields:
       localizeRelations: false
       maintainHierarchy: false
       maxRelations: null
-      minRelations: 1
+      minRelations: null
       selectionCondition:
         __assoc__:
           -
@@ -64,11 +64,11 @@ fields:
                   -
                     - values
                     -
-                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
-      selectionLabel: 'Choose Bit'
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content ‘Bits’
+      selectionLabel: Choose
       showSiteMenu: false
       sources:
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

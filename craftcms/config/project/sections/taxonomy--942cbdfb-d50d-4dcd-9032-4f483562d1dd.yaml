@@ -1,7 +1,7 @@
 defaultPlacement: end
 enableVersioning: true
 handle: taxonomy
-name: Taxonomies
+name: 'Topics & Tags'
 previewTargets:
   -
     __assoc__:

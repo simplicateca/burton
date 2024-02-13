@@ -26,13 +26,15 @@
 
 
 {% block block__collection__sprig %}
+
     {% set interface = block.interface.value ??? block.interface ??? null %}
     {% set template  = "_site/partials/search.full.sprig" %}
 
     {{ sprig( template, {
-        settings : block.settings,
-        limit    : block.limit ??? null,
-        interface: block.interface.value ??? block.interface ??? null,
-        feedIds  : block.feeds.ids() ?? block.feeds ??? null,
+        settings: block.settings | merge( {
+            limit     : block.limit ??? null,
+            interface : block.interface.value ??? block.interface ??? null,
+            collectIds: block.collections.ids() ?? block.feeds.ids() ?? block.feeds ??? null,
+        } ),
     }) }}
 {% endblock %}

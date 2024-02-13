@@ -7,9 +7,6 @@
 
 namespace modules\sitemodule\controllers;
 
-use modules\sitemodule\SiteModule;
-
-use Craft;
 use craft\web\Controller;
 use yii\web\Response;
 
@@ -36,7 +33,7 @@ class DefaultController extends Controller
      *         The actions must be in 'kebab-case'
      * @access protected
      */
-    protected array|bool|int $allowAnonymous = ['index', 'filter'];
+    protected array|bool|int $allowAnonymous = ['index'];
 
 
     /**
@@ -51,22 +48,7 @@ class DefaultController extends Controller
 
         ];
 
-        \Craft::$app->view->setTemplatesPath(__DIR__ . '/../templates');
-        return $this->renderTemplate('default/index.twig', $variables);
-    }
-
-
-
-    public function actionFilter(): Response {
-
-        $variables = [
-
-        ];
-
-        dump( \Craft::$app->request );
-        exit;
-
         // \Craft::$app->view->setTemplatesPath(__DIR__ . '/../templates');
-        // return $this->renderTemplate('default/filter.twig', $variables);
+        return $this->renderTemplate('index.twig', $variables);
     }
 }

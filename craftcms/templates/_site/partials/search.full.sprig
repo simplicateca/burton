@@ -1,30 +1,38 @@
-{% set feedIds   = feedIds|default()  %}
-{% set source    = source|default()   %}
-{% set settings  = settings|default() %}
-{% set interface = interface|default() %}
-{% set baseurl   = settings.entryUrl ??? siteUrl( craft.app.request.pathInfo ) %}
-{% set uuid      = create('craft\\helpers\\StringHelper').UUID() %}
+{% import "_core/assemble" as assemble %}
+
+{% set settings = {
+    source     : source     ?? null,
+    collectIds : collectIds ?? feedIds ?? null,
+    uuid       : settings.uuid     ??? create('craft\\helpers\\StringHelper').UUID(),
+    baseUrl    : settings.entryUrl ??? siteUrl( craft.app.request.pathInfo ),
+    cardLoop   : settings.cardLoop ??? null,
+    microHeader: null,
+    microFooter: null,
+    aboveForm  : null,
+    belowForm  : null,
+    container  : null
+} | merge( settings ??? {} ) %}
 
 {% set pageInfo = null %}
-{% set searchParams = {
+{% set search = {
     page  : craft.app.request.getParam('page')|default(1),
     filter: craft.app.request.getParam('f')|default(),
     query : craft.app.request.getParam('q')|default(),
     limit : limit|default()
 } %}
 
-{% if searchParams.query or not ( settings.requireQuery ??? null ) %}
+{% if search.query %}
 
     {## convert a contentFeed entry into a Craft Query object using a custom twig function
-        from: `craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php` ##}
-    {% set query = feedIds ? collectionLookup( feedIds, searchParams ) : null %}
+        from: `craftcms/modules/sitemodule/src/twigextensions/CollectionsTwig.php` ##}
+    {% set query = feedIds ? collectionLookup( feedIds, search ) : null %}
 
     {% if source and not query %}
         {% set query = craft.entries() %}
         {% set query = source.section|default() ? query.section( source.section ) : query %}
         {% set query = source.type|default()    ? query.type( source.type       ) : query %}
         {% set query = source.orderBy|default() ? query.orderBy( source.orderBy ) : query %}
-        {% set query = searchParams.query       ? query.search( searchParams.query ) : query %}
+        {% set query = search.query       ? query.search( search.query ) : query %}
     {% endif %}
 
     {% if query|first.section ??? null == 'rss' %}
@@ -34,52 +42,33 @@
             totalPages: 1
         } %}
     {% else %}
-        {% set pageInfo = query ? sprig.paginate( query, searchParams.page ) : null %}
+        {% set pageInfo = query ? sprig.paginate( query, search.page ) : null %}
     {% endif %}
 {% endif %}
 
 {% set microZone1 %}
-    {% if interface in [ 'fullSearch', 'filterByFeed' ] %}
-        <div class="w-full relative">
+    {{ settings.aboveForm }}
+    <form method="get" action="{{ settings.baseUrl }}" class="w-full relative">
+        <div class="max-w-3xl w-full pb-10 flex flex-col gap-4 mx-auto">
+            {{ include( "_site/partials/filter.keyword", {
+                params   : search,
+                settings : settings,
+            }, withContext = false ) }}
 
-            <form method="get" action="{{ baseurl }}">
-
-                {{ settings.aboveForm|default() | raw }}
-
-                <div class="max-w-3xl w-full pb-10 flex flex-col gap-4 mx-auto">
-                    {% if interface in [ 'fullSearch' ] %}
-                        {{ include( "_site/partials/filter.keyword", {
-                            isSprig  : true,
-                            resultId : "sprigResults-#{uuid}",
-                            params   : searchParams,
-                            settings : settings,
-                            interface: interface,
-                        }, withContext = false ) }}
-                    {% endif %}
-
-                    {{ include( '_site/partials/filter.feed', {
-                        isSprig  : true,
-                        feedIds  : feedIds,
-                        params   : searchParams,
-                        settings : settings,
-                        baseurl  : baseurl,
-                        interface: interface,
-                    }, withContext = false ) }}
-                </div>
-
-                {{ settings.belowForm|default() | raw }}
-            </form>
+            {{ include( '_site/partials/filter.feed', {
+                params   : search,
+                settings : settings,
+            }, withContext = false ) }}
         </div>
-    {% endif %}
+    </form>
+    {{ settings.belowForm | raw }}
 {% endset %}
 
-
 {% set microZone2 %}
-    <div id="sprigResults-{{uuid}}" class="w-full">
-
+    <div id="sprigResults-{{settings.uuid}}" class="w-full">
         {% if pageInfo.pageResults ??? null %}
 
-            {% if searchParams.query %}
+            {% if search.query %}
                 <div class="max-w-4xl mx-auto @container mb-8">
                     <p class="html smaller p-2 bg-theme-contrast-light text-center">
                         {% if pageInfo.totalPages > 1 %}
@@ -95,32 +84,16 @@
                 </div>
             {% endif %}
 
-
-
-            {{ include( [
-                settings.cardLoop ??? null,
-                "_site/loops/loop.auto",
-                "_core/blocks/loop.auto"
-            ] | filter, {
-                items    : pageInfo.pageResults,
-                limit    : searchParams.limit,
-                feedIds  : feedIds,
-                interface: interface,
-                settings : settings|default()
-            }, withContext = false  ) }}
+            {{ assemble.loop( settings.cardLoop, pageInfo.pageResults, settings ) }}
 
             {{ include( '_site/partials/paginate.base', {
-                isSprig  : true,
-                settings : settings,
                 paginate : pageInfo,
-                feedIds  : feedIds,
-                params   : searchParams,
-                baseurl  : baseurl,
-                interface: interface,
+                params   : search,
+                settings : settings,
             }, withContext = false ) }}
 
         {% else %}
-            {% if searchParams.query %}
+            {% if search.query %}
                 <div class="max-w-4xl mx-auto @container mb-8">
                     <p class="html larger text-center">
                         <strong>Sorry</strong>, we could not find any matches for your search.
@@ -132,25 +105,19 @@
 {% endset %}
 
 {% if settings.microLayout|default() %}
-
-    {% import "_core/assemble" as assemble %}
-
     {{ assemble.micro(
         settings.microLayout,
         {
-            zone1     : microZone1|default(),
-            zone2     : microZone2|default(),
+            zone1     : microZone1,
+            zone2     : microZone2,
             header    : settings.microHeader|default(),
             footer    : settings.microFooter|default(),
             container : settings.container|default(),
         }
     ) }}
-
 {% else %}
-
     {{ microZone1 }}
     {{ microZone2 }}
-
 {% endif %}
 
 {% css %}

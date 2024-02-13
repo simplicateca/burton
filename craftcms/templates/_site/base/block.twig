@@ -1,6 +1,6 @@
 {## Block Skeleton
  ------------------------------------------------------------------------------------ ##}
-{% extends [template_from_string("{% block block %}{% endblock %}")] %}
+{% extends [template_from_string('{% block block %}{% endblock %}')] %}
 {% import "_core/assemble" as assemble %}
 {% import "_core/block"    as blocks %}
 
@@ -40,40 +40,13 @@
     any necessary adjustments to the content based on the block attribute settings.
  ------------------------------------------------------------------------------------ ##}
 {% block block__text -%}
+    {{ assemble.richtext(
+        block.settings.richtextBody ?? 'body',
+        block.text ?? null,
+        block.settings ?? {}
+    ) }}
 
-    {% set processedText1 = processedText1 ??? richHtml( block.text ??? null ) %}
-
-    {% if processedText1 ??? null %}
-
-        {## Move the block headline to <header> when left/right cols stack on mobile
-         ----------------------------------------------------------------------------- ##}
-        {% if block.headline ??? processedText1.eyebrow ??? processedText1.headline %}
-            {% if not block.settings.leadingTextHeadlinesToMicroHeader|default(false) %}
-                {% set class = collect(['LEFT','RIGHT']) | filter( v => v in block.settings.microLayout|default()|upper )
-                    ? "!hidden lg:!block"
-                    : null %}
-
-                    {% set header %}
-                        {{ processedText1.eyebrow | raw }}
-                        {% if block.headline ??? null %}
-                            <h1>{{ block.headline }}</h1>
-                        {% endif %}
-                        {{ processedText1.headline | raw }}
-                    {% endset %}
-
-                    {{ header | retconAttr( '*', { class: class }, false ) }}
-            {% endif %}
-        {% endif %}
-
-        {{ processedText1.body | raw }}
-
-        {## If the block has a CTA, display it here unless it's been moved to the footer ##}
-        {% if not block.settings.textCtaToMicroFooter|default(false) %}
-            {{ processedText1.cta | raw }}
-        {% endif %}
-
-    {% endif %}
-
+    {# {{ dump( block.settings ) }} #}
 {%- endblock %}
 
 
@@ -81,32 +54,11 @@
 {## Block <header> zone content
  ------------------------------------------------------------------------------------ ##}
 {% block block__header %}
-
-    {## Duplicates the block headline into the block <header> for better mobile display.
-     -------------------------------------------------------------------------------- ##}
-    {% set processedText1 = processedText1 ??? richHtml( block.text ??? null ) %}
-
-    {% if block.headline ??? processedText1.eyebrow ??? processedText1.headline %}
-
-        {% set header %}
-            {{ processedText1.eyebrow | raw }}
-            {% if block.headline ??? null %}
-                <h1>{{ block.headline }}</h1>
-            {% endif %}
-            {{ processedText1.headline | raw }}
-        {% endset %}
-
-        {% if block.settings.leadingTextHeadlinesToMicroHeader|default(false) %}
-            {{ header }}
-        {% else %}
-            {% if collect(['LEFT','RIGHT']) | filter( v => v in block.settings.microLayout|upper ) %}
-                {% set class = "lg:!hidden" %}
-                {{ header | retconAttr( '*', { class: class }, false ) }}
-            {% endif %}
-        {% endif %}
-
-    {% endif %}
-
+    {{ assemble.richtext(
+        block.settings.richtextHeader ?? 'header',
+        block.text ?? null,
+        block.settings ?? {}
+    ) }}
 {% endblock %}
 
 
@@ -114,13 +66,9 @@
 {## Block <footer> zone content
  ------------------------------------------------------------------------------------ ##}
 {% block block__footer %}
-
-    {% set processedText1 = processedText1 ??? richHtml( block.text ??? null ) %}
-
-    {## Moves Text CTA to block footer
-     -------------------------------------------------------------------------------- ##}
-    {% if block.settings.textCtaToMicroFooter|default(false) and processedText1.cta ??? null %}
-        {{ processedText1.cta | raw }}
-    {% endif %}
-
+    {{ assemble.richtext(
+        block.settings.richtextHeader ?? 'footer',
+        block.text ?? null,
+        block.settings ?? {}
+    ) }}
 {% endblock %}

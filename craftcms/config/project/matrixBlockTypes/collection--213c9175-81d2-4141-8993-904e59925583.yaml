@@ -1,22 +1,10 @@
-field: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+field: a4fe99b5-7832-4eb2-9833-f551177bb821 # Body Builder
 fieldLayouts:
   a1f0f4d1-9056-4f56-b262-8722794749a3:
     tabs:
       -
         elementCondition: null
         elements:
-          -
-            elementCondition: null
-            fieldUid: ae3f34db-5fe5-4438-86f0-377cfaebf02a # Layout
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 33aeadab-024e-46c6-9f23-3bdae21f68da
-            userCondition: null
-            warning: null
-            width: 50
           -
             elementCondition: null
             fieldUid: b65678be-7ed0-4665-aaaa-bd9d406b60f4 # Variant
@@ -31,7 +19,19 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 0e2362da-4175-4b8f-a6f7-d881f03be73e # Collection Type
+            fieldUid: ae3f34db-5fe5-4438-86f0-377cfaebf02a # Layout
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 33aeadab-024e-46c6-9f23-3bdae21f68da
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 0e2362da-4175-4b8f-a6f7-d881f03be73e # Source
             instructions: null
             label: null
             required: false
@@ -40,46 +40,10 @@ fieldLayouts:
             uid: b84a41ca-ff56-45f0-829b-d405ac1ea8e3
             userCondition: null
             warning: null
-            width: 75
+            width: 100
           -
             elementCondition: null
-            fieldUid: a8dc4c16-ac4a-41eb-b5cb-a83598b8313f # Extra User Interface
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: cb10bc5b-d99c-46e6-a1fe-458f4c0d0d63
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: 6fe06c51-450b-43b8-8ff4-88f896048fd2 # Limit Results
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 26ea4909-3af2-46b1-ab8b-13be80591d83
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: c6677eab-6c78-4ca1-93cd-0faa266d1c45 # Copy
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 6017252d-7c65-4716-8587-0267805477aa
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: 85a35bf9-39c4-475c-9abf-7839f75bb8e6 # Content Feed
+            fieldUid: 85a35bf9-39c4-475c-9abf-7839f75bb8e6 # Collection
             instructions: null
             label: null
             required: false
@@ -91,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Content Items
+            fieldUid: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Items
             instructions: null
             label: null
             required: false
@@ -115,13 +79,13 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 14fd2961-f771-44f1-9b9c-aede9b59a565 # Downloadable Files
+            fieldUid: c6677eab-6c78-4ca1-93cd-0faa266d1c45 # Copy
             instructions: null
             label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 0fd46570-e8f2-4db3-89dd-0b979b0dedc4
+            uid: 6017252d-7c65-4716-8587-0267805477aa
             userCondition: null
             warning: null
             width: 50
@@ -136,115 +100,39 @@ fieldLayouts:
             uid: a9125f69-85d0-464d-a645-9adf0935f0d9
             userCondition: null
             warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: a1a62d7a-5173-4caf-8d92-423b6dc0dede # Interspace
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: d6cead47-c085-40f3-975f-ce5f00b44f23
-            userCondition: null
-            warning: null
-            width: 50
+            width: 100
         name: Content
         uid: 6272049f-8eaf-4847-a1fc-52a1f881a7a9
         userCondition: null
 fields:
-  0e2362da-4175-4b8f-a6f7-d881f03be73e: # Collection Type
+  0e2362da-4175-4b8f-a6f7-d881f03be73e: # Source
     columnSuffix: knlnnrsn
-    contentColumnType: string
+    contentColumnType: text
     fieldGroup: null
     handle: source
     instructions: null
-    name: 'Collection Type'
+    name: Source
     searchable: false
     settings:
-      columnType: string
-      options:
-        -
-          __assoc__:
-            -
-              - label
-              - 'Single-Use Inline Content Items'
-            -
-              - value
-              - items
-            -
-              - default
-              - '1'
-        -
-          __assoc__:
-            -
-              - label
-              - 'Dynamic Content Feed'
-            -
-              - value
-              - feed
-            -
-              - default
-              - ''
-        -
-          __assoc__:
-            -
-              - label
-              - 'Specific Content Entries'
-            -
-              - value
-              - entries
-            -
-              - default
-              - ''
-        -
-          __assoc__:
-            -
-              - label
-              - 'Downloadable Files (PDF, ZIP, XLS, etc)'
-            -
-              - value
-              - assets
-            -
-              - default
-              - ''
+      columnType: null
+      configFile: _site/json/block.sources.json
     translationKeyFormat: null
     translationMethod: none
-    type: craft\fields\RadioButtons
-  6fe06c51-450b-43b8-8ff4-88f896048fd2: # Limit Results
-    columnSuffix: zbgxqkrw
-    contentColumnType: integer(10)
-    fieldGroup: null
-    handle: limit
-    instructions: null
-    name: 'Limit Results'
-    searchable: false
-    settings:
-      decimals: 0
-      defaultValue: 3
-      max: null
-      min: 0
-      prefix: '#'
-      previewCurrency: null
-      previewFormat: decimal
-      size: 2
-      suffix: null
-    translationKeyFormat: null
-    translationMethod: none
-    type: craft\fields\Number
+    type: simplicateca\referencefield\fields\ProtoSelector
   7b72b671-dcdc-49b2-95cd-44a8e8be7cad: # Theme
     columnSuffix: ngczrvyg
-    contentColumnType: string
+    contentColumnType: text
     fieldGroup: null
     handle: theme
     instructions: null
     name: Theme
     searchable: false
     settings:
-      referenceFile: _site/config/theme.content.json
+      columnType: null
+      configFile: _site/json/theme.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\referencefield\fields\ProtoSelector
   9a818c17-ad1d-488d-945a-777b6b8b702f: # Content Entries
     columnSuffix: null
     contentColumnType: string
@@ -252,7 +140,7 @@ fields:
     handle: entries
     instructions: null
     name: 'Content Entries'
-    searchable: false
+    searchable: true
     settings:
       allowSelfRelations: false
       branchLimit: null
@@ -291,91 +179,34 @@ fields:
                       - d3282cfb-d044-4890-b553-9a0b87393027 # Insights & Ideas
                       - 8000f4a4-93b8-4f5b-b6b2-b26e6c12e366 # News & Updates
                       - 9d712dc3-2d54-4b21-bbc3-251dad2d4dc9 # Default
-                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
                       - e0521335-ccc2-4893-a505-4baacf112dee # Standard
                       - 1da13089-e303-46d0-930f-aefd062df474 # Standard w/ Sidebar
                       - b26498c0-236e-4738-85e6-666d3439cbc5 # Default
-                      - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Topics & Themes
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content ‘Bits’
+                      - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Public
       selectionLabel: Choose
       showSiteMenu: false
       sources:
         - 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # Articles
         - 'section:fff3cc82-2855-4031-b003-b91d6e16088b' # FAQs
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
         - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Primary Pages
         - 'section:3552382f-ca3b-44ba-95f4-2be9f7773370' # Profiles
-        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
+        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Topics & Tags
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  14fd2961-f771-44f1-9b9c-aede9b59a565: # Downloadable Files
+  85a35bf9-39c4-475c-9abf-7839f75bb8e6: # Collection
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
-    handle: assets
+    handle: collections
     instructions: null
-    name: 'Downloadable Files'
-    searchable: false
-    settings:
-      allowSelfRelations: false
-      allowSubfolders: false
-      allowUploads: true
-      allowedKinds:
-        - audio
-        - compressed
-        - excel
-        - json
-        - pdf
-        - powerpoint
-        - text
-        - video
-        - word
-      branchLimit: null
-      defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
-      defaultUploadLocationSubpath: '{{- ( object.owner.variants   ?? null  ) ? "products/#{object.owner.type.handle|lower}/" : '''' -}} {{- ( object.owner.product    ?? null  ) ? "products/#{object.owner.product.type.handle|lower}/" : '''' -}} {{- ( object.owner.section    ?? null  ) ? "#{object.owner.section.handle|lower}/" : '''' -}} {{- ( object.owner.parentUri  ?? null  ) ? "#{object.owner.parentUri|replace(''__'','''')}/" : '''' -}} {{object.owner.slug}}'
-      localizeRelations: false
-      maintainHierarchy: false
-      maxRelations: null
-      minRelations: null
-      previewMode: full
-      restrictFiles: true
-      restrictLocation: false
-      restrictedDefaultUploadSubpath: null
-      restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
-      restrictedLocationSubpath: null
-      selectionCondition:
-        __assoc__:
-          -
-            - elementType
-            - craft\elements\Asset
-          -
-            - fieldContext
-            - global
-          -
-            - class
-            - craft\elements\conditions\assets\AssetCondition
-      selectionLabel: Choose
-      showSiteMenu: false
-      showUnpermittedFiles: false
-      showUnpermittedVolumes: false
-      sources: '*'
-      targetSiteId: null
-      validateRelatedElements: false
-      viewMode: large
-    translationKeyFormat: null
-    translationMethod: site
-    type: craft\fields\Assets
-  85a35bf9-39c4-475c-9abf-7839f75bb8e6: # Content Feed
-    columnSuffix: null
-    contentColumnType: string
-    fieldGroup: null
-    handle: feeds
-    instructions: null
-    name: 'Content Feed'
-    searchable: false
+    name: Collection
+    searchable: true
     settings:
       allowSelfRelations: false
       branchLimit: null
@@ -383,56 +214,27 @@ fields:
       maintainHierarchy: false
       maxRelations: null
       minRelations: null
-      selectionCondition:
-        __assoc__:
-          -
-            - elementType
-            - craft\elements\Entry
-          -
-            - fieldContext
-            - global
-          -
-            - class
-            - craft\elements\conditions\entries\EntryCondition
-          -
-            - conditionRules
-            -
-              -
-                __assoc__:
-                  -
-                    - class
-                    - craft\elements\conditions\entries\TypeConditionRule
-                  -
-                    - uid
-                    - 2ce107b7-d275-4c31-a7a9-aa356ade2c90
-                  -
-                    - operator
-                    - in
-                  -
-                    - values
-                    -
-                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Feeds
       selectionLabel: Choose
       showSiteMenu: false
       sources:
-        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+        - 'section:2b05c141-a297-4820-ac7d-81e736dbf84b' # Collections
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  5347a201-6da8-47ff-bc5b-20a0dc63d44e: # Inline Content Items
+  5347a201-6da8-47ff-bc5b-20a0dc63d44e: # Inline Items
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: items
     instructions: null
-    name: 'Inline Content Items'
+    name: 'Inline Items'
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1523917242
+      changedFieldIndicator: 1945450820
       columns:
         __assoc__:
           -
@@ -474,114 +276,34 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: verbb\supertable\fields\SuperTableField
-  a1a62d7a-5173-4caf-8d92-423b6dc0dede: # Interspace
-    columnSuffix: vdailebf
-    contentColumnType: string
-    fieldGroup: null
-    handle: interspace
-    instructions: null
-    name: Interspace
-    searchable: false
-    settings:
-      referenceFile: _site/config/interspace.content.json
-    translationKeyFormat: null
-    translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
-  a8dc4c16-ac4a-41eb-b5cb-a83598b8313f: # Extra User Interface
-    columnSuffix: bqiltrrw
-    contentColumnType: string
-    fieldGroup: null
-    handle: interface
-    instructions: null
-    name: 'Extra User Interface'
-    searchable: false
-    settings:
-      columnType: string
-      options:
-        -
-          __assoc__:
-            -
-              - label
-              - None
-            -
-              - value
-              - ''
-            -
-              - default
-              - '1'
-        -
-          __assoc__:
-            -
-              - label
-              - 'Pagination (next/previous)'
-            -
-              - value
-              - pagination
-            -
-              - default
-              - ''
-        -
-          __assoc__:
-            -
-              - label
-              - 'Full Search UI'
-            -
-              - value
-              - fullSearch
-            -
-              - default
-              - ''
-        -
-          __assoc__:
-            -
-              - label
-              - 'Filter by Feed'
-            -
-              - value
-              - filterByFeed
-            -
-              - default
-              - ''
-        -
-          __assoc__:
-            -
-              - label
-              - 'Link to Feed Homepage (if set)'
-            -
-              - value
-              - linkFeedHome
-            -
-              - default
-              - ''
-    translationKeyFormat: null
-    translationMethod: none
-    type: craft\fields\Dropdown
   ae3f34db-5fe5-4438-86f0-377cfaebf02a: # Layout
     columnSuffix: ulxtrpcp
-    contentColumnType: string
+    contentColumnType: text
     fieldGroup: null
     handle: layout
     instructions: null
     name: Layout
     searchable: false
     settings:
-      referenceFile: _site/config/layout.collection.content.json
+      columnType: null
+      configFile: _site/json/layout.twozone.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\referencefield\fields\ProtoSelector
   b65678be-7ed0-4665-aaaa-bd9d406b60f4: # Variant
     columnSuffix: uzgufcyh
-    contentColumnType: string
+    contentColumnType: text
     fieldGroup: null
     handle: variant
     instructions: null
     name: Variant
     searchable: false
     settings:
-      referenceFile: _site/config/variant.collection.json
+      columnType: null
+      configFile: _site/json/variant.collection.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\referencefield\fields\ProtoSelector
   c6677eab-6c78-4ca1-93cd-0faa266d1c45: # Copy
     columnSuffix: null
     contentColumnType: text
@@ -603,7 +325,7 @@ fields:
       removeEmptyTags: true
       removeInlineStyles: true
       removeNbsp: true
-      showHtmlButtonForNonAdmins: true
+      showHtmlButtonForNonAdmins: false
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
       uiMode: normal
@@ -612,4 +334,4 @@ fields:
     type: craft\redactor\Field
 handle: collection
 name: Collection
-sortOrder: 5
+sortOrder: 4

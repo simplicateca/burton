@@ -1,4 +1,4 @@
-{% extends template_from_string("{% block carousel %}{% endblock %}") %}
+{% extends template_from_string('{% block carousel %}{% endblock %}') %}
 
 {% block carousel %}
 
@@ -89,10 +89,10 @@
 
     {## Get Carousel Config
     ------------------------------------------------------------------------------------ ##
-        By default we store a splideConfig hash in `_layout/core/grids` for each grid
+        By default we store a splideConfig hash in `_site/base/grids` for each grid
         definition since these are typically modified in unison.
     ------------------------------------------------------------------------------------ ##}
-    {% import "_layout/core/grids" as grids %}
+    {% import "_site/base/grids" as grids %}
     {% set gridJson = grids.definitions() | json_decode %}
 
 
@@ -104,8 +104,8 @@
     } %}
 
         {% block slide %}
-            {% from "_cards/base" import render as renderCard %}
-            {{ renderCard( item, card, settings ) }}
+            {{{% import "_core/card" as cards %}
+            {{ cards.single( item, card, settings ) }}}}
         {% endblock %}
 
         {% block splideConfig %}

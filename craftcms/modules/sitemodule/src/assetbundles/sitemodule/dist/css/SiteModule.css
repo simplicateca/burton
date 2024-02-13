@@ -5,3 +5,6 @@
  * editing by (optionally) mimicing the frontend typography
  * styles for things like font-family, colours, sizes, etc.
  */
+
+@import 'matrix.css';
+@import 'redactor.css';

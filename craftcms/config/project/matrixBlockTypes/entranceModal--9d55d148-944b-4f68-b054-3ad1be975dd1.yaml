@@ -10,13 +10,13 @@ fieldLayouts:
             fieldUid: 3d53ca80-b329-484f-bad5-8d4a79f0e3f0 # Fragment
             instructions: null
             label: null
-            required: false
+            required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 1ac7d686-5712-4326-959a-84eb0b37d142
             userCondition: null
             warning: null
-            width: 100
+            width: 50
         name: Content
         uid: 18e1201a-47ad-4963-a452-35ca03bb5290
         userCondition: null
@@ -35,7 +35,7 @@ fields:
       localizeRelations: false
       maintainHierarchy: false
       maxRelations: null
-      minRelations: 1
+      minRelations: null
       selectionCondition:
         __assoc__:
           -
@@ -64,11 +64,12 @@ fields:
                   -
                     - values
                     -
-                      - 2dd114a5-aaaa-4e4a-872d-7a61d224b0cb # Content Fragments
-      selectionLabel: 'Choose Fragment'
+                      - 2dd114a5-aaaa-4e4a-872d-7a61d224b0cb # Body Fragments
+                      - 2d27e08b-61f3-47ca-8a0a-e69fa2b1a226 # Sidebar Fragments
+      selectionLabel: Choose
       showSiteMenu: false
       sources:
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

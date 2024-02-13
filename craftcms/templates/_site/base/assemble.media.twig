@@ -122,9 +122,9 @@
     } %}
 
     {{ include( "_site/partials/cluster", {
-        position1: assemble.img( ( images[0:1]|first ) ??? null, frame )
-        position2: assemble.img( ( images[1:1]|first ) ??? null, frame )
-        position3: assemble.img( ( images[2:1]|first ) ??? null, frame )
+        position1: assemble.img( ( images[0:1]|first ) ??? null, frame ),
+        position2: assemble.img( ( images[1:1]|first ) ??? null, frame ),
+        position3: assemble.img( ( images[2:1]|first ) ??? null, frame ),
         settings : settings,
     } ) }}
 {% endmacro %}

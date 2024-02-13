@@ -514,7 +514,7 @@
                                 "sources": [
                                     "section:articles",
                                     "section:faqs",
-                                    "section:modular",
+                                    "section:reusable",
                                     "section:pages",
                                     "section:profiles",
                                     "section:taxonomy"
@@ -752,7 +752,7 @@
                                             "selectionLabel": "Pick Bit",
                                             "showSiteMenu": false,
                                             "sources": [
-                                                "section:modular"
+                                                "section:reusable"
                                             ],
                                             "validateRelatedElements": false,
                                             "maintainHierarchy": false
@@ -796,7 +796,7 @@
                                 "selectionLabel": "Choose fragment",
                                 "showSiteMenu": false,
                                 "sources": [
-                                    "section:modular"
+                                    "section:reusable"
                                 ],
                                 "validateRelatedElements": false,
                                 "maintainHierarchy": false
@@ -823,8 +823,8 @@
                     ]
                 },
                 {
-                    "name": "Highlight",
-                    "handle": "highlight",
+                    "name": "Focus",
+                    "handle": "focus",
                     "fields": [
                         {
                             "required": false,
@@ -832,7 +832,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/layout.highlight.sidebar.json"
+                                "referenceFile": "_site\/config\/layout.focus.sidebar.json"
                             }
                         },
                         {
@@ -841,7 +841,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\referencefield\\fields\\Dropdown",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/variant.highlight.json"
+                                "referenceFile": "_site\/config\/variant.focus.json"
                             }
                         },
                         {

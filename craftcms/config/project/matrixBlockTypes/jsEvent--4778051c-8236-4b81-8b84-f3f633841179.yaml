@@ -10,13 +10,13 @@ fieldLayouts:
             fieldUid: a5e7245d-85fd-4eb2-a1af-93ebbadd17f3 # Code
             instructions: null
             label: null
-            required: false
+            required: true
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 4dd17137-f67f-444d-b840-9bc8a55e07cc
             userCondition: null
             warning: null
-            width: 100
+            width: 50
         name: Content
         uid: de24a3ba-4bba-4e37-a851-f2e5d949f3da
         userCondition: null
@@ -34,8 +34,8 @@ fields:
       charLimit: null
       code: true
       columnType: null
-      initialRows: 4
-      multiline: false
+      initialRows: 1
+      multiline: true
       placeholder: null
       uiMode: normal
     translationKeyFormat: null

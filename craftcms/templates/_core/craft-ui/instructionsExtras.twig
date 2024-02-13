@@ -1,0 +1,34 @@
+<div class="fieldTemplate fieldTemplate__pageExtras">
+    <h2>Extras</h2>
+
+    <p>
+        Extras represent page level elements that are not included within any of the other content sections.
+    </p>
+
+    <p>
+        These might represent
+
+        <a href="/sitehub/blocks/header" target="_blank">Header&nbsp;builder&nbsp;reference&nbsp;→</a>
+    </p>
+</div>
+
+{% css %}
+    #fields-headerBuilder .actions a.move.icon {
+        display: none;
+    }
+{% endcss %}
+
+
+{% js %}
+
+// provide a better message when a page already has a header block
+(function($) {
+    $(document).on('click', '#noMoreHerosText span[data-icon="settings"]', function(e) {
+        $(this)
+            .closest('div.matrix-field')
+            .find( 'div.actions button.settings' )
+            [ 0 ].click()
+    });
+})(jQuery);
+
+{% endjs %}

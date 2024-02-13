@@ -182,15 +182,6 @@
 } | json_encode() | raw }}{% endmacro %}
 
 
-
-{## Wrap a Grid layout around a string of html
- ------------------------------------------------------------------------------------ ##
-
- {% import "_layout/core/grids" as grids %}
-
- {{ grids.generate( 'gridName' [items],  ) }}
-
- ------------------------------------------------------------------------------------ ##}
 {% macro generate( grid = null, html = [] ) %}
 
     {% set grid = grid | trim ??? 'fixed1' %}

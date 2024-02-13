@@ -1,0 +1,24 @@
+defaultPlacement: end
+enableVersioning: true
+handle: reusable
+name: 'Reusable Content'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Content Layout'
+      -
+        - urlFormat
+        - 'sitehub/?{{object.type.handle}}={{object.id}}'
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
+siteSettings:
+  94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

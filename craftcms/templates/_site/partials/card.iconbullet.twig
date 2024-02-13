@@ -1,9 +1,8 @@
-{% extends ["_site/cards/base", "_core/cards/base"] %}
+{% extends ["_site/base/card", "_core/card"] %}
+{% block _template _self %}
 
-{% set _card_tmpl = _self %}
 
-
-{% block content %}
+{# {% block content %}
     {% set cardHeaderClass = 'mb-0 text-lg' %}
     {% set headline = block('card_headline') %}
     {% set hasLink  = headline | retconOnly( 'a' ) | length %}
@@ -62,4 +61,4 @@
             {% endblock %}
         </div>
     {% endblock %}
-{% endblock %}
+{% endblock %} #}

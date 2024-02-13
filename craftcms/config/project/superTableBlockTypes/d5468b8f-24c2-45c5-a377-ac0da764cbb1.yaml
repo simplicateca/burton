@@ -1,5 +1,5 @@
-changedFieldIndicator: null
-field: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Content Items
+changedFieldIndicator: 96345553
+field: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Items
 fieldLayouts:
   79dd7d9f-7ef5-438e-9e9f-d231cc488aca:
     tabs:
@@ -129,11 +129,11 @@ fields:
                   -
                     - values
                     -
-                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content ‘Bits’
       selectionLabel: 'Pick Bit'
       showSiteMenu: false
       sources:
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null
@@ -196,17 +196,6 @@ fields:
       restrictedDefaultUploadSubpath: null
       restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
       restrictedLocationSubpath: null
-      selectionCondition:
-        __assoc__:
-          -
-            - elementType
-            - craft\elements\Asset
-          -
-            - fieldContext
-            - global
-          -
-            - class
-            - craft\elements\conditions\assets\AssetCondition
       selectionLabel: Choose
       showSiteMenu: true
       showUnpermittedFiles: false

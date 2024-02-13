@@ -6,7 +6,7 @@
     `layout` (the variable) should contain the path for the card layout to be rendered.
     If it is empty for some reason, default to the base card layout.
  ------------------------------------------------------------------------------------ ##}
-{% extends layout|default(["_site/cards/base","_core/cards/base"]) %}
+{% extends layout|default(["_site/base/card","_core/card"]) %}
 
 
 {## use retcon + tailwind to modify specific elements after the card is renders ##}

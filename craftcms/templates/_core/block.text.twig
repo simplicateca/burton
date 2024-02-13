@@ -8,8 +8,14 @@
 {% block content %}
     {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
         zone1    : block('block__text'),
+        zone2    : block('block__text2'),
         header   : block('block__header'),
         footer   : block('block__footer'),
         container: block.settings.container|default()
     } ) }}
+{% endblock %}
+
+
+{% block block__text2 %}
+    {{ block.text2 ??? null }}
 {% endblock %}

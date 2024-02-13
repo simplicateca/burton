@@ -50,12 +50,12 @@
 {%- endmacro %}
 
 
-{## Left-Right / Even / Reverse Stack ##}
-{% macro leftRight__even__reverseStack( data ) -%}
+{## Left-Right / Even ##}
+{% macro leftRight__even( data ) -%}
     {{ _self.header( data ) }}
     {{ tag( 'div', {
         class: [
-            "w-full flex flex-col-reverse lg:flex-row",
+            "w-full flex flex-col lg:flex-row",
             data.gap|default()
         ],
         html: _self.twoZone( data, {
@@ -67,12 +67,12 @@
 {%- endmacro %}
 
 
-{## Right-Left / Even / Reverse Stack) ##}
-{% macro rightLeft__even__reverseStack( data ) -%}
+{## Right-Left / Even ) ##}
+{% macro rightLeft__even( data ) -%}
     {{ _self.header( data ) }}
     {{ tag( 'div', {
         class: [
-            "w-full flex flex-col-reverse lg:flex-row-reverse",
+            "w-full flex flex-col lg:flex-row-reverse",
             data.gap|default()
         ],
         html: _self.twoZone( data, {

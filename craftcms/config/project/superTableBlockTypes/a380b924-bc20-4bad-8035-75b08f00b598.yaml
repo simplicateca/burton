@@ -1,4 +1,4 @@
-changedFieldIndicator: null
+changedFieldIndicator: 1201186940
 field: 93f90adb-ea61-4a42-9c1b-8e8cd9cd401a # Inline Content Items
 fieldLayouts:
   04f3ca97-a5b1-4246-a098-74bb28e48eec:
@@ -129,11 +129,11 @@ fields:
                   -
                     - values
                     -
-                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content ‘Bits’
       selectionLabel: 'Pick Bit'
       showSiteMenu: false
       sources:
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

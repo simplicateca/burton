@@ -12,7 +12,7 @@
  - Buddy deployment scripts refactored & commented
  - Consolidated `.pcss` files and reduced thin component folders
  - Completed the switch from webpack to vite
- - Improved documentation for `Gearbox module`
+ - Improved documentation for `Sitemodule`
  - Rebuilt emergency message / alert bar component
  - Improved default footer template & added separate navigation menus
  - Spent too much time making the post-composer-install prep.php pretty

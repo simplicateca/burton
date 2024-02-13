@@ -7,18 +7,6 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 32dce9ed-f84d-40e7-b19b-d2771aa76bd1 # Layout
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 60c1d9ac-88a7-4bba-bca0-363f05326939
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
             fieldUid: 1853a4db-be6e-457e-8b1e-ce36b7077568 # Variant
             instructions: null
             label: null
@@ -26,6 +14,18 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: dbd1b3a5-aa32-473b-a096-506329e73d45
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 116b2d60-dfda-45af-91ba-a4d2af3e89ca # Theme
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1b3024e8-6d08-4dc5-9de4-9f18e6cff585
             userCondition: null
             warning: null
             width: 50
@@ -67,13 +67,13 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 116b2d60-dfda-45af-91ba-a4d2af3e89ca # Theme
+            fieldUid: 32dce9ed-f84d-40e7-b19b-d2771aa76bd1 # Layout
             instructions: null
             label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 1b3024e8-6d08-4dc5-9de4-9f18e6cff585
+            uid: 60c1d9ac-88a7-4bba-bca0-363f05326939
             userCondition: null
             warning: null
             width: 50
@@ -152,7 +152,7 @@ fields:
     name: Layout
     searchable: true
     settings:
-      referenceFile: _site/config/layout.image.header.json
+      referenceFile: _site/json/layout.image.header.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -165,7 +165,7 @@ fields:
     name: Theme
     searchable: true
     settings:
-      referenceFile: _site/config/theme.header.json
+      referenceFile: _site/json/theme.header.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -178,7 +178,7 @@ fields:
     name: Variant
     searchable: true
     settings:
-      referenceFile: _site/config/variant.image.json
+      referenceFile: _site/json/variant.image.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -219,7 +219,7 @@ fields:
     name: Interspace
     searchable: true
     settings:
-      referenceFile: _site/config/interspace.header.json
+      referenceFile: _site/json/interspace.header.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -232,7 +232,7 @@ fields:
     name: Copy
     searchable: true
     settings:
-      availableTransforms: ''
+      availableTransforms: '*'
       availableVolumes: '*'
       columnType: text
       configSelectionMode: choose
@@ -240,7 +240,7 @@ fields:
       manualConfig: ''
       purifierConfig: null
       purifyHtml: true
-      redactorConfig: SimpleAir.json
+      redactorConfig: Simple.json
       removeEmptyTags: true
       removeInlineStyles: true
       removeNbsp: true
@@ -253,4 +253,4 @@ fields:
     type: craft\redactor\Field
 handle: image
 name: Image
-sortOrder: 3
+sortOrder: 2

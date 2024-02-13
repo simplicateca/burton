@@ -162,7 +162,7 @@ permissions:
   craft\elements\Entry:
     enabled: '1'
     permissions:
-      - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+      - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Topics & Tags
       - 'section:3721b4d6-42d5-41fc-b6e7-76204b42c91a' # Articles
       - 'section:8c9174b7-2c31-491e-a3f9-0374374c967c' # Landing Pages
       - 'section:650e7d1d-63e5-42f9-b3ab-4febfb502723' # Primary Pages

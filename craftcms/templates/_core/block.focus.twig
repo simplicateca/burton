@@ -1,0 +1,36 @@
+{## Focus Block Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitehub/blocks/focus
+ ------------------------------------------------------------------------------------ ##}
+{% extends [ "_site/base/block", "_core/block" ] %}
+{% import "_core/assemble" as assemble %}
+
+{% block content %}
+    {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
+        zone1    : block('block__text'),
+        zone2    : block('block__focus'),
+        header   : block('block__header'),
+        footer   : block('block__footer'),
+        container: block.settings.container|default()
+    } ) }}
+{% endblock content %}
+
+
+{% block block__focus %}
+    {% set blockName = 'focus__' ~ block.variant %}
+    {{ block( blockName ) is defined ? block( blockName ) }}
+{% endblock %}
+
+
+{% block focus__iframe %}
+    {{ assemble.iframe( block.code|default(), block.settings ) }}
+{% endblock %}
+
+
+{% block focus__spotlight %}
+    {% set spotlight = block.entries.one() ??? null %}
+    {% if spotlight %}
+        {% import "_core/card" as cards %}
+        {{ cards.single( spotlight, "spotlight", block.settings ) }}
+    {% endif %}
+{% endblock %}

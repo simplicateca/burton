@@ -1,9 +1,7 @@
-{% extends ["_site/cards/base", "_core/cards/base"] %}
+{% extends ["_site/base/card", "_core/card"] %}
+{% block _template _self %}
 
-{% set _card_tmpl = _self %}
-
-
-{% block content %}
+{# {% block content %}
     {% block fancy_card %}
         <div class="w-full relative @container py-10 @xl:py-20">
             <div class="relative z-10 flex flex-col h-full">
@@ -44,4 +42,4 @@
             {{ block('card_action') }}
         {% endblock %}
     </div>
-{% endblock %}
+{% endblock %} #}

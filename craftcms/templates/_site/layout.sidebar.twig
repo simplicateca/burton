@@ -7,7 +7,7 @@
     - Content Column (Wide)
         - Overload {% block content "" %} if using as a base template for static routes.
         - Automatically adds a spacer before and after the content block.
-        - Otherwise, renders `entry.contentBuilder` matrix builder (if present)
+        - Otherwise, renders `entry.bodyBuilder` matrix builder (if present)
 
     - Sidebar Aside (Narrow)
         - Overload {% block sidebar "" %} if using as a base template for static routes.
@@ -50,19 +50,3 @@
         })
     ) }}
 {% endmacro %}
-
-
-{## content + sidebar builder ##}
-{% block twoColumns %}
-
-    {% from "_layout/core/markup"   import twoColumns as twoColumnLayout %}
-    {% from "_blocks/core/builders" import content as buildContent,
-                                           sidebar as buildSidebar %}
-    {{ twoColumnLayout(
-          buildContent( entry.contentBuilder.all() ??? null, 'innerColumn' ),
-          buildSidebar( entry.sidebarBuilder.all() ??? null ),
-          'fluidContainer'
-    ) }}
-
-    {{ block( 'mainTagClose' ) }}
-{% endblock %}

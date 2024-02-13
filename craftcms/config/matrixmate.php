@@ -1,140 +1,57 @@
 <?php
 
-return [
-    'fields' => [
+$commonFields = ['variant', 'theme', 'source', 'text', 'layout', 'interspace'];
+$commonFieldsHeaders = [...$commonFields, 'headline'];
 
-        'headerBuilder' => [
-            'defaultTabName' => '⚛ Advanced',
-            'types' => [
-                'text' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'theme', 'interspace'],
-                    ]],
-                ],
+if( !function_exists('burtonBuilderConfig') ) { function burtonBuilderConfig( $commonFields ) {
 
-                'textDouble' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'text2', 'theme', 'interspace'],
-                    ]],
-                ],
+    $contentTabLabel = 'Content';
 
-                'image' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'images', 'theme', 'interspace'],
-                    ]],
-                ],
+    return [
+        'defaultTabName' => '⚛ Advanced',
+        'types' => [
+            'text' => [
+                'tabs' => [[
+                     'label' => $contentTabLabel,
+                    'fields' => [...$commonFields, 'text2', 'bits', 'summary', 'format'],
+                ]],
+            ],
 
-                'media' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'source', 'assets', 'embeds', 'theme', 'interspace'],
-                    ]],
-                ],
+            'image' => [
+                'tabs' => [[
+                     'label' => $contentTabLabel,
+                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'images'],
+                ]],
+            ],
 
-                'collection' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'source', 'entries', 'assets', 'feeds', 'items', 'limit', 'interface', 'theme', 'interspace'],
-                    ]],
-                ],
+            'media' => [
+                'tabs' => [[
+                     'label' => $contentTabLabel,
+                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'assets', 'embeds', 'code'],
+                ]],
+            ],
 
-                'highlight' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'feeds', 'entries', 'special', 'form', 'menu', 'code', 'theme', 'interspace'],
-                    ]],
-                ],
-            ]
-        ],
+            'collection' => [
+                'tabs' => [[
+                     'label' => $contentTabLabel,
+                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'entries', 'items'],
+                ]],
+            ],
 
-        'sidebarBuilder' => [
-            'defaultTabName' => '⚛ Advanced',
-            'types' => [
-                'text' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'image' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'images', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'media' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'source', 'assets', 'embeds', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'collection' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'source', 'entries', 'assets', 'feeds', 'items', 'limit', 'interface', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'highlight' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'feeds', 'entries', 'special', 'form', 'menu', 'code', 'theme', 'interspace'],
-                    ]],
-                ],
-            ]
-        ],
-
-        'contentBuilder' => [
-            'defaultTabName' => '⚛ Advanced',
-            'types' => [
-                'text' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'textDouble' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'text2', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'image' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'images', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'media' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'source', 'assets', 'embeds', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'collection' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'source', 'entries', 'assets', 'feeds', 'items', 'limit', 'interface', 'theme', 'interspace'],
-                    ]],
-                ],
-
-                'highlight' => [
-                    'tabs' => [[
-                        'label' => 'Content',
-                        'fields' => ['layout', 'variant', 'text', 'feeds', 'entries', 'special', 'form', 'menu', 'code', 'theme', 'interspace'],
-                    ]],
-                ],
+            'focus' => [
+                'tabs' => [[
+                     'label' => $contentTabLabel,
+                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'entries', 'form', 'component'],
+                ]],
             ],
         ],
+    ];
+} }
+
+return [
+    'fields' => [
+        'headerBuilder'  => burtonBuilderConfig( $commonFieldsHeaders ),
+        'sidebarBuilder' => burtonBuilderConfig( $commonFields ),
+        'bodyBuilder'    => burtonBuilderConfig( $commonFields ),
     ]
 ];

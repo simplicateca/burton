@@ -24,12 +24,9 @@ return [
     'modules' => [
         'site-module' => [
             'class' => \modules\sitemodule\SiteModule::class,
-        ],
-        'gearbox' => [
-            'class' => \modules\gearbox\Gearbox::class,
-        ],
+        ]
     ],
-    'bootstrap' => ['site-module', 'gearbox'],
+    'bootstrap' => ['site-module'],
     'components' => [
         'cache' => [
             'class' => yii\redis\Cache::class,

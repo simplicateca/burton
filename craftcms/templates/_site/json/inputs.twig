@@ -1,0 +1,237 @@
+
+{% block inputGapAbove %}
+{
+    "label": "Gap Above",
+    "field": "interspaceAbove",
+    "type" : "select",
+    "fieldClass": "field width-50",
+    "instructions": "The size of the whitespace gap before this block.",
+    "options" : {
+        "base" : "Standard",
+        "lg"   : "Large",
+        "none" : "None"
+    }
+}
+{% endblock %}
+
+
+{% block inputGapBelow %}
+{
+    "label": "Gap Below",
+    "field": "interspaceBelow",
+    "type" : "select",
+    "fieldClass": "field width-50",
+    "instructions": "The size of the whitespace gap after this block.",
+    "options" : {
+        "base": "Standard",
+        "lg"  : "Large",
+        "none": "None"
+    }
+}
+{% endblock %}
+
+
+{% block inputContainer %}
+{
+    "label": "Container Width",
+    "field": "container",
+    "type" : "select",
+    "fieldClass": "field width-50",
+    "instructions": "",
+    "options" : {
+        "fluid" : "Fluid Width Widescreen",
+        "static": "Static Desktop Width",
+        "tablet": "Narrow (Tablet Portrait)",
+        "none"  : "Edge-to-Edge Bleed"
+    }
+}
+{% endblock %}
+
+
+{% block inputClickAction %}
+{
+    "label": "Click Action",
+    "field": "action",
+    "type" : "select",
+    "fieldClass": "field width-50",
+    "instructions": "What will happen when a user clicks on an item?",
+    "options" : [
+        {
+            "label" : "Auto Link",
+            "value" : "autolink"
+        }
+       ,{
+            "label" : "Summary Modal",
+            "value" : "modal"
+        }
+       ,{
+            "label" : "Dynamic Modal",
+            "value" : "dynamic"
+        }
+       ,{
+            "label" : "No Clickthrough",
+            "value" : "none"
+        }
+    ]
+}
+{% endblock %}
+
+
+{% block inputElevateHeadlines %}
+{
+    "label": "Elevate Opening Headline(s)",
+    "field": "elevateHeadlines",
+    "type" : "lightswitch",
+    "instructions": "Relocates leading H2 & H3 content from primary copy to span above layout columns."
+}
+{% endblock %}
+
+
+{% block inputAnimate %}
+{
+    "label": "Animate",
+    "field": "animate",
+    "type" : "lightswitch",
+    "instructions": ""
+}
+{% endblock %}
+
+
+{% block inputSubmergeCTAs %}
+{
+    "label": "Submerge Call-to-Action Buttons",
+    "field": "submergeCTAs",
+    "type" : "lightswitch",
+    "instructions": "Relocates trailing buttons & links from primary copy to span below layout columns."
+}
+{% endblock %}
+
+
+{% block inputCheckerboard %}
+{
+    "label": "Checkerboard",
+    "field": "checkerboard",
+    "type" : "lightswitch",
+    "instructions": "Square-off content columns with split backgrounds"
+}
+{% endblock %}
+
+
+{% block inputTextRightSizes %}
+{
+    "label": "Text Column Width",
+    "field": "microLayout",
+    "type" : "select",
+    "instructions": "",
+    "fieldClass": "field width-50",
+    "default": "rightLeft__even",
+    "options" : [
+        {
+            "label" : "Wide (66%)",
+            "value" : "rightLeft__heavyZone1"
+        }
+       ,{
+            "label" : "Even (50%)",
+            "value" : "rightLeft__even"
+        }
+       ,{
+            "label" : "Narrow (33%)",
+            "value" : "rightLeft__heavyZone2"
+        }
+    ]
+}
+{% endblock %}
+
+{% block inputTextSizes %}
+{
+    "label": "Text Column",
+    "field": "microLayout",
+    "type" : "select",
+    "instructions": "",
+    "default": "leftRight__even",
+    "fieldClass": "field width-50",
+    "options" : [
+        {
+            "label" : "Full Width",
+            "value" : "leftRight__heavyZone1"
+        }
+       ,{
+            "label" : "Left Regular (~75 chars)",
+            "value" : "leftRight__even"
+        }
+       ,{
+            "label" : "Narrow (~45 chars)",
+            "value" : "leftRight__heavyZone2"
+        }
+    ]
+}
+{% endblock %}
+
+{% block inputTextLeftSizes %}
+{
+    "label": "Text Column Size",
+    "field": "microLayout",
+    "type" : "select",
+    "instructions": "",
+    "default": "leftRight__even",
+    "fieldClass": "field width-50",
+    "options" : [
+        {
+            "label" : "Wide (66%)",
+            "value" : "leftRight__heavyZone1"
+        }
+       ,{
+            "label" : "Even (50%)",
+            "value" : "leftRight__even"
+        }
+       ,{
+            "label" : "Narrow (33%)",
+            "value" : "leftRight__heavyZone2"
+        }
+    ]
+}
+{% endblock %}
+
+{% block inputBlockBottom %}
+{
+    "label": "Bottom Divider",
+    "field": "blockBottom",
+    "type" : "select",
+    "instructions": "",
+    "options" : [
+        {
+            "label" : "None",
+            "value" : "none"
+        }
+       ,{
+            "label" : "Stitch (Left → Right)",
+            "value" : "stitchLeftRight"
+        }
+       ,{
+            "label" : "Stitch (Right → Left)",
+            "value" : "stitchRightLeft"
+        }
+       ,{
+            "label" : "Wave",
+            "value" : "wave"
+        }
+       ,{
+            "label" : "Tilt",
+            "value" : "tilt"
+        }
+    ]
+}
+{% endblock %}
+
+{% block inputCanvasCoverage %}
+{
+    "label": "Canvas Coverage",
+    "field": "coverage",
+    "type" : "select",
+    "instructions": "How much of the background should be affected by the theme?",
+    "options" : {
+        {% if element.field ?? null == 'bodyBuilder' %}"full": "Edge-to-Edge Bleed",{% endif %}
+        "box": "Content Box Only"
+    }
+}
+{% endblock %}

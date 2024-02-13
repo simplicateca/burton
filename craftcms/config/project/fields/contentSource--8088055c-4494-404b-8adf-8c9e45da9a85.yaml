@@ -6,7 +6,8 @@ instructions: null
 name: 'Content Source'
 searchable: false
 settings:
-  referenceFile: _site/config/feed.sources.json
+  columnType: null
+  configFile: _site/json/collection.sources.json
 translationKeyFormat: null
 translationMethod: none
-type: simplicateca\referencefield\fields\Dropdown
+type: simplicateca\referencefield\fields\ProtoSelector

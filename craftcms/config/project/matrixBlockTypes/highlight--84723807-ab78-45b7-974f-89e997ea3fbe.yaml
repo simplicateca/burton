@@ -161,7 +161,7 @@ fields:
     name: Layout
     searchable: true
     settings:
-      referenceFile: _site/config/layout.highlight.sidebar.json
+      referenceFile: _site/json/layout.highlight.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -174,7 +174,7 @@ fields:
     name: Component
     searchable: false
     settings:
-      referenceFile: _site/config/variant.highlight.special.json
+      referenceFile: _site/json/variant.highlight.special.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -187,7 +187,7 @@ fields:
     name: Theme
     searchable: true
     settings:
-      referenceFile: _site/config/theme.sidebar.json
+      referenceFile: _site/json/theme.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -220,7 +220,7 @@ fields:
     name: Variant
     searchable: true
     settings:
-      referenceFile: _site/config/variant.highlight.json
+      referenceFile: _site/json/variant.highlight.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -261,7 +261,7 @@ fields:
     name: Interspace
     searchable: true
     settings:
-      referenceFile: _site/config/interspace.sidebar.json
+      referenceFile: _site/json/interspace.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -345,11 +345,11 @@ fields:
                   -
                     - values
                     -
-                      - 514c0347-c4dd-4b9a-9979-452fc7db526e # Content Feeds
+                      - 514c0347-c4dd-4b9a-9979-452fc7db526e
       selectionLabel: 'Choose Search'
       showSiteMenu: false
       sources:
-        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Taxonomies
+        - 'section:942cbdfb-d50d-4dcd-9032-4f483562d1dd' # Topics & Tags
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

@@ -179,11 +179,11 @@ fields:
                   -
                     - values
                     -
-                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Reusable Bits
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content ‘Bits’
       selectionLabel: 'Pick Bit'
       showSiteMenu: false
       sources:
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

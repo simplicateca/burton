@@ -1,0 +1,36 @@
+[
+    {
+        "label": "Readable Width (Center Justify)",
+        "value": "textAbove__center",
+        "docs": {
+            "brief": ""
+        },
+        "inputs" : [
+            {% if element.field ?? null != 'sidebarBuilder' %}
+                {{ block( 'inputTextSizes', '_site/json/inputs.twig' ) }},
+            {% endif %}
+            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {
+            "microLayout": "topBottom__center"
+        }
+    }
+    {% if element.field ?? null != 'sidebarBuilder' %}
+   ,{
+        "label": "Readable Width (Left Justify)",
+        "value": "textAbove",
+        "docs": {
+            "brief": ""
+        },
+        "inputs" : [
+            {{ block( 'inputTextSizes', '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {
+            "microLayout": "topBottom"
+        }
+    }
+    {% endif %}
+]

@@ -185,35 +185,44 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
 
 
 /**
- * 2| REDACTOR / BODY TEXT FORMATTING
+ * 2| BODY TEXT FORMATTING
  *
- * A class of .html is automatically added to the following tags if they originated in a richtext editor
+ * Styles for elements within an *ancestor* containing the `data-bodytext` attribute
+ * are defined here. This attribute is applied within the `openTheme` or `openBlock`
+ * macros, both in `templates/_core/block.twig`.
  *
- * -> p,ol,ul,blockquote,h1,h2,h3,h4,h5,h6,hr
+ * Typically, these elements include those found in a Redactor text field: p, ol, ul,
+ * blockquote, h1-h6, hr, etc.
  *
- * Font scaling is handled in combination with the Tailwind Container Query plugin
- *  -> https://github.com/tailwindlabs/tailwindcss-container-queries
+ * The Tailwind Container Query plugin is used to automatically handle scaling based on
+ * the ancestor element's display width, not the total screen width.
  *
-*/
+ * Learn more about the Container Query plugin:
+ * - https://github.com/tailwindlabs/tailwindcss-container-queries
+ *
+ * It introduces the responsive `@container` class to designate the ancestor element,
+ * along with '@' based responsive prefixes. They function like core responsive prefixes:
+ *
+ * @xs  @container (min-width: 20rem) 320px
+ * @sm  @container (min-width: 24rem) 384px
+ * @md  @container (min-width: 28rem) 448px
+ * @lg  @container (min-width: 32rem) 512px
+ * @xl  @container (min-width: 36rem) 576px
+ * @2xl @container (min-width: 42rem) 672px
+ * @3xl @container (min-width: 48rem) 768px
+ * @4xl @container (min-width: 56rem) 896px
+ * @5xl @container (min-width: 64rem) 1024px
+ * @6xl @container (min-width: 72rem) 1152px
+ * @7xl @container (min-width: 80rem) 1280px
+ *
+ * Core responsive prefixes still work as expected and are based on the device screen width.
+ * They can be used with container query based prefixes.
+ *
+ */
 
-.\@container,
-*[data-bodytext] {
-    & > p:last-child,
-    & > ol:last-child,
-    & > ul:last-child,
-    & > blockquote:last-child {
-        margin-bottom: 0 !important;
-    }
-}
-
-.removeLastChildMargin {
-    & > *:last-child {
-        margin-bottom: 0 !important;
-    }
-}
-
-
-*[data-bodytext] p {
+ *[data-bodytext] ol,
+ *[data-bodytext] ul,
+ *[data-bodytext] p {
 
     /* base formatting */
     @apply
@@ -261,6 +270,18 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
     }
 }
 
+/* Because usually you want to remove the auto margin from the bottom of things like this so that
+   it doesn't affect the look and feel of bottom padding on the block or theme */
+*[data-bodytext] .\@container {
+    & > p:last-child,
+    & > ol:last-child,
+    & > ul:last-child,
+    & > blockquote:last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+
 
 /**
  * 3| LIST STYLE FORMATTING (Checkmarks, Grids, etc)
@@ -276,25 +297,6 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
 *[data-bodytext] ol,
 *[data-bodytext] ul {
 
-    @apply
-    	/* base formatting */
-        font-body
-    	text-theme
-        !leading-tight
-
-        /* container query based sizing */
-        mb-6
-        @xl:mb-8
-        @3xl:mb-10
-        @5xl:mb-12
-
-        text-base
-        @md:text-lg
-        @xl:text-xl
-        @3xl:text-2xl
-        @5xl:text-3xl
-    ;
-
     &:not(ul):not(.checkList):not(.columnList):not(.rowList) {
         @apply list-decimal pl-[2em];
     }
@@ -304,6 +306,12 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
     }
 
     &:not(.checkList):not(.columnList):not(.rowList) {
+        &.smaller {
+            li {
+                @apply mb-1.5;
+            }
+        }
+
         li {
             @apply mb-3;
         }

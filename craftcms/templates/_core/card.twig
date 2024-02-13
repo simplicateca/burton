@@ -1,5 +1,5 @@
-{% extends template_from_string("{% block card %}{% endblock %}") %}
-{% block card__template _self %}
+{% extends template_from_string('{% block card %}{% endblock %}') %}
+{% block _template _self %}
 
 {## Primary Card Block
  ------------------------------------------------------------------------------------- ##
@@ -8,7 +8,7 @@
     It also handles the card's layout and wrapping.
  ------------------------------------------------------------------------------------- ##}
 {% block card -%}
-    {% block card__open _self.openCard( card.settings | merge({ cardTemplate: block('template') }) ) %}
+    {{ _self.openCard( card.settings | merge({ cardTemplate: block('_template') }) ) }}
 
     {% block content %}
         {{ block( 'card__image'    ) }}
@@ -16,8 +16,44 @@
         {{ block( 'card__text'     ) }}
         {{ block( 'card__action'   ) }}
     {% endblock %}
-    {% block card__close _self.closeCard( card.settings ) %}
+
+    {{ _self.closeCard( card.settings ) }}
 {%- endblock %}
+
+
+{# {% block images_media_player %}{% apply spaceless %}
+    {% if card.item.embed.html|default() %}
+        {{ card.item.embed.html|default()
+            | retconAttr( 'iframe', { 'height' : false, 'width' : false } )
+            | retconAttr( 'iframe', { 'class' : 'w-full aspect-video' } )
+        }}
+    {% else %}
+        {% set kind = card.item.entry.kind|default() %}
+        {% if kind in ['video','audio'] %}
+            {% embed "_content/media/#{kind}" with {
+                asset   : card.item.entry,
+                settings: card.settings|default(),
+            } %}{% endembed %}
+        {% endif %}
+    {% endif %}
+{% endapply %}{% endblock %} #}
+
+{% block card__image %}
+    {% import "_core/assemble" as assemble %}
+    {{ assemble.frame( card.images, card.settings.cardImageFrame ??? null, card.settings ) }}
+{% endblock %}
+
+{% block card__headline %}
+    {{ card.headline }}
+{% endblock %}
+
+{% block card__text %}
+
+{% endblock %}
+
+{% block card__action %}
+
+{% endblock %}
 
 
 {## Card Rendering Macros
@@ -25,27 +61,22 @@
 
     Maintains path and inheritence consistency when generating content cards.
 
- ## Render a Single Card
  ------------------------------------------------------------------------------------ ##
-    {% from "_cards/base" import render as renderCard %}
-    {{ renderCard( item, 'summary', { additional: 'settings' } ) }}
- ------------------------------------------------------------------------------------ ##}
-    {## Content specific cards can override and/or inject content into any part of
-        the requested card layout. Default path: `_content/<sectionHandle>/card.twig`
+    Content specific cards can override and/or inject content into any part of
+    the requested card layout. Default path: `_content/<sectionHandle>/card.twig`
 
-        Variations for different entryTypes can generally be dealt with inside the
-        section-level card file. If separate entryType specific card overrides are
-        necessary, the card path below can be adjusted to something like:
+    Variations for different entryTypes can generally be dealt with inside the
+    section-level card file. If separate entryType specific card overrides are
+    necessary, the card path below can be adjusted to something like:
 
-        {% set cardPath = [
-            "_content/#{section}/card.#{entryType}",
-            "_content/#{section}/card",
-        ] %}
+    {% set cardPath = [
+        "_content/#{section}/card.#{entryType}",
+        "_content/#{section}/card",
+    ] %}
 
-        Content specific override cards are passed the desired card layout as a variable
-        called `extends` which they should use to dynamically extend themselves from.
-     -------------------------------------------------------------------------------- ##}
-
+    Content specific override cards are passed the desired card layout as a variable
+    called `extends` which they should use to dynamically extend themselves from.
+ -------------------------------------------------------------------------------- ##}
 
 {% macro single( item = null, layout = null, settings = null, loop = null, onlyBlock = null ) %}
 {%- if item -%}
@@ -73,11 +104,11 @@
         "_site/content/#{card.section}/card.#{card.type}",
         "_site/content/#{card.section}/card.#{layout}",
         "_site/content/#{card.section}/card",
-        "_site/content/card.#{layout}",
+        "_site/partials/card.#{layout}",
         "_site/base/card",
         "_core/card"
     ], { card: card }, withContext = false ) }}
-
+{#
     {% if onlyBlock %}
         {% embed path with {
             card: card,
@@ -93,7 +124,7 @@
         } only %}
 
         {% endembed %}
-    {% endif %}
+    {% endif %} #}
 
 {% endif %}{% endmacro %}
 
@@ -129,6 +160,26 @@
 
 
 
+{% macro openCard( settings ) -%}
+    {% set card = {
+        tag  : settings.tag   ?? settings.cardTag   ?? "div",
+        class: settings.class ?? settings.cardClass ?? "card relative"
+    } %}
+
+    {% set data = {
+        viewport: true
+    } %}
+
+    <{{card.tag}} {{attr({
+        class: card.class,
+        data : data
+    })}}>
+{%- endmacro %}
+
+
+{% macro closeCard( settings ) -%}
+    </{{ settings.tag ?? settings.cardTag ?? "div" }}>
+{%- endmacro %}
 
 
 {## Text Link
@@ -164,8 +215,8 @@
         layout: modalCard ??? settings.modalCard ??? [ "modal", "detail" ],
     } %}
         {% block content %}
-            {% from "_cards/base" import render as renderCard %}
-            {{ renderCard( item, layout, settings ) }}
+            {% import "_core/card" as cards %}
+            {{ cards.single( item, layout, settings ) }}
         {% endblock %}
     {% endembed %}
 

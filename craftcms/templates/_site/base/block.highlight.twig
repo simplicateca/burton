@@ -1,12 +1,12 @@
-{## Highlight Block Site Base
+{## Focus Block Site Base
  ------------------------------------------------------------------------------------ ##
-    -> http://localhost:8000/sitehub/blocks/highlight
+    -> http://localhost:8000/sitehub/blocks/focus
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_core/block.highlight" ] %}
+{% extends [ "_core/block.focus" ] %}
 {% import "_core/assemble" as assemble %}
 
 
-{% block highlight__menu %}
+{% block focus__menu %}
     <div class="@container text-xl">
         {{ craft.navigation.render( block.menu|default(), {
             ulClass: 'flex flex-wrap justify-center w-full gap-6',
@@ -16,7 +16,7 @@
 {% endblock %}
 
 
-{% block highlight__form %}
+{% block focus__form %}
     {% set form = block.form.one() ??? null %}
     {% if form %}
         <div class="bg-theme-backgroundOff p-10">
@@ -26,7 +26,7 @@
 {% endblock %}
 
 
-{% block highlight__special %}
+{% block focus__special %}
     {% set uuid = create('craft\\helpers\\StringHelper').UUID() %}
 
     {% set simpleObj = {
@@ -44,7 +44,7 @@
         }
     } %}
 
-    {% set vueComponent = block.special.reference().settings.vueComponent ??? null %}
+    {% set vueComponent = block.special.proto().settings.vueComponent ??? null %}
     {% if vueComponent %}
         <div id="vue-{{uuid}}"></div>
 
@@ -57,13 +57,14 @@
             })
         {% endjs %}
     {% else %}
-        {{ uuid }}
-        {{ dump( simpleObj )}}
+        {# {{ uuid }}
+        {{ dump( simpleObj )}} #}
     {% endif %}
 {% endblock %}
 
 
-{% block highlight__search %}
+{% block focus__search %}
+
     {{ sprig( "_site/partials/search.keyword.sprig", {
         settings  : block.settings | merge({
             cardGrid    : 'fixed1',
@@ -79,4 +80,5 @@
         feedIds  : block.feeds.ids() ?? block.feeds ??? null,
         interface: 'fullSearch'
     }) }}
+
 {% endblock %}

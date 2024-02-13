@@ -1,4 +1,4 @@
-{% extends template_from_string("{% block notice %}{% endblock %}") %}
+{% extends template_from_string('{% block notice %}{% endblock %}') %}
 
 {% set alertActive = true %}
 {% if alertActive %}

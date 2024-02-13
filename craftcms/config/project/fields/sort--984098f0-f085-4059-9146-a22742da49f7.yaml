@@ -6,7 +6,8 @@ instructions: null
 name: Sort
 searchable: false
 settings:
-  referenceFile: _site/config/feed.sorting.json
+  columnType: null
+  configFile: _site/json/collection.sorting.json
 translationKeyFormat: null
 translationMethod: none
-type: simplicateca\referencefield\fields\Dropdown
+type: simplicateca\referencefield\fields\ProtoSelector

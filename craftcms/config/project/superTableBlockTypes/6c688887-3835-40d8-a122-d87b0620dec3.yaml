@@ -1,5 +1,5 @@
-changedFieldIndicator: null
-field: 8384d65a-1c88-4960-8c6e-7091bf390c9d # External Embeds
+changedFieldIndicator: 1168829777
+field: 8384d65a-1c88-4960-8c6e-7091bf390c9d # External URLs
 fieldLayouts:
   0fa7a6fb-6ba8-4d5d-8a9b-6c67db8cd10d:
     tabs:
@@ -101,17 +101,6 @@ fields:
       restrictedDefaultUploadSubpath: null
       restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
       restrictedLocationSubpath: null
-      selectionCondition:
-        __assoc__:
-          -
-            - elementType
-            - craft\elements\Asset
-          -
-            - fieldContext
-            - global
-          -
-            - class
-            - craft\elements\conditions\assets\AssetCondition
       selectionLabel: Choose
       showSiteMenu: false
       showUnpermittedFiles: false

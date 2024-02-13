@@ -1,0 +1,21 @@
+[
+    {
+        "label": "Spotlight",
+        "value": "spotlight",
+        "docs" : {
+            "brief": "Feature select content entries in a more prominent way."
+        },
+        "inputs": [],
+        "settings":{}
+    }
+
+   ,{
+        "label": "Feedback Form",
+        "value": "form"
+    }
+
+   ,{
+        "label": "Special Component",
+        "value": "component"
+    }
+]

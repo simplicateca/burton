@@ -7,18 +7,6 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 2d1298a6-f3ac-43be-9784-161acaa0c823 # Layout
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: f08927ae-f095-426a-96b8-ab32f9b722aa
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
             fieldUid: daf78780-c7dc-47d5-8a11-37b3a80d7e33 # Variant
             instructions: null
             label: null
@@ -29,6 +17,30 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 50
+          -
+            elementCondition: null
+            fieldUid: 90ac0f32-4e6f-4b9e-af75-82b27267e15e # Theme
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 15262bcf-3bf2-4307-a359-0c2af8416b40
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 20618f40-d9d6-402d-b603-0060a232d076 # Source
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c5802cf9-3bda-4ddd-8936-dc7c28b1291d
+            userCondition: null
+            warning: null
+            width: 75
           -
             elementCondition: null
             fieldUid: 2b179173-573d-47e7-8ec4-cc9a091b68a0 # Primary Headline
@@ -52,16 +64,40 @@ fieldLayouts:
             uid: 0f0d8479-715a-4df7-a2c6-a68cda4377d7
             userCondition: null
             warning: null
-            width: 75
+            width: 50
           -
             elementCondition: null
-            fieldUid: 90ac0f32-4e6f-4b9e-af75-82b27267e15e # Theme
+            fieldUid: 684a7308-d392-4a26-8403-88caae39675c # __blank__
             instructions: null
             label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 15262bcf-3bf2-4307-a359-0c2af8416b40
+            uid: 0f16f2f6-8e1b-4a79-807e-abc3c6c1f14c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: b81bed1e-3722-4e87-9a0b-aafca1e94fcc # Bits
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1a7149fd-5a58-41d7-a88b-347c1fed3790
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 2d1298a6-f3ac-43be-9784-161acaa0c823 # Layout
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f08927ae-f095-426a-96b8-ab32f9b722aa
             userCondition: null
             warning: null
             width: 50
@@ -86,7 +122,7 @@ fields:
     contentColumnType: text
     fieldGroup: null
     handle: headline
-    instructions: 'Replaces the page <title> and acts as the default SEO <h1> tag'
+    instructions: 'Replaces the entry <title> and acts as the default SEO <h1> tag'
     name: 'Primary Headline'
     searchable: false
     settings:
@@ -118,7 +154,7 @@ fields:
     name: Layout
     searchable: true
     settings:
-      referenceFile: _site/config/layout.text.header.json
+      referenceFile: _site/json/layout.text.header.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -131,7 +167,7 @@ fields:
     name: __blank__
     searchable: true
     settings:
-      availableTransforms: ''
+      availableTransforms: '*'
       availableVolumes: '*'
       columnType: text
       configSelectionMode: choose
@@ -139,11 +175,11 @@ fields:
       manualConfig: ''
       purifierConfig: null
       purifyHtml: true
-      redactorConfig: SimpleAir.json
+      redactorConfig: Simple.json
       removeEmptyTags: true
       removeInlineStyles: true
       removeNbsp: true
-      showHtmlButtonForNonAdmins: true
+      showHtmlButtonForNonAdmins: false
       showUnpermittedFiles: false
       showUnpermittedVolumes: false
       uiMode: normal
@@ -159,10 +195,128 @@ fields:
     name: Theme
     searchable: true
     settings:
-      referenceFile: _site/config/theme.header.json
+      referenceFile: _site/json/theme.header.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
+  684a7308-d392-4a26-8403-88caae39675c: # __blank__
+    columnSuffix: jfzpbxqi
+    contentColumnType: text
+    fieldGroup: null
+    handle: text2
+    instructions: null
+    name: __blank__
+    searchable: true
+    settings:
+      availableTransforms: '*'
+      availableVolumes: '*'
+      columnType: text
+      configSelectionMode: choose
+      defaultTransform: ''
+      manualConfig: ''
+      purifierConfig: null
+      purifyHtml: true
+      redactorConfig: Simple.json
+      removeEmptyTags: true
+      removeInlineStyles: true
+      removeNbsp: true
+      showHtmlButtonForNonAdmins: false
+      showUnpermittedFiles: false
+      showUnpermittedVolumes: false
+      uiMode: normal
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\redactor\Field
+  20618f40-d9d6-402d-b603-0060a232d076: # Source
+    columnSuffix: cjxvybhj
+    contentColumnType: string(6)
+    fieldGroup: null
+    handle: source
+    instructions: null
+    name: Source
+    searchable: false
+    settings:
+      columnType: null
+      options:
+        -
+          __assoc__:
+            -
+              - label
+              - 'Use inline text editor'
+            -
+              - value
+              - inline
+            -
+              - default
+              - '1'
+        -
+          __assoc__:
+            -
+              - label
+              - 'Choose Content ‘Bits’'
+            -
+              - value
+              - bits
+            -
+              - default
+              - ''
+    translationKeyFormat: null
+    translationMethod: none
+    type: craft\fields\RadioButtons
+  b81bed1e-3722-4e87-9a0b-aafca1e94fcc: # Bits
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: bits
+    instructions: null
+    name: Bits
+    searchable: false
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      selectionCondition:
+        __assoc__:
+          -
+            - elementType
+            - craft\elements\Entry
+          -
+            - fieldContext
+            - global
+          -
+            - class
+            - craft\elements\conditions\entries\EntryCondition
+          -
+            - conditionRules
+            -
+              -
+                __assoc__:
+                  -
+                    - class
+                    - craft\elements\conditions\entries\TypeConditionRule
+                  -
+                    - uid
+                    - 8a2c340d-e94b-4cf3-903f-5f134d136f40
+                  -
+                    - operator
+                    - in
+                  -
+                    - values
+                    -
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content ‘Bits’
+      selectionLabel: Choose
+      showSiteMenu: false
+      sources:
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
   b130a72c-dabb-415c-a574-ef5e0188716f: # Interspace
     columnSuffix: thjygmmx
     contentColumnType: string
@@ -172,7 +326,7 @@ fields:
     name: Interspace
     searchable: true
     settings:
-      referenceFile: _site/config/interspace.header.json
+      referenceFile: _site/json/interspace.header.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -185,7 +339,7 @@ fields:
     name: Variant
     searchable: true
     settings:
-      referenceFile: _site/config/variant.text.json
+      referenceFile: _site/json/variant.text.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

@@ -1,0 +1,64 @@
+[
+    {
+        "label": "Text Above",
+        "value": "textAbove",
+        "docs": {
+            "brief": ""
+        },
+        "inputs" : [
+            {% if element.field ?? null != 'sidebarBuilder' %}
+                {{ block( 'inputTextSizes',  '_site/json/inputs.twig' ) }},
+                {{ block( 'inputContainer', '_site/json/inputs.twig' ) }},
+                {{ block( 'inputSubmergeCTAs',  '_site/json/inputs.twig' ) }},
+            {% endif %}
+            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {
+            "microLayout": "topBottom__center"
+        }
+    }
+
+   ,{
+        "label": "Text Left",
+        "value": "textLeft",
+        "docs": {
+            "brief": ""
+        },
+        "inputs" : [
+            {% if element.field ?? null != 'sidebarBuilder' %}
+                {{ block( 'inputTextLeftSizes',  '_site/json/inputs.twig' ) }},
+                {{ block( 'inputContainer', '_site/json/inputs.twig' ) }},
+                {{ block( 'inputElevateHeadlines',  '_site/json/inputs.twig' ) }},
+                {{ block( 'inputSubmergeCTAs',  '_site/json/inputs.twig' ) }},
+            {% endif %}
+            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {
+            "microLayout": "leftRight__even"
+        }
+    }
+
+   ,{
+        "label": "Text Right",
+        "value": "textRight",
+        "docs": {
+            "brief": ""
+        },
+        "inputs" : [
+            {% if element.field ?? null != 'sidebarBuilder' %}
+                {{ block( 'inputTextRightSizes',  '_site/json/inputs.twig' ) }},
+                {{ block( 'inputContainer', '_site/json/inputs.twig' ) }},
+                {{ block( 'inputElevateHeadlines',  '_site/json/inputs.twig' ) }},
+                {{ block( 'inputSubmergeCTAs',  '_site/json/inputs.twig' ) }},
+            {% endif %}
+            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+        ],
+
+        "settings": {
+            "microLayout": "rightLeft__even"
+        }
+    }
+]

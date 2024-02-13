@@ -1,0 +1,56 @@
+[
+    {% if element.type ?? null == 'fragment' %}{ "label": "Use Fragment Settings", "value": "FROMFRAGMENT" },{% endif %}
+
+    {
+        "label": "Base (Page Background Visible)",
+        "value": "base",
+        "docs": {
+            "brief" : ""
+        },
+        "inputs": [
+            {{ block( 'inputBlockBottom',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputAnimate',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {}
+    }
+
+   ,{
+        "label": "White (Light)",
+        "value": "light",
+        "docs": {
+            "brief" : ""
+        },
+        "inputs": [
+            {{ block( 'inputCanvasCoverage',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputBlockBottom',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputAnimate',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {}
+    }
+
+   ,{
+        "label": "Accent (Dark)",
+        "value": "accent",
+        "docs": {
+            "brief" : ""
+        },
+        "inputs": [
+            {{ block( 'inputCanvasCoverage',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputBlockBottom',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputAnimate',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {}
+    }
+
+   ,{
+        "label": "Inherit from Block Above",
+        "value": "INHERIT",
+        "docs": {
+            "brief" : ""
+        },
+        "inputs": [],
+        "settings": {
+            "inheritTheme": true
+        }
+    }
+]

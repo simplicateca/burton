@@ -18,7 +18,7 @@
 {% if searchParams.query or not ( settings.requireQuery ??? null ) %}
 
     {## convert a contentFeed entry into a Craft Query object using a custom twig function
-        from: `craftcms/modules/gearbox/src/twigextensions/GearboxTwigExtension.php` ##}
+        from: `craftcms/modules/sitemodule/src/twigextensions/CollectionsTwig.php` ##}
     {% set query = feedIds ? collectionLookup( feedIds, searchParams ) : null %}
 
     {% if source and not query %}

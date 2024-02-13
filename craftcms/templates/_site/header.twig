@@ -8,10 +8,16 @@
  ------------------------------------------------------------------------------------ ##}
 {% block header__base %}
     {% import "_core/assemble" as assemble %}
-    {% import "_site/typography" as type %}
 
-    {% set headerBlocks    = normalizeBlocks( entry.headerBuilder.all() ??? null, 'header', { container: 'fluid' } ) %}
+    {% set headerBlocks = normalizeBlocks( entry.headerBuilder.all() ??? null, 'header', { container: 'fluid' } ) %}
     {% set builderInTopbar = ( headerBlocks[0].settings.interspaceAbove ??? false == 'topbar' ) %}
+
+    {% set headerContent = assemble.blockOrBuilder(
+        headerBlocks ? null : block('header__plainH1'),
+        'header',
+        headerBlocks,
+        { container: 'fluid' } )
+    %}
 
     {% if not headerBlocks or not builderInTopbar %}
         {{ block('header__topbar') }}
@@ -26,10 +32,6 @@
         }) }}>
     {% endblock %}
 
-    {% set headerContent = headerBlocks
-        ? assemble.blockOrBuilder( null, 'header', headerBlocks, { container: 'fluid' } )
-        : assemble.container( 'title', type.plainPageHeader( entry.title ??? null, entry.subtitle ??? null ) ) %}
-
     {% block header__content %}
         {{ headerContent }}
     {% endblock %}
@@ -42,8 +44,19 @@
 {% endblock %}
 
 
+{% block header__plainH1 %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set title    = entry.title    ??? null %}
+    {% set subtitle = entry.subtitle ??? null %}
+
+    {{ title    ? tag( 'h1', { text: title } ) }}
+    {{ subtitle ? assemble.container( 'prose', tag( 'p', { html: subtitle, class: 'larger' } ), { 'data-bodytext': true } ) }}
+{% endblock %}
+
+
 {% block header__breadcrumb %}
-    <div data-theme="shade">
+    <div data-theme="base">
         {% import "_core/assemble" as assemble %}
         {{ assemble.container( 'fluid', assemble.menu( 'breadcrumb' ) ) }}
     </div>

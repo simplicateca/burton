@@ -32,7 +32,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _site/sitehub/craft-ui/instructionsSidebar.twig
+            template: _core/craft-ui/instructionsSidebar.twig
             type: craft\fieldlayoutelements\Template
             uid: 9e863f6d-a200-4a22-aae4-4f7c2a64cf80
             userCondition: null
@@ -51,7 +51,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _site/sitehub/craft-ui/matrixConditionalFields.twig
+            template: _core/craft-ui/matrixConditionalFields.twig
             type: craft\fieldlayoutelements\Template
             uid: df217d7f-fc95-4ea7-8c8d-b09b16f897b6
             userCondition: null
@@ -62,7 +62,7 @@ fieldLayouts:
 handle: sidebarFragment
 hasTitleField: true
 name: 'Sidebar Fragments'
-section: a52e2b08-2e30-4b00-8784-4104c409d3ed # Modular Content
+section: a52e2b08-2e30-4b00-8784-4104c409d3ed # Reusable Content
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

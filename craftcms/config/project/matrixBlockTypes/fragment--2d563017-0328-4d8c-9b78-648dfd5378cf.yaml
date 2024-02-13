@@ -54,7 +54,7 @@ fields:
     name: Theme
     searchable: true
     settings:
-      referenceFile: _site/config/theme.fragment.sidebar.json
+      referenceFile: _site/json/theme.fragment.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown
@@ -105,7 +105,7 @@ fields:
       selectionLabel: 'Choose fragment'
       showSiteMenu: false
       sources:
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null
@@ -121,7 +121,7 @@ fields:
     name: Interspace
     searchable: true
     settings:
-      referenceFile: _site/config/interspace.fragment.sidebar.json
+      referenceFile: _site/json/interspace.fragment.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\referencefield\fields\Dropdown

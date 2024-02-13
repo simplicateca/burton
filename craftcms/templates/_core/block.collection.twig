@@ -27,7 +27,7 @@
     } %}
 
     {## Curate the Collection. The `collectionLookup()` custom macro is editable at:
-        -> craftcms/modules/gearbox/src/twigextensions/CollectionsTwigExtension.php
+        -> craftcms/modules/sitemodule/src/twigextensions/CollectionsTwig.php
      -------------------------------------------------------------------------------- ##}
     {% set source = block.source|default('items') %}
     {% set collection = [] %}
@@ -37,10 +37,6 @@
     {% set collection = source == 'items'   ? block.items.all() ??? block.items ??? [] | map ( i => i.bit.one() ??? i ) : [] %}
 
     {## Render a Grid of Cards ##}
-    {{ assemble.cardGrid(
-        collection,
-        settings.cardGrid   ??? null,
-        settings.cardLayout ??? null,
-        settings ??? {}
-    ) }}
+    {{ assemble.loop( settings.cardLoop ??? 'auto', collection, settings ??? {} ) }}
+
 {% endblock %}

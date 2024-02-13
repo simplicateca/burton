@@ -1,0 +1,19 @@
+{% extends "_site/layout.base" %}
+
+{% requirePermission 'allowSitehub' %}
+
+{% block page__top block( 'header__base', '_sitehub/header' ) %}
+
+{% block styles %}
+    {{ parent() }}
+    <style type="text/css">
+        *[data-theme="debug"] {
+            --primaryColor: #fff;
+            --backgroundColor: #2f2f2f;
+            --backgroundColorOff: #0f0f0f;
+            --accentColor: #cc7832;
+        }
+    </style>
+{% endblock %}
+
+{% block page__bottom %}{{ block( 'footer__slim', '_site/footer' ) }}{% endblock %}

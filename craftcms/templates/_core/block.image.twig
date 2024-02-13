@@ -14,10 +14,10 @@
 {% block content %}
     {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
         zone1     : block('block__text'),
-        zone2     : block('block__media'),
+        zone2     : block('block__images'),
         header    : block('block__header'),
         footer    : block('block__footer'),
-        container : block.settings.container|default()
+        container : block.settings.container|default(),
         imageFrame: block.settings.variant|default()
     } ) }}
 {% endblock %}

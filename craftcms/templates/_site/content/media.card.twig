@@ -6,8 +6,8 @@
     `layout` should contain the path for the card layout to be rendered.
     If it is empty for some reason, default to the base card layout.
  ------------------------------------------------------------------------------------ ##}
-{% extends layout|default(["_site/cards/base","_core/cards/base"]) %}
-{% use "_cards/parts.images" with images_media_player as media_player %}
+{% extends layout|default(["_site/base/card","_core/card"]) %}
+{# {% use "_cards/parts.images" with images_media_player as media_player %}
 
 {% block summary_card_text   %}{% endblock %}
 {% block summary_card_action %}{% endblock %}
@@ -68,4 +68,4 @@
     {% else %}
 
     {% endif %}
-{% endblock %}
+{% endblock %} #}

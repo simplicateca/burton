@@ -1,22 +1,10 @@
-field: a4fe99b5-7832-4eb2-9833-f551177bb821 # Content Builder
+field: a4fe99b5-7832-4eb2-9833-f551177bb821 # Body Builder
 fieldLayouts:
   a067cac1-ec42-43cc-b56a-f98e3b5b7803:
     tabs:
       -
         elementCondition: null
         elements:
-          -
-            elementCondition: null
-            fieldUid: 30b5253e-1f74-41f3-b484-e6c82e3210d5 # Layout
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 9ebdf9f9-f485-4eaa-8d3f-3dfbcb3e859a
-            userCondition: null
-            warning: null
-            width: 50
           -
             elementCondition: null
             fieldUid: 05016637-9828-4c3e-94f2-6db02f40308e # Variant
@@ -31,7 +19,43 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: dda1fa64-dd45-42b6-8df9-476cbac15152 # Images
+            fieldUid: 30b5253e-1f74-41f3-b484-e6c82e3210d5 # Layout
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9ebdf9f9-f485-4eaa-8d3f-3dfbcb3e859a
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 8200135a-e76a-451e-bcc5-c02be274e589 # Source
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3df5bfd8-bd50-4a43-b545-550bdf17c402
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 478bb62e-9b48-4259-a366-23b216633fc6 # Collection
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5b517f91-4097-4d60-9953-f67fc188e289
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: dda1fa64-dd45-42b6-8df9-476cbac15152 # Image(s)
             instructions: null
             label: null
             required: false
@@ -64,19 +88,7 @@ fieldLayouts:
             uid: db705720-4f45-4505-8b23-dd8e4c9fd2b0
             userCondition: null
             warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: e826463c-c088-426d-be5d-9630e1b872c9 # Interspace
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: adf55cbb-40d8-4b6c-9618-e0f89cde467c
-            userCondition: null
-            warning: null
-            width: 50
+            width: 100
         name: Content
         uid: cac765d1-21c1-46d6-addb-0dfd3c50eb9e
         userCondition: null
@@ -111,50 +123,92 @@ fields:
     type: craft\redactor\Field
   30b5253e-1f74-41f3-b484-e6c82e3210d5: # Layout
     columnSuffix: payanbyx
-    contentColumnType: string
+    contentColumnType: text
     fieldGroup: null
     handle: layout
     instructions: null
     name: Layout
     searchable: false
     settings:
-      referenceFile: _site/config/layout.image.content.json
+      columnType: null
+      configFile: _site/json/layout.twozone.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\referencefield\fields\ProtoSelector
+  478bb62e-9b48-4259-a366-23b216633fc6: # Collection
+    columnSuffix: null
+    contentColumnType: string
+    fieldGroup: null
+    handle: collections
+    instructions: null
+    name: Collection
+    searchable: true
+    settings:
+      allowSelfRelations: false
+      branchLimit: null
+      localizeRelations: false
+      maintainHierarchy: false
+      maxRelations: null
+      minRelations: null
+      selectionLabel: Choose
+      showSiteMenu: false
+      sources:
+        - 'section:2b05c141-a297-4820-ac7d-81e736dbf84b' # Collections
+      targetSiteId: null
+      validateRelatedElements: false
+      viewMode: null
+    translationKeyFormat: null
+    translationMethod: site
+    type: craft\fields\Entries
   05016637-9828-4c3e-94f2-6db02f40308e: # Variant
     columnSuffix: tdkiykfz
-    contentColumnType: string
+    contentColumnType: text
     fieldGroup: null
     handle: variant
     instructions: null
     name: Variant
     searchable: false
     settings:
-      referenceFile: _site/config/variant.image.json
+      columnType: null
+      configFile: _site/json/variant.image.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\referencefield\fields\ProtoSelector
+  8200135a-e76a-451e-bcc5-c02be274e589: # Source
+    columnSuffix: jsjcgvtd
+    contentColumnType: text
+    fieldGroup: null
+    handle: source
+    instructions: null
+    name: Source
+    searchable: false
+    settings:
+      columnType: null
+      configFile: _site/json/block.sources.json
+    translationKeyFormat: null
+    translationMethod: none
+    type: simplicateca\referencefield\fields\ProtoSelector
   b8f98eab-bd44-4073-b73b-c5c394a00643: # Theme
     columnSuffix: cpekkbhk
-    contentColumnType: string
+    contentColumnType: text
     fieldGroup: null
     handle: theme
     instructions: null
     name: Theme
     searchable: false
     settings:
-      referenceFile: _site/config/theme.content.json
+      columnType: null
+      configFile: _site/json/theme.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
-  dda1fa64-dd45-42b6-8df9-476cbac15152: # Images
+    type: simplicateca\referencefield\fields\ProtoSelector
+  dda1fa64-dd45-42b6-8df9-476cbac15152: # Image(s)
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: images
     instructions: null
-    name: Images
+    name: Image(s)
     searchable: true
     settings:
       allowSelfRelations: false
@@ -176,17 +230,6 @@ fields:
       restrictedDefaultUploadSubpath: null
       restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
       restrictedLocationSubpath: null
-      selectionCondition:
-        __assoc__:
-          -
-            - elementType
-            - craft\elements\Asset
-          -
-            - fieldContext
-            - global
-          -
-            - class
-            - craft\elements\conditions\assets\AssetCondition
       selectionLabel: Choose
       showSiteMenu: true
       showUnpermittedFiles: false
@@ -198,19 +241,6 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Assets
-  e826463c-c088-426d-be5d-9630e1b872c9: # Interspace
-    columnSuffix: eqfigngd
-    contentColumnType: string
-    fieldGroup: null
-    handle: interspace
-    instructions: null
-    name: Interspace
-    searchable: false
-    settings:
-      referenceFile: _site/config/interspace.content.json
-    translationKeyFormat: null
-    translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
 handle: image
 name: Image
-sortOrder: 3
+sortOrder: 2

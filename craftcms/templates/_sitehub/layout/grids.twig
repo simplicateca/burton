@@ -1,0 +1,59 @@
+{% extends "_sitehub/base" %}
+
+{% import "_site/base/assemble.grids" as grids %}
+{% set json = grids.definitions() | json_decode %}
+
+{% block main__content %}
+
+    <div data-theme="subtle-band" data-bodytext>
+        <div class="container @container py-16">
+            <h1>Simple Grid Layouts</h1>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
+                <div class="@container w-full">
+                    <p class="html larger">Mobile ready named layouts for consistently slapping the same grid-based wrapper div (or whatever) around one (or many) elements.</p>
+
+                    <p>Grids are used extensively within <a href="/sitehub/blocks/collection">Collection</a> and <a href="/sitehub/blocks/media">Media</a> blocks, but are available in any template by using:</p>
+
+                    <strong class="mt-8 block">Usage:</strong>
+                    <code class="bg-theme-contrast-light p-4 block text-xs font-mono leading-6">
+                        {% verbatim %}{% import "_layout/core/grids" as grids %}{% endverbatim %}<br>
+                        {% verbatim %}{{ grids.generate( 'html to wrap', gridName, 'extra-classes' ) }}{% endverbatim %}
+                    </code>
+                </div>
+
+                <div class="w-full h-full @container bg-theme-contrast-light" data-theme="dark">
+                    <div class="bg-theme-contrast-light p-3">Grids are defined as JSON: <strong class="text-theme-accent whitespace-nowrap">_layout/core/grids.twig</strong></div>
+                    <div class="h-full w-full p-5 max-h-[400px] overflow-scroll">
+                        {{ dump( json ) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% set item %}
+        <div class="min-h-[8rem] bg-red-500/50 w-full h-full flex items-center justify-center @container">
+            <div class="like-h3 mb-0 text-center">Grid item</div>
+        </div>
+    {% endset %}
+
+    {% set itemsShort = [item,item,item,item] | join( '' ) %}
+    {% set itemsLong  = [item,item,item,item,item,item,item,item,item,item,item,item] | join( '' ) %}
+
+    {% for grid in json | keys %}
+        <div data-theme="{{ cycle(['base', 'shade'], loop.index0) }}" class="py-20">
+            <div class="@container mb-20 max-w-3xl mx-auto px-4">
+                <h2 class="text-center html">{{ grid }}</h2>
+                {% if json[grid]['_']|default() %}
+                    <p class="larger text-center html">{{ json[grid]['_'] | trim( '#' ) }}</p>
+                {% endif %}
+            </div>
+
+            <div class="container @container">
+                {% set min = json[grid].min ??? null %}
+                {{ grids.generate( min > 2 ? itemsLong : itemsShort, grid ) }}
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,35 @@
+[
+    {
+        "label": "Text Above",
+        "value": "textAbove",
+        "docs": {
+            "brief": ""
+        },
+        "inputs" : [
+            {% if element.field ?? null != 'sidebarBuilder' %}
+                {{ block( 'inputTextSizes', '_site/json/inputs.twig' ) }},
+                {{ block( 'inputContainer', '_site/json/inputs.twig' ) }},
+            {% endif %}
+            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {
+            "microLayout": "topBottom"
+        }
+    }
+    ,{
+        "label": "Text Below",
+        "value": "textBelow",
+        "docs": {
+            "brief": ""
+        },
+        "inputs" : [
+            {{ block( 'inputContainer', '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+        ],
+        "settings": {
+            "microLayout": "bottomTop"
+        }
+    }
+]

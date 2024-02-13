@@ -1,6 +1,0 @@
-adminOnly: 1
-allowSources: '*'
-enabledSiteGroups: '*'
-handle: primary
-levels: 2
-title: Primary

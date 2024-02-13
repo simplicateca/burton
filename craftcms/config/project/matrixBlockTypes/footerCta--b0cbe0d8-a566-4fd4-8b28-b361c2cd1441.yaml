@@ -16,7 +16,7 @@ fieldLayouts:
             uid: 338bf995-d8f9-431a-aeff-0a135ca4150c
             userCondition: null
             warning: null
-            width: 100
+            width: 50
         name: Content
         uid: f8dc1065-99ab-4350-aca5-fbfcc55ac6b5
         userCondition: null
@@ -35,7 +35,7 @@ fields:
       localizeRelations: false
       maintainHierarchy: false
       maxRelations: null
-      minRelations: 1
+      minRelations: null
       selectionCondition:
         __assoc__:
           -
@@ -64,11 +64,11 @@ fields:
                   -
                     - values
                     -
-                      - 2dd114a5-aaaa-4e4a-872d-7a61d224b0cb # Content Fragments
-      selectionLabel: 'Choose Fragment'
+                      - 2dd114a5-aaaa-4e4a-872d-7a61d224b0cb # Body Fragments
+      selectionLabel: Choose
       showSiteMenu: false
       sources:
-        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Modular Content
+        - 'section:a52e2b08-2e30-4b00-8784-4104c409d3ed' # Reusable Content
       targetSiteId: null
       validateRelatedElements: false
       viewMode: null

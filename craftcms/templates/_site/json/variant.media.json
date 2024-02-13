@@ -1,31 +1,19 @@
 [{
-    "label": "Auto",
-    "value": "auto",
+    "label": "Player",
+    "value": "player",
     "settings": {
 
     }
 },{
-    "label": "Summary / Teaser",
-    "value": "summary",
+    "label": "Teaser",
+    "value": "teaser",
     "settings": {
         "cardLayout": "summary"
     }
 },{
-    "label": "Detail View",
-    "value": "detail",
+    "label": "Background",
+    "value": "background",
     "settings": {
-        "cardLayout": "detail"
-    }
-},{
-    "label": "Thumbnail",
-    "value": "thumbnail",
-    "settings": {
-        "cardLayout": "thumbnail"
-    }
-},{
-    "label": "Attention Grabber",
-    "value": "fancy",
-    "settings": {
-        "cardLayout": "fancy"
+
     }
 }]

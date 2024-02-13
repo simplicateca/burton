@@ -1,25 +1,166 @@
 [{
-    "label": "Auto",
-    "value": "auto",
-    "settings": {
-        "imageFrame": "auto"
-    }
+    "label": "Simple Image",
+    "value": "simple",
+    "docs": {
+        "brief": "A flexible variant for simple presentation of one or more images."
+    },
+    "inputs": [
+        {
+            "label": "Overflow",
+            "field": "overflow",
+            "type" : "select",
+            "instructions": "What to do if we have more than one image?",
+            "options" : [
+                {
+                    "value" : "carousel",
+                    "label" : "Carousel"
+                }
+               ,{
+                    "value" : "randomize",
+                    "label" : "Randomize"
+                }
+               ,{
+                    "value" : "grid2",
+                    "label" : "(2) Two Column Grid"
+                }
+               ,{
+                    "value" : "grid3",
+                    "label" : "(3) Three Column Grid"
+                }
+            ]
+        }
+       ,{
+            "label": "Click Action",
+            "field": "action",
+            "type" : "select",
+            "instructions": "What will happen when a user clicks on an image?",
+            "options" : [
+                {
+                    "value" : "autolink",
+                    "label" : "Auto Link"
+                }
+               ,{
+                    "value" : "lightbox",
+                    "label" : "Lightbox"
+                }
+               ,{
+                    "value" : "nothing",
+                    "label" : "Nothing"
+                }
+            ]
+        }
+
+    ],
+    "settings": {}
 },{
-    "label": "Auto Grid",
-    "value": "autogrid",
-    "settings": {
-        "imageFrame": "grid"
-    }
-},{
-    "label": "Fancy",
+    "label": "Fancy Frame",
     "value": "fancy",
-    "settings": {
-        "imageLoop": "fancy"
-    }
+    "docs": {
+        "brief": ""
+    },
+    "inputs": [
+        {
+            "label": "Frame",
+            "field": "frame",
+            "type" : "select",
+            "instructions": "What frame should we use for this image",
+            "options" : [
+                {
+                    "value" : "stretch",
+                    "label" : "Stretch"
+                }
+               ,{
+                    "value" : "parallax",
+                    "label" : "Randomize"
+                }
+               ,{
+                    "value" : "grid2",
+                    "label" : "(2) Two Column Grid"
+                }
+               ,{
+                    "value" : "grid3",
+                    "label" : "(3) Three Column Grid"
+                }
+            ]
+        }
+       ,{
+            "label": "Click Action",
+            "field": "action",
+            "type" : "select",
+            "options" : [
+                {
+                    "value" : "autolink",
+                    "label" : "Auto Link"
+                }
+               ,{
+                    "value" : "lightbox",
+                    "label" : "Lightbox"
+                }
+               ,{
+                    "value" : "nothing",
+                    "label" : "Nothing"
+                }
+            ]
+        }
+    ],
+    "settings": {}
 },{
-    "label": "Fill",
-    "value": "fill",
-    "settings": {
-        "imageFrame": "fill"
-    }
+    "label": "Gallery",
+    "value": "gallery",
+    "docs": {
+        "brief": ""
+    },
+    "inputs": [
+        {
+            "label": "Format",
+            "field": "format",
+            "type" : "select",
+            "options" : [
+                {
+                    "value" : "autogrid",
+                    "label" : "Auto Grid"
+                }
+            ]
+        }
+       ,{
+            "label": "Click Action",
+            "field": "action",
+            "type" : "select",
+            "options" : [
+                {
+                    "value" : "autolink",
+                    "label" : "Auto Link"
+                }
+               ,{
+                    "value" : "lightbox",
+                    "label" : "Lightbox"
+                }
+            ]
+        }
+    ],
+    "settings": {}
+},{
+    "label": "Background",
+    "value": "background",
+    "docs": {
+        "brief": ""
+    },
+    "inputs": [{
+        "label": "Usage",
+        "field": "usage",
+        "type" : "select",
+        "options" : [
+            {
+                "label" : "Replace Page Background",
+                "value" : "replace"
+
+            }
+           ,{
+                "label" : "Block Background Only",
+                "value" : "block"
+
+            }
+        ]
+    }],
+    "settings": {}
 }]
