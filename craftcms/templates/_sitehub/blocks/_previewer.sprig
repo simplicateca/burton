@@ -21,12 +21,10 @@
     {% set contentOpts    = config.content %}
     {% set layoutOpts     = source( config.layout )     | spaceless | json_decode %}
     {% set themeOpts      = source( config.theme )      | spaceless | json_decode %}
-    {% set interspaceOpts = source( config.interspace ) | spaceless | json_decode %}
     {% set variantOpts    = source( config.variant )    | spaceless | json_decode %}
     {% set layout         = craft.app.request.getParam('layout')     ?? layoutOpts[0].value     ?? null %}
     {% set variant        = craft.app.request.getParam('variant')    ?? variantOpts[0].value    ?? null %}
     {% set theme          = craft.app.request.getParam('theme')      ?? themeOpts[0].value      ?? null %}
-    {% set interspace     = craft.app.request.getParam('interspace') ?? interspaceOpts[0].value ?? null %}
     {% set content        = craft.app.request.getParam('content')    ?? contentOpts[0]          ?? null %}
     {% set show           = craft.app.request.getParam('show')      ??? null %}
     {% set debug          = craft.app.request.getParam('debug')     ??? null %}
@@ -76,11 +74,6 @@
                             {{ _self.dropdownField( 'theme', themeOpts, theme ) }}
                         </div>
 
-                        <div class="field flex-grow" x-data="{ isDisabled: false }">
-                            <label class="uppercase">Interspace</label>
-                            {{ _self.dropdownField( 'interspace', interspaceOpts, interspace ) }}
-                        </div>
-
                         <div class="field">
                             <label class="uppercase block text-right">Debug</label>
                             <select name="debug" x-model="debug">
@@ -100,7 +93,6 @@
                 layout    : layout,
                 variant   : variant,
                 theme     : theme,
-                interspace: interspace,
                 debug     : debug,
                 type      : type,
                 config    : config,

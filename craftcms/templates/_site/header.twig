@@ -10,7 +10,7 @@
     {% import "_core/assemble" as assemble %}
 
     {% set headerBlocks = normalizeBlocks( entry.headerBuilder.all() ??? null, 'header', { container: 'fluid' } ) %}
-    {% set builderInTopbar = ( headerBlocks[0].settings.interspaceAbove ??? false == 'topbar' ) %}
+    {% set builderInTopbar = ( headerBlocks[0].settings.gapAbove ??? false == 'topbar' ) %}
 
     {% set headerContent = assemble.blockOrBuilder(
         headerBlocks ? null : block('header__plainH1'),

@@ -24,7 +24,7 @@
 
     Description:
     This macro is used to output a named twig {% block %} from the calling template
-    with proper interspace around it. In the absence of html from a {% block %}, it
+    with proper spacing around it. In the absence of html from a {% block %}, it
     will attempt to render the desired builder from the provided entry.
 
     Also allows for customization of additional block settings.
@@ -124,7 +124,7 @@
     {## BUT we need to add a spacer regardless as it creates a buffer between theme
         edge and its content, but also between consecutive blocks of the same theme.
      -------------------------------------------------------------------------------- ##}
-    {{ assemble.spacer( settings.interspaceAbove ?? autoSpace ) }}
+    {{ assemble.spacer( settings.gapAbove ?? autoSpace ) }}
 {% endmacro %}
 
 
@@ -135,7 +135,7 @@
         tag       : settings.tag ?? settings.themeTag ?? "div",
         theme     : settings.theme      ?? "base",
         themeNext : settings.themeNext  ?? null,
-        spaceBelow: settings.spaceBelow ?? settings.interspaceBelow ?? autoSpace,
+        spaceBelow: settings.spaceBelow ?? settings.gapBelow ?? autoSpace,
     } %}
 
     {## We only close the theme tag if it's different from the next block, and
@@ -152,45 +152,16 @@
 
 {## Block Related Macros ##}
 {## --------------------------------------------------------------------------------- ##}
-{% macro assembleBlocks( blocks = [], builder = 'content', settings = {} ) -%}
+{% macro assembleBlocks( blocks = [], builder = 'content', defaultSettings = {} ) -%}
 
-    {% set settings = {
-        container: "none"
-    } | merge( settings ) %}
+    {## created the option to store some default settings in a config file ##}
+    {% set config = craft.app.config.getConfigFromFile('burton') ?? {} %}
 
-    {% set blocks = ( blocks[0].settings.normalized ??? false ) ? blocks : normalizeBlocks( blocks, builder, settings ) %}
+    {% set minimalSettings = config.blockDefault   ?? { container: "none" } %}
+    {% set blockTemplates  = config.blockTemplates ?? ["_core/block.%blockType%"] %}
 
-    {% set path = [
-        "_site/content/%section%/_%builder%/block.%blockType%.%entryType%.%layout%",
-        "_site/content/%section%/_%builder%/block.%blockType%.%entryType%.%variant%",
-        "_site/content/%section%/_%builder%/block.%blockType%.%entryType%",
-        "_site/content/%section%/_%builder%/block.%blockType%.%layout%",
-        "_site/content/%section%/_%builder%/block.%blockType%.%variant%",
-        "_site/content/%section%/_%builder%/block.%blockType%",
-        "_site/content/%section%/block.%blockType%.%entryType%.%layout%",
-        "_site/content/%section%/block.%blockType%.%entryType%.%variant%",
-        "_site/content/%section%/block.%blockType%.%entryType%",
-        "_site/content/%section%/block.%blockType%.%layout%",
-        "_site/content/%section%/block.%blockType%.%variant%",
-        "_site/content/%section%/block.%blockType%",
-        "_site/content/_%builder%/%blockType%.%entryType%.%layout%",
-        "_site/content/_%builder%/%blockType%.%entryType%.%variant%",
-        "_site/content/_%builder%/%blockType%.%entryType%",
-        "_site/content/_%builder%/%blockType%.%layout%",
-        "_site/content/_%builder%/%blockType%.%variant%",
-        "_site/content/_%builder%/%blockType%",
-        "_site/content/block.%blockType%.%entryType%.%layout%",
-        "_site/content/block.%blockType%.%entryType%.%variant%",
-        "_site/content/block.%blockType%.%entryType%",
-        "_site/content/block.%blockType%.%layout%",
-        "_site/content/block.%blockType%.%variant%",
-        "_site/content/block.%blockType%",
-        "_site/base/block.%blockType%",
-        "_core/block.%blockType%",
-    ] %}
-
-    {% for block in blocks %}
-        {% set path = path | map( p => p|replace({
+    {% for block in normalizeBlocks( blocks, builder, minimalSettings | merge( defaultSettings ) ) %}
+        {% set path = blockTemplates | map( p => p|replace({
             '%layout%'   : block.settings.layout    ??? null,
             '%section%'  : block.settings.section   ??? null,
             '%builder%'  : block.settings.builder   ??? null,
@@ -208,7 +179,7 @@
     {% set settings = {
         tag     : settings.tag   ?? settings.blockTag   ?? "section",
         class   : settings.class ?? settings.blockClass ?? "w-full relative z-20",
-        block   : settings.type  ?? settings.blockType  ?? "unknown",
+        block   : settings.type  ?? settings.blockType  ?? '',
         uuid    : settings.uuid  ?? null,
         viewport: true,
     } %}

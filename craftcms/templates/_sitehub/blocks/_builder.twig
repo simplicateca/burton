@@ -3,7 +3,6 @@
 {% set layout     = layout     ??? null %}
 {% set variant    = variant    ??? null %}
 {% set theme      = theme      ??? null %}
-{% set interspace = interspace ??? null %}
 {% set debug      = debug      ??? null %}
 {% set show       = show       ??? null %}
 {% set type       = type       ??? null %}
@@ -19,7 +18,6 @@
 {## based on the values in the placeholder content. ##}
 {% set layoutOpts     = source( config.layout )     | spaceless | json_decode %}
 {% set themeOpts      = source( config.theme )      | spaceless | json_decode %}
-{% set interspaceOpts = source( config.interspace ) | spaceless | json_decode %}
 {% set variantOpts    = source( config.variant )    | spaceless | json_decode %}
 {% set contentOpts    = config.content %}
 
@@ -29,7 +27,6 @@
     layout    : layout,
     variant   : variant,
     theme     : theme,
-    interspace: interspace,
     container : container  ??? 'container',
     builder   : builder    ??? 'content',
 }) })] %}

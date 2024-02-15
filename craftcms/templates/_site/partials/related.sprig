@@ -22,7 +22,6 @@
                 theme      : cycle(['bright', 'standard'], page),
                 variant    : 'auto',
                 cardGrid   : 'stacked2',
-                interspace : 'base',
                 container  : 'fluidContainer',
                 microLayout: 'topBottom'
             }

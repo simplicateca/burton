@@ -6,7 +6,7 @@
 
     <div data-theme="subtle-band" data-bodytext>
         <div class="container @container py-16">
-            <h1>Interspace & Spacers</h1>
+            <h1>Spacing & Interspace</h1>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
                 <div class="@container w-full">
                     <p class="html larger"></p>
@@ -15,7 +15,7 @@
 
                     <strong class="mt-8 block">Usage:</strong>
                     <code class="bg-theme-contrast-light p-4 block text-xs font-mono leading-6">
-                        {% verbatim %}{{ block( 'interspace__base', '_site/base/assemble.spacing' )}}{% endverbatim %}
+                        {% verbatim %}{{ block( 'spacing__base', '_site/base/assemble.spacing' )}}{% endverbatim %}
                     </code>
                 </div>
 
@@ -94,18 +94,18 @@
 
             {% if spacerOpts[spacer].between ??? null %}
                 <div data-theme="{{block.prev.theme}}">
-                    {{ block( "interspace__base", "_site/base/assemble.spacing" ) }}
+                    {{ block( "spacing__base", "_site/base/assemble.spacing" ) }}
                 </div>
-                {{ block( "interspace__#{spacer}", "_site/base/assemble.spacing" ) }}
+                {{ block( "spacing__#{spacer}", "_site/base/assemble.spacing" ) }}
                 <div data-theme="{{block.next.theme}}">
-                    {{ block( "interspace__base", "_site/base/assemble.spacing" ) }}
+                    {{ block( "spacing__base", "_site/base/assemble.spacing" ) }}
                 </div>
             {% else %}
                 <div data-theme="{{block.prev.theme}}">
-                    {{ block( "interspace__#{spacer}", "_site/base/assemble.spacing" ) }}
+                    {{ block( "spacing__#{spacer}", "_site/base/assemble.spacing" ) }}
                 </div>
                 <div data-theme="{{block.next.theme}}">
-                    {{ block( "interspace__#{spacer}", "_site/base/assemble.spacing" ) }}
+                    {{ block( "spacing__#{spacer}", "_site/base/assemble.spacing" ) }}
                 </div>
             {% endif %}
         {% endfor %}

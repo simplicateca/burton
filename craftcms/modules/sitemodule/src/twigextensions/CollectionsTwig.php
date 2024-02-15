@@ -42,9 +42,9 @@ class CollectionsTwig extends AbstractExtension
         $search = $feeds->collect()->firstWhere('slug', $filter) ?? $firstFeed ?? null;
 
         // Get content type, section, and entry type
-        $contentSource = $search->contentSource ? $search->contentSource->proto() : null;
-        $section       = $contentSource ? ( $contentSource['section']   ?? null ) : null;
-        $entryType     = $contentSource ? ( $contentSource['entryType'] ?? null ) : null;
+        $contentSource = $search->contentSource ? $search->contentSource->settings() : null;
+        $section       = $contentSource ? ( $contentSource['section']   ?? null )    : null;
+        $entryType     = $contentSource ? ( $contentSource['entryType'] ?? null )    : null;
 
         // parse an rss feed
         if( $contentSource['value'] ?? null == 'rss' && $search->sourceUrl ) {

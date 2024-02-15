@@ -4,9 +4,10 @@
  *
  * Splice any fragment block types into the block array.
  *
- * Combines JSON configs from multiple reference fields
- * (theme, variant, layout, interspace) into a single settings object
+ * Merges the `settings` objects from the block variant, layout, and theme
+ * fields (SelectPlus) into a single `settings` object.
  *
+ * SelectPlus - https://github.com/simplicateca/craft-selectplus-field
  */
 
 namespace modules\sitemodule\twigextensions;
@@ -19,62 +20,104 @@ use Twig\Extension\AbstractExtension;
 class NormalizeBlockTwig extends AbstractExtension
 {
 
-    public function getFunctions(): array
+    public function getFunctions() : array
     {
-        return [
-            new TwigFunction( 'normalizeBlocks', [$this, 'normalizeBlocks'] ),
-        ];
+        return [ new TwigFunction( 'normalizeBlocks', [$this, 'normalize'] ) ];
     }
 
 
-    // find any fragment blocks and splice them into the block array
-    public function normalizeBlocks( $blockArray, $builder = 'content', $originalSettings )
+    public function normalize( $blocks = [], $builder = 'content', $defaultSettings ) : array
     {
-        $blocks = [];
-        $entry  = null;
-        $blockArray = $blockArray ?? [];
-        foreach( $blockArray as $block ) {
+        $blocks = $blocks ?? [];
 
-            // if $block is just an ID, look it up
-            $isJustID  = is_int($block);
-            $block     = $isJustID ? MatrixBlock::find()->id($block)->one() ?? [] : $block;
+        // If the blocks have already been normalized, there's nothing to do
+        // short circuit the entire function and return now
+        if( $this->doesThisLookNormalToYou( $blocks ) ) return $blocks;
 
-            if( !$entry ) {
-                $entry = $block->owner ?? null;
-            }
+        // Otherwise, lets get ready to enforce some conformity
+        $entry = null;
+        $deviants = [];
+        foreach( $blocks as $block )
+        {
+            // If the block is an integer, assume it's an ID and query it
+            $block = is_int($block) ? MatrixBlock::find()->id($block)->one() ?? [] : $block;
 
-            $blockType = $block->type->handle ?? $block->type ?? $block->blockType ?? null;
-            $settings  = $this->mergeBlockSettings( $block );
+            // Prepare the block settings by merging the variant/layout/theme settings
+            $settings = $this->mergeFieldSettings( $block );
 
-            if( $blockType == 'fragment' )
+            // Find the parent entry if it exists (and hasn't already been set)
+            $entry = $entry ?? $block->owner ?? null;
+
+            // If this is a Fragment Block, we need to splice all the blocks from
+            // related content entries from the same type of builder field
+            if( $settings['blockType'] == 'fragment' )
             {
-                foreach( $block->fragments->all() as $fragment )
-                {
-                    $fragBlocks = $fragment->bodyBuilder->all() ?? $fragment->sidebarBuilder->all() ?? null;
+                // A value of anything *EXCEPT* "FRAGMENT" in `settings.theme` indicates
+                // we are to override all fragment blocks with the block theme
+                $override = ( $settings['theme'] ?? null != 'FRAGMENT' )
+                    ? [ "theme" => $settings["theme"],
+                        "themeSettings" => $block->theme->settings ?? [] ]
+                    : null;
 
-                    foreach( $fragBlocks as $fragBlock )
-                    {
-                        $fragSettings = $this->mergeBlockSettings( $fragBlock, $settings );
-                        $blocks[] = $this->beforeRenderBlock([
-                            'object'   => $fragBlock,
-                            'entry'    => $entry,
-                            'builder'  => $builder,
-                            'settings' => array_merge( $originalSettings, $fragSettings )
-                        ]);
-                    }
+                // And since technically there could be multiple fragments in the entry
+                // field, and each fragment could have multiple blocks ..
+                $fragments = $block->fragments->collect()->map( function ($frag) {
+                    return $frag->bodyBuilder->all()
+                        ?? $frag->sidebarBuilder->all()
+                        ?? [];
+                })->all();
+
+                // add each fragment block to our normies array
+                foreach( $fragments as $frag ) {
+                    $deviants[] = [
+                        'block'    => $frag,
+                        'settings' => $this->mergeFieldSettings( $frag, $override )
+                    ];
                 }
-            } else {
-                $blocks[] = $this->beforeRenderBlock([
-                    'object'   => $block,
-                    'entry'    => $entry,
-                    'builder'  => $builder,
-                    'settings' => array_merge( $originalSettings, (array) $settings )
-                ]);
+
+                // next block
+                continue;
             }
+
+            // If we made it here, just treat it like a block to be normalized
+            $deviants[] = [
+                'block'    => $block,
+                'settings' => $settings
+            ];
         }
 
+        // NORMAL VIEW
+        // NORMAL VIEW
+        // NORMAL VIEW
+        $normies = [];
+        foreach( $deviants as $unclean ) {
+            $normies[] = $this->conform( [
+                'object'   => $unclean['block'],
+                'entry'    => $entry,
+                'builder'  => $builder,
+                'settings' => array_merge( $defaultSettings, $unclean['settings'] )
+            ]);
+        }
 
-        // add settings for next/previous siblings to each block
+        // Now that we have all the normal blocks, we can add siblings settings
+        // to each block and return the whole array
+        return $this->siblingSettings( $normies );
+    }
+
+
+    private function doesThisLookNormalToYou( $blocks = null ) {
+        if( !empty( $blocks ) && gettype( $blocks ) == 'array' ) {
+            return ( $blocks[0]['_normalized'] ?? null );
+        }
+        return false;
+    }
+
+
+    private function siblingSettings( $blocks = [] ) {
+
+        // this is ugly and i am not proud of it -- but it works
+        // chatgpt or a 2nd year compsci student could probably do better.
+        // my shame is immesurable and my day is ruined.
         foreach( $blocks AS $key => $block )
         {
             if( $blocks[$key-1]['settings'] ?? null )
@@ -100,7 +143,7 @@ class NormalizeBlockTwig extends AbstractExtension
     }
 
 
-    private function beforeRenderBlock( array $block )
+    private function conform( array $block ) : array
     {
         $block = array_merge( $block['object']->fieldValues ?? $block['object'] ?? [], $block );
 
@@ -111,82 +154,30 @@ class NormalizeBlockTwig extends AbstractExtension
             'entryUrl'   => $block['entry']->url ?? null,
             'entryType'  => $block['entry']->type->handle    ?? null,
             'section'    => $block['entry']->section->handle ?? $block['settings']['section'] ?? null,
-            'blockType'  => $block['object']->type->handle   ?? $block['object']->type ?? $block['object']['type'] ?? $block['settings']['blockType'] ?? null,
-            'normalized' => true,
         ]);
+
+        $block['_normalized'] = true;
 
         return $block;
     }
 
-    private function getFieldSettings( $field = null )
-    {
-        $settings = [];
 
-        if( $field ) {
-            $settings = $field->settings ?? [];
-            if( get_class( $field ) == 'simplicateca\referencefield\fields\ProtoSelectorData' ) {
-                $settings = array_merge(
-                    $field->proto('settings') ?? [],
-                    $field->data() ?? [],
-                    $settings
-                );
-            }
-        }
-
-        return array_filter( $settings );
-    }
-
-
-
-    private function mergeBlockSettings( $block, $parentSettings = null )
+    private function mergeFieldSettings( $block, $override = [] ) : array
     {
         if( empty( $block ) ) {
             return [];
         }
 
-        $props = [
-            'theme'      => (string) $block->theme ?? '',
-            'variant'    => (string) $block->variant ?? '',
-            'layout'     => (string) $block->layout ?? '',
-            'interspace' => (string) $block->interspace ?? ''
-        ];
-
-        $layout     = $this->getFieldSettings( $block->layout ?? null );
-        $variant    = $this->getFieldSettings( $block->variant ?? null );
-        $theme      = $this->getFieldSettings( $block->theme ?? null );
-        $interspace = $this->getFieldSettings( $block->interspace ?? null );
-
-        // if this is a content block that was inside a fragment container,
-        // figure out where to grab background/interspace settings from
-        if( $parentSettings )
-        {
-            if( $parentSettings['theme'] == 'FROMFRAGMENT' ) {
-                unset( $parentSettings['theme'] );
-            } else {
-                $theme = [];
-            }
-
-            if( $parentSettings['interspace'] == 'FROMFRAGMENT' ) {
-                unset( $parentSettings['interspace'] );
-            } else {
-                $interspace = [];
-            }
-        }
-
-        // this occurs when a block is created by hand (or in the sitehub previewer),
-        // rather than an actual Craft database element, and then run through normalizeBlocks()
-        if( gettype($block) == 'array' ) {
-            return array_merge( $block['settings'], $parentSettings ?? [] );
-        }
-
-        // this is for normal MatrixBlock elements
         return array_merge( ...array_filter([
-            $layout,
-            $variant,
-            $theme,
-            $interspace,
-            $props,
-            $parentSettings
+            $override['variantSettings'] ?? $block->variant->settings ?? [],
+            $override['layoutSettings']  ?? $block->layout->settings  ?? [],
+            $override['themeSettings']   ?? $block->theme->settings   ?? [],
+            [
+                'variant'   => $override['variant']   ?? $block->variant ?? '',
+                'layout'    => $override['layout']    ?? $block->layout  ?? '',
+                'theme'     => $override['theme']     ?? $block->theme   ?? '',
+                'blockType' => $override['blockType'] ?? $block->type->handle ?? $block->type ?? $block->blockType ?? ''
+            ]
         ]));
     }
 }

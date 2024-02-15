@@ -2,8 +2,8 @@
  ------------------------------------------------------------------------------------ ##}
 {% macro spacer( spacer, default = "base" ) %}
     {% set spacer = spacer and spacer is same as(true) ? default : spacer %}
-    {% if spacer and block( "interspace__#{spacer}", "_site/base/assemble.spacing" ) is defined %}
-        {{ block( "interspace__#{spacer}", "_site/base/assemble.spacing" ) }}
+    {% if spacer and block( "spacing__#{spacer}", "_site/base/assemble.spacing" ) is defined %}
+        {{ block( "spacing__#{spacer}", "_site/base/assemble.spacing" ) }}
     {% endif %}
 {% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
@@ -174,7 +174,7 @@
 
 
 
-{## Containers & Interspace
+{## Containers & Spacing
  ------------------------------------------------------------------------------------ ##}
 {% macro container( container = false, html = null, settings = {} ) %}
     {% import "_site/base/assemble.containers" as containers %}
@@ -194,35 +194,6 @@
 {%- endmacro %}
 {% macro closeContainer() %}</div>{% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
-
-
-
-{## Wrap something (usually an image) in a frame
- ------------------------------------------------------------------------------------ ##}
-{% macro frame( image = null, frame = null, settings = null ) %}
-
-    {## sanitize this variable a bit before letting it execute as code ##}
-    {% set frame = frame | replace('/[^\\w]+/', '') %}
-
-    {% set framed = frame and image ? include( template_from_string(
-        "{% from '_site/base/assemble.media' import #{frame} as m %}{{ m is defined ? m(i,s) }}"
-    ), { i: image, s: settings } ) ??? null %}
-
-    {% if framed -%}
-        {{ framed }}
-    {%- else -%}
-        {{ _self.img( image, {
-            class        : settings.imageClass     ??? "w-full max-w-full h-auto",
-            figure       : settings.imageFigure    ??? "w-full block",
-            transform    : settings.imageTransform ??? null,
-            _placeholder : settings._placeholder   ??? null
-        } ) }}
-    {%- endif -%}
-
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
-
-richtext
 
 
 
