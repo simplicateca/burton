@@ -37,6 +37,9 @@ echo "-----------------------------------------------"
 [[ ! -z "$CAPTCHA_SECRET" ]]  || echo " ! CAPTCHA_SECRET  ... missing!"
 [[ ! -z "$SMTP_USERNAME" ]]   || echo " ! SMTP_USERNAME   ... missing!"
 [[ ! -z "$SMTP_PASSWORD" ]]   || echo " ! SMTP_PASSWORD   ... missing!"
+[[ ! -z "$SMTP_HOSTNAME" ]]   || echo " ! SMTP_HOSTNAME   ... missing!"
+
+
 
 
 echo " "
