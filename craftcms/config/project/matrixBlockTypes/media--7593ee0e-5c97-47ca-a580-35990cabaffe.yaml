@@ -153,7 +153,6 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/layout.twozone.json
-      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -220,7 +219,6 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/block.sources.json
-      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -300,7 +298,6 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/variant.media.json
-      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -343,7 +340,6 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/theme.json
-      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField

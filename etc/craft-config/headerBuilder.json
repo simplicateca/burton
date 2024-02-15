@@ -17,7 +17,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/layout.text.header.json"
+                                "configFile": "_site\/config\/layout.text.header.json"
                             }
                         },
                         {
@@ -26,7 +26,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/variant.text.json"
+                                "configFile": "_site\/config\/variant.text.json"
                             }
                         },
                         {
@@ -58,7 +58,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/theme.header.json"
+                                "configFile": "_site\/config\/theme.header.json"
                             }
                         },
                         {
@@ -67,7 +67,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/interspace.header.json"
+                                "configFile": "_site\/config\/interspace.header.json"
                             }
                         }
                     ]
@@ -82,7 +82,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/layout.image.header.json"
+                                "configFile": "_site\/config\/layout.image.header.json"
                             }
                         },
                         {
@@ -91,7 +91,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/variant.image.json"
+                                "configFile": "_site\/config\/variant.image.json"
                             }
                         },
                         {
@@ -159,7 +159,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/theme.header.json"
+                                "configFile": "_site\/config\/theme.header.json"
                             }
                         },
                         {
@@ -168,7 +168,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/interspace.header.json"
+                                "configFile": "_site\/config\/interspace.header.json"
                             }
                         }
                     ]
@@ -183,7 +183,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/layout.media.header.json"
+                                "configFile": "_site\/config\/layout.media.header.json"
                             }
                         },
                         {
@@ -192,7 +192,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/variant.media.json"
+                                "configFile": "_site\/config\/variant.media.json"
                             }
                         },
                         {
@@ -411,7 +411,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/theme.header.json"
+                                "configFile": "_site\/config\/theme.header.json"
                             }
                         },
                         {
@@ -420,7 +420,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/interspace.header.json"
+                                "configFile": "_site\/config\/interspace.header.json"
                             }
                         }
                     ]
@@ -435,7 +435,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/layout.collection.header.json"
+                                "configFile": "_site\/config\/layout.collection.header.json"
                             }
                         },
                         {
@@ -444,7 +444,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/variant.collection.json"
+                                "configFile": "_site\/config\/variant.collection.json"
                             }
                         },
                         {
@@ -767,7 +767,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/theme.header.json"
+                                "configFile": "_site\/config\/theme.header.json"
                             }
                         },
                         {
@@ -776,7 +776,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/interspace.header.json"
+                                "configFile": "_site\/config\/interspace.header.json"
                             }
                         }
                     ]
@@ -791,7 +791,7 @@
                             "handle": "layout",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/layout.focus.header.json"
+                                "configFile": "_site\/config\/layout.focus.header.json"
                             }
                         },
                         {
@@ -800,7 +800,7 @@
                             "handle": "variant",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/variant.focus.json"
+                                "configFile": "_site\/config\/variant.focus.json"
                             }
                         },
                         {
@@ -884,7 +884,7 @@
                             "handle": "theme",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/theme.header.json"
+                                "configFile": "_site\/config\/theme.header.json"
                             }
                         },
                         {
@@ -893,7 +893,7 @@
                             "handle": "interspace",
                             "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
-                                "referenceFile": "_site\/config\/interspace.header.json"
+                                "configFile": "_site\/config\/interspace.header.json"
                             }
                         }
                     ]

@@ -325,7 +325,7 @@ fields:
     name: Layout
     searchable: true
     settings:
-      referenceFile: _site/json/layout.collection.sidebar.json
+      configFile: _site/json/layout.collection.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -338,7 +338,7 @@ fields:
     name: Variant
     searchable: true
     settings:
-      referenceFile: _site/json/variant.collection.json
+      configFile: _site/json/variant.collection.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -351,7 +351,7 @@ fields:
     name: Interspace
     searchable: true
     settings:
-      referenceFile: _site/json/interspace.sidebar.json
+      configFile: _site/json/interspace.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -548,7 +548,7 @@ fields:
     name: Theme
     searchable: true
     settings:
-      referenceFile: _site/json/theme.sidebar.json
+      configFile: _site/json/theme.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
