@@ -3,7 +3,7 @@
         "label": "Text Above",
         "value": "textAbove",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}
@@ -23,7 +23,7 @@
         "label": "Text Left",
         "value": "textLeft",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}
@@ -44,7 +44,7 @@
         "label": "Text Right",
         "value": "textRight",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}

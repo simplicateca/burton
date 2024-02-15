@@ -4,7 +4,7 @@
         "label": "Local Image Files",
         "value": "assets",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs": [],
         "settings": {}
@@ -16,7 +16,7 @@
         "label": "From a Collection",
         "value": "collect",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs": [
             {
@@ -35,7 +35,7 @@
         "label": "External Media URLs",
         "value": "external",
         "docs": {
-            "brief": "External URLs (Youtube, Vimeo, etc)"
+            "tooltip": "External URLs (Youtube, Vimeo, etc)"
         },
         "inputs": [],
         "settings": {}
@@ -45,7 +45,7 @@
         "label": "Local Media Files",
         "value": "local",
         "docs": {
-            "brief": "Uploaded Files (Craft CMS Assets)"
+            "tooltip": "Uploaded Files (Craft CMS Assets)"
         },
         "inputs": [],
         "settings": {}
@@ -55,7 +55,7 @@
         "label": "Third Party iFrame/Code",
         "value": "code",
         "docs": {
-            "brief": "Embed elements from a trusted third party service (Google Maps, Airtable, Spotify, etc)"
+            "tooltip": "Embed elements from a trusted third party service (Google Maps, Airtable, Spotify, etc)"
         },
         "inputs": [],
         "settings": {}
@@ -67,7 +67,7 @@
         "label": "Content Entries",
         "value": "entries",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs": [],
         "settings": {}
@@ -77,7 +77,7 @@
         "label": "Inline single-use items",
         "value": "items",
         "docs": {
-            "brief": "Content stored and available only within this block."
+            "tooltip": "Content stored and available only within this block."
         },
         "inputs": [],
         "settings": {}

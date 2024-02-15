@@ -3,7 +3,7 @@
         "label": "Text Above",
         "value": "textAbove",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}
@@ -21,7 +21,7 @@
         "label": "Text Below",
         "value": "textBelow",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs" : [
             {{ block( 'inputContainer', '_site/json/base.fields.twig' ) }},

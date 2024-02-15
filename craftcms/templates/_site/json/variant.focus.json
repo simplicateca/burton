@@ -3,7 +3,7 @@
         "label": "Spotlight",
         "value": "spotlight",
         "docs" : {
-            "brief": "Feature select content entries in a more prominent way."
+            "tooltip": "Feature select content entries in a more prominent way."
         },
         "inputs": [],
         "settings":{}

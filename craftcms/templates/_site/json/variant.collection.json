@@ -2,7 +2,7 @@
     "label": "Card Grid",
     "value": "card",
     "docs" : {
-        "brief": "Present users with a grid of cards, each representing an item from the collection."
+        "tooltip": "Present users with a grid of cards, each representing an item from the collection."
     },
     "inputs": [
 
@@ -13,7 +13,7 @@
     "label": "Accordion Panels",
     "value": "accordion",
     "docs" : {
-        "brief": "Present users with a list of items, each represented by an accordion panel."
+        "tooltip": "Present users with a list of items, each represented by an accordion panel."
     },
     "inputs": [
         {
@@ -41,7 +41,7 @@
     "label": "Bento Boxes",
     "value": "bento",
     "docs" : {
-        "brief": ""
+        "tooltip": ""
     },
     "inputs": [],
     "settings": {
@@ -52,7 +52,7 @@
     "label": "Tab Panels",
     "value": "tabs",
     "docs" : {
-        "brief": ""
+        "tooltip": ""
     },
     "inputs": [],
     "settings": {
@@ -63,8 +63,8 @@
     "label": "Search Interface",
     "value": "search",
     "docs" : {
-        "brief": "Present users an opportunity to search and filter one or more collections.",
-        "modalLabel": "Collection Search + Results User Interface",
+        "tooltip": "Present users an opportunity to search and filter one or more collections.",
+        "modalTitle": "Collection Search + Results User Interface",
         "modalIntro": "Customize the appearance and behavior of the search results interface for this collection block."
     },
     "inputs": [
@@ -134,10 +134,11 @@
             "type" : "select",
             "instructions": "Which card layout should be used to present the items?",
             "fieldClass": "width-50",
+            "default"   : "Summary",
             "options" : {
-                "summary"   : "Summary",
-                "thumbnail" : "Thumbnail",
-                "textOnly"  : "Text List"
+                "search"  : "Search Results",
+                "summary" : "Summary",
+                "textOnly": "Text List"
             }
         }
 

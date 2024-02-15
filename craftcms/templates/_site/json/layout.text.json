@@ -3,7 +3,7 @@
         "label": "Readable Width (Center Justify)",
         "value": "textAbove__center",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}
@@ -21,7 +21,7 @@
         "label": "Readable Width (Left Justify)",
         "value": "textAbove",
         "docs": {
-            "brief": ""
+            "tooltip": ""
         },
         "inputs" : [
             {{ block( 'inputTextSizes', '_site/json/base.fields.twig' ) }},

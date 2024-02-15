@@ -5,7 +5,7 @@
         "label": "Base (Page Background Visible)",
         "value": "base",
         "docs": {
-            "brief" : ""
+            "tooltip" : ""
         },
         "inputs": [
             {{ block( 'inputBlockBottom',  '_site/json/base.fields.twig' ) }},
@@ -18,7 +18,7 @@
         "label": "White (Light)",
         "value": "light",
         "docs": {
-            "brief" : ""
+            "tooltip" : ""
         },
         "inputs": [
             {{ block( 'inputCanvasCoverage',  '_site/json/base.fields.twig' ) }},
@@ -32,7 +32,7 @@
         "label": "Accent (Dark)",
         "value": "accent",
         "docs": {
-            "brief" : ""
+            "tooltip" : ""
         },
         "inputs": [
             {{ block( 'inputCanvasCoverage',  '_site/json/base.fields.twig' ) }},
@@ -46,7 +46,7 @@
         "label": "Inherit from Block Above",
         "value": "INHERIT",
         "docs": {
-            "brief" : ""
+            "tooltip" : ""
         },
         "inputs": [],
         "settings": {

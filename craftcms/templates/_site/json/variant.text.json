@@ -2,7 +2,7 @@
     "label": "Single Text",
     "value": "single",
     "docs": {
-        "brief": "The simplest and most humble of all variants, this is a single text block."
+        "tooltip": "The simplest and most humble of all variants, this is a single text block."
     },
     "inputs": [],
     "settings": {}
@@ -10,7 +10,7 @@
     "label": "Single Text (with Secondary Reveal)",
     "value": "secondaryReveal",
     "docs": {
-        "brief": "A single text block with an interactive reveal for secondary content."
+        "tooltip": "A single text block with an interactive reveal for secondary content."
     },
     "inputs": [
         {
@@ -37,7 +37,7 @@
     "label": "Single Text (with Callout)",
     "value": "callout",
     "docs": {
-        "brief": "A single text block with an aside."
+        "tooltip": "A single text block with an aside."
     },
     "inputs": [
         {
@@ -71,7 +71,7 @@
     "label": "Double Text (Side-by-Side)",
     "value": "sideBySide",
     "docs": {
-        "brief": "Two text blocks, side-by-side."
+        "tooltip": "Two text blocks, side-by-side."
     },
     "inputs": [
         {
