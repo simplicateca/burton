@@ -8,8 +8,8 @@
             "brief" : ""
         },
         "inputs": [
-            {{ block( 'inputBlockBottom',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputAnimate',  '_site/json/inputs.twig' ) }}
+            {{ block( 'inputBlockBottom',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputAnimate',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {}
     }
@@ -21,9 +21,9 @@
             "brief" : ""
         },
         "inputs": [
-            {{ block( 'inputCanvasCoverage',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputBlockBottom',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputAnimate',  '_site/json/inputs.twig' ) }}
+            {{ block( 'inputCanvasCoverage',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputBlockBottom',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputAnimate',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {}
     }
@@ -35,9 +35,9 @@
             "brief" : ""
         },
         "inputs": [
-            {{ block( 'inputCanvasCoverage',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputBlockBottom',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputAnimate',  '_site/json/inputs.twig' ) }}
+            {{ block( 'inputCanvasCoverage',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputBlockBottom',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputAnimate',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {}
     }

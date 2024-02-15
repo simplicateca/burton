@@ -144,9 +144,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/theme.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   3382d393-09d2-42d7-8459-07cd8933ece5: # Content Entries
     columnSuffix: null
     contentColumnType: string
@@ -184,9 +185,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/variant.focus.component.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   adc05109-eaa7-4f80-b156-5b250a28e878: # Collection
     columnSuffix: null
     contentColumnType: string
@@ -223,9 +225,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/variant.focus.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   ca0addca-320c-4b2c-94c4-f063b00c270a: # Form
     columnSuffix: null
     contentColumnType: string
@@ -261,9 +264,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/layout.twozone.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
 handle: focus
 name: Focus
 sortOrder: 5

@@ -155,7 +155,7 @@ fields:
       referenceFile: _site/json/layout.image.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   116b2d60-dfda-45af-91ba-a4d2af3e89ca: # Theme
     columnSuffix: hohpobvj
     contentColumnType: string
@@ -168,7 +168,7 @@ fields:
       referenceFile: _site/json/theme.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   1853a4db-be6e-457e-8b1e-ce36b7077568: # Variant
     columnSuffix: rqbwprsx
     contentColumnType: string
@@ -181,7 +181,7 @@ fields:
       referenceFile: _site/json/variant.image.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   8143564b-14ab-43e0-9281-9c48f493ee63: # Primary Headline
     columnSuffix: zkkfpekw
     contentColumnType: text
@@ -222,7 +222,7 @@ fields:
       referenceFile: _site/json/interspace.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   ab34c21b-4d43-41da-8301-8da25a28b912: # Copy
     columnSuffix: jldqsloe
     contentColumnType: text

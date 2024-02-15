@@ -57,7 +57,7 @@ fields:
       referenceFile: _site/json/theme.fragment.sidebar.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   6e078e5b-0730-4dd6-8eea-b2ba88f6ebe7: # Fragment
     columnSuffix: null
     contentColumnType: string
@@ -124,7 +124,7 @@ fields:
       referenceFile: _site/json/interspace.fragment.sidebar.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
 handle: fragment
 name: Fragment
 sortOrder: 6

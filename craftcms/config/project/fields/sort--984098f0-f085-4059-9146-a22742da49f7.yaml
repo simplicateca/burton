@@ -10,4 +10,4 @@ settings:
   configFile: _site/json/collection.sorting.json
 translationKeyFormat: null
 translationMethod: none
-type: simplicateca\referencefield\fields\ProtoSelector
+type: simplicateca\selectplus\fields\SelectPlusField

@@ -153,9 +153,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/layout.twozone.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   8384d65a-1c88-4960-8c6e-7091bf390c9d: # External URLs
     columnSuffix: null
     contentColumnType: string
@@ -166,7 +167,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1560095618
+      changedFieldIndicator: 780179482
       columns:
         __assoc__:
           -
@@ -219,9 +220,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/block.sources.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   a3273f9c-b38b-4163-9f60-92174692b499: # Code
     columnSuffix: dblnmrly
     contentColumnType: text
@@ -298,9 +300,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/variant.media.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: # Copy
     columnSuffix: lriaudff
     contentColumnType: text
@@ -340,9 +343,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/theme.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
 handle: media
 name: Media
 sortOrder: 3

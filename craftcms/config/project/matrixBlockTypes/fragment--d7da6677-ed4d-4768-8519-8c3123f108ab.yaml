@@ -108,9 +108,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/layout.fragment.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   aca4dd0e-619c-4608-97c8-dae08da9e011: # Variant
     columnSuffix: tttooiue
     contentColumnType: text
@@ -122,9 +123,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/variant.fragment.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   bf152e62-fb69-4e45-836d-7546488987e6: # Theme
     columnSuffix: nfwtlclo
     contentColumnType: text
@@ -136,9 +138,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/theme.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   e2cdac24-87bd-4a5b-be66-d991b0323794: # Fragment
     columnSuffix: null
     contentColumnType: string

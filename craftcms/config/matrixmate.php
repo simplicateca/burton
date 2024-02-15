@@ -53,5 +53,19 @@ return [
         'headerBuilder'  => burtonBuilderConfig( $commonFieldsHeaders ),
         'sidebarBuilder' => burtonBuilderConfig( $commonFields ),
         'bodyBuilder'    => burtonBuilderConfig( $commonFields ),
+        'pageExtras'     => [
+            'hiddenTypes' => ['entranceModal'],
+            'types' => [
+                'alertMessage'  => [ 'maxLimit' => 1 ],
+                'footerCta'     => [ 'maxLimit' => 1 ],
+                'entranceModal' => [ 'maxLimit' => 1 ],
+                'jsEvent'       => [ 'maxLimit' => 1 ],
+                'navigation'    => [ 'maxLimit' => 1 ],
+            ],
+            'groups' => [[
+                'label' => 'Add Extra',
+                'types' => ['alertMessage', 'footerCta', 'entranceModal', 'jsEvent', 'navigation'],
+            ]],
+        ]
     ]
 ];

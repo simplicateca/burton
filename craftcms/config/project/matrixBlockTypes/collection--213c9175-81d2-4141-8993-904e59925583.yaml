@@ -116,9 +116,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/block.sources.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   7b72b671-dcdc-49b2-95cd-44a8e8be7cad: # Theme
     columnSuffix: ngczrvyg
     contentColumnType: text
@@ -130,9 +131,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/theme.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   9a818c17-ad1d-488d-945a-777b6b8b702f: # Content Entries
     columnSuffix: null
     contentColumnType: string
@@ -234,7 +236,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1945450820
+      changedFieldIndicator: 1055760895
       columns:
         __assoc__:
           -
@@ -287,9 +289,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/layout.twozone.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   b65678be-7ed0-4665-aaaa-bd9d406b60f4: # Variant
     columnSuffix: uzgufcyh
     contentColumnType: text
@@ -301,9 +304,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/variant.collection.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   c6677eab-6c78-4ca1-93cd-0faa266d1c45: # Copy
     columnSuffix: null
     contentColumnType: text

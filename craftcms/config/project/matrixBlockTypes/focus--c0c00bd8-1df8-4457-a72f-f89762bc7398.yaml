@@ -141,7 +141,7 @@ fields:
       referenceFile: _site/json/layout.highlight.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   3f22291c-b979-4ffe-b615-df7785c996b8: # Collection
     columnSuffix: null
     contentColumnType: string
@@ -246,7 +246,7 @@ fields:
       referenceFile: _site/json/interspace.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   36897794-c1e2-4ca1-ac86-2d3db66ed467: # Variant
     columnSuffix: iehepocn
     contentColumnType: string
@@ -259,7 +259,7 @@ fields:
       referenceFile: _site/json/variant.highlight.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   b54524f7-9081-4ed3-9be8-7efa9ebb3e46: # Form
     columnSuffix: null
     contentColumnType: string
@@ -333,7 +333,7 @@ fields:
       referenceFile: _site/json/variant.focus.component.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   c1f7dece-b19f-492b-9649-56955cfa6e0a: # Theme
     columnSuffix: vpkzjjfz
     contentColumnType: string
@@ -346,7 +346,7 @@ fields:
       referenceFile: _site/json/theme.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
 handle: focus
 name: Focus
 sortOrder: 5

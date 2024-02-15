@@ -104,9 +104,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/theme.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   1d3033c2-47a1-4245-8f9c-4dfb1365de27: # Secondary Copy
     columnSuffix: epalhtgq
     contentColumnType: text
@@ -174,9 +175,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/layout.text.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   26abec17-a1be-4c82-90e1-f6d48f7f4fb0: # Variant
     columnSuffix: dcsjywnh
     contentColumnType: text
@@ -188,9 +190,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/variant.text.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   8438332e-2695-4b07-9020-50e01cceb79a: # Secondary Bit
     columnSuffix: null
     contentColumnType: string

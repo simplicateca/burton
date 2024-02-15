@@ -189,7 +189,7 @@ fields:
       referenceFile: _site/json/interspace.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   9b24caba-a07d-4707-a391-0384522221b0: # Theme
     columnSuffix: ubgdzwer
     contentColumnType: string
@@ -202,7 +202,7 @@ fields:
       referenceFile: _site/json/theme.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   57c70792-3dc3-41c3-b589-5905564ed8bf: # Variant
     columnSuffix: ggmzwpop
     contentColumnType: string
@@ -215,7 +215,7 @@ fields:
       referenceFile: _site/json/variant.collection.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   93f90adb-ea61-4a42-9c1b-8e8cd9cd401a: # Inline Content Items
     columnSuffix: null
     contentColumnType: string
@@ -586,7 +586,7 @@ fields:
       referenceFile: _site/json/layout.collection.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
 handle: collection
 name: Collection
 sortOrder: 4

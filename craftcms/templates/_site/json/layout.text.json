@@ -7,10 +7,10 @@
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextSizes', '_site/json/inputs.twig' ) }},
+                {{ block( 'inputTextSizes', '_site/json/base.fields.twig' ) }},
             {% endif %}
-            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {
             "microLayout": "topBottom__center"
@@ -24,9 +24,9 @@
             "brief": ""
         },
         "inputs" : [
-            {{ block( 'inputTextSizes', '_site/json/inputs.twig' ) }},
-            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+            {{ block( 'inputTextSizes', '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {
             "microLayout": "topBottom"

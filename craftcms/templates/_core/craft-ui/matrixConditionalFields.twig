@@ -337,7 +337,7 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
 
                 if( input.getAttribute('id') ) {
 
-                    if( input.getAttribute('id').includes('selectize' ) && input.tagName != 'SELECT' ) {
+                    if( input.getAttribute('id').includes('selectize') && input.tagName != 'SELECT' ) {
                         return
                     }
 
@@ -466,10 +466,6 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
                 if( addedNode ) {
                     const dataid = addedNode.dataset.id ?? ''
 
-                    // find all inputs and select fields in the new block and test them
-                    const inputs = document.querySelectorAll(`.matrixblock[data-id="${dataid}"] input,.matrixblock[data-id="${dataid}"] select`);
-                    Craft.MatrixConditionals.setLoadState( inputs )
-
                     // find any hidden inputs in the new block and observe them for attribute change
                     const newHiddenInputs = document.querySelectorAll(`.matrixblock[data-id="${dataid}"] .field .lightswitch-inner-container input[type="hidden"]`)
                     newHiddenInputs.forEach((input) => {
@@ -494,6 +490,15 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
                             childList: true
                         });
                     });
+
+                    // find all inputs and select fields in the new block and test them
+                    const inputs = document.querySelectorAll(`.matrixblock[data-id="${dataid}"] input,.matrixblock[data-id="${dataid}"] select`);
+
+                    // this didn't use to need a delay, but now it does now.
+                    // I don't like it, but this code hopefully won't live past Craft 4 so ....
+                    setTimeout(() => {
+                        Craft.MatrixConditionals.setLoadState( inputs )
+                    }, 250 );
                 }
             });
 

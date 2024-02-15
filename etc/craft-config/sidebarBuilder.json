@@ -15,7 +15,7 @@
                             "required": false,
                             "name": "Layout",
                             "handle": "layout",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/layout.text.sidebar.json"
                             }
@@ -24,7 +24,7 @@
                             "required": false,
                             "name": "Variant",
                             "handle": "variant",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/variant.text.json"
                             }
@@ -56,7 +56,7 @@
                             "required": false,
                             "name": "Theme",
                             "handle": "theme",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/theme.sidebar.json"
                             }
@@ -65,7 +65,7 @@
                             "required": false,
                             "name": "Interspace",
                             "handle": "interspace",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/interspace.sidebar.json"
                             }
@@ -80,7 +80,7 @@
                             "required": false,
                             "name": "Layout",
                             "handle": "layout",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/layout.image.sidebar.json"
                             }
@@ -89,7 +89,7 @@
                             "required": false,
                             "name": "Variant",
                             "handle": "variant",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/variant.image.json"
                             }
@@ -157,7 +157,7 @@
                             "required": false,
                             "name": "Theme",
                             "handle": "theme",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/theme.sidebar.json"
                             }
@@ -166,7 +166,7 @@
                             "required": false,
                             "name": "Interspace",
                             "handle": "interspace",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/interspace.sidebar.json"
                             }
@@ -181,7 +181,7 @@
                             "required": false,
                             "name": "Layout",
                             "handle": "layout",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/layout.media.sidebar.json"
                             }
@@ -190,7 +190,7 @@
                             "required": false,
                             "name": "Variant",
                             "handle": "variant",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/variant.media.json"
                             }
@@ -409,7 +409,7 @@
                             "required": false,
                             "name": "Theme",
                             "handle": "theme",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/theme.sidebar.json"
                             }
@@ -418,7 +418,7 @@
                             "required": false,
                             "name": "Interspace",
                             "handle": "interspace",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/interspace.sidebar.json"
                             }
@@ -433,7 +433,7 @@
                             "required": false,
                             "name": "Layout",
                             "handle": "layout",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/layout.collection.sidebar.json"
                             }
@@ -442,7 +442,7 @@
                             "required": false,
                             "name": "Variant",
                             "handle": "variant",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/variant.collection.json"
                             }
@@ -765,7 +765,7 @@
                             "required": false,
                             "name": "Theme",
                             "handle": "theme",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/theme.sidebar.json"
                             }
@@ -774,7 +774,7 @@
                             "required": false,
                             "name": "Interspace",
                             "handle": "interspace",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/interspace.sidebar.json"
                             }
@@ -806,7 +806,7 @@
                             "required": false,
                             "name": "Theme",
                             "handle": "theme",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/theme.fragment.sidebar.json"
                             }
@@ -815,7 +815,7 @@
                             "required": false,
                             "name": "Interspace",
                             "handle": "interspace",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/interspace.fragment.sidebar.json"
                             }
@@ -830,7 +830,7 @@
                             "required": false,
                             "name": "Layout",
                             "handle": "layout",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/layout.focus.sidebar.json"
                             }
@@ -839,7 +839,7 @@
                             "required": false,
                             "name": "Element",
                             "handle": "variant",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/variant.focus.json"
                             }
@@ -923,7 +923,7 @@
                             "required": false,
                             "name": "Theme",
                             "handle": "theme",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/theme.sidebar.json"
                             }
@@ -932,7 +932,7 @@
                             "required": false,
                             "name": "Interspace",
                             "handle": "interspace",
-                            "type": "simplicateca\\referencefield\\fields\\Dropdown",
+                            "type": "simplicateca\\selectplus\\fields\\SelectPlus",
                             "typesettings": {
                                 "referenceFile": "_site\/config\/interspace.sidebar.json"
                             }

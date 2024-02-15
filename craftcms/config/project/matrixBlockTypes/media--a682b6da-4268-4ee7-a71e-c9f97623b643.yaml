@@ -301,7 +301,7 @@ fields:
       referenceFile: _site/json/interspace.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   40926b24-4c70-4466-a8f0-80678128f196: # Layout
     columnSuffix: kkisxdhf
     contentColumnType: string
@@ -314,7 +314,7 @@ fields:
       referenceFile: _site/json/layout.media.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   89922bd5-1b76-4fe2-8efe-f30c26adb112: # Variant
     columnSuffix: ppsejjwc
     contentColumnType: string
@@ -327,7 +327,7 @@ fields:
       referenceFile: _site/json/variant.media.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
   d2c9d5fd-0d2a-4a8e-9e7c-fd5e16765aa0: # Primary Headline
     columnSuffix: gvkfkblx
     contentColumnType: text
@@ -368,7 +368,7 @@ fields:
       referenceFile: _site/json/theme.header.json
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\Dropdown
+    type: simplicateca\selectplus\fields\SelectPlusField
 handle: media
 name: Media
 sortOrder: 3

@@ -132,9 +132,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/layout.twozone.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   478bb62e-9b48-4259-a366-23b216633fc6: # Collection
     columnSuffix: null
     contentColumnType: string
@@ -171,9 +172,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/variant.image.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   8200135a-e76a-451e-bcc5-c02be274e589: # Source
     columnSuffix: jsjcgvtd
     contentColumnType: text
@@ -185,9 +187,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/block.sources.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   b8f98eab-bd44-4073-b73b-c5c394a00643: # Theme
     columnSuffix: cpekkbhk
     contentColumnType: text
@@ -199,9 +202,10 @@ fields:
     settings:
       columnType: null
       configFile: _site/json/theme.json
+      referenceFile: ''
     translationKeyFormat: null
     translationMethod: none
-    type: simplicateca\referencefield\fields\ProtoSelector
+    type: simplicateca\selectplus\fields\SelectPlusField
   dda1fa64-dd45-42b6-8df9-476cbac15152: # Image(s)
     columnSuffix: null
     contentColumnType: string

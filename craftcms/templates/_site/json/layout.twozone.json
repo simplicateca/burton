@@ -7,12 +7,12 @@
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextSizes',  '_site/json/inputs.twig' ) }},
-                {{ block( 'inputContainer', '_site/json/inputs.twig' ) }},
-                {{ block( 'inputSubmergeCTAs',  '_site/json/inputs.twig' ) }},
+                {{ block( 'inputTextSizes',  '_site/json/base.fields.twig' ) }},
+                {{ block( 'inputContainer', '_site/json/base.fields.twig' ) }},
+                {{ block( 'inputSubmergeCTAs',  '_site/json/base.fields.twig' ) }},
             {% endif %}
-            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {
             "microLayout": "topBottom__center"
@@ -27,13 +27,13 @@
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextLeftSizes',  '_site/json/inputs.twig' ) }},
-                {{ block( 'inputContainer', '_site/json/inputs.twig' ) }},
-                {{ block( 'inputElevateHeadlines',  '_site/json/inputs.twig' ) }},
-                {{ block( 'inputSubmergeCTAs',  '_site/json/inputs.twig' ) }},
+                {{ block( 'inputTextLeftSizes',  '_site/json/base.fields.twig' ) }},
+                {{ block( 'inputContainer', '_site/json/base.fields.twig' ) }},
+                {{ block( 'inputElevateHeadlines',  '_site/json/base.fields.twig' ) }},
+                {{ block( 'inputSubmergeCTAs',  '_site/json/base.fields.twig' ) }},
             {% endif %}
-            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {
             "microLayout": "leftRight__even"
@@ -48,13 +48,13 @@
         },
         "inputs" : [
             {% if element.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextRightSizes',  '_site/json/inputs.twig' ) }},
-                {{ block( 'inputContainer', '_site/json/inputs.twig' ) }},
-                {{ block( 'inputElevateHeadlines',  '_site/json/inputs.twig' ) }},
-                {{ block( 'inputSubmergeCTAs',  '_site/json/inputs.twig' ) }},
+                {{ block( 'inputTextRightSizes',  '_site/json/base.fields.twig' ) }},
+                {{ block( 'inputContainer', '_site/json/base.fields.twig' ) }},
+                {{ block( 'inputElevateHeadlines',  '_site/json/base.fields.twig' ) }},
+                {{ block( 'inputSubmergeCTAs',  '_site/json/base.fields.twig' ) }},
             {% endif %}
-            {{ block( 'inputGapAbove',  '_site/json/inputs.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/inputs.twig' ) }}
+            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
+            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
 
         "settings": {
