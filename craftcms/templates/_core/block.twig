@@ -4,7 +4,7 @@
 
     It *can* be inherited as a base block, but ideally only as a last resort fallback.
 
-    A more robust block base should be created in `_site/base/block`, which all default
+    A more robust block base should be created in `_site/block`, which all default
     blocks already look for in their inheritence chain before falling back to this file.
  ------------------------------------------------------------------------------------ ##}
 {% extends template_from_string('{% block block %}{% endblock %}') %}
@@ -14,7 +14,7 @@
 
 
 
-{## Macro: blockOrBuilder
+{## Macro: findBlockOrBuilder
  ------------------------------------------------------------------------------------ ##
     Parameters:
     - content: The static content to be displayed if not empty.
@@ -31,12 +31,12 @@
 
     Example Usage:
     {% set settings = { container: "fluid", spacer: "base" } %}
-    {{ blockOrBuilder( block('content'), 'content', entry, settings ) }}
+    {{ findBlockOrBuilder( block('content'), 'content', entry, settings ) }}
 
     In the above case, if {% block content %} is empty on the calling template, the
     macro will attempt to build the `bodyBuilder` matrix field on `entry`.
  ------------------------------------------------------------------------------------ ##}
-{% macro blockOrBuilder( html = "", builder = "content", entry = null, settings = {} ) %}
+{% macro findBlockOrBuilder( html = "", builder = "content", entry = null, settings = {} ) %}
     {% import "_core/assemble" as assemble %}
 
     {% if builder == 'content' %}
@@ -90,11 +90,12 @@
 {## Opens a theme wrapper inside a block (or anywhere else really) ##}
 {## --------------------------------------------------------------------------------- ##}
 {% macro openTheme( settings = {}, autoSpace = false ) -%}
+
     {% import "_core/assemble" as assemble %}
 
     {% set wrapper = {
-        tag  : settings.tag   ?? settings.themeTag   ?? "div",
-        class: settings.class ?? settings.themeClass ?? "theme relative"
+        tag  : settings.themeTag   ?? settings.tag   ?? "div",
+        class: settings.themeClass ?? settings.class ?? "theme relative"
     } %}
 
     {% set data = {
@@ -112,9 +113,8 @@
                     : settings.prev ??? null,
     } %}
 
-
     {## We only open the theme tag if it's different from the previous block ##}
-    {%- if settings.prev.theme ??? null != data.theme -%}
+    {%- if settings.themePrev ??? null != data.theme -%}
         <{{wrapper.tag}} {{attr({
             class: wrapper.class,
             data : data
@@ -201,7 +201,7 @@
     {%- if query.id ??? query.slug ??? query.preset ??? null -%}
         {% set fragment = craft.entries({section:"reusable"}|merge( query )).one() ??? null %}
         {% if fragment %}
-            {{ _self.blockOrBuilder( null, builder, fragment, settings ) }}
+            {{ _self.findBlockOrBuilder( null, builder, fragment, settings ) }}
         {% endif %}
     {%- endif -%}
 {% endmacro %}

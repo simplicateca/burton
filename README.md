@@ -5,7 +5,7 @@ Burton is a proto-website / starter kit for Craft CMS 4.
 It excels at rapidly prototyping website structures + page layouts.
 
 For more information visit: [buildwithburton.com](https://buildwithburton.com)
- 
+
 
 ## Installation
 
@@ -30,20 +30,20 @@ If you the `make` command isn't available (Windows?) you can achieve the same th
 
 ```
 vite_1   |   vite v2.9.15 dev server running at:
-vite_1   | 
+vite_1   |
 vite_1   |   > Local:    http://localhost:3000/
 vite_1   |   > Network:  http://192.168.96.5:3000/
 
 ```
 
 	And then visit the URL http://localhost:8000
-  
+
 
 ## Admin Login
 
 URL:  http://localhost:8000/admin
 
-Login: `steve@simplicate.ca`
+Login: `craft-admin@example.com`
 
 Password: `letmein`
 

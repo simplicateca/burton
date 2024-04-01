@@ -1,4 +1,4 @@
-dateModified: 1708017562
+dateModified: 1711818930
 elementSources:
   craft\elements\Entry:
     -
@@ -237,7 +237,7 @@ meta:
     7daa91a4-3926-420c-bbe9-ff190309a2a2: Text # Text
     7dd2f8f9-5066-4cef-a93d-ddfce83dce0f: Component # Component
     8c9174b7-2c31-491e-a3f9-0374374c967c: 'Landing Pages' # Landing Pages
-    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Focus # Focus
+    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Attention # Attention
     8d636ebd-27c5-46e0-afe6-b4232eabf2fa: Collection # Collection
     8e370b88-72e3-41b5-bff5-db03cb11a1d1: Copy # Copy
     8ecf45da-7553-48ac-b52d-a45f8bc90317: Theme # Theme
@@ -257,7 +257,7 @@ meta:
     26abec17-a1be-4c82-90e1-f6d48f7f4fb0: Variant # Variant
     26ae834d-2271-496c-bb49-46507ebe148d: Interspace # Interspace
     27afafd1-b38c-460b-954d-5cb2f1685d00: Interspace # Interspace
-    29ded7b8-e4a1-43ce-b030-eac97433cb97: 'Content ‘Bits’' # Content ‘Bits’
+    29ded7b8-e4a1-43ce-b030-eac97433cb97: 'Content Bits ★' # Content Bits ★
     30b5253e-1f74-41f3-b484-e6c82e3210d5: Layout # Layout
     32cc7e71-1196-4abe-a2b2-b9479600a266: 'Header - Primary' # Header - Primary
     32dce9ed-f84d-40e7-b19b-d2771aa76bd1: Layout # Layout
@@ -344,7 +344,7 @@ meta:
     43406218-0e65-4e33-bd0a-df130a7d2e6c: 'SEO Editor' # SEO Editor
     54792750-7dcd-49e2-9a83-37079d4198aa: Layout # Layout
     76524650-0d67-458b-aa17-7f666528b363: 'Secondary Copy' # Secondary Copy
-    84723807-ab78-45b7-974f-89e997ea3fbe: Highlight # Highlight
+    84723807-ab78-45b7-974f-89e997ea3fbe: Attention # Attention
     89834163-b3fe-4c51-9a02-e205e03b9067: 'Sidebar Builder' # Sidebar Builder
     99952233-d3be-45e5-87ff-46ff19ab7a9d: 'Sidebar Fragments' # Sidebar Fragments
     a2e2dea4-bcfd-4197-8a09-ecfdc3cb7109: Interspace # Interspace
@@ -391,7 +391,7 @@ meta:
     bf152e62-fb69-4e45-836d-7546488987e6: Theme # Theme
     bf158f34-b564-4314-b990-3d676ed0abb8: 'Content Entries' # Content Entries
     bfabb251-636d-4529-a89c-44da8ba61efc: Component # Component
-    c0c00bd8-1df8-4457-a72f-f89762bc7398: Focus # Focus
+    c0c00bd8-1df8-4457-a72f-f89762bc7398: Attention # Attention
     c1f7dece-b19f-492b-9649-56955cfa6e0a: Theme # Theme
     c3f20b8d-cdd0-43a3-99eb-82b7227efd55: 'External Embeds' # External Embeds
     c62ec2a4-1966-4b3c-a5d1-b0842235c23e: 'Body Fragments' # Body Fragments
@@ -437,7 +437,7 @@ meta:
     ee1dde07-1de2-45af-a270-440bd55baf11: Interspace # Interspace
     f1cff8b7-1d6e-4cdd-824a-520183822908: Entries # Entries
     f2b51270-1b49-4e0a-9754-9489a1448bd1: Copy # Copy
-    f3b09199-ceec-4135-9801-4b7fcbaf0c46: 'Video Aspect' # Video Aspect
+    f3b09199-ceec-4135-9801-4b7fcbaf0c46: Widescreen # Widescreen
     f3397041-ad37-43bc-a34d-a9fd1098dc5d: 'Collection Type' # Collection Type
     fa4c8810-f277-45dc-b00c-074c3f1b4685: Theme # Theme
     fa5bb5a3-a50d-4e85-b791-d7fa879c4cc3: 'Content Entries' # Content Entries

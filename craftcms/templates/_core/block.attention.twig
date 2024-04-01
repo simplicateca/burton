@@ -1,0 +1,36 @@
+{## Attention Block Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitehub/blocks/attention
+ ------------------------------------------------------------------------------------ ##}
+{% extends [ "_site/block", "_core/block" ] %}
+{% import "_core/assemble" as assemble %}
+
+{% block content %}
+    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
+    {{ assemble.microlayout( microlayout, {
+        zone1    : block('block__text'),
+        zone2    : block('block__attention'),
+        header   : block('block__header'),
+        footer   : block('block__footer'),
+    }, block.settings ) }}
+{% endblock content %}
+
+
+{% block block__attention %}
+    {% set blockName = 'attention__' ~ block.variant %}
+    {{ block( blockName ) is defined ? block( blockName ) }}
+{% endblock %}
+
+
+{% block attention__iframe %}
+    {{ assemble.iframe( block.code|default(), block.settings ) }}
+{% endblock %}
+
+
+{% block attention__spotlight %}
+    {% set spotlight = block.entries.one() ??? null %}
+    {% if spotlight %}
+        {% import "_core/card" as cards %}
+        {{ cards.single( spotlight, "spotlight", block.settings ) }}
+    {% endif %}
+{% endblock %}

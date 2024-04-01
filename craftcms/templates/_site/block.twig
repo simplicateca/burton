@@ -1,0 +1,114 @@
+{## Block Skeleton
+ ------------------------------------------------------------------------------------ ##}
+{% extends [template_from_string('{% block block %}{% endblock %}')] %}
+{% import "_core/assemble" as assemble %}
+{% import "_core/block"    as blocks %}
+
+{## Yes, this is a valid name. Silly, right? ##}
+{% block block %}
+
+    {## Spacer between blocks (Before) ##}
+    {% block before assemble.spacer( block.settings.betweenBefore ??? false ) %}
+
+    {## Theme block + open theme tag ##}
+    {% block theme %}
+    {% block theme__open blocks.openTheme( block.settings, true ) %}
+
+        {## Section block + content ##}
+        {% block section %}
+            {% block open blocks.openBlock( block.settings ) %}
+            {% block content "" %}
+            {% block close blocks.closeBlock( block.settings ) %}
+        {% endblock %}
+
+    {## Close theme tag + block  ##}
+    {% block theme__close blocks.closeTheme( block.settings, true ) %}
+    {% endblock theme %}
+
+    {## Spacing between blocks (After) ##}
+    {% block after assemble.spacer( block.settings.betweenAfter ??? false ) %}
+
+{% endblock %}
+
+
+
+{## Zone 1 Text Content - Commonly CKEditor or Redactor based Rich Text/HTML
+ ------------------------------------------------------------------------------------ ##
+    Most Block types share a common "Zone 1 Text" field, but it is frequently optional.
+
+    This block is responsible for rendering the Zone 1 / Text field content and making
+    any necessary adjustments to the content based on the block attribute settings.
+ ------------------------------------------------------------------------------------ ##}
+{% block block__text -%}
+
+    {% import "_core/assemble" as assemble %}
+
+    {% set contentParts = richHtml( block.text ??? null ) %}
+    {% set zoneContent  = contentParts.body ?? null %}
+
+    {% if block.settings ??? null and zoneContent is not null %}
+        {% if block.settings.positionHeadline ??? 'inline' == 'inline' %}
+            {% set zoneContent = contentParts.eyebrow ~ contentParts.headline ~ contentParts.body %}
+        {% endif %}
+
+        {% if block.settings.positionButtons  ??? 'inline' == 'inline' %}
+            {% set zoneContent = zoneContent ~ contentParts.cta %}
+        {% endif %}
+    {% endif %}
+
+    {% set typography = block.settings.zone1Typography
+                    ??? block.settings.typography
+                    ??? 'auto' %}
+
+    {{ assemble.typography( zoneContent, typography, block.settings ?? {} ) }}
+
+{%- endblock %}
+
+
+
+{## Block <header> zone content
+ ------------------------------------------------------------------------------------ ##}
+{% block block__header %}
+
+    {% import "_core/assemble" as assemble %}
+
+    {% set contentParts = richHtml( block.text ??? null ) %}
+    {% set headContent  = null %}
+
+    {% if block.settings.positionHeadline ??? null == 'above' %}
+        {% set headContent = contentParts.eyebrow ~ contentParts.headline %}
+    {% endif %}
+
+    {% if headContent %}
+        {% set typography = block.settings.headerTypography
+                        ??? block.settings.typography
+                        ??? 'auto' %}
+
+        {{ assemble.typography( headContent, typography, block.settings ?? {} ) }}
+    {% endif %}
+{% endblock %}
+
+
+
+{## Block <footer> zone content
+ ------------------------------------------------------------------------------------ ##}
+{% block block__footer %}
+
+    {% import "_core/assemble" as assemble %}
+
+    {% set contentParts = richHtml( block.text ??? null ) %}
+    {% set footContent  = null %}
+
+    {% if block.settings.positionButtons ??? null == 'below' %}
+        {% set footContent = contentParts.cta %}
+    {% endif %}
+
+    {% if footContent %}
+        {% set typography = block.settings.footerTypography
+                        ??? block.settings.typography
+                        ??? 'auto' %}
+
+        {{ assemble.typography( footContent, typography, block.settings ?? {} ) }}
+    {% endif %}
+
+{% endblock %}

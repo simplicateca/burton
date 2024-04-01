@@ -36,7 +36,7 @@ return [
             "_site/content/block.%blockType%.%layout%",
             "_site/content/block.%blockType%.%variant%",
             "_site/content/block.%blockType%",
-            "_site/base/block.%blockType%",
+            "_site/block.%blockType%",
             "_core/block.%blockType%",
         ],
 
@@ -69,8 +69,8 @@ return [
         ],
 
         "transforms" => [
-            "square"    => "square",
-            "landscape" => "videoAspect",
+            "square"     => "square",
+            "widescreen" => "widescreen",
         ],
     ],
 

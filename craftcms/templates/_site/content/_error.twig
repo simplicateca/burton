@@ -73,7 +73,7 @@
 
     {% if systemPage %}
         {% import "_core/assemble" as assemble %}
-        {% set message = assemble.blockOrBuilder( null, 'content' systemPage, { container: 'fluid' } ) ??? message %}
+        {% set message = assemble.block( null, 'content' systemPage, { container: 'fluid' } ) ??? message %}
     {% endif %}
 
     {{ message }}

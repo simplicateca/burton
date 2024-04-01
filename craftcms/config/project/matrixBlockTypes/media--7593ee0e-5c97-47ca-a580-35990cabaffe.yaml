@@ -160,13 +160,13 @@ fields:
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
-    handle: embeds
+    handle: external
     instructions: null
     name: 'External URLs'
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 780179482
+      changedFieldIndicator: 2059798004
       columns:
         __assoc__:
           -
@@ -197,7 +197,7 @@ fields:
                 -
                   - width
                   - ''
-      contentTable: '{{%stc_3_embeds}}'
+      contentTable: '{{%stc_3_external}}'
       fieldLayout: matrix
       maxRows: null
       minRows: null

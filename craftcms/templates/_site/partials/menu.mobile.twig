@@ -34,7 +34,7 @@
                 class="relative w-full max-w-2xl overflow-y-auto rounded-xl p-12 shadow-lg"
             >
 
-                {{ include( "_site/base/menu.list", {
+                {{ include( "_site/menu.list", {
                     _settings: {
                         menuHandle: 'primary'
                     }
@@ -55,7 +55,7 @@
 {% macro trigger() %}
     <span class="flex items-center lg:hidden" x-on:click="$dispatch('openMobileMenu')">
         <button type="button" class="bg-none p-0 m-0">
-            {{ include( '_site/svg/hamburger.svg' ) }}
+            {{ svg( '@webroot/static/svg/hamburger.svg' ) }}
         </button>
     </span>
 {% endmacro %}

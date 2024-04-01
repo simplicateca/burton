@@ -1,0 +1,13 @@
+{% extends ["_site/card", "_core/card"] %}
+
+{% block card__content %}
+    {% import "_core/assemble" as assemble %}
+    {% import "_core/card" as card %}
+
+
+    <div class="absolute inset-0 flex p-2 z-30 flex-col justify-center h-full items-center">
+        {{ tag( 'h3', { html: card.headline|default() } ) }}
+        {{ card.action__modal( card, settings ) }}
+    </div>
+
+{% endblock %}

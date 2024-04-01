@@ -28,7 +28,7 @@
 
     <div data-theme="base" data-bodytext>
         <div class="container @container py-28 text-center">
-            {{ include( '_site/svg/star.svg', { class: 'h-24 w-24 fill-current mx-auto' } ) }}
+            {{ svg( '@webroot/static/svg/star.svg' ) | attr({ class: 'h-24 w-24 fill-current mx-auto' }) }}
             <h1>Welcome to Sitehub</h1>
 
             <div class="max-w-5xl @container mx-auto">
@@ -53,7 +53,7 @@
                 },
                 interface: 'fullSearch',
                 settings: {
-                    microLayout: 'topBottom__center',
+                    microlayout: 'zone1Top__center',
                     cardGrid: 'stacked3',
 
                     cardLayout: 'summary',
@@ -74,7 +74,7 @@
                 <div class="@container w-full">
                     <div class="flex flex-col @md:flex-row w-full gap-2">
                         <div class="px-4 pt-2">
-                            {{ include( '_site/svg/grid.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                            {{ svg( '@webroot/static/svg/star.svg' ) | attr({ class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' }) }}
                         </div>
                         <div class="flex-grow @container">
                             <h4>Grids, Containers, and Micro&#8209;Layouts</h4>
@@ -92,7 +92,7 @@
                 <div class="@container w-full">
                     <div class="flex flex-col @md:flex-row w-full gap-2">
                         <div class="px-4 pt-2">
-                            {{ include( '_site/svg/text.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                            {{ svg( '@webroot/static/svg/text.svg' ) | attr({ class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' }) }}
                         </div>
                         <div class="flex-grow @container">
                             <h4>Styles & Blocks Themes</h4>
@@ -110,7 +110,7 @@
                 <div class="@container w-full">
                     <div class="flex flex-col @md:flex-row w-full gap-2">
                         <div class="px-4 pt-2">
-                            {{ include( '_site/svg/brick.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                            {{ svg( '@webroot/static/svg/brick.svg' ) | attr({ class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' }) }}
                         </div>
                         <div class="flex-grow @container">
                             <h4>Block Previewer</h4>
@@ -128,7 +128,7 @@
                 <div class="@container w-full">
                     <div class="flex flex-col @md:flex-row w-full gap-2">
                         <div class="px-4 pt-2">
-                            {{ include( '_site/svg/widget.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                            {{ svg( '@webroot/static/svg/widget.svg' ) | attr({ class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' }) }}
                         </div>
                         <div class="flex-grow @container">
                             <h4>Content Frames</h4>
@@ -147,7 +147,7 @@
                 <div class="@container w-full">
                     <div class="flex flex-col @md:flex-row w-full gap-2">
                         <div class="px-4 pt-2">
-                            {{ include( '_site/svg/design.svg', { class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' } ) }}
+                            {{ svg( '@webroot/static/svg/design.svg' ) | attr({ class: 'h-16 w-16 @lg:w-24 @lg:h-24 fill-current' }) }}
                         </div>
                         <div class="flex-grow @container">
                             <h4>Sample Page Layouts</h4>
@@ -161,7 +161,7 @@
                                 </ul>
                             {% else %}
                                 <p class="smaller flex gap-2 m-2">
-                                    {{ include( '_site/svg/circle-error.svg', { class: 'h-10 w-10 fill-current' } ) }}
+                                    {{ svg( '@webroot/static/svg/circle-error.svg', { class: 'h-10 w-10 fill-current' } ) }}
                                     <em>Pages created in the Sitehub section will automatically appear here.</em>
                                 </p>
                             {% endif %}
@@ -171,8 +171,9 @@
             {% endset %}
 
             <section class="p-4 -mx-4 @xl:p-10 @xl:-mx-10 @6xl:py-20 rounded-2xl">
-                {% import "_core/assemble" as assemble %}
-                {{ assemble.grid( 'stacked2Narrow', toolContent ) }}
+                {{ toolContent | raw }}
+                {# {% import "_core/assemble" as assemble %} #}
+                {# {{ assemble.grid( 'stacked2Narrow', toolContent ) }} #}
             </section>
         </div>
     </div>

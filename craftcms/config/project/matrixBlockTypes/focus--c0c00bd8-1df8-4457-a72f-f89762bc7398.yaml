@@ -138,7 +138,7 @@ fields:
     name: Layout
     searchable: true
     settings:
-      configFile: _site/json/layout.highlight.header.json
+      configFile: _site/json/layout.attention.header.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -256,7 +256,7 @@ fields:
     name: Variant
     searchable: true
     settings:
-      configFile: _site/json/variant.highlight.json
+      configFile: _site/json/variant.attention.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -330,7 +330,7 @@ fields:
     name: Component
     searchable: false
     settings:
-      configFile: _site/json/variant.focus.component.json
+      configFile: _site/json/variant.attention.component.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -347,6 +347,6 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-handle: focus
-name: Focus
+handle: attention
+name: Attention
 sortOrder: 5

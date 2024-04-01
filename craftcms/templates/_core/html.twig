@@ -1,39 +1,91 @@
 {% block html %}
 
-{% block doctype %}<!doctype html>{% endblock %}
+{% block doctype '<!doctype html>' %}
 
 {% block html__open %}
 <html {{ attr({
     prefix: "og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#",
     lang  : craft.app.language | slice(0,2)
-} )}} class="{% block html__class 'no-js opacity-100 visible scroll-smooth' %}">
+} )}} class="{% block html__class '' %}">
 {% endblock %}
 
     <head>
         {% block head__top head() %}
 
-        {% block head__meta %}
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width,minimum-scale=1">
-            <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1,viewport-fit=cover">
-            <meta name="format-detection" content="telephone=no">
-        {% endblock %}
-
-        {% block head__fonts   "" %}
-        {% block head__styles  "" %}
-        {% block head__scripts "" %}
+        {% block head__meta    '<meta charset="utf-8">' %}
+        {% block head__fonts   '' %}
+        {% block head__styles  '' %}
+        {% block head__scripts '' %}
     </head>
 
     {% block body__open %}
-        <body class="{% block body__class 'font-body text-theme m-0 p-0 min-h-screen h-full bg-gray-100' %}">
+        <body class="{% block body__class '' %}">
     {% endblock %}
 
+        {## https://craftcms.com/docs/4.x/dev/functions.html#beginbody ##}
         {{ beginBody() }}
 
         {% block page "" %}
 
+        {## https://craftcms.com/docs/4.x/dev/functions.html#endbody ##}
         {{ endBody() }}
 
     {% block body__close "</body>" %}
 </html>
 {% endblock html %}
+
+
+
+{## Prefetch & Preconnect headers and <link> elements ##}
+{% macro prefetch(urls) %}
+    {% set headerLink = "Link: " %}
+    {% for url in urls %}
+        {% set headerLink = headerLink ~ "<#{url}>; rel=dns-prefetch;," %}
+        {% set headerLink = headerLink ~ "<#{url}>; rel=preconnect; crossorigin;" %}
+        {% if not loop.last %}
+            {% set headerLink = headerLink ~ "," %}
+        {% endif %}
+        <link rel="dns-prefetch" href="{{ url }}">
+        <link rel="preconnect" href="{{ url }}" crossorigin>
+    {% endfor %}
+    {% header headerLink %}
+{% endmacro %}
+
+
+
+{## Cookie Macros
+ ------------------------------------------------------------------------------------ ##
+    Macros for getting and setting cookies natively with Craft CMS 3.1.17 or later
+
+    Usage:
+
+      {% import "_core/html" as cookies %}
+      {% set woof = cookies.get('woof') %}
+      {% do cookies.set('woof', 'bark', now | date_modify('+1 hour').timestamp) %}
+ ------------------------------------------------------------------------------------ ##}
+{%- macro get(name, cookieJar = null) -%}
+    {% apply spaceless %}
+        {% set cookieJar = cookieJar ?? craft.app.request.cookies %}
+        {% set cookie = cookieJar.get(name) %}
+        {{ cookie.value ?? '' }}
+    {% endapply %}
+{%- endmacro -%}
+
+
+{%- macro set(name, value = '', expires = 0, path = '/', domain = '', secure = false, httpOnly = false, cookieJar = null) -%}
+    {% apply spaceless %}
+        {% set cookieJar = cookieJar ?? craft.app.response.cookies %}
+        {% set domain = domain | length ?: craft.app.config.general.defaultCookieDomain %}
+        {% set cookie = create({
+            'class': 'yii\\web\\Cookie',
+            'name': name,
+            'value': value,
+            'path': path,
+            'domain': domain,
+            'secure': secure,
+            'httpOnly': httpOnly,
+            'expire': expires
+        }) %}
+        {% do cookieJar.add(cookie) %}
+    {% endapply %}
+{%- endmacro -%}

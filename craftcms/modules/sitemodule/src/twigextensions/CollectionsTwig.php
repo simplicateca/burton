@@ -12,94 +12,90 @@ use Craft;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 use mmikkel\retcon\Retcon;
-use GuzzleHttp;
-use craft\elements\Entry;
 
 class CollectionsTwig extends AbstractExtension
 {
-
     public function getFunctions(): array
     {
         return [
-            new TwigFunction( 'collectionLookup',   [$this, 'collectionLookup'] ),
-            new TwigFunction( 'collectionContents', [$this, 'collectionContents'] ),
+            new TwigFunction( 'collectionLookup',   [ $this, 'collectionLookup'   ] ),
+            new TwigFunction( 'collectionContents', [ $this, 'collectionContents' ] ),
         ];
     }
 
 
-    public function collectionLookup( $feedID, $searchParams ): mixed
-    {
-        // Get the feeds entry
-        $feeds = Entry::find()->section('taxonomy')->id( $feedID )->fixedOrder(true) ?? null;
-        $firstFeed = $feeds->one() ?? null;
+    public function collectionLookup( $onlyIDs, $params ) : mixed {
 
-        // Collect query parameters
-        $filter = Craft::$app->request->getParam('f') ?? $searchParams['filter'] ?? $firstFeed->slug ?? null;
-        $query  = Craft::$app->request->getParam('q') ?? $searchParams['query']  ?? null;
+        // Get the selected Collection (or the first one if we're not filtering by collection)
+        $collection = Craft::configure( \craft\elements\Entry::find(), array_filter([
+            'section'    => 'collections',
+            'id'         => is_array( $onlyIDs ) ? $onlyIDs : $onlyIDs->all() ?? [],
+            'slug'       => Craft::$app->request->getParam('f') ?? $params['filter'] ?? null,
+            'fixedOrder' => true,
+        ]) )->one() ?? null;
 
-        // Get the search entry
-        $search = $firstFeed ?? null;
-        $search = $feeds->collect()->firstWhere('slug', $filter) ?? $firstFeed ?? null;
+        if( !$collection ) { return []; }
 
-        // Get content type, section, and entry type
-        $contentSource = $search->contentSource ? $search->contentSource->settings() : null;
-        $section       = $contentSource ? ( $contentSource['section']   ?? null )    : null;
-        $entryType     = $contentSource ? ( $contentSource['entryType'] ?? null )    : null;
+        if( $collection->type == 'static' ) {
+            $field = $params['field'] ?? 'entries';
+            $limit = $params['limit'] ?? -1;
 
-        // parse an rss feed
-        if( $contentSource['value'] ?? null == 'rss' && $search->sourceUrl ) {
-            $this->parseRSS( $search->sourceUrl, $searchParams['limit'] ?? null );
+            if( $field == 'entries' ) {
+                return $collection->entries->limit( $limit )->all() ?? [];
+            }
+
+            if( $field == 'assets' ) {
+                return $collection->assets->limit( $limit )->all() ?? [];
+            }
         }
 
-        // prepare a Craft query based on the content feed settings
-        else
-        {
-            // Get sort, redirect, and topics
-            $sort     = $search ? $search->sort->value : null;
-            $topics   = $search ? $search->taxonomies->all() : null;
 
-            // Set search/sort/filter settings
-            $orderBy = 'postDate DESC';
-            $orderBy = $sort == 'random' ? 'RAND()' : $orderBy;
-            $orderBy = $sort == 'alphabetical' ? 'title DESC' : $orderBy;
-            $orderBy = $sort == 'upcoming' ? 'startDate ASC' : $orderBy;
+        if( $collection->type == 'dynamic' ) {
 
-            // Create the starting query
-            $collectionQuery = null;
-            if ($section == 'products') {
-                $collectionQuery = Entry::find()->section('products')->availableForPurchase(true);
-                $orderBy = $sort == 'recent' ? 'dateUpdated DESC' : $orderBy;
-            } else {
-                $collectionQuery = Entry::find();
-                $collectionQuery = $section ? $collectionQuery->section($section) : $collectionQuery;
+            $query = $collection->contentSource->whereQuery ?? [];
+            $query['limit']   = $params['limit'] ?? -1;
+            $query['orderBy'] = $collection->sort->order ?? 'postDate DESC';
+
+            if( $keyword = Craft::$app->request->getParam('q') ?? $params['query'] ) {
+                $query['search']  = $keyword;
+                $query['orderBy'] = 'score';
             }
 
-            if ($query) {
-                $collectionQuery = $collectionQuery->search($query);
-                $orderBy = 'score';
+            if( $taxonomies = $collection->taxonomies->exists() ? $collection->taxonomies->ids() : [] ) {
+                $search['relatedTo'] = $taxonomies;
             }
 
-            $limit = $searchParams['limit'] ?? -1;
-            $collectionQuery = $collectionQuery->orderBy($orderBy)->limit( $limit );
 
-            if( $entryType ) {
-                $collectionQuery = $collectionQuery->type( $entryType );
-            } else {
-                $collectionQuery = $collectionQuery->type(['not', 'dynamic', 'static', 'rss', 'private', 'redirect', 'bodyFragment', 'sidebarFragment']);
+            $elementQuery = null;
+            $elementType  = (string) $collection->contentSource->elementType ?? 'entry';
+            switch ( strtolower( $elementType ) ) {
+                case 'product':
+                    $elementQuery = \craft\commerce\elements\Product::find()->availableForPurchase(true);
+                    break;
+                case 'asset':
+                    $elementQuery = \craft\elements\Asset::find();
+                    break;
+                default:
+                    $elementQuery = \craft\elements\Entry::find();
             }
 
-            if( $topics ) {
-                $collectionQuery = $collectionQuery->relatedTo( $topics );
+            if( $elementQuery ) {
+                $elementQuery = Craft::configure( $elementQuery, $query );
+                return $elementQuery->all();
             }
-
-            return $collectionQuery;
         }
+
+        if( $collection->type == 'rss' ) {
+            return $this->parseRSS( $params['limit'] );
+        }
+
+        return [];
     }
 
 
-    public function collectionContents( $feedID, $searchParams ): Array
+    public function collectionContents( $onlyIDs, $params ): Array
     {
-        $feedQueryOrResults = $this->collectionLookup( $feedID, $searchParams );
+        $feedQueryOrResults = $this->collectionLookup( $onlyIDs, $params );
 
         return is_array( $feedQueryOrResults )
             ? $feedQueryOrResults ?? []
@@ -112,7 +108,7 @@ class CollectionsTwig extends AbstractExtension
         // parse an rss feed using Guzzle
         // keep the feed results cached for 24 hours
         $xmlString = \Craft::$app->cache->getOrSet( "rss-$feedUrl-$limit", function () use ($feedUrl) {
-            $client = new GuzzleHttp\Client();
+            $client = new \GuzzleHttp\Client();
             $response = $client->get($feedUrl);
             return $response->getBody()->getContents();
         }, 86400 );

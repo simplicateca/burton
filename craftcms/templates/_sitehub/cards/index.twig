@@ -5,8 +5,8 @@
         based previewer, but they do load normally. moving them into app.js would also
         fix the issue, but this is a quick fix for demo purposes.
      -------------------------------------------------------------------------------- ##}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    {% import '_core/javascript' as javascript %}
+    {{ javascript.splide_cdn() }}
 {% endhtml %}
 
 {% block main__content %}
@@ -35,7 +35,7 @@
                 value : "summary",
                 layout: "_site/json/layout.collection.content.json",
                 theme : "_site/json/theme.content.json",
-                cardLayout: "summary",
+                cardlayout: "summary",
             },
 
             detail: {
@@ -43,23 +43,23 @@
                 value : "detail",
                 layout: "_site/json/layout.collection.content.json",
                 theme : "_site/json/theme.content.json",
-                cardLayout: "detail",
+                cardlayout: "detail",
             },
 
-            thumbnail: {
-                label: "Thumbnail",
-                value : "thumbnail",
+            overlay: {
+                label: "Overlay",
+                value : "overlay",
                 layout: "_site/json/layout.collection.content.json",
                 theme : "_site/json/theme.content.json",
-                cardLayout: "thumbnail",
+                cardlayout: "overlay",
             },
 
-            iconbullet: {
-                label: "Icon Bullet",
-                value : "iconbullet",
+            bulleticon: {
+                label: "Bullet Icon",
+                value : "bulleticon",
                 layout: "_site/json/layout.collection.content.json",
                 theme : "_site/json/theme.content.json",
-                cardLayout: "iconbullet",
+                cardlayout: "bulleticon",
             },
 
             fancy: {
@@ -67,7 +67,7 @@
                 value : "fancy",
                 layout: "_site/json/layout.collection.content.json",
                 theme : "_site/json/theme.content.json",
-                cardLayout: "fancy",
+                cardlayout: "fancy",
             },
 
             modal: {
@@ -75,7 +75,7 @@
                 value : "modal",
                 layout: "_site/json/layout.collection.content.json",
                 theme : "_site/json/theme.content.json",
-                cardLayout: "modal",
+                cardlayout: "modal",
             },
 
             'detail-search': {
@@ -83,7 +83,7 @@
                 value : "detail.search",
                 layout: "_site/json/layout.collection.content.json",
                 theme : "_site/json/theme.content.json",
-                cardLayout: "detail.search",
+                cardlayout: "detail.search",
             },
 
             'detail-accordion': {
@@ -91,7 +91,7 @@
                 value : "detail.accordion",
                 layout: "_site/json/layout.collection.content.json",
                 theme : "_site/json/theme.content.json",
-                cardLayout: "detail.accordion",
+                cardlayout: "detail.accordion",
             },
         }
     } ) }}

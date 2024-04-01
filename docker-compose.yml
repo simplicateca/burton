@@ -1,15 +1,7 @@
 version: '3.9'
 
 services:
-    adminer:
-        image: adminer:latest
-        restart: unless-stopped
-        env_file: &env
-            - ./craftcms/.env
-        ports:
-          - 7777:8080
-
-    # frontend - node/vite
+    # Node.js - Vite Frontend Development
     # https://github.com/nodejs/docker-node/tree/cd41dbe222da1ce72d61d8fbaa06ac79316ac6d5/16
     frontend:
         image: node:lts
@@ -38,8 +30,7 @@ services:
             timeout: 5s
             retries: 100
 
-
-    # mysql - persistent database storage
+    # MySQL - Persistent Database Storage
     # https://hub.docker.com/_/mysql
     mysql:
         image: mysql/mysql-server:8.0
@@ -61,8 +52,7 @@ services:
             timeout: 3s
             retries: 20
 
-
-    # composer - php dependency management
+    # Composer - PHP Package & Dependency Management
     # https://github.com/composer/docker
     composer:
         image: composer
@@ -75,8 +65,7 @@ services:
             mysql:
                 condition: service_healthy
 
-
-    # runs craft migrations
+    # Craft CMS - Migrate, Update, Clear Caches (ends once complete)
     # https://github.com/nanoninja/php-fpm
     migrations: &craft
         image: simplicateca/php-fpm:8.1.8
@@ -89,19 +78,9 @@ services:
         # update project config. do migrations.
         command: >
           bash -c "./craft install/check &&
-                 ./craft setup/keys &&
-                 ./craft clear-caches/all --interactive=0 &&
-                 ./craft up --interactive=0"
-        #
-        # ---------------------------------------------------------
-        #
-        # re-install craft database
-        # if the craft database is deleted, swap out the above command for the one to recreate it.
-        # once complete, swap back to the above command.
-        # command: >
-        #   bash -c "./craft install/craft --interactive=0 --email='craft-admin@example.com' --username='craft-admin@example.com' --password='letmein' --site-name='Craft CMS' --site-url='http://localhost:8000' --language='en-CA'"
-        #
-
+                   ./craft setup/keys &&
+                   ./craft clear-caches/all --interactive=0 &&
+                   ./craft up --interactive=0"
         volumes:
             - ./craftcms:/app:cached
             - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
@@ -114,8 +93,7 @@ services:
             redis:
                 condition: service_started
 
-
-    # php-fpm - backend api endpoints
+    # Craft CMS - Primary PHP-FPM Container
     # https://github.com/nanoninja/php-fpm
     php:
         <<: *craft
@@ -125,8 +103,7 @@ services:
             migrations:
                 condition: service_completed_successfully
 
-
-    # starts a craft queue listener
+    # Craft CMS - Queue Listerer / Runner
     # https://craftcms.com/docs/4.x/extend/queue-jobs.html
     queue:
         <<: *craft
@@ -139,8 +116,7 @@ services:
             migrations:
                 condition: service_completed_successfully
 
-
-    # nginx - webserver
+    # Craft CMS - Nginx Webserver
     # https://hub.docker.com/_/nginx
     nginx:
         image: nginx:1.23-alpine
@@ -160,31 +136,14 @@ services:
             redis:
                 condition: service_started
 
-
-    # redis - temporary session storage
+    # Redis - Session Storage
     # https://hub.docker.com/_/redis
     redis:
         image: redis:5-alpine
         ports:
             - 6379:6379
 
-
-    # wikimd - file based project documentation / markdown wiki
-    # https://github.com/Linbreux/wikmd
-    wikmd:
-        image: simplicateca/wikmd:1.0.2
-        restart: unless-stopped
-        environment:
-            - PUID=${PUID:-1000}
-            - PGID=${GUID:-1000}
-            - WIKMD_LOGGING=0
-        volumes:
-            - ./docs:/wiki
-        ports:
-            - 5000:5000
-
-
-    # status - use busybox to output a message on successful compose
+    # Status Banner - Welcome message on successful compose up
     # https://hub.docker.com/_/busybox
     status:
         image: busybox
@@ -198,8 +157,6 @@ services:
                 condition: service_started
             frontend:
                  condition: service_healthy
-            wikmd:
-                 condition: service_started
 
 volumes:
     mysql_data:

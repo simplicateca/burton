@@ -90,7 +90,7 @@
                 settings : settings|default()
             }, withContext = false  ) }}
 
-            {{ include( '_site/partials/paginate.base', {
+            {{ include( '_site/partials/paginate', {
                 isSprig  : true,
                 settings : settings,
                 paginate : pageInfo,
@@ -112,8 +112,8 @@
     </div>
 {% endset %}
 
-{% if settings.microLayout|default() %}
-    {{ assemble.micro( settings.microLayout, {
+{% if settings.microlayout|default() %}
+    {{ assemble.microlayout( settings.microlayout, {
         zone1    : microZone1|default(),
         zone2    : microZone2|default(),
         header   : settings.microHeader|default(),

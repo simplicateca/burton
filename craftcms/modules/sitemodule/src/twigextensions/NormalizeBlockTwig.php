@@ -55,7 +55,7 @@ class NormalizeBlockTwig extends AbstractExtension
                 // A value of anything *EXCEPT* "FRAGMENT" in `settings.theme` indicates
                 // we are to override all fragment blocks with the block theme
                 $override = ( $settings['theme'] ?? null != 'FRAGMENT' )
-                    ? [ "theme" => $settings["theme"],
+                    ? [ "theme"         => (string) $settings["theme"],
                         "themeSettings" => $block->theme->settings ?? [] ]
                     : null;
 
@@ -173,9 +173,9 @@ class NormalizeBlockTwig extends AbstractExtension
             $override['layoutSettings']  ?? $block->layout->settings  ?? [],
             $override['themeSettings']   ?? $block->theme->settings   ?? [],
             [
-                'variant'   => $override['variant']   ?? $block->variant ?? '',
-                'layout'    => $override['layout']    ?? $block->layout  ?? '',
-                'theme'     => $override['theme']     ?? $block->theme   ?? '',
+                'variant'   => $override['variant']   ?? (string) $block->variant ?? '',
+                'layout'    => $override['layout']    ?? (string) $block->layout  ?? '',
+                'theme'     => $override['theme']     ?? (string) $block->theme   ?? '',
                 'blockType' => $override['blockType'] ?? $block->type->handle ?? $block->type ?? $block->blockType ?? ''
             ]
         ]));

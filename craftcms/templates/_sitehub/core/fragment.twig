@@ -23,7 +23,8 @@
 {% set entryType  = entry.type.handle ??? null %}
 {% set sidebar    = entry.sidebarBuilder.one() ??? null %}
 {% set template   =  %}
-{% extends sidebar ? "_site/layout/layout.sidebar" : "_site/layout/layout.base" %}
+{% extends sidebar ? "_site/layout/layout.sidebar" : "_site/layout/layout" %}
+
 
 {% if not entry %}
     {% redirect "/sitehub/" %}

@@ -1,0 +1,43 @@
+/* block builder themes */
+
+*[data-microlayout] {
+
+}
+
+
+*[data-theme] {
+    @apply
+        text-theme
+    ;
+
+    &[data-theme="accent-band"],
+    &[data-theme="accent-header"],
+    &[data-theme="subtle-band"] {
+        @apply bg-canvas-light;
+    }
+
+    &[data-theme="accent-box"],
+    &[data-theme="subtle-box"] {
+        @apply mx-auto xl:max-w-screen-xl 2xl:max-w-screen-2xl;
+    }
+
+    a[class*=""],
+    a:not([class]) {
+        @apply
+            transition
+            underline
+            underline-offset-2
+            decoration-link
+            text-link
+            bg-link-base
+            hover:underline-offset-4
+            hover:text-link-active
+            hover:bg-link-active-base
+            hover:decoration-link-active
+        ;
+    }
+}
+
+div.theme {
+    background: var(--theme-canvas);
+}

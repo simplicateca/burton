@@ -1,6 +1,6 @@
 {% extends "_sitehub/base" %}
 
-{% import "_site/base/assemble.spacing" as spacing %}
+{% import "_site/_spacing" as spacing %}
 
 {% block main__content %}
 
@@ -15,12 +15,12 @@
 
                     <strong class="mt-8 block">Usage:</strong>
                     <code class="bg-theme-contrast-light p-4 block text-xs font-mono leading-6">
-                        {% verbatim %}{{ block( 'spacing__base', '_site/base/assemble.spacing' )}}{% endverbatim %}
+                        {% verbatim %}{{ block( 'spacing__base', '_site/_spacing' )}}{% endverbatim %}
                     </code>
                 </div>
 
                 <div class="w-full h-full @container bg-theme-contrast-light" data-theme="dark">
-                    <div class="bg-theme-contrast-light p-3">Spacers are defined as JSON: <strong class="text-theme-accent whitespace-nowrap">_site/base/assemble.spacing.twig</strong></div>
+                    <div class="bg-theme-contrast-light p-3">Spacers are defined as JSON: <strong class="text-theme-accent whitespace-nowrap">_site/_spacing.twig</strong></div>
                     <div class="h-full w-full p-5 max-h-[400px] overflow-scroll">
 
                     </div>
@@ -94,18 +94,18 @@
 
             {% if spacerOpts[spacer].between ??? null %}
                 <div data-theme="{{block.prev.theme}}">
-                    {{ block( "spacing__base", "_site/base/assemble.spacing" ) }}
+                    {{ block( "spacing__base", "_site/_spacing" ) }}
                 </div>
-                {{ block( "spacing__#{spacer}", "_site/base/assemble.spacing" ) }}
+                {{ block( "spacing__#{spacer}", "_site/_spacing" ) }}
                 <div data-theme="{{block.next.theme}}">
-                    {{ block( "spacing__base", "_site/base/assemble.spacing" ) }}
+                    {{ block( "spacing__base", "_site/_spacing" ) }}
                 </div>
             {% else %}
                 <div data-theme="{{block.prev.theme}}">
-                    {{ block( "spacing__#{spacer}", "_site/base/assemble.spacing" ) }}
+                    {{ block( "spacing__#{spacer}", "_site/_spacing" ) }}
                 </div>
                 <div data-theme="{{block.next.theme}}">
-                    {{ block( "spacing__#{spacer}", "_site/base/assemble.spacing" ) }}
+                    {{ block( "spacing__#{spacer}", "_site/_spacing" ) }}
                 </div>
             {% endif %}
         {% endfor %}

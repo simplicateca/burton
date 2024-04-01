@@ -1,0 +1,37 @@
+{## Site Base Card Template
+ ------------------------------------------------------------------------------------- ##
+    This is the base card template that all site cards extend from. It provides the
+    basic structure and layout for all cards, along with a variety of common elements.
+
+    Most card templates should inherit directly from thie template.
+ ------------------------------------------------------------------------------------- ##}
+{% extends "_core/card" %}
+
+{% block card__headline parent() ??? null | retconChange( 'h3', 'div' ) | attr({ class: 'like-h3' }) %}
+
+{% block card__summary %}
+    {% import "_core/assemble" as assemble %}
+    {{ tag( 'div', {
+        class: 'hidden @xs:block',
+        html : assemble.typography( card.summary, 'card__summary', settings|default({}) )
+     }) }}
+{% endblock %}
+
+{## Modal Content (Basic)
+ ------------------------------------------------------------------------------------ ##
+    Creates a modal window that will load on-click to display extended card info.
+ ------------------------------------------------------------------------------------ ##}
+{# {% block action_modal -%}
+
+    {% embed '_site/component.modal" with {
+        content : card.content,
+        settings: settings
+    } %}
+        {% block content %}
+            {% import "_core/assemble" as assemble %}
+            {{ assemble.element( "card", )}}
+            {{ cards.single( item, layout, settings ) }}
+        {% endblock %}
+    {% endembed %}
+
+{%- endblock %} #}

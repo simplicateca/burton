@@ -1,8 +1,8 @@
-{% extends "_site/layout.base" %}
+{% extends "_site/layout" %}
 
 {## Two Column Base Layout
  ------------------------------------------------------------------------------------- ##
-    Inherits everything from `_site/layout.base` with the following changes:
+    Inherits everything from `_site/layout` with the following changes:
 
     - Content Column (Wide)
         - Overload {% block content "" %} if using as a base template for static routes.
@@ -23,8 +23,8 @@
 
 {% import "_core/assemble" as assemble %}
 {% block main__content %}{{ _self.twoColumns(
-    assemble.blockOrBuilder( block('content'), 'content', entry ),
-    assemble.blockOrBuilder( block('sidebar'), 'sidebar', entry )
+    assemble.block( block('content'), 'content', entry ),
+    assemble.block( block('sidebar'), 'sidebar', entry )
 ) }}{% endblock %}
 
 {% block page__bottom %}

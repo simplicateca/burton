@@ -2,41 +2,43 @@
  ------------------------------------------------------------------------------------ ##
     -> http://localhost:8000/sitehub/blocks/collection
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_site/base/block", "_core/block" ] %}
+{% extends [ "_site/block", "_core/block" ] %}
 {% import "_core/assemble" as assemble %}
 
 {% block content %}
-    {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
-        zone1    : block('block__text'),
-        zone2    : block('block__collection'),
-        header   : block('block__header'),
-        footer   : block('block__footer'),
-        container: block.settings.container|default()
-    } ) }}
+    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
+    {{ assemble.microlayout( microlayout, {
+        zone1 : block('block__text'),
+        zone2 : block('block__collection'),
+        header: block('block__header'),
+        footer: block('block__footer'),
+    }, block.settings ) }}
 {% endblock content %}
 
 
 {% block block__collection %}
 
     {## used for dynamic collection blocks with pagination ##}
-    {% set _searchParams = {
+    {% set searchParams = {
         page  : craft.app.request.getParam('page') ??? craft.app.request.pageNum ??? 1,
         filter: craft.app.request.getParam('f')    ??? block.filter ??? null,
         query : craft.app.request.getParam('q')    ??? block.query  ??? null,
-        limit : block.limit ??? null
+        limit : block.source.limit ??? null,
+        field: 'entries'
     } %}
 
     {## Curate the Collection. The `collectionLookup()` custom macro is editable at:
         -> craftcms/modules/sitemodule/src/twigextensions/CollectionsTwig.php
      -------------------------------------------------------------------------------- ##}
-    {% set source = block.source|default('items') %}
+    {% set source   = block.source|default('items') %}
+    {% set iterator = block.settings.iterator|default('default') %}
+    {% set element  = source == 'assets' ? 'file' : 'card' %}
+
     {% set collection = [] %}
-    {% set collection = source == 'assets'  ? block.assets.all()  ??? block.assets  : [] %}
-    {% set collection = source == 'entries' ? block.entries.all() ??? block.entries : [] %}
-    {% set collection = source == 'feed'    ? collectionLookup( block.feeds.ids(), _searchParams ) : [] %}
-    {% set collection = source == 'items'   ? block.items.all() ??? block.items ??? [] | map ( i => i.bit.one() ??? i ) : [] %}
+    {% set collection = source == 'assets'  ? block.assets.all()  ??? block.assets  : collection %}
+    {% set collection = source == 'entries' ? block.entries.all() ??? block.entries : collection %}
+    {% set collection = source == 'collect' ? collectionContents( block.collections.ids(), searchParams ) : collection %}
+    {% set collection = source == 'items'   ? block.items.all() ??? block.items ??? [] | map ( i => i.bit.one() ??? i ) : collection %}
 
-    {## Render a Grid of Cards ##}
-    {{ assemble.loop( settings.cardLoop ??? 'auto', collection, settings ??? {} ) }}
-
+    {{ assemble.iterate( iterator, element, collection, block.settings ) }}
 {% endblock %}

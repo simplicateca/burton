@@ -1,0 +1,69 @@
+{## Better Rich HTML / WYSIWYG Code Formatting
+    -------------------------------------------------------------------------------- ##
+    This macro handles provides an interface to the custom twig function `richHtml()`.
+
+    The macro, handle the heavy lifting of parsing the rich html from a Redactor or
+    CKEditor field, makes some minor formatting adjustments, and then attempts to
+    separate the content into separate parts.
+
+    - Eyebrow elements
+    - Any (h1,h2,h3) headlines appearing before body text (p, ol, ul, etc)
+    - CTA Buttons & Links (along with their kicker text), appearing after body text.
+
+    These individual text parts can then be used to customize the layout of the text
+    without having to worry about the order of the content or creating complicated
+    interfaces to editors.
+
+    The macro also tests the alignment of text (as set in the WYSIWYG editor), and
+    can adjust the layout of surrounding elements to match.
+
+    Editable at: craftcms/modules/sitemodule/src/twigextensions/RichHtmlTwig.php
+------------------------------------------------------------------------------------ ##}
+
+{% macro default( content = null, settings = {} ) %}
+    {{ content | raw }}
+{% endmacro %}
+
+
+{% macro card__summary( content = null, settings = {} ) %}
+    <p class="line-clamp-3 !mb-0">
+        {{ content
+            | retconChange( 'li', false )
+            | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol' ], 'p' )
+            | retconRemove( [ 'img', 'blockquote', 'p' ] )
+        }}
+    </p>
+{% endmacro %}
+
+
+{% macro figcaption( parts, settings = {} ) %}
+    {% if parts.alt and not parts.summary %}
+        {% set parts = parts|merge({ summary: "<p>#{parts.alt}</p>" }) %}
+    {% endif %}
+
+    {% set captionTitle   = tag( 'strong', { class: 'block text-sm uppercase', text: parts.title ?? null } ) %}
+    {% set captionContent = parts.summary ?? null %}
+
+    {% set captionContent = captionContent
+        | retconChange( 'p', 'div' )
+        | retconAttr( 'div', { class: 'text-sm' }, false ) %}
+
+    {% if parts.use == 'title' and captionTitle %}
+        <figcaption class="text-center">
+            {{ captionTitle | raw }}
+        </figcaption>
+    {% endif %}
+
+    {% if parts.use == 'caption' and captionContent %}
+        <figcaption class="text-center">
+            {{ captionContent | raw }}
+        </figcaption>
+    {% endif %}
+
+    {% if parts.use == 'full' and captionTitle ??? captionContent %}
+        <figcaption class="text-center">
+            {{ captionTitle | raw }}
+            {{ captionContent | raw }}
+        </figcaption>
+    {% endif %}
+{% endmacro %}

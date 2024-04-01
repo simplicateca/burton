@@ -6,16 +6,13 @@
             "tooltip": ""
         },
         "inputs" : [
-            {% if element.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextSizes',  '_site/json/base.fields.twig' ) }},
-                {{ block( 'inputContainer', '_site/json/base.fields.twig' ) }},
-                {{ block( 'inputSubmergeCTAs',  '_site/json/base.fields.twig' ) }},
+            {% if object.field ??? null != 'sidebarBuilder' %}
+                {{ block( 'inputCopyWidth',       '_site/json/_virtual_fields' ) }},
+                {{ block( 'inputButtonPositions', '_site/json/_virtual_fields' ) }}
             {% endif %}
-            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {
-            "microLayout": "topBottom__center"
+            "microlayout": "zone1Top__center"
         }
     }
 
@@ -23,20 +20,17 @@
         "label": "Text Left",
         "value": "textLeft",
         "docs": {
-            "tooltip": ""
+            "tooltip": "Horizontal layout with primary content on the right and `Copy` on the left."
         },
         "inputs" : [
-            {% if element.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextLeftSizes',  '_site/json/base.fields.twig' ) }},
-                {{ block( 'inputContainer', '_site/json/base.fields.twig' ) }},
-                {{ block( 'inputElevateHeadlines',  '_site/json/base.fields.twig' ) }},
-                {{ block( 'inputSubmergeCTAs',  '_site/json/base.fields.twig' ) }},
+            {% if object.field ??? null != 'sidebarBuilder' %}
+                {{ block( 'inputHeadlinePosition', '_site/json/_virtual_fields' ) }},
+                {{ block( 'inputButtonPositions',  '_site/json/_virtual_fields' ) }},
+                {{ block( 'inputTextLeftSizes',    '_site/json/_virtual_fields' ) }}
             {% endif %}
-            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {
-            "microLayout": "leftRight__even"
+            "microlayout": "zone1Left__center"
         }
     }
 
@@ -44,21 +38,18 @@
         "label": "Text Right",
         "value": "textRight",
         "docs": {
-            "tooltip": ""
+            "tooltip": "Horizontal layout with primary content on the left and `Copy` on the right."
         },
         "inputs" : [
-            {% if element.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextRightSizes',  '_site/json/base.fields.twig' ) }},
-                {{ block( 'inputContainer', '_site/json/base.fields.twig' ) }},
-                {{ block( 'inputElevateHeadlines',  '_site/json/base.fields.twig' ) }},
-                {{ block( 'inputSubmergeCTAs',  '_site/json/base.fields.twig' ) }},
+            {% if object.field ??? null != 'sidebarBuilder' %}
+                {{ block( 'inputHeadlinePosition', '_site/json/_virtual_fields' ) }},
+                {{ block( 'inputButtonPositions',  '_site/json/_virtual_fields' ) }},
+                {{ block( 'inputTextRightSizes',   '_site/json/_virtual_fields' ) }}
             {% endif %}
-            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
 
         "settings": {
-            "microLayout": "rightLeft__even"
+            "microlayout": "zone1Right__center"
         }
     }
 ]

@@ -1,5 +1,5 @@
 [
-    {% if element.type ?? null == 'fragment' %}{ "label": "Use Fragment Settings", "value": "FRAGMENT" },{% endif %}
+    {% if object.type ?? null == 'fragment' %}{ "label": "Use Fragment Settings", "value": "FRAGMENT" },{% endif %}
 
     {
         "label": "Base (Page Background Visible)",
@@ -8,8 +8,10 @@
             "tooltip" : ""
         },
         "inputs": [
-            {{ block( 'inputBlockBottom',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputAnimate',  '_site/json/base.fields.twig' ) }}
+            {{ block( 'inputGapAbove',    '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputGapBelow',    '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputContainer',   '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputBlockBottom', '_site/json/_virtual_fields' ) }}
         ],
         "settings": {}
     }
@@ -21,9 +23,11 @@
             "tooltip" : ""
         },
         "inputs": [
-            {{ block( 'inputCanvasCoverage',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputBlockBottom',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputAnimate',  '_site/json/base.fields.twig' ) }}
+            {{ block( 'inputGapAbove',    '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputGapBelow',    '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputContainer',   '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputCanvasCoverage', '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputBlockBottom', '_site/json/_virtual_fields' ) }}
         ],
         "settings": {}
     }
@@ -35,9 +39,11 @@
             "tooltip" : ""
         },
         "inputs": [
-            {{ block( 'inputCanvasCoverage',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputBlockBottom',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputAnimate',  '_site/json/base.fields.twig' ) }}
+            {{ block( 'inputGapAbove',    '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputGapBelow',    '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputContainer',   '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputCanvasCoverage', '_site/json/_virtual_fields' ) }},
+            {{ block( 'inputBlockBottom', '_site/json/_virtual_fields' ) }}
         ],
         "settings": {}
     }

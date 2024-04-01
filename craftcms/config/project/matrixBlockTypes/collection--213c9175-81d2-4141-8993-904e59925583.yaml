@@ -182,7 +182,7 @@ fields:
                       - e0521335-ccc2-4893-a505-4baacf112dee # Standard
                       - 1da13089-e303-46d0-930f-aefd062df474 # Standard w/ Sidebar
                       - b26498c0-236e-4738-85e6-666d3439cbc5 # Default
-                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content ‘Bits’
+                      - 29ded7b8-e4a1-43ce-b030-eac97433cb97 # Content Bits ★
                       - 912adfc2-2bca-47f1-9da2-f1ed5514623c # Public
       selectionLabel: Choose
       showSiteMenu: false
@@ -234,7 +234,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1055760895
+      changedFieldIndicator: 266244445
       columns:
         __assoc__:
           -

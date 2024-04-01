@@ -12,7 +12,7 @@
     {% set headerBlocks = normalizeBlocks( entry.headerBuilder.all() ??? null, 'header', { container: 'fluid' } ) %}
     {% set builderInTopbar = ( headerBlocks[0].settings.gapAbove ??? false == 'topbar' ) %}
 
-    {% set headerContent = assemble.blockOrBuilder(
+    {% set headerContent = assemble.block(
         headerBlocks ? null : block('header__plainH1'),
         'header',
         headerBlocks,
@@ -28,7 +28,7 @@
         <header {{attr({
             id   : "masthead",
             role : "banner",
-            class: "relative z-40",
+            class: "relative z-40 pt-10",
         }) }}>
     {% endblock %}
 
@@ -103,6 +103,5 @@
         </div>
 
         {{ assemble.closeContainer() }}
-
     </div>
 {% endblock %}

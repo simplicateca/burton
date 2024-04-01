@@ -1,0 +1,30 @@
+[
+    {
+        "label": "Text Above",
+        "value": "textAbove",
+        "docs": {
+            "tooltip": ""
+        },
+        "inputs" : [
+            {% if object.field ??? null != 'sidebarBuilder' %}
+                {{ block( 'inputCopyWidth', '_config/_selectplus_virtual_fields' ) }}
+            {% endif %}
+        ],
+        "settings": {
+            "microlayout": "zone1Top"
+        }
+    }
+    ,{
+        "label": "Text Below",
+        "value": "textBelow",
+        "docs": {
+            "tooltip": ""
+        },
+        "inputs" : [
+
+        ],
+        "settings": {
+            "microlayout": "bottomTop"
+        }
+    }
+]

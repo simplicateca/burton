@@ -1,0 +1,324 @@
+{## SelectPlus Virtual Field Definitions
+ ------------------------------------------------------------------------------------ ##
+    Each block below defines a virtual field for the SelectPlus plugin to render & save.
+
+    Virtual Fields can be defined directly in a SelectPlus `.json` config ...
+
+    BUT ..
+
+    Since all files in this folder get parsed by twig (regardless of file extension),
+    this file is a handy way to avoid needless duplication of commonly used fields.
+
+    And also lets us provide a little documentation for each field.
+
+    Usage example:
+
+        "inputs" : [
+            {{ block( 'inputGapAbove', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputGapBelow', '_config/_selectplus_virtual_fields' ) }}
+        ],
+
+    Caveats:
+
+        1) Do not use this file as a SelectPlus config file. It will not work.
+        2) Mind your JSON syntax. Twig will not catch errors in this file or
+           when including Twig syntax in JSON files.
+
+ -> https://github.com/simplicateca/craft-selectplus-field/blob/main/README.md
+ ------------------------------------------------------------------------------------ ##}
+
+{% block inputGapAbove %}
+{
+    "label": "Gap Above",
+    "field": "gapAbove",
+    "type" : "select",
+    "default": "normal",
+    "fieldClass": "field width-50",
+    "instructions": "The size of the whitespace gap before this block.",
+    "options" : {
+        "normal": "Normal",
+        "large" : "Large",
+        "none"  : "None"
+    }
+}
+{% endblock %}
+
+
+{% block inputGapBelow %}
+{
+    "label": "Gap Below",
+    "field": "gapBelow",
+    "type" : "select",
+    "default": "normal",
+    "fieldClass": "field width-50",
+    "instructions": "The size of the whitespace gap after this block.",
+    "options" : {
+        "normal": "Normal",
+        "large" : "Large",
+        "none"  : "None"
+    }
+}
+{% endblock %}
+
+
+{% block inputContainer %}
+{
+    "label": "Container Width",
+    "field": "container",
+    "type" : "select",
+    "default": "fluid",
+    "fieldClass": "field width-50",
+    "instructions": "",
+    "options" : {
+        "fluid" : "Fluid Widescreen",
+        "static": "Static Desktop Width",
+        "tablet": "Narrow (Tablet Portrait)",
+        "none"  : "Edge-to-Edge Bleed"
+    }
+}
+{% endblock %}
+
+
+{% block inputClickAction %}
+{
+    "label": "Click Action",
+    "field": "action",
+    "type" : "select",
+    "default": "autolink",
+    "fieldClass": "field width-50",
+    "instructions": "What will happen when a user clicks on an item?",
+    "options" : [
+        {
+            "label" : "Auto Link",
+            "value" : "autolink"
+        }
+       ,{
+            "label" : "Summary Modal",
+            "value" : "modal"
+        }
+       ,{
+            "label" : "Dynamic Modal",
+            "value" : "dynamic"
+        }
+       ,{
+            "label" : "No Clickthrough",
+            "value" : "none"
+        }
+    ]
+}
+{% endblock %}
+
+
+{% block inputHeadlinePosition %}
+{
+    "label": "Opening Headline",
+    "field": "positionHeadline",
+    "instructions": "Group + reposition the first <h2/3/4> elements in the `Copy`",
+    "type" : "select",
+    "default": "inline",
+    "fieldClass": "field width-50",
+    "options" : [
+        {
+            "label": "Leave inline with Copy",
+            "value": "inline"
+        }
+       ,{
+            "label": "Move to above block content",
+            "value": "above"
+        }
+    ]
+}
+{% endblock %}
+
+
+{% block inputButtonPositions %}
+{
+    "label": "Trailing CTA",
+    "field": "positionButtons",
+    "instructions": "Group + reposition closing CTAs (button/link) in the `Copy`",
+    "type" : "select",
+    "default": "inline",
+    "fieldClass": "field width-50",
+    "options" : [
+        {
+            "label": "Leave inline with Copy",
+            "value": "inline"
+        }
+       ,{
+            "label": "Move to below block content",
+            "value": "below"
+        }
+    ]
+}
+{% endblock %}
+
+
+{# {% block inputAnimate %}
+{
+    "label": "Animate",
+    "field": "animate",
+    "type" : "lightswitch",
+    "instructions": ""
+}
+{% endblock %} #}
+
+
+{# {% block inputCheckerboard %}
+{
+    "label": "Checkerboard",
+    "field": "checkerboard",
+    "type" : "lightswitch",
+    "instructions": "Square-off content columns with split backgrounds"
+}
+{% endblock %} #}
+
+
+{% block inputCopyWidth %}
+{
+    "label": "Content Layout",
+    "field": "microlayout",
+    "type" : "select",
+    "instructions": "Sizing and alignment for vertical block layouts",
+    "default": "zone1Top",
+    "fieldClass": "field width-50",
+    "options" : [
+        {
+            "label" : "Wide Text Left (~75 chars)",
+            "value" : "zone1Top"
+        }
+       ,{
+            "label" : "Wide Text Middle (~75 chars)",
+            "value" : "zone1Top__center"
+        }
+       ,{
+            "label" : "Narrow Text Middle (~45 chars)",
+            "value" : "zone1Top__narrow"
+        }
+    ]
+}
+{% endblock %}
+
+
+{% block inputTextRightSizes %}
+{
+    "label": "Content Layout",
+    "field": "microlayout",
+    "type" : "select",
+    "instructions": "Sizing and alignment for horizontal block layouts",
+    "fieldClass": "field width-50",
+    "default": "zone1Right__center",
+    "options" : [
+        {
+            "label" : "Wide Text Zone",
+            "value" : "zone1RightWide"
+        }
+       ,{
+            "label" : "Wide Text Zone (Centered)",
+            "value" : "zone1RightWide__center"
+        }
+       ,{
+            "label" : "Even Width Zones",
+            "value" : "zone1Right"
+        }
+       ,{
+            "label" : "Even Width Zones (Centered)",
+            "value" : "zone1Right__center"
+        }
+       ,{
+            "label" : "Narrow Text Zone",
+            "value" : "zone1RightNarrow"
+        }
+       ,{
+            "label" : "Narrow Text Zone (Centered)",
+            "value" : "zone1RightNarrow__center"
+        }
+    ]
+}
+{% endblock %}
+
+
+{% block inputTextLeftSizes %}
+{
+    "label": "Content Layout",
+    "field": "microlayout",
+    "type" : "select",
+    "instructions": "Sizing and alignment for horizontal block layouts",
+    "default": "zone1Left__center",
+    "fieldClass": "field width-50",
+    "options" : [
+        {
+            "label" : "Wide Text Zone",
+            "value" : "zone1LeftWide"
+        }
+       ,{
+            "label" : "Wide Text Zone (Centered)",
+            "value" : "zone1LeftWide__center"
+        }
+       ,{
+            "label" : "Even Width Zones",
+            "value" : "zone1Left"
+        }
+       ,{
+            "label" : "Even Width Zones (Centered)",
+            "value" : "zone1Left__center"
+        }
+       ,{
+            "label" : "Narrow Text Zone",
+            "value" : "zone1LeftNarrow"
+        }
+       ,{
+            "label" : "Narrow Text Zone (Centered)",
+            "value" : "zone1LeftNarrow__center"
+        }
+    ]
+}
+{% endblock %}
+
+
+{% block inputBlockBottom %}
+{
+    "label": "Bottom Divider",
+    "field": "blockBottom",
+    "type" : "select",
+    "instructions": "",
+    "default": "none",
+    "options" : [
+        {
+            "label" : "None",
+            "value" : "none"
+        }
+       ,{
+            "label" : "Stitch (Left → Right)",
+            "value" : "stitchLeftRight"
+        }
+       ,{
+            "label" : "Stitch (Right → Left)",
+            "value" : "stitchRightLeft"
+        }
+       ,{
+            "label" : "Wave",
+            "value" : "wave"
+        }
+       ,{
+            "label" : "Tilt",
+            "value" : "tilt"
+        }
+    ]
+}
+{% endblock %}
+
+
+
+{% block inputCanvasCoverage %}
+{
+    "label": "Canvas Coverage",
+    "field": "coverage",
+    "type" : "select",
+    "default": "{{ object.field ??? null == 'bodyBuilder' ? 'full' : 'box' }}",
+    "instructions": "How much of the background should be affected by the theme?",
+    "options" : {
+        {% if object.field ??? null == 'bodyBuilder' %}"full": "Edge-to-Edge Bleed",{% endif %}
+        "box": "Content Box Only"
+    }
+}
+{% endblock %}

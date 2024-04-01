@@ -1,0 +1,254 @@
+{% macro default( element = null, items = [], settings = {} ) -%}
+    {% import "_core/assemble" as assemble %}
+    {%- if element and items -%}
+        {%- for item in items -%}
+            {{- assemble.element( element, item, null, settings, loop ) -}}
+        {%- endfor -%}
+    {%- endif -%}
+{%- endmacro %}
+
+
+
+{% macro carousel( element = null, items = [], settings = {} ) -%}
+    {%- import "_core/assemble" as assemble -%}
+    {%- set frame = {
+        class    : settings.imageClass     ?? settings.class     ?? null,
+        figure   : settings.imageFigure    ?? settings.figure    ?? null,
+        transform: settings.imageTransform ?? settings.transform ?? null,
+        captions : settings.imageCaptions  ?? settings.captions  ?? null,
+    } -%}
+    {%- if element and items -%}
+        {{- include( '_site/component.carousel', {
+            items: items | map( item => assemble.element( element, item, frame, settings ) )
+        } ) -}}
+    {%- endif -%}
+{%- endmacro %}
+
+
+
+{% macro accordion( element = null, items = [], settings = {} ) -%}
+    {%- import "_core/assemble" as assemble -%}
+
+    {%- set frame = {
+        class    : settings.mediaClass     ?? settings.class     ?? null,
+        figure   : settings.mediaFigure    ?? settings.figure    ?? null,
+    } -%}
+
+    {%- if element and items -%}
+        {{- include( '_site/component.carousel', {
+            items: items | map( item => assemble.element( element, item, frame, settings ) )
+        } ) -}}
+    {%- endif -%}
+
+{%- endmacro %}
+
+
+
+{% macro single( element = null, items = [], settings = {} ) -%}
+    {%- import "_core/assemble" as assemble -%}
+    {{- assemble.element( element, items|first, null, settings ) -}}
+{%- endmacro %}
+
+
+
+{% macro randomize( element = null, items = [], settings = {} ) -%}
+    {%- import "_core/assemble" as assemble -%}
+    {% set items = shuffle(items) %}
+    {{- assemble.element( element, items|first, null, settings ) -}}
+{%- endmacro %}
+
+
+
+{## Auto-Grid Layout
+ ---------------------------------------------------------------------------- ##
+    Make sure tailwind finds dynamicallly generated class names:
+    - lg:grid-cols-3
+    - lg:grid-cols-6
+    - grid-cols-1
+    - grid-cols-2
+    - grid-cols-3
+ ---------------------------------------------------------------------------- ##}
+{% macro autogrid( element = null, items = [], settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+    {%- if element and items -%}
+        {% set minCols = items|length < 3 ? items|length : 3 %}
+        {% set columns = items|length > 5 ? 6 : minCols %}
+
+        <div class="w-full">
+            <div class="w-full grid grid-cols-{{minCols}} lg:grid-cols-{{columns}} gap-4 lg:gap-6 xl:gap-9 items-start">
+                {% for item in items %}
+                    {{ assemble.element( element, item, null, settings, loop ) }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+
+{% macro gallery( element = null, items = [], settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+    {%- if element and items -%}
+        <div class="w-full">
+            <div class="w-full grid grid-cols-3 gap-4 lg:gap-6 xl:gap-9 items-start">
+                {% for item in items %}
+                    {{ assemble.element( element, item, null, settings, loop ) }}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+
+{% macro grid2( element = null, items = [], settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set flexible = 'grid items-start grid-cols-1 @md:grid-cols-2 gap-4 @xl:gap-8 @4xl:gap-12 @7xl:gap-16' %}
+    {% set fixed    = 'grid items-start grid-cols-2 gap-8 @3xl:gap-16 @7xl:gap-24' %}
+
+    {% if items %}
+        {% set html %}
+            {% for item in items %}
+                {{ assemble.element( element, item, null, settings, loop ) }}
+            {% endfor %}
+        {% endset %}
+
+        {% set grid = {
+            html : html,
+            data : { layout: 'grid2flexible' },
+            class: flexible
+        } %}
+
+        <div class="w-full">{{ tag( 'div', grid ) }}</div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro grid3( element = null, items = [], settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set flexible = 'grid items-start grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8 @5xl:gap-12 @7xl:gap-16' %}
+    {% set fixed    = 'grid items-start grid-cols-3 gap-4 @3xl:gap-8 @5xl:gap-12 @7xl:gap-16' %}
+
+    {% if items %}
+        {% set html %}
+            {% for item in items %}
+                {{ assemble.element( element, item, null, settings, loop ) }}
+            {% endfor %}
+        {% endset %}
+
+        {% set grid = {
+            html : html,
+            data : { layout: 'grid3fixed' },
+            class: fixed
+        } %}
+
+        <div class="w-full">{{ tag( 'div', grid ) }}</div>
+    {% endif %}
+{% endmacro %}
+
+
+
+{% macro cluster( element = null, items = [], settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame = {
+        class    : 'rounded-lg shadow-lg',
+        figure   : null,
+        transform: 'square'
+    } %}
+
+    {{ include( "_site/partials/image.cluster", {
+        position1: assemble.element( element, ( items[0:1]|first ) ??? null, frame, settings ),
+        position2: assemble.element( element, ( items[1:1]|first ) ??? null, frame, settings ),
+        position3: assemble.element( element, ( items[2:1]|first ) ??? null, frame, settings ),
+        settings : settings,
+    } ) }}
+{% endmacro %}
+
+
+
+{% macro callout( element = null, items = null, settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame = {
+        class    : "rounded-3xl relative mx-auto max-w-[16rem] sm:max-w-xs md:max-w-sm",
+        figure   : "gridarea-overlap m-auto p-0 flex flex-col z-30",
+        transform: "square",
+        include  : '_site/partials/blob',
+    } %}
+
+    {%- if items -%}
+        <div class="grid justify-center items-center align-center h-full">
+            {{ assemble.element( element, items, frame, settings ) }}
+        </div>
+    {%- endif -%}
+{% endmacro %}
+
+
+
+{% macro stretch( element = null, items = null, settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame = {
+        class    : "object-cover object-center h-full w-full",
+        figure   : "h-full w-full relative z-20",
+        transform: settings.transform ?? "square"
+    } %}
+
+    {{ assemble.element( element, items, frame, settings ) }}
+{% endmacro %}
+
+
+
+{% macro parallax( element = null, items = null, settings = {} ) -%}
+    {%- import "_core/assemble" as assemble -%}
+    {%- set frame = {
+        class    : "object-cover object-center h-full w-full",
+        figure   : "absolute -inset-20 z-20",
+        transform: settings.transform ?? "square"
+    } -%}
+
+    {%- if items -%}
+        <div class="h-full w-full overflow-hidden relative" data-parallax="true">
+            {{ assemble.element( element, items, frame, settings ) }}
+        </div>
+        {%- js -%}
+            window.waitForGlobal("app.gsap", function() {
+                app.gsap.utils.toArray("*[data-parallax='true']").forEach((parallax, i) => {
+                    app.gsap.fromTo( parallax.querySelector("figure"), {
+                        y: '-20%',
+                        x: '-5%',
+                        scale: 1
+                    }, {
+                        y: '20%',
+                        x: '0%',
+                        scale: 1.1,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: parallax,
+                            start: () => "top bottom",
+                            end: "bottom top",
+                            scrub: true,
+                            invalidateOnRefresh: true // to make it responsive
+                        }
+                    });
+                });
+            });
+        {%- endjs -%}
+    {%- endif -%}
+{%- endmacro %}
+
+
+
+{% macro icon( element = null, items = null, settings = {} ) -%}
+    {%- import "_core/assemble" as assemble -%}
+    {%- set frame = {
+        class    : settings.imageClass     ?? settings.class     ?? null,
+        figure   : settings.imageFigure    ?? settings.figure    ?? null,
+        transform: settings.imageTransform ?? settings.transform ?? null,
+        _placeholder: "icon"
+    } -%}
+    {{- assemble.element( element, items, frame, settings ) -}}
+{%- endmacro %}

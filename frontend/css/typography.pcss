@@ -25,40 +25,6 @@
     ;
 }
 
-*[data-theme] {
-    @apply
-        text-theme
-    ;
-
-    &[data-theme="accent-band"],
-    &[data-theme="accent-header"],
-    &[data-theme="subtle-band"] {
-        @apply bg-canvas-light;
-    }
-
-    &[data-theme="accent-box"],
-    &[data-theme="subtle-box"] {
-        @apply mx-auto xl:max-w-screen-xl 2xl:max-w-screen-2xl;
-    }
-
-    a[class*=""],
-    a:not([class]) {
-        @apply
-            transition
-            underline
-            underline-offset-2
-            decoration-link
-            text-link
-            bg-link-base
-            hover:underline-offset-4
-            hover:text-link-active
-            hover:bg-link-active-base
-            hover:decoration-link-active
-        ;
-    }
-}
-
-
 
 /**
  * 1| HEADLINE FORMATTING (h1-h6)
@@ -167,6 +133,7 @@ h4,
 
     /* adjustments related to children/sibling/parent */
 }
+
 
 /* add a little extra spacing before inline headlines */
 p+h2, ul+h2, ol+h2, blockquote+h2,
@@ -302,7 +269,7 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
     }
 
     &:not(ol):not(.checkList):not(.columnList):not(.rowList) {
-        @apply list-disc;
+        @apply list-disc pl-[1em] pr-[2em];
     }
 
     &:not(.checkList):not(.columnList):not(.rowList) {
@@ -589,15 +556,12 @@ p[data-has-buttons] {
     }
 }
 
+a.click__cover,
 a.clickCover,
+button.click__cover,
 button.clickCover {
     &::before {
-        @apply
-            absolute
-            content-[""]
-            inset-0
-            z-20
-        ;
+        @apply absolute content-[""] inset-0 z-20;
     }
 }
 

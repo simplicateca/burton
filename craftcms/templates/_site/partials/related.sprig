@@ -23,7 +23,7 @@
                 variant    : 'auto',
                 cardGrid   : 'stacked2',
                 container  : 'fluidContainer',
-                microLayout: 'topBottom'
+                microlayout: 'zone1Top'
             }
         }],
         'content'

@@ -2,17 +2,17 @@
  ------------------------------------------------------------------------------------ ##
     -> http://localhost:8000/sitehub/blocks/media
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_site/base/block", "_core/block" ] %}
+{% extends [ "_site/block", "_core/block" ] %}
 {% import "_core/assemble" as assemble %}
 
 {% block content %}
-    {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
+    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
+    {{ assemble.microlayout( microlayout, {
         zone1    : block('block__text'),
         zone2    : block('block__media'),
         header   : block('block__header'),
         footer   : block('block__footer'),
-        container: block.settings.container|default()
-    } ) }}
+    }, block.settings ) }}
 {% endblock %}
 
 
@@ -22,41 +22,47 @@
  ------------------------------------------------------------------------------------ ##}
 {% block block__media %}
 
-    {% set sourceItems = 'local' == block.source.value ??? block.source ??? null
-        ? block.assets.all() ??? block.assets ??? null : block.embeds.all() ??? block.embeds ??? null %}
+    {% set items  = [] %}
+    {% set source = block.source|default('local') %}
+    {% set limit  = block.source.limit ??? -1 %}
 
-    {% set items = [] %}
-    {% for item in sourceItems %}
+    {% if source == 'collect' %}
+        {% set items = collectionContents( block.collections.ids(), { limit: limit } ) %}
+    {% endif %}
 
-        {## if there's a sourceUrl, we're embedding an external resource, lets use
-            oEmbed to get the title, summary, and images from the source.
-         ---------------------------------------------------------------------------- ##}
-        {% set embedInfo = item.sourceUrl|default() ? embedInfo( item.sourceUrl ) : null %}
+    {% if source == 'local' %}
+        {% for asset in block.assets.all() ??? block.assets ??? [] %}
+            {% set items = items|merge([asset]) %}
+        {% endfor %}
+    {% endif %}
 
-        {% set items = items|merge([{
-            headline : item.alt           ??? item.title  ??? embedInfo.title  ??? null,
-            summary  : item.summary       ??? item.dek    ??? item.text        ??? embedInfo.summary ??? null,
-            image    : item.images.all()  ??? item.images ??? embedInfo.images ??? null,
-            sourceUrl: item.sourceUrl     ??? null,
-            source   : block.source.value ??? null,
-            section  : 'media',
-            embed    : embedInfo,
-            entry    : item,
-        }]) %}
-    {% endfor %}
+    {% if source == 'external' %}
+        {% for item in block.external.all() ??? block.external ??? [] %}
+            {% set embedInfo = item.sourceUrl|default() ? embedInfo( item.sourceUrl ) : null %}
+            {% set items = items|merge([{
+                entry    : item,
+                embed    : embedInfo,
+                source   : source,
+                images   : item.images.all() ??? item.images ??? embedInfo.images ??? null,
+                section  : 'media',
+                summary  : item.summary   ??? embedInfo.summary ??? null,
+                headline : item.headline  ??? embedInfo.title   ??? null,
+                sourceUrl: item.sourceUrl ??? null,
+            }]) %}
+        {% endfor %}
+    {% endif %}
+
+    {% if source == 'code' %}
+        {# {% set items = null %} #}
+    {% endif %}
 
 
-    {## Render the Media items by passing them to a "loop" template.
+    {## Render the Media items by passing them to an iterator template.
      -------------------------------------------------------------------------------- ##}
-    {% block block__mediaLoop %}
-        {{ include( [
-            block.settings.mediaLoop ??? null,
-            "_site/loops/loop.auto",
-            "_core/blocks/loop.auto"
-        ] | filter, {
-            items   : items ??? [],
-            settings: block.settings ??? {}
-        }, withContext = false  ) }}
+    {% block block__media__iterator %}
+        {% import "_core/assemble" as assemble %}
+        {% set iterator = block.settings.iterator|default('default') %}
+        {{- assemble.iterate( iterator, 'media', items, block.settings ) -}}
     {% endblock %}
 
 {% endblock %}

@@ -6,7 +6,7 @@
     `layout` (the variable) should contain the path for the card layout to be rendered.
     If it is empty for some reason, default to the base card layout.
  ------------------------------------------------------------------------------------ ##}
-{% extends layout|default(["_site/base/card","_core/card"]) %}
+{% extends layout|default(["_site/card","_core/card"]) %}
 {# {% use "_cards/parts.actions" %}
 
 {% block card_headline %}
@@ -42,7 +42,7 @@
 
 
 {% block card_action %}
-    {% if card_type|default('thumbnail') == 'thumbnail' %}
+    {% if card_type|default('overlay') == 'overlay' %}
         {{ block('action_modal', '_cards/parts.actions' ) }}
     {% else %}
         {% set kind = card.type ??? card.item.kind ??? null | lower %}

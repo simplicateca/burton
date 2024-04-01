@@ -1,6 +1,6 @@
 {% extends "_sitehub/base" %}
 
-{% import "_site/base/assemble.grids" as grids %}
+{% import "_site/layout.grids" as grids %}
 {% set json = grids.definitions() | json_decode %}
 
 {% block main__content %}
@@ -47,7 +47,7 @@
 
 
     {% import "_core/assemble" as assemble %}
-    {% import "_site/base/assemble.grids" as grids %}
+    {% import "_site/layout.grids" as grids %}
 
     {% set text %}
         <div class="max-w-5xl mx-auto @container">
@@ -71,7 +71,7 @@
                 image: ''
             } %}
 
-            {{ assemble.loop( 'cardGrid', [item, item, item], { cardLayout: 'summary', cardGrid: 'stacked3' } ) }}
+            {{ assemble.iterate( 'cardGrid', 'card', [item, item, item], { cardLayout: 'summary', cardGrid: 'stacked3' } ) }}
         </section>
 
         <div class="max-w-5xl mx-auto @container">

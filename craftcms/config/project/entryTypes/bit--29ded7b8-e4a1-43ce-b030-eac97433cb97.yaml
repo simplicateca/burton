@@ -125,7 +125,7 @@ fieldLayouts:
           fieldContext: global
 handle: bit
 hasTitleField: true
-name: 'Content ‘Bits’'
+name: 'Content Bits ★'
 section: a52e2b08-2e30-4b00-8784-4104c409d3ed # Reusable Content
 showStatusField: true
 slugTranslationKeyFormat: null

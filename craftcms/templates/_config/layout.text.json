@@ -1,0 +1,32 @@
+[
+    {
+        "label": "Readable Width (Center Justify)",
+        "value": "textAbove__center",
+        "docs": {
+            "tooltip": ""
+        },
+        "inputs" : [
+            {% if object.field ??? null != 'sidebarBuilder' %}
+                {{ block( 'inputCopyWidth', '_config/_selectplus_virtual_fields' ) }}
+            {% endif %}
+        ],
+        "settings": {
+            "microlayout": "zone1Top__center"
+        }
+    }
+    {% if object.field ??? null != 'sidebarBuilder' %}
+   ,{
+        "label": "Readable Width (Left Justify)",
+        "value": "textAbove",
+        "docs": {
+            "tooltip": ""
+        },
+        "inputs" : [
+            {{ block( 'inputCopyWidth', '_config/_selectplus_virtual_fields' ) }}
+        ],
+        "settings": {
+            "microlayout": "zone1Top"
+        }
+    }
+    {% endif %}
+]

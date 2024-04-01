@@ -27,7 +27,7 @@ if( !function_exists('burtonBuilderConfig') ) { function burtonBuilderConfig( $c
             'media' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
-                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'assets', 'embeds', 'code'],
+                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'assets', 'external', 'code'],
                 ]],
             ],
 
@@ -38,7 +38,7 @@ if( !function_exists('burtonBuilderConfig') ) { function burtonBuilderConfig( $c
                 ]],
             ],
 
-            'focus' => [
+            'attention' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
                     'fields' => [...$commonFields, 'collections', 'format', 'interface', 'entries', 'form', 'component'],

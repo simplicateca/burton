@@ -1,0 +1,62 @@
+[
+    {% if object.type ?? null == 'fragment' %}{ "label": "Use Fragment Settings", "value": "FRAGMENT" },{% endif %}
+
+    {
+        "label": "Base (Page Background Visible)",
+        "value": "base",
+        "docs": {
+            "tooltip" : ""
+        },
+        "inputs": [
+            {{ block( 'inputGapAbove',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputGapBelow',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
+        ],
+        "settings": {}
+    }
+
+   ,{
+        "label": "White (Light)",
+        "value": "light",
+        "docs": {
+            "tooltip" : ""
+        },
+        "inputs": [
+            {{ block( 'inputGapAbove',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputGapBelow',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
+        ],
+        "settings": {}
+    }
+
+   ,{
+        "label": "Accent (Dark)",
+        "value": "accent",
+        "docs": {
+            "tooltip" : ""
+        },
+        "inputs": [
+            {{ block( 'inputGapAbove',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputGapBelow',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
+        ],
+        "settings": {}
+    }
+
+   ,{
+        "label": "Inherit from Block Above",
+        "value": "INHERIT",
+        "docs": {
+            "tooltip" : ""
+        },
+        "inputs": [],
+        "settings": {
+            "inheritTheme": true
+        }
+    }
+]

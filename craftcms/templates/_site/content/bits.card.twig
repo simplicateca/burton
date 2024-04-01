@@ -6,10 +6,10 @@
     `layout` (the variable) should contain the path for the card layout to be rendered.
     If it is empty for some reason, default to the base card layout.
  ------------------------------------------------------------------------------------ ##}
-{% extends layout|default(["_site/base/card","_core/card"]) %}
+{% extends layout|default(["_site/card","_core/card"]) %}
 
 {# {% block card_image %}
-    {% if card_type in [ 'thumbnail' ] %}
+    {% if card_type in [ 'overlay' ] %}
     {% else %}
         {{ parent() }}
     {% endif %}

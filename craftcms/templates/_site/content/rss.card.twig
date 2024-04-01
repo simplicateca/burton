@@ -6,7 +6,7 @@
     `layout` (the variable) should contain the path for the card layout to be rendered.
     If it is empty for some reason, default to the base card layout.
  ------------------------------------------------------------------------------------ ##}
-{% extends layout|default(["_site/base/card","_core/card"]) %}
+{% extends layout|default(["_site/card","_core/card"]) %}
 
 {% block card_headline %}
     {% if card.item.source %}
@@ -17,7 +17,7 @@
 
     {% if card.item.postDate %}
         <timedate class="flex gap-2 items-center">
-            <span>{{ include( 'vectors/calendar.svg' ) }}</span>
+            <span>{{ svg( '@webroot/static/svg/calendar.svg' ) }}</span>
             <span>{{ card.item.postDate|date('F j, Y') }}</span>
         </timedate>
     {% endif %}

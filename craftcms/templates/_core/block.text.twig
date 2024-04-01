@@ -2,11 +2,11 @@
  ------------------------------------------------------------------------------------ ##
     http://localhost:8000/sitehub/blocks/text
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_site/base/block", "_core/block" ] %}
+{% extends [ "_site/block", "_core/block" ] %}
 {% import "_core/assemble" as assemble %}
 
 {% block content %}
-    {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
+    {{ assemble.microlayout( block.settings.microlayout|default('zone1Top'), {
         zone1    : block('block__text'),
         zone2    : block('block__text2'),
         header   : block('block__header'),

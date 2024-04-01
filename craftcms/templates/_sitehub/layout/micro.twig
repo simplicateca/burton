@@ -1,6 +1,6 @@
 {% extends "_sitehub/base" %}
 
-{% import "_site/base/assemble.grids" as grids %}
+{% import "_site/layout.grids" as grids %}
 {% set json = grids.definitions() | json_decode %}
 
 {% block main__content %}
@@ -16,13 +16,13 @@
 
                     <strong class="mt-8 block">Usage:</strong>
                     <code class="bg-theme-contrast-light p-4 block text-xs font-mono leading-6">
-                        {% verbatim %}{% import "_layout/core/micro-layouts" as micro %}{% endverbatim %}<br>
-                        {% verbatim %}{{ micro.layout( layoutName, [zone1, zone2, header, footer], 'extra-classes' ) }}{% endverbatim %}
+                        {% verbatim %}{% import "_core/assemble" as assemble %}{% endverbatim %}<br>
+                        {% verbatim %}{{ assemble.microlayout( layoutName, [zone1, zone2, header, footer], 'extra-classes' ) }}{% endverbatim %}
                     </code>
                 </div>
 
                 <div class="w-full h-full @container bg-theme-contrast-light" data-theme="dark">
-                    <div class="bg-theme-contrast-light p-3">Micro Layouts are defined as JSON: <strong class="text-theme-accent whitespace-nowrap">_layout/core/micro-layouts.twig</strong></div>
+                    <div class="bg-theme-contrast-light p-3">Micro Layouts are defined as JSON: <strong class="text-theme-accent whitespace-nowrap">_site/_microlayouts.twig</strong></div>
                     <div class="h-full w-full p-5 max-h-[400px] overflow-scroll">
                         {{ dump( json ) }}
                     </div>

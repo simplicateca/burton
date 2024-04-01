@@ -1,0 +1,30 @@
+{## Collection Block Site Base
+ ------------------------------------------------------------------------------------ ##
+    -> http://localhost:8000/sitehub/blocks/collection
+ ------------------------------------------------------------------------------------ ##}
+{% extends [ "_core/block.collection" ] %}
+{% import "_core/assemble" as assemble %}
+
+{% block content %}
+    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
+    {% set pagination  = block.settings.pagination ?? 'none' %}
+    {% set interface   = block.settings.interface  ?? 'none' %}
+
+    {{ assemble.microlayout( microlayout, {
+        zone1    : block('block__text'),
+        zone2    : ( pagination == 'none' and interface == 'none' )
+                        ? block('block__collection')
+                        : block('block__collection__sprig'),
+        header   : block('block__header'),
+        footer   : block('block__footer')
+    }, block.settings ) }}
+{% endblock content %}
+
+
+
+{% block block__collection__sprig %}
+    {{ sprig( "_site/partials/search.full.sprig", {
+        settings     : block.settings,
+        collectionIds: block.collections.ids() ??? block.collections ??? null
+    }) }}
+{% endblock %}

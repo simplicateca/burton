@@ -1,0 +1,58 @@
+{% extends "_site/html" %}
+{% import "_core/assemble" as assemble %}
+
+{## Single Column Base Layout
+ ------------------------------------------------------------------------------------- ##
+    - AJAX / htmx requests
+        - Served "chromeless" content only for in-page modals via {% block page__ajax %}.
+        - No <header> or <footer> elements included by default.
+        - See: `templates/_core/pages/page.ajax.twig`
+
+    - Header (Base)
+        - Logo & Branding
+        - Primary Navigation
+        - Breadcrumb Navigation
+        - Renders the `entry.headerBuilder` matrix builder (if present)
+        - Use {% set entry = { title: "Title", "subtitle": "..." } %} to auto-populate
+          the base header if using as a base template for static routes.
+
+    - Content (Single Column)
+        - Overload {% block content "" %} if using as a base template for static routes.
+        - Automatically adds a spacer before and after the content block.
+        - Overload {% block main__content %} to avoid auto-spacers
+        - Otherwise, renders `entry.bodyBuilder` matrix builder (if present)
+
+    - Fat Footer (Base)
+        - Call to Action
+        - Contact & Social Links
+        - Userflow / Quicklinks
+        - Legal Navigation
+ ------------------------------------------------------------------------------------- ##}
+{% block content "" %}
+
+{% block page__ajax %}
+    {{ assemble.block( block('content'), 'content', entry, { container: "none" } ) }}
+{% endblock %}
+
+{% block page %}
+
+    {% block page__top block( 'header__base', '_site/header' ) %}
+
+    {% block page__main %}
+        {% block main__open %}
+            <main {{attr({
+                id   : "content",
+                class: "relative z-10 min-h-[50vh]",
+            })}}>
+        {% endblock %}
+
+        {% block main__content assemble.block( block('content'), 'content', entry ) %}
+
+        {% block main__close %}
+            </main>
+        {% endblock %}
+    {% endblock %}
+
+    {% block page__bottom block( 'footer__base', '_site/footer' ) %}
+
+{% endblock %}

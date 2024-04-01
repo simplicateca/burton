@@ -2,24 +2,23 @@
  ------------------------------------------------------------------------------------ ##
     -> http://localhost:8000/sitehub/blocks/image
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_site/base/block", "_core/block" ] %}
+{% extends [ "_site/block", "_core/block" ] %}
 {% import "_core/assemble" as assemble %}
 
-
-{## Render the block using a two-zone micro-layout
+{## Render the block using a two-zone microlayout
  ------------------------------------------------------------------------------------ ##
     -> http://localhost:8000/sitehub/layout/micro
-    -> http://buildwithburton.com/docs/micro-layouts
+    -> http://buildwithburton.com/docs/microlayouts
  ------------------------------------------------------------------------------------ ##}
 {% block content %}
-    {{ assemble.micro( block.settings.microLayout|default('topBottom'), {
-        zone1     : block('block__text'),
-        zone2     : block('block__images'),
-        header    : block('block__header'),
-        footer    : block('block__footer'),
-        container : block.settings.container|default(),
-        imageFrame: block.settings.variant|default()
-    } ) }}
+    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
+
+    {{ assemble.microlayout( microlayout, {
+        zone1    : block('block__text'),
+        zone2    : block('block__images'),
+        header   : block('block__header'),
+        footer   : block('block__footer'),
+    }, block.settings ) }}
 {% endblock %}
 
 
@@ -27,11 +26,18 @@
  ------------------------------------------------------------------------------------ ##
     This block can be overridden in a child template
  ------------------------------------------------------------------------------------ ##}
-{% block block__images %}
-    {% import "_core/assemble" as assemble %}
-    {{ assemble.frame(
-        block.images.all() ??? block.images ??? null,
-        block.settings.imageFrame ??? 'auto',
-        block.settings ??? null
-    )}}
-{% endblock %}
+{% block block__images -%}
+    {% set source   = block.source|default('assets') %}
+    {% set iterator = block.settings.iterator|default('default') %}
+
+    {% set params = {
+        limit: block.source.limit|default(-1),
+        field: 'assets'
+    } %}
+
+    {% set images = source == 'collect'
+        ? collectionContents( block.collections.ids(), params )
+        : block.images.all() ??? block.images ??? null %}
+
+    {{- assemble.iterate( iterator, 'image', images, block.settings ) -}}
+{%- endblock %}

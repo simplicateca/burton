@@ -161,7 +161,7 @@ fields:
     name: Layout
     searchable: true
     settings:
-      configFile: _site/json/layout.highlight.sidebar.json
+      configFile: _site/json/layout.attention.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -174,7 +174,7 @@ fields:
     name: Component
     searchable: false
     settings:
-      configFile: _site/json/variant.highlight.special.json
+      configFile: _site/json/variant.attention.special.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -220,7 +220,7 @@ fields:
     name: Variant
     searchable: true
     settings:
-      configFile: _site/json/variant.highlight.json
+      configFile: _site/json/variant.attention.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -380,6 +380,6 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: verbb\formie\fields\Forms
-handle: highlight
-name: Highlight
+handle: attention
+name: Attention
 sortOrder: 5

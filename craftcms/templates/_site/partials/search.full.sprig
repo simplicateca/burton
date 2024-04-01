@@ -1,11 +1,17 @@
 {% import "_core/assemble" as assemble %}
 
-{% set settings = {
+{% set settings = settings ?? [] %}
+{% set collectionIds = collectionIds ?? [] %}
+
+{{ dump( collectionIds ) }}
+{{ dump( settings ) }}
+
+{# {% set settings = {
     source     : source     ?? null,
     collectIds : collectIds ?? feedIds ?? null,
     uuid       : settings.uuid     ??? create('craft\\helpers\\StringHelper').UUID(),
     baseUrl    : settings.entryUrl ??? siteUrl( craft.app.request.pathInfo ),
-    cardLoop   : settings.cardLoop ??? null,
+    iterator   : settings.iterator ??? null,
     microHeader: null,
     microFooter: null,
     aboveForm  : null,
@@ -19,12 +25,12 @@
     filter: craft.app.request.getParam('f')|default(),
     query : craft.app.request.getParam('q')|default(),
     limit : limit|default()
-} %}
+} %} #}
 
-{% if search.query %}
+{## convert a contentFeed entry into a Craft Query object using a custom twig function
+    from: `craftcms/modules/sitemodule/src/twigextensions/CollectionsTwig.php` ##}
 
-    {## convert a contentFeed entry into a Craft Query object using a custom twig function
-        from: `craftcms/modules/sitemodule/src/twigextensions/CollectionsTwig.php` ##}
+{# {% if search.query %}
     {% set query = feedIds ? collectionLookup( feedIds, search ) : null %}
 
     {% if source and not query %}
@@ -44,11 +50,12 @@
     {% else %}
         {% set pageInfo = query ? sprig.paginate( query, search.page ) : null %}
     {% endif %}
-{% endif %}
+{% endif %} #}
 
 {% set microZone1 %}
-    {{ settings.aboveForm }}
-    <form method="get" action="{{ settings.baseUrl }}" class="w-full relative">
+    {{ settings.aboveForm ?? null | raw }}
+
+    {# <form method="get" action="{{ settings.baseUrl }}" class="w-full relative">
         <div class="max-w-3xl w-full pb-10 flex flex-col gap-4 mx-auto">
             {{ include( "_site/partials/filter.keyword", {
                 params   : search,
@@ -60,12 +67,13 @@
                 settings : settings,
             }, withContext = false ) }}
         </div>
-    </form>
-    {{ settings.belowForm | raw }}
+    </form> #}
+
+    {{ settings.belowForm ?? null | raw }}
 {% endset %}
 
 {% set microZone2 %}
-    <div id="sprigResults-{{settings.uuid}}" class="w-full">
+    {# <div id="sprigResults-{{settings.uuid}}" class="w-full">
         {% if pageInfo.pageResults ??? null %}
 
             {% if search.query %}
@@ -84,9 +92,9 @@
                 </div>
             {% endif %}
 
-            {{ assemble.loop( settings.cardLoop, pageInfo.pageResults, settings ) }}
+            {{ assemble.iterate( settings.iterator, 'card', pageInfo.pageResults, settings ) }}
 
-            {{ include( '_site/partials/paginate.base', {
+            {{ include( '_site/partials/paginate', {
                 paginate : pageInfo,
                 params   : search,
                 settings : settings,
@@ -101,12 +109,12 @@
                 </div>
             {% endif %}
         {% endif %}
-    </div>
+    </div> #}
 {% endset %}
 
-{% if settings.microLayout|default() %}
-    {{ assemble.micro(
-        settings.microLayout,
+{# {% if settings.microlayout|default() %}
+    {{ assemble.microlayout(
+        settings.microlayout,
         {
             zone1     : microZone1,
             zone2     : microZone2,
@@ -122,4 +130,4 @@
 
 {% css %}
     .sprig-component { width: 100%; }
-{% endcss %}
+{% endcss %} #}

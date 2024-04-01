@@ -6,17 +6,15 @@
             "tooltip": ""
         },
         "inputs" : [
-            {% if element.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextSizes', '_site/json/base.fields.twig' ) }},
+            {% if object.field ??? null != 'sidebarBuilder' %}
+                {{ block( 'inputCopyWidth', '_site/json/_virtual_fields' ) }}
             {% endif %}
-            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
         ],
         "settings": {
-            "microLayout": "topBottom__center"
+            "microlayout": "zone1Top__center"
         }
     }
-    {% if element.field ?? null != 'sidebarBuilder' %}
+    {% if object.field ??? null != 'sidebarBuilder' %}
    ,{
         "label": "Readable Width (Left Justify)",
         "value": "textAbove",
@@ -24,12 +22,10 @@
             "tooltip": ""
         },
         "inputs" : [
-            {{ block( 'inputTextSizes', '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputGapAbove',  '_site/json/base.fields.twig' ) }},
-            {{ block( 'inputGapBelow',  '_site/json/base.fields.twig' ) }}
+            {{ block( 'inputCopyWidth', '_site/json/_virtual_fields' ) }}
         ],
         "settings": {
-            "microLayout": "topBottom"
+            "microlayout": "zone1Top"
         }
     }
     {% endif %}

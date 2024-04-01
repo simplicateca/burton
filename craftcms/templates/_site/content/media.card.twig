@@ -6,20 +6,20 @@
     `layout` should contain the path for the card layout to be rendered.
     If it is empty for some reason, default to the base card layout.
  ------------------------------------------------------------------------------------ ##}
-{% extends layout|default(["_site/base/card","_core/card"]) %}
-{# {% use "_cards/parts.images" with images_media_player as media_player %}
+{% extends layout|default(["_site/card","_core/card"]) %}
+
 
 {% block summary_card_text   %}{% endblock %}
 {% block summary_card_action %}{% endblock %}
 
-{% block card_image %}
+{# {% block card_image %}
     {% if card_type|default() in ['summary','detail'] %}
         {{ block('media_player') }}
     {% else %}
-        {% if card_type|default() in ['thumbnail'] %}
+        {% if card_type|default() in ['overlay'] %}
             {% import "_core/assemble" as assemble %}
             {% set images = card.item.entry.images.all() ??? card.images ??? card.item.embed.images %}
-            {{ assemble.frame( images, card.settings.cardImageFrame|default('fill'), card.settings ) }}
+            {{ assemble.frame( images, settings.cardImageFrame|default('fill'), settings|default({}) ) }}
         {% endif %}
     {% endif %}
 {% endblock %}
@@ -27,7 +27,7 @@
 
 {% block card_headline %}
     {% if card_type|default() in ['modal'] %}
-        {% set card = card|merge({ 'settings': card.settings|merge({ autoplay: true }) }) %}
+        {% set card = card|merge({ 'settings': settings|merge({ autoplay: true }) }) %}
         {% if card.images %}
             <div class="mb-8">{{ block('media_player') }}</div>
             {{ parent() }}
@@ -44,7 +44,7 @@
     {% if card.item.embed.authorName|default() and card.item.embed.authorUrl|default() %}
         <div class="flex justify-end">
             <a class="flex items-center justify-end gap-1 px-1 mt-0.5 text-sm uppercase" href="{{ card.item.embed.authorUrl }}" target="_blank">
-                <span>{{ include( "vectors/youtube.svg" ) }}</span>
+                <span>{{ svg( '@webroot/static/svg/youtube.svg' ) }}</span>
                 <span>{{ card.item.embed.authorName}}</span>
             </a>
         </div>
@@ -63,7 +63,7 @@
 
 
 {% block card_action %}
-    {% if card_type|default() in ['thumbnail'] %}
+    {% if card_type|default() in ['overlay'] %}
         {{ block( 'action_modal', "_cards/parts.actions" )}}
     {% else %}
 
