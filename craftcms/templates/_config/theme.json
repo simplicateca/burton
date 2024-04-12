@@ -1,5 +1,5 @@
 [
-    {% if object.type ?? null == 'fragment' %}{ "label": "Use Fragment Settings", "value": "FRAGMENT" },{% endif %}
+    {% if object.type ?? null == 'fragment' %}{ "label": "Use Setting from Fragment", "value": "FRAGMENT" },{% endif %}
 
     {
         "label": "Base (Page Background Visible)",
@@ -8,8 +8,8 @@
             "tooltip" : ""
         },
         "inputs": [
-            {{ block( 'inputGapAbove',    '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputGapBelow',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
         ],
@@ -23,11 +23,11 @@
             "tooltip" : ""
         },
         "inputs": [
-            {{ block( 'inputGapAbove',    '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputGapBelow',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
+            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }}
         ],
         "settings": {}
     }
@@ -39,11 +39,12 @@
             "tooltip" : ""
         },
         "inputs": [
-            {{ block( 'inputGapAbove',    '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputGapBelow',    '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
+            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }},
+
+            {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }}
         ],
         "settings": {}
     }
@@ -54,7 +55,12 @@
         "docs": {
             "tooltip" : ""
         },
-        "inputs": [],
+        "inputs": [
+            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
+        ],
         "settings": {
             "inheritTheme": true
         }

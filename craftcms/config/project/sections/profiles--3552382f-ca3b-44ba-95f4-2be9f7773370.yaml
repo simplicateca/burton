@@ -19,6 +19,6 @@ siteSettings:
   94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
     enabledByDefault: true
     hasUrls: true
-    template: _site/content/_profiles
-    uriFormat: '{% import "_site/content/_profiles" as e %}{{ e.uri(object) }}'
+    template: _site/profiles._entry
+    uriFormat: '{% import "_site/profiles._entry" as e %}{{ e.uri(object) }}'
 type: channel

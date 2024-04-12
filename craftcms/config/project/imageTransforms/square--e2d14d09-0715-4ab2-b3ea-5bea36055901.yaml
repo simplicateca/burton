@@ -1,11 +1,11 @@
 fill: null
-format: null
+format: jpg
 handle: square
 height: 900
 interlace: none
 mode: crop
 name: Square
 position: center-center
-quality: null
+quality: 60
 upscale: true
 width: 900

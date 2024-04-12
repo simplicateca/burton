@@ -4,7 +4,19 @@
     "docs": {
         "tooltip": "The simplest and most humble of all variants, this is a single text block."
     },
-    "inputs": [],
+    "inputs": [
+        {
+            "label": "Typography Style",
+            "field": "textlayer",
+            "type" : "select",
+            "default": "default",
+            "instructions": "Which typography style should apply to this content?",
+            "options" : {
+                "default"   : "Default",
+                "columns2"  : "Two Columns"
+            }
+        }
+    ],
     "settings": {}
 },{
     "label": "Single Text (with Secondary Reveal)",

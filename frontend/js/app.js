@@ -13,7 +13,7 @@ const main = async() => {
 
     gsap.registerPlugin(ScrollTrigger)
 
-    gsap.utils.toArray("[data-viewport]").forEach(el => {
+    gsap.utils.toArray("[data-scrolltrigger]").forEach(el => {
         ScrollTrigger.create({
             trigger: el,
             onToggle: (self) => el.setAttribute("data-visible", self.isActive ? "in" : "out"),

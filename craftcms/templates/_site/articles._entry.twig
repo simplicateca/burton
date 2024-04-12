@@ -1,0 +1,86 @@
+{## Article Router
+ ------------------------------------------------------------------------------------ ##}
+{% set template  = null %}
+{% set entrytype = entry.type.handle|default(null) %}
+
+{% if entrytype == 'blog' %}
+    {% set template = "_site/articles" %}
+{% endif %}
+
+{% if entrytype == 'news' %}
+    {% set template = "_site/articles" %}
+{% endif %}
+
+{% if entrytype and template %}
+    {{ include( template ) }}
+{% else %}
+    {% header "HTTP/1.0 404 Not Found" %}
+{% endif %}
+
+
+{## Article Entry URI Generator
+ ------------------------------------------------------------------------------------ ##
+    Often easier than trying to cram a bunch of conditional twig logic into the tiny
+    space provided by the URI Format field in the control panel.
+
+    However, you do need to trigger a manual resave of all entries if you change
+    the URI sturcture in the below macro for existing records.
+
+    The default code of : {{entry.type.handle|kebab}}/{{entry.slug}}
+
+    Generates URIs like : <entry.type.handle>/<entry.slug>
+
+    Converting underscores or snakeCase entry type handles to kebab-case, which result
+    in URIs that look like:
+
+     -> blog/my-article-title
+     -> news/news-title
+ ------------------------------------------------------------------------------------ ##}
+{% macro uri( entry ) %}{% apply spaceless %}
+    {{ entry.type.handle|kebab }}/{{ entry.slug }}
+{% endapply %}{% endmacro %}
+
+
+
+{## Related Article Finder Macro
+{-------------------------------------------------------------------------------------##}
+{% macro related( entry, limit = null ) -%}
+{%- if entry -%}
+
+    {% set query = craft.entries()
+        .section('articles')
+        .relatedTo(entry)
+        .limit(limit ??? 3 ) %}
+
+    {% set pageinfo = query ? sprig.paginate( query, page ) : null %}
+
+    {##
+        {{ blocks.builder(
+        [{
+            source: 'entries',
+            entries: pageInfo.pageResults,
+            settings: {
+                section    : 'pages',
+                builder    : 'content',
+                blocktype  : 'collection',
+                theme      : cycle(['bright', 'standard'], page),
+                variant    : 'auto',
+                cardGrid   : 'stacked2',
+                container  : 'fluidContainer',
+                microlayout: 'zone1Top'
+            }
+        }],
+        'content'
+    ) }}
+
+    {{ include( '_core/collections/paginate.more', {
+        isSprig : true,
+        paginate: pageInfo,
+        setting: {
+            theme: 'dark',
+            class: 'p-12 flex w-full justify-center'
+        }
+    } ) }}
+
+    ##}
+{%- endif %}{% endmacro %}

@@ -20,28 +20,36 @@ class ToolboxTwig extends AbstractExtension
         return 'Toolbox';
     }
 
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction( 'md5',      [ $this, 'md5hash' ] ),
+            new TwigFunction( 'hex2rgb',  [ $this, 'hex2rgb'  ] ),
+            new TwigFunction( 'text4hex', [ $this, 'text4hex' ] ),
+        ];
+    }
+
     public function getFilters(): array
     {
         return [
+            new TwigFilter( 'hex2rgb',  [ $this, 'hex2rgb'  ] ),
+            new TwigFilter( 'text4hex', [ $this, 'text4hex' ] ),
             new TwigFilter( 'ucfirst',         'ucfirst' ),
             new TwigFilter( 'decode_entities', 'html_entity_decode' ),
         ];
     }
 
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction( 'hex2rgb',  [ $this, 'hex2rgb'  ] ),
-            new TwigFunction( 'hex2text', [ $this, 'hex2text' ] ),
-        ];
+    public function md5hash( $string ) {
+        return md5( $string );
     }
 
     // public function ucFirstFilter(string|null $val)
     // {
     //     return ucfirst($val);
     // }
-
-
+    //
+    //
+    //
     // public function decodeEntities( string|null $html = "" ): string
     // {
     //     return html_entity_decode( $html );
@@ -79,7 +87,7 @@ class ToolboxTwig extends AbstractExtension
      * @param string $hex The background hex color code.
      * @return string The recommended text color (black or white).
      */
-    public function hex2text( $hex ) {
+    public function text4hex( $hex ) {
 
         // Convert hex code to an array of RGB values
         list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");

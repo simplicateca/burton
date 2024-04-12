@@ -2,42 +2,47 @@
  ------------------------------------------------------------------------------------ ##
     -> http://localhost:8000/sitehub/blocks/image
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_site/block", "_core/block" ] %}
-{% import "_core/assemble" as assemble %}
+{% set settings    = settings ??? block.settings ??? {}  %}
+{% set microlayout = settings.microlayout ??? 'zone1Top' %}
+{% set imagelayer  = settings.imagelayer  ??? 'default'  %}
+{% set imagesource = block.source.value   ??? 'images'   %}
+{% set images      = [] %}
 
-{## Render the block using a two-zone microlayout
- ------------------------------------------------------------------------------------ ##
-    -> http://localhost:8000/sitehub/layout/micro
-    -> http://buildwithburton.com/docs/microlayouts
- ------------------------------------------------------------------------------------ ##}
-{% block content %}
-    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
+{% if imagesource == 'images' %}
+    {% set images = block.images.all() ??? block.images ??? [] %}
+{% endif %}
 
-    {{ assemble.microlayout( microlayout, {
-        zone1    : block('block__text'),
-        zone2    : block('block__images'),
-        header   : block('block__header'),
-        footer   : block('block__footer'),
-    }, block.settings ) }}
-{% endblock %}
-
-
-{## Default handler for rendering image assets
- ------------------------------------------------------------------------------------ ##
-    This block can be overridden in a child template
- ------------------------------------------------------------------------------------ ##}
-{% block block__images -%}
-    {% set source   = block.source|default('assets') %}
-    {% set iterator = block.settings.iterator|default('default') %}
-
+{% if imagesource == 'collect' %}
     {% set params = {
-        limit: block.source.limit|default(-1),
-        field: 'assets'
+        limit: block.source.settings.limit ??? -1,
+        field: 'images'
     } %}
 
-    {% set images = source == 'collect'
-        ? collectionContents( block.collections.ids(), params )
-        : block.images.all() ??? block.images ??? null %}
+    {% set images = CollectionBase( block.collections.ids(), params ) %}
+{% endif %}
 
-    {{- assemble.iterate( iterator, 'image', images, block.settings ) -}}
-{%- endblock %}
+{% embed [ "_site/block", "_core/block" ] with {
+    block: block,
+    images: images,
+    settings: settings,
+    imagelayer: imagelayer,
+    microlayout: microlayout,
+} %}
+    {## Image Block Content ##}
+    {% block content %}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.microlayout( microlayout, {
+            zone1    : block('block__text'),
+            zone2    : block('block__images'),
+            header   : block('block__header'),
+            footer   : block('block__footer'),
+        }, settings ) }}
+    {% endblock %}
+
+
+    {## Zone 2 Content ##}
+    {% block block__images %}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.images( images, imagelayer, settings ) }}
+    {% endblock %}
+{% endembed %}

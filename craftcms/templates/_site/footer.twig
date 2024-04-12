@@ -38,16 +38,19 @@
     {% import "_core/assemble" as assemble %}
 
     {% set menuColumns %}
-        {{ assemble.iterate( 'grid2', 'html', [ assemble.menu('contact'), assemble.menu('features') ] ) }}
+        {# {{ assemble.menu( entry, 'contact',  {} ) }}
+        {{ assemble.menu( entry, 'features', {} ) }} #}
+
+        {# {{ assemble.iterate( 'grid2', 'html', [ assemble.menu('contact'), assemble.menu('features') ] ) }} #}
     {% endset %}
 
-    {{ assemble.container(
+    {# {{ assemble.container(
         'fluid',
         tag( 'div', {
             class: "pt-10 pb-6 flex flex-col gap-y-12",
             html : assemble.iterate( 'grid2', 'html', [ menuColumns, block( 'footer__fatCta' ) ] )
         })
-    ) }}
+    ) }} #}
 {% endblock %}
 
 
@@ -64,13 +67,13 @@
 
 {% block footer__bottom %}
     {% import "_core/assemble" as assemble %}
-    {{ assemble.container(
+    {# {{ assemble.container(
         'fluid',
         tag( 'div', {
             class: "flex flex-col md:flex-row py-4 items-center text-xs md:text-base gap-3",
-            html : block('footer__message') ~ assemble.menu( 'legal' )
+            html : block('footer__message') ~ assemble.menu( entry, 'legal', {} )
         } )
-    ) }}
+    ) }} #}
 {% endblock %}
 
 
@@ -99,3 +102,19 @@
         }
     {% endcss %}
 {% endblock %}
+
+
+
+{% macro social() %}
+    <div class="flex flex-row gap-2 mt-8">
+        {% for social in seomatic.site.sameAsLinks %}
+            {% if social.url %}
+                <div>
+                    <a href="{{social.url ??? '#'}}" class="flex" title="{{social.siteName}}" target="_blank" rel="noopener">
+                        <span class="h-8 w-8 xl:w-10 xl:h-10">{{ svg( '@webroot/static/svg/#{social.handle}.svg' ) }}</span>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endmacro %}

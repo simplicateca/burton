@@ -1,0 +1,18 @@
+[
+    {
+        "label": "Account Login",
+        "value": "accountlogin",
+
+        "settings" : {
+
+        }
+    }
+   ,{
+        "label": "Sample Vue Component",
+        "value": "slime",
+
+        "settings" : {
+            "vueComponent": "vueTestSlime"
+        }
+    }
+]

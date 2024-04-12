@@ -7,7 +7,7 @@ name: Sort
 searchable: false
 settings:
   columnType: null
-  configFile: _site/json/collection.sorting.json
+  configFile: _config/collection.sorting.json
 translationKeyFormat: null
 translationMethod: none
 type: simplicateca\selectplus\fields\SelectPlusField

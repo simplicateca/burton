@@ -1,0 +1,139 @@
+{## Basic <img> tag
+ ------------------------------------------------------------------------------------ ##
+    You can pass it as many images as you like, but we're only gonna use the first one.
+ ------------------------------------------------------------------------------------ ##}
+{% macro default( images = null, settings = {} ) -%}
+
+    {% set images = images ??? null %}
+
+    {% set firstimg = null %}
+    {% if images is iterable and images.one() ??? null %}
+        {% set firstimg = images|first %}
+    {% endif %}
+
+    {% if not firstimg and images.url ??? null %}
+        {% set firstimg = images %}
+    {% endif %}
+
+    {% if not firstimg and images is iterable %}
+        {% set firstimg = images|first %}
+    {% endif %}
+
+    {% if not firstimg and images starts with 'http' %}
+        {% set firstimg = images %}
+    {% endif %}
+
+    {% set imgtag  = "" %}
+    {% set caption = settings.caption ??? null %}
+
+
+    {## if the image is provided as an object or hash, only url attribute is required
+     -------------------------------------------------------------------------------- ##
+        url      : 'https://path.to/image',
+        id       : 1234,
+        width    : 100,
+        height   : 100,
+        transform: 'namedTransformHandle',
+     -------------------------------------------------------------------------------- ##}
+    {%- if firstimg -%}
+        {% if firstimg.url ?? null %}
+            {# {% if settings.transform|default() and firstimg.url|default() and firstimg.id|default() %}
+                {% do firstimg.setTransform( settings.transform ) %}
+            {% endif %} #}
+
+            {% set transform = settings.transform ??? null %}
+            {% set doit      = ( attribute(firstimg, 'getUrl') and transform ) %}
+            {% set imagesrc  = doit ? firstimg.getUrl(transform)    : firstimg.url %}
+            {% set imagew    = doit ? firstimg.getWidth(transform)  : firstimg.width ??? null  %}
+            {% set imageh    = doit ? firstimg.getHeight(transform) : firstimg.height ??? null %}
+
+            {% set imgtag = tag( 'img', {
+                src    : imagesrc,
+                width  : imagew,
+                height : imageh,
+                class  : settings.class ??? null,
+                loading: 'lazy'
+            }) %}
+        {% else %}
+            {% if firstimg is not iterable and firstimg | lower starts with 'http'  %}
+                {% set imgtag = tag( 'img', {
+                    src    : firstimg,
+                    class  : settings.class ??? null,
+                    loading: 'lazy'
+                }) %}
+            {% endif %}
+        {% endif %}
+
+    {%- endif -%}
+
+    {## placeholder images ##}
+    {% set imgtag = imgtag ??? _self.placeholder( settings ) %}
+
+    {{ tag( 'figure', {
+        class: settings.figure|default(),
+        data:  settings.data|default(null),
+        html:  imgtag ~ caption
+    }) }}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+{% macro imgtag( images, settings ) %}{{ _self.default( images, settings ) }}{% endmacro %}
+
+
+{## Placeholder images (for wireframing & development)
+ ------------------------------------------------------------------------------------ ##}
+{% macro placeholder( settings = {} ) %}{% if getenv('CRAFT_ENVIRONMENT') != 'production' -%}
+    {% set type   = settings._placeholder|default('default') %}
+    {% set width  = type == 'icon' ? 170 : 900 %}
+    {% set height = type == 'icon' ? 170 : 500 %}
+    {% set source = type == 'icon'
+        ? "https://placeskull.com/#{width}/#{height}/475569/#{random(1,24)}"
+        : "https://picsum.photos/seed/#{random(1,9999)}/#{width}/#{height}?grayscale&blur=2" %}
+
+    {{- tag( 'img', {
+        src: source,
+        alt: "Placeholder #{type}",
+        class: settings.class|default('placeholder')
+    } ) -}}
+{%- endif %}{% endmacro %}
+
+
+{#
+Outputs an SVG to be used as an image placeholder, optionally including target dimensions.
+
+@var width          int     Desired element width
+@var height         int     Desired element height
+@var showDimensions bool    Whether to display target dimensions (defaults to `true`)
+@var fill           string  Background fill color (defaults to `'#D0D0D0'`)
+#}
+{# {% set showDimensions = showDimensions ?? true %}
+{% set fill = fill ?? '#D0D0D0' %}
+<svg class="{{ class ?? '' }}"
+     xmlns="http://www.w3.org/2000/svg"
+     width="{{ width }}"
+     height="{{ height }}"
+     viewBox="0 0 {{ width }} {{ height }}"
+>
+  <g clip-path="url(#clip0)">
+    <rect fill="{{ fill }}" width="{{ width }}" height="{{ height }}"/>
+    <line x1="0" y1="0" x2="{{ width }}" y2="{{ height }}" stroke="rgba(255,255,255,0.3)"/>
+    <line x1="0" y1="{{ height }}" x2="{{ width }}" y2="0" stroke="rgba(255,255,255,0.3)"/>
+  </g>
+  <text fill="rgba(0,0,0,0.1)"
+        font-family="ui-sans-serif,system-ui,-apple-system,sans-serif"
+        font-size="16"
+        dy="3%"
+        font-weight="thin"
+        x="50%"
+        y="50%"
+        text-anchor="middle"
+  >
+    {%- if showDimensions %}
+      {{ width }} × {{ height }}
+    {% endif -%}
+  </text>
+</svg> #}
+
+
+{## --------------------------------------------------------------------------------- ##}

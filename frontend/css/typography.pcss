@@ -110,6 +110,10 @@ h3,
     & + h4 {
         @apply -mt-2.5;
     }
+
+    &.knockout {
+        @apply bg-theme-headline text-canvas-light p-2 inline-table text-center;
+    }
 }
 
 h4,
@@ -119,16 +123,15 @@ h4,
         text-theme-headline
         font-headline
         font-bold
-        uppercase
         !leading-tight
         mb-5
 
     /* container query based sizing */
-        text-xl
-        @lg:text-2xl
-        @2xl:text-3xl
-        @4xl:text-4xl
-        @6xl:text-5xl
+        text-lg
+        @lg:text-xl
+        @2xl:text-2xl
+        @4xl:text-3xl
+        @6xl:text-4xl
     ;
 
     /* adjustments related to children/sibling/parent */
@@ -557,9 +560,7 @@ p[data-has-buttons] {
 }
 
 a.click__cover,
-a.clickCover,
-button.click__cover,
-button.clickCover {
+button.click__cover {
     &::before {
         @apply absolute content-[""] inset-0 z-20;
     }

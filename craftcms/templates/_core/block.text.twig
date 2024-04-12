@@ -2,19 +2,34 @@
  ------------------------------------------------------------------------------------ ##
     http://localhost:8000/sitehub/blocks/text
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_site/block", "_core/block" ] %}
-{% import "_core/assemble" as assemble %}
+{% set settings    = block.settings ??? settings ??? {} %}
+{% set microlayout = settings.microlayout ??? 'zone1Top' %}
+{% set textlayer   = settings.textlayer  ??? 'default' %}
+{% set text2layer  = settings.text2layer ??? 'default' %}
 
-{% block content %}
-    {{ assemble.microlayout( block.settings.microlayout|default('zone1Top'), {
-        zone1    : block('block__text'),
-        zone2    : block('block__text2'),
-        header   : block('block__header'),
-        footer   : block('block__footer'),
-        container: block.settings.container|default()
-    } ) }}
-{% endblock %}
+{% embed [ "_site/block", "_core/block" ] with {
+    block: block,
+    settings: settings,
+    textlayer: textlayer,
+    text2layer: text2layer,
+    microlayout: microlayout,
+} %}
 
-{% block block__text2 %}
-    {{ block.text2 ??? null }}
-{% endblock %}
+    {## Text Block Content ##}
+    {% block content %}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.microlayout( microlayout, {
+            zone1 : block('block__text'),
+            zone2 : block('block__text2'),
+            header: block('block__header'),
+            footer: block('block__footer'),
+        }, settings ) }}
+    {% endblock %}
+
+
+    {## Zone 2 Content ##}
+    {% block block__text2 %}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.text( block.text2 ??? null, text2layer, settings ) }}
+    {% endblock %}
+{% endembed %}

@@ -9,22 +9,22 @@
     {{ javascript.splide_cdn() }}
 {% endhtml %}
 
-{% set blockType = type ??? null %}
+{% set blocktype = type ??? null %}
 
 {% set allowedBlocks = {
     text: {
-        variant   : "_site/json/variant.text.json",
-        theme     : "_site/json/theme.header.json",
-        layout    : "_site/json/layout.text.header.json",
+        variant   : "_config/block.text.json",
+        theme     : "_config/theme.header.json",
+        layout    : "_config/layout.text.header.json",
         content   : [
             "_sitehub/content/block.text.simple",
             "_sitehub/content/block.text.double"
         ],
     },
     image: {
-        variant   : "_site/json/variant.image.json",
-        theme     : "_site/json/theme.header.json",
-        layout    : "_site/json/layout.image.header.json",
+        variant   : "_config/block.image.json",
+        theme     : "_config/theme.header.json",
+        layout    : "_config/layout.image.header.json",
         content   : [
             "_sitehub/content/block.image.single",
             "_sitehub/content/block.image.single.tallimage",
@@ -34,9 +34,9 @@
         ],
     },
     media: {
-        variant   : "_site/json/variant.media.json",
-        theme     : "_site/json/theme.header.json",
-        layout    : "_site/json/layout.media.header.json",
+        variant   : "_config/block.media.json",
+        theme     : "_config/theme.header.json",
+        layout    : "_config/layout.media.header.json",
         content   : [
             "_sitehub/content/block.media.one.youtube",
             "_sitehub/content/block.media.four.youtube",
@@ -44,21 +44,21 @@
         ],
     },
     collection: {
-        variant   : "_site/json/variant.collection.json",
-        theme     : "_site/json/theme.header.json",
-        layout    : "_site/json/layout.collection.header.json",
+        variant   : "_config/block.collection.json",
+        theme     : "_config/theme.header.json",
+        layout    : "_config/layout.collection.header.json",
         content   : [
             "_sitehub/content/block.collection.simple"
         ],
     }
 } %}
 
-{% set config = allowedBlocks[blockType]|default() %}
+{% set config = allowedBlocks[blocktype]|default() %}
 
 {% block main__content %}
     {% if config %}
         {{ sprig( 'sitehub/blocks/_previewer.sprig', {
-            type     : blockType,
+            type     : blocktype,
             config   : config,
             builder  : 'header',
             container: 'fluidContainer'
@@ -69,11 +69,11 @@
                 <h1>Header Blocks</h1>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-20">
-                    {% for blockType, config in allowedBlocks %}
+                    {% for blocktype, config in allowedBlocks %}
                         <div class="shadow rounded-lg p-8 relative bg-theme-contrast-light @container">
-                            <h2 class="capitalize">{{ blockType | kebab | replace({ '-': ' ' }) }}</h2>
+                            <h2 class="capitalize">{{ blocktype | kebab | replace({ '-': ' ' }) }}</h2>
                             <p class="html">{{ config.content|length }} content samples</p>
-                            <p class="html"><a href="{{ url( "sitehub/blocks/header/#{blockType}"  ) }}" class="clickCover">Preview</a></p>
+                            <p class="html"><a href="{{ url( "sitehub/blocks/header/#{blocktype}"  ) }}" class="click__cover">Preview</a></p>
                         </div>
                     {% endfor %}
                 </div>

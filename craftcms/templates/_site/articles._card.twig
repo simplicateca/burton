@@ -1,0 +1,63 @@
+{% set card     = card     ??? null -%}
+{% set cardpath = path     ??? card.path ??? ["_site/card","_core/card"] -%}
+{% set settings = settings ??? {} -%}
+{% if card -%}
+{## unindented if <gasp> ------------------------------------------------------------ ##}
+
+
+{## Article Card Factory
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{%- embed cardpath with {
+    card: card,
+    settings: settings | merge({
+
+    })
+} %}
+    {% block card__images %}
+        {% set typetag = tag( 'div', {
+            class: "absolute right-0 bottom-0 py-0.5 px-3 text-sm uppercase bg-canvas-light text-headline",
+            text : card.type
+        } ) %}
+        {{ parent() | retconInject( 'figure', typetag | raw ) }}
+    {% endblock %}
+{% endembed %}
+
+{# {% block card_before_summary %}
+    {{ block( 'article_byline' ) }}
+{% endblock %}
+
+
+{% block card_after_summary %}
+    <span class="flex font-extrabold text-xs uppercase">
+        By {{ card._carditem.author.name ??? null }}
+    </span>
+{% endblock %} #}
+
+{# {% block article_byline %}
+    <div class="flex items-center gap-3 text-sm uppercase my-4">
+        {{ block( 'article_author' ) }}
+        <span>&bull;</span>
+        {{ block( 'article_timedate' ) }}
+    </div>
+{% endblock %}
+
+
+{% block article_timedate %}
+    <timedate>
+        {{ card._carditem.postDate|date('long') ??? null }}
+    </timedate>
+{% endblock %}
+
+
+{% block article_author %}
+    <span class="flex items-center gap-2">
+        <div class="bg-theme-accent h-10 w-10 rounded-full flex">&nbsp;</div>
+        {{ card._carditem.author.name ??? null }}
+    </span>
+{% endblock %} #}
+
+
+{## end unindented if <sigh> -------------------------------------------------------- ##}
+{%- endif %}

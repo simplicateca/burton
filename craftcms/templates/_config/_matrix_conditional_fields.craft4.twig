@@ -103,22 +103,22 @@ var matrixConditionalsConfig = {
     },
 
 
-    // attention block type
-    '*.attention.variant':
+    // action block type
+    '*.action.variant':
     {
-        'spotlight': {
-            showAll: ['entries', 'collections'],
+        'search': {
+            showAll: ['collections'],
             hideAll: ['component', 'form'],
         },
 
         'form': {
             showAll: ['form'],
-            hideAll: ['collections', 'component', 'entries'],
+            hideAll: ['collections', 'component'],
         },
 
         'component': {
             showAll: ['component'],
-            hideAll: ['collections', 'form', 'entries'],
+            hideAll: ['collections', 'form'],
         }
     }
 }

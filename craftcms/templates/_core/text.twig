@@ -1,0 +1,4 @@
+{% macro default( content = null, settings = null ) -%}
+    {% set settings = settings ??? {} %}
+    {{ content | trim ? raw( content ) : '' }}
+{%- endmacro %}

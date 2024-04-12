@@ -107,7 +107,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _site/json/layout.fragment.json
+      configFile: _config/layout.fragment.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -121,7 +121,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _site/json/variant.fragment.json
+      configFile: _config/block.fragment.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -135,7 +135,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _site/json/theme.json
+      configFile: _config/theme.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField

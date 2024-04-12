@@ -54,7 +54,7 @@ fields:
     name: Theme
     searchable: true
     settings:
-      configFile: _site/json/theme.fragment.sidebar.json
+      configFile: _config/theme.fragment.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -121,7 +121,7 @@ fields:
     name: Interspace
     searchable: true
     settings:
-      configFile: _site/json/interspace.fragment.sidebar.json
+      configFile: _config/interspace.fragment.sidebar.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField

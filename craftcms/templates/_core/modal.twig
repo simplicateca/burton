@@ -1,0 +1,189 @@
+{## Modal Base Template
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{% extends template_from_string('{% block modal %}{% endblock %}') %}
+
+{% set open        = open        ??? false %}
+{% set uuid        = uuid        ??? create('craft\\helpers\\StringHelper').UUID() %}
+{% set theme       = theme       ??? 'light' %}
+{% set content     = content     ??? null %}
+{% set headline    = headline    ??? null %}
+{% set triggertext = triggertext ??? 'Load Summary →' %}
+
+{% block outerclass    "fixed inset-0 z-100 overflow-y-auto" %}
+{% block modalclass    "relative w-full max-w-4xl overflow-y-auto rounded-xl p-8 shadow-lg @container" %}
+{% block panelclass    "relative flex min-h-screen items-center justify-center p-4" %}
+{% block overlayclass  "fixed inset-0 bg-black/70" %}
+
+{% block uuid uuid %}
+
+{% block triggertext triggertext %}
+
+{% block overlay -%}
+    <div x-show="open" x-transition.opacity class="{{ block('overlayclass') }}"></div>
+{%- endblock %}
+
+{% block modal %}
+
+    {% block trigger _self.invisibletrigger( block('uuid'), block('triggertext' ) ) %}
+
+    <template x-teleport="body" x-data>
+        <div
+            x-data="{
+                open: {{ open ? 'true' : 'false' }},
+                id: '{{block('uuid')}}'
+            }"
+
+            x-init="$watch('open', function(value) {
+                if( value ) { $dispatch( 'closemodals', { except: '{{block('uuid')}}' } ) }
+            } )"
+
+            x-cloak
+            x-show="open"
+            x-id="['modal-title']"
+            x-on:keydown.escape.prevent.stop="open = false"
+
+            {{'@'}}openmodal.window="if( id == event.detail.uuid ){ open = true; console.log('opening'); }"
+
+            {{'@'}}closemodals.window="if( id != event.detail.except ){ open = false }"
+
+            role="dialog"
+            aria-modal="true"
+            :aria-labelledby="$id('modal-title')"
+
+            class="{{ block( 'outerclass' ) }}"
+        >
+            {{ block( 'overlay' ) }}
+
+            <div
+                x-data="{
+                    width: 0,
+                    setWidth() { this.width = window.innerWidth > 0 ? window.innerWidth : screen.width }
+                }"
+
+                x-transition
+                x-show="open"
+                x-init="setWidth()"
+                x-on:click="open=false"
+                x-trap.noscroll.inert="open"
+
+                @resize.window.debounce="setWidth()"
+
+                class="{{ block('panelclass') }}"
+            >
+                <template x-if="open">
+                    <div
+                        x-on:click.stop
+                        data-theme="{{ theme }}"
+                        data-bodytext
+                        class="{{ block( 'modalclass' ) }}"
+                    >
+                        {## headline ##}
+                        {% block headline %}
+                            {% if headline ??? null %}
+                                <h2 class="pr-10" :id="$id('modal-title')">{{ headline }}</h2>
+                            {% endif %}
+                        {% endblock %}
+
+                        {% block content content %}
+
+                        {% block close %}
+                            <div class="
+                                absolute
+                                right-0
+                                top-0
+                                z-30
+                                h-10
+                                w-10
+                                rounded-tr-xl
+                                flex
+                                items-center
+                                justify-center
+                                opacity-50
+                                hover:bg-theme-accent
+                                hover:opacity-100
+                                origin-top-right
+                                transition
+                                hover:text-white
+                            "><button type="button" x-on:click="open=false">
+                                {{ svg('@webroot//static/svg/dismiss.svg') | attr({
+                                    class: 'fill-current'
+                                }) }}
+                            </button></div>
+                        {% endblock %}
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+{% endblock %}
+
+
+{% macro button( uuid, text ) -%}
+<button
+    x-data="{}"
+    x-cloak
+    x-on:click="$dispatch( 'openmodal', { uuid: '{{uuid}}' } )"
+    type="button"
+    class="button click__cover"
+    aria-label="{{ text | striptags }}"
+>{{ text }}</button>
+{% endmacro %}
+
+{% macro invisibletrigger( uuid, text ) -%}
+<a
+    href="#"
+    x-data="{}"
+    x-cloak
+    x-on:click.prevent="$dispatch( 'openmodal', { uuid: '{{uuid}}' } )"
+    class="click__cover cursor-pointer"
+    aria-label="{{ text | striptags }}"
+><span class="hidden">{{ text }}</span></a>
+{% endmacro %}
+
+
+{##
+    how to use this modal.
+
+    <button hx-get="/modal" hx-target="modalContent">Open a Modal</button>
+##}
+{% macro dynamic() %}
+
+    <div
+        role="dialog"
+        aria-modal="true"
+
+        x-data="{
+            open:false,
+            onAfterSwap() {
+                this.open = true
+            },
+            doClose() {
+                this.open = false
+            }
+        }"
+
+        x-cloak
+        x-show="open"
+        x-on:keydown.escape.window="doClose()"
+        x-on:htmx:after-swap="onAfterSwap()"
+
+        class="flex justify-center items-center overflow-hidden"
+        :class="{
+            'fixed top-0 right-0 bottom-0 left-0 z-50 bg-black/70': open
+        }"
+    >
+        <div class="absolute top-0 right-0 bottom-0 left-0" x-on:click="doClose()"></div>
+
+        <div
+            x-trap.noscroll.inert="open"
+            class="relative w-full max-w-3xl rounded-xl max-h-[90vh] overflow-hidden bg-theme-contrast-light shadow-lg z-50"
+        >
+            <div class="p-2 absolute top-0 left-0 right-0 z-50 flex justify-end">
+                <a href="#" x-on:click.prevent="doClose()" class="flex gap-2 items-center text-theme hover:text-theme-alert"><span>Close</span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z" /></svg></a>
+            </div>
+            <div id="modalContent" class="overflow-y-auto max-h-[90vh] pt-8"></div>
+        </div>
+    </div>
+{% endmacro %}

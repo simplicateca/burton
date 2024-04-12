@@ -1,0 +1,22 @@
+{% extends [ "_site/card", "_core/card" ] %}
+
+{% set card = card ??? null %}
+{% set settings = settings ??? {} %}
+
+{% set settings = settings | merge({
+    card__imagelayer: 'stretch'
+}) %}
+
+{% block card__class "h-full w-auto @container" %}
+
+{% block card__words %}
+    <div class="absolute inset-0 flex p-2 z-30 flex-col justify-center h-full items-center group overflow-hidden">
+        {{ block( 'card__headline' ) | attr( { class: 'knockout' } ) }}
+
+        <div class="absolute w-full inset-0 transition translate-y-full group-hover:translate-y-0 flex flex-col">
+            <div class="flex-grow"></div>
+
+            {{ block('card__action') }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends [ "_site/card", "_core/card" ] %}
+
+{% block card__images "" %}
+
+{% block card__headline %}
+    {{ parent() }}
+
+    {% set index = settings.loop.index ?? null %}
+    {% if index %}
+        <div class="text-xs -mt-2 pb-4">
+            <strong>({{ index }})</strong> <a href="{{ card.url }}">{{ card.url }}</a>
+        </div>
+    {% endif %}
+{% endblock %}

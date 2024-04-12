@@ -1,36 +1,41 @@
-{## Attention Block Base
+{## Action Block Base
  ------------------------------------------------------------------------------------ ##
-    -> http://localhost:8000/sitehub/blocks/attention
+    -> http://localhost:8000/sitehub/blocks/action
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_site/block", "_core/block" ] %}
-{% import "_core/assemble" as assemble %}
+{% set settings    = settings ??? block.settings ??? {}  %}
+{% set microlayout = settings.microlayout ??? 'zone1Top' %}
+{% set collection  = [] %}
 
-{% block content %}
-    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
-    {{ assemble.microlayout( microlayout, {
-        zone1    : block('block__text'),
-        zone2    : block('block__attention'),
-        header   : block('block__header'),
-        footer   : block('block__footer'),
-    }, block.settings ) }}
-{% endblock content %}
+{% embed [ "_site/block", "_core/block" ] with{
+    block: block,
+    settings: settings,
+    collection: collection,
+    microlayout: microlayout,
+    collectionlayer: settings.collectionlayer ??? 'default',
+} %}
+
+    {## Action Block Content ##}
+    {% block content %}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.microlayout( microlayout, {
+            zone1 : block('block__text'),
+            zone2 : block('block__action'),
+            header: block('block__header'),
+            footer: block('block__footer'),
+        }, settings ) }}
+    {% endblock %}
 
 
-{% block block__attention %}
-    {% set blockName = 'attention__' ~ block.variant %}
-    {{ block( blockName ) is defined ? block( blockName ) }}
-{% endblock %}
+    {## Zone 2 Content ##}
+    {% block block__action %}
+        {% set blockName = 'action__' ~ block.variant %}
+        {{ block( blockName ) is defined ? block( blockName ) }}
+    {% endblock %}
 
 
-{% block attention__iframe %}
-    {{ assemble.iframe( block.code|default(), block.settings ) }}
-{% endblock %}
+    {% block action__iframe %}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.iframe( block.code|default(), block.settings ) }}
+    {% endblock %}
 
-
-{% block attention__spotlight %}
-    {% set spotlight = block.entries.one() ??? null %}
-    {% if spotlight %}
-        {% import "_core/card" as cards %}
-        {{ cards.single( spotlight, "spotlight", block.settings ) }}
-    {% endif %}
-{% endblock %}
+{% endembed %}

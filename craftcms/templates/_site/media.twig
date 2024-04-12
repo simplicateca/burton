@@ -1,0 +1,166 @@
+{## Render a Card for a Content Entry
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{# {% macro card( content = null, card = {}, settings = {} ) %}
+
+    {% set section    = card.section ??? settings.section    ??? content.section.handle ??? content.section ??? null %}
+    {% set cardlayer = card.name    ??? settings.cardlayer ??? 'summary' %}
+
+    {% set card = {
+        section: section,
+        cardlayer: cardlayer,
+        path: [
+            "_site/card.#{cardlayer}",
+            "_site/card",
+            "_core/card"
+        ]
+    } %}
+
+    {% if content and cardlayer %}
+        {% import "_core/card" as cards %}
+        {{ cards.render( content, card, settings ) }}
+    {% endif %}
+{% endmacro %} #}
+
+
+
+{## Render an Media Element (Video, Audio, File, oEmbed)
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro media( media = null, frame = null, settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% if media.embed.html ??? null %}
+        {% set provider = media.embed.provider|default() %}
+
+        {% if provider == 'youtube' or provider == 'vimeo' %}
+            {{ _self.video( media, frame, settings ) | raw }}
+        {% else %}
+            {{ _self.iframe( media, frame, settings ) | raw }}
+        {% endif %}
+    {% endif %}
+
+    {# {% set useCaptions = settings.imageCaptions ?? settings.captions ?? null %}
+    {% if useCaptions %}
+        {% set captionParts = {
+            title  : images.title   ??? images[0].title   ??? null,
+            summary: images.summary ??? images[0].summary ??? null,
+            alt    : images.alt     ??? images[0].alt     ??? null,
+            use    : useCaptions,
+        } %}
+
+        {% set frame = frame|merge({
+            caption: assemble.text( captionParts, 'figcaption' )
+        }) %}
+    {% endif %} #}
+
+    {# {{ assemble.video( media, frame ) | raw }} #}
+{% endmacro %}
+
+
+{## Video Elements
+ ------------------------------------------------------------------------------------ ##
+    Includes both <video> elements and Youtube/Vimeo style <iframe> embeds
+ ------------------------------------------------------------------------------------ ##}
+{% macro video( media = null, frame = null, settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame = {
+        class    : settings.videoClass     ?? settings.class     ?? "w-full max-w-full h-auto rounded-lg",
+        figure   : settings.videoFigure    ?? settings.figure    ?? "relative z-20 max-w-5xl mx-auto",
+        transform: settings.videoTransform ?? settings.transform ?? "square",
+        include  : settings.videoInclude   ?? settings.include   ?? null,
+    } %}
+
+    {# {% set useCaptions = settings.imageCaptions ?? settings.captions ?? null %}
+    {% if useCaptions %}
+        {% set captionParts = {
+            title  : images.title   ??? images[0].title   ??? null,
+            summary: images.summary ??? images[0].summary ??? null,
+            alt    : images.alt     ??? images[0].alt     ??? null,
+            use    : useCaptions,
+        } %}
+
+        {% set frame = frame|merge({
+            caption: assemble.text( captionParts, 'figcaption' )
+        }) %}
+    {% endif %} #}
+
+    {{ assemble.video( media, frame ) | raw }}
+{% endmacro %}
+
+
+{## Audio Elements
+ ------------------------------------------------------------------------------------ ##
+    Includes both <audio> elements and Spotify/Soundcloud style <iframe> embeds
+ ------------------------------------------------------------------------------------ ##}
+{% macro audio( media = null, frame = null, settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame = {
+        class    : settings.class     ?? "w-full max-w-full h-auto rounded-lg",
+        figure   : settings.figure    ?? "relative z-20",
+        transform: settings.transform ?? "square",
+        include  : settings.include   ?? null,
+    } %}
+
+    {# {% set useCaptions = settings.imageCaptions ?? settings.captions ?? null %}
+    {% if useCaptions %}
+        {% set captionParts = {
+            title  : images.title   ??? images[0].title   ??? null,
+            summary: images.summary ??? images[0].summary ??? null,
+            alt    : images.alt     ??? images[0].alt     ??? null,
+            use    : useCaptions,
+        } %}
+
+        {% set frame = frame|merge({
+            caption: assemble.text( captionParts, 'figcaption' )
+        }) %}
+    {% endif %} #}
+
+    {{ assemble.audio( images, frame ) | raw }}
+{% endmacro %}
+
+
+{% macro file( media = null, frame = null, settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame = {
+        class    : settings.class     ?? "w-full max-w-full h-auto rounded-lg",
+        figure   : settings.figure    ?? "relative z-20",
+        transform: settings.transform ?? "square",
+        include  : settings.include   ?? null,
+    } %}
+
+    {# {% set useCaptions = settings.imageCaptions ?? settings.captions ?? null %}
+    {% if useCaptions %}
+        {% set captionParts = {
+            title  : images.title   ??? images[0].title   ??? null,
+            summary: images.summary ??? images[0].summary ??? null,
+            alt    : images.alt     ??? images[0].alt     ??? null,
+            use    : useCaptions,
+        } %}
+
+        {% set frame = frame|merge({
+            caption: assemble.text( captionParts, 'figcaption' )
+        }) %}
+    {% endif %} #}
+
+    {# {{ assemble.file( images, frame ) | raw }} #}
+{% endmacro %}
+
+
+
+{% macro iframe( html = null, settings = {} ) %}
+    {% import "_core/assemble" as assemble %}
+
+    {% set frame = {
+        class    : settings.class     ?? "w-full max-w-full h-auto rounded-lg",
+        figure   : settings.figure    ?? "relative z-20",
+        transform: settings.transform ?? "square"
+    } %}
+
+    {{ assemble.iframe( images, frame ) | raw }}
+{% endmacro %}

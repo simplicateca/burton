@@ -14,8 +14,8 @@
     Usage example:
 
         "inputs" : [
-            {{ block( 'inputGapAbove', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputGapBelow', '_config/_selectplus_virtual_fields' ) }}
+            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
+            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }}
         ],
 
     Caveats:
@@ -27,10 +27,10 @@
  -> https://github.com/simplicateca/craft-selectplus-field/blob/main/README.md
  ------------------------------------------------------------------------------------ ##}
 
-{% block inputGapAbove %}
+{% block inputSpacerAbove %}
 {
-    "label": "Gap Above",
-    "field": "gapAbove",
+    "label": "Spacer Above",
+    "field": "spacerabove",
     "type" : "select",
     "default": "normal",
     "fieldClass": "field width-50",
@@ -44,10 +44,10 @@
 {% endblock %}
 
 
-{% block inputGapBelow %}
+{% block inputSpacerBelow %}
 {
-    "label": "Gap Below",
-    "field": "gapBelow",
+    "label": "Spacer Below",
+    "field": "spacerbelow",
     "type" : "select",
     "default": "normal",
     "fieldClass": "field width-50",
@@ -112,7 +112,7 @@
 {% block inputHeadlinePosition %}
 {
     "label": "Opening Headline",
-    "field": "positionHeadline",
+    "field": "text1__headers",
     "instructions": "Group + reposition the first <h2/3/4> elements in the `Copy`",
     "type" : "select",
     "default": "inline",
@@ -123,8 +123,8 @@
             "value": "inline"
         }
        ,{
-            "label": "Move to above block content",
-            "value": "above"
+            "label": "Move to Block Header",
+            "value": "header"
         }
     ]
 }
@@ -134,7 +134,7 @@
 {% block inputButtonPositions %}
 {
     "label": "Trailing CTA",
-    "field": "positionButtons",
+    "field": "text1__ctas",
     "instructions": "Group + reposition closing CTAs (button/link) in the `Copy`",
     "type" : "select",
     "default": "inline",
@@ -145,8 +145,8 @@
             "value": "inline"
         }
        ,{
-            "label": "Move to below block content",
-            "value": "below"
+            "label": "Move to Block Footer",
+            "value": "footer"
         }
     ]
 }
@@ -201,12 +201,12 @@
 
 {% block inputTextRightSizes %}
 {
-    "label": "Content Layout",
+    "label": "Column Size + Layout",
     "field": "microlayout",
     "type" : "select",
     "instructions": "Sizing and alignment for horizontal block layouts",
     "fieldClass": "field width-50",
-    "default": "zone1Right__center",
+    "default": "zone1Right",
     "options" : [
         {
             "label" : "Wide Text Zone",
@@ -239,11 +239,11 @@
 
 {% block inputTextLeftSizes %}
 {
-    "label": "Content Layout",
+    "label": "Column Size + Layout",
     "field": "microlayout",
     "type" : "select",
     "instructions": "Sizing and alignment for horizontal block layouts",
-    "default": "zone1Left__center",
+    "default": "zone1Left",
     "fieldClass": "field width-50",
     "options" : [
         {

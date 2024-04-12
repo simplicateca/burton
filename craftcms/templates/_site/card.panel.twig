@@ -1,48 +1,20 @@
-{% extends ["_site/card", "_core/card"] %}
+{% extends [ "_site/card", "_core/card" ] %}
 
+{% set card = card ??? null %}
+{% set settings = settings ??? {} %}
 
-{# {% block content %}
-    {% set parentContent = parent() %}
-    {% block summary__content %}
-        {{ parentContent }}
-    {% endblock %}
-{% endblock %} #}
+{% set settings = settings | merge({
+    card__imagelayer: 'stretch'
+}) %}
 
-{# {% block content %}
-    {% block summary_card %}
-        <div class="w-full flex flex-col h-full relative @container">
-            {{ block('summary_card_image') }}
-            {{ block('summary_card_text') }}
-            {{ block('summary_card_action') }}
+{% block card__class "w-full relative grid grid-cols-1 @xl:grid-cols-2 gap-10" %}
+
+{% block card__words %}
+    <div class="flex flex-col gap-3 @container">
+        {% block card__headline %}<h3 class="!my-0">{{ card.headline }}</h3>{% endblock %}
+
+        <div class="max-h-[50vh] overflow-y-auto -mr-8 pr-8 @container">
+            {{ ( card.fulltext ??? card.summary ) | raw }}
         </div>
-    {% endblock %}
-{% endblock %}
-
-
-{% block summary_card_image %}
-    {% block card_image %}
-        {% set card_image %}{{ parent() }}{% endset %}
-        {% if card_image %}<div class="image">{{ card_image }}</div>{% endif %}
-    {% endblock %}
-{% endblock %}
-
-
-{% block summary_card_text %}
-    <div class="p-2 @xs:p-4 flex flex-grow flex-col gap-2 bg-theme-contrast-light">
-        {% set cardHeaderClass = 'mb-0' %}
-        {{ block('card_headline') }}
-
-        {{ block('card_summary') }}
-
-        {{ block('card_after_summary') is defined ? block( 'card_after_summary' ) }}
     </div>
 {% endblock %}
-
-
-{% block summary_card_action %}
-    <div class="px-2 @md:px-4">
-        {% block action %}
-            {{ block('card_action') }}
-        {% endblock %}
-    </div>
-{% endblock %} #}

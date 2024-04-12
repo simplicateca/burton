@@ -1,0 +1,69 @@
+{% extends template_from_string('{% block carousel %}{% endblock %}') %}
+
+{% set uuid = "splide-#{create('craft\\helpers\\StringHelper').UUID()}" %}
+
+{% block class__base  "min-w-[260px] relative z-40 mb-6 lg:mb-0" %}
+{% block class__track "mx-12" %}
+{% block class__ul    "h-full" %}
+{% block class__li    "flex flex-col items-center justify-start" %}
+{% block class__slide block('class__li') %}{## class__slide is an alias for class_li ##}
+{% block class__pagination "" %}
+
+{% block splide__config %}{
+    type: 'loop',
+    perPage: 1
+}{% endblock %}
+
+{% set items = items ??? [] %}
+{% set count = items | length %}
+{% set title = title ??? 'Carousel' %}
+
+{## AlpineJS Carousel Component ##}
+{% block carousel -%}
+{%- if items -%}
+
+    {## Load Splide JS from CDN ##}
+    {% html at head %}
+        <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    {%- endhtml %}
+
+    {## Load Splide CSS from CDN ##}
+    {% css "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" %}
+
+    <div
+        class="w-full relative"
+        x-data="{ splide: null }"
+        x-cloak
+        x-init="$nextTick(() => {
+            splide = new Splide( document.querySelector('#{{uuid}}'), {{ block('splide__config') }} )
+
+            splide.on( 'overflow', function() {
+                splide.options = {
+                    arrows    : ( {{ count }} > splide.options.perPage ),
+                    pagination: ( {{ count }} > splide.options.perPage ),
+                    drag      : ( {{ count }} > splide.options.perPage )
+                }
+            } )
+
+            splide.mount()
+        })">
+
+        <section
+            id="{{uuid}}"
+            class="splide {{ block('class__base') }}"
+            aria-label="{{title}}"
+        >
+            <div class="splide__track {{ block('class__track') }}">
+                <ul class="splide__list {{ block('class__ul') }}">
+                    {% for item in items %}
+                        <li class="splide__slide {{ block('class__li') }}">{% block slide item %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <footer>
+                <ul class="splide__pagination {{ block('class__pagination') }}"></ul>
+            </footer>
+        </section>
+    </div>
+{%- endif -%}{%- endblock %}

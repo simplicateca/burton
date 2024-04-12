@@ -22,18 +22,13 @@
 {% endmacro %}
 
 
-{% macro splide_cdn( release = '4.1.4' ) %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@{{release}}/dist/css/splide.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@{{release}}/dist/js/splide.min.js"></script>
-{% endmacro %}
-
 
 {% macro vite() %}
     {% set cssHash = craft.vite.getCssHash("js/app.js") %}
     <!--# if expr="$HTTP_COOKIE=/critical\-css\={{ cssHash }}/" -->
     {{ craft.vite.script("js/app.js", false) }}
     <!--# else -->
-    <script>Cookie.set("critical-css", "{{ cssHash }}", { expires: "7D", secure: true });</script>
+    {# <script>Cookie.set("critical-css", "{{ cssHash }}", { expires: "7D", secure: true });</script> #}
     {{ craft.vite.includeCriticalCssTags() }}
     {{ craft.vite.script("js/app.js", true) }}
     <!--# endif -->

@@ -1,0 +1,12 @@
+{% extends [ "_site/card.panel", "_site/card", "_core/card" ] %}
+
+{% import "_core/assemble" as assemble %}
+
+{% set card = card ??? null %}
+{% set settings = settings ??? {} %}
+
+{% set settings = settings | merge({
+    card__imagelayer: 'stretch'
+}) %}
+
+{% block card__headline "" %}

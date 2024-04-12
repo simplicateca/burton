@@ -27,15 +27,15 @@ class EntrySidebarHelper
                     continue;
                 }
 
-                $entryTypes = Craft::$app->sections->getEntryTypesBySectionId( $sectionId );
+                $entrytypes = Craft::$app->sections->getEntryTypesBySectionId( $sectionId );
 
-                if( count($entryTypes) < 2 || $sectionType != 'channel' ) {
+                if( count($entrytypes) < 2 || $sectionType != 'channel' ) {
                     $newSources[] = $source;
                     continue;
                 }
 
                 $children = [];
-                foreach( $entryTypes AS $type ) {
+                foreach( $entrytypes AS $type ) {
 
                     $typeSource = [
                         'type'  => 'custom',

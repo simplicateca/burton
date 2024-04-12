@@ -9,21 +9,21 @@
     {{ javascript.splide_cdn() }}
 {% endhtml %}
 
-{% set blockType = type ??? null %}
+{% set blocktype = type ??? null %}
 
 {% set allowedBlocks = {
     text: {
-        layout    : "_site/json/layout.text.sidebar.json",
-        variant   : "_site/json/variant.text.json",
-        theme     : "_site/json/theme.sidebar.json",
+        layout    : "_config/layout.text.sidebar.json",
+        variant   : "_config/block.text.json",
+        theme     : "_config/theme.sidebar.json",
         content   : [
             "_sitehub/content/block.text.simple"
         ],
     },
     image: {
-        layout    : "_site/json/layout.image.sidebar.json",
-        variant   : "_site/json/variant.image.json",
-        theme     : "_site/json/theme.sidebar.json",
+        layout    : "_config/layout.image.sidebar.json",
+        variant   : "_config/block.image.json",
+        theme     : "_config/theme.sidebar.json",
         content   : [
             "_sitehub/content/block.image.single",
             "_sitehub/content/block.image.single.tallimage",
@@ -33,17 +33,17 @@
         ],
     },
     collection: {
-        layout    : "_site/json/layout.collection.sidebar.json",
-        variant   : "_site/json/variant.collection.json",
-        theme     : "_site/json/theme.sidebar.json",
+        layout    : "_config/layout.collection.sidebar.json",
+        variant   : "_config/block.collection.json",
+        theme     : "_config/theme.sidebar.json",
         content   : [
             "_sitehub/content/block.collection.simple"
         ],
     },
     media: {
-        layout    : "_site/json/layout.media.sidebar.json",
-        variant   : "_site/json/variant.media.json",
-        theme     : "_site/json/theme.sidebar.json",
+        layout    : "_config/layout.media.sidebar.json",
+        variant   : "_config/block.media.json",
+        theme     : "_config/theme.sidebar.json",
         content   : [
             "_sitehub/content/block.media.one.youtube",
             "_sitehub/content/block.media.four.youtube",
@@ -52,12 +52,12 @@
     }
 } %}
 
-{% set config = allowedBlocks[blockType]|default() %}
+{% set config = allowedBlocks[blocktype]|default() %}
 
 {% block main__content %}
     {% if config %}
         {{ sprig( '_sitehub/blocks/_previewer.sprig', {
-            type     : blockType,
+            type     : blocktype,
             config   : config,
             builder  : 'sidebar',
             container: 'sidebar'
@@ -68,11 +68,11 @@
                 <h1>Sidebar Blocks</h1>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-20">
-                    {% for blockType, config in allowedBlocks %}
+                    {% for blocktype, config in allowedBlocks %}
                         <div class="shadow rounded-lg p-8 relative bg-theme-contrast-light @container">
-                            <h2 class="capitalize">{{ blockType | kebab | replace({ '-': ' ' }) }}</h2>
+                            <h2 class="capitalize">{{ blocktype | kebab | replace({ '-': ' ' }) }}</h2>
                             <p class="html">{{ config.content|length }} content samples</p>
-                            <p class="html"><a href="{{ url( "sitehub/blocks/sidebar/#{blockType}"  ) }}" class="clickCover">Preview</a></p>
+                            <p class="html"><a href="{{ url( "sitehub/blocks/sidebar/#{blocktype}"  ) }}" class="click__cover">Preview</a></p>
                         </div>
                     {% endfor %}
                 </div>

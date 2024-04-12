@@ -7,7 +7,7 @@ name: 'Content Source'
 searchable: false
 settings:
   columnType: null
-  configFile: _site/json/collection.sources.json
+  configFile: _config/collection.sources.json
 translationKeyFormat: null
 translationMethod: none
 type: simplicateca\selectplus\fields\SelectPlusField

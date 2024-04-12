@@ -54,7 +54,7 @@ return GeneralConfig::create()
     // improve save speed by limiting the number of revisions we save
     ->maxRevisions(10)
 
-    ->errorTemplatePrefix( '_site/content/_' )
+    ->errorTemplatePrefix( '_site/' )
 
     ->defaultSearchTermOptions([
         'subLeft'  => true,

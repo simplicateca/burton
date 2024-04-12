@@ -147,7 +147,7 @@
             variant   : config.value|default('auto'),
             theme     : theme,
             container : defContainer,
-            cardLayout: config.cardLayout|default(),
+            cardlayer: config.cardlayer|default(),
         } %}
 
         {% set settings = layoutSettings     ? settings | merge( layoutSettings )     : settings %}

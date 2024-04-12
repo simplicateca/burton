@@ -83,6 +83,7 @@ services:
                    ./craft up --interactive=0"
         volumes:
             - ./craftcms:/app:cached
+            - ./frontend/public/static:/app/web/static:ro
             - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
             - ./etc:/app/etc
         depends_on:
@@ -127,6 +128,7 @@ services:
             - 8000:80
         volumes:
             - ./craftcms/web/index.php:/app/web/index.php:ro
+            - ./frontend/public/static:/app/web/static:ro
             - ./etc/nginx/docker-config.conf:/etc/nginx/conf.d/craft.conf:ro
         depends_on:
             mysql:

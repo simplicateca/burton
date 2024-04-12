@@ -27,8 +27,8 @@
     <meta name="format-detection" content="telephone=no">
 {% endblock %}
 
-{% block head__fonts  include( '_site/_fonts'  ) %}
-{% block head__styles include( '_site/_styles' ) %}
+{% block head__fonts  include( '_site/html.fonts'  ) %}
+{% block head__styles include( '_site/html.styles' ) %}
 
 {% block head__scripts %}
     {% import '_core/javascript' as javascript %}
@@ -65,6 +65,7 @@
 
 
 {% block html %}
+{##
     {% set _eager = {
         common:
             ["images", "topics"],
@@ -72,21 +73,21 @@
         header:
             ["headerBuilder"] |
             merge([
-                "image:images","media:assets","fragment:reusable","attention:collections",
+                "image:images","media:assets","fragment:reusable","action:collections",
                 "collection:items","collection:entries","collection:assets","collection:collections",
             ] | map( p => "headerBuilder.#{p}") ),
 
         content:
             ["bodyBuilder"] |
             merge([
-                "image:images","media:assets","fragment:reusable","attention:collections",
+                "image:images","media:assets","fragment:reusable","action:collections",
                 "collection:items","collection:entries","collection:assets","collection:collections",
             ] | map( p => "bodyBuilder.#{p}") ),
 
         sidebar:
             ["sidebarBuilder"] |
             merge([
-                "image:images","media:assets","fragment:reusable","attention:collections",
+                "image:images","media:assets","fragment:reusable","action:collections",
                 "collection:items","collection:entries","collection:assets","collection:collections",
             ] | map( p => "sidebarBuilder.#{p}") ),
     } %}
@@ -101,6 +102,8 @@
                  | merge(_eager.sidebar ??? '')
         ) %}
     {% endif %}
+##}
+
 
     {## supes dupes important. don't remove. ##}
     {## https://stackoverflow.com/a/32642249 ##}

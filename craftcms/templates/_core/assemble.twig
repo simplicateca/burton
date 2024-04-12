@@ -1,42 +1,183 @@
-{## Render a spacer or divider from `_site/_spacing` if defined
+{% macro images( images, imagelayer, settings ) %}{{ raw(
+    include( "_site/image.#{imagelayer}", { images: images, settings: settings }, ignoreMissing = true )
+    ??? _self.runmacro( 'image', imagelayer, images, settings )
+) }}{% endmacro %}
+
+
+
+{% macro collection( items = null, collectionlayer = null, settings = {} ) -%}{{ raw(
+    include( "_site/collection.#{collectionlayer}", { items: items, settings: settings }, ignoreMissing = true )
+    ??? _self.runmacro( 'collection', collectionlayer, items, settings )
+) }}{% endmacro %}
+
+
+
+{% macro builder( blocks = null, builder = null, settings = {} ) %}{{ raw(
+    _self.runmacro( 'builder', builder, blocks, settings )
+)}}{% endmacro %}
+
+
+{% macro searchpart( params = null, partname = null, settings = {} ) %}{{ raw(
+    _self.runmacro( 'search', partname, params, settings )
+)}}{% endmacro %}
+
+
+{% macro accountparts( params = null, partname = null, settings = {} ) %}{{ raw(
+    _self.runmacro( 'account', partname, params, settings )
+)}}{% endmacro %}
+
+
+{## Card Rendering Macro
+ ------------------------------------------------------------------------------------ ##
+
+    Maintains path and inheritence consistency when generating content cards.
+
+ ------------------------------------------------------------------------------------ ##
+    Content specific cards can override and/or inject content into any part of
+    the requested card layout. Default path: `_content/<sectionHandle>/card.twig`
+
+    Variations for different entrytypes can generally be dealt with inside the
+    section-level card file. If separate entrytype specific card overrides are
+    necessary, the card path below can be adjusted to something like:
+
+    {% set cardpath = [
+        "_content/#{section}/card.#{entrytype}",
+        "_content/#{section}/card",
+    ] %}
+
+    Content specific override cards are passed the desired card layout as a variable
+    called `extends` which they should use to dynamically extend themselves from.
  ------------------------------------------------------------------------------------ ##}
-{% macro spacer( spacer, default = "base" ) %}
-    {% set spacer = spacer and spacer is same as(true) ? default : spacer %}
-    {% if spacer and block( "spacing__#{spacer}", "_site/_spacing" ) is defined %}
-        {{ block( "spacing__#{spacer}", "_site/_spacing" ) }}
+{% macro card( carditem, cardpath, settings = null, loop = null ) -%}
+{%- if carditem and cardpath -%}
+
+    {% set settings = settings is not null and settings is iterable ? settings : {} %}
+    {% set settings = settings | merge({ loop: loop }) %}
+
+    {## If the Card Path was provided as a string, test if a file exists at that path.
+        If not, consider it a cardlayer name and let CardBase generate a default path ##}
+    {% if cardpath is not null and cardpath is not iterable %}
+        {% if '/' not in cardpath and 'card.' not in cardpath %}
+            {% set settings = settings | merge({ cardlayer: cardpath }) %}
+            {% set cardpath = null %}
+        {% endif %}
     {% endif %}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
+
+    {## Push the cardpath onto the settings so that it will get picked up by CardBase ##}
+    {% set settings = settings | merge({ path: cardpath }) %}
+
+
+    {## Base Card Object
+    {## ----------------------------------------------------------------------------- ##}
+        {% set card = CardBase( carditem, settings ) %}
+    {## ----------------------------------------------------------------------------- ##
+        `CardBase` is a very simple Twig function written in PHP and editable here:
+        -> `craftcms/modules/sitemodule/src/twigextensions/CardBaseTwig.php`
+
+        It is a necessary evil for it to exist outside of Twig inorder to provide a
+        consistent and predictable card object to all card layouts at any point in
+        the inheritence & render chain.
+
+        If Twig had a more robust way to return a variable from an inline {% macro %}
+        exectution (without rendering it), `CardBase` could easily exist as Twig code.
+     -------------------------------------------------------------------------------- ##}
+
+
+    {## Content Specific Card Factor
+    {## ----------------------------------------------------------------------------- ##}
+        {%- set html = include([
+            "_site/#{card.section}.#{card.type}._card",
+            "_site/#{card.section}._card"
+        ], {
+            card: card,
+            settings: settings
+        }, withContext = false, ignoreMissing = true ) ??? null -%}
+    {## ----------------------------------------------------------------------------- ##
+
+        Card Factory files are named using `section` and `type` handles for the
+        content type they represent. They are used to adjust how any card layout will
+        render for a specific content type.
+
+            _site/<section>.<entrytype>._card.twig
+
+            _site/articles._card.twig
+            _site/topics._card.twig
+            _site/articles.blog._card.twig
+            _site/articles.news._card.twig
+
+
+        Not to be confused with an content specific cardlayer, which can be used to
+        adjust how a single card layout will render for a specific content type.
+
+            _site/card.summary.blog.twig
+            _site/card.thumbnail.profile.twig
+
+     -------------------------------------------------------------------------------- ##}
+
+    {## Render normally if no Card Factory exists for this content type ##}
+    {%- set html = html ? html : include( card.path, {
+        card: card,
+        settings: settings
+    }, withContext = false ) -%}
+
+    {{- raw( html ) -}}
+{% endif %}{%- endmacro %}
 
 
 
-{% macro site__macro( file = '', name = '', content = null, settings = {} ) -%}
-    {% set file = file | replace('/[^\\w]+/', '') %}
-    {% set name = name | replace('/[^\\w]+/', '') %}
-    {% set tmpl = "{% from '_site/#{file}' import #{name} as m %}{{ m is defined ? m(c,s) : '' }}" %}
-    {{- include( template_from_string( tmpl ), { c: content, s: settings } ) -}}
-{%- endmacro %}
+{## Text Layer / Typography Adjustments
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro text( text = null, textlayer = null, settings = {} ) %}{{ raw(
+    _self.runmacro( 'text', textlayer, text, settings )
+)}}{% endmacro %}
 
 
 
-{% macro site__iterator( name = '', elem = '', content = null, settings = {} ) -%}
-    {% set elem = elem | replace('/[^\\w]+/', '') %}
-    {% set name = name | replace('/[^\\w]+/', '') %}
-    {% set tmpl = "{% from '_site/_iterators' import #{name} as m %}{{ m is defined ? m(e,c,s) : '' }}" %}
-    {{- include( template_from_string( tmpl ), { e: elem, c: content, s: settings } ) -}}
-{%- endmacro %}
+{## Media Elements
+ ------------------------------------------------------------------------------------ ##
+    <video>, <audio>, <iframe>
+ ------------------------------------------------------------------------------------ ##}
+{% macro media( media = null, medialayer = null, settings = {} ) %}{{ raw(
+    _self.runmacro( 'media', medialayer, media, settings )
+)}}{% endmacro %}
 
 
-{% macro site__element( elem = '', content = null, frame = {}, settings = {} ) -%}
-    {% set elem = elem | replace('/[^\\w]+/', '') %}
-    {% set tmpl = "{% from '_site/_elements' import #{elem} as m %}{{ m is defined ? m(c,f,s) : '' }}" %}
-    {{- include( template_from_string( tmpl ), { c: content, f: frame, s: settings } ) -}}
-{%- endmacro %}
+{## Block Spacers / Separators / Dividers
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro blockspacer( block = null, spacer = null, settings = {} ) %}{{ spacer ? raw(
+    _self.runmacro( 'block', "spacer__#{spacer}", block, settings )
+) }}{% endmacro %}
+
+
+
+{## Block Layout
+ ------------------------------------------------------------------------------------ ##
+    Theme Open / Close + Content Open / Close
+ ------------------------------------------------------------------------------------ ##}
+{% macro blockpart( block = null, layoutpart = null, settings = {} ) %}{{ raw(
+    _self.runmacro( 'block', layoutpart, block, settings )
+) }}{% endmacro %}
+
+
+
+{## Menus
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{% macro menu( entry = null, menu = null, settings = {} ) %}{{ raw(
+        include( "_site/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true )
+    ??? include( "_core/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true )
+    ??? _self.runmacro( 'menu', menu, entry, settings )
+) }}{% endmacro %}
 
 
 
 {## Two-Zone Micro Layouts
- ------------------------------------------------------------------------------------ ##
+{------------------------------------------------------------------------------------ ##
     Maintains layout consistency across the site with named macros for frequently used,
     non-grid layouts. i.e. things like:
 
@@ -47,344 +188,93 @@
     Micro Layouts also allow for the use of a "header" and "footer" zone that can be
     populated with additional content as determined (mostly) by the individual blocks.
 
-    Individual macro definitions can be found in: `_site/_microlayouts.twig`
- ------------------------------------------------------------------------------------ ##}
-{% macro microlayout( microlayout = null, content = {}, settings = {} ) -%}
-
-    {% set content = {
-        zone1 : null,
-        zone2 : null,
-        header: null,
-        footer: null,
-    } | merge(content) %}
-
-    {% set attributes = { data: { microlayout: microlayout } } %}
-    {% set container  = settings.container ?? 'default' %}
-    {% set hasContent = [ content.zone1, content.zone2, content.header, content.footer ] | join | trim %}
-
-    {%- if microlayout and hasContent -%}
-        {% set html = _self.site__macro( '_microlayouts', microlayout, content, settings ) %}
-        {% set html = container ? _self.container( container, html, settings ) %}
-
-        {% if content.header ??? content.footer ??? null %}
-            {% set html = html | attr({ class: "flex flex-col gap-10" }) %}
-        {% endif %}
-
-        {{ html | raw }}
-    {%- endif -%}
-{%- endmacro %}
-
-
-
-
-{## Run a group of things (Collection, Assets, Media, etc) through an iterator
- ------------------------------------------------------------------------------------ ##
-    Iterator macros can be found in: `_site/_iterators.twig`
- ------------------------------------------------------------------------------------ ##}
-{% macro iterate( iterator = null, element = null, items = {}, settings = {} ) -%}
-    {%- if iterator and element and items -%}
-
-        {% set html = _self.site__iterator( iterator,  element, items, settings )
-                  ??? _self.site__iterator( 'default', element, items, settings )
-                  ??? null %}
-
-        {## TODO: get this working again ##}
-        {## if that doesn't work, use the default core iterator ##}
-        {# {% if not html %}
-            {% import "_core/card" as cards %}
-            {% set html = _self.grid( "fixed1", cards.multiple( items, "summary", settings ) ) %}
-        {% endif %} #}
-
-        {{ html | default('') | raw }}
-    {%- endif -%}
-{%- endmacro %}
-{## --------------------------------------------------------------------------------- ##}
-
-
-
-{## Format HTML output for common elements encountered in the CMS
- ------------------------------------------------------------------------------------ ##
-    - images
-    - videos
-    - audio
-    - iframes
-    - cards
-    - files
- ------------------------------------------------------------------------------------ ##}
-{% macro element( type = null, content = {}, frame = {}, settings = {}, loop = null ) -%}
-
-    {## The optional `loop` argument expects a Twig `loop` variable and is only
-        (sometimes) useful if rendering a list of elements.
-
-     -> https://twig.symfony.com/doc/3.x/tags/for.html#the-loop-variable
-
-        If provided, tuck it into the `settings` object for safekeeping & easy acccess.
-    ------------------------------------------------------------------------------------ ##}
-    {% set settings = loop ? settings | merge({ loop: loop }) : settings %}
-
-    {%- if type and content -%}
-        {% set html = type == 'html' ? content : _self.site__element( type, content, frame, settings ) %}
-        {% if html %}{{ html | raw }}{% endif %}
-    {%- endif -%}
-{%- endmacro %}
-
-
-
-{% macro typography( contentIn = "", formatter = "", settings = {} ) %}
-
-    {## sanitize this variable a bit before letting it execute as code ##}
-    {% set formatter = formatter | replace('/[^\\w]+/', '') %}
-
-    {## try the typography macro first ##}
-    {% set contentOut = formatter and contentIn ? include( template_from_string(
-        "{% from '_site/_typography' import #{formatter} as m %}{{ m is defined ? m(c,s) : '' }}"
-    ), { c: contentIn, s: settings } ) ??? null %}
-
-    {## if that doesn't work, check if there's an auto typography function ##}
-    {% if not contentOut %}
-        {% from '_site/_typography' import auto as autoFormat %}
-        {% set contentOut = autoFormat is defined
-                ? autoFormat( contentIn, settings )
-                : contentIn %}
-    {% endif %}
-
-    {% if contentOut -%}
-        {{ contentOut | raw }}
-    {%- endif %}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
-
-
-
-{## Twig Block or Matrix Builder
- ------------------------------------------------------------------------------------ ##
-    Renders the content of the HTML string, unless it's empty, in-which case, try
-    to render the content of the builder field attached to the provided entry.
-
-    Typically this is called in a parent template with the html variable being provided
-    as `block('content')` so that a child template can overload {% block content %}
-    as needed and still have the builder content available as a fallback.
-
-    Can be particularly useful for sidebars.
-
-    Additional documentation available in: `_core/block.twig`
- ------------------------------------------------------------------------------------ ##}
-{% macro block( html = "", builder = "content", entry = null, settings = {} ) %}
-    {% from "_core/block" import findBlockOrBuilder as render %}
-    {{ render( html, builder, entry, settings ) }}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
-
-
-
-{## Menu Stuff
- ------------------------------------------------------------------------------------ ##}
-{% macro menu( menu ) %}
-    {{ include( "_site/partials/menu.#{menu}" ) }}
-{% endmacro %}
+    Individual macro definitions can be found in: `_site/microlayouts.twig`
+{------------------------------------------------------------------------------------ ##}
+{% macro microlayout( microlayout, content, settings = null ) -%}
+{%- if content is iterable -%}
+    {%- set content = {
+        zone1 : content.zone1  is defined ? content.zone1  | trim : null,
+        zone2 : content.zone2  is defined ? content.zone2  | trim : null,
+        header: content.header is defined ? content.header | trim : null,
+        footer: content.footer is defined ? content.footer | trim : null,
+    } -%}
+    {%- set settings  = settings is null or settings is not iterable ? {} : settings -%}
+    {%- set settings  = settings | merge({ microlayout: microlayout }) -%}
+    {{- raw( _self.runnamedmacro( 'microlayouts', microlayout, content, settings ) ) -}}
+{%- endif %}{% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
 
 
 
 {## Containers & Spacing
- ------------------------------------------------------------------------------------ ##}
-{% macro container( container = false, html = null, settings = {} ) %}
-    {% import "_site/_containers" as containers %}
-    {% set json  = containers.definitions() | json_decode %}
-    {% set class = json[container] ?? json['base'] ??? null %}
+{------------------------------------------------------------------------------------ ##}
+{% macro container( container, html, settings = null ) -%}
+{%- if html | trim -%}
+    {%- set container = container and container is not iterable ? container : 'default' -%}
+    {%- set settings  = settings is null or settings is not iterable ? {} : settings    -%}
+    {%- import "_site/layout._containers" as containers -%}
+    {%- set json  = containers.definitions() | json_decode -%}
+    {%- set class = json[container] ?? json.default ??? null -%}
+    {{- class ? tag('div', { class: class, html: html }) : html -}}
+{%- endif %}{% endmacro %}
 
-    {{ html and class
-        ? tag( 'div', settings | merge({ class: class, html: html }) )
-        : html | raw }}
-{% endmacro %}
+{% macro opencontainer( container ) %}{{
+    raw( _self.container( container, "-" )|trim[:-7] )
+}}{% endmacro %}
+{% macro closecontainer() %}</div>{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
 
-{% macro openContainer( container = false ) -%}
-    {{ _self.container( container, "__TEMP__" ) | replace({
-        '__TEMP__': '',
-        '</div>': ''
-    }) | trim | raw }}
+
+
+{% macro runmacro( element = null, macroname = null, content = null, settings = null ) -%}
+    {% set element   = element   | replace('/[^\\w\.]+/', '') %}
+    {% set macroname = macroname | replace('/[^\\w]+/', '') %}
+    {% set macroname = macroname ??? 'default' %}
+    {% set macrohtml = "" %}
+
+    {% set core__named   = "{% from '_core/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" %}
+    {% set core__default = "{% from '_core/#{element}' import default as m %}{{ m is defined ? m(c,s) : '' }}" %}
+
+    {## if the local `_site/<element>.twig` file exists ##}
+    {% if source( "_site/#{element}", ignore_missing = true) %}
+
+        {% set site__named   = "{% from '_site/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" %}
+        {% set site__default = "{% from '_site/#{element}' import default as m %}{{ m is defined ? m(c,s) : '' }}" %}
+
+        {% set macrohtml = ( macroname == 'default' )
+            ?       include( template_from_string( site__default ), { c: content, s: settings } )
+                ??? include( template_from_string( core__default ), { c: content, s: settings } )
+
+            :       include( template_from_string( site__named   ), { c: content, s: settings } )
+                ??? include( template_from_string( core__named   ), { c: content, s: settings } )
+                ??? include( template_from_string( site__default ), { c: content, s: settings } )
+                ??? include( template_from_string( core__default ), { c: content, s: settings } ) %}
+
+    {## otherwise, just use the core files ##}
+    {% else %}
+        {% set macrohtml = ( macroname == 'default' )
+            ?       include( template_from_string( core__default ), { c: content, s: settings } )
+
+            :       include( template_from_string( core__named   ), { c: content, s: settings } )
+                ??? include( template_from_string( core__default ), { c: content, s: settings } ) %}
+    {% endif %}
+
+    {{- macrohtml | trim ? raw(macrohtml) : '' -}}
 {%- endmacro %}
-{% macro closeContainer() %}</div>{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
 
 
 
+{% macro runnamedmacro( element = null, macroname = null, content = null, settings = null ) -%}
+    {% set element   = element   | replace('/[^\\w\.]+/', '') %}
+    {% set macroname = macroname | replace('/[^\\w]+/', '') %}
+    {% set macroname = macroname ??? null %}
 
-{## Basic <img> tag
- ------------------------------------------------------------------------------------ ##
-    You can pass it as many images as you like, but we're only gonna use the first one.
- ------------------------------------------------------------------------------------ ##}
-{% macro img( images = null, settings = null ) %}
+    {% set site__named = "{% from '_site/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" %}
+    {% set core__named = "{% from '_core/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" %}
 
-    {## test to make sure images wasn't passed as an array,
-        or if it was, just grab the first one ##}
-    {% set image = null %}
-    {% set image = images.url ??? null ? images : null %}
-    {% set image = not image and images is iterable ? images.one() ??? images|first ??? null : image %}
+    {% set output = include( template_from_string( site__named ), { c: content, s: settings } )
+                ??? include( template_from_string( core__named ), { c: content, s: settings } )
+                ??? "" %}
 
-    {% set caption = settings.caption ??? null %}
-
-    {## if the image is provided as an object or hash, only url attribute is required
-     -------------------------------------------------------------------------------- ##
-        url      : 'https://path.to/image',
-        id       : 1234,
-        width    : 100,
-        height   : 100,
-        transform: 'namedTransformHandle',
-     -------------------------------------------------------------------------------- ##}
-    {% if image and image.url ?? null %}
-        {% if settings.transform|default() and image.url|default() and image.id|default() %}
-            {% do image.setTransform( settings.transform ) %}
-        {% endif %}
-
-        {% set img = tag( 'img', {
-            src    : image.url,
-            width  : image.width    ??? null,
-            height : image.height   ??? null,
-            class  : settings.class ??? null,
-            loading: 'lazy'
-        }) %}
-
-        {{ tag( 'figure', {
-            class: settings.figureClass ??? settings.figure ??? "relative z-10",
-            data:  settings.data ??? null,
-            html:  img ~ caption
-        }) }}
-    {% endif %}
-
-
-    {## passed a string containing html like  `<img src='https://path.to/image'>` ##}
-    {% if not image and images and not images is iterable %}
-        {{ tag( 'figure', {
-            class: settings.figure ??? null,
-            html : images | retconAttr( 'img', { class: settings.class ??? null, loading: 'lazy' }, false )
-                   ~ caption
-        }) }}
-    {% endif %}
-
-
-    {## placeholder ##}
-    {% if ( images is iterable and not image ) or not images %}
-        {{ _self.placeholder( settings ) }}
-    {% endif %}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
-
-
-
-{## Basic <audio> player tag
- ------------------------------------------------------------------------------------ ##}
-{% macro audio( asset = null, settings = {} ) %}
-    {%- if asset -%}
-        <audio
-            id="audio--{{ asset.id ?? null }}"
-            controls
-            {% if settings.autoplay|default() %}autoplay{% endif %}
-            class="block w-full max-w-4xl bg-[#f1f3f4] rounded-none"
-            ><source src="{{ asset.url ?? null }}" type="{{ asset.mimeType ?? null }}" />
-        </audio>
-    {%- endif -%}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
-
-
-
-{## Basic <video> player tag
- ------------------------------------------------------------------------------------ ##}
-{% macro video( asset = null, settings = {} ) %}
-    {%- if asset -%}
-        {% set class  = "w-full aspect-video" %}
-        {% set poster = asset.images.one() ??? asset.images[0] ??? null %}
-
-        {% if poster.url|default() and poster.id|default() %}
-            {% do poster.setTransform('widescreen') %}
-        {% endif %}
-
-        {% if asset.embed.html ??? null %}
-            {{ asset.embed.html
-                | retconAttr( 'iframe', { height: false, width : false } )
-                | retconAttr( 'iframe', { class : class } ) }}
-        {% else %}
-            <video
-                id="video--{{ asset.id ?? null }}"
-                controls
-                {% if settings.autoplay|default() %}autoplay{% endif %}
-                class="{{class}}"
-                poster="{{ poster.url ?? null }}"
-                ><source src="{{ asset.url ?? null }}" type="{{ asset.mimeType ?? null }}" />
-            </video>
-        {% endif %}
-    {%- endif -%}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
-
-
-
-{## Basic <iframe> embed
- ------------------------------------------------------------------------------------ ##}
-{% macro iframe( iframe = "", settings = {} ) %}
-    {{ iframe
-        | retconAttr( 'iframe', { height: false, width : false } )
-        | retconAttr( 'iframe', { class : 'w-full aspect-video' } ) }}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
-
-
-
-{## Placeholder images (for wireframing & development)
- ------------------------------------------------------------------------------------ ##}
-{% macro placeholder( settings = {} ) %}
-    {% if getenv('CRAFT_ENVIRONMENT') != 'production' %}
-
-        {% set type   = settings._placeholder|default('default') %}
-        {% set width  = type == 'icon' ? 170 : 900 %}
-        {% set height = type == 'icon' ? 170 : 500 %}
-        {% set source = type == 'icon'
-            ? "https://placeskull.com/#{width}/#{height}/475569/#{random(1,24)}"
-            : "https://picsum.photos/seed/#{random(1,9999)}/#{width}/#{height}?grayscale&blur=2" %}
-
-        {{ _self.img( tag( 'img', {
-            src: source,
-            alt: 'Placeholder'
-        } ), settings ) }}
-    {% endif %}
-{% endmacro %}
-
-{#
-Outputs an SVG to be used as an image placeholder, optionally including target dimensions.
-
-@var width          int     Desired element width
-@var height         int     Desired element height
-@var showDimensions bool    Whether to display target dimensions (defaults to `true`)
-@var fill           string  Background fill color (defaults to `'#D0D0D0'`)
-#}
-{# {% set showDimensions = showDimensions ?? true %}
-{% set fill = fill ?? '#D0D0D0' %}
-<svg class="{{ class ?? '' }}"
-     xmlns="http://www.w3.org/2000/svg"
-     width="{{ width }}"
-     height="{{ height }}"
-     viewBox="0 0 {{ width }} {{ height }}"
->
-  <g clip-path="url(#clip0)">
-    <rect fill="{{ fill }}" width="{{ width }}" height="{{ height }}"/>
-    <line x1="0" y1="0" x2="{{ width }}" y2="{{ height }}" stroke="rgba(255,255,255,0.3)"/>
-    <line x1="0" y1="{{ height }}" x2="{{ width }}" y2="0" stroke="rgba(255,255,255,0.3)"/>
-  </g>
-  <text fill="rgba(0,0,0,0.1)"
-        font-family="ui-sans-serif,system-ui,-apple-system,sans-serif"
-        font-size="16"
-        dy="3%"
-        font-weight="thin"
-        x="50%"
-        y="50%"
-        text-anchor="middle"
-  >
-    {%- if showDimensions %}
-      {{ width }} × {{ height }}
-    {% endif -%}
-  </text>
-</svg> #}
-
-
-{## --------------------------------------------------------------------------------- ##}
+    {{- output | trim ? raw(output) : '' -}}
+{%- endmacro %}

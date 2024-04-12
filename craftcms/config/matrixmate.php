@@ -20,28 +20,28 @@ if( !function_exists('burtonBuilderConfig') ) { function burtonBuilderConfig( $c
             'image' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
-                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'images'],
+                    'fields' => [...$commonFields, 'collections', 'images'],
                 ]],
             ],
 
             'media' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
-                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'assets', 'external', 'code'],
+                    'fields' => [...$commonFields, 'collections', 'assets', 'external', 'code'],
                 ]],
             ],
 
             'collection' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
-                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'entries', 'items'],
+                    'fields' => [...$commonFields, 'collections', 'entries', 'items'],
                 ]],
             ],
 
-            'attention' => [
+            'action' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
-                    'fields' => [...$commonFields, 'collections', 'format', 'interface', 'entries', 'form', 'component'],
+                    'fields' => [...$commonFields, 'collections', 'form', 'component'],
                 ]],
             ],
         ],

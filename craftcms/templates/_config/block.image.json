@@ -29,7 +29,7 @@
         }
        ,{
             "label": "Captions & Titles",
-            "field": "captions",
+            "field": "captionlayer",
             "type" : "select",
             "default": "",
             "fieldClass": "field width-50",
@@ -55,7 +55,7 @@
         }
        ,{
             "label": "Handle Multiple Images",
-            "field": "iterator",
+            "field": "imagelayer",
             "type" : "select",
             "default": "single",
             "instructions": "Layout to use if/when the block has multple images.",
@@ -117,7 +117,7 @@
     "inputs": [
         {
             "label": "Fancy Frame",
-            "field": "iterator",
+            "field": "imagelayer",
             "type" : "select",
             "default": "stretch",
             "instructions": "What frame should we use for this image",
@@ -173,8 +173,30 @@
     },
     "inputs": [
         {
+            "label": "Image Transformation",
+            "field": "transform",
+            "type" : "select",
+            "default": "",
+            "fieldClass": "field width-50",
+            "instructions": "Should we transform the image?",
+            "options" : [
+                {
+                    "value" : "",
+                    "label" : "None"
+                }
+               ,{
+                    "value" : "square",
+                    "label" : "Square aspect ratio"
+                }
+               ,{
+                    "value" : "widescreen",
+                    "label" : "Widescreen aspect ratio"
+                }
+            ]
+        }
+       ,{
             "label": "Gallery Layout",
-            "field": "iterator",
+            "field": "imagelayer",
             "type" : "select",
             "default": "gallery",
             "instructions": "Layout to use for displaying gallery images.",
@@ -214,7 +236,7 @@
     },
     "inputs": [{
         "label": "Usage",
-        "field": "iterator",
+        "field": "imagelayer",
         "type" : "select",
         "options" : [
             {

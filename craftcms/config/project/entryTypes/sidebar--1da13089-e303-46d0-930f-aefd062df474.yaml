@@ -32,7 +32,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _core/craft-ui/instructionsHeader.twig
+            template: _config/ui-instructions-header-builder.twig
             type: craft\fieldlayoutelements\Template
             uid: a9440325-5030-48ac-8db3-064cc4750400
             userCondition: null
@@ -51,7 +51,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _core/craft-ui/instructionsContent.twig
+            template: _config/ui-instructions-content-builder.twig
             type: craft\fieldlayoutelements\Template
             uid: 868120ed-342e-4a60-b979-5bc194680518
             userCondition: null
@@ -70,7 +70,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            template: _core/craft-ui/matrixConditionalFields.twig
+            template: _config/_matrix_conditional_fields.craft4.twig
             type: craft\fieldlayoutelements\Template
             uid: 64393159-3e89-4faa-9aaa-11de8dcd8b2a
             userCondition: null
@@ -95,7 +95,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            template: _core/craft-ui/instructionsSidebar.twig
+            template: _config/ui-instructions-sidebar-builder.twig
             type: craft\fieldlayoutelements\Template
             uid: ad4c755b-f0ca-48dc-b0d9-211e845bc0fb
             userCondition: null

@@ -1,0 +1,85 @@
+{## Better Rich HTML / WYSIWYG Code Formatting
+    -------------------------------------------------------------------------------- ##
+    This macro handles provides an interface to the custom twig function `TextBase()`.
+
+    The macro, handle the heavy lifting of parsing the rich html from a Redactor or
+    CKEditor field, makes some minor formatting adjustments, and then attempts to
+    separate the content into separate parts.
+
+    - Eyebrow elements
+    - Any (h1,h2,h3) headlines appearing before body text (p, ol, ul, etc)
+    - CTA Buttons & Links (along with their kicker text), appearing after body text.
+
+    These individual text parts can then be used to customize the layout of the text
+    without having to worry about the order of the content or creating complicated
+    interfaces to editors.
+
+    The macro also tests the alignment of text (as set in the WYSIWYG editor), and
+    can adjust the layout of surrounding elements to match.
+
+    Editable at: craftcms/modules/sitemodule/src/twigextensions/TextBaseTwig.php
+------------------------------------------------------------------------------------ ##}
+
+{% macro default( content, settings) %}
+    {{ content | trim ? raw( content ) : '' }}
+{% endmacro %}
+
+
+{% macro card__summary( content, settings ) %}
+    {% set content = content ??? null %}
+    {% if content %}
+    <p class="line-clamp-3 !mb-0">
+        {{ content
+            | retconRemove( [ 'img', 'blockquote' ] )
+            | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'p' ], false )
+        }}
+    </p>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro block__header( content, settings = null ) %}
+    {% if content %}<div class="mb-16">{{ raw( content ) }}</div>{% endif %}
+{% endmacro %}
+
+
+
+{% macro block__footer( content, settings ) %}
+    {% if content %}<div class="mt-16">{{ raw( content ) }}</div>{% endif %}
+{% endmacro %}
+
+
+{% macro image__caption( caption, settings ) %}
+
+    {% set captionlayer = settings.captionlayer %}
+
+    {% if caption.alt and not caption.summary %}
+        {% set caption = caption | merge({ summary: "<p>#{caption.alt}</p>" }) %}
+    {% endif %}
+
+    {% set title = tag( 'strong', { class: 'block text-sm uppercase', text: caption.title ?? null } ) %}
+    {% set content = caption.summary ?? null %}
+
+    {% set content = content
+        | retconChange( 'p', 'div' )
+        | retconAttr( 'div', { class: 'text-sm' }, false ) %}
+
+    {% if captionlayer == 'title' and title %}
+        <figcaption class="text-center">
+            {{ title | raw }}
+        </figcaption>
+    {% endif %}
+
+    {% if captionlayer == 'caption' and content %}
+        <figcaption class="text-center">
+            {{ content | raw }}
+        </figcaption>
+    {% endif %}
+
+    {% if captionlayer == 'full' and ( title ??? content ) %}
+        <figcaption class="text-center">
+            {{ title | raw }}
+            {{ content | raw }}
+        </figcaption>
+    {% endif %}
+{% endmacro %}

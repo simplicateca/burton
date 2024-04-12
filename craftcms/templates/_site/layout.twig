@@ -1,5 +1,5 @@
+
 {% extends "_site/html" %}
-{% import "_core/assemble" as assemble %}
 
 {## Single Column Base Layout
  ------------------------------------------------------------------------------------- ##
@@ -28,31 +28,47 @@
         - Userflow / Quicklinks
         - Legal Navigation
  ------------------------------------------------------------------------------------- ##}
-{% block content "" %}
-
-{% block page__ajax %}
-    {{ assemble.block( block('content'), 'content', entry, { container: "none" } ) }}
-{% endblock %}
+{% import "_core/assemble" as assemble %}
 
 {% block page %}
-
-    {% block page__top block( 'header__base', '_site/header' ) %}
-
-    {% block page__main %}
-        {% block main__open %}
-            <main {{attr({
-                id   : "content",
-                class: "relative z-10 min-h-[50vh]",
-            })}}>
-        {% endblock %}
-
-        {% block main__content assemble.block( block('content'), 'content', entry ) %}
-
-        {% block main__close %}
-            </main>
-        {% endblock %}
-    {% endblock %}
-
+    {% block page__top    block( 'header__base', '_site/header' ) %}
+    {% block page__main   block( 'main__base' ) %}
     {% block page__bottom block( 'footer__base', '_site/footer' ) %}
-
 {% endblock %}
+
+
+{% block page__ajax %}{{
+    assemble.builder( mainblocks ??? entry.bodyBuilder.all() ??? [], 'ajax', {
+        container  : "none",
+        spacerabove: "small",
+        spacerbelow: "small"
+    })
+}}{% endblock %}
+
+
+{% block main__base %}
+    {% block main__open    raw( "<main " ~ attr({ id: "content", class: "relative z-10 min-h-[50vh]" }) ~ ">" ) %}
+    {% block main__content block('content') %}
+    {% block main__close   "</main>" %}
+{% endblock %}
+
+
+{% block content %}
+
+    {% set firstspace = "default" %}
+
+    {% set mainblocks = mainblocks ??? entry.bodyBuilder.all() ??? [] %}
+    {% if mainblocks %}
+        {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? [] %}
+        {% set theme1 = headblocks ? headblocks[0].theme.value ??? 'base' : 'base' %}
+        {% set theme2 = mainblocks[0].theme.value ??? 'base' %}
+        {% set firstspace = theme1 == theme2 ? "none" : firstspace %}
+    {% endif %}
+
+    {{- assemble.builder( mainblocks, 'singlecol', {
+        container  : "fluid",
+        spacerfirst: firstspace,
+        spacerabove: "default",
+        spacerbelow: "default"
+    })
+}}{% endblock %}

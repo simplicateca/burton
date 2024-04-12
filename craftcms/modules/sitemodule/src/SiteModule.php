@@ -72,11 +72,12 @@ class SiteModule extends Module
         EntrySidebarHelper::enable();
 
         // Enable Twig Extensions
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\CollectionsTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\EmbedInfoTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\NormalizeBlockTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\RichHtmlTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\SiteModuleTwig() );
+        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\TextBaseTwig() );
+        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\CardBaseTwig() );
+        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\BlockBaseTwig() );
+        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\CollectionBaseTwig() );
+        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\MediaBaseTwig() );
+        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\ToolboxTwig() );
 
         // Report that the module is loaded
         Craft::info( Craft::t( 'site-module', '{name} loaded', ['name' => 'Site Module'] ), __METHOD__ );

@@ -20,7 +20,7 @@
 
 {% set fragmentID = craft.app.request.getQueryParam('bodyFragment') ??? craft.app.request.getQueryParam('sidebarFragment') ??? null %}
 {% set entry      = fragmentID ? craft.entries().section('reusable').id(fragmentID).one() ??? null  %}
-{% set entryType  = entry.type.handle ??? null %}
+{% set entrytype  = entry.type.handle ??? null %}
 {% set sidebar    = entry.sidebarBuilder.one() ??? null %}
 {% set template   =  %}
 {% extends sidebar ? "_site/layout/layout.sidebar" : "_site/layout/layout" %}

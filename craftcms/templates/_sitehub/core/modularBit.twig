@@ -22,7 +22,7 @@
 
 {% set reusableID = craft.app.request.getQueryParam('bit') ??? null %}
 {% set entry      = reusableID ? craft.entries().section('bit').id(reusableID).one() ??? null  %}
-{% set entryType  = entry.type.handle ??? null %}
+{% set entrytype  = entry.type.handle ??? null %}
 
 {% if not entry %}
     {% redirect "/sitehub/" %}
@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block sidebar %}
-    {% if entryType == 'sidebarFragment' %}
+    {% if entrytype == 'sidebarFragment' %}
         {{ include( '_components/builders/builderSidebar.twig', {
             entry: entry
         }, withContext = false) }}

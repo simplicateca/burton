@@ -1,0 +1,58 @@
+
+
+{## Basic <audio> player tag
+ ------------------------------------------------------------------------------------ ##}
+{% macro audio( asset = null, settings = {} ) %}
+    {%- if asset -%}
+        <audio
+            id="audio--{{ asset.id ?? null }}"
+            controls
+            {% if settings.autoplay|default() %}autoplay{% endif %}
+            class="block w-full max-w-4xl bg-[#f1f3f4] rounded-none"
+            ><source src="{{ asset.url ?? null }}" type="{{ asset.mimeType ?? null }}" />
+        </audio>
+    {%- endif -%}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Basic <video> player tag
+ ------------------------------------------------------------------------------------ ##}
+{% macro video( asset = null, settings = {} ) %}
+    {%- if asset -%}
+        {% set class  = "w-full aspect-video" %}
+        {% set poster = asset.images.one() ??? asset.images[0] ??? null %}
+
+        {% if poster.url|default() and poster.id|default() %}
+            {# {% do poster.setTransform('widescreen') %} #}
+        {% endif %}
+
+        {% if asset.embed.html ??? null %}
+            {{ asset.embed.html
+                | retconAttr( 'iframe', { height: false, width : false } )
+                | retconAttr( 'iframe', { class : class } ) }}
+        {% else %}
+            <video
+                id="video--{{ asset.id ?? null }}"
+                controls
+                {% if settings.autoplay|default() %}autoplay{% endif %}
+                class="{{class}}"
+                poster="{{ poster.url ?? null }}"
+                ><source src="{{ asset.url ?? null }}" type="{{ asset.mimeType ?? null }}" />
+            </video>
+        {% endif %}
+    {%- endif -%}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Basic <iframe> embed
+ ------------------------------------------------------------------------------------ ##}
+{% macro iframe( iframe = "", settings = {} ) %}
+    {{ iframe
+        | retconAttr( 'iframe', { height: false, width : false } )
+        | retconAttr( 'iframe', { class : 'w-full aspect-video' } ) }}
+{% endmacro %}
+{## --------------------------------------------------------------------------------- ##}

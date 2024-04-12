@@ -6,104 +6,38 @@
     the card's primary content, including the image, headline, text, and action.
     It also handles the card's layout and wrapping.
  ------------------------------------------------------------------------------------- ##}
-{% block card__tag   "div" %}
-{% block card__class "w-full relative @container" %}
-{% block card__name  card.cardlayout|default('core') %}
-{% block card__text  card.fulltext|default()  %}
+{% import "_core/assemble" as assemble %}
+
+{% block card__tag      "div" %}
+{% block card__class    "w-full relative @container" %}
+{% block card__layer    card.cardlayer %}
+{% block card__attr     attr({ class: block('card__class'), data: { name: block('card__layer') } }) %}
+
+{% block card__headline card.headline ? tag( 'h3', { html: card.headline } ) : null %}
+{% block card__summary  card.summary  ? raw( card.summary  ) : null %}
+{% block card__text     card.fulltext ? raw( card.fulltext ) : null %}
+
+{% block card__action   _self.invisibleclickcover( card, settings ) %}
+
+{% block card__images %}
+    {{ assemble.images( card.images, settings.card__imagelayer ??? 'default', settings ) }}
+{% endblock %}
 
 {% block card -%}
-    {% block card__open %}
-        <{{ block('card__tag') }} {{ attr({
-            class: block('card__class'),
-            data : { name: block('card__name') }
-        }) }}>
-    {% endblock %}
+    {%- block card__open %}<{{ block('card__tag') }} {{ block('card__attr') }}>{% endblock -%}
 
     {% block card__content %}
-        {% block card__image %}
-            {% import "_core/assemble" as assemble %}
-            {{ assemble.element( 'image', card.images, {}, settings ) }}
+        {{ block('card__images') }}
+
+        {% block card__words %}
+            {{ block('card__headline') }}
+            {{ block('card__summary')  }}
+            {{ block('card__action')   }}
         {% endblock %}
-
-        {{ block( 'card__headline' )}}
-
-        {% block card__summary  card.summary|default()   %}
-
-        {% block card__action   _self.action__invisiblecover( card, settings ) %}
     {% endblock %}
 
     {% block card__close %}</{{ block('card__tag') }}>{% endblock %}
 {%- endblock %}
-
-
-{% block card__headline tag( 'h3', { html: card.headline|default() } )%}
-
-
-
-
-
-
-{## Card Rendering Macros
- ------------------------------------------------------------------------------------ ##
-
-    Maintains path and inheritence consistency when generating content cards.
-
- ------------------------------------------------------------------------------------ ##
-    Content specific cards can override and/or inject content into any part of
-    the requested card layout. Default path: `_content/<sectionHandle>/card.twig`
-
-    Variations for different entryTypes can generally be dealt with inside the
-    section-level card file. If separate entryType specific card overrides are
-    necessary, the card path below can be adjusted to something like:
-
-    {% set cardPath = [
-        "_content/#{section}/card.#{entryType}",
-        "_content/#{section}/card",
-    ] %}
-
-    Content specific override cards are passed the desired card layout as a variable
-    called `extends` which they should use to dynamically extend themselves from.
- ------------------------------------------------------------------------------------ ##}
-{% macro single( content = null, card = {}, settings = {} ) %}
-{%- if content -%}
-    {% set cardlayout = card.cardlayout|default('core') %}
-    {% set path       = card.path|default([ "_site/card.#{cardlayout}", "_site/card", "_core/card" ]) %}
-    {% set section    = card.section|default() %}
-
-    {% set headline   = card.headline|default( content.headline ??? content.title ??? null ) %}
-    {% set summary    = card.summary|default( content.summary ??? content.dek ??? null ) %}
-    {% set fulltext   = card.fulltext|default( content.text ??? summary ) %}
-    {% set images     = card.images|default( content.images.all() ??? content.images ??? null ) %}
-    {% set type       = card.type|default( content.type.handle ??? content.type ??? null ) %}
-    {% set url        = card.url|default( content.url ??? null ) %}
-
-    {% set headline   = headline | retconChange( 'p', false ) %}
-
-    {% if content.id|default() and not section %}
-        {% set section = 'ASSET'      in className( content ) | upper ? 'assets' %}
-        {% set section = 'SUPERTABLE' in className( content ) | upper ? 'bits'   %}
-    {% endif %}
-
-    {% if content.text ??? null and not summary %}
-        {% set summary = content.text | striptags | truncate( 150 ) %}
-    {% endif %}
-
-    {% set card = {
-        cardlayout: cardlayout,
-        url     : url,
-        path    : path,
-        section : section,
-        content : content,
-        summary : summary,
-        headline: headline,
-        fulltext: fulltext,
-        images  : images,
-        type    : type,
-        loop    : settings.loop ??? null,
-    } %}
-
-    {{ include( card.path, { card: card, settings: settings }, withContext = false ) }}
-{% endif %}{% endmacro %}
 
 
 
@@ -122,10 +56,10 @@
         @apply absolute content-[""] inset-0 z-20;
     }
  ------------------------------------------------------------------------------------ ##}
-{% macro action__invisiblecover( card, settings ) -%}
-    {%- if card.content.url|default() -%}
+{% macro invisibleclickcover( card, settings ) -%}
+    {%- if card.url|default() -%}
         {{ tag( 'a', {
-            href : card.content.url,
+            href : card.url,
             class: 'click__cover',
             html : '<span class="hidden">Read More →</span>',
         } ) }}
@@ -139,46 +73,29 @@
  ------------------------------------------------------------------------------------ ##
     Creates a modal window that will load on-click to display extended card info.
  ------------------------------------------------------------------------------------ ##}
-{% macro action__modal( card, settings ) -%}
-    {% import "_core/card" as cards %}
+{% macro modallink( card, settings ) -%}
+    {% set card = card is null ? {} : card %}
+    {% set settings = settings is null ? {} : settings %}
 
-    {% set modal      = card.modal|default('_site/component.modal') %}
-    {% set cardlayout = card.modalcard|default('panel') %}
+    {% import "_core/assemble" as assemble %}
 
-    {% set modalcard = {
-        section: card.section|default(),
-        cardlayout: cardlayout,
-        path: [
-            "_site/card.#{cardlayout}",
-            "_site/card",
-            "_core/card"
-        ]
-    } %}
+    {% set modallayer = card.modallayer ??? ["_site/modal", "_core/modal"] %}
+    {% set cardlayer  = card.modal__cardlayer ??? 'panel' %}
 
-    {% set html = cards.single( card.content, modalcard, settings ) %}
+    {% set modal = settings | merge({
+        cardlayer: cardlayer,
+        action: false
+    }) %}
 
-    {% embed modal with { html: html } %}
-        {% block content html %}
-        {% block triggerclass "self-baseline relative z-40 text-center" %}
-    {% endembed %}
+    {% set carditem = card._carditem ??? {} %}
 
-{%- endmacro %}
+    {% set cardpath = [
+        "_site/card.#{cardlayer}",
+        "_site/card",
+        "_core/card"
+    ] %}
 
-
-
-{## Card Title Shortcut
- ------------------------------------------------------------------------------------ ##
-    Card Titles are typically used for things like tab names or accordion headers.
-
-    {% from "_cards/base" import title as cardTitle %}
-    {{ cardTitle( item, 'summary', { additional: 'settings' } ) }}
- ------------------------------------------------------------------------------------ ##}
-{% macro title( item ) -%}
-    {{ item.headline ??? item.title ??? null
-        | retconRemove( [ 'img', 'figure', 'iframe' ] )
-        | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'ol', 'ul', 'li', 'blockquote', 'div', 'a' ], '' )
-        | trim
-    }}
+    {{ include( modallayer, { content: assemble.card( carditem, cardpath, modal ) }, withContext = false ) }}
 {%- endmacro %}
 
 
@@ -190,9 +107,9 @@
 
 {#
 {% block action_textlink %}
-    {%- if card.item.url|default() -%}
+    {%- if card._carditem.url|default() -%}
         <div class="flex">
-            <a href="{{card.item.url}}" class="clickCover buttonText"
+            <a href="{{card._carditem.url}}" class="click__cover buttonText"
                 >Read More</a>
         </div>
     {%- endif -%}

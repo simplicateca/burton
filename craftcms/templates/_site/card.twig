@@ -7,31 +7,34 @@
  ------------------------------------------------------------------------------------- ##}
 {% extends "_core/card" %}
 
-{% block card__headline parent() ??? null | retconChange( 'h3', 'div' ) | attr({ class: 'like-h3' }) %}
+{% block card__headline %}{{ parent() | retconChange( 'h3', 'div' ) | attr({ class: 'like-h3 my-3' }) | raw }}{% endblock %}
 
-{% block card__summary %}
-    {% import "_core/assemble" as assemble %}
-    {{ tag( 'div', {
-        class: 'hidden @xs:block',
-        html : assemble.typography( card.summary, 'card__summary', settings|default({}) )
-     }) }}
-{% endblock %}
+{% block card__images1 "" %}
 
-{## Modal Content (Basic)
- ------------------------------------------------------------------------------------ ##
-    Creates a modal window that will load on-click to display extended card info.
- ------------------------------------------------------------------------------------ ##}
-{# {% block action_modal -%}
+{% block card__action -%}
+    {% import "_core/card" as cardactions %}
 
-    {% embed '_site/component.modal" with {
-        content : card.content,
-        settings: settings
-    } %}
-        {% block content %}
-            {% import "_core/assemble" as assemble %}
-            {{ assemble.element( "card", )}}
-            {{ cards.single( item, layout, settings ) }}
-        {% endblock %}
-    {% endembed %}
+    {% set settings = settings ??? {} %}
+    {% set action   = settings.action ??? 'autolink' %}
 
-{%- endblock %} #}
+    {%- if action in ['autolink','default'] -%}
+        {{- cardactions.invisibleclickcover( card, settings ) -}}
+    {%- endif -%}
+    {%- if action == 'modal' -%}
+        {{- cardactions.modallink( card, settings ) -}}
+    {%- endif -%}
+{%- endblock %}
+
+
+{## If Handle Card Action = 'None'
+ ------------------------------------------------------------------------------------- ##
+    If `settings.action` equals 'none' we will remove any embedded rich text links
+    or buttons from Redactor / CKeditor `summary` or `dek` fields.
+ ------------------------------------------------------------------------------------- ##}
+{% block card__summary -%}
+    {% set settings = settings ??? {} %}
+    {% set action   = settings.action ??? 'autolink' %}
+    {{- action ??? null == 'none'
+        ? parent() | retconRemove( ['a','button'] ) | raw
+        : parent() -}}
+{%- endblock %}

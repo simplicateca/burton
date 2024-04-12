@@ -1,4 +1,4 @@
-dateModified: 1711818930
+dateModified: 1712888600
 elementSources:
   craft\elements\Entry:
     -
@@ -237,7 +237,7 @@ meta:
     7daa91a4-3926-420c-bbe9-ff190309a2a2: Text # Text
     7dd2f8f9-5066-4cef-a93d-ddfce83dce0f: Component # Component
     8c9174b7-2c31-491e-a3f9-0374374c967c: 'Landing Pages' # Landing Pages
-    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Attention # Attention
+    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Action # Action
     8d636ebd-27c5-46e0-afe6-b4232eabf2fa: Collection # Collection
     8e370b88-72e3-41b5-bff5-db03cb11a1d1: Copy # Copy
     8ecf45da-7553-48ac-b52d-a45f8bc90317: Theme # Theme
@@ -299,7 +299,6 @@ meta:
     1239b2c2-2836-44d6-ae4a-a88cf2283493: Poster # Poster
     1853a4db-be6e-457e-8b1e-ce36b7077568: Variant # Variant
     2415d7da-11b8-41f6-a8d2-727054fa6716: Copy # Copy
-    3382d393-09d2-42d7-8459-07cd8933ece5: 'Content Entries' # Content Entries
     3721b4d6-42d5-41fc-b6e7-76204b42c91a: Articles # Articles
     4400a25e-4506-4603-9b56-395e261f730e: Interspace # Interspace
     4602be9c-52c5-4352-9a75-9c4115407764: Variant # Variant
@@ -452,7 +451,7 @@ meta:
 plugins:
   architect:
     edition: standard
-    enabled: true
+    enabled: false
     schemaVersion: 2.0.0
   blitz:
     edition: standard
@@ -494,7 +493,7 @@ plugins:
     schemaVersion: 1.0.0
   minify:
     edition: standard
-    enabled: true
+    enabled: false
     schemaVersion: 1.0.0
   navigation:
     edition: standard
@@ -511,7 +510,7 @@ plugins:
     schemaVersion: 1.0.5
   restrict-deletion:
     edition: standard
-    enabled: true
+    enabled: false
     schemaVersion: 1.0.0
   retcon:
     edition: standard
@@ -523,7 +522,7 @@ plugins:
     schemaVersion: 1.0.0
   seomatic:
     edition: standard
-    enabled: true
+    enabled: false
     licenseKey: HLOROBSK1L6EIH30DU3K8AC2
     schemaVersion: 3.0.12
   sherlock:
@@ -824,7 +823,7 @@ plugins:
     schemaVersion: 2.0.0
   typogrify:
     edition: standard
-    enabled: true
+    enabled: false
     schemaVersion: 1.0.0
   vite:
     edition: standard

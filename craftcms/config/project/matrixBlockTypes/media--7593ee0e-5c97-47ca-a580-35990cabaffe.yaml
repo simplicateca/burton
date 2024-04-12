@@ -152,7 +152,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _site/json/layout.twozone.json
+      configFile: _config/layout.twozone.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -166,7 +166,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 2059798004
+      changedFieldIndicator: 1182968024
       columns:
         __assoc__:
           -
@@ -218,7 +218,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _site/json/block.sources.json
+      configFile: _config/block.sources.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -297,7 +297,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _site/json/variant.media.json
+      configFile: _config/block.media.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -339,7 +339,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _site/json/theme.json
+      configFile: _config/theme.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField

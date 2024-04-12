@@ -1,0 +1,113 @@
+{% macro contact( handle = null ) %}
+    {% set label  = 'Contact' %}
+    {% set handle = handle ??? 'contact' %}
+    {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
+
+    {% if nodes %}
+        <div class="@container">
+            <div class="like-h3">{{ label }}</div>
+
+            {% embed ['_site/menu.list', '_core/menu.list'] with {
+                title: label,
+                items: nodes,
+            } %}
+                {% block menuClass %}
+                    m-0
+                    p-0
+                    list-none
+                    flex
+                    flex-col
+                    leading-none
+                    gap-4
+                    text-xs
+                    no-underline
+                    underline-offset-2
+                {% endblock %}
+
+                {% block itemClass %}
+                    flex
+                    flex-col
+                    items-center
+                    whitespace-nowrap
+                    hover:underline
+                    hover:text-link-active
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro features( handle = null ) %}
+    {% set label  = 'Quick Links' %}
+    {% set handle = handle ??? 'features' %}
+    {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
+
+    {% if nodes %}
+        <div class="@container">
+            <div class="like-h3">{{ label }}</div>
+
+            {% embed ['_site/menu.list', '_core/menu.list'] with {
+                title: label,
+                items: nodes,
+            } %}
+                {% block menuClass %}
+                    m-0
+                    p-0
+                    list-none
+                    flex
+                    flex-col
+                    leading-none
+                    gap-4
+                    text-xs
+                    no-underline
+                    underline-offset-2
+                {% endblock %}
+
+                {% block itemClass %}
+                    flex
+                    flex-col
+                    items-center
+                    whitespace-nowrap
+                    hover:underline
+                    hover:text-link-active
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro legal( handle = null ) %}
+    {% set label  = 'Policies & Conditions' %}
+    {% set handle = handle ??? 'legal' %}
+    {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
+
+    {% if nodes %}
+        {% embed ["_site/menu.list", "_core/menu.list"] with {
+            title: label,
+            items: nodes,
+        } %}
+            {% block menuClass %}
+                m-0
+                p-0
+                list-none
+                flex
+                leading-none
+                gap-4
+                text-xs
+                no-underline
+                underline-offset-2
+            {% endblock %}
+
+            {% block itemClass %}
+                flex
+                flex-col
+                items-center
+                whitespace-nowrap
+                hover:underline
+                hover:text-link-active
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+{% endmacro %}

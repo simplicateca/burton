@@ -1,0 +1,46 @@
+{% set card     = card     ??? null -%}
+{% set cardpath = path     ??? card.path ??? ["_site/card","_core/card"] -%}
+{% set settings = settings ??? {} -%}
+{% if card -%}
+{## unindented if <gasp> ------------------------------------------------------------ ##}
+
+
+{## RSS Item Card Factory
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{%- embed cardpath with {
+    card: card,
+    settings: settings | merge({
+
+    })
+} %}
+    {% block card__headline %}
+        {% if card._carditem.source ??? null %}
+            <div class="eyebrow eyebrowSmall">{{ card._carditem.source }}</div>
+        {% endif %}
+
+        {{ parent() }}
+
+        {% if card._carditem.postDate ??? null %}
+            <timedate class="flex gap-2 items-center">
+                <span>{{ svg( '@webroot/static/svg/calendar.svg' ) }}</span>
+                <span>{{ card._carditem.postDate|date('F j, Y') }}</span>
+            </timedate>
+        {% endif %}
+    {% endblock %}
+
+
+    {% block card__summary %}
+        {{ parent() }}
+        {% if card._carditem.topics ??? null %}
+            <div class="text-xs">
+                {{ card._carditem.topics|join(', ') }}
+            </div>
+        {% endif %}
+    {% endblock %}
+{% endembed %}
+
+
+{## end unindented if <sigh> -------------------------------------------------------- ##}
+{%- endif %}

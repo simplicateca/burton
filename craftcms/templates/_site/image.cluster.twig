@@ -1,0 +1,104 @@
+{% from "_core/image" import default as render %}
+
+{% set images   = images|default([])   %}
+{% set settings = settings|default({}) %}
+
+{% set frame = {
+    class    : 'rounded-lg shadow-lg',
+    figure   : null,
+    transform: 'square'
+} %}
+
+{% set position1 = render( ( images[0:1]|first ) ??? null, frame ) ??? null %}
+{% set position2 = render( ( images[1:1]|first ) ??? null, frame ) ??? null %}
+{% set position3 = render( ( images[2:1]|first ) ??? null, frame ) ??? null %}
+
+{% if position1 %}
+    <div class="flex mx-auto gap-4 xl:gap-8" data-cluster="true">
+        <div class="w-7/12 flex flex-col gap-4 xl:gap-8">
+            <div class="aspect-square w-full opacity-0 clusterA relative z-30">
+                {{ position1 | raw }}
+            </div>
+
+            {% if position3 %}
+                <div class="aspect-square w-3/5 rounded-lg mr-0 ml-auto opacity-0 relative clusterC z-10">
+                    {{ position3 | raw }}
+                </div>
+            {% endif %}
+        </div>
+        {% if position2 | raw %}
+            <div class="w-5/12 mt-16 lg:mt-40 2xl:mt-60">
+                <div class="aspect-square rounded-lg opacity-0 clusterB relative z-20">
+                    {{ position2 }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    {% js %}
+        window.waitForGlobal("app.gsap", function() {
+            app.gsap.utils.toArray("*[data-cluster='true']").forEach((cluster, i) => {
+
+                app.gsap.fromTo( cluster.querySelector(".clusterA"), {
+                    rotation:-35,
+                    opacity: 0,
+                    transformOrigin: '0% 100%'
+                }, {
+                    rotation:0,
+                    opacity: 1,
+                    ease: app.Power3.easeOut,
+                    scrollTrigger: {
+                        trigger: cluster,
+                        start: () => "top 80%",
+                        end: "bottom 40%",
+                        scrub: true,
+                        invalidateOnRefresh: true
+                    }
+                });
+
+                app.gsap.fromTo( cluster.querySelector(".clusterB"), {
+                    y: '-40%',
+                    x: '-150%',
+                    rotation:90,
+                    opacity: 0,
+                    transformOrigin: '100% 0%'
+                }, {
+                    y: '0%',
+                    x: '0%',
+                    rotation:0,
+                    opacity: 1,
+                    ease: app.Power3.easeOut,
+                    scrollTrigger: {
+                        trigger: cluster,
+                        start: () => "top 60%",
+                        end: "bottom 40%",
+                        scrub: true,
+                        invalidateOnRefresh: true
+                    }
+                });
+
+                app.gsap.fromTo( cluster.querySelector(".clusterC"), {
+                    y: '0%',
+                    x: '40%',
+                    rotation:-90,
+                    opacity: 0,
+                    transformOrigin: '0% 0%'
+                }, {
+                    y: '0%',
+                    x: '0%',
+                    rotation:0,
+                    opacity: 1,
+                    ease: app.Power3.easeOut,
+                    scrollTrigger: {
+                        trigger: cluster,
+                        start: () => "top 30%",
+                        end: "bottom 25%",
+                        scrub: true,
+                        invalidateOnRefresh: true
+                    }
+                });
+
+            });
+        });
+    {% endjs %}
+{% endif %}

@@ -1,30 +1,40 @@
-{## Collection Block Site Base
+{## Site Specific Collection Block
  ------------------------------------------------------------------------------------ ##
     -> http://localhost:8000/sitehub/blocks/collection
  ------------------------------------------------------------------------------------ ##}
 {% extends [ "_core/block.collection" ] %}
-{% import "_core/assemble" as assemble %}
 
 {% block content %}
-    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
-    {% set pagination  = block.settings.pagination ?? 'none' %}
-    {% set interface   = block.settings.interface  ?? 'none' %}
-
-    {{ assemble.microlayout( microlayout, {
-        zone1    : block('block__text'),
-        zone2    : ( pagination == 'none' and interface == 'none' )
-                        ? block('block__collection')
-                        : block('block__collection__sprig'),
-        header   : block('block__header'),
-        footer   : block('block__footer')
-    }, block.settings ) }}
+    {% set settings = settings ??? block.settings ??? {}  %}
+    {% set variant  = settings.variant ??? 'assemble' %}
+    {{ variant == 'search' ? block('block__search') : block( 'block__assemble' ) }}
 {% endblock content %}
 
 
+{% block block__assemble %}
+    {% set settings    = settings ??? block.settings ??? {}  %}
+    {% set microlayout = settings.microlayout ??? 'zone1Top' %}
 
-{% block block__collection__sprig %}
-    {{ sprig( "_site/partials/search.full.sprig", {
-        settings     : block.settings,
-        collectionIds: block.collections.ids() ??? block.collections ??? null
+    {% import "_core/assemble" as assemble %}
+    {{ assemble.microlayout( microlayout, {
+        zone1    : block('block__text'),
+        zone2    : block('block__collection'),
+        header   : block('block__header'),
+        footer   : block('block__footer')
+    }, settings ) }}
+{% endblock %}
+
+
+{% block block__search %}
+    {% set settings    = settings ??? block.settings ??? {}  %}
+    {% set collections = block.collections.ids() ??? block.collections ??? null %}
+
+    {{ sprig( "_site/collection.search.sprig", {
+        settings   : settings,
+        collections: collections,
+        zone1      : block('block__text'),
+        header     : block('block__header'),
+        footer     : block('block__footer')
     }) }}
+    {% css %}.sprig-component { width: 100%; }{% endcss %}
 {% endblock %}

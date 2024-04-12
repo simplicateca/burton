@@ -23,7 +23,7 @@
         }
        ,{
             "label": "Multiple Media Files?",
-            "field": "iterator",
+            "field": "medialayer",
             "type" : "select",
             "default": "single",
             "instructions": "Layout to use if/when the block has multple media files.",

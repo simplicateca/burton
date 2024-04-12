@@ -5,15 +5,13 @@
         "docs": {
             "tooltip": ""
         },
+        "settings": {},
         "inputs" : [
             {% if object.field ??? null != 'sidebarBuilder' %}
                 {{ block( 'inputCopyWidth',       '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputButtonPositions', '_config/_selectplus_virtual_fields' ) }}
             {% endif %}
-        ],
-        "settings": {
-            "microlayout": "zone1Top__center"
-        }
+        ]
     }
 
    ,{
@@ -22,16 +20,14 @@
         "docs": {
             "tooltip": "Horizontal layout with primary content on the right and `Copy` on the left."
         },
+        "settings": {},
         "inputs" : [
             {% if object.field ??? null != 'sidebarBuilder' %}
                 {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputTextLeftSizes',    '_config/_selectplus_virtual_fields' ) }}
             {% endif %}
-        ],
-        "settings": {
-            "microlayout": "zone1Left__center"
-        }
+        ]
     }
 
    ,{
@@ -40,16 +36,13 @@
         "docs": {
             "tooltip": "Horizontal layout with primary content on the left and `Copy` on the right."
         },
+        "settings": {},
         "inputs" : [
             {% if object.field ??? null != 'sidebarBuilder' %}
                 {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputTextRightSizes',   '_config/_selectplus_virtual_fields' ) }}
             {% endif %}
-        ],
-
-        "settings": {
-            "microlayout": "zone1Right__center"
-        }
+        ]
     }
 ]

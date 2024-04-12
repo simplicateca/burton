@@ -1,0 +1,240 @@
+{% macro search__form( params, settings ) %}
+    {% set baseurl = params.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
+    <form method="get" action="{{ params.baseurl }}" class="max-w-5xl w-full pb-10">
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.searchpart( params, 'search__keywordinput', settings ) }}
+        {{ assemble.searchpart( params, 'search__collectionfilter', settings ) }}
+    </form>
+{% endmacro %}
+
+
+{% macro search__collectionfilter( params, settings ) %}
+{##
+    {% set isSprig   = isSprig   ??? false %}
+    {% set params    = params    ??? null %}
+    {% set settings  = settings  ??? null %}
+    {% set feedIds   = feedIds   ??? [] %}
+    {% set interface = interface ??? null %}
+    {% set baseurl   = baseurl   ??? siteUrl( craft.app.request.pathInfo ) ??? null %}
+
+    {% set params    = params ??? null %}
+    {% set urlParams = {} %}
+    {% set urlParams = params.query|default() ? urlParams|merge({ q: params.query  }) : urlParams %}
+
+    {% if feedIds and feedIds|length > 1 %}
+
+        {% set feeds = craft.entries()
+            .id(feedIds)
+            .fixedOrder(true)
+            .section('taxonomy')
+            .type('contentFeed')
+            .all()
+        %}
+
+        {% set activeFilter = params.filter ??? feeds|first.slug %}
+
+        {% set align = interface == 'filterByFeed' ? 'justify-center' : '' %}
+
+        <div class="flex {{align}}" x-data="{ active: '{{ activeFilter }}' }">
+            <ul class="list-none m-0 p-0 flex justify-center gap-4">
+                {% set activeFeed = null %}
+                {% for feed in feeds %}
+
+                    {% set feedUrl  = siteUrl( baseurl, urlParams|merge({ f: feed.slug }) ) %}
+                    {% set isActive = ( activeFilter == feed.slug ) %}
+                    {% set activeFeed = isActive ? feed : activeFeed %}
+
+                    <li>{{ tag( 'a', {
+                        text : feed.label ??? feed.title,
+                        href : feedUrl,
+                        class: "pill",
+                        ':class': "active == '#{feed.slug}' ? 'isActive' : ''",
+                        'x-on:click': "active = '#{feed.slug}'"
+                    } | merge( not isSprig ? {} : {
+                        sprig: true,
+                        's-push-url': feedUrl,
+                        's-val:f': feed.slug }
+                    ) )}}</li>
+                {% endfor %}
+            </ul>
+
+            <input type="hidden" name="f" :value="active" />
+        </div>
+
+        <div class="text-center @container max-w-5xl">
+            {{ activeFeed.dek ??? activeFeed.summary ??? null
+                | retconAttr( 'p', { class: 'html' }, false ) }}
+        </div>
+    {% endif %}
+##}
+{% endmacro %}
+
+
+
+{## Keyword Search Field ##}
+{% macro search__keywordinput( params, settings ) %}
+    <div class="border border-canvas-dark bg-canvas-light flex flex-row rounded-lg p-2">
+        <input
+            name="q"
+            type="search"
+            value="{{params.query}}"
+            placeholder="Enter search term..."
+            class="flex-grow w-full !p-0 border-none"
+            sprig
+            s-val:page="1"
+            s-replace="#{{params.uuid}}"
+            s-trigger="keyup changed delay:300ms"
+        >
+        <button class="button" sprig>Search</button>
+    </div>
+{% endmacro %}
+
+
+
+{## Basic Pagination ##}
+{% macro search__pagination( params, settings ) -%}
+{%- if params.total > 1 %}
+    <nav
+        role="navigation"
+        aria-label="Pagination Navigation"
+        class="mx-auto flex flex-col items-center justify-center max-w-xs @container"
+    >
+        {% import "_core/assemble" as assemble %}
+        <ul class="flex justify-between w-full list-none items-end">
+            <li class="list-none">{{ assemble.searchpart( params, 'search__previouspage', settings ) }}</li>
+
+            <li class="flex flex-col text-center items-center">
+                <strong class="text-xs uppercase">Page</strong>
+                <div>{{params.page}} / {{params.pages}}</div>
+            </li>
+            <li class="list-none text-right">{{ assemble.searchpart( params, 'search__nextpage', settings ) }}</li>
+        </ul>
+    </nav>
+{%- endif %}{% endmacro %}
+
+
+
+{## Previous Link ##}
+{% macro search__previouspage( params, settings ) %}
+
+    {% set baseurl   = params.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
+    {% set prevpage  = params.page - 1 %}
+
+    {% set urlparams = { } %}
+    {% set urlparams = params.filter ? urlparams | merge( { f: params.filter } ) : urlparams %}
+    {% set urlparams = params.query  ? urlparams | merge( { q: params.query  } ) : urlparams %}
+
+    {% if prevpage < 1 %}
+        {{ tag( 'span', {
+            text : "← Prev"|t,
+            class: "whitespace-nowrap opacity-50 cursor-not-allowed",
+        }) }}
+    {% else %}
+
+        {## avoids /p1 in the url ##}
+        {% set prevurl = prevpage == 1
+            ? siteUrl( baseurl, urlparams )
+            : siteUrl( baseurl ~ "/" ~ params.trigger ~ prevpage, urlparams ) %}
+
+        {{ tag( 'a', {
+            text : "← Prev"|t,
+            class: "whitespace-nowrap",
+            href : prevurl,
+            sprig: true,
+            's-push-url': prevurl,
+            's-val:page': prevpage,
+            's-replace' : '#' ~ params.uuid,
+        }) }}
+    {% endif %}
+{% endmacro %}
+
+
+
+{## Next Link  ##}
+{% macro search__nextpage( params, settings ) %}
+
+    {% set baseurl   = params.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
+    {% set nextpage  = params.page + 1 %}
+
+    {% set urlparams = {} %}
+    {% set urlparams = params.filter ? urlparams | merge( { f: params.filter } ) : urlparams %}
+    {% set urlparams = params.query  ? urlparams | merge( { q: params.query  } ) : urlparams %}
+
+    {% if nextpage > params.pages %}
+        {{ tag( 'span', {
+            text : "Next →"|t,
+            class: "whitespace-nowrap opacity-50 cursor-not-allowed",
+        }) }}
+    {% else %}
+        {% set nexturl = siteUrl( baseurl ~ "/" ~ params.trigger ~ nextpage, urlparams ) %}
+
+        {{ tag( 'a', {
+            text : "Next →"|t,
+            class: "whitespace-nowrap",
+            href : nexturl,
+            sprig: true,
+            's-push-url': nexturl,
+            's-val:page': nextpage,
+            's-replace' : '#' ~ params.uuid,
+        }) }}
+    {% endif %}
+{% endmacro %}
+
+
+
+{## No Results Message ##}
+{% macro search__noresults( params, settings ) %}
+    <div class="max-w-4xl mx-auto @container mb-8">
+        <p class="html larger text-center">
+            <strong>Sorry</strong>, we could not find any matches for your search.
+        </p>
+    </div>
+{% endmacro %}
+
+
+
+
+{## Load More Pagination ##}
+{% macro search__loadmore( params, settings ) -%}
+
+    {## arguments passed to this template
+    {% set isSprig  = isSprig  ??? false %}
+    {% set paginate = paginate ??? null %}
+    {% set settings = settings ??? null %}
+    {% set baseurl  = baseurl  ??? siteUrl( craft.app.request.pathInfo ) ??? null %}
+##}
+
+    {## output the actual pagination component
+    {% if paginate.totalPages > 1 and paginate.currentPage < paginate.totalPages %}
+##}
+        {## prepare the url params
+        {% set params    = params ??? null %}
+        {% set urlParams = {} %}
+        {% set urlParams = params.query|default()  ? urlParams|merge({ q: params.query  }) : urlParams %}
+        {% set urlParams = params.filter|default() ? urlParams|merge({ f: params.filter }) : urlParams %}
+ ##}
+
+        {## prepare the next page link
+        {% set nextPage = paginate.currentPage >= paginate.totalPages ? paginate.totalPages : paginate.currentPage + 1 %}
+        {% set nextUrl  = siteUrl( baseurl ~ "/p" ~ nextPage, urlParams ) %}
+        {% set nextAttr = {
+            text : "Load More…"|t,
+            href : nextUrl,
+            class: "button",
+        } | merge( not isSprig ? {} : {
+            sprig: true,
+            's-push-url': nextUrl,
+            's-target': 'closest nav',
+            's-swap': 'outerHTML',
+            's-val:page': nextPage }
+        ) %}
+
+        <nav
+            role="navigation"
+            aria-label="Pagination Navigation"
+            class="{{ setting.class|default('w-full text-center') }}"
+            data-theme="{{ setting.theme|default('base') }}"
+        >{{ tag( 'a', nextAttr )}}</nav>
+    {% endif %}
+##}
+{% endmacro %}

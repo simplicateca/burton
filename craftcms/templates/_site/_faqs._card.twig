@@ -1,0 +1,27 @@
+{% set card     = card     ??? null -%}
+{% set cardpath = path     ??? card.path ??? ["_site/card","_core/card"] -%}
+{% set settings = settings ??? {} -%}
+{% if card -%}
+{## unindented if <gasp> ------------------------------------------------------------ ##}
+
+
+{## FAQ Card Factory
+ ------------------------------------------------------------------------------------ ##
+
+ ------------------------------------------------------------------------------------ ##}
+{%- embed cardpath with {
+    card: card,
+    settings: settings | merge({
+
+    })
+} %}
+
+    {% block card__headline %}
+        <div class="eyebrow">Question</div>
+    {% endblock %}
+
+{% endembed %}
+
+
+{## end unindented if <sigh> -------------------------------------------------------- ##}
+{%- endif %}

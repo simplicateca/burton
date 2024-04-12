@@ -23,8 +23,8 @@
 
 {% import "_core/assemble" as assemble %}
 {% block main__content %}{{ _self.twoColumns(
-    assemble.block( block('content'), 'content', entry ),
-    assemble.block( block('sidebar'), 'sidebar', entry )
+    assemble.block__or__builder( block('content'), 'content', entry ),
+    assemble.block__or__builder( block('sidebar'), 'sidebar', entry )
 ) }}{% endblock %}
 
 {% block page__bottom %}
@@ -44,9 +44,9 @@
     {{ assemble.container(
         container,
         tag( 'div', {
-            class: defs.outer,
-            html:  tag( 'main',  { html: main,  class: defs.main  } )
-                 ~ tag( 'aside', { html: aside, class: defs.aside } )
+            class: settings.outer,
+            html:  tag( 'main',  { html: main,  class: settings.main  } )
+                 ~ tag( 'aside', { html: aside, class: settings.aside } )
         })
     ) }}
 {% endmacro %}

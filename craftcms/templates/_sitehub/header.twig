@@ -18,7 +18,7 @@
 
 {% block header__topbar__navPrimary %}
     <div class="flex items-center gap-6">
-        {% embed '_site/menu.list' with {
+        {% embed ["_site/menu.list", "_core/menu.list"] with {
             title : 'Sitehub Menu',
             handle: 'sitehub',
             items : [

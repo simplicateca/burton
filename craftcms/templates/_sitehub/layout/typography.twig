@@ -8,7 +8,7 @@
     {% from "_layout/core/containers" import class as containerClass %}
     {% set containers = ( containerDefs() | json_decode ).options %}
 
-    {% set themes = source( '_site/json/theme.content.json' ) | json_decode %}
+    {% set themes = source( '_config/theme.content.json' ) | json_decode %}
 
     <div data-theme="subtle-band" data-bodytext>
         <div class="container py-16 @container">

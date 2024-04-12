@@ -6,7 +6,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            template: _core/craft-ui/instructionsContentBit.twig
+            template: _config/ui-instructions-reusable-bit.twig
             type: craft\fieldlayoutelements\Template
             uid: 11a7f554-79a5-4d2e-a14b-dd6e844e1158
             userCondition: null
@@ -37,7 +37,19 @@ fieldLayouts:
             uid: 9a6530ae-47fb-4e7c-9a2c-1fad6c35b3ec
             userCondition: null
             warning: null
-            width: 75
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topic/Tag
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e250f0af-7a41-46d6-b80d-0f33b1f4d0cb
+            userCondition: null
+            warning: null
+            width: 50
           -
             elementCondition: null
             fieldUid: c70698c5-9843-4d1a-9ce8-2e2e272bd096 # Headline
@@ -52,13 +64,13 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topic/Tag
+            fieldUid: e47b95bf-7a74-49e3-afa3-a938bd733ef7 # Summary
             instructions: null
             label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: e250f0af-7a41-46d6-b80d-0f33b1f4d0cb
+            uid: 96540476-e484-423d-82d2-1453873525b4
             userCondition: null
             warning: null
             width: 50

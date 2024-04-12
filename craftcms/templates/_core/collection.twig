@@ -1,0 +1,25 @@
+{% macro default( items = [], settings = {} ) -%}
+    {% import "_core/assemble" as assemble %}
+    {%- if items -%}
+        {% set cardlayer = settings.cardlayer ??? 'default' %}
+        {%- for item in items -%}
+            {{- assemble.card( item, cardlayer, settings, loop ) -}}
+        {%- endfor -%}
+    {%- endif -%}
+{%- endmacro %}
+
+
+{% macro single( items = [], settings = {} ) -%}
+    {%- import "_core/assemble" as assemble -%}
+    {% set cardlayer = settings.cardlayer ??? 'default' %}
+    {{- assemble.card( item, cardlayer, settings, loop ) -}}
+{%- endmacro %}
+
+
+
+{% macro randomize( items = [], settings = {} ) -%}
+    {%- import "_core/assemble" as assemble -%}
+    {% set items = shuffle(items) %}
+    {% set cardlayer = settings.cardlayer ??? 'default' %}
+    {{- assemble.card( item, cardlayer, settings, loop ) -}}
+{%- endmacro %}

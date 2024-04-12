@@ -2,67 +2,69 @@
  ------------------------------------------------------------------------------------ ##
     -> http://localhost:8000/sitehub/blocks/media
  ------------------------------------------------------------------------------------ ##}
-{% extends [ "_site/block", "_core/block" ] %}
-{% import "_core/assemble" as assemble %}
+{% set settings    = settings ??? block.settings ??? {}  %}
+{% set microlayout = settings.microlayout ??? 'zone1Top' %}
+{% set medialayer  = settings.medialayer  ??? 'default'  %}
+{% set mediasource = block.source.value   ??? 'assets'   %}
+{% set mediaitems  = [] %}
 
-{% block content %}
-    {% set microlayout = block.settings.microlayout|default('zone1Top') %}
-    {{ assemble.microlayout( microlayout, {
-        zone1    : block('block__text'),
-        zone2    : block('block__media'),
-        header   : block('block__header'),
-        footer   : block('block__footer'),
-    }, block.settings ) }}
-{% endblock %}
+{% if mediasource == 'assets' %}
+    {% set mediaitems = block.assets.all() ??? block.assets ??? [] %}
+{% endif %}
 
-
-{## Default handler for rendering media assets
- ------------------------------------------------------------------------------------ ##
-    This block can be overridden in a child template
- ------------------------------------------------------------------------------------ ##}
-{% block block__media %}
-
-    {% set items  = [] %}
-    {% set source = block.source|default('local') %}
-    {% set limit  = block.source.limit ??? -1 %}
-
-    {% if source == 'collect' %}
-        {% set items = collectionContents( block.collections.ids(), { limit: limit } ) %}
-    {% endif %}
-
-    {% if source == 'local' %}
-        {% for asset in block.assets.all() ??? block.assets ??? [] %}
-            {% set items = items|merge([asset]) %}
-        {% endfor %}
-    {% endif %}
-
-    {% if source == 'external' %}
-        {% for item in block.external.all() ??? block.external ??? [] %}
-            {% set embedInfo = item.sourceUrl|default() ? embedInfo( item.sourceUrl ) : null %}
-            {% set items = items|merge([{
-                entry    : item,
-                embed    : embedInfo,
-                source   : source,
-                images   : item.images.all() ??? item.images ??? embedInfo.images ??? null,
-                section  : 'media',
-                summary  : item.summary   ??? embedInfo.summary ??? null,
-                headline : item.headline  ??? embedInfo.title   ??? null,
-                sourceUrl: item.sourceUrl ??? null,
+{% if mediasource == 'external' %}
+    {% for item in block.external.all() ??? block.external ??? [] %}
+        {% set url = item.sourceUrl ??? item.url ??? null %}
+        {% if url %}
+            {% set oembed = MediaBase( url ) %}
+            {% set mediaitems = mediaitems|merge([{
+                _media   : item,
+                url      : url,
+                oembed   : oembed,
+                images   : item.images.all() ??? item.images ??? oembed.images ??? null,
+                summary  : item.summary   ??? oembed.summary ??? null,
+                headline : item.headline  ??? oembed.title   ??? null,
             }]) %}
-        {% endfor %}
-    {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
 
-    {% if source == 'code' %}
-        {# {% set items = null %} #}
-    {% endif %}
+{% if mediasource == 'code' %}
+    {% set mediaitems = block.images.all() ??? block.images ??? [] %}
+{% endif %}
+
+{% if mediasource == 'collect' %}
+    {% set params = {
+        limit: block.source.settings.limit ??? -1,
+        field: 'assets'
+    } %}
+
+    {% set mediaitems = CollectionBase( block.collections.ids(), params ) %}
+{% endif %}
 
 
-    {## Render the Media items by passing them to an iterator template.
-     -------------------------------------------------------------------------------- ##}
-    {% block block__media__iterator %}
+{% embed [ "_site/block", "_core/block" ] with {
+    block: block,
+    settings: settings,
+    medialayer: medialayer,
+    mediaitems: mediaitems,
+    microlayout: microlayout,
+} %}
+    {## Media Block Content ##}
+    {% block content %}
         {% import "_core/assemble" as assemble %}
-        {% set iterator = block.settings.iterator|default('default') %}
-        {{- assemble.iterate( iterator, 'media', items, block.settings ) -}}
+        {{ assemble.microlayout( microlayout, {
+            zone1    : block('block__text'),
+            zone2    : block('block__media'),
+            header   : block('block__header'),
+            footer   : block('block__footer'),
+        }, settings ) }}
     {% endblock %}
 
-{% endblock %}
+
+    {## Zone 2 Content ##}
+    {% block block__media %}
+        {% import "_core/assemble" as assemble %}
+        {{ assemble.media( mediaitems, medialayer, settings ) }}
+    {% endblock %}
+{% endembed %}

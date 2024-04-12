@@ -1,6 +1,6 @@
 /* block builder themes */
 
-*[data-microlayout] {
+/* *[data-microlayout] {
 
 }
 
@@ -40,4 +40,16 @@
 
 div.theme {
     background: var(--theme-canvas);
+} */
+
+[data-theme="light"] {
+    @apply
+        text-theme bg-canvas-light
+    ;
+}
+
+[data-theme="accent"] {
+    @apply
+        text-theme bg-canvas-light
+    ;
 }
