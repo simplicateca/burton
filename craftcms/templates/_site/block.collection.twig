@@ -1,7 +1,7 @@
 {## Site Specific Collection Block
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     -> http://localhost:8000/sitehub/blocks/collection
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% extends [ "_core/block.collection" ] %}
 
 {% block content %}
@@ -15,7 +15,7 @@
     {% set settings    = settings ??? block.settings ??? {}  %}
     {% set microlayout = settings.microlayout ??? 'zone1Top' %}
 
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {{ assemble.microlayout( microlayout, {
         zone1    : block('block__text'),
         zone2    : block('block__collection'),

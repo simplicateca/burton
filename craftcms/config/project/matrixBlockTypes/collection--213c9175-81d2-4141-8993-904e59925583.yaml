@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: b65678be-7ed0-4665-aaaa-bd9d406b60f4 # Variant
+            fieldUid: b65678be-7ed0-4665-aaaa-bd9d406b60f4 # Block Variant
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: ae3f34db-5fe5-4438-86f0-377cfaebf02a # Layout
+            fieldUid: ae3f34db-5fe5-4438-86f0-377cfaebf02a # Content Layout
             instructions: null
             label: null
             required: false
@@ -79,7 +79,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: c6677eab-6c78-4ca1-93cd-0faa266d1c45 # Copy
+            fieldUid: c6677eab-6c78-4ca1-93cd-0faa266d1c45 # Primary Copy
             instructions: null
             label: null
             required: false
@@ -91,7 +91,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 7b72b671-dcdc-49b2-95cd-44a8e8be7cad # Theme
+            fieldUid: 7b72b671-dcdc-49b2-95cd-44a8e8be7cad # Theme & Spacing
             instructions: null
             label: null
             required: false
@@ -119,13 +119,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  7b72b671-dcdc-49b2-95cd-44a8e8be7cad: # Theme
+  7b72b671-dcdc-49b2-95cd-44a8e8be7cad: # Theme & Spacing
     columnSuffix: ngczrvyg
     contentColumnType: text
     fieldGroup: null
     handle: theme
     instructions: null
-    name: Theme
+    name: 'Theme & Spacing'
     searchable: false
     settings:
       columnType: null
@@ -234,7 +234,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 2081738222
+      changedFieldIndicator: 508840169
       columns:
         __assoc__:
           -
@@ -276,13 +276,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: verbb\supertable\fields\SuperTableField
-  ae3f34db-5fe5-4438-86f0-377cfaebf02a: # Layout
+  ae3f34db-5fe5-4438-86f0-377cfaebf02a: # Content Layout
     columnSuffix: ulxtrpcp
     contentColumnType: text
     fieldGroup: null
     handle: layout
     instructions: null
-    name: Layout
+    name: 'Content Layout'
     searchable: false
     settings:
       columnType: null
@@ -290,13 +290,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  b65678be-7ed0-4665-aaaa-bd9d406b60f4: # Variant
+  b65678be-7ed0-4665-aaaa-bd9d406b60f4: # Block Variant
     columnSuffix: uzgufcyh
     contentColumnType: text
     fieldGroup: null
     handle: variant
     instructions: null
-    name: Variant
+    name: 'Block Variant'
     searchable: false
     settings:
       columnType: null
@@ -304,13 +304,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  c6677eab-6c78-4ca1-93cd-0faa266d1c45: # Copy
+  c6677eab-6c78-4ca1-93cd-0faa266d1c45: # Primary Copy
     columnSuffix: null
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: Copy
+    name: 'Primary Copy'
     searchable: true
     settings:
       availableTransforms: ''
@@ -333,5 +333,5 @@ fields:
     translationMethod: none
     type: craft\redactor\Field
 handle: collection
-name: Collection
+name: 'Card Deck'
 sortOrder: 4

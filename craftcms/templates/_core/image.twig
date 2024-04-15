@@ -1,88 +1,112 @@
-{## Basic <img> tag
- ------------------------------------------------------------------------------------ ##
-    You can pass it as many images as you like, but we're only gonna use the first one.
- ------------------------------------------------------------------------------------ ##}
-{% macro default( images = null, settings = {} ) -%}
+{% extends template_from_string('{% block image %}{% endblock %}') %}
 
-    {% set images = images ??? null %}
+{% block image block('figure') %}
 
-    {% set firstimg = null %}
-    {% if images is iterable and images.one() ??? null %}
-        {% set firstimg = images|first %}
-    {% endif %}
+{% block img__tag          img     ?? null %}
+{% block img__caption      caption ?? ""   %}
 
-    {% if not firstimg and images.url ??? null %}
-        {% set firstimg = images %}
-    {% endif %}
+{% block figure__class     "relative z-20" %}
+{% block figcaption__class "text-sm" %}
 
-    {% if not firstimg and images is iterable %}
-        {% set firstimg = images|first %}
-    {% endif %}
+{% block source            "" %}
+{% block picture           raw( "<picture>" ~ block( 'source' ) ~ block( 'img__tag' ) ~ "</picture>" ) %}
 
-    {% if not firstimg and images starts with 'http' %}
-        {% set firstimg = images %}
-    {% endif %}
+{% block figcaption -%}
+    {%- set caption = block('img__caption') | trim -%}
+    {{- caption ? tag( 'figcaption', { class: block('figcaption__class'), html: caption } ) : "" -}}
+{%- endblock %}
 
-    {% set imgtag  = "" %}
-    {% set caption = settings.caption ??? null %}
-
-
-    {## if the image is provided as an object or hash, only url attribute is required
-     -------------------------------------------------------------------------------- ##
-        url      : 'https://path.to/image',
-        id       : 1234,
-        width    : 100,
-        height   : 100,
-        transform: 'namedTransformHandle',
-     -------------------------------------------------------------------------------- ##}
-    {%- if firstimg -%}
-        {% if firstimg.url ?? null %}
-            {# {% if settings.transform|default() and firstimg.url|default() and firstimg.id|default() %}
-                {% do firstimg.setTransform( settings.transform ) %}
-            {% endif %} #}
-
-            {% set transform = settings.transform ??? null %}
-            {% set doit      = ( attribute(firstimg, 'getUrl') and transform ) %}
-            {% set imagesrc  = doit ? firstimg.getUrl(transform)    : firstimg.url %}
-            {% set imagew    = doit ? firstimg.getWidth(transform)  : firstimg.width ??? null  %}
-            {% set imageh    = doit ? firstimg.getHeight(transform) : firstimg.height ??? null %}
-
-            {% set imgtag = tag( 'img', {
-                src    : imagesrc,
-                width  : imagew,
-                height : imageh,
-                class  : settings.class ??? null,
-                loading: 'lazy'
-            }) %}
-        {% else %}
-            {% if firstimg is not iterable and firstimg | lower starts with 'http'  %}
-                {% set imgtag = tag( 'img', {
-                    src    : firstimg,
-                    class  : settings.class ??? null,
-                    loading: 'lazy'
-                }) %}
-            {% endif %}
-        {% endif %}
-
+{## If `figure` is passed as a string, use it as a class.
+    If it's is passed as null, don't output a <figure> wrapper.
+    If passing an object, expect that it will be used in the tag() function ##}
+{% block figure -%}
+    {%- set figure = figure ?? {} -%}
+    {%- set picture = block('picture') | trim -%}
+    {%- if picture -%}
+        {%- set picture = picture ~ block('figcaption') | trim %}
+        {%- set figure = figure is not null and figure is not iterable
+            ? { class: figure, html: picture }
+            : { class: block('figure__class'), html: picture } | merge( figure ) -%}
+        {{- figure ? tag( 'figure', figure ) : raw( picture ) -}}
     {%- endif -%}
+{%- endblock %}
 
-    {## placeholder images ##}
-    {% set imgtag = imgtag ??? _self.placeholder( settings ) %}
 
-    {{ tag( 'figure', {
-        class: settings.figure|default(),
-        data:  settings.data|default(null),
-        html:  imgtag ~ caption
-    }) }}
-{% endmacro %}
+
+{% macro default( images, settings = null ) -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {{- include( ['_site/image', '_core/image'], {
+        img: _self.imgtag( images, {
+            class: "w-full max-w-full h-auto",
+        } )
+    } ) -}}
+{%- endmacro %}
 {## --------------------------------------------------------------------------------- ##}
 
 
-{% macro imgtag( images, settings ) %}{{ _self.default( images, settings ) }}{% endmacro %}
+{## Basic <img> tag
+{-------------------------------------------------------------------------------------##
+    You can pass it as many images as you like, but we're only gonna use the first one.
+{-------------------------------------------------------------------------------------##}
+{% macro imgtag( image, frame = null ) %}
+
+    {% set first = null %}
+    {% if image is iterable and image.one() ??? null %}
+        {% set first = image|first %}
+    {% endif %}
+
+    {% if not first and image.url ??? null %}
+        {% set first = image %}
+    {% endif %}
+
+    {% if not first and image is iterable %}
+        {% set first = image|first %}
+    {% endif %}
+
+    {% if not first and image starts with 'http' %}
+        {% set first = image %}
+    {% endif %}
+
+    {%- if first -%}
+        {% set class = frame.class ?? "max-w-full" %}
+        {% if attribute(first, 'getUrl') ??? null %}
+            {# {% if frame.transform|default() and first.url|default() and first.id|default() %}
+                {% do first.setTransform( frame.transform ) %}
+            {% endif %} #}
+
+            {% set transform = frame.transform ?? null %}
+            {% set doit      = transform %}
+            {% set doit      = false %}
+            {% set source    = doit ? first.getUrl(transform)    : first.url %}
+            {% set width     = doit ? first.getWidth(transform)  : first.width  ?? null %}
+            {% set height    = doit ? first.getHeight(transform) : first.height ?? null %}
+
+            {{ tag( 'img', {
+                src    : source,
+                width  : width,
+                height : height,
+                class  : class,
+                loading: 'lazy'
+            }) }}
+        {% else %}
+            {% set imgurl = ( image.url ??? first ) | lower %}
+            {% if imgurl starts with 'http' or imgurl starts with '//' %}
+                {{ tag( 'img', {
+                    src    : imgurl,
+                    class  : class,
+                    loading: 'lazy'
+                }) }}
+            {% endif %}
+        {% endif %}
+    {% else %}
+        {{ _self.placeholder( frame ) }}
+    {%- endif -%}
+{% endmacro %}
+
 
 
 {## Placeholder images (for wireframing & development)
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro placeholder( settings = {} ) %}{% if getenv('CRAFT_ENVIRONMENT') != 'production' -%}
     {% set type   = settings._placeholder|default('default') %}
     {% set width  = type == 'icon' ? 170 : 900 %}

@@ -4,12 +4,10 @@
 ) }}{% endmacro %}
 
 
-
 {% macro collection( items = null, collectionlayer = null, settings = {} ) -%}{{ raw(
     include( "_site/collection.#{collectionlayer}", { items: items, settings: settings }, ignoreMissing = true )
     ??? _self.runmacro( 'collection', collectionlayer, items, settings )
 ) }}{% endmacro %}
-
 
 
 {% macro builder( blocks = null, builder = null, settings = {} ) %}{{ raw(
@@ -27,12 +25,30 @@
 )}}{% endmacro %}
 
 
-{## Card Rendering Macro
- ------------------------------------------------------------------------------------ ##
+{## Card Rendering
+{-------------------------------------------------------------------------------------##
+    Rendering cards is a bit more complext than other elements because of the need to
+    maintain a consistent, but flexible interface across content types.
 
-    Maintains path and inheritence consistency when generating content cards.
+    To achieve this, we've used a couple of different strategies:
 
- ------------------------------------------------------------------------------------ ##
+     - Craft Field Name Standardization
+     - CaseBase() Custom Twig Function
+     - Template Naming & Inheritence Chains
+     - Content Specific Card Factories
+
+
+
+{## CardBase()
+{-------------------------------------------------------------------------------------##
+    CardBase() is a relatively simple Twig macro used to define a consistent data
+    structure for card objects. As part of the SiteModule, this macro is autoloaded and
+    can be called from any Twig template.
+
+    You may view/edit the macro and read more about why it's written in PHP here:
+
+-> `craftcms/modules/sitemodule/src/twigextensions/CardBaseTwig.php`
+{-------------------------------------------------------------------------------------##
     Content specific cards can override and/or inject content into any part of
     the requested card layout. Default path: `_content/<sectionHandle>/card.twig`
 
@@ -47,11 +63,11 @@
 
     Content specific override cards are passed the desired card layout as a variable
     called `extends` which they should use to dynamically extend themselves from.
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro card( carditem, cardpath, settings = null, loop = null ) -%}
 {%- if carditem and cardpath -%}
 
-    {% set settings = settings is not null and settings is iterable ? settings : {} %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {% set settings = settings | merge({ loop: loop }) %}
 
     {## If the Card Path was provided as a string, test if a file exists at that path.
@@ -126,9 +142,9 @@
 
 
 {## Text Layer / Typography Adjustments
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
 
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro text( text = null, textlayer = null, settings = {} ) %}{{ raw(
     _self.runmacro( 'text', textlayer, text, settings )
 )}}{% endmacro %}
@@ -136,18 +152,23 @@
 
 
 {## Media Elements
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     <video>, <audio>, <iframe>
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro media( media = null, medialayer = null, settings = {} ) %}{{ raw(
     _self.runmacro( 'media', medialayer, media, settings )
 )}}{% endmacro %}
 
 
-{## Block Spacers / Separators / Dividers
- ------------------------------------------------------------------------------------ ##
+{% macro medialayer( media = null, medialayer = null, settings = {} ) %}{{ raw(
+    _self.runnamedmacro( 'media', medialayer, media, settings )
+)}}{% endmacro %}
 
- ------------------------------------------------------------------------------------ ##}
+
+{## Block Spacers / Separators / Dividers
+{-------------------------------------------------------------------------------------##
+
+{-------------------------------------------------------------------------------------##}
 {% macro blockspacer( block = null, spacer = null, settings = {} ) %}{{ spacer ? raw(
     _self.runmacro( 'block', "spacer__#{spacer}", block, settings )
 ) }}{% endmacro %}
@@ -155,9 +176,9 @@
 
 
 {## Block Layout
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Theme Open / Close + Content Open / Close
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro blockpart( block = null, layoutpart = null, settings = {} ) %}{{ raw(
     _self.runmacro( 'block', layoutpart, block, settings )
 ) }}{% endmacro %}
@@ -165,9 +186,9 @@
 
 
 {## Menus
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
 
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro menu( entry = null, menu = null, settings = {} ) %}{{ raw(
         include( "_site/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true )
     ??? include( "_core/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true )
@@ -189,7 +210,7 @@
     populated with additional content as determined (mostly) by the individual blocks.
 
     Individual macro definitions can be found in: `_site/microlayouts.twig`
-{------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro microlayout( microlayout, content, settings = null ) -%}
 {%- if content is iterable -%}
     {%- set content = {
@@ -207,7 +228,7 @@
 
 
 {## Containers & Spacing
-{------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro container( container, html, settings = null ) -%}
 {%- if html | trim -%}
     {%- set container = container and container is not iterable ? container : 'default' -%}
@@ -265,16 +286,16 @@
 
 
 {% macro runnamedmacro( element = null, macroname = null, content = null, settings = null ) -%}
-    {% set element   = element   | replace('/[^\\w\.]+/', '') %}
-    {% set macroname = macroname | replace('/[^\\w]+/', '') %}
-    {% set macroname = macroname ??? null %}
-
-    {% set site__named = "{% from '_site/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" %}
-    {% set core__named = "{% from '_core/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" %}
-
-    {% set output = include( template_from_string( site__named ), { c: content, s: settings } )
-                ??? include( template_from_string( core__named ), { c: content, s: settings } )
-                ??? "" %}
-
-    {{- output | trim ? raw(output) : '' -}}
+    {%- set element   = element   | replace('/[^\\w\.]+/', '') -%}
+    {%- set macroname = macroname | replace('/[^\\w]+/', '') -%}
+    {%- set macroname = macroname ??? null -%}
+    {%- set corenamed = "{% from '_core/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" -%}
+    {%- set sitenamed = "{% from '_site/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" -%}
+    {%- set macrohtml = source( "_site/#{element}", ignore_missing = true)
+            ? include( template_from_string( sitenamed ), { c: content, s: settings } )
+               ??? include( template_from_string( corenamed ), { c: content, s: settings } )
+               ??? null
+            : include( template_from_string( corenamed ), { c: content, s: settings } )
+               ??? null %}
+    {{- macrohtml | trim ? raw(macrohtml) : '' -}}
 {%- endmacro %}

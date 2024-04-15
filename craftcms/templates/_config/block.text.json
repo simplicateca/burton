@@ -6,97 +6,112 @@
     },
     "inputs": [
         {
-            "label": "Typography Style",
+            "label": "Primary Copy Format",
             "field": "textlayer",
             "type" : "select",
             "default": "default",
-            "instructions": "Which typography style should apply to this content?",
+            "instructions": "Typography treatment for the Primary Copy",
             "options" : {
                 "default"   : "Default",
-                "columns2"  : "Two Columns"
+                "default2col"  : "Two Columns (Auto)"
             }
         }
     ],
     "settings": {}
 },{
-    "label": "Single Text (with Secondary Reveal)",
-    "value": "secondaryReveal",
+    "label": "Text (with Secondary Reveal)",
+    "value": "reveal",
     "docs": {
         "tooltip": "A single text block with an interactive reveal for secondary content."
     },
     "inputs": [
         {
+            "label": "Primary Copy Format",
+            "field": "textlayer",
+            "type" : "select",
+            "instructions": "Typography treatment for the Primary Copy",
+            "default": "default",
+            "options" : {
+                "default": "Default Treatment"
+            }
+        }
+       ,{
+            "label": "Secondary Copy Format",
+            "field": "text2layer",
+            "type" : "select",
+            "instructions": "Typography treatment for the Secondary Copy",
+            "default": "default",
+            "options" : {
+                "default": "Default Treatment",
+                "default__boxout": "Box Knockout"
+            }
+        }
+       ,{
             "label": "Revealer Button Label",
             "field": "revealLabel",
             "type" : "text",
             "default": "Continue Reading..."
         }
-       ,{
-            "label": "Only On Mobile",
-            "field": "onlyMobileReveal",
-            "type" : "lightswitch",
-            "instructions": "Always show the secondary content on desktop, only use revealer on mobile devices."
-        }
-       ,{
-            "label": "Hide Remaining Block Until Reveal?",
-            "field": "hideRemainingBlocks",
-            "type" : "lightswitch",
-            "instructions": "Hides all blocks below this one until the secondary content is revealed."
-        }
     ],
     "settings": {}
 },{
-    "label": "Single Text (with Callout)",
+    "label": "Text with Callout",
     "value": "callout",
     "docs": {
         "tooltip": "A single text block with an aside."
     },
     "inputs": [
         {
-            "label": "Format",
-            "field": "format",
+            "label": "Primary Copy Format",
+            "field": "textlayer",
             "type" : "select",
-            "instructions": "Fusce dapibus tellus lorem, in mattis quam dictum id.",
+            "default": "default",
+            "instructions": "Typography treatment for the Primary Copy",
             "options" : {
-                "plain"   : "Plain",
-                "quote"   : "Quote",
-                "info"    : "Info Notice",
-                "warning" : "Warning"
+                "default"   : "Default"
             }
         }
        ,{
-            "label": "Position",
-            "field": "position",
+            "label": "Callout Format",
+            "field": "text2layer",
             "type" : "select",
-            "instructions": "Fusce dapibus tellus lorem, in mattis quam dictum id.",
+            "instructions": "Typography treatment for the Callout",
             "options" : {
-                "left"       : "Left",
-                "right"      : "Right",
-                "rightSticky": "Right (Sticky)",
-                "center"     : "Center"
+                "callout": "Default",
+                "callout__quote": "Quote",
+                "callout__info" : "Information",
+                "callout__warn" : "Warning"
             }
         }
     ],
     "settings": {}
-
 },{
     "label": "Double Text (Side-by-Side)",
-    "value": "sideBySide",
+    "value": "double",
     "docs": {
         "tooltip": "Two text blocks, side-by-side."
     },
     "inputs": [
         {
-            "label": "Elevate Opening Headline(s)",
-            "field": "elevateHeadlines",
-            "type" : "lightswitch",
-            "instructions": "Relocates leading H2 & H3 content from primary copy to span above layout columns."
+            "label": "Primary Copy Format",
+            "field": "textlayer",
+            "type" : "select",
+            "instructions": "Typography treatment for the Primary Copy",
+            "default": "default",
+            "options" : {
+                "default": "Default Treatment"
+            }
         }
        ,{
-            "label": "Submerge Call-to-Action Buttons",
-            "field": "submergeCTAs",
-            "type" : "lightswitch",
-            "instructions": "Relocates trailing buttons & links from primary copy to span below layout columns."
+            "label": "Secondary Copy Format",
+            "field": "text2layer",
+            "type" : "select",
+            "instructions": "Typography treatment for the Secondary Copy",
+            "default": "default",
+            "options" : {
+                "default": "Default Treatment",
+                "default__boxout": "Box Knockout"
+            }
         }
     ],
     "settings": {}

@@ -1,14 +1,14 @@
 {% set card     = card     ??? null -%}
 {% set cardpath = path     ??? card.path ??? ["_site/card","_core/card"] -%}
-{% set settings = settings ??? {} -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 {% if card -%}
 {## unindented if <gasp> ------------------------------------------------------------ ##}
 
 
 {## Asset Card Factory
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
 
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {%- embed cardpath with {
     card: card,
     settings: settings | merge({
@@ -23,13 +23,13 @@
 {%- endif %}
 
 {## Asset - Card Override
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     This file not typically called directly. It is dynamically inserted to a cards
     inheritence order when generated via the `render()` macro in `_cards/base`.
 
     `layout` (the variable) should contain the path for the card layout to be rendered.
     If it is empty for some reason, default to the base card layout.
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {# {% extends layout|default(["_site/card","_core/card"]) %} #}
 {# {% use "_cards/parts.actions" %}
 

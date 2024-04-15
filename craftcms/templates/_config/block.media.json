@@ -1,29 +1,35 @@
 [{
-    "label": "Player",
+    "label": "Play in Place",
     "value": "player",
-    "settings": {},
+    "settings": {
+        "modal__cardlayer": "panel.media"
+    },
     "inputs": [
         {
-            "label": "Load State",
-            "field": "loadstate",
+            "label": "Player Type",
+            "field": "medialayer",
             "type" : "select",
-            "default": "native",
-            "instructions": "How to present the media prior to playback.",
+            "default": "default",
+            "instructions": "How to present the media on page load?",
             "fieldClass": "field width-50",
             "options" : [
                 {
-                    "value" : "native",
-                    "label" : "Default Player"
+                    "value" : "default",
+                    "label" : "Native Player"
                 }
                ,{
-                    "value" : "poster",
-                    "label" : "Show Poster View"
+                    "value" : "posterpreview",
+                    "label" : "Poster Preview (Native Player)"
+                }
+               ,{
+                    "value" : "fancypreview",
+                    "label" : "Fancy Preview (Modal)"
                 }
             ]
         }
        ,{
             "label": "Multiple Media Files?",
-            "field": "medialayer",
+            "field": "mediacollection",
             "type" : "select",
             "default": "single",
             "instructions": "Layout to use if/when the block has multple media files.",
@@ -31,11 +37,11 @@
             "options" : [
                 {
                     "value" : "single",
-                    "label" : "Ignore multiple files"
+                    "label" : "Ignore multiples"
                 }
                ,{
                     "value" : "randomize",
-                    "label" : "Random single file"
+                    "label" : "Choose one at random"
                 }
                ,{
                     "value" : "carousel",
@@ -53,10 +59,33 @@
         }
     ]
 },{
-    "label": "Teaser",
+    "label": "Teaser Grid",
     "value": "teaser",
-    "settings": {},
-    "inputs": []
+    "settings": {
+        "action": "modal",
+        "medialayer": "posterpreview",
+        "modal__cardlayer": "panel.media"
+    },
+    "inputs": [
+        {
+            "label": "Grid Layout",
+            "field": "mediacollection",
+            "type" : "select",
+            "default": "single",
+            "instructions": "Layout to use for the teaser grid.",
+            "fieldClass": "field width-50",
+            "options" : [
+                {
+                    "value" : "grid2",
+                    "label" : "Two Columns"
+                }
+               ,{
+                    "value" : "grid3",
+                    "label" : "Three Columns"
+                }
+            ]
+        }
+    ]
 },{
     "label": "Background",
     "value": "background",

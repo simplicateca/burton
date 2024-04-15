@@ -1,35 +1,60 @@
 {## Text Block Base
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------
+{-------------------------------------------------------------------------------------##
     http://localhost:8000/sitehub/blocks/text
- ------------------------------------------------------------------------------------ ##}
-{% set settings    = block.settings ??? settings ??? {} %}
-{% set microlayout = settings.microlayout ??? 'zone1Top' %}
-{% set textlayer   = settings.textlayer  ??? 'default' %}
-{% set text2layer  = settings.text2layer ??? 'default' %}
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_site/block", "_core/block" ] %}
 
-{% embed [ "_site/block", "_core/block" ] with {
-    block: block,
-    settings: settings,
-    textlayer: textlayer,
-    text2layer: text2layer,
-    microlayout: microlayout,
-} %}
+{## Text Block Content ##}
+{% block content block('block__assemble') %}
 
-    {## Text Block Content ##}
-    {% block content %}
-        {% import "_core/assemble" as assemble %}
-        {{ assemble.microlayout( microlayout, {
-            zone1 : block('block__text'),
-            zone2 : block('block__text2'),
-            header: block('block__header'),
-            footer: block('block__footer'),
-        }, settings ) }}
-    {% endblock %}
+{% block block__assemble -%}
+    {%- set settings    = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set microlayout = settings.microlayout ??? 'zone1Top' -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.microlayout( microlayout, {
+        zone1 : block('block__text'),
+        zone2 : block('block__text2'),
+        header: block('block__header'),
+        footer: block('block__footer'),
+    }, settings ) -}}
+{%- endblock %}
 
 
-    {## Zone 2 Content ##}
-    {% block block__text2 %}
-        {% import "_core/assemble" as assemble %}
-        {{ assemble.text( block.text2 ??? null, text2layer, settings ) }}
-    {% endblock %}
-{% endembed %}
+{## Zone 1 Content
+{-------------------------------------------------------------------------------------##
+    Since all Blocks have a `text` field, {% block block__text %} is shared by all
+    block types. It is usually found along this path: ['_site/block', '_core/block']
+
+    The code below exists only to demonstrate the minimum necessary for a block to
+    override `block__text` with its own layout.
+{-------------------------------------------------------------------------------------##}
+{# {% block block__text %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.text(
+        block.text ??? "",
+        settings.textlayer ??? 'default',
+        settings
+    ) -}}
+{% endblock %} #}
+
+
+{## Zone 2 Content
+{-------------------------------------------------------------------------------------##
+    This block will look for blocks name `text2__<variant>` to use to render zone2.
+    If it doesn't find one, it will perform a basic render to text2 content.
+{-------------------------------------------------------------------------------------##}
+{% block block__text2 -%}
+    {%- set settings  = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set blockname = 'text2__' ~ settings.variant ??? 'single' %}
+    {%- import "_assemble" as assemble -%}
+    {{- block( blockname ) is defined
+          ? block( blockname )
+          : assemble.text(
+            block.text2 ??? "",
+            settings.text2layer ??? 'default',
+            settings
+          )
+    -}}
+{%- endblock %}

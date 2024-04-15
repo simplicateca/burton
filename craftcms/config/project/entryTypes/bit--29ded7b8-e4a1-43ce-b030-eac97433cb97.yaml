@@ -40,13 +40,13 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topic/Tag
+            fieldUid: ea66543f-5492-4de3-ae81-d8d456902992 # Icons
             instructions: null
             label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: e250f0af-7a41-46d6-b80d-0f33b1f4d0cb
+            uid: 2f313125-baa2-49ce-ab1c-8c763cfd79f1
             userCondition: null
             warning: null
             width: 50
@@ -59,6 +59,18 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: f3ffdcf4-9a28-4ea1-81ba-01ddcca9cb72
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 772247d2-d67e-40f2-a243-6e6eca55c5f5 # Topic/Tag
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e250f0af-7a41-46d6-b80d-0f33b1f4d0cb
             userCondition: null
             warning: null
             width: 50
@@ -90,7 +102,7 @@ fieldLayouts:
             elementCondition: null
             fieldUid: adcea45e-bf40-4faf-b0c8-4ce089696971 # Image
             instructions: null
-            label: 'Image / Icon'
+            label: null
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField

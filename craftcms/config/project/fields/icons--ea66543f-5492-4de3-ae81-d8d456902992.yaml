@@ -1,44 +1,35 @@
 columnSuffix: null
 contentColumnType: string
 fieldGroup: dc717c0e-4ef4-4f7e-b352-1a7ba8e2ff40 # Assets
-handle: assets
+handle: icons
 instructions: null
-name: Assets
+name: Icons
 searchable: false
 settings:
   allowSelfRelations: false
   allowSubfolders: false
-  allowUploads: false
-  allowedKinds: null
+  allowUploads: true
+  allowedKinds:
+    - image
   branchLimit: null
-  defaultUploadLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
-  defaultUploadLocationSubpath: null
+  defaultUploadLocationSource: 'volume:3c05e593-d621-444e-8fb9-ddbb1b356a43' # Static Assets
+  defaultUploadLocationSubpath: icons
   localizeRelations: false
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
   previewMode: full
-  restrictFiles: false
+  restrictFiles: true
   restrictLocation: false
   restrictedDefaultUploadSubpath: null
   restrictedLocationSource: 'volume:a4f97962-52de-4b53-8422-5b833d1cd5fd' # Uploads
   restrictedLocationSubpath: null
-  selectionCondition:
-    __assoc__:
-      -
-        - elementType
-        - craft\elements\Asset
-      -
-        - fieldContext
-        - global
-      -
-        - class
-        - craft\elements\conditions\assets\AssetCondition
-  selectionLabel: 'Choose asset'
+  selectionLabel: 'Choose icon'
   showSiteMenu: false
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
-  sources: '*'
+  sources:
+    - 'volume:3c05e593-d621-444e-8fb9-ddbb1b356a43' # Static Assets
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list

@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: b7ec333d-193c-4bfe-b1c2-637e039f302d # Variant
+            fieldUid: b7ec333d-193c-4bfe-b1c2-637e039f302d # Block Variant
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d # Layout
+            fieldUid: ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d # Content Layout
             instructions: null
             label: null
             required: false
@@ -67,7 +67,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 4e6dab12-ff70-4db1-9095-aec90d712602 # Copy
+            fieldUid: 4e6dab12-ff70-4db1-9095-aec90d712602 # Primary Copy
             instructions: null
             label: null
             required: false
@@ -79,7 +79,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 8ecf45da-7553-48ac-b52d-a45f8bc90317 # Theme
+            fieldUid: 8ecf45da-7553-48ac-b52d-a45f8bc90317 # Theme & Spacing
             instructions: null
             label: null
             required: false
@@ -93,13 +93,13 @@ fieldLayouts:
         uid: 4e479aee-581c-4e9e-9c85-c891dca6fd51
         userCondition: null
 fields:
-  4e6dab12-ff70-4db1-9095-aec90d712602: # Copy
+  4e6dab12-ff70-4db1-9095-aec90d712602: # Primary Copy
     columnSuffix: wwmudfrl
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: Copy
+    name: 'Primary Copy'
     searchable: true
     settings:
       availableTransforms: ''
@@ -121,13 +121,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-  8ecf45da-7553-48ac-b52d-a45f8bc90317: # Theme
+  8ecf45da-7553-48ac-b52d-a45f8bc90317: # Theme & Spacing
     columnSuffix: sbrwrmrk
     contentColumnType: text
     fieldGroup: null
     handle: theme
     instructions: null
-    name: Theme
+    name: 'Theme & Spacing'
     searchable: false
     settings:
       columnType: null
@@ -203,13 +203,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  b7ec333d-193c-4bfe-b1c2-637e039f302d: # Variant
+  b7ec333d-193c-4bfe-b1c2-637e039f302d: # Block Variant
     columnSuffix: fvriqqes
     contentColumnType: text
     fieldGroup: null
     handle: variant
     instructions: null
-    name: Variant
+    name: 'Block Variant'
     searchable: false
     settings:
       columnType: null
@@ -241,13 +241,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: verbb\formie\fields\Forms
-  ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d: # Layout
+  ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d: # Content Layout
     columnSuffix: htdbqbuc
     contentColumnType: text
     fieldGroup: null
     handle: layout
     instructions: null
-    name: Layout
+    name: 'Content Layout'
     searchable: false
     settings:
       columnType: null
@@ -256,5 +256,5 @@ fields:
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
 handle: action
-name: Action
+name: 'User Action'
 sortOrder: 5

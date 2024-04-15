@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: aca4dd0e-619c-4608-97c8-dae08da9e011 # Variant
+            fieldUid: aca4dd0e-619c-4608-97c8-dae08da9e011 # Block Variant
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 66dc7ced-9f1e-4501-9772-b9f87634267e # Layout
+            fieldUid: 66dc7ced-9f1e-4501-9772-b9f87634267e # Fragment Layout
             instructions: null
             label: null
             required: false
@@ -31,7 +31,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: e2cdac24-87bd-4a5b-be66-d991b0323794 # Fragment
+            fieldUid: e2cdac24-87bd-4a5b-be66-d991b0323794 # Content Fragment
             instructions: null
             label: null
             required: false
@@ -43,7 +43,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 2cb2fc3a-17b6-4b08-be83-a2b0381ff56d # Copy
+            fieldUid: 2cb2fc3a-17b6-4b08-be83-a2b0381ff56d # Primary Copy
             instructions: null
             label: null
             required: false
@@ -55,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: bf152e62-fb69-4e45-836d-7546488987e6 # Theme
+            fieldUid: bf152e62-fb69-4e45-836d-7546488987e6 # Theme & Spacing
             instructions: null
             label: null
             required: false
@@ -69,13 +69,13 @@ fieldLayouts:
         uid: d9dcfac7-2f95-4e7f-8dff-5e8f93eb6332
         userCondition: null
 fields:
-  2cb2fc3a-17b6-4b08-be83-a2b0381ff56d: # Copy
+  2cb2fc3a-17b6-4b08-be83-a2b0381ff56d: # Primary Copy
     columnSuffix: iebrmmvb
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: Copy
+    name: 'Primary Copy'
     searchable: true
     settings:
       availableTransforms: '*'
@@ -97,13 +97,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-  66dc7ced-9f1e-4501-9772-b9f87634267e: # Layout
+  66dc7ced-9f1e-4501-9772-b9f87634267e: # Fragment Layout
     columnSuffix: syoyuqvt
     contentColumnType: text
     fieldGroup: null
     handle: layout
     instructions: null
-    name: Layout
+    name: 'Fragment Layout'
     searchable: false
     settings:
       columnType: null
@@ -111,13 +111,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  aca4dd0e-619c-4608-97c8-dae08da9e011: # Variant
+  aca4dd0e-619c-4608-97c8-dae08da9e011: # Block Variant
     columnSuffix: tttooiue
     contentColumnType: text
     fieldGroup: null
     handle: variant
     instructions: null
-    name: Variant
+    name: 'Block Variant'
     searchable: false
     settings:
       columnType: null
@@ -125,13 +125,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  bf152e62-fb69-4e45-836d-7546488987e6: # Theme
+  bf152e62-fb69-4e45-836d-7546488987e6: # Theme & Spacing
     columnSuffix: nfwtlclo
     contentColumnType: text
     fieldGroup: null
     handle: theme
     instructions: null
-    name: Theme
+    name: 'Theme & Spacing'
     searchable: false
     settings:
       columnType: null
@@ -139,13 +139,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  e2cdac24-87bd-4a5b-be66-d991b0323794: # Fragment
+  e2cdac24-87bd-4a5b-be66-d991b0323794: # Content Fragment
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: fragments
     instructions: null
-    name: Fragment
+    name: 'Content Fragment'
     searchable: false
     settings:
       allowSelfRelations: false

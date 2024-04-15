@@ -1,56 +1,134 @@
-{#
-    Postmark Transactional Email Templates
-    -> https://postmarkapp.com/transactional-email-templates
+{## Postmark Universal Transactional Email Template
+{-------------------------------------------------------------------------------------##
+ -> https://postmarkapp.com/transactional-email-templates
+{-------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block email %}{% endblock %}') %}
 
-    If you change button color, remember to pass it to macro AND define "buttonColor" before "extends" tag.
-#}
+{% block email__pretext "" %}
+{% block email__header  tag( 'a', { href: siteUrl, text: siteName } ) %}
+{% block email__body    "" %}
+{% block email__footer  tag( 'a', { href: siteUrl, text: siteUrl } ) %}
 
-{## macro title ##}
-{% macro title(titleText) %}
-{% if titleText is defined %}
-<h1 style="margin-top: 0; color: #333333; font-size: 22px; font-weight: bold; text-align: center;" align="left">{{titleText}}</h1>
-{% endif %}
-{% endmacro %}
+{% block font__base    'font-family: Montserrat Helvetica, Arial, sans-serif; word-break: break-word;  font-size: 16px;' %}
 
-{## macro call to action button ##}
+{% block button__color '#ed1b24' %}
+
+{% block email__contentrows %}
+    {## Email Header ##}
+    <tr><td class="email-masthead" style="{{ block('font__base') }} text-align: center; padding: 25px 0;" align="center">
+        <span class="f-fallback email-masthead_name" style="color: #A8AAAF; font-weight: bold; text-decoration: none; text-shadow: 0 1px 0 white;">
+            {{ block('email__header') }}
+        </span>
+    </td></tr>
+
+    {## Email Body ##}
+    <tr><td class="email-body" width="570" cellpadding="0" cellspacing="0" style="{{ block('font__base') }} margin: 0; padding: 0; width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0;">
+        <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="width: 570px; -premailer-width: 570px; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #FFFFFF; margin: 0 auto; padding: 0;" bgcolor="#FFFFFF">
+            <tr>
+                <td class="content-cell" style="{{ block('font__base') }} padding: 45px;">
+                    <div class="f-fallback">{{ block('email__body') }}</div>
+                </td>
+            </tr>
+        </table>
+    </td></tr>
+
+    {## Email Footer ##}
+    <tr><td style="{{ block('font__base') }}">
+        <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="width: 570px; -premailer-width: 570px; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 0 auto; padding: 0;">
+            <tr>
+                <td class="content-cell" align="center" style="{{ block('font__base') }} padding: 45px;">
+                    <p class="f-fallback sub align-center" style="font-size: 13px; line-height: 1.625; text-align: center; color: #A8AAAF; margin: .4em 0 1.1875em;" align="center">
+                        {{ block('email__footer') }}
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </td></tr>
+{% endblock %}
+
+
+
+{## Email HTML Base
+{-------------------------------------------------------------------------------------##
+
+{-------------------------------------------------------------------------------------##}
+{% block email %}
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="x-apple-disable-message-reformatting" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title></title>
+            {{ block('email__styles') }}
+        </head>
+
+        <body style="width: 100% !important; height: 100%; -webkit-text-size-adjust: none; font-family: Montserrat Helvetica, Arial, sans-serif; background-color: #F2F4F6; color: #51545E; margin: 0;" bgcolor="#F2F4F6">
+            <span class="preheader" style="display: none !important; visibility: hidden; mso-hide: all; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden;">{{ block( 'email__pretext') }}</span>
+            <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #F2F4F6; margin: 0; padding: 0;" bgcolor="#F2F4F6">
+                <tr>
+                    <td align="center" style="{{ block('font__base') }}">
+                        <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; margin: 0; padding: 0;">
+                            {{ block( 'email__contentrows' ) }}
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+    </html>
+{% endblock %}
+
+
+
+{## Button Macro
+{-------------------------------------------------------------------------------------##
+  ✔ Cross Browser compatible HTML email code makes me want to cry.
+{-------------------------------------------------------------------------------------##}
 {% macro button(buttonText, buttonUrl, buttonColor) %}
-{% if buttonColor is not defined %}
-    {% set buttonColor = '#ed1b24' %}
-{% endif %}
-{% if buttonText is defined and buttonUrl is defined %}
-<table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 30px auto; padding: 0;">
-  <tr>
-    <td align="center" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
-      <!-- Border based button https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
-      <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+    {% if buttonColor is not defined %}
+        {% set buttonColor = '#ed1b24' %}
+    {% endif %}
+    {% if buttonText is defined and buttonUrl is defined %}
+        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 30px auto; padding: 0;">
         <tr>
-          <td align="center" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
-            <a href="{{buttonUrl}}" class="f-fallback button" target="_blank" style="color: #FFF; border-color: {{buttonColor}}; border-style: solid; border-width: 10px 18px; background-color: {{buttonColor}}; display: inline-block; text-decoration: none; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box;">{{buttonText}}</a>
-          </td>
+            <td align="center" style="word-break: break-word; font-family: Montserrat Helvetica, Arial, sans-serif; font-size: 16px;">
+            <!-- Border based button https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
+                <tr>
+                <td align="center" style="word-break: break-word; font-family: Montserrat Helvetica, Arial, sans-serif; font-size: 16px;">
+                    <a href="{{buttonUrl}}" class="f-fallback button" target="_blank" style="color: #FFF; border-color: {{buttonColor}}; border-style: solid; border-width: 10px 18px; background-color: {{buttonColor}}; display: inline-block; text-decoration: none; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box;">{{buttonText}}</a>
+                </td>
+                </tr>
+            </table>
+            </td>
         </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-{% endif %}
+        </table>
+    {% endif %}
 {% endmacro %}
 
-{% if buttonColor is not defined %}
-    {% set buttonColor = '#ed1b24' %}
-{% endif %}
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="x-apple-disable-message-reformatting" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title></title>
-    <style type="text/css" rel="stylesheet" media="all">
-    /* Base ------------------------------ */
+{## (H1) Header Macro
+{-------------------------------------------------------------------------------------##}
+{% macro header1( text ) %}{{
+    text is defined
+        ? tag( 'h1', {
+            style: "margin-top: 0; color: #333333; font-size: 22px; font-weight: bold; text-align: center;",
+            align: 'left',
+            text : text
+        })
+}}{% endmacro %}
 
-    @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,700&amp;display=swap");
+
+
+{## CSS Stylesheet
+{-------------------------------------------------------------------------------------##
+
+{-------------------------------------------------------------------------------------##}
+{% block email__styles %}
+<style type="text/css" rel="stylesheet" media="all">
+    @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+
     body {
       width: 100% !important;
       height: 100%;
@@ -86,7 +164,7 @@
     body,
     td,
     th {
-      font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+      font-family: Montserrat, Helvetica, Arial, sans-serif;
     }
 
     h1 {
@@ -456,15 +534,13 @@
         text-shadow: none !important;
       }
     }
-    </style>
-    <!--[if mso]>
-    <style type="text/css">
-      .f-fallback  {
+</style>
+<!--[if mso]><style type="text/css">
+    .f-fallback  {
         font-family: Arial, sans-serif;
-      }
-    </style>
-  <![endif]-->
-    <style type="text/css" rel="stylesheet" media="all">
+    }
+</style><![endif]-->
+<style type="text/css" rel="stylesheet" media="all">
     body {
       width: 100% !important;
       height: 100%;
@@ -473,69 +549,12 @@
     }
 
     body {
-      font-family: "Nunito Sans", Helvetica, Arial, sans-serif;
+      font-family: Montserrat, Helvetica, Arial, sans-serif;
     }
 
     body {
       background-color: #F2F4F6;
       color: #51545E;
     }
-    </style>
-  </head>
-  <body style="width: 100% !important; height: 100%; -webkit-text-size-adjust: none; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; background-color: #F2F4F6; color: #51545E; margin: 0;" bgcolor="#F2F4F6">
-    <span class="preheader" style="display: none !important; visibility: hidden; mso-hide: all; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden;">{% block preview %}{% endblock %}</span>
-    <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #F2F4F6; margin: 0; padding: 0;" bgcolor="#F2F4F6">
-      <tr>
-        <td align="center" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
-          <table class="email-content" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; margin: 0; padding: 0;">
-
-            {## header ##}
-            <tr>
-              <td class="email-masthead" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; text-align: center; padding: 25px 0;" align="center">
-                <span class="f-fallback email-masthead_name" style="color: #A8AAAF; font-size: 16px; font-weight: bold; text-decoration: none; text-shadow: 0 1px 0 white;">
-
-                {% block header %}{% endblock %}
-
-              </span>
-              </td>
-            </tr>
-
-            {## Email Body ##}
-            <tr>
-              <td class="email-body" width="570" cellpadding="0" cellspacing="0" style="word-break: break-word; margin: 0; padding: 0; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0;">
-                <table class="email-body_inner" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="width: 570px; -premailer-width: 570px; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #FFFFFF; margin: 0 auto; padding: 0;" bgcolor="#FFFFFF">
-                  <tr>
-                    <td class="content-cell" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; padding: 45px;">
-                      <div class="f-fallback">
-
-                        {## email content ##}
-                        {% block content %}{% endblock %}
-
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-
-            {## footer ##}
-            <tr>
-              <td style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px;">
-                <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation" style="width: 570px; -premailer-width: 570px; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 0 auto; padding: 0;">
-                  <tr>
-                    <td class="content-cell" align="center" style="word-break: break-word; font-family: &quot;Nunito Sans&quot;, Helvetica, Arial, sans-serif; font-size: 16px; padding: 45px;">
-                      <p class="f-fallback sub align-center" style="font-size: 13px; line-height: 1.625; text-align: center; color: #A8AAAF; margin: .4em 0 1.1875em;" align="center">
-                        {% block footer %}{% endblock %}
-                      </p>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-
-          </table>
-        </td>
-      </tr>
-    </table>
-  </body>
-</html>
+</style>
+{% endblock %}

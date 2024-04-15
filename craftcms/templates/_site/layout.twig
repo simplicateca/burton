@@ -28,12 +28,12 @@
         - Userflow / Quicklinks
         - Legal Navigation
  ------------------------------------------------------------------------------------- ##}
-{% import "_core/assemble" as assemble %}
+{% import "_assemble" as assemble %}
 
 {% block page %}
-    {% block page__top    block( 'header__base', '_site/header' ) %}
-    {% block page__main   block( 'main__base' ) %}
-    {% block page__bottom block( 'footer__base', '_site/footer' ) %}
+    {% block page__top      block( 'header__base', '_site/header' ) %}
+    {% block page__main     block( 'main__base' ) %}
+    {% block page__bottom   block( 'footer__base', '_site/footer' ) %}
 {% endblock %}
 
 
@@ -55,8 +55,10 @@
 
 {% block content %}
 
+    {## checks to see if the header builder uses the same background theme
+        as the first block in the body builder, and if it does, adjust the
+        first spacer of the opening body block ##}
     {% set firstspace = "default" %}
-
     {% set mainblocks = mainblocks ??? entry.bodyBuilder.all() ??? [] %}
     {% if mainblocks %}
         {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? [] %}

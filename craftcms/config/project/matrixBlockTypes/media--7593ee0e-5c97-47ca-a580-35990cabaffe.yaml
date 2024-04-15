@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: bf30b8e7-f739-4f32-8795-a8c5b92d92bb # Variant
+            fieldUid: bf30b8e7-f739-4f32-8795-a8c5b92d92bb # Block Variant
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 56c5070f-cf62-458c-9dc1-f775ee6f2380 # Layout
+            fieldUid: 56c5070f-cf62-458c-9dc1-f775ee6f2380 # Content Layout
             instructions: null
             label: null
             required: false
@@ -55,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: aa5de47f-bd21-4e66-9e6b-93f174062abc # Uploaded Files
+            fieldUid: aa5de47f-bd21-4e66-9e6b-93f174062abc # Local Assets
             instructions: null
             label: null
             required: false
@@ -67,7 +67,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 8384d65a-1c88-4960-8c6e-7091bf390c9d # External URLs
+            fieldUid: 8384d65a-1c88-4960-8c6e-7091bf390c9d # External Sources
             instructions: null
             label: null
             required: false
@@ -91,7 +91,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a # Copy
+            fieldUid: cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a # Primary Copy
             instructions: null
             label: null
             required: false
@@ -103,7 +103,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9 # Theme
+            fieldUid: e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9 # Theme & Spacing
             instructions: null
             label: null
             required: false
@@ -142,13 +142,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  56c5070f-cf62-458c-9dc1-f775ee6f2380: # Layout
+  56c5070f-cf62-458c-9dc1-f775ee6f2380: # Content Layout
     columnSuffix: grrnasml
     contentColumnType: text
     fieldGroup: null
     handle: layout
     instructions: null
-    name: Layout
+    name: 'Content Layout'
     searchable: false
     settings:
       columnType: null
@@ -156,17 +156,17 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  8384d65a-1c88-4960-8c6e-7091bf390c9d: # External URLs
+  8384d65a-1c88-4960-8c6e-7091bf390c9d: # External Sources
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: external
     instructions: null
-    name: 'External URLs'
+    name: 'External Sources'
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1182968024
+      changedFieldIndicator: 1840358841
       columns:
         __assoc__:
           -
@@ -242,13 +242,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\PlainText
-  aa5de47f-bd21-4e66-9e6b-93f174062abc: # Uploaded Files
+  aa5de47f-bd21-4e66-9e6b-93f174062abc: # Local Assets
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: assets
     instructions: null
-    name: 'Uploaded Files'
+    name: 'Local Assets'
     searchable: true
     settings:
       allowSelfRelations: false
@@ -287,13 +287,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Assets
-  bf30b8e7-f739-4f32-8795-a8c5b92d92bb: # Variant
+  bf30b8e7-f739-4f32-8795-a8c5b92d92bb: # Block Variant
     columnSuffix: pjiqqqah
     contentColumnType: text
     fieldGroup: null
     handle: variant
     instructions: null
-    name: Variant
+    name: 'Block Variant'
     searchable: false
     settings:
       columnType: null
@@ -301,13 +301,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: # Copy
+  cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: # Primary Copy
     columnSuffix: lriaudff
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: Copy
+    name: 'Primary Copy'
     searchable: true
     settings:
       availableTransforms: ''
@@ -329,13 +329,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-  e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9: # Theme
+  e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9: # Theme & Spacing
     columnSuffix: qbjriieh
     contentColumnType: text
     fieldGroup: null
     handle: theme
     instructions: null
-    name: Theme
+    name: 'Theme & Spacing'
     searchable: false
     settings:
       columnType: null
@@ -344,5 +344,5 @@ fields:
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
 handle: media
-name: Media
+name: 'Media Content'
 sortOrder: 3

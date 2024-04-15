@@ -153,6 +153,15 @@ class BlockBaseTwig extends AbstractExtension
         // Sibling Themes is a quick a dirty function that includes the `settings` hash
         // for the `next` & `prev` block into the `settings` hash of the current block.
         //
+        // So you end up with all your normal `settings` values like:
+        //
+        //  - settings.variant
+        //  - settings.microlayout
+        //
+        // But you also get these:
+        //
+        //  - settings.
+
         // This helps with effects or elements that transition between block themes.
         $normals = $this->_siblingthemes( $normals );
 
@@ -175,6 +184,7 @@ class BlockBaseTwig extends AbstractExtension
 
         return [
             'base' => array_filter([
+                'id'        => $b->id ?? '',
                 'source'    => $b->source->value    ?? '',
                 'variant'   => $b->variant->value   ?? '',
                 'layout'    => $b->layout->value    ?? '',
@@ -200,14 +210,14 @@ class BlockBaseTwig extends AbstractExtension
             if( $blocks[$key-1]['settings'] ?? null )
             {
                 $blocks[$key]['prev'] = $blocks[$key-1]['settings'];
-                $blocks[$key]['settings']['themeprev'] = $blocks[$key-1]['settings']['theme'] ?? null;
+                //$blocks[$key]['settings']['themeprev'] = $blocks[$key-1]['settings']['theme'] ?? null;
             }
 
             if( $blocks[$key+1]['settings'] ?? null )
             {
                 $blocks[$key]['next'] = $blocks[$key+1]['settings'];
-                $blocks[$key]['settings']['themenext'] = $blocks[$key+1]['settings']['theme'] ?? null;
-                $blocks[$key+1]['settings']['inherittheme'] = ( $blocks[$key]['settings']['theme'] == $blocks[$key+1]['settings']['theme'] );
+                //$blocks[$key]['settings']['themenext'] = $blocks[$key+1]['settings']['theme'] ?? null;
+                //$blocks[$key+1]['settings']['inherittheme'] = ( $blocks[$key]['settings']['theme'] == $blocks[$key+1]['settings']['theme'] );
             }
 
             if( $blocks[$key]['settings']['theme'] == 'INHERIT' || ( $blocks[$key]['settings']['inherittheme'] ?? null ) )

@@ -1,7 +1,7 @@
 {## Action Block Site Base
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     -> http://localhost:8000/sitehub/blocks/action
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% extends [ "_core/block.action" ] %}
 
 
@@ -18,7 +18,7 @@
         {{ _self.vuecomponent( vue, block, settings ) }}
     {% endif %}
 
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {% if block.component.value == 'accountlogin' %}
         {{ assemble.accountparts( block, 'login', settings ) }}
     {% endif %}
@@ -63,13 +63,13 @@
     } %}
 
     {% set uuid = md5( settings | json_encode ) %}
-    <div id="vue-{{uuid}}" class="w-full"></div>
+    <div id="vue_{{uuid}}" class="w-full"></div>
     {% js %}
         window.waitForGlobal("app.createApp", function() {
             app.createApp(
                 app.{{ component }},
                 { block: {{ simpleobj | json_encode() | raw }} }
-            ).mount( '#vue-{{uuid}}' )
+            ).mount( '#vue_{{uuid}}' )
         })
     {% endjs %}
 {% endmacro %}

@@ -1,6 +1,6 @@
 [
     {
-        "label": "Text Above",
+        "label": "Primary Copy (Top)",
         "value": "textAbove",
         "docs": {
             "tooltip": ""
@@ -8,14 +8,15 @@
         "settings": {},
         "inputs" : [
             {% if object.field ??? null != 'sidebarBuilder' %}
-                {{ block( 'inputCopyWidth',       '_config/_selectplus_virtual_fields' ) }},
-                {{ block( 'inputButtonPositions', '_config/_selectplus_virtual_fields' ) }}
+                {{ block( 'inputTextTopSizes',     '_config/_selectplus_virtual_fields' ) }},
+                {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
+                {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }}
             {% endif %}
         ]
     }
 
    ,{
-        "label": "Text Left",
+        "label": "Primary Copy (Left)",
         "value": "textLeft",
         "docs": {
             "tooltip": "Horizontal layout with primary content on the right and `Copy` on the left."
@@ -31,7 +32,7 @@
     }
 
    ,{
-        "label": "Text Right",
+        "label": "Primary Copy (Right)",
         "value": "textRight",
         "docs": {
             "tooltip": "Horizontal layout with primary content on the left and `Copy` on the right."

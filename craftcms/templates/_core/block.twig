@@ -1,16 +1,16 @@
 {## Matrix Block & Builder Macros
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     This file mostly contains macros for assembling matrix blocks and builders.
 
     It *can* be inherited as a base block, but ideally only as a last resort fallback.
 
     A more robust block base should be created in `_site/block`, which all default
     blocks already look for in their inheritence chain before falling back to this file.
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% extends template_from_string('{% block block %}{% endblock %}') %}
 {## --------------------------------------------------------------------------------- ##}
 
-{% import "_core/assemble" as assemble %}
+{% import "_assemble" as assemble %}
 
 {## Yes, this is a valid name. Silly, right? ##}
 {% block block %}
@@ -66,9 +66,9 @@
 
 
 {## Open Theme
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Opens a theme wrapper inside a block (or anywhere else really)
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro themeopen( block, settings = null ) -%}
     {% set settings = settings is null ? {} : settings %}
 
@@ -76,16 +76,16 @@
     {% set class    = settings.theme__class  ?? "theme relative" %}
 
     {% set themedata = {
-        onscroll : true,
-        theme    : settings.theme     ??? "default",
-        blocktype: settings.blocktype ??? "default",
-        themenext: settings.themenext ??? null,
-        themeprev: settings.themeprev ??? null,
+        onscroll: true,
+        theme   : settings.theme      ??? "default",
+        block   : settings.blocktype  ??? "default",
+        'next-theme': settings.next.theme ??? null,
+        'prev-theme': settings.prev.theme ??? null,
     } %}
 
     {## We only open the theme tag if it's different from the previous block ##}
-    {%- if settings.themeprev ??? null != themedata.theme -%}
-        {{ raw( "<" ~ opentag ~ " " ~ attr({ class: class, data: themedata } ) ~ ">" ) }}
+    {%- if themedata['prev-theme'] != themedata.theme -%}
+        {{ raw( "<#{opentag} " ~  attr({ class: class, data: themedata } ) ~ ">" ) }}
     {%- endif -%}
 
     {## BUT we need to add a spacer regardless as it creates a buffer between theme
@@ -97,7 +97,7 @@
         : spacerabove %}
 
     {% if spacerabove %}
-        {% import "_core/assemble" as assemble %}
+        {% import "_assemble" as assemble %}
         {{ assemble.blockspacer( block, spacerabove, settings ) }}
     {% endif %}
 {% endmacro %}
@@ -105,7 +105,7 @@
 
 
 {% macro themeclose( block, settings ) %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
 
     {% set settings = settings is null ? {} : settings %}
 
@@ -154,17 +154,17 @@
 
 
 {## Default Block Spacer
- ------------------------------------------------------------------------------------ ##
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##
+{-------------------------------------------------------------------------------------##}
 {% macro spacer__default() %}{{ tag( 'div', { style: 'height: 100px;' } ) }}{% endmacro %}
 
 
 
 
 {## Reusable Content (Fragments & Bits)
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
 
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {# {% macro fragment( query = null, builder = 'content', settings = {} ) %}
     {%- if query.id ??? query.slug ??? query.preset ??? null -%}
         {% set fragment = craft.entries({section:"reusable"}|merge( query )).one() ??? null %}

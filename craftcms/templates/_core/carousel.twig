@@ -1,9 +1,41 @@
 {% extends template_from_string('{% block carousel %}{% endblock %}') %}
 
+{## Default Carousel Config
+    -------------------------------------------------------------------------------- ##
+    You may overload the `splide__config` block within the below {% embed %} to
+    customize the carousel configuration.
+
+    -> Splide expects a JSON object, so be aware of what you output.
+    -------------------------------------------------------------------------------- ##
+    Additional {% block %} sections are available for customizing the
+    `class` value for various elements within the carousel.
+    -------------------------------------------------------------------------------- ##
+    If you require additional flexibility:
+
+    - Create a copy of `_core/carousel.twig`
+    - Name it `_site/carousel.twig` or `_site/carousel.feature.twig`
+    - Update `templatepath` to include your new version (globally or dynamically)
+    -------------------------------------------------------------------------------- ##}
+
+        {## Default Carousel Settings (Overloadable)
+         ---------------------------------------------------------------------------- ##
+        {% block class__base  "min-w-[260px] relative z-40 mb-6 lg:mb-0" %}
+        {% block class__track "mx-8" %}
+        {% block class__ul    "" %}
+        {% block class__slide "flex flex-col items-center justify-start" %}
+        {% block class__pagination "" %}
+
+        {% block splide__config %}{
+            type: 'loop',
+            perPage: 1
+        }{% endblock %}
+         ---------------------------------------------------------------------------- ##
+        ##}
+
 {% set uuid = "splide-#{create('craft\\helpers\\StringHelper').UUID()}" %}
 
 {% block class__base  "min-w-[260px] relative z-40 mb-6 lg:mb-0" %}
-{% block class__track "mx-12" %}
+{% block class__track "" %}
 {% block class__ul    "h-full" %}
 {% block class__li    "flex flex-col items-center justify-start" %}
 {% block class__slide block('class__li') %}{## class__slide is an alias for class_li ##}
@@ -29,6 +61,13 @@
 
     {## Load Splide CSS from CDN ##}
     {% css "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" %}
+    {% css %}
+        .splide__arrow svg { fill: var(--theme-headline); }
+        .splide__arrow--prev { left : -2rem; }
+        .splide__arrow--next { right: -2rem; }
+        .splide__pagination__page { bottom: -4rem; background-color: var(--theme-accent) !important; }
+        .splide__pagination__page.is-active { background-color: var(--theme-headline); }
+    {% endcss %}
 
     <div
         class="w-full relative"
@@ -61,7 +100,7 @@
                 </ul>
             </div>
 
-            <footer>
+            <footer class="relative">
                 <ul class="splide__pagination {{ block('class__pagination') }}"></ul>
             </footer>
         </section>

@@ -40,7 +40,7 @@ class TextBaseTwig extends AbstractExtension
             return $html;
         }
 
-        $cacheKey  =  "textParts-" . md5($html);
+        $cacheKey  =  "TextBase-" . md5($html);
         $textParts = \Craft::$app->cache->getOrSet( $cacheKey, function () use ($html) {
 
             // selector configs
@@ -51,9 +51,9 @@ class TextBaseTwig extends AbstractExtension
                 'defaultMarkSelector' => "mark:not(.m1):not(.m2)",
                 'defaultMarkClass'    => "m1",
                 'markSelectors'       => ['mark.m1','mark.m2'],
-                'ctaSelector'         => "a.button",
+                'ctaSelector'         => "a",
                 'lastSmallSelector'   => "p.small:last-child",
-                'trailingCtaSelector' => "p[data-has-buttons]:last-child",
+                'trailingCtaSelector' => "p[data-only-links]:last-child",
                 'figureClassPrefix'   => "imageCard",
             ];
 
@@ -235,61 +235,12 @@ class TextBaseTwig extends AbstractExtension
     }
 
 
-    // private function generateFigureHtml( $node, $figureClassPrefix )
-    // {
-    //     $view = Craft::$app->getView();
-    //     $templateMode = $view->getTemplateMode();
-    //     $view->setTemplateMode($view::TEMPLATE_MODE_SITE);
 
-    //     $figureHtml   = $node->ownerDocument->saveHTML( $node );
-    //     $figureClass  = $node->getAttribute('class') ?? "";
-    //     $cardTemplate = mb_ereg_replace( $figureClassPrefix, '', $figureClass );
-
-    //     // TODO: Clean-up this dumb ugly bullshit
-    //     // ------------------------------------------------------------------------
-    //     $figureLink     = $this->retconOnly( $figureHtml, "a" );
-    //     $figureImage    = $this->retconOnly( $figureHtml, "img" );
-    //     $figureIframe   = $this->retconOnly( $figureHtml, "iframe" );
-    //     $figureCaption  = $this->retconOnly( $figureHtml, "figcaption" );
-    //     $linkNodes      = $this->_html2nodes( $figureLink   ) ?? [];
-    //     $imageNodes     = $this->_html2nodes( $figureImage  ) ?? [];
-    //     $iframeNodes    = $this->_html2nodes( $figureIframe ) ?? [];
-    //     $linkNode       = null;
-    //     $imageNode      = null;
-    //     $iframeNode     = null;
-    //     foreach( $linkNodes AS $node   ) { $linkNode   = $node; break; }
-    //     foreach( $imageNodes AS $node  ) { $imageNode  = $node; break; }
-    //     foreach( $iframeNodes AS $node ) { $iframeNode = $node; break; }
-    //     // ------------------------------------------------------------------------
-
-    //     $cleanCardTmplName = trim( mb_ereg_replace('/[^\w\d\-\_]+/', '', $cardTemplate ) ) ?? 'basic';
-    //     $cardComponentPath = $iframeNode
-    //         ? "_cards/media/"
-    //         : "_cards/image/";
-
-    //     $cardTwigInclude   = '{% include "' . $cardComponentPath . $cleanCardTmplName . '" ignore missing %}';
-
-    //     $cardSettings = [
-    //         'figureID'     => $node->getAttribute('id') ?? StringHelper::UUID(),
-    //         'link'         => $linkNode  ? $linkNode->getAttribute('href') ?? null : null,
-    //         'image'        => $imageNode ? $imageNode->getAttribute('src') ?? null : null,
-    //         'altText'      => $imageNode ? $imageNode->getAttribute('alt') ?? $imageNode->getAttribute('title') ?? null : null,
-    //         'imageCaption' => (string) Retcon::getInstance()->retcon->change( $figureCaption, "figcaption", false ) ?? ""
-    //     ];
-
-    //     $newFigureHtml = (string) $view->renderString( $cardTwigInclude, [ 'settings' => $cardSettings ] );
-
-    //     $view->setTemplateMode($templateMode);
-
-    //     return trim( $newFigureHtml ?? $figureHtml );
-    // }
-
-
-    // convert:
-    //   style="text-align:left/center/right"
-    // to:
-    //   class="text-left/text-center/text-right"
-
+    // convert inline css text alignment:
+    //  -> style="text-align:left/center/right"
+    //
+    // to tailwind classes:
+    //  -> class="text-left/text-center/text-right"
     private function setNodeAlignment( $node, $settings )
     {
         $classLeft   = $settings["classLeft"]   ?? "text-left";
@@ -330,7 +281,12 @@ class TextBaseTwig extends AbstractExtension
         $paraHtml = $node->ownerDocument->saveHTML( $node );
 
         if( $this->retconOnly( $paraHtml, $ctaSelector ) ) {
-            $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['data-has-buttons' => true] );
+            $whatsLeft = $this->retconRemove( $paraHtml, $ctaSelector );
+            if( (string) Retcon::getInstance()->retcon->removeEmpty( $whatsLeft ) ) {
+                $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['data-only-links' => true] );
+            } else {
+                $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['s' => true] );
+            }
         }
 
         return trim( $paraHtml );

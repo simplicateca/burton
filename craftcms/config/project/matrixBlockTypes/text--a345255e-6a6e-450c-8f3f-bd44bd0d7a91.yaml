@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 26abec17-a1be-4c82-90e1-f6d48f7f4fb0 # Variant
+            fieldUid: 26abec17-a1be-4c82-90e1-f6d48f7f4fb0 # Block Variant
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 9d4f8876-987f-46fc-9042-aaf824a7131d # Layout
+            fieldUid: 9d4f8876-987f-46fc-9042-aaf824a7131d # Content Layout
             instructions: null
             label: null
             required: false
@@ -79,7 +79,7 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: 0dabdba1-b0ed-4220-8bfd-115e5127ee42 # Theme
+            fieldUid: 0dabdba1-b0ed-4220-8bfd-115e5127ee42 # Theme & Spacing
             instructions: null
             label: null
             required: false
@@ -93,13 +93,13 @@ fieldLayouts:
         uid: 17da5594-72ac-4f5d-9596-133476199500
         userCondition: null
 fields:
-  0dabdba1-b0ed-4220-8bfd-115e5127ee42: # Theme
+  0dabdba1-b0ed-4220-8bfd-115e5127ee42: # Theme & Spacing
     columnSuffix: dqtdfrpw
     contentColumnType: text
     fieldGroup: null
     handle: theme
     instructions: null
-    name: Theme
+    name: 'Theme & Spacing'
     searchable: false
     settings:
       columnType: null
@@ -163,27 +163,27 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-  9d4f8876-987f-46fc-9042-aaf824a7131d: # Layout
+  9d4f8876-987f-46fc-9042-aaf824a7131d: # Content Layout
     columnSuffix: qfgjxwao
     contentColumnType: text
     fieldGroup: null
     handle: layout
     instructions: null
-    name: Layout
+    name: 'Content Layout'
     searchable: false
     settings:
       columnType: null
-      configFile: _config/layout.text.json
+      configFile: _config/layout.twozone.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  26abec17-a1be-4c82-90e1-f6d48f7f4fb0: # Variant
+  26abec17-a1be-4c82-90e1-f6d48f7f4fb0: # Block Variant
     columnSuffix: dcsjywnh
     contentColumnType: text
     fieldGroup: null
     handle: variant
     instructions: null
-    name: Variant
+    name: 'Block Variant'
     searchable: false
     settings:
       columnType: null
@@ -274,5 +274,5 @@ fields:
     translationMethod: none
     type: craft\redactor\Field
 handle: text
-name: Text
+name: 'Text Content'
 sortOrder: 1

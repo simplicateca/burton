@@ -1,5 +1,5 @@
 {## Article Router
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% set template  = null %}
 {% set entrytype = entry.type.handle|default(null) %}
 
@@ -19,7 +19,7 @@
 
 
 {## Article Entry URI Generator
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Often easier than trying to cram a bunch of conditional twig logic into the tiny
     space provided by the URI Format field in the control panel.
 
@@ -35,7 +35,7 @@
 
      -> blog/my-article-title
      -> news/news-title
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro uri( entry ) %}{% apply spaceless %}
     {{ entry.type.handle|kebab }}/{{ entry.slug }}
 {% endapply %}{% endmacro %}
@@ -84,3 +84,64 @@
 
     ##}
 {%- endif %}{% endmacro %}
+
+
+{## Article Related Blocks - TODO: Make these into macros
+{-------------------------------------------------------------------------------------##}
+{# {% block article_byline %}
+    <div class="flex items-center gap-3 text-sm uppercase my-4">
+        {{ block( 'article_author' ) }}
+        <span>&bull;</span>
+        {{ block( 'article_timedate' ) }}
+    </div>
+{% endblock %}
+
+
+{% block article_timedate %}
+    <timedate>
+        {{ card._carditem.postDate|date('long') ??? null }}
+    </timedate>
+{% endblock %}
+
+
+{% block article_author %}
+    <span class="flex items-center gap-2">
+        <div class="bg-theme-accent h-10 w-10 rounded-full flex">&nbsp;</div>
+        {{ card._carditem.author.name ??? null }}
+    </span>
+{% endblock %} #}
+
+
+{# {% block card_before_summary %}
+    {{ block( 'article_byline' ) }}
+{% endblock %}
+
+
+{% block card_after_summary %}
+    <span class="flex font-extrabold text-xs uppercase">
+        By {{ card._carditem.author.name ??? null }}
+    </span>
+{% endblock %} #}
+
+{# {% block article_byline %}
+    <div class="flex items-center gap-3 text-sm uppercase my-4">
+        {{ block( 'article_author' ) }}
+        <span>&bull;</span>
+        {{ block( 'article_timedate' ) }}
+    </div>
+{% endblock %}
+
+
+{% block article_timedate %}
+    <timedate>
+        {{ card._carditem.postDate|date('long') ??? null }}
+    </timedate>
+{% endblock %}
+
+
+{% block article_author %}
+    <span class="flex items-center gap-2">
+        <div class="bg-theme-accent h-10 w-10 rounded-full flex">&nbsp;</div>
+        {{ card._carditem.author.name ??? null }}
+    </span>
+{% endblock %} #}

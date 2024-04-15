@@ -14,7 +14,7 @@
 {% block card__action -%}
     {% import "_core/card" as cardactions %}
 
-    {% set settings = settings ??? {} %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {% set action   = settings.action ??? 'autolink' %}
 
     {%- if action in ['autolink','default'] -%}
@@ -32,7 +32,7 @@
     or buttons from Redactor / CKeditor `summary` or `dek` fields.
  ------------------------------------------------------------------------------------- ##}
 {% block card__summary -%}
-    {% set settings = settings ??? {} %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {% set action   = settings.action ??? 'autolink' %}
     {{- action ??? null == 'none'
         ? parent() | retconRemove( ['a','button'] ) | raw

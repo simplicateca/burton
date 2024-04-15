@@ -81,7 +81,7 @@
     "inputs": [
         {
             "label": "Start with first panel open?",
-            "field": "firstOpen",
+            "field": "firstopen",
             "default": "1",
             "type" : "lightswitch"
         }

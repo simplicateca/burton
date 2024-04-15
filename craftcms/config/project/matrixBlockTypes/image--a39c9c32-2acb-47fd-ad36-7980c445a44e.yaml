@@ -7,7 +7,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 05016637-9828-4c3e-94f2-6db02f40308e # Variant
+            fieldUid: 05016637-9828-4c3e-94f2-6db02f40308e # Block Variant
             instructions: null
             label: null
             required: false
@@ -19,7 +19,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 30b5253e-1f74-41f3-b484-e6c82e3210d5 # Layout
+            fieldUid: 30b5253e-1f74-41f3-b484-e6c82e3210d5 # Content Layout
             instructions: null
             label: null
             required: false
@@ -55,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: dda1fa64-dd45-42b6-8df9-476cbac15152 # Image(s)
+            fieldUid: dda1fa64-dd45-42b6-8df9-476cbac15152 # Images
             instructions: null
             label: null
             required: false
@@ -67,7 +67,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 1d242d6f-f863-4979-b2af-bb1da5c2aee2 # Copy
+            fieldUid: 1d242d6f-f863-4979-b2af-bb1da5c2aee2 # Primary Copy
             instructions: null
             label: null
             required: false
@@ -79,7 +79,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: b8f98eab-bd44-4073-b73b-c5c394a00643 # Theme
+            fieldUid: b8f98eab-bd44-4073-b73b-c5c394a00643 # Theme & Spacing
             instructions: null
             label: null
             required: false
@@ -93,13 +93,13 @@ fieldLayouts:
         uid: cac765d1-21c1-46d6-addb-0dfd3c50eb9e
         userCondition: null
 fields:
-  1d242d6f-f863-4979-b2af-bb1da5c2aee2: # Copy
+  1d242d6f-f863-4979-b2af-bb1da5c2aee2: # Primary Copy
     columnSuffix: null
     contentColumnType: text
     fieldGroup: null
     handle: text
     instructions: null
-    name: Copy
+    name: 'Primary Copy'
     searchable: true
     settings:
       availableTransforms: ''
@@ -121,13 +121,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-  30b5253e-1f74-41f3-b484-e6c82e3210d5: # Layout
+  30b5253e-1f74-41f3-b484-e6c82e3210d5: # Content Layout
     columnSuffix: payanbyx
     contentColumnType: text
     fieldGroup: null
     handle: layout
     instructions: null
-    name: Layout
+    name: 'Content Layout'
     searchable: false
     settings:
       columnType: null
@@ -160,13 +160,13 @@ fields:
     translationKeyFormat: null
     translationMethod: site
     type: craft\fields\Entries
-  05016637-9828-4c3e-94f2-6db02f40308e: # Variant
+  05016637-9828-4c3e-94f2-6db02f40308e: # Block Variant
     columnSuffix: tdkiykfz
     contentColumnType: text
     fieldGroup: null
     handle: variant
     instructions: null
-    name: Variant
+    name: 'Block Variant'
     searchable: false
     settings:
       columnType: null
@@ -188,13 +188,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  b8f98eab-bd44-4073-b73b-c5c394a00643: # Theme
+  b8f98eab-bd44-4073-b73b-c5c394a00643: # Theme & Spacing
     columnSuffix: cpekkbhk
     contentColumnType: text
     fieldGroup: null
     handle: theme
     instructions: null
-    name: Theme
+    name: 'Theme & Spacing'
     searchable: false
     settings:
       columnType: null
@@ -202,13 +202,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  dda1fa64-dd45-42b6-8df9-476cbac15152: # Image(s)
+  dda1fa64-dd45-42b6-8df9-476cbac15152: # Images
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
     handle: images
     instructions: null
-    name: Image(s)
+    name: Images
     searchable: true
     settings:
       allowSelfRelations: false
@@ -242,5 +242,5 @@ fields:
     translationMethod: site
     type: craft\fields\Assets
 handle: image
-name: Image
+name: 'Image Content'
 sortOrder: 2

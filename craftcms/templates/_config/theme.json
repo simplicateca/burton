@@ -7,13 +7,13 @@
         "docs": {
             "tooltip" : ""
         },
+        "settings": {},
         "inputs": [
             {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
-        ],
-        "settings": {}
+        ]
     }
 
    ,{
@@ -22,14 +22,14 @@
         "docs": {
             "tooltip" : ""
         },
+        "settings": {},
         "inputs": [
             {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }}
-        ],
-        "settings": {}
+        ]
     }
 
    ,{
@@ -38,6 +38,7 @@
         "docs": {
             "tooltip" : ""
         },
+        "settings": {},
         "inputs": [
             {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
@@ -45,8 +46,7 @@
             {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }},
 
             {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }}
-        ],
-        "settings": {}
+        ]
     }
 
    ,{
@@ -55,14 +55,13 @@
         "docs": {
             "tooltip" : ""
         },
+        "settings": {},
         "inputs": [
             {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
-        ],
-        "settings": {
-            "inheritTheme": true
-        }
+        ]
+
     }
 ]

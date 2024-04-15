@@ -8,26 +8,29 @@
         zone1: "w-full @container/zone",
         zone2: "w-full @container/zone",
         zone1empty: "",
+        zone2empty: "",
         align: true,
         container: "default"
     } | merge(settings) %}
 
     {%- if content.zone1 is defined -%}
+
         {## match the mx- on the wrapping <zone> with the text-align of it's first child ##}
         {% set oAlign = ( settings.align is same as(true) )
             ? _self.marginMatchTextAlign( content.zone1 ) | trim
             : settings.align %}
 
-        {% set zonecontent = _self.zone( 1, content.zone1, [settings.zone1, oAlign] ) %}
-        {% set zonecontent = settings.zone1empty == 'hide'
-            ? zonecontent | retconRemoveEmpty('div[data-zone="1"]')
-            : zonecontent %}
-
-        {{ zonecontent }}
+        {%- set zone1content = _self.zone( 1, content.zone1, [settings.zone1, oAlign] ) -%}
+        {{- settings.zone1empty == 'hide'
+            ? zone1content | retconRemoveEmpty('div[data-zone="1"]')
+            : zone1content -}}
     {%- endif -%}
 
     {%- if content.zone2 is defined -%}
-        {{ _self.zone( 2, content.zone2, [settings.zone2] ) }}
+        {%- set zone2content = _self.zone( 2, content.zone2, [settings.zone2] ) -%}
+        {{- settings.zone2empty == 'hide'
+            ? zone2content | retconRemoveEmpty('div[data-zone="2"]')
+            : zone2content -}}
     {%- endif -%}
 {% endmacro %}
 
@@ -42,7 +45,7 @@
 
 
 {% macro headerzone( content, settings = null ) %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
 
     {% set settings = settings is null or settings is not iterable ? {} : settings %}
     {% set content  = content.header ??? null %}
@@ -55,7 +58,7 @@
 
     {%- if content -%}
         {% set settings = {
-            class: "w-full @container max-w-4xl",
+            class: "w-full @container max-w-5xl",
             headerlayer: "block__header",
             align: true
         } | merge(settings) %}
@@ -75,7 +78,7 @@
 
 
 {% macro footerzone( content, settings = null ) %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
 
     {% set settings = settings is null or settings is not iterable ? {} : settings %}
     {% set content  = content.footer ??? null %}
@@ -83,7 +86,7 @@
 
     {%- if content -%}
         {% set settings = {
-            class: "w-full @container max-w-4xl",
+            class: "w-full @container max-w-5xl",
             footerlayer: "block__footer",
             align: true
         } | merge(settings) %}
@@ -101,11 +104,12 @@
 
     {% set container = settings.container ?? 'default' %}
     {% if container %}
-        {% import "_core/assemble" as assemble %}
+        {% import "_assemble" as assemble %}
         {{ assemble.closecontainer( container, settings ) }}
     {% endif %}
 
 {% endmacro %}
+
 
 {## zone1 (Single Zone Layout)
  ---------------------------------------------------------------------- ##
@@ -148,7 +152,8 @@
         ],
         html: _self.twoZone( content, {
             zone1: "w-full max-w-5xl @container",
-            zone1empty: "hide"
+            zone1empty: "hide",
+            zone2empty: "hide"
         } )
     }) }}
     {{ _self.footerzone( content, settings ) }}
@@ -168,7 +173,8 @@
         ],
         html: _self.twoZone( content, {
             zone1: "w-full max-w-5xl @container mx-auto",
-            zone1empty: "hide"
+            zone1empty: "hide",
+            zone2empty: "hide"
         } )
     }) }}
     {{ _self.footerzone( content, settings | merge({ align: "mx-auto" }) ) }}
@@ -189,7 +195,8 @@
         ],
         html: _self.twoZone( content, {
             zone1: "w-full max-w-3xl @container mx-auto",
-            zone1empty: "hide"
+            zone1empty: "hide",
+            zone2empty: "hide"
         } )
     }) }}
     {{ _self.footerzone( content, settings ) }}
@@ -215,7 +222,8 @@
         ],
         html: _self.twoZone( content, {
             zone1: "w-full max-w-5xl @container",
-            zone1empty: "hide"
+            zone1empty: "hide",
+            zone2empty: "hide"
         } )
     }) }}
     {{ _self.footerzone( content, settings ) }}
@@ -235,7 +243,8 @@
         ],
         html: _self.twoZone( content, {
             zone1: "w-full max-w-5xl @container mx-auto",
-            zone1empty: "hide"
+            zone1empty: "hide",
+            zone2empty: "hide"
         } )
     }) }}
     {{ _self.footerzone( content, settings ) }}
@@ -306,8 +315,8 @@
             block('default_gap')
         ],
         html: _self.twoZone( content, {
-            zone1: "w-full lg:w-1/2 @container flex flex-col",
-            zone2: "w-full lg:w-1/2 @container flex",
+            zone1: "w-full lg:w-1/2 @container",
+            zone2: "w-full lg:w-1/2 @container",
             zone1empty: "hidemobile"
         } )
     }) }}
@@ -325,8 +334,8 @@
             block('default_gap')
         ],
         html: _self.twoZone( content, {
-            zone1: "w-full lg:w-1/2 @container flex flex-col",
-            zone2: "w-full lg:w-1/2 @container flex",
+            zone1: "w-full lg:w-1/2 @container",
+            zone2: "w-full lg:w-1/2 @container",
             zone1empty: "hidemobile"
         } )
     }) }}
@@ -444,8 +453,8 @@
             block('default_gap')
         ],
         html: _self.twoZone( content, {
-            zone1: "w-full lg:w-3/5 @container flex flex-col",
-            zone2: "w-full lg:w-2/5 @container flex",
+            zone1: "w-full lg:w-3/5 @container",
+            zone2: "w-full lg:w-2/5 @container",
             zone1empty: "hidemobile"
         } )
     }) }}
@@ -463,8 +472,8 @@
             block('default_gap')
         ],
         html: _self.twoZone( content, {
-            zone1: "w-full lg:w-3/5 @container flex flex-col",
-            zone2: "w-full lg:w-2/5 @container flex",
+            zone1: "w-full lg:w-3/5 @container",
+            zone2: "w-full lg:w-2/5 @container",
             zone1empty: "hidemobile"
         } )
     }) }}
@@ -490,8 +499,8 @@
             block('default_gap')
         ],
         html: _self.twoZone( content, {
-            zone1: "w-full lg:w-2/5 @container flex flex-col",
-            zone2: "w-full lg:w-3/5 @container flex",
+            zone1: "w-full lg:w-2/5 @container",
+            zone2: "w-full lg:w-3/5 @container",
             zone1empty: "hidemobile"
         } )
     }) }}
@@ -509,8 +518,8 @@
             block('default_gap')
         ],
         html: _self.twoZone( content, {
-            zone1: "w-full lg:w-2/5 @container flex flex-col",
-            zone2: "w-full lg:w-3/5 @container flex",
+            zone1: "w-full lg:w-2/5 @container",
+            zone2: "w-full lg:w-3/5 @container",
             zone1empty: "hidemobile"
         } )
     }) }}

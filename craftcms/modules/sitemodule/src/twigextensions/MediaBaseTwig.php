@@ -29,7 +29,7 @@ class MediaBaseTwig extends AbstractExtension
 
     public function MediaBase( $url )
     {
-        $embedData = \Craft::$app->cache->getOrSet( "oembed2-$url", function () use ($url) {
+        $embedData = \Craft::$app->cache->getOrSet( "oembed-$url", function () use ($url) {
             $embed = new Embed();
             $info = $embed->get($url);
 
@@ -40,25 +40,10 @@ class MediaBaseTwig extends AbstractExtension
                 'images'      => [ ['url' => (string) $info->image ?? '' ] ],
                 'html'        => $info->code->html      ?? null,
                 'ratio'       => $info->code->ratio     ?? null,
-                'aspect'      => "",
                 'provider'    => mb_strtolower( $info->providerName ?? null ),
                 'authorName'  => $info->authorName ?? null,
                 'authorUrl'   => $info->authorUrl  ?? null,
             ];
-
-            if( (int) $data['ratio'] == 56 ) {
-                $data['aspect'] = "aspect-video";
-            }
-
-            $data['html'] = (string) Retcon::getInstance()->retcon->attr( $data['html'], "blockquote.twitter-tweet", [
-                'class' => 'mx-auto'
-            ], false );
-
-            $data['html'] = (string) Retcon::getInstance()->retcon->attr( $data['html'], "iframe", [
-                'class' => $data['aspect'],
-                'height' => '100%',
-                'width' => '100%'
-            ], true );
 
             return $data;
 

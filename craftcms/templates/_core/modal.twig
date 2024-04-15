@@ -1,7 +1,7 @@
 {## Modal Base Template
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
 
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% extends template_from_string('{% block modal %}{% endblock %}') %}
 
 {% set open        = open        ??? false %}
@@ -107,7 +107,7 @@
                                 transition
                                 hover:text-white
                             "><button type="button" x-on:click="open=false">
-                                {{ svg('@webroot//static/svg/dismiss.svg') | attr({
+                                {{ svg('@webroot/static/svg/dismiss.svg') | attr({
                                     class: 'fill-current'
                                 }) }}
                             </button></div>

@@ -1,7 +1,7 @@
 {% extends "_site/layout" %}
 
 {## Topic Template Router
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% set entrytype = entry.type.handle|default(null) %}
 
 {% if entrytype != 'topic' %}
@@ -10,13 +10,13 @@
 
 
 {## Generate the URI for topics
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Often easier than trying to cram a bunch of conditional twig logic into the tiny
     space provided by the URI Format field in the control panel.
 
     However, you do need to trigger a manual resave of all entries if you change
     the URI sturcture in the below macro for existing records.
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro uri( entry ) %}{% apply spaceless %}
     {{ entry.type.handle == 'topic' ? "topics/#{entry.slug}" : null }}
 {% endapply %}{% endmacro %}

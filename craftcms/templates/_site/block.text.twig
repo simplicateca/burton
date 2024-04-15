@@ -1,0 +1,66 @@
+{## Text Block Base
+{-------------------------------------
+{-------------------------------------------------------------------------------------##
+    http://localhost:8000/sitehub/blocks/text
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_core/block.text" ] %}
+
+
+{## Secondary Text Reveal Blocks
+{-------------------------------------------------------------------------------------##
+    This block varient loads content from the local `summary` field -or- from the
+    `summary` field of the attached Reusable Content Bit.
+{-------------------------------------------------------------------------------------##}
+{% block text2__reveal %}
+    {%- set settings  = settings is not null and settings is iterable ? settings : {} -%}
+    {%- import "_assemble" as assemble -%}
+
+    {% set revealtext = settings.field ??? "View Hidden Content" %}
+
+    <div
+        x-cloak
+        x-data="{
+            revealed: false,
+            reveal() { this.revealed = true }
+        }"
+        :class="revealed ? 'w-full' : 'w-full h-full'"
+    >
+        <template x-if="!revealed">
+            <div class="w-full h-full flex items-center justify-center p-8 bg-canvas-dark">
+                <button x-on:click="reveal" class="button">{{revealtext}}</button>
+            </div>
+        </template>
+
+        <div x-show="revealed">
+            {{- assemble.text(
+                block.text2 ??? "",
+                settings.text2layer ??? 'default',
+                settings
+            ) -}}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{## Callout Blocks
+{-------------------------------------------------------------------------------------##
+    This block varient loads content from the local `summary` field -or- from the
+    `summary` field of the attached Reusable Content Bit.
+{-------------------------------------------------------------------------------------##}
+{% block text2__callout %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+    {% set callout = block.summary ??? "" %}
+    {% if block.bits is iterable and block.bits.one() ??? null %}
+        {%- set bit = block.bits.one() -%}
+        {%- set callout = bit ? bit.summary ??? bit.text ??? null : callout -%}
+    {% endif %}
+
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.text(
+        callout,
+        settings.text2layer ??? 'callout',
+        settings
+    ) -}}
+{% endblock %}

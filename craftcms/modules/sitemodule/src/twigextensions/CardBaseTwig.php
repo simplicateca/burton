@@ -2,6 +2,18 @@
 /**
  * Card Layer Twig Functions
  *
+ * Like its cousins (TextBase, ImageBase, BlockBase, etc), the use of PHP to create
+ *   this macro instead of defining it within Twig is a bit of a necessasry evil.
+ *
+ *   Twig lacks a way to return variables from inline macros, which makes it very hard
+ *   to define a consistent data structure for complex elements. Without this, there
+ *   would be too much code duplication and inconsistency.
+ *
+ *   If Twig had a more robust way to return a variable from an inline {% macro %}
+ *   exectution (without rendering it), `CardBase` could easily exist as Twig code.
+ *
+ *   Maintains path and inheritence consistency when generating content cards.
+ *
  * This extension is not *required*, but it provides a convenient way to maintain consistency
  * in the card object across templates and avoid unnecessary code duplication in Twig templates.
  *

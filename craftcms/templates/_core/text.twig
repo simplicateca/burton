@@ -1,4 +1,12 @@
 {% macro default( content = null, settings = null ) -%}
-    {% set settings = settings ??? {} %}
-    {{ content | trim ? raw( content ) : '' }}
+    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {{- content ? raw( content ) -}}
+{%- endmacro %}
+
+
+{% macro default2col( content = null, settings = null ) -%}
+    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- if content %}<div class="columns-2 gap-8 text-sm">{{- raw( content ) -}}</div>{% endif -%}
 {%- endmacro %}

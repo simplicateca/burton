@@ -1,7 +1,7 @@
 {% extends [ "_site/card", "_core/card" ] %}
 
 {% set card = card ??? null %}
-{% set settings = settings ??? {} %}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
 {% block card__class "w-full h-full relative flex flex-col @container" %}
 
@@ -9,12 +9,12 @@
     {% set cardsettings = settings | merge({
         imagelayer: 'widescreen'
     }) %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {{ assemble.images( card.images, cardsettings.imagelayer, cardsettings ) }}
 {% endblock %}
 
 {% block card__summary %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {{ tag( 'div', {
         class: 'hidden @xs:block',
         html : assemble.text( card.summary, 'card__summary', settings )

@@ -1,35 +1,41 @@
-{% from "_core/image" import default as render %}
+{%- set images   = images ??? null -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set position1 = _self.square( ( images[0:1]|first ) ??? null ) | trim -%}
+{%- set position2 = _self.square( ( images[1:1]|first ) ??? null ) | trim -%}
+{%- set position3 = _self.square( ( images[2:1]|first ) ??? null ) | trim -%}
 
-{% set images   = images|default([])   %}
-{% set settings = settings|default({}) %}
+{% macro square( image ) %}
+    {%- from "_core/image" import imgtag -%}
+    {% set imgtag = imgtag( image, {
+        class       : "object-cover w-full h-full rounded-lg shadow-lg",
+        transform   : "square",
+        _placeholder: "square",
+    }) %}
 
-{% set frame = {
-    class    : 'rounded-lg shadow-lg',
-    figure   : null,
-    transform: 'square'
-} %}
-
-{% set position1 = render( ( images[0:1]|first ) ??? null, frame ) ??? null %}
-{% set position2 = render( ( images[1:1]|first ) ??? null, frame ) ??? null %}
-{% set position3 = render( ( images[2:1]|first ) ??? null, frame ) ??? null %}
+    {%- embed ['_site/image', '_core/image'] with {
+        img: imgtag,
+    } only %}
+        {% block figure__class "aspect-square overflow-hidden w-full h-full rounded-lg shadow-lg" %}
+    {% endembed -%}
+{% endmacro %}
 
 {% if position1 %}
     <div class="flex mx-auto gap-4 xl:gap-8" data-cluster="true">
         <div class="w-7/12 flex flex-col gap-4 xl:gap-8">
             <div class="aspect-square w-full opacity-0 clusterA relative z-30">
-                {{ position1 | raw }}
+                {{ raw( position1 ) }}
             </div>
 
             {% if position3 %}
                 <div class="aspect-square w-3/5 rounded-lg mr-0 ml-auto opacity-0 relative clusterC z-10">
-                    {{ position3 | raw }}
+                    {{ raw( position3 ) }}
                 </div>
             {% endif %}
         </div>
         {% if position2 | raw %}
             <div class="w-5/12 mt-16 lg:mt-40 2xl:mt-60">
                 <div class="aspect-square rounded-lg opacity-0 clusterB relative z-20">
-                    {{ position2 }}
+                    {{ raw( position2 ) }}
                 </div>
             </div>
         {% endif %}

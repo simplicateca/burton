@@ -25,7 +25,7 @@
             </label>
         </div>
 
-        <p class="data-has-buttons">
+        <p class="data-only-links">
             {{ tag('button', { type: 'submit', class: 'button', text: 'Sign in ➜'|t }) }}
             <a href="{{ url('/account/forgot-password') }}">{{- 'Forgot your password?'|t -}}</a>
         </p>
@@ -55,7 +55,7 @@
             }) }}
         {% endif %}
 
-        <p class="data-has-buttons">
+        <p class="data-only-links">
             {{ tag('button', { type: 'submit', class: "button" , text: 'Reset Password'|t }) }}
             <a href="{{ url('account') }}">{{- 'Cancel'|t -}}</a>
         </p>

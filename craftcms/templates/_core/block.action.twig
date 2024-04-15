@@ -1,7 +1,7 @@
-{## Action Block Base
- ------------------------------------------------------------------------------------ ##
+{## User Action Block Base
+{-------------------------------------------------------------------------------------##
     -> http://localhost:8000/sitehub/blocks/action
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block", "_core/block" ] %}
 
 {% set settings    = settings ??? block.settings ??? {}  %}
@@ -13,7 +13,7 @@
 {% block content block('block__assemble') %}
 
 {% block block__assemble %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {{ assemble.microlayout( microlayout, {
         zone1 : block('block__text'),
         zone2 : block('block__action'),
@@ -53,6 +53,6 @@
 
 
 {% block action__iframe %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {{ assemble.iframe( block.code|default(), block.settings ) }}
 {% endblock %}

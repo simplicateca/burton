@@ -1,5 +1,5 @@
 {## SelectPlus Virtual Field Definitions
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Each block below defines a virtual field for the SelectPlus plugin to render & save.
 
     Virtual Fields can be defined directly in a SelectPlus `.json` config ...
@@ -25,62 +25,50 @@
            when including Twig syntax in JSON files.
 
  -> https://github.com/simplicateca/craft-selectplus-field/blob/main/README.md
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 
-{% block inputSpacerAbove %}
-{
-    "label": "Spacer Above",
-    "field": "spacerabove",
+{% block inputHeadlinePosition %}{
+    "label": "Opening Headline",
+    "field": "text1__headers",
+    "instructions": "Group + reposition the first <h2/3/4> elements in the `Copy`",
     "type" : "select",
-    "default": "normal",
+    "default": "inline",
     "fieldClass": "field width-50",
-    "instructions": "The size of the whitespace gap before this block.",
-    "options" : {
-        "normal": "Normal",
-        "large" : "Large",
-        "none"  : "None"
-    }
-}
-{% endblock %}
+    "options" : [
+        {
+            "label": "Leave inline with Copy",
+            "value": "inline"
+        }
+       ,{
+            "label": "Move to Block Header",
+            "value": "header"
+        }
+    ]
+}{% endblock %}
 
 
-{% block inputSpacerBelow %}
-{
-    "label": "Spacer Below",
-    "field": "spacerbelow",
+{% block inputButtonPositions %}{
+    "label": "Trailing CTA",
+    "field": "text1__ctas",
+    "instructions": "Group + reposition closing CTAs (button/link) in the `Copy`",
     "type" : "select",
-    "default": "normal",
+    "default": "inline",
     "fieldClass": "field width-50",
-    "instructions": "The size of the whitespace gap after this block.",
-    "options" : {
-        "normal": "Normal",
-        "large" : "Large",
-        "none"  : "None"
-    }
-}
-{% endblock %}
+    "options" : [
+        {
+            "label": "Leave inline with Copy",
+            "value": "inline"
+        }
+       ,{
+            "label": "Move to Block Footer",
+            "value": "footer"
+        }
+    ]
+}{% endblock %}
 
 
-{% block inputContainer %}
-{
-    "label": "Container Width",
-    "field": "container",
-    "type" : "select",
-    "default": "fluid",
-    "fieldClass": "field width-50",
-    "instructions": "",
-    "options" : {
-        "fluid" : "Fluid Widescreen",
-        "static": "Static Desktop Width",
-        "tablet": "Narrow (Tablet Portrait)",
-        "none"  : "Edge-to-Edge Bleed"
-    }
-}
-{% endblock %}
 
-
-{% block inputClickAction %}
-{
+{% block inputClickAction %}{
     "label": "Click Action",
     "field": "action",
     "type" : "select",
@@ -105,102 +93,36 @@
             "value" : "none"
         }
     ]
-}
-{% endblock %}
+}{% endblock %}
 
 
-{% block inputHeadlinePosition %}
-{
-    "label": "Opening Headline",
-    "field": "text1__headers",
-    "instructions": "Group + reposition the first <h2/3/4> elements in the `Copy`",
-    "type" : "select",
-    "default": "inline",
-    "fieldClass": "field width-50",
-    "options" : [
-        {
-            "label": "Leave inline with Copy",
-            "value": "inline"
-        }
-       ,{
-            "label": "Move to Block Header",
-            "value": "header"
-        }
-    ]
-}
-{% endblock %}
 
-
-{% block inputButtonPositions %}
-{
-    "label": "Trailing CTA",
-    "field": "text1__ctas",
-    "instructions": "Group + reposition closing CTAs (button/link) in the `Copy`",
-    "type" : "select",
-    "default": "inline",
-    "fieldClass": "field width-50",
-    "options" : [
-        {
-            "label": "Leave inline with Copy",
-            "value": "inline"
-        }
-       ,{
-            "label": "Move to Block Footer",
-            "value": "footer"
-        }
-    ]
-}
-{% endblock %}
-
-
-{# {% block inputAnimate %}
-{
-    "label": "Animate",
-    "field": "animate",
-    "type" : "lightswitch",
-    "instructions": ""
-}
-{% endblock %} #}
-
-
-{# {% block inputCheckerboard %}
-{
-    "label": "Checkerboard",
-    "field": "checkerboard",
-    "type" : "lightswitch",
-    "instructions": "Square-off content columns with split backgrounds"
-}
-{% endblock %} #}
-
-
-{% block inputCopyWidth %}
-{
-    "label": "Content Layout",
+{% block inputTextTopSizes %}{
+    "label": "Primary Copy Position",
     "field": "microlayout",
     "type" : "select",
-    "instructions": "Sizing and alignment for vertical block layouts",
+    "instructions": "Sizing and alignment for primary text copy",
     "default": "zone1Top",
-    "fieldClass": "field width-50",
+    "fieldClass": "field width-100",
     "options" : [
         {
-            "label" : "Wide Text Left (~75 chars)",
+            "label" : "Left Normal (~75 chars wide)",
             "value" : "zone1Top"
         }
        ,{
-            "label" : "Wide Text Middle (~75 chars)",
+            "label" : "Middle Normal (~75 chars wide)",
             "value" : "zone1Top__center"
         }
        ,{
-            "label" : "Narrow Text Middle (~45 chars)",
+            "label" : "Middle Narrow (~45 chars wide)",
             "value" : "zone1Top__narrow"
         }
     ]
-}
-{% endblock %}
+}{% endblock %}
 
 
-{% block inputTextRightSizes %}
-{
+
+{% block inputTextRightSizes %}{
     "label": "Column Size + Layout",
     "field": "microlayout",
     "type" : "select",
@@ -233,12 +155,11 @@
             "value" : "zone1RightNarrow__center"
         }
     ]
-}
-{% endblock %}
+}{% endblock %}
 
 
-{% block inputTextLeftSizes %}
-{
+
+{% block inputTextLeftSizes %}{
     "label": "Column Size + Layout",
     "field": "microlayout",
     "type" : "select",
@@ -271,12 +192,45 @@
             "value" : "zone1LeftNarrow__center"
         }
     ]
-}
-{% endblock %}
+}{% endblock %}
 
 
-{% block inputBlockBottom %}
-{
+
+{% block inputSpacerAbove %}{
+    "label": "Spacer Above",
+    "field": "spacerabove",
+    "type" : "select",
+    "default": "normal",
+    "fieldClass": "field width-50",
+    "instructions": "The size of the whitespace gap before this block.",
+    "options" : {
+        "normal": "Normal",
+        "small" : "Small",
+        "large" : "Large",
+        "none"  : "None"
+    }
+}{% endblock %}
+
+
+
+{% block inputSpacerBelow %}{
+    "label": "Spacer Below",
+    "field": "spacerbelow",
+    "type" : "select",
+    "default": "normal",
+    "fieldClass": "field width-50",
+    "instructions": "The size of the whitespace gap after this block.",
+    "options" : {
+        "normal": "Normal",
+        "small" : "Small",
+        "large" : "Large",
+        "none"  : "None"
+    }
+}{% endblock %}
+
+
+
+{% block inputBlockBottom %}{
     "label": "Bottom Divider",
     "field": "blockBottom",
     "type" : "select",
@@ -304,13 +258,26 @@
             "value" : "tilt"
         }
     ]
-}
-{% endblock %}
+}{% endblock %}
 
 
+{% block inputContainer %}{
+    "label": "Container Width",
+    "field": "container",
+    "type" : "select",
+    "default": "fluid",
+    "fieldClass": "field width-50",
+    "instructions": "",
+    "options" : {
+        "fluid" : "Fluid Widescreen",
+        "static": "Static Desktop Width",
+        "tablet": "Narrow (Tablet Portrait)",
+        "none"  : "Edge-to-Edge Bleed"
+    }
+}{% endblock %}
 
-{% block inputCanvasCoverage %}
-{
+
+{% block inputCanvasCoverage %}{
     "label": "Canvas Coverage",
     "field": "coverage",
     "type" : "select",
@@ -320,5 +287,4 @@
         {% if object.field ??? null == 'bodyBuilder' %}"full": "Edge-to-Edge Bleed",{% endif %}
         "box": "Content Box Only"
     }
-}
-{% endblock %}
+}{% endblock %}

@@ -21,7 +21,7 @@
 {% block content "" %}
 {% block sidebar "" %}
 
-{% import "_core/assemble" as assemble %}
+{% import "_assemble" as assemble %}
 {% block main__content %}{{ _self.twoColumns(
     assemble.block__or__builder( block('content'), 'content', entry ),
     assemble.block__or__builder( block('sidebar'), 'sidebar', entry )
@@ -39,7 +39,7 @@
         aside: 'w-full lg:max-w-sm @container'
     } | merge(settings) %}
 
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
 
     {{ assemble.container(
         container,

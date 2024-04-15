@@ -1,166 +1,109 @@
-{## Render a Card for a Content Entry
- ------------------------------------------------------------------------------------ ##
+{## Site Media Elements
+{---------------------------------------------------------------------------------------}
+    Video, Audio, File, oEmbeds, and other media elements.
+{-------------------------------------------------------------------------------------##}
+{% extends "_core/media" %}
 
- ------------------------------------------------------------------------------------ ##}
-{# {% macro card( content = null, card = {}, settings = {} ) %}
 
-    {% set section    = card.section ??? settings.section    ??? content.section.handle ??? content.section ??? null %}
-    {% set cardlayer = card.name    ??? settings.cardlayer ??? 'summary' %}
+{% macro carousel( items, settings = null ) -%}
+{%- if items -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {% set settings = {
+        medialayer: 'posterpreview',
+    } | merge( settings ) %}
 
-    {% set card = {
-        section: section,
-        cardlayer: cardlayer,
-        path: [
-            "_site/card.#{cardlayer}",
-            "_site/card",
-            "_core/card"
-        ]
+    {%- import "_assemble" as assemble -%}
+    {%- set items = items | map( item => assemble.media( item, settings.medialayer, settings ) ) -%}
+
+    {% embed ['_site/carousel','_core/carousel'] with {
+        items: items,
+        settings: settings
+    } only %}{% endembed %}
+{%- endif -%}{%- endmacro %}
+
+
+
+
+{% macro accordion( items, settings = null ) -%}
+{%- if items -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {% set settings = {
+        medialayer: 'default'
+    } | merge( settings ) %}
+
+    {% embed ['_site/accordion','_core/accordion'] with {
+        items     : items,
+        settings  : settings,
+        medialayer: settings.medialayer,
+        firstopen : settings.firstopen ?? false
     } %}
+        {% block panel__title "#{item.headline ??? item.alt ??? item.title ??? null}" %}
 
-    {% if content and cardlayer %}
-        {% import "_core/card" as cards %}
-        {{ cards.render( content, card, settings ) }}
+        {% block panel__content %}
+            {%- import "_assemble" as assemble -%}
+
+            {% set textlayer = settings.textlayer ??? 'default' %}
+
+            <div class="flex flex-col gap-8">
+                {{ assemble.media( item, medialayer, settings ) }}
+                {% if item.summary %}
+                    <div class="@container">{{ assemble.text( item.summary, textlayer, settings ) }}</div>
+                {% endif %}
+            </div>
+        {% endblock %}
+
+    {% endembed %}
+{%- endif -%}{%- endmacro %}
+
+
+
+{% macro grid2( items, settings = null ) %}
+    {% import "_assemble" as assemble %}
+
+    {% set flexible   = 'grid items-start grid-cols-1 @md:grid-cols-2 gap-4 @xl:gap-8 @4xl:gap-12 @7xl:gap-16' %}
+    {% set fixed      = 'grid items-start grid-cols-2 gap-8 @3xl:gap-16 @7xl:gap-24' %}
+    {% set medialayer = settings.medialayer ??? 'default' %}
+
+    {% if items %}
+        {% set html %}
+            {% for item in items %}
+                {{ assemble.media( item, medialayer, settings ) }}
+            {% endfor %}
+        {% endset %}
+
+        {% set grid = {
+            html : html,
+            data : { layout: 'grid2flexible' },
+            class: flexible
+        } %}
+
+        <div class="w-full">{{ tag( 'div', grid ) }}</div>
     {% endif %}
-{% endmacro %} #}
+{% endmacro %}
 
 
 
-{## Render an Media Element (Video, Audio, File, oEmbed)
- ------------------------------------------------------------------------------------ ##
 
- ------------------------------------------------------------------------------------ ##}
-{% macro media( media = null, frame = null, settings = {} ) %}
-    {% import "_core/assemble" as assemble %}
+{% macro grid3( items, settings = null ) %}
+    {% import "_assemble" as assemble %}
 
-    {% if media.embed.html ??? null %}
-        {% set provider = media.embed.provider|default() %}
+    {% set flexible   = 'grid items-start grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8 @5xl:gap-12 @7xl:gap-16' %}
+    {% set fixed      = 'grid items-start grid-cols-3 gap-4 @3xl:gap-12 @5xl:gap-16 @7xl:gap-20' %}
+    {% set medialayer = settings.medialayer ??? 'default' %}
 
-        {% if provider == 'youtube' or provider == 'vimeo' %}
-            {{ _self.video( media, frame, settings ) | raw }}
-        {% else %}
-            {{ _self.iframe( media, frame, settings ) | raw }}
-        {% endif %}
+    {% if items %}
+        {% set html %}
+            {% for item in items %}
+                {{ assemble.media( item, medialayer, settings ) }}
+            {% endfor %}
+        {% endset %}
+
+        {% set grid = {
+            html : html,
+            data : { layout: 'grid3fixed' },
+            class: fixed
+        } %}
+
+        <div class="w-full">{{ tag( 'div', grid ) }}</div>
     {% endif %}
-
-    {# {% set useCaptions = settings.imageCaptions ?? settings.captions ?? null %}
-    {% if useCaptions %}
-        {% set captionParts = {
-            title  : images.title   ??? images[0].title   ??? null,
-            summary: images.summary ??? images[0].summary ??? null,
-            alt    : images.alt     ??? images[0].alt     ??? null,
-            use    : useCaptions,
-        } %}
-
-        {% set frame = frame|merge({
-            caption: assemble.text( captionParts, 'figcaption' )
-        }) %}
-    {% endif %} #}
-
-    {# {{ assemble.video( media, frame ) | raw }} #}
-{% endmacro %}
-
-
-{## Video Elements
- ------------------------------------------------------------------------------------ ##
-    Includes both <video> elements and Youtube/Vimeo style <iframe> embeds
- ------------------------------------------------------------------------------------ ##}
-{% macro video( media = null, frame = null, settings = {} ) %}
-    {% import "_core/assemble" as assemble %}
-
-    {% set frame = {
-        class    : settings.videoClass     ?? settings.class     ?? "w-full max-w-full h-auto rounded-lg",
-        figure   : settings.videoFigure    ?? settings.figure    ?? "relative z-20 max-w-5xl mx-auto",
-        transform: settings.videoTransform ?? settings.transform ?? "square",
-        include  : settings.videoInclude   ?? settings.include   ?? null,
-    } %}
-
-    {# {% set useCaptions = settings.imageCaptions ?? settings.captions ?? null %}
-    {% if useCaptions %}
-        {% set captionParts = {
-            title  : images.title   ??? images[0].title   ??? null,
-            summary: images.summary ??? images[0].summary ??? null,
-            alt    : images.alt     ??? images[0].alt     ??? null,
-            use    : useCaptions,
-        } %}
-
-        {% set frame = frame|merge({
-            caption: assemble.text( captionParts, 'figcaption' )
-        }) %}
-    {% endif %} #}
-
-    {{ assemble.video( media, frame ) | raw }}
-{% endmacro %}
-
-
-{## Audio Elements
- ------------------------------------------------------------------------------------ ##
-    Includes both <audio> elements and Spotify/Soundcloud style <iframe> embeds
- ------------------------------------------------------------------------------------ ##}
-{% macro audio( media = null, frame = null, settings = {} ) %}
-    {% import "_core/assemble" as assemble %}
-
-    {% set frame = {
-        class    : settings.class     ?? "w-full max-w-full h-auto rounded-lg",
-        figure   : settings.figure    ?? "relative z-20",
-        transform: settings.transform ?? "square",
-        include  : settings.include   ?? null,
-    } %}
-
-    {# {% set useCaptions = settings.imageCaptions ?? settings.captions ?? null %}
-    {% if useCaptions %}
-        {% set captionParts = {
-            title  : images.title   ??? images[0].title   ??? null,
-            summary: images.summary ??? images[0].summary ??? null,
-            alt    : images.alt     ??? images[0].alt     ??? null,
-            use    : useCaptions,
-        } %}
-
-        {% set frame = frame|merge({
-            caption: assemble.text( captionParts, 'figcaption' )
-        }) %}
-    {% endif %} #}
-
-    {{ assemble.audio( images, frame ) | raw }}
-{% endmacro %}
-
-
-{% macro file( media = null, frame = null, settings = {} ) %}
-    {% import "_core/assemble" as assemble %}
-
-    {% set frame = {
-        class    : settings.class     ?? "w-full max-w-full h-auto rounded-lg",
-        figure   : settings.figure    ?? "relative z-20",
-        transform: settings.transform ?? "square",
-        include  : settings.include   ?? null,
-    } %}
-
-    {# {% set useCaptions = settings.imageCaptions ?? settings.captions ?? null %}
-    {% if useCaptions %}
-        {% set captionParts = {
-            title  : images.title   ??? images[0].title   ??? null,
-            summary: images.summary ??? images[0].summary ??? null,
-            alt    : images.alt     ??? images[0].alt     ??? null,
-            use    : useCaptions,
-        } %}
-
-        {% set frame = frame|merge({
-            caption: assemble.text( captionParts, 'figcaption' )
-        }) %}
-    {% endif %} #}
-
-    {# {{ assemble.file( images, frame ) | raw }} #}
-{% endmacro %}
-
-
-
-{% macro iframe( html = null, settings = {} ) %}
-    {% import "_core/assemble" as assemble %}
-
-    {% set frame = {
-        class    : settings.class     ?? "w-full max-w-full h-auto rounded-lg",
-        figure   : settings.figure    ?? "relative z-20",
-        transform: settings.transform ?? "square"
-    } %}
-
-    {{ assemble.iframe( images, frame ) | raw }}
 {% endmacro %}

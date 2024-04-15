@@ -1,58 +1,263 @@
+{% extends template_from_string('{% block media %}{% endblock %}') %}
+
+{% block media item ?? null ? block('media__item') : block('media__router') %}
+
+{% block audio__class       "block w-full max-w-4xl bg-[#f1f3f4] rounded-none" %}
+{% block audio__posterclass "block w-full h-64" %}
+{% block audio__figureclass "flex flex-col w-full" %}
+
+{% block video__class       "w-full aspect-video" %}
+{% block video__posterclass "absolute inset-0 w-full h-full z-20 object-cover" %}
+{% block video__figureclass "relative aspect-video w-full" %}
+
+{% block iframe__class      "w-full h-auto" %}
+
+{% block media__sources -%}
+{%- if item.url ??? null and item.mimeType ??? null -%}
+    <source src="{{item.url}}" type="{{item.mimeType}}"/>
+{%- endif %}{% endblock %}
+
+{% block media__transcript ( item.transcript ??? null )
+    ? '<a href="#">Transcript Available</a>'
+    : '' -%}
+
+{%- block media__audiosources block( 'media__sources' ) -%}
+{%- block media__videosources block( 'media__sources' ) -%}
+
+{%- block media__audiotranscript block( 'media__transcript' ) -%}
+{%- block media__videotranscript block( 'media__transcript' ) -%}
+
+{%- block media__router -%}
+    {%- for item in ( mediaitems and mediaitems is iterable ) ? mediaitems : [] -%}
+        {{- block( 'media__item' ) -}}
+    {%- endfor -%}
+{%- endblock -%}
 
 
-{## Basic <audio> player tag
- ------------------------------------------------------------------------------------ ##}
-{% macro audio( asset = null, settings = {} ) %}
-    {%- if asset -%}
-        <audio
-            id="audio--{{ asset.id ?? null }}"
-            controls
-            {% if settings.autoplay|default() %}autoplay{% endif %}
-            class="block w-full max-w-4xl bg-[#f1f3f4] rounded-none"
-            ><source src="{{ asset.url ?? null }}" type="{{ asset.mimeType ?? null }}" />
-        </audio>
-    {%- endif -%}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
+{%- block media__item -%}
+    {{- item.kind == 'external'
+        ? block('media__external') -}}
+    {{- item.kind == 'audio' and item.url ??? null
+        ? block('media__audio') -}}
+    {{- item.kind == 'video' and item.url ??? null
+        ? block('media__video') -}}
+{%- endblock %}
+
+
+{% block media__external -%}
+{%- if item.oembed.html ??? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set source = item.oembed.provider ??? null -%}
+    {%- if source == 'youtube' or source == 'vimeo' -%}
+        {{- block( 'media__video' ) -}}
+    {%- else %}{{
+        item.oembed.html | retconAttr( 'iframe', {
+            class : settings.iframeclass ?? block('iframe__class'),
+            width : false,
+            height: false,
+    }) }}{% endif -%}
+{%- endif %}{% endblock %}
+
+
+{% block media__audio -%}
+{%- if item ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+    {%- set medialayer = medialayer ??? settings.medialayer ??? 'default' -%}
+    {%- set uuid = 'audio-' ~ md5( item | json_encode ~ settings | json_encode ) -%}
+
+
+    {## Prepare Audio Tag ##}
+    {%- set audio = audio ?? {} -%}
+    {%- set audio = audio is not null and audio is not iterable ? { class: audio } : audio %}
+    {%- set audio = {
+        id      : uuid,
+        'x-ref' : uuid,
+        controls: true,
+        preload : true,
+        class   : settings.audio__class ?? block('audio__class') ?? "",
+        html    : block('media__audiosources')
+    } | merge( audio ) -%}
+
+    {% set audiotag = tag( 'audio', audio ) -%}
+
+    {## Prepare Poster / Cover Image ##}
+    {%- set poster = poster ?? {} -%}
+    {%- set poster = poster is not null and poster is not iterable ? { class: poster } : poster -%}
+    {%- set poster = {
+        class: settings.audio__posterclass ?? settings.posterclass ?? block('audio__posterclass'),
+    } | merge( poster ) -%}
+
+    {## Prepare Figure Wrapper (just in case) ##}
+    {%- set figure = figure ?? {} -%}
+    {%- set figure = figure is not null and figure is not iterable ? { class: figure } : figure -%}
+    {%- set figure = {
+        class: settings.audio__figureclass ?? settings.figureclass ?? block('audio__figureclass'),
+        'x-data': '{
+            open: false,
+            toggle() {
+                this.open = true
+                this.$nextTick( () => {
+                    const player = document.querySelector("#' ~ uuid ~ '")
+                    if( player ) { player.paused ? player.play() : player.pause() }
+                })
+            }
+        }',
+    } | merge( figure ) -%}
+
+    {## Prepare the <img> tag for the poster image ##}
+    {%- from "_core/image" import imgtag -%}
+    {%- set asset  = item.images.one() ? item.images|first : null -%}
+    {%- set asset  = item.images and item.images is iterable and not asset ? item.images|first : null -%}
+    {%- set imgtag = imgtag(asset, poster) ?? null -%}
+
+    {## Add simple alpine JS click to toggle the poster image ##}
+    {%- set imgtag = imgtag ? raw( imgtag | attr({
+        'x-on:click': "toggle",
+        class: "cursor-pointer"
+    }) ) %}
+
+    {## Prepare the transcript link ##}
+    {% set transcript = block( 'media__audiotranscript' ) ??? null %}
+
+    {% set audiohtml = raw ( audiotag ~ transcript ) %}
+
+    {## If a poster img exists, wrap a <figure> around the <img> and <audio> tags ##}
+    {%- if imgtag -%}
+        {%- embed ['_site/image', '_core/image'] with {
+            img: imgtag,
+            figure: figure,
+            settings: settings,
+            audiohtml: audiohtml
+        } only %}
+            {% block figcaption audiohtml %}
+        {% endembed -%}
+
+    {## Otherwise just output the <audio> element ##}
+    {%- else %}{{ audiohtml }}{% endif -%}
+{%- endif %}{% endblock %}
 
 
 
-{## Basic <video> player tag
- ------------------------------------------------------------------------------------ ##}
-{% macro video( asset = null, settings = {} ) %}
-    {%- if asset -%}
-        {% set class  = "w-full aspect-video" %}
-        {% set poster = asset.images.one() ??? asset.images[0] ??? null %}
+{% block media__video -%}
+{%- if item ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
-        {% if poster.url|default() and poster.id|default() %}
-            {# {% do poster.setTransform('widescreen') %} #}
+    {% set uuid = 'video' ~ md5( item | json_encode ~ settings | json_encode ) %}
+
+    {## Prepare Video Tag ##}
+    {%- set video = video ?? {} -%}
+    {%- set video = video is not null and video is not iterable ? { class: video } : video %}
+    {%- set video = {
+        id      : uuid,
+        'x-ref' : uuid,
+        controls: true,
+        preload : true,
+        class   : settings.video__class ?? block('video__class') ?? "",
+        html    : block( 'media__videosources' )
+    } | merge( video ) -%}
+    {% set videotag = tag( 'video', video ) -%}
+
+    {## Prepare Poster / Cover Image ##}
+    {%- set poster = poster ?? {} -%}
+    {%- set poster = poster is not null and poster is not iterable ? { class: poster } : poster -%}
+    {%- set poster = {
+        class: settings.video__posterclass ?? settings.posterclass ?? block('video__posterclass'),
+    } | merge( poster ) -%}
+
+    {## Prepare Figure Wrapper (just in case) ##}
+    {%- set figure = figure ?? {} -%}
+    {%- set figure = figure is not null and figure is not iterable ? { class: figure } : figure -%}
+    {%- set figure = {
+        class: settings.video__figureclass ?? settings.figureclass ?? block('video__figureclass'),
+        'x-data': "{
+            open: false,
+            play() {
+                this.open = true
+                $refs.#{uuid}.play()
+            }
+        }",
+    } | merge( figure ) -%}
+
+
+    {## Prepare the <img> tag for the poster image ##}
+    {%- from "_core/image" import imgtag -%}
+    {%- set images   = item.images ??? null %}
+    {%- set asset    = ( images.url ??? null ) ? images : null -%}
+    {%- set asset    = asset is null and images and images is iterable ? images|first : asset -%}
+    {%- set imgtag   = imgtag(asset, poster) ?? null -%}
+
+    {% set medialayer = medialayer ??? settings.medialayer ??? 'default' %}
+
+    {## Is this an external video embed? ##}
+    {% if item.oembed.html ??? null %}
+        {% set videotag = item.oembed.html
+            | retconAttr( 'iframe', { height: false, width: false, class: video.class } ) %}
+
+        {% if videotag and imgtag and medialayer != 'default' %}
+            {% set videotag -%}
+                <template x-if="open">
+                    {{ raw( videotag | replace({
+                        '?feature=oembed': '?feature=oembed&autoplay=1&mute=1&enablejsapi=1'
+                    }) ) }}
+                </template>
+            {%- endset %}
         {% endif %}
+    {% endif %}
 
-        {% if asset.embed.html ??? null %}
-            {{ asset.embed.html
-                | retconAttr( 'iframe', { height: false, width : false } )
-                | retconAttr( 'iframe', { class : class } ) }}
-        {% else %}
-            <video
-                id="video--{{ asset.id ?? null }}"
-                controls
-                {% if settings.autoplay|default() %}autoplay{% endif %}
-                class="{{class}}"
-                poster="{{ poster.url ?? null }}"
-                ><source src="{{ asset.url ?? null }}" type="{{ asset.mimeType ?? null }}" />
-            </video>
-        {% endif %}
-    {%- endif -%}
+    {## Add simple alpine JS click to toggle the poster image ##}
+    {%- set imgtag = imgtag and medialayer != 'default' ? raw( imgtag | attr({
+        'x-on:click': "play",
+        'x-show': "!open",
+        class: "cursor-pointer"
+    }) ) %}
+
+    {## Prepare the transcript link ##}
+    {% set transcript = block( 'media__videotranscript' ) ??? null %}
+
+    {% set videohtml  = raw( videotag ~ transcript ) %}
+
+    {## If a poster img exists, wrap a <figure> around the <img> and <video> tags ##}
+    {%- if imgtag -%}
+        {%- embed ['_site/image', '_core/image'] with {
+            img: imgtag,
+            figure: figure,
+            settings: settings,
+            videohtml: videohtml,
+        } only %}
+            {% block figcaption videohtml %}
+        {% endembed -%}
+    {## Otherwise just output the <video> element ##}
+    {%- else %}{{ videohtml }}{% endif -%}
+{%- endif %}{% endblock %}
+
+
+
+{## Default Media Frame ##}
+{% macro default( media, settings = null ) -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set single = ( media.id ??? null or media.url ??? null ) ? media : null %}
+    {%- set single = ( single is null and media | length == 1 ) ? media | first : single -%}
+
+    {{- single ? include(['_site/media', '_core/media'], {
+        item    : single,
+        settings: settings
+    }, withContext = false ) -}}
+
+    {{- single is null and media is iterable ? include(['_site/media', '_core/media'], {
+        mediaitems: media,
+        settings: settings
+    }, withContext = false ) -}}
 {% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
 
 
+{% macro single( items, settings = null ) -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.media( items|first, settings.medialayer ??? 'default', settings ) -}}
+{%- endmacro %}
 
-{## Basic <iframe> embed
- ------------------------------------------------------------------------------------ ##}
-{% macro iframe( iframe = "", settings = {} ) %}
-    {{ iframe
-        | retconAttr( 'iframe', { height: false, width : false } )
-        | retconAttr( 'iframe', { class : 'w-full aspect-video' } ) }}
-{% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
+
+{% macro randomize( items, settings = null ) -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.media( shuffle(items)|first, settings.medialayer ??? 'default', settings ) -}}
+{%- endmacro %}

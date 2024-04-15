@@ -1,5 +1,5 @@
 {## Sidewide Footer Base
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Offers two default footer layouts with all elements necessary to support it.
 
     - Fat Footer with two navigation columns and a call to action
@@ -35,7 +35,7 @@
 
 
 {% block footer__fat %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
 
     {% set menuColumns %}
         {# {{ assemble.menu( entry, 'contact',  {} ) }}
@@ -66,7 +66,7 @@
 
 
 {% block footer__bottom %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {# {{ assemble.container(
         'fluid',
         tag( 'div', {

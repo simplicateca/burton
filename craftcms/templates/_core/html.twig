@@ -54,7 +54,7 @@
 
 
 {## Cookie Macros
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Macros for getting and setting cookies natively with Craft CMS 3.1.17 or later
 
     Usage:
@@ -62,7 +62,7 @@
       {% import "_core/html" as cookies %}
       {% set woof = cookies.get('woof') %}
       {% do cookies.set('woof', 'bark', now | date_modify('+1 hour').timestamp) %}
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {%- macro get(name, cookieJar = null) -%}
     {% apply spaceless %}
         {% set cookieJar = cookieJar ?? craft.app.request.cookies %}

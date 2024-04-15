@@ -1,82 +1,104 @@
 {% macro carousel( items, settings = null ) -%}
 {%- if items -%}
-    {% set settings = settings is not null and settings is iterable ? settings : {} %}
-    {% set settings = {
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = {
         cardlayer: 'summary',
         card__imagelayer: 'default'
-    } | merge( settings ) %}
-
-    {## Default Carousel Config
-     -------------------------------------------------------------------------------- ##
-        You may overload the `splide__config` block within the below {% embed %} to
-        customize the carousel configuration.
-
-     -> Splide expects a JSON object, so be aware of what you output.
-     -------------------------------------------------------------------------------- ##
-        Additional {% block %} sections are available for customizing the
-        `class` value for various elements within the carousel.
-     -------------------------------------------------------------------------------- ##
-        If you require additional flexibility:
-
-        - Create a copy of `_core/carousel.twig`
-        - Name it `_site/carousel.twig` or `_site/carousel.feature.twig`
-        - Update `templatepath` to include your new version (globally or dynamically)
-     -------------------------------------------------------------------------------- ##}
+    } | merge( settings ) -%}
 
     {## pre-assemble each item into card html ##}
-    {%- import "_core/assemble" as assemble -%}
+    {%- import "_assemble" as assemble -%}
     {%- set items = items | map( item => assemble.card( item, settings.cardlayer, settings ) ) -%}
 
-    {% embed ['_site/carousel','_core/carousel'] with { items: items } %}
-        {## Default Carousel Settings (Overloadable)
-         ---------------------------------------------------------------------------- ##
-        {% block class__base  "min-w-[260px] relative z-40 mb-6 lg:mb-0" %}
-        {% block class__track "mx-8" %}
-        {% block class__ul    "" %}
-        {% block class__slide "flex flex-col items-center justify-start" %}
-        {% block class__pagination "" %}
-
-        {% block splide__config %}{
-            type: 'loop',
-            perPage: 1
-        }{% endblock %}
-         ---------------------------------------------------------------------------- ##
-        ##}
-    {% endembed %}
+    {% embed ['_site/carousel','_core/carousel'] with {
+        items: items
+    } %}{% endembed %}
 {%- endif -%}{%- endmacro %}
-
 
 
 
 {% macro accordion( items, settings = null ) -%}
 {%- if items -%}
-    {% set settings = settings is not null and settings is iterable ? settings : {} %}
-    {% set settings = {
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = {
         cardlayer: 'panel',
         card__imagelayer: 'default'
-    } | merge( settings ) %}
+    } | merge( settings ) -%}
 
     {% embed ['_site/accordion','_core/accordion'] with {
         items    : items,
         settings : settings,
         cardlayer: settings.cardlayer,
-        firstopen: settings.firstOpen ?? false
+        firstopen: settings.firstopen ?? false
     } %}
         {% block panel__title CardBase( item, settings )['label'] %}
 
         {% block panel__content %}
-            {%- import "_core/assemble" as assemble -%}
+            {%- import "_assemble" as assemble -%}
             {{ assemble.card( item, cardlayer, settings ) }}
         {% endblock %}
-
     {% endembed %}
 {%- endif -%}{%- endmacro %}
 
 
 
+{% macro grid2( items, settings = null ) %}
+    {% import "_assemble" as assemble %}
+
+    {% set flexible  = 'grid items-start grid-cols-1 @md:grid-cols-2 gap-4 @xl:gap-8 @4xl:gap-12 @7xl:gap-16' %}
+    {% set fixed     = 'grid items-start grid-cols-2 gap-8 @3xl:gap-16 @7xl:gap-24' %}
+    {% set cardlayer = settings.cardlayer ??? 'default' %}
+
+    {% if items %}
+        {% set html %}
+            {% for item in items %}
+                {{ assemble.card( item, cardlayer, settings, loop ) }}
+            {% endfor %}
+        {% endset %}
+
+        {% set grid = {
+            html : html,
+            data : { layout: 'grid2flexible' },
+            class: flexible
+        } %}
+
+        <div class="w-full">{{ tag( 'div', grid ) }}</div>
+    {% endif %}
+{% endmacro %}
+
+
+
+
+{% macro grid3( items, settings = null ) %}
+    {% import "_assemble" as assemble %}
+
+    {% set flexible  = 'grid items-start grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8 @5xl:gap-12 @7xl:gap-16' %}
+    {% set fixed     = 'grid items-start grid-cols-3 gap-4 @3xl:gap-12 @5xl:gap-16 @7xl:gap-20' %}
+    {% set cardlayer = settings.cardlayer ??? 'default' %}
+
+    {% if items %}
+        {% set html %}
+            {% for item in items %}
+                {{ assemble.card( item, cardlayer, settings, loop ) }}
+            {% endfor %}
+        {% endset %}
+
+        {% set grid = {
+            html : html,
+            data : { layout: 'grid3fixed' },
+            class: fixed
+        } %}
+
+        <div class="w-full">{{ tag( 'div', grid ) }}</div>
+    {% endif %}
+{% endmacro %}
+
+
+
+
 {% macro tabs( items, settings = null ) -%}
 {%- if items -%}
-    {% set settings = settings is not null and settings is iterable ? settings : {} %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {% set settings = {
         cardlayer: 'panel',
         card__imagelayer: 'default'
@@ -90,7 +112,7 @@
         {% block tab__title CardBase( item, settings )['label'] %}
 
         {% block tab__content %}
-            {%- import "_core/assemble" as assemble -%}
+            {%- import "_assemble" as assemble -%}
             {{ assemble.card( item, cardlayer, settings ) }}
         {% endblock %}
     {% endembed %}
@@ -100,7 +122,7 @@
 
 {% macro masonry( items, settings = null ) -%}
 {%- if items -%}
-    {% set settings = settings is not null and settings is iterable ? settings : {} %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {% set settings = settings | merge( {
         cardlayer: 'masonry',
         card__imagelayer: 'stretch'
@@ -137,7 +159,7 @@
         }
     {% endcss %}
 
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
 
     {% set html %}
         {% for item in items %}
@@ -153,61 +175,6 @@
 
     <div class="w-full overflow-hidden">{{ tag( 'div', grid ) }}</div>
 {%- endif %}{% endmacro %}
-
-
-
-
-{% macro grid2( items, settings = null ) %}
-    {% import "_core/assemble" as assemble %}
-
-    {% set flexible  = 'grid items-start grid-cols-1 @md:grid-cols-2 gap-4 @xl:gap-8 @4xl:gap-12 @7xl:gap-16' %}
-    {% set fixed     = 'grid items-start grid-cols-2 gap-8 @3xl:gap-16 @7xl:gap-24' %}
-    {% set cardlayer = settings.cardlayer ??? 'default' %}
-
-    {% if items %}
-        {% set html %}
-            {% for item in items %}
-                {{ assemble.card( item, cardlayer, settings, loop ) }}
-            {% endfor %}
-        {% endset %}
-
-        {% set grid = {
-            html : html,
-            data : { layout: 'grid2flexible' },
-            class: flexible
-        } %}
-
-        <div class="w-full">{{ tag( 'div', grid ) }}</div>
-    {% endif %}
-{% endmacro %}
-
-
-
-
-{% macro grid3( items, settings = null ) %}
-    {% import "_core/assemble" as assemble %}
-
-    {% set flexible  = 'grid items-start grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8 @5xl:gap-12 @7xl:gap-16' %}
-    {% set fixed     = 'grid items-start grid-cols-3 gap-4 @3xl:gap-12 @5xl:gap-16 @7xl:gap-20' %}
-    {% set cardlayer = settings.cardlayer ??? 'default' %}
-
-    {% if items %}
-        {% set html %}
-            {% for item in items %}
-                {{ assemble.card( item, cardlayer, settings, loop ) }}
-            {% endfor %}
-        {% endset %}
-
-        {% set grid = {
-            html : html,
-            data : { layout: 'grid3fixed' },
-            class: fixed
-        } %}
-
-        <div class="w-full">{{ tag( 'div', grid ) }}</div>
-    {% endif %}
-{% endmacro %}
-
 
 
 
@@ -247,7 +214,7 @@
         {% set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 @6xl:grid-cols-6" %}
     {% endif %}
 
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     <div class="w-full">
         <div class="{{class}}">
             {% set cardlayer = settings.cardlayer ??? 'default' %}
@@ -262,7 +229,7 @@
 
 
 {% macro gallery( items, settings = null ) %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {%- if items -%}
         <div class="w-full">
             <div class="w-full grid grid-cols-3 gap-4 lg:gap-6 xl:gap-9 items-start">

@@ -1,4 +1,4 @@
-dateModified: 1712888600
+dateModified: 1713121947
 elementSources:
   craft\elements\Entry:
     -
@@ -185,14 +185,14 @@ meta:
     0b3f350c-7d90-4fe9-b1f9-739b0696f280: 'Page Extras' # Page Extras
     0b65e8f2-d920-47d0-ada3-db139c088699: Image # Image
     0d245b48-a5bb-48ae-bb67-b2290fc531c9: Menu # Menu
-    0dabdba1-b0ed-4220-8bfd-115e5127ee42: Theme # Theme
+    0dabdba1-b0ed-4220-8bfd-115e5127ee42: 'Theme & Spacing' # Theme & Spacing
     0e2362da-4175-4b8f-a6f7-d881f03be73e: Source # Source
     0f144f04-bdb4-4ad8-9279-376e39af170e: 'Standard (Single Column)' # Standard (Single Column)
     1a610fca-cc19-4e52-af85-49ab1ed1c26c: Theme # Theme
     1aa1599b-4b0c-41aa-bdd3-118ae1985884: Layout # Layout
     1be9127a-60e5-4888-bcb0-cc5b7ee55f6f: 'Content Feed' # Content Feed
     1d22a7a4-94bb-4293-bbeb-0af34e916200: Layout # Layout
-    1d242d6f-f863-4979-b2af-bb1da5c2aee2: Copy # Copy
+    1d242d6f-f863-4979-b2af-bb1da5c2aee2: 'Primary Copy' # Primary Copy
     1d3033c2-47a1-4245-8f9c-4dfb1365de27: 'Secondary Copy' # Secondary Copy
     1da13089-e303-46d0-930f-aefd062df474: 'Standard w/ Sidebar' # Standard w/ Sidebar
     1ddd814c-a3f1-4689-bb67-33d04ad8307a: Headline # Headline
@@ -200,7 +200,7 @@ meta:
     2b05c141-a297-4820-ac7d-81e736dbf84b: Collections # Collections
     2b179173-573d-47e7-8ec4-cc9a091b68a0: 'Primary Headline' # Primary Headline
     2c73aaff-d9e2-4142-94e8-2ce27f32e7bd: 'Craft CMS' # Craft CMS
-    2cb2fc3a-17b6-4b08-be83-a2b0381ff56d: Copy # Copy
+    2cb2fc3a-17b6-4b08-be83-a2b0381ff56d: 'Primary Copy' # Primary Copy
     2d5bb889-39ec-4fa2-a335-4da112f02883: URL # URL
     2d27e08b-61f3-47ca-8a0a-e69fa2b1a226: 'Sidebar Fragments' # Sidebar Fragments
     2d1298a6-f3ac-43be-9784-161acaa0c823: Layout # Layout
@@ -215,7 +215,7 @@ meta:
     3d6414d7-c1f4-47a5-b1f0-ed7648ae16df: Image # Image
     3f22291c-b979-4ffe-b615-df7785c996b8: Collection # Collection
     4b14309d-1992-4d32-aea0-2585f21d1fb9: Bit # Bit
-    4e6dab12-ff70-4db1-9095-aec90d712602: Copy # Copy
+    4e6dab12-ff70-4db1-9095-aec90d712602: 'Primary Copy' # Primary Copy
     4e35d6a3-a782-43b2-9eef-24ce9981139c: 'Header Builder' # Header Builder
     4f577f48-b93a-4e3f-b645-62bb283d8097: Summary # Summary
     5a201db9-2e0b-480d-80e0-8ce0a885dea5: Interspace # Interspace
@@ -231,20 +231,20 @@ meta:
     6f041ff5-12b3-44d7-8efe-5d70ddc8dbb0: 'Source URL' # Source URL
     6f3a7e60-9dca-477c-a7ae-5036b3eb5b3a: 'External Embeds' # External Embeds
     07a0012a-4bdf-4aaa-8415-bbe06adaf62c: 'Primary Copy' # Primary Copy
-    7b72b671-dcdc-49b2-95cd-44a8e8be7cad: Theme # Theme
+    7b72b671-dcdc-49b2-95cd-44a8e8be7cad: 'Theme & Spacing' # Theme & Spacing
     7cdd6c44-0763-4da7-b111-11aab2acc10a: Images # Images
     7ce6af04-c2ee-4ef2-b6a7-f529d2b7b65f: 'Downloadable Files' # Downloadable Files
     7daa91a4-3926-420c-bbe9-ff190309a2a2: Text # Text
     7dd2f8f9-5066-4cef-a93d-ddfce83dce0f: Component # Component
     8c9174b7-2c31-491e-a3f9-0374374c967c: 'Landing Pages' # Landing Pages
-    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Action # Action
+    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: 'User Action' # User Action
     8d636ebd-27c5-46e0-afe6-b4232eabf2fa: Collection # Collection
     8e370b88-72e3-41b5-bff5-db03cb11a1d1: Copy # Copy
-    8ecf45da-7553-48ac-b52d-a45f8bc90317: Theme # Theme
+    8ecf45da-7553-48ac-b52d-a45f8bc90317: 'Theme & Spacing' # Theme & Spacing
     9a818c17-ad1d-488d-945a-777b6b8b702f: 'Content Entries' # Content Entries
     9b0e0463-89fb-4b43-8572-8ac1ae6f54c8: Images # Images
     9b24caba-a07d-4707-a391-0384522221b0: Theme # Theme
-    9d4f8876-987f-46fc-9042-aaf824a7131d: Layout # Layout
+    9d4f8876-987f-46fc-9042-aaf824a7131d: 'Content Layout' # Content Layout
     9d55d148-944b-4f68-b054-3ad1be975dd1: 'Entrance Modal' # Entrance Modal
     9d712dc3-2d54-4b21-bbc3-251dad2d4dc9: Default # Default
     09e50183-d1b1-42d2-b180-e0361635c25d: Headline # Headline
@@ -254,20 +254,20 @@ meta:
     016afe08-0081-4f5e-865f-22a360ee839f: Theme # Theme
     16ea4eb8-377b-4740-955d-89f60729fce4: Color # Color
     24a59426-007c-43f8-9fc1-864c6a06718f: 'Local Assets' # Local Assets
-    26abec17-a1be-4c82-90e1-f6d48f7f4fb0: Variant # Variant
+    26abec17-a1be-4c82-90e1-f6d48f7f4fb0: 'Block Variant' # Block Variant
     26ae834d-2271-496c-bb49-46507ebe148d: Interspace # Interspace
     27afafd1-b38c-460b-954d-5cb2f1685d00: Interspace # Interspace
     29ded7b8-e4a1-43ce-b030-eac97433cb97: 'Content Bits ★' # Content Bits ★
-    30b5253e-1f74-41f3-b484-e6c82e3210d5: Layout # Layout
+    30b5253e-1f74-41f3-b484-e6c82e3210d5: 'Content Layout' # Content Layout
     32cc7e71-1196-4abe-a2b2-b9479600a266: 'Header - Primary' # Header - Primary
     32dce9ed-f84d-40e7-b19b-d2771aa76bd1: Layout # Layout
     33fd644a-5f96-496f-966b-efe72ca8a70c: Theme # Theme
     41a2bc31-369b-42aa-a92c-9cb6bf48b741: Message # Message
-    56c5070f-cf62-458c-9dc1-f775ee6f2380: Layout # Layout
+    56c5070f-cf62-458c-9dc1-f775ee6f2380: 'Content Layout' # Content Layout
     57c70792-3dc3-41c3-b589-5905564ed8bf: Variant # Variant
     59d86c61-8ca4-45d6-bfcc-d784ad71458a: Image # Image
     60a99a1b-8081-4b05-959f-fe916ff2b96e: 'Footer - Legal Menu' # Footer - Legal Menu
-    66dc7ced-9f1e-4501-9772-b9f87634267e: Layout # Layout
+    66dc7ced-9f1e-4501-9772-b9f87634267e: 'Fragment Layout' # Fragment Layout
     69c2d7dc-3df8-4df1-a444-d2ae376da00c: Text # Text
     69dd1251-bba5-4ca3-86f8-fe8e8a7063d0: Navigation # Navigation
     69de3901-b8b0-4645-a490-7afca5d48622: Code # Code
@@ -279,7 +279,7 @@ meta:
     93f90adb-ea61-4a42-9c1b-8e8cd9cd401a: 'Inline Content Items' # Inline Content Items
     116b2d60-dfda-45af-91ba-a4d2af3e89ca: Theme # Theme
     139c9eb6-21c3-4f46-8093-bee95aa483a6: Static # Static
-    213c9175-81d2-4141-8993-904e59925583: Collection # Collection
+    213c9175-81d2-4141-8993-904e59925583: 'Card Deck' # Card Deck
     218fe74b-1f0a-45bc-bed5-7fece20536d3: Menu # Menu
     295fe400-600f-4a2a-9cd8-3f2c174e08b3: 'Protected Elements' # Protected Elements
     311d44ff-fb95-46d2-9543-6f7870ae4425: Copy # Copy
@@ -309,10 +309,10 @@ meta:
     6121c8c0-7185-4c3e-aa78-86b30d084f7b: 'Media Type' # Media Type
     6312c62d-00d4-4b29-8c70-1edd6d095729: Bit # Bit
     6788be2a-03be-4a82-8c88-9e8a1af1acf4: Preset # Preset
-    7593ee0e-5c97-47ca-a580-35990cabaffe: Media # Media
+    7593ee0e-5c97-47ca-a580-35990cabaffe: 'Media Content' # Media Content
     7924e3d9-3886-49e6-b154-7f04f943b3e1: 'Card Interface' # Card Interface
     8000f4a4-93b8-4f5b-b6b2-b26e6c12e366: 'News & Updates' # News & Updates
-    8384d65a-1c88-4960-8c6e-7091bf390c9d: 'External URLs' # External URLs
+    8384d65a-1c88-4960-8c6e-7091bf390c9d: 'External Sources' # External Sources
     20618b1a-5f20-4479-8fa4-842e4def10c7: Source # Source
     20618f40-d9d6-402d-b603-0060a232d076: Source # Source
     35567f32-2c8d-4cd4-8092-06c1fde0cf1f: Entry # Entry
@@ -329,7 +329,7 @@ meta:
     2519536b-c608-4348-8c10-9b1ada109842: 'Content Entries' # Content Entries
     3552382f-ca3b-44ba-95f4-2be9f7773370: Profiles # Profiles
     4778051c-8236-4b81-8b84-f3f633841179: 'JS Event' # JS Event
-    05016637-9828-4c3e-94f2-6db02f40308e: Variant # Variant
+    05016637-9828-4c3e-94f2-6db02f40308e: 'Block Variant' # Block Variant
     6521930c-ca7f-49d9-978b-f0d0d7fe98c1: Headline # Headline
     6996714c-bbb3-4367-9b3f-90be15abbbee: 'Public Schema' # Public Schema
     7960626b-627f-4ad2-9238-697a9534e0dc: Images # Images
@@ -355,39 +355,39 @@ meta:
     a6df8d17-3c00-43e8-9bb2-5763c88de2de: Playbook # Playbook
     a9eefedb-b175-4baa-a9ee-903aa94e9c9b: 'Content Editor' # Content Editor
     a17c9085-cd70-4e8e-ac90-61868b499abc: Media # Media
-    a39c9c32-2acb-47fd-ad36-7980c445a44e: Image # Image
+    a39c9c32-2acb-47fd-ad36-7980c445a44e: 'Image Content' # Image Content
     a52e2b08-2e30-4b00-8784-4104c409d3ed: 'Reusable Content' # Reusable Content
     a682b6da-4268-4ee7-a71e-c9f97623b643: Media # Media
     a3273f9c-b38b-4163-9f60-92174692b499: Code # Code
-    a345255e-6a6e-450c-8f3f-bd44bd0d7a91: Text # Text
-    aa5de47f-bd21-4e66-9e6b-93f174062abc: 'Uploaded Files' # Uploaded Files
+    a345255e-6a6e-450c-8f3f-bd44bd0d7a91: 'Text Content' # Text Content
+    aa5de47f-bd21-4e66-9e6b-93f174062abc: 'Local Assets' # Local Assets
     ab34c21b-4d43-41da-8301-8da25a28b912: Copy # Copy
     ab1853e6-bbb8-43c4-8fd0-66e48c1a5763: Collection # Collection
-    aca4dd0e-619c-4608-97c8-dae08da9e011: Variant # Variant
+    aca4dd0e-619c-4608-97c8-dae08da9e011: 'Block Variant' # Block Variant
     adc05109-eaa7-4f80-b156-5b250a28e878: Collection # Collection
     adcea45e-bf40-4faf-b0c8-4ce089696971: Image # Image
     ae1eadbc-c67a-42dc-9ceb-9e5ac0423bcc: Interspace # Interspace
-    ae3f34db-5fe5-4438-86f0-377cfaebf02a: Layout # Layout
+    ae3f34db-5fe5-4438-86f0-377cfaebf02a: 'Content Layout' # Content Layout
     b0cbe0d8-a566-4fd4-8b28-b361c2cd1441: 'Footer CTA' # Footer CTA
     b1c52a06-4990-43f5-90d3-898a48789556: Dek # Dek
     b2e76d3b-23d7-49b2-a6b0-44bfd598393e: 'Alert Message' # Alert Message
     b4f98162-512f-4866-9808-0187101c848e: Text # Text
-    b7ec333d-193c-4bfe-b1c2-637e039f302d: Variant # Variant
+    b7ec333d-193c-4bfe-b1c2-637e039f302d: 'Block Variant' # Block Variant
     b7f29b8a-788f-4f46-a93e-cdfdfa91d44b: 'URLs & Links' # URLs & Links
-    b8f98eab-bd44-4073-b73b-c5c394a00643: Theme # Theme
+    b8f98eab-bd44-4073-b73b-c5c394a00643: 'Theme & Spacing' # Theme & Spacing
     b81bed1e-3722-4e87-9a0b-aafca1e94fcc: Bits # Bits
     b97d889b-174a-4908-b53e-13fbe7ad2d73: 'Contact Form' # Contact Form
     b130a72c-dabb-415c-a574-ef5e0188716f: Interspace # Interspace
     b5987eaa-5a19-4169-8bde-3cfe1ac7d3b0: 'Limit Results' # Limit Results
     b26498c0-236e-4738-85e6-666d3439cbc5: Default # Default
     b54524f7-9081-4ed3-9be8-7efa9ebb3e46: Form # Form
-    b65678be-7ed0-4665-aaaa-bd9d406b60f4: Variant # Variant
+    b65678be-7ed0-4665-aaaa-bd9d406b60f4: 'Block Variant' # Block Variant
     b181050f-eab8-45f0-906a-c8241c2d3cf2: 'Show Block Meta' # Show Block Meta
     bbc5a62f-278f-4d6b-9dd3-2c1f5611e8f2: Layout # Layout
     bc336883-4624-4d26-97f1-7d8cd0d15399: Feed # Feed
     bd2471a2-f2db-4375-979e-234df61dd0a7: 'Extra User Interface' # Extra User Interface
-    bf30b8e7-f739-4f32-8795-a8c5b92d92bb: Variant # Variant
-    bf152e62-fb69-4e45-836d-7546488987e6: Theme # Theme
+    bf30b8e7-f739-4f32-8795-a8c5b92d92bb: 'Block Variant' # Block Variant
+    bf152e62-fb69-4e45-836d-7546488987e6: 'Theme & Spacing' # Theme & Spacing
     bf158f34-b564-4314-b990-3d676ed0abb8: 'Content Entries' # Content Entries
     bfabb251-636d-4529-a89c-44da8ba61efc: Component # Component
     c0c00bd8-1df8-4457-a72f-f89762bc7398: Attention # Attention
@@ -395,12 +395,12 @@ meta:
     c3f20b8d-cdd0-43a3-99eb-82b7227efd55: 'External Embeds' # External Embeds
     c62ec2a4-1966-4b3c-a5d1-b0842235c23e: 'Body Fragments' # Body Fragments
     c891a928-cc84-4afd-9371-5f18b272f408: 'External RSS' # External RSS
-    c6677eab-6c78-4ca1-93cd-0faa266d1c45: Copy # Copy
+    c6677eab-6c78-4ca1-93cd-0faa266d1c45: 'Primary Copy' # Primary Copy
     c70698c5-9843-4d1a-9ce8-2e2e272bd096: Headline # Headline
     ca0addca-320c-4b2c-94c4-f063b00c270a: Form # Form
     cc85d929-74a4-4c0e-865b-e9f6908ee04f: Bit # Bit
     cf8b5aee-149d-48d8-b921-8e8d83991221: 'Footer - Features' # Footer - Features
-    cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: Copy # Copy
+    cf8fe7e3-d6b1-4626-bd5f-9816c7b1cd1a: 'Primary Copy' # Primary Copy
     cf40ed12-2f61-4865-b636-bff9d855e9fd: Headline # Headline
     cf42e194-fb4c-4218-a6f2-661ccc51b768: 'Content Entries' # Content Entries
     d2c9d5fd-0d2a-4a8e-9e7c-fd5e16765aa0: 'Primary Headline' # Primary Headline
@@ -410,18 +410,18 @@ meta:
     daf78780-c7dc-47d5-8a11-37b3a80d7e33: Variant # Variant
     dc528f5e-a71f-43ed-a993-ed1d99129689: Collection # Collection
     dc717c0e-4ef4-4f7e-b352-1a7ba8e2ff40: Assets # Assets
-    dda1fa64-dd45-42b6-8df9-476cbac15152: Image(s) # Image(s)
+    dda1fa64-dd45-42b6-8df9-476cbac15152: Images # Images
     decc967b-80dd-4875-ab3f-b6c700b123eb: 'SEO Settings' # SEO Settings
     df0019c9-abb4-44e8-b46d-269688560f53: 'Local Assets' # Local Assets
     e0c81195-0381-4fd7-a65b-5aca8f093e71: Summary # Summary
     e0dac603-c510-4bb5-8701-e25672d93744: Common # Common
     e0521335-ccc2-4893-a505-4baacf112dee: Standard # Standard
     e2b4c062-1d0e-44da-b5ad-e58d576cb573: URL # URL
-    e2cdac24-87bd-4a5b-be66-d991b0323794: Fragment # Fragment
+    e2cdac24-87bd-4a5b-be66-d991b0323794: 'Content Fragment' # Content Fragment
     e2d14d09-0715-4ab2-b3ea-5bea36055901: Square # Square
     e5d4f510-e52f-4791-afac-46a644f03003: 'Source URL' # Source URL
     e47b95bf-7a74-49e3-afa3-a938bd733ef7: Summary # Summary
-    e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9: Theme # Theme
+    e55d7836-b3e5-49a2-a9bf-afb1e7fd91d9: 'Theme & Spacing' # Theme & Spacing
     e70f7199-a1ea-4508-93cb-7d2e02acd2dc: Sitehub # Sitehub
     e125d51d-b35a-4313-8094-b235218d58d2: Member # Member
     e278d4be-81b4-4575-b43f-75291ca49ada: Alternate # Alternate
@@ -429,10 +429,11 @@ meta:
     e538acd8-e040-48f9-a491-910ad88f9a08: Dynamic # Dynamic
     e984e441-f7d6-49ce-8f1d-6131ddb57480: Form # Form
     ea1a69ed-b5c5-46cf-a629-4435f7f7cad0: 'Matrix Builders' # Matrix Builders
+    ea66543f-5492-4de3-ae81-d8d456902992: Icons # Icons
     ebd33ea3-6d11-4647-b12c-a328fd814295: 'Header - Utility Menu' # Header - Utility Menu
     ec76e3a7-f51a-4255-be63-5608063cfe33: Image # Image
     ecc2353c-b6d9-4466-9f40-7bdf9a981be7: Variant # Variant
-    ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d: Layout # Layout
+    ed9bfc64-1a0b-4a1d-9b9d-8563510c5d9d: 'Content Layout' # Content Layout
     ee1dde07-1de2-45af-a270-440bd55baf11: Interspace # Interspace
     f1cff8b7-1d6e-4cdd-824a-520183822908: Entries # Entries
     f2b51270-1b49-4e0a-9754-9489a1448bd1: Copy # Copy

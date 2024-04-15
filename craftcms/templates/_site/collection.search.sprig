@@ -5,7 +5,7 @@
 
 {## Block Level Settings + Defaults
 {-------------------------------------------------------------------------------------##}
-{% set settings = settings ??? {} %}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 {% set settings = {
     microlayout    : 'zone1Top',
     collectionlayer: 'masonry',
@@ -32,7 +32,7 @@
     page  : craft.app.request.getParam('page') ??? craft.app.request.pageNum ??? 1,
     query : craft.app.request.getParam('q') ??? null,
     filter: craft.app.request.getParam('f') ??? null,
-    limit : limit ??? settings.limit ??? 12 ,
+    limit : limit ??? settings.limit ??? settings.perpage ??? 12 ,
     return: 'query'
 } %}
 
@@ -73,7 +73,7 @@
     `header` / `footer` / `zone1` content variables can be passed into the template.
 {-------------------------------------------------------------------------------------##}
 {% block content %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     {{ assemble.microlayout( settings.microlayout, {
         zone1 : block('content__zone1'),
         zone2 : block('content__zone2'),
@@ -86,14 +86,14 @@
 {% block content__zone1 %}
     <div class="sticky top-20">
         {{ zone1 ? raw( zone1 ) : '' }}
-        {% import "_core/assemble" as assemble %}
+        {% import "_assemble" as assemble %}
         {{ assemble.searchpart( params, 'search__form', settings ) }}
     </div>
 {% endblock %}
 
 
 {% block content__zone2 %}
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
     <div id="{{params.uuid}}" class="w-full">
         {% if results %}
             {{ assemble.collection( results, settings.collectionlayer, settings ) }}

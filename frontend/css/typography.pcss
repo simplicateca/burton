@@ -240,9 +240,33 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
     }
 }
 
+
+/* terrible (but functional) example for changing <p> size inside CSS columns, which
+   as of 2024.04.14, apparently isn't handled automatically by tailwind container
+   queries. implement this better if using dynamic css columns in production.
+
+   https://tailwindcss.com/docs/columns
+   https://github.com/tailwindlabs/tailwindcss-container-queries
+*/
+*[data-bodytext] div.columns-2 p {
+    @apply
+        !text-base
+        !mb-4
+        @xl:!text-lg
+        @xl:!mb-6
+        @3xl:!text-xl
+        @3xl:!mb-8
+        @5xl:!text-2xl
+        @5xl:!mb-10
+   ;
+}
+
 /* Because usually you want to remove the auto margin from the bottom of things like this so that
    it doesn't affect the look and feel of bottom padding on the block or theme */
 *[data-bodytext] .\@container {
+    & > h2:last-child,
+    & > h3:last-child,
+    & > h4:last-child,
     & > p:last-child,
     & > ol:last-child,
     & > ul:last-child,
@@ -469,10 +493,8 @@ mark {
  *
 */
 
-p[data-has-buttons] {
-    .button:not(:last-of-type) {
-        @apply !mr-4;
-    }
+p[data-only-links] {
+    a { @apply mr-4 ; }
 }
 
 .button {

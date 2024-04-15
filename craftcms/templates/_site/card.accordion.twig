@@ -1,9 +1,9 @@
 {% extends [ "_site/card.panel", "_site/card", "_core/card" ] %}
 
-{% import "_core/assemble" as assemble %}
+{% import "_assemble" as assemble %}
 
 {% set card = card ??? null %}
-{% set settings = settings ??? {} %}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
 {% set settings = settings | merge({
     card__imagelayer: 'stretch'

@@ -5,7 +5,7 @@
 {## For `product` (Commerce) or `event` (Verbb Events) pages, populate the more common
     `entry` variable with the appropriate information. This helps to prevent errors
     like accessing `entry.title` vs `product.title` on a product page.
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% set entry = entry ??? product ??? event ??? null %}
 
 {% block html__class "no-js opacity-100 visible scroll-smooth" %}

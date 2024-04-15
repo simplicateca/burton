@@ -64,7 +64,7 @@
 {% set defaultTitle   = defaultMsgs[statusCode].title   ??? defaultMsgs['000'].title   %}
 {% set defaultText    = defaultMsgs[statusCode].text    ??? defaultMsgs['000'].text    %}
 
-{% import "_core/assemble" as assemble %}
+{% import "_assemble" as assemble %}
 
 {% block content %}
     {% set message %}

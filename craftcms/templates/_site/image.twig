@@ -1,109 +1,93 @@
 {## Site Images
- ------------------------------------------------------------------------------------- ##
+{--------------------------------------------------------------------------------------##}
+{% extends "_core/image" %}
 
- ------------------------------------------------------------------------------------- ##}
-{% macro default( image, settings ) -%}
-    {% set settings = settings ??? {} %}
-
-    {%- set frame = {
-        class       : settings.class        ??? "w-full max-w-full h-auto rounded-lg",
-        figure      : settings.figure       ??? "relative z-10",
-        include     : settings.include      ??? null,
-        captions    : settings.captions     ??? null,
-        transform   : settings.transform    ??? "square",
-        captionlayer: settings.captionlayer ??? null,
-        _placeholder: settings._placeholder ??? null,
-    } -%}
-
-    {%- if frame.captionlayer -%}
-        {%- set caption = {
-            title  : image.title   ??? image[0].title   ??? null,
-            summary: image.summary ??? image[0].summary ??? null,
-            alt    : image.alt     ??? image[0].alt     ??? null,
-        } -%}
-
-        {%- set frame = frame|merge({
-            captions: assemble.text( caption, 'image__caption', settings )
-        }) -%}
-    {%- endif -%}
-
+{% macro default( image, settings = null ) -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {%- from "_core/image" import imgtag -%}
-    {{- imgtag( image, frame ) -}}
+    {% set imgtag = imgtag( image, {
+        loop        : settings.loop         ?? null,
+        class       : settings.class        ?? "w-full max-w-full h-auto rounded-lg",
+        transform   : settings.transform    ?? null,
+        _placeholder: settings._placeholder ?? settings.transform ?? null,
+    }) %}
 
-    {%- if frame.include %}{{ frame.include }}{% endif -%}
-{%- endmacro %}
+    {% set figureclass = settings.figure.class ?? settings.figure ?? null %}
+    {%- embed ['_site/image', '_core/image'] with {
+        img: imgtag,
+        figureclass: figureclass
+    } only %}
+        {% block figure__class figureclass %}
+    {% endembed -%}
+{% endmacro %}
 
 
 
-
-{% macro icon( image, settings ) %}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
+{% macro icon( image, settings = null ) %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} %}
+    {{- _self.default( image, {
         figure      : "max-w-[80px] @3xl/zone:max-w-[170px] mx-auto",
         _placeholder: "icon"
-    }) %}
-
-    {{- _self.default( image, settings ) -}}
+    } ) -}}
 {%- endmacro %}
 
 
-
-
-{% macro widescreen( image, settings ) %}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
+{% macro widescreen( image, settings = null ) %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {{- _self.default( image, {
         transform: "widescreen"
-    }) %}
-
-    {{- _self.default( image, settings ) -}}
+    } ) -}}
 {%- endmacro %}
 
 
 
+{% macro callout( image, settings = null ) %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
-{% macro callout( image, settings ) %}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
-        class    : "rounded-3xl relative mx-auto max-w-[16rem] sm:max-w-xs md:max-w-sm",
-        figure   : "gridarea-overlap m-auto p-0 flex flex-col z-30",
+    {%- from "_core/image" import imgtag -%}
+
+    {% set lottie = _self.lottieblob() %}
+    {% set imgtag = imgtag( image, {
+        class    : "rounded-3xl z-30 aspect-square w-full relative mx-auto max-w-[16rem] sm:max-w-xs md:max-w-sm",
         transform: "square",
-        include  : _self.lottieblob(),
-    }) -%}
+    } ) %}
 
-    {% set img = _self.default( image, settings ) | trim -%}
-
-    {%- if img %}{{ tag( 'div', {
-        class: "grid justify-center items-center align-center h-full",
-        html : img
-    })}}{% endif -%}
+    {%- embed ['_site/image', '_core/image'] with {
+        img: imgtag,
+        lottie: lottie,
+    } only %}
+        {% block picture tag( 'div', {
+            class: "grid justify-center items-center align-center h-full",
+            html : parent() ~ lottie
+        }) %}
+    {% endembed -%}
 {%- endmacro %}
 
 
 
-
-{% macro stretch( image, settings ) %}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
+{% macro stretch( image, settings = null ) %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {{- _self.default( image, {
         class    : "object-cover object-center h-full w-full",
-        figure   : "h-full w-full relative z-20",
+        figure   : "h-full w-full relative z-10",
         transform: settings.transform ?? "square"
-    }) -%}
-    {{- _self.default( image, settings ) -}}
+    } ) -}}
 {%- endmacro %}
 
 
 
 
-{% macro carousel( images = null, settings = null ) -%}
-{%- if images -%}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
+{% macro carousel( images, settings = null ) -%}
+{%- if images and images is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
-    }) %}
+    {%- set images = images | map( i => _self.default( i, {
+        class : "object-cover object-center h-full w-full",
+        figure: "h-full w-full relative z-10",
+    } ) ) -%}
 
     {{- include( ['_site/carousel', '_core/carousel'], {
-        slides  : images | map( i => _self.default( i, settings ) ),
-        settings: settings
+        items: images,
     } ) -}}
 {%- endif -%}{%- endmacro %}
 
@@ -111,33 +95,70 @@
 
 
 {% macro gallery( images = null, settings = null ) -%}
-{%- if images -%}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
+{%- if images and images is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set count = images | length -%}
+    <div class="w-full flex flex-col gap-4" x-data="{}">
+        {% if count != 2 %}
+            <div class="w-full">{{- _self.default( images|first, {
+                figure: "aspect-video overflow-hidden rounded-lg",
+                transform: "widescreen"
+            } ) -}}</div>
+        {% endif %}
 
-    }) %}
+        {% if count == 2 %}
+            {%- set images = images | map( i => _self.default( i, {
+                figure: "aspect-video overflow-hidden rounded-lg",
+                transform: "widescreen"
+            } ) ) -%}
 
-    <div class="w-full">
-        <div class="w-full grid grid-cols-3 gap-4 lg:gap-6 xl:gap-9 items-start">
-            {% for image in images %}
-                {{ _self.default( image, settings, loop ) }}
-            {% endfor %}
-        </div>
+            {% embed ['_site/carousel', '_core/carousel'] with {
+                items: images,
+            } only %}{% endembed %}
+        {% endif %}
+
+        {% if count > 2 and count < 6 %}
+            {## md:grid-cols-3 md:grid-cols-4 md:grid-cols-5 ##}
+            <div class="w-full grid-cols-3 md:grid-cols-{{count}} gap-4">
+                {% for image in images %}
+                    {{ _self.default( image, {
+                        transform: "widescreen",
+                        figure: "aspect-video overflow-hidden rounded-lg",
+                        loop: loop
+                    } ) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if count > 5 %}
+            {%- set images = images | map( i => _self.default( i, {
+                transform: "widescreen",
+                figure: "aspect-video overflow-hidden rounded-lg"
+            } ) ) -%}
+
+            {% embed ['_site/carousel', '_core/carousel'] with {
+                items: images,
+            } only %}
+                {% block splide__config %}{
+                    type: 'loop',
+                    gap: '1rem',
+                    perPage: 4
+                }{% endblock %}
+            {% endembed %}
+        {% endif %}
     </div>
 {%- endif -%}{%- endmacro %}
 
 
 
-{% macro grid2( images = null, settings = null ) -%}
-{%- if images -%}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
 
-    }) %}
+{% macro grid2( images, settings = null ) -%}
+{%- if images and images is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
     {% set html %}
         {% for image in images %}
-            {{ _self.default( image, settings, loop ) }}
+            {{ _self.default( image, settings ) }}
         {% endfor %}
     {% endset %}
 
@@ -155,16 +176,13 @@
 
 
 
-{% macro grid3( images = null, settings = null ) -%}
-{%- if images -%}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
-
-    }) %}
+{% macro grid3( images, settings = null ) -%}
+{%- if images and images is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
     {% set html %}
         {% for image in images %}
-            {{ _self.default( image, settings, loop ) }}
+            {{ _self.default( image, settings ) }}
         {% endfor %}
     {% endset %}
 
@@ -182,24 +200,24 @@
 
 
 
-{% macro parallax( images = null, settings = null ) -%}
-    {% set settings = settings ??? {} %}
-    {% set settings = settings | merge({
+{% macro parallax( images, settings = null ) -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+    {% set imgtag = _self.default( images, {
         class    : "object-cover object-center h-full w-full",
         figure   : "absolute -inset-20 z-20",
         transform: settings.transform ?? "square"
     }) %}
 
-    {% set img = _self.default( images, settings ) %}
-    {% if img %}
+    {% if imgtag %}
         {{ tag( 'div', {
             class: "h-full w-full overflow-hidden relative",
-            html : img,
+            html : imgtag,
             data : { parallax: 'true' }
         }) }}
     {% endif %}
 
-    {%- js -%}{% if img %}
+    {%- js -%}{% if imgtag %}
         window.waitForGlobal("app.gsap", function() {
             app.gsap.utils.toArray("*[data-parallax='true']").forEach((parallax, i) => {
                 app.gsap.fromTo( parallax.querySelector("figure"), {
@@ -225,7 +243,6 @@
 {% endmacro %}
 
 
-
 {% macro lottieblob() %}
     <div class="absolute inset-x-4 -inset-y-20">
         <lottie-player
@@ -234,7 +251,7 @@
             src='{"v":"5.5.8","fr":15,"ip":0,"op":60,"w":256,"h":256,"nm":"blob 3","ddd":0,"assets":[],"layers":[{"ddd":0,"ind":1,"ty":4,"nm":"Blob","sr":1,"ks":{"o":{"a":0,"k":100,"ix":11},"r":{"a":0,"k":0,"ix":10},"p":{"a":0,"k":[128,127.89700000000002,0],"ix":2},"a":{"a":0,"k":[0,0,0],"ix":1},"s":{"a":0,"k":[80,-80,100],"ix":6}},"ao":0,"shapes":[{"ty":"gr","it":[{"ind":0,"ty":"sh","ix":1,"ks":{"a":1,"k":[{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":0,"s":[{"i":[[24.089,17.008],[28.886,-1.805],[20.481,-20.155],[6.727,-23.461],[-5.278,-23.278],[-21.997,-14.625],[-26.316,1.849],[-19.927,13.308],[-10.687,21.843],[6.312,28.853]],"o":[[-23.663,-16.707],[-28.643,1.79],[-17.376,17.1],[-6.578,22.943],[5.85,25.804],[21.986,14.617],[23.885,-1.678],[20.197,-13.488],[12.975,-26.52],[-6.312,-28.853]],"v":[[60.633,-87.31],[-13.761,-127.91],[-81.708,-78.413],[-123.128,-20.279],[-118.359,49.42],[-90.914,121.811],[-13.761,118.964],[55.915,111.493],[90.524,49.318],[125.083,-29.882]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":13,"s":[{"i":[[19.772,15.903],[26.26,0.454],[22.151,-14.646],[5.797,-26.683],[-7.762,-25.32],[-20.146,-18.38],[-26.809,8.477],[-21.64,15.819],[-13.241,22.894],[8.673,24.462]],"o":[[-20.415,-16.42],[-26.602,-0.46],[-22.87,15.122],[-5.622,25.873],[7.97,25.998],[20.724,18.908],[25.599,-8.095],[21.405,-15.647],[13.006,-22.487],[-8.453,-23.841]],"v":[[72.873,-103.487],[0.068,-127.981],[-74.599,-106.035],[-126.008,-44.616],[-104.096,29.725],[-79.969,105.563],[0.068,124.76],[50.047,64.451],[122.156,35.512],[110.139,-39.448]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":31,"s":[{"i":[[16.394,16.757],[24.875,2.778],[23.219,-15.222],[6.46,-27.43],[-14.02,-22.454],[-18.972,-15.722],[-27.564,-2.218],[-21.13,16.793],[-6.609,24.266],[9.005,23.641]],"o":[[-17.483,-17.871],[-27.611,-3.083],[-23.603,15.474],[-6.065,25.753],[13.04,20.885],[21.272,17.628],[26.927,2.167],[19.714,-15.668],[6.647,-24.406],[-8.337,-21.889]],"v":[[71.834,-99.927],[3.154,-125.344],[-77.685,-116.623],[-119.048,-45.229],[-112.668,31.93],[-49.321,66.443],[3.154,127.911],[62.163,75.415],[122.491,33.07],[92.085,-34.444]],"c":true}]},{"i":{"x":0.833,"y":0.833},"o":{"x":0.167,"y":0.167},"t":47,"s":[{"i":[[16.417,16.193],[24.048,-0.198],[21.06,-11.273],[11.899,-24.948],[-11.077,-26.806],[-22.915,-15.864],[-27.227,0.762],[-20.832,17.084],[-3.351,25.128],[8.592,23.082]],"o":[[-17.107,-16.873],[-23.896,0.197],[-24.395,13.058],[-12.488,26.181],[10.634,25.734],[22.382,15.495],[26.95,-0.755],[19.622,-16.091],[3.255,-24.408],[-8.039,-21.596]],"v":[[79.177,-102.815],[11.679,-122.718],[-55.016,-101.711],[-119.358,-52.578],[-118.928,32.283],[-60.703,89.369],[11.679,122.704],[81.169,85.396],[127.707,27.555],[97.619,-37.951]],"c":true}]},{"t":60,"s":[{"i":[[24.089,17.008],[28.886,-1.805],[20.481,-20.155],[6.727,-23.461],[-5.278,-23.278],[-21.997,-14.625],[-26.316,1.849],[-19.927,13.308],[-10.687,21.843],[6.312,28.853]],"o":[[-23.663,-16.707],[-28.643,1.79],[-17.376,17.1],[-6.578,22.943],[5.85,25.804],[21.986,14.617],[23.885,-1.678],[20.197,-13.488],[12.975,-26.52],[-6.312,-28.853]],"v":[[60.633,-87.31],[-13.761,-127.91],[-81.708,-78.413],[-123.128,-20.279],[-118.359,49.42],[-90.914,121.811],[-13.761,118.964],[55.915,111.493],[90.524,49.318],[125.083,-29.882]],"c":true}]}],"ix":2},"nm":"Path 1","mn":"ADBE Vector Shape - Group","hd":false},{"ty":"fl","c":{"a":0,"k":[0.5803921568627451,0.6392156862745098,0.7215686274509804,1],"ix":4},"o":{"a":0,"k":100,"ix":5},"r":1,"bm":0,"nm":"Fill 1","mn":"ADBE Vector Graphic - Fill","hd":false},{"ty":"tr","p":{"a":0,"k":[0,0],"ix":2},"a":{"a":0,"k":[0,0],"ix":1},"s":{"a":0,"k":[100,100],"ix":3},"r":{"a":0,"k":0,"ix":6},"o":{"a":0,"k":100,"ix":7},"sk":{"a":0,"k":0,"ix":4},"sa":{"a":0,"k":0,"ix":5},"nm":"Transform"}],"nm":"Blob","np":2,"cix":2,"bm":0,"ix":1,"mn":"ADBE Vector Group","hd":false}],"ip":0,"op":63,"st":0,"bm":0}],"markers":[]}'
             mode="bounce"
             preserveAspectRatio="none"
-            speed="0.35"
+            speed="0.65"
             class="w-full lottieplayer"
         ></lottie-player>
     </div>

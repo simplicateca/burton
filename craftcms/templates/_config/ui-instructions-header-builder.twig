@@ -14,15 +14,15 @@
 </div>
 
 {% css %}
-    #fields-headerBuilder .actions a.move.icon {
+    {# #fields-headerBuilder .actions a.move.icon {
         display: none;
-    }
+    } #}
 {% endcss %}
 
 
 {% js %}
 
-// provide a better message when a page already has a header block
+{# // provide a better message when a page already has a header block
 (function($) {
     $(document).on('click', '#noMoreHerosText span[data-icon="settings"]', function(e) {
         $(this)
@@ -30,6 +30,6 @@
             .find( 'div.actions button.settings' )
             [ 0 ].click()
     });
-})(jQuery);
+})(jQuery); #}
 
 {% endjs %}

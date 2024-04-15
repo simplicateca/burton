@@ -1,31 +1,35 @@
-{## Better Rich HTML / WYSIWYG Code Formatting
-    -------------------------------------------------------------------------------- ##
-    This macro handles provides an interface to the custom twig function `TextBase()`.
-
-    The macro, handle the heavy lifting of parsing the rich html from a Redactor or
-    CKEditor field, makes some minor formatting adjustments, and then attempts to
-    separate the content into separate parts.
-
-    - Eyebrow elements
-    - Any (h1,h2,h3) headlines appearing before body text (p, ol, ul, etc)
-    - CTA Buttons & Links (along with their kicker text), appearing after body text.
-
-    These individual text parts can then be used to customize the layout of the text
-    without having to worry about the order of the content or creating complicated
-    interfaces to editors.
-
-    The macro also tests the alignment of text (as set in the WYSIWYG editor), and
-    can adjust the layout of surrounding elements to match.
-
-    Editable at: craftcms/modules/sitemodule/src/twigextensions/TextBaseTwig.php
------------------------------------------------------------------------------------- ##}
-
-{% macro default( content, settings) %}
-    {{ content | trim ? raw( content ) : '' }}
-{% endmacro %}
+{% macro default( content = null, settings = null ) -%}
+    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {{- content ? raw( content ) -}}
+{%- endmacro %}
 
 
-{% macro card__summary( content, settings ) %}
+
+{% macro callout__quote( content = null, settings = null ) -%}
+    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- if content -%}
+        <div class="p-8">
+            {{- raw( content ) -}}
+        </div>
+    {%- endif -%}
+{%- endmacro %}
+
+
+{% macro callout__info( content = null, settings = null ) -%}
+    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- if content -%}
+        <div class="bg-canvas-light p-8 border border-canvas-dark rounded @container">
+            {{- raw( content ) -}}
+        </div>
+    {%- endif -%}
+{%- endmacro %}
+
+
+
+{% macro card__summary( content = null, settings = null ) -%}
     {% set content = content ??? null %}
     {% if content %}
     <p class="line-clamp-3 !mb-0">
@@ -38,18 +42,27 @@
 {% endmacro %}
 
 
-{% macro block__header( content, settings = null ) %}
-    {% if content %}<div class="mb-16">{{ raw( content ) }}</div>{% endif %}
-{% endmacro %}
+
+{% macro block__header( content = null, settings = null ) -%}
+    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- if content %}<div class="@container after:block after:content-[''] after:h-8 @3xl:after:h-12 @7xl:after:h-18">{{ raw( content ) }}</div>{% endif -%}
+{%- endmacro %}
 
 
 
-{% macro block__footer( content, settings ) %}
-    {% if content %}<div class="mt-16">{{ raw( content ) }}</div>{% endif %}
-{% endmacro %}
+
+{% macro block__footer( content, settings ) -%}
+    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- if content %}<div class="@container before:block before:content-[''] before:h-8 @3xl:before:h-12 @7xl:before:h-18r">{{ raw( content ) }}</div>{% endif -%}
+{%- endmacro %}
 
 
-{% macro image__caption( caption, settings ) %}
+
+{% macro image__caption( content = null, settings = null ) %}
+    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
     {% set captionlayer = settings.captionlayer %}
 

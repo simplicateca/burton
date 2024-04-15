@@ -6,7 +6,7 @@
     the card's primary content, including the image, headline, text, and action.
     It also handles the card's layout and wrapping.
  ------------------------------------------------------------------------------------- ##}
-{% import "_core/assemble" as assemble %}
+{% import "_assemble" as assemble %}
 
 {% block card__tag      "div" %}
 {% block card__class    "w-full relative @container" %}
@@ -43,7 +43,7 @@
 
 
 {## Click Cover Link
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     The click cover link is a full-coverage link that can be used to make the entire
     card clickable without a specific button or link.
 
@@ -55,7 +55,7 @@
     a.click__cover::before {
         @apply absolute content-[""] inset-0 z-20;
     }
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro invisibleclickcover( card, settings ) -%}
     {%- if card.url|default() -%}
         {{ tag( 'a', {
@@ -70,14 +70,14 @@
 
 
 {## Modal Content (Basic)
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Creates a modal window that will load on-click to display extended card info.
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 {% macro modallink( card, settings ) -%}
     {% set card = card is null ? {} : card %}
     {% set settings = settings is null ? {} : settings %}
 
-    {% import "_core/assemble" as assemble %}
+    {% import "_assemble" as assemble %}
 
     {% set modallayer = card.modallayer ??? ["_site/modal", "_core/modal"] %}
     {% set cardlayer  = card.modal__cardlayer ??? 'panel' %}
@@ -101,9 +101,9 @@
 
 
 {## Text Link
- ------------------------------------------------------------------------------------ ##
+{-------------------------------------------------------------------------------------##
     Like the Default Action, but uses a visible text-based (non-button) link
- ------------------------------------------------------------------------------------ ##}
+{-------------------------------------------------------------------------------------##}
 
 {#
 {% block action_textlink %}
