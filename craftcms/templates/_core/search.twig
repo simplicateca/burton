@@ -1,16 +1,35 @@
-{% macro search__form( params, settings ) %}
-    {% set baseurl = params.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
-    <form method="get" action="{{ params.baseurl }}" class="max-w-5xl w-full pb-10">
-        {% import "_assemble" as assemble %}
-        {{ assemble.searchpart( params, 'search__keywordinput', settings ) }}
-        {{ assemble.searchpart( params, 'search__collectionfilter', settings ) }}
-    </form>
+{## Search Elements   [Core Template]
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+
+{% macro default( params, settings ) %}
+    Default Search Part
+{% endmacro %}
+
+{## Keyword Search Field ##}
+{% macro keywordinput( params, settings ) %}
+    <div class="border border-canvas-dark bg-canvas-light flex flex-row rounded-lg p-2">
+        <input
+            name="q"
+            type="search"
+            value="{{params.query}}"
+            placeholder="Enter search term..."
+            class="flex-grow w-full !p-0 border-none"
+            sprig
+            s-val:page="1"
+            s-replace="#{{params.uuid}}"
+            s-trigger="keyup changed delay:300ms"
+        >
+        <button class="button" sprig>Search</button>
+    </div>
 {% endmacro %}
 
 
-{% macro search__collectionfilter( params, settings ) %}
-{##
-    {% set isSprig   = isSprig   ??? false %}
+
+{# Topic Filter #}
+{% macro topicfilter( params, settings ) %}
+    {# {% set isSprig   = isSprig   ??? false %}
     {% set params    = params    ??? null %}
     {% set settings  = settings  ??? null %}
     {% set feedIds   = feedIds   ??? [] %}
@@ -65,34 +84,13 @@
             {{ activeFeed.dek ??? activeFeed.summary ??? null
                 | retconAttr( 'p', { class: 'html' }, false ) }}
         </div>
-    {% endif %}
-##}
-{% endmacro %}
-
-
-
-{## Keyword Search Field ##}
-{% macro search__keywordinput( params, settings ) %}
-    <div class="border border-canvas-dark bg-canvas-light flex flex-row rounded-lg p-2">
-        <input
-            name="q"
-            type="search"
-            value="{{params.query}}"
-            placeholder="Enter search term..."
-            class="flex-grow w-full !p-0 border-none"
-            sprig
-            s-val:page="1"
-            s-replace="#{{params.uuid}}"
-            s-trigger="keyup changed delay:300ms"
-        >
-        <button class="button" sprig>Search</button>
-    </div>
+    {% endif %} #}
 {% endmacro %}
 
 
 
 {## Basic Pagination ##}
-{% macro search__pagination( params, settings ) -%}
+{% macro pagination( params, settings ) -%}
 {%- if params.total > 1 %}
     <nav
         role="navigation"
@@ -101,13 +99,13 @@
     >
         {% import "_assemble" as assemble %}
         <ul class="flex justify-between w-full list-none items-end">
-            <li class="list-none">{{ assemble.searchpart( params, 'search__previouspage', settings ) }}</li>
+            <li class="list-none">{{ assemble.searchpart( params, 'previouspage', settings ) }}</li>
 
             <li class="flex flex-col text-center items-center">
                 <strong class="text-xs uppercase">Page</strong>
                 <div>{{params.page}} / {{params.pages}}</div>
             </li>
-            <li class="list-none text-right">{{ assemble.searchpart( params, 'search__nextpage', settings ) }}</li>
+            <li class="list-none text-right">{{ assemble.searchpart( params, 'nextpage', settings ) }}</li>
         </ul>
     </nav>
 {%- endif %}{% endmacro %}
@@ -115,8 +113,7 @@
 
 
 {## Previous Link ##}
-{% macro search__previouspage( params, settings ) %}
-
+{% macro previouspage( params, settings ) %}
     {% set baseurl   = params.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
     {% set prevpage  = params.page - 1 %}
 
@@ -151,8 +148,7 @@
 
 
 {## Next Link  ##}
-{% macro search__nextpage( params, settings ) %}
-
+{% macro nextpage( params, settings ) %}
     {% set baseurl   = params.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
     {% set nextpage  = params.page + 1 %}
 
@@ -183,7 +179,7 @@
 
 
 {## No Results Message ##}
-{% macro search__noresults( params, settings ) %}
+{% macro noresults( params, settings ) %}
     <div class="max-w-5xl mx-auto @container mb-8">
         <p class="html larger text-center">
             <strong>Sorry</strong>, we could not find any matches for your search.
@@ -195,7 +191,7 @@
 
 
 {## Load More Pagination ##}
-{% macro search__loadmore( params, settings ) -%}
+{% macro loadmore( params, settings ) -%}
 
     {## arguments passed to this template
     {% set isSprig  = isSprig  ??? false %}

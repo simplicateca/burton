@@ -1,25 +1,43 @@
-{%- set images   = images ??? null -%}
+{## Image Cluster Frame  [Site Template]
+{-------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block frame__skeleton "" %}') %}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{%- set images = images ??? null -%}
+{%- set count  = images is iterable ? images|length : 0 -%}
+
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-{%- set position1 = _self.square( ( images[0:1]|first ) ??? null ) | trim -%}
-{%- set position2 = _self.square( ( images[1:1]|first ) ??? null ) | trim -%}
-{%- set position3 = _self.square( ( images[2:1]|first ) ??? null ) | trim -%}
+{%- set settings = settings | merge({
+    imgclass    : "object-cover w-full h-full rounded-lg shadow-lg",
+    figureclass : "aspect-square overflow-hidden w-full h-full rounded-lg shadow-lg",
+    transform   : "square",
+    _placeholder: "square",
+}) -%}
 
-{% macro square( image ) %}
-    {%- from "_core/image" import imgtag -%}
-    {% set imgtag = imgtag( image, {
-        class       : "object-cover w-full h-full rounded-lg shadow-lg",
-        transform   : "square",
-        _placeholder: "square",
-    }) %}
+{%- set position1 = _self.square( images[0:1] ??? null, settings ) | trim -%}
+{%- set position2 = _self.square( ( images[1:1]|first ) ??? null, settings ) | trim -%}
+{%- set position3 = _self.square( ( images[2:1]|first ) ??? null, settings ) | trim -%}
 
-    {%- embed ['_site/image', '_core/image'] with {
-        img: imgtag,
-    } only %}
-        {% block figure__class "aspect-square overflow-hidden w-full h-full rounded-lg shadow-lg" %}
-    {% endembed -%}
+
+{## Frame Macros
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro square( image, settings ) %}
+    {{ include( ['_site/image', '_core/image'], { images: image, settings: settings } ) }}
 {% endmacro %}
 
-{% if position1 %}
+
+{## Render the Image Frame
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block frame__skeleton -%}
+{% if position1 -%}
     <div class="flex mx-auto gap-4 xl:gap-8" data-cluster="true">
         <div class="w-7/12 flex flex-col gap-4 xl:gap-8">
             <div class="aspect-square w-full opacity-0 clusterA relative z-30">
@@ -41,7 +59,7 @@
         {% endif %}
     </div>
 
-    {% js %}
+    {%- js -%}
         window.waitForGlobal("app.gsap", function() {
             app.gsap.utils.toArray("*[data-cluster='true']").forEach((cluster, i) => {
 
@@ -106,5 +124,5 @@
 
             });
         });
-    {% endjs %}
-{% endif %}
+    {%- endjs -%}
+{%- endif %}{%- endblock %}

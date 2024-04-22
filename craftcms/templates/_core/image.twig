@@ -1,125 +1,392 @@
-{% extends template_from_string('{% block image %}{% endblock %}') %}
+{## Image   [Core Template]
+{-------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block image__skeleton "" %}') %}
 
-{% block image block('figure') %}
 
-{% block img__tag          img     ?? null %}
-{% block img__caption      caption ?? ""   %}
+{## Template Variables
+{---------------------------------------------------------------------------------------}
 
-{% block figure__class     "relative z-20" %}
-{% block figcaption__class "text-sm" %}
+{-------------------------------------------------------------------------------------##}
+{# one or more images to generate a tag for #}
+{# {%- set images = images ??? image ??? null -%} #}
+{%- set images = images ??? null -%}
 
-{% block source            "" %}
-{% block picture           raw( "<picture>" ~ block( 'source' ) ~ block( 'img__tag' ) ~ "</picture>" ) %}
+{# caption text / html #}
+{%- set caption = caption ??? null -%}
 
-{% block figcaption -%}
-    {%- set caption = block('img__caption') | trim -%}
-    {{- caption ? tag( 'figcaption', { class: block('figcaption__class'), html: caption } ) : "" -}}
+{# settings object #}
+{%- set settings = settings ??? null -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+{# <figure> attributes - to use when generating tag with: `{{ tag('figure', attr ) }}` #}
+{%- set figure = figure ??? null -%}
+{%- set figure = figure is not null and figure is iterable ? figure : {} -%}
+
+
+{## Default Configuration
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% block img__class      img__class     ?? "w-full max-w-full h-auto" %}
+{% block picture__tag    picture__tag   ?? "picture" %}
+{% block picture__class  picture__class ?? "" %}
+{% block figure__tag     figure__tag    ?? "figure" %}
+{% block figure__class   figure__class  ?? "relative z-20" %}
+{% block caption__tag    caption__tag   ?? "figcaption" %}
+{% block caption__class  caption__class ?? "text-sm" %}
+
+
+
+{## Render HTML
+{---------------------------------------------------------------------------------------}
+    Used to generate the html structure surrounding an image (figure, caption, etc).
+{-------------------------------------------------------------------------------------##}
+{% block image__skeleton -%}
+    {%- set figure = { class: settings.figureclass ?? block('figure__class') } | merge( figure ) -%}
+    {% tag block('figure__tag') with figure %}
+        {%- block figure -%}
+            {%- block image -%}
+                {# {%- tag block('picture__tag') with { class: block('picture__class') } -%} #}
+                    {%- block sources "" -%}
+                    {%- set settings = { imgclass: block('img__class') } | merge( settings ) -%}
+                    {%- set imgtag = _self.imgtag( images, settings ) %}
+                    {%- block img -%}{{imgtag}}{% endblock %}
+                {# {%- endtag -%} #}
+            {%- endblock -%}
+
+            {%- block caption ( caption )
+                ? tag( block('caption__tag'), { class: block('caption__class'), html: caption } )
+                : '' -%}
+        {% endblock %}
+    {% endtag %}
 {%- endblock %}
 
-{## If `figure` is passed as a string, use it as a class.
-    If it's is passed as null, don't output a <figure> wrapper.
-    If passing an object, expect that it will be used in the tag() function ##}
-{% block figure -%}
-    {%- set figure = figure ?? {} -%}
-    {%- set picture = block('picture') | trim -%}
-    {%- if picture -%}
-        {%- set picture = picture ~ block('figcaption') | trim %}
-        {%- set figure = figure is not null and figure is not iterable
-            ? { class: figure, html: picture }
-            : { class: block('figure__class'), html: picture } | merge( figure ) -%}
-        {{- figure ? tag( 'figure', figure ) : raw( picture ) -}}
-    {%- endif -%}
-{%- endblock %}
 
 
+{## Fallback Method
+{---------------------------------------------------------------------------------------}
+    Default image frame, and default image iterator. These are only used if no default
+    frame or iterator exists in `_site/image` and/or no named frames or named iterators
+    exist in `_site/image` or `_core/image`.
 
-{% macro default( images, settings = null ) -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {{- include( ['_site/image', '_core/image'], {
-        img: _self.imgtag( images, {
-            class: "w-full max-w-full h-auto",
-        } )
-    } ) -}}
-{%- endmacro %}
+    While both accept (and pass-through) the `settings` object, it is typically not
+    used within fallback methods inorder to remain as decoupled as possible.
+{-------------------------------------------------------------------------------------##}
+{%- macro default( images, settings ) -%}
+    {{- include( ['_site/image', '_core/image'] ) -}}
+{% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
 
 
-{## Basic <img> tag
-{-------------------------------------------------------------------------------------##
-    You can pass it as many images as you like, but we're only gonna use the first one.
+
+{## Iterators
+{---------------------------------------------------------------------------------------}
+    These macros are used to generate a variety of layouts for multiple images.
 {-------------------------------------------------------------------------------------##}
-{% macro imgtag( image, frame = null ) %}
 
-    {% set first = null %}
-    {% if image is iterable and image.one() ??? null %}
-        {% set first = image|first %}
-    {% endif %}
+{## Random Single
+{-------------------------------------------------------------------------------------##}
+{% macro randomize( images, settings ) -%}
+    {{- _self.default( shuffle(images), settings ) -}}
+{%- endmacro %}
 
-    {% if not first and image.url ??? null %}
-        {% set first = image %}
-    {% endif %}
 
-    {% if not first and image is iterable %}
-        {% set first = image|first %}
-    {% endif %}
 
-    {% if not first and image starts with 'http' %}
-        {% set first = image %}
-    {% endif %}
+{## Basic Two/Three Column Grids
+{---------------------------------------------------------------------------------------}
+ !! IMPORTANT CAVEAT: Unlike Cards that have a deck iterator and a card layout,
+    image macros are assumed to handle one or both cases at the same time.
 
-    {%- if first -%}
-        {% set class = frame.class ?? "max-w-full" %}
-        {% if attribute(first, 'getUrl') ??? null %}
-            {# {% if frame.transform|default() and first.url|default() and first.id|default() %}
-                {% do first.setTransform( frame.transform ) %}
-            {% endif %} #}
+    Specifically, in the case of these grid macros, the `imagelayer` *MUST BE CHANGED*
+    to something else before running them through `assemble.images()` again.
 
-            {% set transform = frame.transform ?? null %}
-            {% set doit      = transform %}
-            {% set doit      = false %}
-            {% set source    = doit ? first.getUrl(transform)    : first.url %}
-            {% set width     = doit ? first.getWidth(transform)  : first.width  ?? null %}
-            {% set height    = doit ? first.getHeight(transform) : first.height ?? null %}
+    Otherwise, they'll try to loop back on themselves and re-run the `grid2` or `grid3`
+    `imagelayer` again, ending up in an infinite loop.
 
-            {{ tag( 'img', {
-                src    : source,
-                width  : width,
-                height : height,
-                class  : class,
-                loading: 'lazy'
-            }) }}
-        {% else %}
-            {% set imgurl = ( image.url ??? first ) | lower %}
-            {% if imgurl starts with 'http' or imgurl starts with '//' %}
-                {{ tag( 'img', {
-                    src    : imgurl,
-                    class  : class,
-                    loading: 'lazy'
-                }) }}
-            {% endif %}
-        {% endif %}
-    {% else %}
-        {{ _self.placeholder( frame ) }}
-    {%- endif -%}
+    This will be changed in a future version to more explicit and separate iterator
+    and frame macros.
+{-------------------------------------------------------------------------------------##}
+{% macro images__grid( gridlayout, images, settings = null ) %}
+    {%- set gridlayout = gridlayout ?? 'default' -%}
+
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings | merge( { gridlayout: gridlayout, imagelayer: 'widescreen' } ) -%}
+
+    {%- import "_assemble" as assemble -%}
+
+    {%- set images = images ?? null -%}
+    {%- set images = images is not null and images is iterable ? images : [] -%}
+    {%- set images = images | map( img => assemble.images( settings.imagelayer, img, settings ) ) -%}
+
+    {{- assemble.gridlayout( settings.gridlayout, images|join , settings ) -}}
 {% endmacro %}
 
+{% macro grid2( images, settings = null ) -%}
+    {{- ( images ?? null and images|length == 1 )
+        ? _self.images__grid( 'single', images, settings )
+        : _self.images__grid( 'flexible2', images, settings )
+    -}}
+{%- endmacro %}
+
+{% macro grid3( images, settings = null ) -%}
+    {{- ( images ?? null and images|length < 3 )
+        ? _self.grid2( images, settings )
+        : _self.images__grid( 'fixed3', images, settings )
+    -}}
+{%- endmacro %}
 
 
-{## Placeholder images (for wireframing & development)
+{## Simple Carousel
+{---------------------------------------------------------------------------------------}
+ !! See *IMPORTANT CAVEAT* above regading the importance of changing the `imagelayer`
+    before calling `assemble.images()` from inside an image macro.
 {-------------------------------------------------------------------------------------##}
-{% macro placeholder( settings = {} ) %}{% if getenv('CRAFT_ENVIRONMENT') != 'production' -%}
-    {% set type   = settings._placeholder|default('default') %}
-    {% set width  = type == 'icon' ? 170 : 900 %}
-    {% set height = type == 'icon' ? 170 : 500 %}
-    {% set source = type == 'icon'
-        ? "https://placeskull.com/#{width}/#{height}/475569/#{random(1,24)}"
-        : "https://picsum.photos/seed/#{random(1,9999)}/#{width}/#{height}?grayscale&blur=2" %}
+{% macro carousel( images, settings = null ) -%}
+{%- if images and images is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = {
+        imgclass   : "object-cover object-center h-full w-full",
+        figureclass: "h-full w-full relative z-10",
+    } | merge( settings ) -%}
 
-    {{- tag( 'img', {
-        src: source,
-        alt: "Placeholder #{type}",
-        class: settings.class|default('placeholder')
+    {%- import "_assemble" as assemble -%}
+    {{- include( ['_site/carousel', '_core/carousel'], {
+        items: images | map( i => assemble.images( 'widescreen', i, settings ) ),
     } ) -}}
+{%- endif -%}{%- endmacro %}
+
+
+
+{## Simple Gallery
+{---------------------------------------------------------------------------------------}
+    AlpineJS powered gallery for multiple images. Should probably be moved to a
+    dedicated template, but for now it's here.
+{-------------------------------------------------------------------------------------##}
+{% macro gallery( images, settings = null ) -%}
+{%- if images and images is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set imgcount = images | length -%}
+
+    {%- set imgconfig = {
+        transform: "widescreen",
+        figure: {
+            class: 'aspect-video overflow-hidden rounded-lg relative cursor-pointer',
+            'x-on:click': 'switch( this )'
+        },
+    } -%}
+
+    {# if we only have two images, just slam them into a carousel #}
+    {% if imgcount == 2 %}
+        {%- set images = images | map( i => _self.default( i,  ) ) -%}
+
+        {% embed ['_site/carousel', '_core/carousel'] with {
+            items: images,
+        } only %}{% endembed %}
+    {% else %}
+        <div class="w-full flex flex-col gap-4" x-data="{
+            switch( figure ) {
+                this.$refs.feature.src = figure.querySelector('img').src
+            }
+        }">
+            {# prepare the feature <img> tag #}
+            <div class="w-full">
+                {{- _self.imgtag( images|first, {
+                    imgclass   : 'aspect-video w-full h-full object-cover',
+                    figureclass: 'aspect-video overflow-hidden rounded-lg relative',
+                    transform  : "widescreen"
+                }) | retconAttr( 'img', { 'x-ref': 'feature' } ) }}
+            </div>
+
+            {## For the Tailwind JIT compiler...
+            {---------------------------------------------------------------------------------------}
+                Since Tailwind won't find dynamically generated classes, we must manually list all
+                possible options for `md:grid-cols-#{imgcount}` or risk something breaking:
+             -> md:grid-cols-3  md:grid-cols-4  md:grid-cols-5
+            {-------------------------------------------------------------------------------------##}
+            {% if imgcount > 2 and imgcount < 6 %}
+                {{ tag( 'div', {
+                    class: "w-full grid-cols-3 md:grid-cols-#{imgcount} gap-4",
+                    html : images | map( i => _self.default( i, imgconfig ) )
+                }) }}
+            {% endif %}
+
+            {## Use a Carousel for more than 5 images ##}
+            {% if imgcount > 5 %}
+                {%- set images = images | map( i => _self.default( i, imgconfig ) ) -%}
+
+                {% embed ['_site/carousel', '_core/carousel'] with {
+                    items: images,
+                } only %}
+                    {% block splide__config %}{
+                        type   : 'loop',
+                        gap    : '1rem',
+                        perPage: 4
+                    }{% endblock %}
+                {% endembed %}
+            {% endif %}
+        </div>
+    {% endif %}
+{%- endif -%}{%- endmacro %}
+
+
+
+
+
+{## <img> tag generator
+{---------------------------------------------------------------------------------------}
+    Generates a basic <img> tag for a variety of image sources. Also capable of
+    generating multiple formats of placeholder images for wireframing and development.
+
+    Valid formats for `imageinput` include:
+
+  - A string containing a URL
+  - An object with a `getUrl()` method (like a Craft `Asset` object)
+  - An object with a `url` property (like a manually created Twig variable)
+  - An array or ElementQuery containing any of any of the above.
+
+    The `frame` object can be used to pass additional classes or transforms to the
+    image tag. The following keys are accepted:
+
+  - `frame.imgclass`  : Additional classes to apply to the <img> tag
+  - `frame.transform` : The named Asset Transform or custom transform hash.
+                        TODO: test if this actually allows inline transform hashes.
+
+  -> https://craftcms.com/docs/4.x/image-transforms.html
+
+{-------------------------------------------------------------------------------------##}
+{% macro imgtag( imageinput, frame = null ) -%}
+
+    {%- set imageinput = imageinput ??? null -%}
+
+    {## your instinct might tell you to use a conditional statement here to skip the
+        tag generation if we don't have any input, and maybe that's fine for production,
+        but in development that would mean skipping placeholder generation. So....    ##}
+
+    {%- set frame = frame is not null and frame is iterable ? frame : {} -%}
+    {%- set frame = { imgclass: null, transform: null } | merge( frame ) -%}
+
+    {## Only one image is allowed, so grab the first one we can find
+    {---------------------------------------------------------------------------------##}
+    {# first up .. asset object or manual hash #}
+    {# {%- set image = ( imageinput and imageinput['url'] is defined ) ? imageinput : null -%} #}
+
+    {# next up, non-iterable == string, must be a url #}
+    {# {%- if image is null and imageinput is not iterable -%}
+        {%- set image = imageinput -%}
+    {%- endif -%} #}
+
+    {%- set image = null -%}
+
+    {# an array of images (manual or eager loaded) OR an AssetQuery object. same same. #}
+    {% if image is null and ( imageinput[0] ??? null or imageinput.one() ??? null ) %}
+        {% set image = imageinput | first %}
+    {% endif %}
+
+    {%- if image is null -%}
+        {%- set image = imageinput -%}
+    {%- endif -%}
+
+
+    {## Placeholder Image (no image found/provided)
+    {-----------------------------------------------------------------------------------}
+        If no image is found, we can generate a placeholder image to help with the
+        layout. Disabled by default in `staging` and `production` environments, but very
+        useful during wireframing and development.
+    {---------------------------------------------------------------------------------##}
+    {{ ( not image or image is null ) ? _self.placeholder( frame ) }}
+
+
+    {## Local Assets
+    {-----------------------------------------------------------------------------------}
+        Handle the transform (if any) and generate that tag.
+    {---------------------------------------------------------------------------------##}
+    {%- if image is not null and image.id ??? null -%}
+        {# {%- if frame.transform %}{% do image.setTransform( frame.transform ) %}{% endif %} #}
+
+        {{- tag( 'img', {
+            src    : image.url ?? '',
+            alt    : image.alt ?? '',
+            width  : image.width,
+            height : image.height,
+            class  : frame.imgclass,
+            loading: 'lazy'
+        }) -}}
+
+
+
+    {## External Image / URL String
+    {-----------------------------------------------------------------------------------}
+        Can't transform remote images, so just output them in the desired frame.
+
+        Could queue them to be downloaded and turn them into local assets if we
+        *really* wanted / needed to.
+    {---------------------------------------------------------------------------------##}
+    {%- elseif image is not null -%}
+
+        {%- set url  = image.url ?? image -%}
+        {%- set show = ( url starts with '//' or url|lower starts with 'http' ) %}
+        {{- show ? tag( 'img', {
+            src    : url,
+            alt    : image.alt ?? '',
+            class  : frame.imgclass,
+            loading: 'lazy'
+        }) -}}
+
+    {%- endif -%}
+{%- endmacro %}
+
+
+
+
+
+{## Placeholder Image Generator(s)
+{---------------------------------------------------------------------------------------}
+    Automatically disabled in `staging` and `production` environments.
+{-------------------------------------------------------------------------------------##}
+{% macro placeholder( settings ) -%}
+{%- if getenv('CRAFT_ENVIRONMENT') == 'dev' -%}
+
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+    {%- set type   = settings._placeholder ??? settings.transform ??? 'default' -%}
+    {%- set width  = 900 -%}
+    {%- set height = 506 -%}
+
+    {%- set width  = type == 'widescreen' ? 900 : width  -%}
+    {%- set height = type == 'widescreen' ? 506 : height -%}
+
+    {%- set width  = type == 'square'     ? 900 : width  -%}
+    {%- set height = type == 'square'     ? 900 : height -%}
+
+    {%- set width  = type == 'skull'      ? 160 : width  -%}
+    {%- set height = type == 'skull'      ? 160 : height -%}
+
+    {%- set color = settings.color ??? '#475569' -%}
+    {%- set color = color|replace({'#':''})   -%}
+
+    {## Try to use the same image in the same places, by creating a unique seed.
+        Optionally distort it (blur/grayscale) to help identify it as a placeholder. ##}
+    {%- set seed   = [width, height, settings.blockid ??? null, settings.loop.index ??? null] | filter | join('__') -%}
+    {%- set source = "https://picsum.photos/seed/#{seed}/#{width}/#{height}" -%}
+    {%- set source = source ~ "?grayscale&blur=4"-%}
+
+    {# Use a different service for 'square' images #}
+    {% set source = ( type == 'skull' )
+        ? "https://placeskull.com/#{width}/#{height}/#{color}/#{random(1,24)}"
+        : source %}
+
+    {# Use local SVG files for icon placeholders #}
+    {% if type == 'icon' %}
+        {% set svgs = ['brick','calendar','cart','circle-error','circle-check','phone','star','widget'] %}
+        {{ svg( '@webroot/static/svg/' ~ shuffle(svgs)|first ~'.svg') | attr({ class: 'fill-current h-20 w-20 mx-auto' }) }}
+
+    {# Otherwise render placehold <img> #}
+    {% else %}
+        {{- tag( 'img', {
+            src  : source,
+            alt  : "Placeholder #{type|capitalize}",
+            class: [ settings.imgclass ?? null, "placeholder__#{type}" ] | filter,
+        } ) -}}
+    {% endif %}
 {%- endif %}{% endmacro %}
 
 

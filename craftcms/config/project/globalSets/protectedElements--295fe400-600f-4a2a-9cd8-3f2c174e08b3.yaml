@@ -18,7 +18,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 12ebd69f-28fa-42bb-ae95-8ff3d3eb5135 # Assets
+            fieldUid: 12ebd69f-28fa-42bb-ae95-8ff3d3eb5135 # Media
             instructions: null
             label: null
             required: false

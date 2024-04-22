@@ -1,21 +1,22 @@
 {## Text Block Base
-{-------------------------------------
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     http://localhost:8000/sitehub/blocks/text
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_core/block.text" ] %}
 
 
 {## Secondary Text Reveal Blocks
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     This block varient loads content from the local `summary` field -or- from the
     `summary` field of the attached Reusable Content Bit.
 {-------------------------------------------------------------------------------------##}
-{% block text2__reveal %}
-    {%- set settings  = settings is not null and settings is iterable ? settings : {} -%}
-    {%- import "_assemble" as assemble -%}
-
-    {% set revealtext = settings.field ??? "View Hidden Content" %}
+{% block text2__reveal -%}
+{%- if block.text2 ?? null %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = {
+        revealLabel: 'View Hidden Content'|t,
+        text2layer : 'default',
+    } | merge( settings ) -%}
 
     <div
         x-cloak
@@ -27,40 +28,34 @@
     >
         <template x-if="!revealed">
             <div class="w-full h-full flex items-center justify-center p-8 bg-canvas-dark">
-                <button x-on:click="reveal" class="button">{{revealtext}}</button>
+                <button x-on:click="reveal" class="button">{{settings.revealLabel}}</button>
             </div>
         </template>
 
         <div x-show="revealed">
-            {{- assemble.text(
-                block.text2 ??? "",
-                settings.text2layer ??? 'default',
-                settings
-            ) -}}
+            {%- import "_assemble" as assemble -%}
+            {{- assemble.text( settings.text2layer, block.text2, settings ) -}}
         </div>
     </div>
-{% endblock %}
+{%- endif %}{% endblock %}
 
 
 
 {## Callout Blocks
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     This block varient loads content from the local `summary` field -or- from the
     `summary` field of the attached Reusable Content Bit.
 {-------------------------------------------------------------------------------------##}
-{% block text2__callout %}
+{% block text2__callout -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { text2layer : 'callout' } | merge( settings ) -%}
 
-    {% set callout = block.summary ??? "" %}
-    {% if block.bits is iterable and block.bits.one() ??? null %}
+    {%- set thistext = block.summary ?? "" -%}
+    {%- if block.bits is iterable and block.bits.one() ??? null -%}
         {%- set bit = block.bits.one() -%}
-        {%- set callout = bit ? bit.summary ??? bit.text ??? null : callout -%}
-    {% endif %}
+        {%- set thistext = bit ? bit.summary ?? bit.text ?? null : thistext -%}
+    {%- endif -%}
 
     {%- import "_assemble" as assemble -%}
-    {{- assemble.text(
-        callout,
-        settings.text2layer ??? 'callout',
-        settings
-    ) -}}
-{% endblock %}
+    {{- assemble.text( settings.text2layer, thistext, settings ) -}}
+{%- endblock %}

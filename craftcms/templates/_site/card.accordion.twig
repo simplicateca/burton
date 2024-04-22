@@ -1,12 +1,23 @@
-{% extends [ "_site/card.panel", "_site/card", "_core/card" ] %}
+{## Accordion Card   [Site Template]
+{-------------------------------------------------------------------------------------##}
+{% extends ["_site/card.panel", "_site/card", "_core/card"] %}
 
-{% import "_assemble" as assemble %}
 
-{% set card = card ??? null %}
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-
-{% set settings = settings | merge({
+{%- set settings = settings | merge({
     card__imagelayer: 'stretch'
-}) %}
+}) -%}
 
+
+
+{## Overload Parent Blocks
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
 {% block card__headline "" %}

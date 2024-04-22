@@ -55,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 9588272c-eb48-44c0-bb46-e95f8c0d6016 # Component
+            fieldUid: 9588272c-eb48-44c0-bb46-e95f8c0d6016 # Element
             instructions: null
             label: null
             required: false
@@ -135,17 +135,17 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-  9588272c-eb48-44c0-bb46-e95f8c0d6016: # Component
+  9588272c-eb48-44c0-bb46-e95f8c0d6016: # Element
     columnSuffix: nzhsczao
     contentColumnType: text
     fieldGroup: null
-    handle: component
+    handle: element
     instructions: null
-    name: Component
+    name: Element
     searchable: false
     settings:
       columnType: null
-      configFile: _config/block.action.component.json
+      configFile: _config/block.component.elements.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -213,7 +213,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _config/block.action.json
+      configFile: _config/block.component.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -255,6 +255,6 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
-handle: action
-name: 'User Action'
+handle: component
+name: Component
 sortOrder: 5

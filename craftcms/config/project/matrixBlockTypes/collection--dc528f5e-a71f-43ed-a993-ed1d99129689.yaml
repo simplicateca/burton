@@ -338,7 +338,7 @@ fields:
     name: Variant
     searchable: true
     settings:
-      configFile: _config/block.collection.json
+      configFile: _config/block.carddeck.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField

@@ -1,8 +1,7 @@
-
 {% extends "_site/html" %}
 
 {## Single Column Base Layout
- ------------------------------------------------------------------------------------- ##
+{---------------------------------------------------------------------------------------}
     - AJAX / htmx requests
         - Served "chromeless" content only for in-page modals via {% block page__ajax %}.
         - No <header> or <footer> elements included by default.
@@ -27,23 +26,29 @@
         - Contact & Social Links
         - Userflow / Quicklinks
         - Legal Navigation
- ------------------------------------------------------------------------------------- ##}
+--------------------------------------------------------------------------------------##}
 {% import "_assemble" as assemble %}
+
+{% set blocks = entry.bodyBuilder
+    .with([
+        "text:bits",
+        "image:collections",     "image:images",
+        "media:collections",     "media:media",
+        "carddeck:collections",  "carddeck:entries", "carddeck:items",
+        "component:collections", "component:form",
+        "fragment:fragments"
+    ])
+    .all()
+%}
 
 {% block page %}
     {% block page__top      block( 'header__base', '_site/header' ) %}
     {% block page__main     block( 'main__base' ) %}
     {% block page__bottom   block( 'footer__base', '_site/footer' ) %}
+
+    {% from "_core/modal" import dynamic %}
+    {{ dynamic() }}
 {% endblock %}
-
-
-{% block page__ajax %}{{
-    assemble.builder( mainblocks ??? entry.bodyBuilder.all() ??? [], 'ajax', {
-        container  : "none",
-        spacerabove: "small",
-        spacerbelow: "small"
-    })
-}}{% endblock %}
 
 
 {% block main__base %}
@@ -55,22 +60,33 @@
 
 {% block content %}
 
-    {## checks to see if the header builder uses the same background theme
-        as the first block in the body builder, and if it does, adjust the
-        first spacer of the opening body block ##}
-    {% set firstspace = "default" %}
-    {% set mainblocks = mainblocks ??? entry.bodyBuilder.all() ??? [] %}
-    {% if mainblocks %}
-        {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? [] %}
-        {% set theme1 = headblocks ? headblocks[0].theme.value ??? 'base' : 'base' %}
-        {% set theme2 = mainblocks[0].theme.value ??? 'base' %}
-        {% set firstspace = theme1 == theme2 ? "none" : firstspace %}
-    {% endif %}
+    {## Check for matching themes
+    {-----------------------------------------------------------------------------------}
+        If the theme of the first block in the header builder, matches the theme of the
+        first block in the body builder, skip the first spacer
+    ----------------------------------------------------------------------------------##}
+    {% set firstblock = blocks | first %}
+    {% set headerattr = block( 'page__top' ) | retconOnly( 'header *[data-theme]' ) | parseAttr %}
+    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme.value ??? "base" %}
 
-    {{- assemble.builder( mainblocks, 'singlecol', {
+    {{ assemble.builder( 'mainfull', blocks, {
         container  : "fluid",
-        spacerfirst: firstspace,
+        spacerfirst: themematch ? "none" : "default",
         spacerabove: "default",
         spacerbelow: "default"
-    })
-}}{% endblock %}
+    }) }}
+{% endblock %}
+
+
+{# served when page requested via ajax #}
+{% block page__ajax %}
+
+    {{ block( 'header__content', '_site/header' ) }}
+
+    {{ assemble.builder( 'ajax', blocks, {
+        container  : "fluid",
+        spacerabove: "small",
+        spacerbelow: "small"
+    }) }}
+
+{% endblock %}

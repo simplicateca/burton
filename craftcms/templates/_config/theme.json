@@ -4,10 +4,10 @@
     {
         "label": "Base (Page Background Visible)",
         "value": "base",
+        "settings": {},
         "docs": {
             "tooltip" : ""
         },
-        "settings": {},
         "inputs": [
             {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
@@ -19,10 +19,10 @@
    ,{
         "label": "White (Light)",
         "value": "light",
+        "settings": {},
         "docs": {
             "tooltip" : ""
         },
-        "settings": {},
         "inputs": [
             {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
@@ -35,10 +35,10 @@
    ,{
         "label": "Accent (Dark)",
         "value": "accent",
+        "settings": {},
         "docs": {
             "tooltip" : ""
         },
-        "settings": {},
         "inputs": [
             {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
@@ -52,10 +52,10 @@
    ,{
         "label": "Inherit from Block Above",
         "value": "INHERIT",
+        "settings": {},
         "docs": {
             "tooltip" : ""
         },
-        "settings": {},
         "inputs": [
             {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
             {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},

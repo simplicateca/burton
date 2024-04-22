@@ -1,9 +1,14 @@
-{## Modal Base Template
-{-------------------------------------------------------------------------------------##
+{## Modal Component   [Core Template]
+{---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
-{% extends template_from_string('{% block modal %}{% endblock %}') %}
+{% extends template_from_string('{% block modal__skeleton %}') %}
 
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
 {% set open        = open        ??? false %}
 {% set uuid        = uuid        ??? create('craft\\helpers\\StringHelper').UUID() %}
 {% set theme       = theme       ??? 'light' %}
@@ -11,20 +16,58 @@
 {% set headline    = headline    ??? null %}
 {% set triggertext = triggertext ??? 'Load Summary →' %}
 
+
+
+{## Default Configuration
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
 {% block outerclass    "fixed inset-0 z-100 overflow-y-auto" %}
 {% block modalclass    "relative w-full max-w-4xl overflow-y-auto rounded-xl p-8 shadow-lg @container" %}
 {% block panelclass    "relative flex min-h-screen items-center justify-center p-4" %}
 {% block overlayclass  "fixed inset-0 bg-black/70" %}
-
+{% block triggertext triggertext %}
 {% block uuid uuid %}
 
-{% block triggertext triggertext %}
 
-{% block overlay -%}
+
+{## Component Parts
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block modal__overlay -%}
     <div x-show="open" x-transition.opacity class="{{ block('overlayclass') }}"></div>
 {%- endblock %}
 
-{% block modal %}
+
+{% macro button( uuid, text ) -%}
+    <button
+        x-data="{}"
+        x-cloak
+        x-on:click="$dispatch( 'openmodal', { uuid: '{{uuid}}' } )"
+        type="button"
+        class="button click__cover"
+        aria-label="{{ text | striptags }}"
+    >{{ text }}</button>
+{% endmacro %}
+
+{% macro invisibletrigger( uuid, text ) -%}
+    <a
+        href="#"
+        x-data="{}"
+        x-cloak
+        x-on:click.prevent="$dispatch( 'openmodal', { uuid: '{{uuid}}' } )"
+        class="click__cover cursor-pointer"
+        aria-label="{{ text | striptags }}"
+    ><span class="hidden">{{ text }}</span></a>
+{% endmacro %}
+
+
+
+{## Render HTML
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block modal__skeleton %}
 
     {% block trigger _self.invisibletrigger( block('uuid'), block('triggertext' ) ) %}
 
@@ -44,9 +87,8 @@
             x-id="['modal-title']"
             x-on:keydown.escape.prevent.stop="open = false"
 
-            {{'@'}}openmodal.window="if( id == event.detail.uuid ){ open = true; console.log('opening'); }"
-
-            {{'@'}}closemodals.window="if( id != event.detail.except ){ open = false }"
+            x-on:openmodal.window="if( id == event.detail.uuid ){ open = true }"
+            x-on:closemodals.window="if( id != event.detail.except ){ open = false }"
 
             role="dialog"
             aria-modal="true"
@@ -54,7 +96,7 @@
 
             class="{{ block( 'outerclass' ) }}"
         >
-            {{ block( 'overlay' ) }}
+            {{ block( 'modal__overlay' ) }}
 
             <div
                 x-data="{
@@ -120,34 +162,19 @@
 {% endblock %}
 
 
-{% macro button( uuid, text ) -%}
-<button
-    x-data="{}"
-    x-cloak
-    x-on:click="$dispatch( 'openmodal', { uuid: '{{uuid}}' } )"
-    type="button"
-    class="button click__cover"
-    aria-label="{{ text | striptags }}"
->{{ text }}</button>
-{% endmacro %}
-
-{% macro invisibletrigger( uuid, text ) -%}
-<a
-    href="#"
-    x-data="{}"
-    x-cloak
-    x-on:click.prevent="$dispatch( 'openmodal', { uuid: '{{uuid}}' } )"
-    class="click__cover cursor-pointer"
-    aria-label="{{ text | striptags }}"
-><span class="hidden">{{ text }}</span></a>
-{% endmacro %}
 
 
-{##
-    how to use this modal.
 
-    <button hx-get="/modal" hx-target="modalContent">Open a Modal</button>
-##}
+
+{## Dynamic Component   [Core Template]
+{---------------------------------------------------------------------------------------}
+    How to Use:
+
+    <button hx-get="/path/to/content" hx-target="#modal__dynamic" hx-ext="ajax-header">Open a Modal</button>
+
+    Note: `hx-ext="ajax-header"` Can be put on a parent element or even the <body> tag to have it apply to all
+    htmx requests -- which may or may not imact sprig requests. Be sure to test.
+{-------------------------------------------------------------------------------------##}
 {% macro dynamic() %}
 
     <div
@@ -183,7 +210,7 @@
             <div class="p-2 absolute top-0 left-0 right-0 z-50 flex justify-end">
                 <a href="#" x-on:click.prevent="doClose()" class="flex gap-2 items-center text-theme hover:text-theme-alert"><span>Close</span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M12,2C17.53,2 22,6.47 22,12C22,17.53 17.53,22 12,22C6.47,22 2,17.53 2,12C2,6.47 6.47,2 12,2M15.59,7L12,10.59L8.41,7L7,8.41L10.59,12L7,15.59L8.41,17L12,13.41L15.59,17L17,15.59L13.41,12L17,8.41L15.59,7Z" /></svg></a>
             </div>
-            <div id="modalContent" class="overflow-y-auto max-h-[90vh] pt-8"></div>
+            <div id="modal__dynamic" class="overflow-y-auto max-h-[90vh] pt-8 bg-canvas-light"></div>
         </div>
     </div>
 {% endmacro %}

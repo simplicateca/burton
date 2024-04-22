@@ -1,4 +1,4 @@
-{% extends "_site/layout.spotlight" %}
+{% extends "_site/template.spotlight" %}
 
 {% set statusCode  = statusCode ??? craft.app.request.getParam('code') ??? '000' %}
 {% set systemPage  = craft.entries.section('systemPages').slug( 'error-' ~ statusCode ).one ?? null %}

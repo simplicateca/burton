@@ -55,7 +55,7 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: aa5de47f-bd21-4e66-9e6b-93f174062abc # Local Assets
+            fieldUid: aa5de47f-bd21-4e66-9e6b-93f174062abc # Local Media Files
             instructions: null
             label: null
             required: false
@@ -166,7 +166,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 1840358841
+      changedFieldIndicator: 2110006827
       columns:
         __assoc__:
           -
@@ -242,13 +242,13 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\fields\PlainText
-  aa5de47f-bd21-4e66-9e6b-93f174062abc: # Local Assets
+  aa5de47f-bd21-4e66-9e6b-93f174062abc: # Local Media Files
     columnSuffix: null
     contentColumnType: string
     fieldGroup: null
-    handle: assets
+    handle: media
     instructions: null
-    name: 'Local Assets'
+    name: 'Local Media Files'
     searchable: true
     settings:
       allowSelfRelations: false

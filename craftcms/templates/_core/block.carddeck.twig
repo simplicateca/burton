@@ -1,0 +1,60 @@
+{## Card Deck Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+ -> http://localhost:8000/sitehub/blocks/carddeck
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_site/block", "_core/block" ] %}
+
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+    {%- set settings = block.settings ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { variant: 'default', source: 'items' } | merge( settings ) -%}
+
+    {% set carddeck = [] %}
+
+    {%- if settings.source == 'items' -%}
+        {%- for item in block.items.with(['images', 'bit']).all() ??? block.items ??? [] -%}
+            {## TODO: Allow for overwriting a bit with the inline form values? ##}
+            {%- set carddeck = item.bit[0] ?? null
+                    ? carddeck | merge([ item.bit[0] | merge({ item }) ])
+                    : carddeck | merge([item])
+                -%}
+        {%- endfor -%}
+    {%- endif -%}
+
+    {%- if settings.source == 'entries' -%}
+        {%- set carddeck = block.entries.with(['images', 'taxonomies']).all() ??? block.entries ??? [] -%}
+    {%- endif -%}
+
+    {%- if settings.source == 'collect' -%}
+        {%- set params = {
+            page  : craft.app.request.getParam('page') ?? craft.app.request.pageNum ?? 1,
+            slug  : craft.app.request.getParam('f')    ?? block.filter ?? null,
+            search: craft.app.request.getParam('q')    ?? block.query  ?? null,
+            limit : block.source.settings.limit ?? -1,
+            field : 'entries'
+        } -%}
+
+        {%- set carddeck = CollectionBase( block.collections, params ) -%}
+    {%- endif -%}
+
+    {## Let's us inherit from this template **at this point** in the render process,
+        without requiring that we duplicate the above "collection" logic ##}
+    {%- set blockname = 'carddeck__' ~ settings.variant ?? 'default' -%}
+    {{- block( blockname ) is defined ? block( blockname ) : block('carddeck__default') -}}
+{% endblock %}
+
+
+
+{## Card Deck Default
+{-------------------------------------------------------------------------------------##}
+{% block carddeck__default -%}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { decklayer: 'default' } | merge( settings ) -%}
+
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.carddeck( settings.decklayer, carddeck, settings ) -}}
+{%- endblock %}

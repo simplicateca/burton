@@ -1,3 +1,5 @@
+{## Text Layer Adjustments   [Site Template]
+{-------------------------------------------------------------------------------------##}
 {% macro default( content = null, settings = null ) -%}
     {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
@@ -30,7 +32,7 @@
 
 
 {% macro card__summary( content = null, settings = null ) -%}
-    {% set content = content ??? null %}
+    {% set content = content ?? null %}
     {% if content %}
     <p class="line-clamp-3 !mb-0">
         {{ content
@@ -89,7 +91,7 @@
         </figcaption>
     {% endif %}
 
-    {% if captionlayer == 'full' and ( title ??? content ) %}
+    {% if captionlayer == 'full' and ( title ?? content ) %}
         <figcaption class="text-center">
             {{ title | raw }}
             {{ content | raw }}

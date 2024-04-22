@@ -1,6 +1,7 @@
 [{
     "label": "Single Text",
     "value": "single",
+    "settings": {},
     "docs": {
         "tooltip": "The simplest and most humble of all variants, this is a single text block."
     },
@@ -16,11 +17,11 @@
                 "default2col"  : "Two Columns (Auto)"
             }
         }
-    ],
-    "settings": {}
+    ]
 },{
     "label": "Text (with Secondary Reveal)",
     "value": "reveal",
+    "settings": {},
     "docs": {
         "tooltip": "A single text block with an interactive reveal for secondary content."
     },
@@ -52,11 +53,11 @@
             "type" : "text",
             "default": "Continue Reading..."
         }
-    ],
-    "settings": {}
+    ]
 },{
     "label": "Text with Callout",
     "value": "callout",
+    "settings": {},
     "docs": {
         "tooltip": "A single text block with an aside."
     },
@@ -83,11 +84,11 @@
                 "callout__warn" : "Warning"
             }
         }
-    ],
-    "settings": {}
+    ]
 },{
     "label": "Double Text (Side-by-Side)",
     "value": "double",
+    "settings": {},
     "docs": {
         "tooltip": "Two text blocks, side-by-side."
     },
@@ -113,6 +114,5 @@
                 "default__boxout": "Box Knockout"
             }
         }
-    ],
-    "settings": {}
+    ]
 }]

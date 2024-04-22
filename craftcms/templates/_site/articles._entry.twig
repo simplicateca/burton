@@ -4,11 +4,11 @@
 {% set entrytype = entry.type.handle|default(null) %}
 
 {% if entrytype == 'blog' %}
-    {% set template = "_site/articles" %}
+    {% set template = "_site/template.full" %}
 {% endif %}
 
 {% if entrytype == 'news' %}
-    {% set template = "_site/articles" %}
+    {% set template = "_site/template.aside" %}
 {% endif %}
 
 {% if entrytype and template %}
@@ -19,7 +19,7 @@
 
 
 {## Article Entry URI Generator
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     Often easier than trying to cram a bunch of conditional twig logic into the tiny
     space provided by the URI Format field in the control panel.
 
@@ -42,17 +42,49 @@
 
 
 
-{## Related Article Finder Macro
-{-------------------------------------------------------------------------------------##}
-{% macro related( entry, limit = null ) -%}
-{%- if entry -%}
 
-    {% set query = craft.entries()
+
+{## Article Specific Macros & Elements
+{---------------------------------------------------------------------------------------}
+    Coming sooon ...
+{-------------------------------------------------------------------------------------##}
+{# {% block article_timedate %}
+    <timedate>
+        {{ card._carditem.postDate|date('long') ??? null }}
+    </timedate>
+{% endblock %}
+
+{% block article_author %}
+    <span class="flex items-center gap-2">
+        <div class="bg-theme-accent h-10 w-10 rounded-full flex">&nbsp;</div>
+        {{ card._carditem.author.name ??? null }}
+    </span>
+{% endblock %}
+
+{% block article_byline %}
+    <div class="flex items-center gap-3 text-sm uppercase my-4">
+        {{ block( 'article_author' ) }}
+        <span>&bull;</span>
+        {{ block( 'article_timedate' ) }}
+    </div>
+{% endblock %} #}
+
+
+
+
+{## Related Articles Elements
+{---------------------------------------------------------------------------------------}
+    Coming sooon ...
+{-------------------------------------------------------------------------------------##}
+{# {% macro related( entry, limit = null ) -%}
+{%- if entry -%} #}
+
+    {# {% set query = craft.entries()
         .section('articles')
         .relatedTo(entry)
-        .limit(limit ??? 3 ) %}
+        .limit(limit ??? 3 ) %} #}
 
-    {% set pageinfo = query ? sprig.paginate( query, page ) : null %}
+    {# {% set pageinfo = query ? sprig.paginate( query, page ) : null %} #}
 
     {##
         {{ blocks.builder(
@@ -62,7 +94,7 @@
             settings: {
                 section    : 'pages',
                 builder    : 'content',
-                blocktype  : 'collection',
+                blocktype  : 'carddeck',
                 theme      : cycle(['bright', 'standard'], page),
                 variant    : 'auto',
                 cardGrid   : 'stacked2',
@@ -73,7 +105,7 @@
         'content'
     ) }}
 
-    {{ include( '_core/collections/paginate.more', {
+    {{ include( '_core/search/paginate.more', {
         isSprig : true,
         paginate: pageInfo,
         setting: {
@@ -83,65 +115,15 @@
     } ) }}
 
     ##}
-{%- endif %}{% endmacro %}
+{# {%- endif %}{% endmacro %} #}
 
 
 {## Article Related Blocks - TODO: Make these into macros
 {-------------------------------------------------------------------------------------##}
-{# {% block article_byline %}
-    <div class="flex items-center gap-3 text-sm uppercase my-4">
-        {{ block( 'article_author' ) }}
-        <span>&bull;</span>
-        {{ block( 'article_timedate' ) }}
-    </div>
-{% endblock %}
+{#
 
 
-{% block article_timedate %}
-    <timedate>
-        {{ card._carditem.postDate|date('long') ??? null }}
-    </timedate>
-{% endblock %}
 
 
-{% block article_author %}
-    <span class="flex items-center gap-2">
-        <div class="bg-theme-accent h-10 w-10 rounded-full flex">&nbsp;</div>
-        {{ card._carditem.author.name ??? null }}
-    </span>
-{% endblock %} #}
 
-
-{# {% block card_before_summary %}
-    {{ block( 'article_byline' ) }}
-{% endblock %}
-
-
-{% block card_after_summary %}
-    <span class="flex font-extrabold text-xs uppercase">
-        By {{ card._carditem.author.name ??? null }}
-    </span>
-{% endblock %} #}
-
-{# {% block article_byline %}
-    <div class="flex items-center gap-3 text-sm uppercase my-4">
-        {{ block( 'article_author' ) }}
-        <span>&bull;</span>
-        {{ block( 'article_timedate' ) }}
-    </div>
-{% endblock %}
-
-
-{% block article_timedate %}
-    <timedate>
-        {{ card._carditem.postDate|date('long') ??? null }}
-    </timedate>
-{% endblock %}
-
-
-{% block article_author %}
-    <span class="flex items-center gap-2">
-        <div class="bg-theme-accent h-10 w-10 rounded-full flex">&nbsp;</div>
-        {{ card._carditem.author.name ??? null }}
-    </span>
-{% endblock %} #}
+ #}

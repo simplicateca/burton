@@ -1,4 +1,4 @@
-dateModified: 1713121947
+dateModified: 1713572921
 elementSources:
   craft\elements\Entry:
     -
@@ -237,7 +237,7 @@ meta:
     7daa91a4-3926-420c-bbe9-ff190309a2a2: Text # Text
     7dd2f8f9-5066-4cef-a93d-ddfce83dce0f: Component # Component
     8c9174b7-2c31-491e-a3f9-0374374c967c: 'Landing Pages' # Landing Pages
-    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: 'User Action' # User Action
+    8ce1f627-ddc2-430c-9bfe-2c8e3c0cb829: Component # Component
     8d636ebd-27c5-46e0-afe6-b4232eabf2fa: Collection # Collection
     8e370b88-72e3-41b5-bff5-db03cb11a1d1: Copy # Copy
     8ecf45da-7553-48ac-b52d-a45f8bc90317: 'Theme & Spacing' # Theme & Spacing
@@ -249,7 +249,7 @@ meta:
     9d712dc3-2d54-4b21-bbc3-251dad2d4dc9: Default # Default
     09e50183-d1b1-42d2-b180-e0361635c25d: Headline # Headline
     12c56732-e1cd-4737-86b7-06a0e20e53e5: __blank__ # __blank__
-    12ebd69f-28fa-42bb-ae95-8ff3d3eb5135: Assets # Assets
+    12ebd69f-28fa-42bb-ae95-8ff3d3eb5135: Media # Media
     14d7d858-e4eb-4c44-90bc-a606a5a2372a: Hyperlink # Hyperlink
     016afe08-0081-4f5e-865f-22a360ee839f: Theme # Theme
     16ea4eb8-377b-4740-955d-89f60729fce4: Color # Color
@@ -337,7 +337,7 @@ meta:
     8143564b-14ab-43e0-9281-9c48f493ee63: 'Primary Headline' # Primary Headline
     8200135a-e76a-451e-bcc5-c02be274e589: Source # Source
     8438332e-2695-4b07-9020-50e01cceb79a: 'Secondary Bit' # Secondary Bit
-    9588272c-eb48-44c0-bb46-e95f8c0d6016: Component # Component
+    9588272c-eb48-44c0-bb46-e95f8c0d6016: Element # Element
     25748488-1092-4758-b3e6-e7f7212faae6: Interspace # Interspace
     36897794-c1e2-4ca1-ac86-2d3db66ed467: Variant # Variant
     43406218-0e65-4e33-bd0a-df130a7d2e6c: 'SEO Editor' # SEO Editor
@@ -360,7 +360,7 @@ meta:
     a682b6da-4268-4ee7-a71e-c9f97623b643: Media # Media
     a3273f9c-b38b-4163-9f60-92174692b499: Code # Code
     a345255e-6a6e-450c-8f3f-bd44bd0d7a91: 'Text Content' # Text Content
-    aa5de47f-bd21-4e66-9e6b-93f174062abc: 'Local Assets' # Local Assets
+    aa5de47f-bd21-4e66-9e6b-93f174062abc: 'Local Media Files' # Local Media Files
     ab34c21b-4d43-41da-8301-8da25a28b912: Copy # Copy
     ab1853e6-bbb8-43c4-8fd0-66e48c1a5763: Collection # Collection
     aca4dd0e-619c-4608-97c8-dae08da9e011: 'Block Variant' # Block Variant
@@ -523,7 +523,7 @@ plugins:
     schemaVersion: 1.0.0
   seomatic:
     edition: standard
-    enabled: false
+    enabled: true
     licenseKey: HLOROBSK1L6EIH30DU3K8AC2
     schemaVersion: 3.0.12
   sherlock:

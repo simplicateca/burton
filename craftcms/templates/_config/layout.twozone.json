@@ -2,12 +2,12 @@
     {
         "label": "Primary Copy (Top)",
         "value": "textAbove",
+        "settings": {},
         "docs": {
             "tooltip": ""
         },
-        "settings": {},
         "inputs" : [
-            {% if object.field ??? null != 'sidebarBuilder' %}
+            {% if object.field ?? null != 'sidebarBuilder' %}
                 {{ block( 'inputTextTopSizes',     '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }}
@@ -18,12 +18,12 @@
    ,{
         "label": "Primary Copy (Left)",
         "value": "textLeft",
+        "settings": {},
         "docs": {
             "tooltip": "Horizontal layout with primary content on the right and `Copy` on the left."
         },
-        "settings": {},
         "inputs" : [
-            {% if object.field ??? null != 'sidebarBuilder' %}
+            {% if object.field ?? null != 'sidebarBuilder' %}
                 {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputTextLeftSizes',    '_config/_selectplus_virtual_fields' ) }}
@@ -34,12 +34,12 @@
    ,{
         "label": "Primary Copy (Right)",
         "value": "textRight",
+        "settings": {},
         "docs": {
             "tooltip": "Horizontal layout with primary content on the left and `Copy` on the right."
         },
-        "settings": {},
         "inputs" : [
-            {% if object.field ??? null != 'sidebarBuilder' %}
+            {% if object.field ?? null != 'sidebarBuilder' %}
                 {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }},
                 {{ block( 'inputTextRightSizes',   '_config/_selectplus_virtual_fields' ) }}

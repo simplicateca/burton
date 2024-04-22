@@ -1,46 +1,45 @@
-{% set card     = card     ??? null -%}
-{% set cardpath = path     ??? card.path ??? ["_site/card","_core/card"] -%}
+{## RSS Item Cards   [Content Specific Factory]
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
+{%- set path = path ??? ["_site/card","_core/card"] -%}
+
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-{% if card -%}
-{## unindented if <gasp> ------------------------------------------------------------ ##}
+{%- set settings = { cardlayer: 'default' } | merge( settings ) -%}
 
 
-{## RSS Item Card Factory
-{-------------------------------------------------------------------------------------##
+
+{## Render the Card
+{---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
-{%- embed cardpath with {
-    card: card,
-    settings: settings | merge({
+{%- if card -%}
+{%- embed path with { card: card, settings: settings } -%}
 
-    })
-} %}
-    {% block card__headline %}
-        {% if card._carditem.source ??? null %}
+    {% block card__headline -%}
+        {% if card._carditem.source ?? null %}
             <div class="eyebrow eyebrowSmall">{{ card._carditem.source }}</div>
         {% endif %}
 
         {{ parent() }}
 
-        {% if card._carditem.postDate ??? null %}
+        {% if card._carditem.postDate ?? null %}
             <timedate class="flex gap-2 items-center">
                 <span>{{ svg( '@webroot/static/svg/calendar.svg' ) }}</span>
                 <span>{{ card._carditem.postDate|date('F j, Y') }}</span>
             </timedate>
         {% endif %}
-    {% endblock %}
+    {% endblock -%}
 
 
-    {% block card__summary %}
+    {% block card__summary -%}
         {{ parent() }}
-        {% if card._carditem.topics ??? null %}
+        {% if card._carditem.topics ?? null %}
             <div class="text-xs">
                 {{ card._carditem.topics|join(', ') }}
             </div>
         {% endif %}
-    {% endblock %}
-{% endembed %}
+    {%- endblock %}
 
-
-{## end unindented if <sigh> -------------------------------------------------------- ##}
-{%- endif %}
+{% endembed -%}
+{%- endif -%}

@@ -1,5 +1,5 @@
 {## SelectPlus Virtual Field Definitions
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     Each block below defines a virtual field for the SelectPlus plugin to render & save.
 
     Virtual Fields can be defined directly in a SelectPlus `.json` config ...
@@ -70,29 +70,34 @@
 
 {% block inputClickAction %}{
     "label": "Click Action",
-    "field": "action",
+    "field": "clickaction",
+    "type" : "select",
+    "default": "default",
+    "instructions": "What will happen when a user clicks on an item?",
+    "fieldClass": "width-50",
+    "options" : {
+        "default": "Auto Link",
+        "modal"  : "Summary Modal",
+        "dynamic": "Dynamic Modal",
+        "none"   : "No Click Action"
+    }
+}{% endblock %}
+
+
+
+{% block inputImageClickAction %}{
+    "label": "Click Action",
+    "field": "clickaction",
     "type" : "select",
     "default": "autolink",
     "fieldClass": "field width-50",
-    "instructions": "What will happen when a user clicks on an item?",
-    "options" : [
-        {
-            "label" : "Auto Link",
-            "value" : "autolink"
-        }
-       ,{
-            "label" : "Summary Modal",
-            "value" : "modal"
-        }
-       ,{
-            "label" : "Dynamic Modal",
-            "value" : "dynamic"
-        }
-       ,{
-            "label" : "No Clickthrough",
-            "value" : "none"
-        }
-    ]
+    "instructions": "What will happen when a user clicks on an image?",
+    "options" : {
+        "default" : "Auto Link",
+        "modal"   : "Lightbox",
+        "download": "Download Image",
+        "none"    : "No Click Action"
+    }
 }{% endblock %}
 
 
@@ -200,14 +205,14 @@
     "label": "Spacer Above",
     "field": "spacerabove",
     "type" : "select",
-    "default": "normal",
+    "default": "default",
     "fieldClass": "field width-50",
     "instructions": "The size of the whitespace gap before this block.",
     "options" : {
-        "normal": "Normal",
-        "small" : "Small",
-        "large" : "Large",
-        "none"  : "None"
+        "large"  : "Large",
+        "default": "Normal",
+        "small"  : "Small",
+        "none"   : "None"
     }
 }{% endblock %}
 
@@ -217,14 +222,14 @@
     "label": "Spacer Below",
     "field": "spacerbelow",
     "type" : "select",
-    "default": "normal",
+    "default": "default",
     "fieldClass": "field width-50",
     "instructions": "The size of the whitespace gap after this block.",
     "options" : {
-        "normal": "Normal",
-        "small" : "Small",
-        "large" : "Large",
-        "none"  : "None"
+        "large"  : "Large",
+        "default": "Normal",
+        "small"  : "Small",
+        "none"   : "None"
     }
 }{% endblock %}
 
@@ -281,10 +286,10 @@
     "label": "Canvas Coverage",
     "field": "coverage",
     "type" : "select",
-    "default": "{{ object.field ??? null == 'bodyBuilder' ? 'full' : 'box' }}",
+    "default": "{{ object.field ?? null == 'bodyBuilder' ? 'full' : 'box' }}",
     "instructions": "How much of the background should be affected by the theme?",
     "options" : {
-        {% if object.field ??? null == 'bodyBuilder' %}"full": "Edge-to-Edge Bleed",{% endif %}
+        {% if object.field ?? null == 'bodyBuilder' %}"full": "Edge-to-Edge Bleed",{% endif %}
         "box": "Content Box Only"
     }
 }{% endblock %}

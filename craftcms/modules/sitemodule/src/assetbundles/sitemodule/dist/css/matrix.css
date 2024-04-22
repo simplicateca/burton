@@ -143,6 +143,7 @@
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="collections"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="entries"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="fragments"],
+    #content div.matrix-field .flex-fields .field.width-50[data-attribute="text2"]
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="text"] {
         width: 100% !important;
     }

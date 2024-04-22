@@ -1,10 +1,10 @@
-{## Block Skeleton
+{## Block Base   [Site Template]
 {-------------------------------------------------------------------------------------##}
 {% extends "_core/block" %}
 
 
 {## Zone 1 Content (All Blocks)
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     Zone 1 Content typically comes from a CKEditor/Redactor-style editor component.
 
     Since most blocks make use of the same "Zone 1 / Primary Copy" field, we can
@@ -14,7 +14,7 @@
     any necessary adjustments to the content based on the block attribute settings.
 
 {## Better Rich HTML / WYSIWYG Code Formatting
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     This template makes use of `TextBase()` which is a custom Twig macro, written in
     PHP and editable in the SiteModule folder here:
 
@@ -29,8 +29,9 @@
       - Any (h1,h2,h3) headlines appearing before body text (p, ol, ul, etc)
       - CTA Buttons & Links (along with their kicker text), appearing after body text.
 {-------------------------------------------------------------------------------------##}
-{% block block__text -%}
-    {%- set settings = settings ??? block.settings ??? null -%}
+{% block block__zone1 -%}
+{%- if block.text ??? null -%}
+    {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {%- set settings = {
         text1__headers: 'inline',
@@ -50,114 +51,56 @@
         : content -%}
 
     {%- import "_assemble" as assemble -%}
-    {{- assemble.text( content, settings.textlayer, settings ) -}}
-{%- endblock %}
+    {{- assemble.text( settings.textlayer, content, settings ) -}}
+{%- endif %}{%- endblock %}
 
 
 
 {## Block <header> zone content
 {-------------------------------------------------------------------------------------##}
-{% block block__header %}
-    {%- set settings = settings ??? block.settings ??? null -%}
+{% block block__header -%}
+{%- if block.text ??? null -%}
+    {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {% set settings = {
         text1__headers: 'inline',
     } | merge( settings ) %}
-    {% set textbase = TextBase( block.text ??? null ) %}
-    {% if settings.text1__headers == 'header' %}
-        {{ raw( textbase.eyebrow ~ textbase.headline ) }}
-    {% endif %}
-{% endblock %}
+
+    {%- if settings.text1__headers == 'header' -%}
+        {%- set textbase = TextBase( block.text ) -%}
+        {{- raw( textbase.eyebrow ~ textbase.headline ) -}}
+    {%- endif -%}
+{%- endif %}{% endblock %}
 
 
 
 {## Block <footer> zone content
 {-------------------------------------------------------------------------------------##}
-{% block block__footer %}
-    {%- set settings = settings ??? block.settings ??? null -%}
+{% block block__footer -%}
+{%- if block.text ??? null -%}
+    {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = {
+        text1__ctas: 'inline',
+    } | merge( settings ) -%}
 
-    {% set text1__ctas = settings.text1__ctas ??? null %}
-    {% set textbase   = TextBase( block.text ??? null ) %}
-    {% if textbase.cta and text1__ctas == 'footer' %}
-        {{ raw( textbase.cta ) }}
-    {% endif %}
-{% endblock %}
+    {%- if settings.text1__ctas == 'footer' -%}
+        {{- raw( TextBase( block.text )['cta'] ?? '' ) -}}
+    {%- endif -%}
+{%- endif %}{% endblock %}
 
 
 
-{## Block Spacers
+{## Body Builder - Single Column Layout
+{---------------------------------------------------------------------------------------}
+    If we wanted to change how the body builder renders whether it's in a single column
+    template or one with a sidebar, we could do it here. See `builder_default` in
+    `_core/card`
 {-------------------------------------------------------------------------------------##}
-{% macro spacer__topbar( block = null, settings = null ) %}
-    {{ block('header__topbar', "_site/header" ) }}
-{% endmacro %}
-
-
-{% macro spacer__normal( block = null, settings = null ) %}{{ _self.spacer__default( block, settings ) }}{% endmacro %}
-
-{% macro spacer__default( block = null, settings = null ) %}
-    {{ tag('div', {
-        class: ['
-            @container after:block after:content-[""]
-            after:h-12
-            @3xl:after:h-20
-            @7xl:after:h-36
-        ' | trim ]
-   }) }}
-{% endmacro %}
-
-
-{% macro spacer__small( block = null, settings = null ) %}
-    {{ tag('div', {
-        class: ['
-            @container after:block after:content-[""]
-            after:h-8
-            @3xl:after:h-12
-            @7xl:after:h-18
-        ']
-    }) }}
-{% endmacro %}
-
-
-{% macro spacer__large( block = null, settings = null ) %}
-    {{ tag('div', {
-        class: ['
-            @container after:block after:content-[""]
-            after:h-20
-            @3xl:after:h-28
-            @7xl:after:h-48
-        ' | trim ]
-    }) }}
-{% endmacro %}
-
-
-{% macro spacer__tilt( block = null, settings = null ) %}
-    {%- set block = block is not null and block is iterable ? block : {} -%}
+{% macro builder__singlecol( blocks, settings ) -%}
+    {%- set blocks   = blocks is null ? [] : blocks -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    <div class="z-10 !bg-prev-block-bg h-16 mb-[-1px]"  data-theme="{{ settings.theme ??? null }}" data-prev-theme="{{ settings.next.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
-        <svg class="fill-next-block-bg h-full w-full rotate-180 block m-0 p-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill h-full w-full"></path>
-        </svg>
-    </div>
-{% endmacro %}
 
-
-{% macro spacer__wave( block = null, settings = null ) %}
-    {%- set block = block is not null and block is iterable ? block : {} -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    <div class="z-10 !bg-prev-block-bg h-16 mb-[-1px]" data-theme="{{ block.settings.theme ??? null }}" data-prev-theme="{{ block.prev.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
-        <svg class="fill-next-block-bg h-full w-full rotate-180 block m-0 p-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-        </svg>
-    </div>
-{% endmacro %}
-
-
-{% macro spacer__stitch( block = null, settings = null ) %}
-    {%- set block = block is not null and block is iterable ? block : {} -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    <div class="relative w-full" data-theme="{{ block.settings.theme ??? null }}" data-prev-theme="{{ block.prev.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
-        <div class="absolute left-1/2 bottom-0 h-8 border-dashed border-l-4 border-next-block-bg" aria-hidden="true"></div>
-        <div class="absolute left-1/2 top-0 h-8 border-dashed border-l-4 border-prev-block-bg" aria-hidden="true"></div>
-    </div>
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.builder( 'default', blocks, settings ) -}}
 {% endmacro %}

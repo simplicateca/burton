@@ -1,4 +1,4 @@
-{% extends "_site/layout" %}
+{% extends "_site/template.full" %}
 
 {% block bodyTagOpen %}
     {{ parent() | attr({
@@ -9,20 +9,18 @@
 
 {% block mainTagOpen %}
     {{ parent() | attr({
-        class: ['max-w-3xl w-full mx-auto'],
-        'hx-ext': 'ajax-header'
+        class: ['max-w-3xl w-full mx-auto']
     }) }}
 {% endblock %}
 
 {% block page %}
     {{ tag( 'div', {
-        class: ['max-w-3xl w-full mx-auto py-4'],
-        html: block('logo')
+        class: ['max-5-3xl w-full mx-auto py-4'],
+        html: block( 'logo' )
     })}}
 
     {{ block( 'header' ) | attr({
-        class: ['max-w-3xl w-full mx-auto'],
-        'hx-ext': 'ajax-header'
+        class: ['max-w-3xl w-full mx-auto']
     }) }}
 
     {{ block( 'base_main' ) }}

@@ -1,39 +1,72 @@
-{% extends template_from_string('{% block card %}{% endblock %}') %}
+{## Card Base   [Core Template]
+{---------------------------------------------------------------------------------------}
+    This is the base template that will be used for every card in the site.
+{-------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block card__skeleton "" %}') %}
 
-{## Primary Card Block
- ------------------------------------------------------------------------------------- ##
-    This is the primary block for the card template. It is responsible for rendering
-    the card's primary content, including the image, headline, text, and action.
-    It also handles the card's layout and wrapping.
- ------------------------------------------------------------------------------------- ##}
 {% import "_assemble" as assemble %}
 
-{% block card__tag      "div" %}
-{% block card__class    "w-full relative @container" %}
-{% block card__layer    card.cardlayer %}
-{% block card__attr     attr({ class: block('card__class'), data: { name: block('card__layer') } }) %}
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = { imagelayer: settings.card__imagelayer ?? 'default' } | merge( settings ) -%}
+
+
+
+{## Settings & Configuration
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block card__tag      card__tag    ?? "div" %}
+{% block card__class    card__class  ?? "w-full relative @container" %}
+{% block card__layer    card__layer  ?? settings.cardlayer ?? 'default' %}
+{% block card__attr     card__attr   ?? attr({ 'data-card': block('card__layer') }) %}
 
 {% block card__headline card.headline ? tag( 'h3', { html: card.headline } ) : null %}
 {% block card__summary  card.summary  ? raw( card.summary  ) : null %}
 {% block card__text     card.fulltext ? raw( card.fulltext ) : null %}
 
-{% block card__action   _self.invisibleclickcover( card, settings ) %}
+{% block card__images -%}
+    {{- assemble.images( settings.imagelayer, card.images, settings ) -}}
+{%- endblock %}
 
-{% block card__images %}
-    {{ assemble.images( card.images, settings.card__imagelayer ??? 'default', settings ) }}
-{% endblock %}
+{% block card__action -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { clickaction: 'default' } | merge( settings ) -%}
 
-{% block card -%}
-    {%- block card__open %}<{{ block('card__tag') }} {{ block('card__attr') }}>{% endblock -%}
+    {%- switch settings.clickaction -%}
+        {%- case 'modal' -%}
+            {{- _self.action__inlinemodal( card, settings ) -}}
+        {%- case 'none' -%}
+
+        {%- default -%}
+            {{- _self.action__invisiblecover( card, settings ) -}}
+    {%- endswitch -%}
+{%- endblock %}
+
+
+
+{## Render Card HTML
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block card__skeleton -%}
+    {%- block card__open %}<{{ block('card__tag') }} class="{{ block('card__class') }}" {{ block('card__attr') }}>{% endblock -%}
 
     {% block card__content %}
+        {% block card__images__open "" %}
         {{ block('card__images') }}
+        {% block card__images__close "" %}
 
+        {% block card__words__open "" %}
         {% block card__words %}
             {{ block('card__headline') }}
             {{ block('card__summary')  }}
             {{ block('card__action')   }}
         {% endblock %}
+        {% block card__words__close "" %}
     {% endblock %}
 
     {% block card__close %}</{{ block('card__tag') }}>{% endblock %}
@@ -42,8 +75,149 @@
 
 
 
-{## Click Cover Link
-{-------------------------------------------------------------------------------------##
+{## Card Deck Iterators
+{---------------------------------------------------------------------------------------}
+    These macros are used to generate a variety of card deck layouts.
+{-------------------------------------------------------------------------------------##}
+{% macro deck__default( items, settings = null ) -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { cardlayer: 'default' } | merge(settings) -%}
+
+    {%- import "_assemble" as assemble -%}
+    <div class="grid grid-cols-1 gap-8">
+        {% for item in items %}
+            {{ assemble.card( settings.cardlayer, item, settings ) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+
+{% macro deck__randomize( items, settings ) -%}
+    {{- _self.deck__single( shuffle(items), settings ) -}}
+{%- endmacro %}
+
+
+{% macro deck__single( items, settings = null ) -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { cardlayer: 'default' } | merge(settings) -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.card( settings.cardlayer, items|first, settings ) -}}
+{%- endmacro %}
+
+
+{## Card Carousel
+{-------------------------------------------------------------------------------------##}
+{% macro deck__carousel( items, settings = null ) -%}
+{%- if items ??? null and items is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { cardlayer: 'summary' } | merge( settings ) -%}
+
+    {%- import "_assemble" as assemble -%}
+    {%- set items = items | map( item => assemble.card( settings.cardlayer, item, settings ) ) -%}
+
+    {%- embed ['_site/carousel','_core/carousel'] with { items: items, settings: settings } only -%}
+    {%- endembed -%}
+{%- endif -%}{%- endmacro %}
+
+
+{## Accordion
+{-------------------------------------------------------------------------------------##}
+{% macro deck__accordion( items, settings = null ) -%}
+{%- if items ??? null and items is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { cardlayer: 'panel', firstopen: false } | merge( settings ) -%}
+
+    {%- import "_assemble" as assemble -%}
+    {%- embed ['_site/accordion','_core/accordion'] with {
+        items: items | map( item => {
+            label  : CardBase( item, settings )['label'],
+            content: assemble.card( settings.cardlayer, item, settings )
+        } ),
+        settings : settings,
+        firstopen: settings.firstopen
+    } only -%}
+        {% block panel__title   item.label   %}
+        {% block panel__content item.content %}
+    {%- endembed -%}
+
+{%- endif -%}{%- endmacro %}
+
+
+
+{## Horizontal Tabs
+{-------------------------------------------------------------------------------------##}
+{% macro deck__tabs( items, settings = null ) -%}
+{%- if items ??? null and items is iterable -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { cardlayer: 'panel' } | merge( settings ) -%}
+
+    {%- import "_assemble" as assemble -%}
+    {% embed ['_site/tabs','_core/tabs'] with {
+        items: items | map( item => {
+            label  : CardBase( item, settings )['label'],
+            content: assemble.card( settings.cardlayer, item, settings )
+        } ),
+        settings: settings,
+    } %}
+        {% block tab__title   item.label   %}
+        {% block tab__content item.content %}
+    {% endembed %}
+{%- endif -%}{%- endmacro %}
+
+
+
+{## Grid Layouts
+{-------------------------------------------------------------------------------------##}
+{% macro deck__grid2( items, settings = null ) -%}
+    {%- from "_core/card" import __gridbase -%}
+    {{- __gridbase( 'flexible2', items, settings ) -}}
+{%- endmacro %}
+
+
+{% macro deck__grid3( items, settings = null ) -%}
+    {%- from "_core/card" import __gridbase -%}
+    {{- __gridbase( 'fixed3', items, settings ) -}}
+{%- endmacro %}
+
+
+{% macro __gridbase( layoutname, items, settings = null ) %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { gridlayout: layoutname, cardlayer: 'default' } | merge( settings ) -%}
+
+    {%- import "_assemble" as assemble -%}
+
+    {%- set items = items ??? null -%}
+    {%- set items = items is not null and items is iterable ? items : [] -%}
+    {%- set items = items | map( item => assemble.card( settings.cardlayer, item, settings ) ) | join -%}
+
+    {{- assemble.gridlayout( settings.gridlayout, items, settings ) -}}
+{% endmacro %}
+
+
+
+
+{## Card Click Actions
+{---------------------------------------------------------------------------------------}
+    The `card__action` block is typically responsible for rendering some kind of
+    "action" that a user can take when interacting with a card.
+
+    Sometimes the action might be to add a button or link below the card that directs
+    users to the entry URL for this card.
+
+    Sometimes the card doesn't represent an actual URL but might still have additional
+    information available that can appear in a modal.
+
+    Maybe this is a Inline Item rendering with a default card. If a single text link
+    appears in the card summary field, should we make the image portion of the card
+    clickable as well to help increase the clickable area?
+
+    There are lots of different actions we can take and the clickaction macros below
+    handle a variety of them.
+{-------------------------------------------------------------------------------------##}
+
+
+{## Invisible Click Cover
+{---------------------------------------------------------------------------------------}
     The click cover link is a full-coverage link that can be used to make the entire
     card clickable without a specific button or link.
 
@@ -56,12 +230,12 @@
         @apply absolute content-[""] inset-0 z-20;
     }
 {-------------------------------------------------------------------------------------##}
-{% macro invisibleclickcover( card, settings ) -%}
+{% macro action__invisiblecover( card, settings ) -%}
     {%- if card.url|default() -%}
         {{ tag( 'a', {
-            href : card.url,
-            class: 'click__cover',
-            html : '<span class="hidden">Read More →</span>',
+            href       : card.url,
+            class      : 'click__cover',
+            html       : '<span class="hidden">Read More →</span>',
         } ) }}
     {%- endif -%}
 {%- endmacro %}
@@ -70,10 +244,11 @@
 
 
 {## Modal Content (Basic)
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     Creates a modal window that will load on-click to display extended card info.
 {-------------------------------------------------------------------------------------##}
-{% macro modallink( card, settings ) -%}
+{% macro action__inlinemodal( card, settings ) -%}
+
     {% set card = card is null ? {} : card %}
     {% set settings = settings is null ? {} : settings %}
 
@@ -87,30 +262,25 @@
         action: false
     }) %}
 
-    {% set carditem = card._carditem ??? {} %}
-
-    {% set cardpath = [
-        "_site/card.#{cardlayer}",
-        "_site/card",
-        "_core/card"
-    ] %}
-
-    {{ include( modallayer, { content: assemble.card( carditem, cardpath, modal ) }, withContext = false ) }}
+    {{ include( modallayer, { content: assemble.card( cardlayer, card._carditem ??? card, modal ) }, withContext = false ) }}
 {%- endmacro %}
 
 
 
-{## Text Link
-{-------------------------------------------------------------------------------------##
-    Like the Default Action, but uses a visible text-based (non-button) link
-{-------------------------------------------------------------------------------------##}
+{## Dynamic Modal
+{---------------------------------------------------------------------------------------}
 
-{#
-{% block action_textlink %}
-    {%- if card._carditem.url|default() -%}
-        <div class="flex">
-            <a href="{{card._carditem.url}}" class="click__cover buttonText"
-                >Read More</a>
-        </div>
+{-------------------------------------------------------------------------------------##}
+{% macro action__dynamicmodal( card, settings ) -%}
+    {%- if card.url|default() -%}
+        {{ tag( 'a', {
+            href       : card.url,
+            class      : 'click__cover',
+            'hx-get'   : card.url,
+            'hx-ext'   : 'ajax-header',
+            'hx-target':'#modal__dynamic',
+            html       : '<span class="hidden">Read More →</span>',
+        } ) }}
     {%- endif -%}
-{% endblock %} #}
+{%- endmacro %}
+{## --------------------------------------------------------------------------------- ##}

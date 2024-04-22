@@ -1,9 +1,9 @@
 <?php
 
-$commonFields = ['variant', 'theme', 'source', 'text', 'layout', 'interspace'];
+$commonFields = ['variant', 'layout', 'theme', 'source', 'text'];
 $commonFieldsHeaders = [...$commonFields, 'headline'];
 
-if( !function_exists('burtonBuilderConfig') ) { function burtonBuilderConfig( $commonFields ) {
+if( !function_exists('matrixbuilder__fieldconfig') ) { function matrixbuilder__fieldconfig( $commonFields ) {
 
     $contentTabLabel = 'Content';
 
@@ -27,21 +27,21 @@ if( !function_exists('burtonBuilderConfig') ) { function burtonBuilderConfig( $c
             'media' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
-                    'fields' => [...$commonFields, 'collections', 'assets', 'external', 'code'],
+                    'fields' => [...$commonFields, 'collections', 'media', 'external', 'code'],
                 ]],
             ],
 
-            'collection' => [
+            'carddeck' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
                     'fields' => [...$commonFields, 'collections', 'entries', 'items'],
                 ]],
             ],
 
-            'action' => [
+            'component' => [
                 'tabs' => [[
                      'label' => $contentTabLabel,
-                    'fields' => [...$commonFields, 'collections', 'form', 'component'],
+                    'fields' => [...$commonFields, 'collections', 'form', 'element'],
                 ]],
             ],
         ],
@@ -50,9 +50,9 @@ if( !function_exists('burtonBuilderConfig') ) { function burtonBuilderConfig( $c
 
 return [
     'fields' => [
-        'headerBuilder'  => burtonBuilderConfig( $commonFieldsHeaders ),
-        'sidebarBuilder' => burtonBuilderConfig( $commonFields ),
-        'bodyBuilder'    => burtonBuilderConfig( $commonFields ),
+        'headerBuilder'  => matrixbuilder__fieldconfig( $commonFieldsHeaders ),
+        'sidebarBuilder' => matrixbuilder__fieldconfig( $commonFields ),
+        'bodyBuilder'    => matrixbuilder__fieldconfig( $commonFields ),
         'pageExtras'     => [
             'hiddenTypes' => ['entranceModal'],
             'types' => [

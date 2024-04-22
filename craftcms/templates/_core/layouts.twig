@@ -1,0 +1,303 @@
+{## Layout Elements   [Core Template]
+{-------------------------------------------------------------------------------------##}
+
+{## Container Definitions
+{---------------------------------------------------------------------------------------}
+ !! THIS MACRO OUTPUTS JSON
+{-------------------------------------------------------------------------------------##}
+{% macro containers() %}{{ {
+    default : [ '@container container' ],
+    fluid   : [ '@container 2xl:container px-4 md:max-2xl:px-4' ],
+    narrow  : [ '@container container max-w-5xl mx-auto px-4' ],
+    title   : [ '@container 2xl:container px-4 md:max-2xl:px-4 py-6 lg:py-16' ],
+    prose   : [ 'max-w-5xl @container' ],
+    relative: [ 'relative @container' ],
+    none    : [],
+} | json_encode() | raw }}{% endmacro %}
+
+
+
+{## Content Spacers
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro spacer__large( block, settings )   %}{{ tag( 'div', { style: 'height: 8rem;' } ) }}{% endmacro %}
+{% macro spacer__default( block, settings ) %}{{ tag( 'div', { style: 'height: 4rem;' } ) }}{% endmacro %}
+{% macro spacer__small( block, settings )   %}{{ tag( 'div', { style: 'height: 2rem;' } ) }}{% endmacro %}
+{% macro spacer__none( block, settings )    %}{{ tag( 'div', { style: 'height: 0rem;' } ) }}{% endmacro %}
+
+
+
+{## Default Grid Layout
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro grid__default( content, settings ) -%}
+{%- if content ??? null -%}
+    {{- tag( 'div', {
+        html: content,
+        style: 'display: flex; flex-direction: column; gap: 2rem;',
+        'data-grid': 'default',
+    } ) -}}
+{%- endif %}{%- endmacro %}
+
+
+
+{## Two Zone Microlayouts
+{---------------------------------------------------------------------------------------}
+    I have some documentation I've written on two zone layouts some where. I just need
+    to find it. I'll update this comment when I do.
+
+    Basically, two zone layouts are come from the idea that *most* content elements on
+    a webpage are typically represented by 2 elements. For example
+
+     - headline+text
+     - text+image
+     - text+video
+     - headline+cards.
+
+    And these typically aren't displayed haphazardly on the page. They are usually
+    beside / above / below each other in some predictable way without a lot of
+    visual interference from other block level elements.
+
+    Obviously there are exceptions, but the purpose of the two zone layout is to make
+    it fast & easy to place two pieces of related content on the screen.
+
+    Once the content is on the site, the layout can be adjusted to fit the content,
+    as opposed to trying to fit content into a pre-designed component.
+
+    It basically boils down to, do you want to create new components
+
+    In addition to "Zone1" and "Zone1", two zone layouts also come with
+    a built in <header> and <footer> section, that can be used to
+    add or re-arrange content from the zones are necessary/.
+
+    This helps make sure that the CMS can adjust to the content instead
+    of forcing the content to adjust to pre-designed components.
+
+    The Two Zone layout macros in this file are pre-designed & pre-tested,
+    responsive layouts that should work for *most* situations, but you
+    are of course free to adjust and make your own.
+{-------------------------------------------------------------------------------------##}
+{% macro micro__default( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col gap-8 @7xl:gap-16",
+        autoalign  : 'zone1',
+        clear      : true,
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+
+{## Two Zone Layout Assembler
+{---------------------------------------------------------------------------------------}
+    Since there is so much code overlap between the two zone layouts, most of the layout
+    definitions in this file are nothing more than some class configurations for the
+    two zones and their wrapper <div>.
+
+    The twoZone() function is then responsible for putting the content together inside
+    the zone buckets, based on the attributes passed to if from the calling macro.
+
+    This could probably do with being reversed into an inheritable template rather than
+    a macro with a massive preset, but that can come later
+{-------------------------------------------------------------------------------------##}
+{% macro micro__twozone( layout, content, settings ) -%}
+
+    {%- set layout = layout is not null and layout is iterable ? layout : {} -%}
+    {%- set layout = {
+        header     : 'auto',
+        footer     : 'auto',
+        zone1      : 'auto',
+        zone2      : 'auto',
+        headertag  : 'header',
+        footertag  : 'footer',
+        headerbase : "w-full @container",
+        headerclass: "max-w-5xl",
+        headerlayer: "micro__header",
+        footerbase : "w-full @container",
+        footerclass: "max-w-5xl",
+        footerlayer: "micro__footer",
+        zonestag   : 'div',
+        zonesclass : '',
+        zonebase   : 'w-full @container/zone',
+        zone1class : '',
+        zone2class : '',
+        autoalign  : 'zone1',
+        clear      : false,
+        container  : 'default',
+    } | merge(layout) -%}
+
+
+    {% set zonecontent -%}
+        {{- ( content.zone1 is defined and layout.zone1 == 'auto' )
+            ? _self.micro__zone( content.zone1, {
+                zoneid : 1,
+                class  : [ layout.zonebase, layout.zone1class ],
+                clear  : ( layout.clear is same as(true) or layout.clear == 'zone1' ),
+                alignmx: ( layout.autoalign is same as(true) or layout.autoalign == 'zone1' ),
+            })
+            : layout.zone1 -}}
+
+        {{- ( content.zone2 is defined and layout.zone2 == 'auto' )
+            ? _self.micro__zone( content.zone2, {
+                zoneid : 2,
+                class  : [ layout.zonebase, layout.zone2class ],
+                clear  : ( layout.clear is same as(true) or layout.clear == 'zone2' ),
+                alignmx: ( layout.autoalign is same as(true) or layout.autoalign == 'zone2' ),
+            })
+            : layout.zone2 -}}
+    {%- endset %}
+
+
+    {{- ( layout.header == 'auto' )
+        ? _self.micro__twozoneheader( layout, content, settings )
+        : layout.header -}}
+
+
+    {{- layout.zonestag ? tag( layout.zonestag, {
+        class: layout.zonesclass,
+        html : zonecontent
+    } ) : zonecontent -}}
+
+
+    {{- ( layout.footer == 'auto' )
+        ? _self.micro__twozonefooter( layout, content, settings )
+        : layout.footer -}}
+
+{%- endmacro %}
+
+
+
+{## Microlayout Zone
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone( content, settings ) -%}
+
+    {%- set content = content ?? '' -%}
+
+    {%- set settings = settings ??? null -%}
+    {%- set settings = settings is iterable and settings is not null ? settings : {} -%}
+    {%- set settings = {
+        zoneid : 1,
+        class  : [],
+        clear  : false,
+        alignmx: false,
+    } | merge( settings ) -%}
+
+
+    {## Clearing Empty Zones
+    {-----------------------------------------------------------------------------------}
+        Some times you don't want an empty zone div to render if it doesn't have any
+        content. Othertimes you do.
+
+        If we're not clearing the zone, just render the tag regardless of content.
+
+        If we are clearing the zone and there's at least 500 characters of content,
+        assume it's more than just empty divs and render the tag.**
+
+        Otherwise render the zone if the provided content is between 1-499 characters
+        and "looks" like it contains *something* other than whitespace & empty <divs>.
+    {-----------------------------------------------------------------------------------}
+     ** If you're generating more than 500 characters of empty divs and whitespace,
+        you're probably better off tidying the upstream content rendering functions to
+        return less wrapper cruft & whitespace.
+    {---------------------------------------------------------------------------------##}
+    {%- set keeptags = '<img><video><audio><iframe><button><script><a><form>' -%}
+    {%- set showzone = ( settings.clear is not same as(true) or content|length > 500 ) -%}
+    {%- set showzone = showzone ? showzone : ( content|striptags(keeptags)|trim ) -%}
+
+    {## match the mx- on the wrapping <zone> with the text-align of it's first child ##}
+    {% import "_core/text" as utils %}
+    {% set mxclass = settings.alignmx ? utils.margin_from_alignment( content ) : null %}
+
+    {# render the zone #}
+    {{- showzone ? tag( 'div', {
+        html : content,
+        class: mxclass ? settings.class|merge([mxclass]) : settings.class,
+    } ) -}}
+{%- endmacro %}
+
+
+
+{## Microlayout Header
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro micro__twozoneheader( layout, content, settings ) -%}
+
+    {%- import "_assemble"  as assemble -%}
+    {%- import "_core/text" as utils -%}
+
+    {%- set layout = layout is null or layout is not iterable ? {} : layout -%}
+    {%- set layout = {
+        headertag  : '',
+        headerbase : '',
+        headerclass: '',
+        headerlayer: '',
+        container  : '',
+        autoalign  : ''
+    } | merge( layout ) -%}
+
+    {{- layout.container
+        ? assemble.opencontainer( layout.container, settings ) -}}
+
+    {%- if content.header ??? null -%}
+
+        {## match the mx- on the wrapping <zone> with the text-align of zone1 content ##}
+        {%- set mxclass = ( layout.autoalign == 'zone1' and content.zone1 is defined )
+            ? utils.margin_from_alignment( content.zone1 )
+            : '' -%}
+
+        {{ tag( layout.headertag ??? 'div', {
+            class: [ layout.headerclass, layout.headerclass, mxclass ],
+            html : ( layout.headerlayer )
+                ? assemble.text( layout.headerlayer, content.header, settings )
+                : ''
+        } ) }}
+    {%- endif -%}
+
+{%- endmacro %}
+
+
+
+{## Microlayout Footer
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro micro__twozonefooter( layout, content, settings ) -%}
+
+    {%- import "_assemble"  as assemble -%}
+    {%- import "_core/text" as utils -%}
+
+    {%- set layout = layout is null or layout is not iterable ? {} : layout -%}
+    {%- set layout = {
+        footertag  : '',
+        footerbase: '',
+        footerclass: '',
+        footerlayer: '',
+        container  : '',
+        autoalign  : ''
+    } | merge( layout ) -%}
+
+
+    {%- if content.footer ??? null -%}
+
+        {## match the mx- on the wrapping <zone> with the text-align of zone1 content ##}
+        {%- set mxclass = ( layout.autoalign == 'zone1' and content.zone1 is defined )
+            ? utils.margin_from_alignment( content.zone1 )
+            : '' -%}
+
+        {{ tag( layout.footertag ??? 'div', {
+            class: [ layout.footerbase, layout.footerclass, mxclass ],
+            html : ( layout.footerlayer )
+                ? assemble.text( layout.footerlayer, content.footer, settings )
+                : ''
+        } ) }}
+    {%- endif -%}
+
+    {## close container ##}
+    {{- layout.container ? '</div>' : '' -}}
+
+{%- endmacro %}

@@ -1,0 +1,90 @@
+{% extends "_site/template.full" %}
+
+{% import "_assemble" as assemble %}
+
+{## Two Column Base Layout
+{---------------------------------------------------------------------------------------}
+    Inherits everything from `_site/template.full` with the following changes:
+
+    - Content Column (Wide)
+        - Overload {% block content "" %} if using as a base template for static routes.
+        - Automatically adds a spacer before and after the content block.
+        - Otherwise, renders `entry.bodyBuilder` matrix builder (if present)
+
+    - Sidebar Aside (Narrow)
+        - Overload {% block sidebar "" %} if using as a base template for static routes.
+        - Automatically adds a spacer before and after the sidebar block.
+        - Otherwise, renders `entry.sidebarBuilder` matrix builder (if present)
+
+    - Slim Footer
+        - Branding & About
+        - Legal Navigation
+--------------------------------------------------------------------------------------##}
+{%- import "_assemble" as assemble -%}
+
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+{%- set mainblocks = entry.bodyBuilder
+    .with([
+        "text:bits",
+        "image:collections",     "image:images",
+        "media:collections",     "media:media",
+        "carddeck:collections",  "carddeck:entries", "carddeck:items",
+        "component:collections", "component:form",
+        "fragment:fragments"
+    ])
+    .all() -%}
+
+{%- set sideblocks = entry.sidebarBuilder
+    .with([
+        "text:bits",
+        "image:collections",     "image:images",
+        "media:collections",     "media:media",
+        "carddeck:collections",  "carddeck:entries", "carddeck:items",
+        "component:collections", "component:form",
+        "fragment:fragments"
+    ])
+    .all() -%}
+
+
+{% block main__content _self.sidebar__right( block('content'), block('sidebar'), settings ) %}
+
+
+{% block content -%}
+    {{- assemble.builder( 'maincolumn', mainblocks ?? null, {
+        container  : "default",
+        spacerabove: "default",
+        spacerbelow: "default"
+    }) -}}
+{%- endblock %}
+
+
+{% block sidebar -%}
+    {{- assemble.builder( 'sidebar', sideblocks ?? null, {
+        container  : "sidebar",
+        spacerabove: "small",
+        spacerbelow: "small"
+    }) -}}
+{%- endblock %}
+
+
+{% block page__bottom -%}
+    {{ block( 'footer__slim', '_site/footer' ) }}
+{%- endblock %}
+
+
+
+{% macro sidebar__right( main, aside, settings ) %}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { container: 'fluid' } | merge(settings) -%}
+
+    {%- set content -%}
+        <div class="flex flex-col lg:flex-row gap-10 2xl:gap-28">
+            {{- tag( 'main',  { html: main,  class: 'min-h-[30vh] grow @container/main'  } ) -}}
+            {{- tag( 'aside', { html: aside, class: 'w-full lg:max-w-sm @container/aside' } ) -}}
+        </div>
+    {%- endset -%}
+
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.container( container, content, settings ) -}}
+{% endmacro %}

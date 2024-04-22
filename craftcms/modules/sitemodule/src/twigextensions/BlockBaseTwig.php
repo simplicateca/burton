@@ -10,6 +10,71 @@
  * SelectPlus - https://github.com/simplicateca/craft-selectplus-field
  */
 
+/**------------------------------------------------------------------------------------/
+
+    BuilderBase() is responsible for 3 primary things:
+
+ 1) Splicing Blocks added via Fragments into the list of blocks to be rendered.
+
+ 2) Merging individual block `settings` objects with the values from each blocks
+    attribute fields (i.e. variant, layout, theme, and source).
+
+    Block attribute fields are usually SelectPlus custom fields. When true, the
+    `settings` object also gets merged with additional values from those fields,
+    which may include Virtual Fields values or their own set of default `settings`.
+
+ -> https://github.com/simplicateca/craft-selectplus-field
+ -> `templates/_config`
+
+    If so, This includes values from any Virtual Fields or default `settings` associated
+    with the JSON config for each SelectPlus field. See: `templates/_config`
+
+ 3) Normalizing each block object using the BlockBase() macro (which can be found
+    in the same file listed above).
+
+
+    Normalized Blocks and BlockBase()
+/**------------------------------------------------------------------------------------/
+    Blocks returned from BuilderBase() are normalized via the BlockBase() function.
+
+    Looping though a Matrix builder typically yields individual MatrixBlock elements.
+ -> https://docs.craftcms.com/api/v4/craft-elements-matrixblock.html
+
+     However, since we want to be pass additional `settings` information with each
+    block, we need to modify the structure of what gets returned when looping
+    through a Matrix builder.
+
+    The object returned from BlockBase() starts off as the value returned by calling
+    `block.fieldValues`, which contains the values for all custom fields.
+ -> https://docs.craftcms.com/api/v4/craft-base-element.html#property-fieldvalues
+
+     We then add a property for `settings` and also store the original MatrixBlock
+    element in `_block` so that it can still be accessed if needed.
+
+    A normalized Image Block object would look like this:
+/**------------------------------------------------------------------------------------/
+    {
+        text    : "<p>Content from CKEditor / Redactor field</p>",
+        images  : <AssetQueryObject>
+        variant : <SelectPlusFieldObject>,
+        layout  : <SelectPlusFieldObject>,
+        theme   : <SelectPlusFieldObject>,
+        source  : <SelectPlusFieldObject>,
+        settings: {
+            variant  : 'default',
+            layout   : 'default',
+            theme    : 'default',
+            source   : 'default',
+            section  : 'pages',
+            entrytype: 'default',
+            builder  : 'default',
+            blocktype: 'image',
+            ...etc
+        },
+        '_block'     : <MatrixBlockObject>
+        '_noramlized': true,
+    }
+/**----------------------------------------------------------------------------------**/
 namespace modules\sitemodule\twigextensions;
 
 use Craft;
@@ -103,7 +168,7 @@ class BlockBaseTwig extends AbstractExtension
                     $dirtyblocks[] = ['block'=>$frag, 'attr'=>$fragattr, '_parent'=>$block];
                 }
             } else {
-                $dirtyblocks[] = ['block'=>$block, 'attr'=>$attr, '_parent'=>null];
+                $dirtyblocks[] = ['block' => $block, 'attr'=>$attr, '_parent'=>null];
             }
 
 
@@ -121,6 +186,14 @@ class BlockBaseTwig extends AbstractExtension
                     if( $parent['base']['theme'] != 'FRAGMENT' ) {
                         $attrs['base']['theme'] = $parent['base']['theme'] ?? 'default';
                         $attrs['theme'] = array_merge( $parent['theme'], $attrs['theme'] ?? [] );
+                    }
+
+                    // Make blocks being spliced in from a Fragment Block report as being
+                    // owned by the Entry that the original Fragment Block exists on.
+                    // Otherwise these blocks will report as being owned by an Entry
+                    // within the Reusable Blocks Channel Section.
+                    if( $dirty['_parent']->owner ?? null ) {
+                        $dirty['block']->setOwner( $dirty['_parent']->owner );
                     }
                 }
 
@@ -150,21 +223,8 @@ class BlockBaseTwig extends AbstractExtension
             }
         }
 
-        // Sibling Themes is a quick a dirty function that includes the `settings` hash
-        // for the `next` & `prev` block into the `settings` hash of the current block.
-        //
-        // So you end up with all your normal `settings` values like:
-        //
-        //  - settings.variant
-        //  - settings.microlayout
-        //
-        // But you also get these:
-        //
-        //  - settings.
-
-        // This helps with effects or elements that transition between block themes.
+        // Which can help with effects or transition elements between blocks/themes.
         $normals = $this->_siblingthemes( $normals );
-
 
         // Finally return an array of normalized, renderable blocks
         return $normals;
@@ -180,21 +240,19 @@ class BlockBaseTwig extends AbstractExtension
     {
         if( empty( $b ) ) { return []; }
 
-        $b = (object) $b;
-
         return [
-            'base' => array_filter([
-                'id'        => $b->id ?? '',
-                'source'    => $b->source->value    ?? '',
-                'variant'   => $b->variant->value   ?? '',
-                'layout'    => $b->layout->value    ?? '',
-                'theme'     => $b->theme->value     ?? 'default',
-                'blocktype' => $b->type->handle ?? $b->type ?? $b->blocktype ?? 'html',
-            ]),
-            'variant' => ( $b->variant ?? null && $b->variant->settings ) ? array_filter( $b->variant->settings ) : [],
-            'layout'  => ( $b->layout  ?? null && $b->layout->settings  ) ? array_filter( $b->layout->settings  ) : [],
-            'theme'   => ( $b->theme   ?? null && $b->theme->settings   ) ? array_filter( $b->theme->settings   ) : [],
-            'source'  => ( $b->source  ?? null && $b->source->settings  ) ? array_filter( $b->source->settings  ) : [],
+            'base' => [
+                'blockid'   => isset( $b['id'] )     ? $b['id']->value      ?? $b['id'] : '',
+                'source'    => isset( $b['source'] ) ? $b['source']->value  ?? $b['source']  : '',
+                'variant'   => isset( $b['variant']) ? $b['variant']->value ?? $b['variant'] : '',
+                'layout'    => isset( $b['layout'] ) ? $b['layout']->value  ?? $b['layout']  : '',
+                'theme'     => isset( $b['theme']  ) ? $b['theme']->value   ?? $b['theme']   : '',
+                'blocktype' => isset( $b['type']   ) ? $b['type']->handle   ?? $b['type']    : '',
+            ],
+            'variant' => isset( $b['variant']->settings  ) ? $b['variant']->settings : [],
+            'layout'  => isset( $b['layout']->settings   ) ? $b['layout']->settings  : [],
+            'theme'   => isset( $b['theme']->settings    ) ? $b['theme']->settings   : [],
+            'source'  => isset( $b['source']->settings   ) ? $b['source']->settings  : [],
         ];
     }
 

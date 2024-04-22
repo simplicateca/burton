@@ -1,5 +1,14 @@
-{% extends template_from_string('{% block tabs %}{% endblock %}') %}
+{## Tab Component   [Core Template]
+{---------------------------------------------------------------------------------------}
 
+{-------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block tab__skeleton "" %}') %}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
 {% set settings  = settings ??? {} %}
 {% set headertag = headertag ??? 'h3' %}
 
@@ -7,20 +16,17 @@
 {% set count = items | length %}
 {% set uuid  = create('craft\\helpers\\StringHelper').UUID() %}
 
-{% block class__panel "p-6" %}
 
-{% block class__panels "rounded-b-md border bg-theme-contrast" %}
 
-{% block class__ul "!mb-0 flex flex-wrap sm:flex-row
-    items-stretch
-    justify-center
-    sm:justify-start
-" %}
+{## Default Configuration
+{---------------------------------------------------------------------------------------}
 
-{% block class__li "list-none !mb-0" %}
-
+{-------------------------------------------------------------------------------------##}
+{% block class__panel        "p-6" %}
+{% block class__panels       "rounded-b-md border bg-theme-contrast" %}
+{% block class__ul           "!mb-0 flex flex-wrap sm:flex-row items-stretch justify-center sm:justify-start" %}
+{% block class__li           "list-none !mb-0" %}
 {% block class__buttonactive "bg-theme-accent text-canvas-light" %}
-
 {% block class__button "
     inline-flex
     rounded
@@ -35,7 +41,13 @@
     xl:text-base
 " %}
 
-{% block tabs -%}
+
+
+{## Render HTML
+{---------------------------------------------------------------------------------------}
+    Used to generate the html structure surrounding an image (figure, caption, etc).
+{-------------------------------------------------------------------------------------##}
+{% block tab__skeleton -%}
 {%- if count -%}
 
 <div

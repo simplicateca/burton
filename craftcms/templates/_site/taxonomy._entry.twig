@@ -1,0 +1,60 @@
+{## Topic Content   [Entry Template]
+{-------------------------------------------------------------------------------------##}
+{% extends "_site/template.full" %}
+
+
+
+{## Entry Type Router
+{-------------------------------------------------------------------------------------##}
+{% set entrytype = entry.type.handle|default(null) %}
+
+{% if entrytype != 'topic' %}
+    {% header "HTTP/1.0 404 Not Found" %}
+{% endif %}
+
+
+
+{## URI Generator
+{---------------------------------------------------------------------------------------}
+    Often easier than trying to cram a bunch of conditional twig logic into the tiny
+    space provided by the URI Format field in the control panel.
+
+    However, you do need to trigger a manual resave of all entries if you change
+    the URI sturcture in the below macro for existing records.
+{-------------------------------------------------------------------------------------##}
+{% macro uri( entry ) %}{% apply spaceless %}
+    {{ entry.type.handle == 'topic' ? "topics/#{entry.slug}" : null }}
+{% endapply %}{% endmacro %}
+
+
+
+{## Topic Entry Content
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block content %}
+    {%- set settings = {
+        container  : 'fluid',
+        microlayout: 'default',
+        interface  : 'keyword',
+        pagination : 'nextprev',
+        decklayer  : 'grid3',
+        results    : true,
+        limit      : 3,
+    } -%}
+
+    {{ sprig( "_core/block.component.search", {
+        _callback: true,
+        settings : settings,
+        collect  : {
+            where: {
+                section: 'articles',
+            },
+            with: ['images'],
+            relatedTo: entry.id,
+        },
+        zone1__content : '',
+        header__content: '',
+        footer__content: ''
+    } ) }}
+{% endblock %}

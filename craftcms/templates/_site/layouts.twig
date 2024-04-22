@@ -1,0 +1,484 @@
+{## Container Definitions
+{---------------------------------------------------------------------------------------}
+ !! THIS MACRO OUTPUTS JSON
+{---------------------------------------------------------------------------------------}
+    That way, it can be parsed by the `assemble.container` macro in `_core/assemble`.
+    This also lets definitions appear within Sitehub reference pages.
+{-------------------------------------------------------------------------------------##}
+{% macro containers() %}{{ {
+    default : [ '@container container' ],
+    fluid   : [ '@container 2xl:container px-4 md:max-2xl:px-4' ],
+    narrow  : [ '@container container max-w-5xl mx-auto px-4' ],
+    title   : [ '@container 2xl:container px-4 md:max-2xl:px-4 py-6 lg:py-16' ],
+    prose   : [ 'max-w-5xl @container' ],
+    relative: [ 'relative @container' ],
+    none    : [],
+} | json_encode() | raw }}{% endmacro %}
+
+
+
+{## Content Spacers
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro spacer__large( block = null, settings = null ) -%}
+    {{- tag('div', { class: [
+        '@container after:block after:content-[""]',
+        'after:h-20 @3xl:after:h-28 @7xl:after:h-48' ]}) -}}
+{%- endmacro %}
+
+{% macro spacer__default( block = null, settings = null ) -%}
+    {{- tag('div', { class: ['
+        @container after:block after:content-[""]',
+        'after:h-12 @3xl:after:h-20 @7xl:after:h-36' ]}) -}}
+{%- endmacro %}
+
+{% macro spacer__small( block = null, settings = null ) -%}
+    {{- tag('div', { class: ['
+        @container after:block after:content-[""]',
+        'after:h-8 @3xl:after:h-12 @7xl:after:h-18'
+    ]}) -}}
+{%- endmacro %}
+
+{% macro spacer__none( block = null, settings = null ) -%}{%- endmacro %}
+
+{% macro spacer__topbar( block = null, settings = null ) %}
+    {{ block('header__topbar', "_site/header" ) }}
+{% endmacro %}
+
+
+
+{## Theme Divider Examples
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro spacer__tilt( block = null, settings = null ) %}
+    {%- set block = block is not null and block is iterable ? block : {} -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    <div class="z-10 !bg-prev-block-bg h-16 mb-[-1px]"  data-theme="{{ settings.theme ??? null }}" data-prev-theme="{{ settings.next.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
+        <svg class="fill-next-block-bg h-full w-full rotate-180 block m-0 p-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill h-full w-full"></path>
+        </svg>
+    </div>
+{% endmacro %}
+
+{% macro spacer__wave( block = null, settings = null ) %}
+    {%- set block = block is not null and block is iterable ? block : {} -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    <div class="z-10 !bg-prev-block-bg h-16 mb-[-1px]" data-theme="{{ block.settings.theme ??? null }}" data-prev-theme="{{ block.prev.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
+        <svg class="fill-next-block-bg h-full w-full rotate-180 block m-0 p-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+{% endmacro %}
+
+{% macro spacer__stitch( block = null, settings = null ) %}
+    {%- set block = block is not null and block is iterable ? block : {} -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    <div class="relative w-full" data-theme="{{ block.settings.theme ??? null }}" data-prev-theme="{{ block.prev.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
+        <div class="absolute left-1/2 bottom-0 h-8 border-dashed border-l-4 border-next-block-bg" aria-hidden="true"></div>
+        <div class="absolute left-1/2 top-0 h-8 border-dashed border-l-4 border-prev-block-bg" aria-hidden="true"></div>
+    </div>
+{% endmacro %}
+
+
+
+{## Simple Grid Layouts
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro grid__default( content, settings ) -%}
+{%- if content ??? null -%}
+    {{- tag( 'div', {
+        html: content,
+        class: 'w-full grid grid-cols-1 gap-4 @xl:gap-8 @4xl:gap-12 @7xl:gap-16',
+        'data-grid': 'single',
+    } ) -}}
+{%- endif %}{%- endmacro %}
+
+
+{% macro grid__flexible2( content, settings = null ) -%}
+{%- if content ??? null -%}
+    {{- tag( 'div', {
+        html: content,
+        class: 'grid grid-cols-1 @md:grid-cols-2 gap-4 @xl:gap-8 @4xl:gap-12 @7xl:gap-16 w-full',
+        'data-grid': 'flexible2',
+    } ) -}}
+{%- endif %}{%- endmacro %}
+
+
+{% macro grid__fixed2( content, settings = null ) -%}
+{%- if content ??? null -%}
+    {{- tag( 'div', {
+        html : content,
+        class: 'grid grid-cols-2 gap-8 @3xl:gap-16 @7xl:gap-24 w-full',
+        'data-grid': 'fixed2',
+    } ) -}}
+{%- endif %}{%- endmacro %}
+
+
+{% macro grid__flexible3( content, settings = null ) -%}
+{%- if content ??? null -%}
+    {{- tag( 'div', {
+        html: content,
+        class: 'grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8 @5xl:gap-12 @7xl:gap-16 w-full',
+        'data-grid': 'flexible3',
+    } ) -}}
+{%- endif %}{%- endmacro %}
+
+
+{% macro grid__fixed3( content, settings = null ) -%}
+{%- if content ??? null -%}
+    {{- tag( 'div', {
+        html: content,
+        class: 'grid grid-cols-3 gap-4 @3xl:gap-12 @5xl:gap-16 @7xl:gap-20 w-full',
+        'data-grid': 'fixed3',
+    } ) -}}
+{%- endif %}{%- endmacro %}
+
+
+
+{## Default Gap Definition
+{---------------------------------------------------------------------------------------}
+    Most of the layouts in this file make use of *some form* of gap horizontal and/or
+    vertical spacing between elements.
+
+    This macro sets a consistent default that all of the other macros in this file can
+    call as a reference, so that you don't have to keep 20+ copies of the same code
+    in each macro definition.
+
+    Is it *too much* separation of concerns? Maybe. Fight me.
+{-------------------------------------------------------------------------------------##}
+{% macro _default_zonegap() %} gap-8 @7xl:gap-16{% endmacro %}
+
+
+
+{## Single Zone Microlayout
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text)  : Center
+    - Maximum Copy Width  : 5xl
+    - Horizontal Alignment: Center
+    - Responsive Collapse : No change
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1( content, settings = null ) -%}
+    {{ _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col" ~ _self._default_zonegap(),
+        zone1class : 'max-w-5xl',
+        clear      : true,
+        container  : settings.container ?? 'default',
+    }, content, settings ) }}
+{%- endmacro %}
+
+
+
+{## Two Zone Microlayouts
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+
+{## zone1Top (Vertical Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text)  : Top
+    - Maximum Copy Width  : 5xl
+    - Horizontal Alignment: Left
+    - Responsive Collapse : No change
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Top( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col" ~ _self._default_zonegap(),
+        zone1class : 'max-w-5xl',
+        clear      : true,
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Horizontal Alignment: Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Top__center( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        headerclass: 'max-w-5xl mx-auto',
+        footerclass: 'max-w-3xl mx-auto',
+        zonesclass : "w-full flex flex-col" ~ _self._default_zonegap(),
+        zone1class : 'max-w-5xl mx-auto',
+        autoalign  : false,
+        clear      : true,
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Maximum Copy Width  : 3xl
+    - Horizontal Alignment: Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Top__narrow( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        headerclass: 'max-w-3xl mx-auto',
+        footerclass: 'max-w-3xl mx-auto',
+        zonesclass : "w-full flex flex-col" ~ _self._default_zonegap(),
+        zone1class : 'max-w-3xl mx-auto',
+        autoalign  : false,
+        clear      : true,
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+{##-----------------------------------------------------------------------------------##}
+
+
+
+{## zone1Bottom (Vertical Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text)  : Bottom
+    - Maximum Copy Width  : 5xl
+    - Horizontal Alignment: Left
+    - Responsive Collapse : No change
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Bottom( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col-reverse" ~ _self._default_zonegap(),
+        zone1class : 'max-w-5xl',
+        autoalign  : 'zone1',
+        clear      : true,
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Horizontal Alignment: Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Bottom__center( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        headerclass: 'max-w-5xl mx-auto',
+        footerclass: 'max-w-3xl mx-auto',
+        zonesclass : "w-full flex flex-col" ~ _self._default_zonegap(),
+        zone1class : 'max-w-5xl mx-auto',
+        autoalign  : false,
+        clear      : true,
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+{##-----------------------------------------------------------------------------------##}
+
+
+
+{## zone1Left (Horizontal Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text) : Left
+    - Vertical Alignment : Top
+    - Column Distribution: Equal Width (50/50)
+    - Responsive Collapse: Full Width (Top/Bottom)
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Left( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-1/2',
+        zone2class : 'lg:w-1/2',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Vertical Alignment : Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Left__center( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-1/2',
+        zone2class : 'lg:w-1/2',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+{##-----------------------------------------------------------------------------------##}
+
+
+
+
+{## zone1Right (Horizontal Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text) : Right
+    - Vertical Alignment : Top
+    - Column Distribution: Equal Width (50/50)
+    - Responsive Collapse: Full Width (Top/Bottom)
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Right( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row-reverse" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-1/2',
+        zone2class : 'lg:w-1/2',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Vertical Alignment : Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1Right__center( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-1/2',
+        zone2class : 'lg:w-1/2',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+{##-----------------------------------------------------------------------------------##}
+
+
+
+
+{## zone1LeftWide (Horizontal Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text) : Left
+    - Vertical Alignment : Top
+    - Column Distribution: Zone 1 Wide (60/40)
+    - Responsive Collapse: Full Width (Top/Bottom)
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1LeftWide( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-3/5',
+        zone2class : 'lg:w-2/5',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Vertical Alignment : Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1LeftWide__center( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-3/5',
+        zone2class : 'lg:w-2/5',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+{##-----------------------------------------------------------------------------------##}
+
+
+
+
+{## zone1LeftNarrow (Horizontal Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text) : Left
+    - Vertical Alignment : Top
+    - Column Distribution: Zone 1 Narrow (40/60)
+    - Responsive Collapse: Full Width (Top/Bottom)
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1LeftNarrow( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-2/5',
+        zone2class : 'lg:w-3/5',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Vertical Alignment : Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1LeftNarrow__center( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-2/5',
+        zone2class : 'lg:w-3/5',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+{##-----------------------------------------------------------------------------------##}
+
+
+
+
+{## zone1RightWide (Horizontal Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text) : Right
+    - Vertical Alignment : Top
+    - Column Distribution: Zone 1 Wide (40/60)
+    - Responsive Collapse: Full Width (Top/Bottom)
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1RightWide( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row-reverse" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-3/5',
+        zone2class : 'lg:w-2/5',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Vertical Alignment : Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1RightWide__center( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-3/5',
+        zone2class : 'lg:w-2/5',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+{##-----------------------------------------------------------------------------------##}
+
+
+
+
+{## zone1RightNarrow (Horizontal Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text) : Right
+    - Vertical Alignment : Top
+    - Column Distribution: Zone 1 Narrow (60/40)
+    - Responsive Collapse: Full Width (Top/Bottom)
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1RightNarrow( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row-reverse" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-2/5',
+        zone2class : 'lg:w-3/5',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+
+
+{## - Vertical Alignment : Center
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zone1RightNarrow__center( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        zone1class : 'lg:w-2/5',
+        zone2class : 'lg:w-3/5',
+        autoalign  : 'zone1',
+        container  : settings.container ?? 'default',
+    }, content, settings ) -}}
+{%- endmacro %}
+{##-----------------------------------------------------------------------------------##}
+
+
+
+
+{## Overlap (Overlapping Two Zone Layout)
+{---------------------------------------------------------------------------------------}
+    - Zone 1 (Copy/Text) : Center
+    - Vertical Alignment : Center
+    - Column Distribution: Zone 1 Narrow (40%)
+    - Responsive Collapse: No change
+{-------------------------------------------------------------------------------------##}
+{% macro micro__zoneOverlap( content, settings ) -%}
+    {{- _self.micro__twozone( {
+        zonesclass : "w-full overflow-hidden",
+        zone1class : "max-w-5xl p-5 @lg:p-10 @3xl:p-20 relative z-20 mx-auto",
+        zone2base  : 'absolute inset-0 w-full h-full z-10',
+        autoalign  : 'zone1',
+        clear      : true,
+        container  : false,
+    }, content, settings ) -}}
+{%- endmacro %}

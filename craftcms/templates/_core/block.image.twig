@@ -1,48 +1,44 @@
-{## Image Block Base
-{-------------------------------------------------------------------------------------##
-    -> http://localhost:8000/sitehub/blocks/image
+{## Image Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+ -> http://localhost:8000/sitehub/blocks/image
 {-------------------------------------------------------------------------------------##}
-{% set settings    = settings ??? block.settings ??? {}  %}
-{% set microlayout = settings.microlayout ??? 'zone1Top' %}
-{% set imagelayer  = settings.imagelayer  ??? 'default'  %}
-{% set imagesource = block.source.value   ??? 'images'   %}
-{% set images      = [] %}
-
-{% if imagesource == 'images' %}
-    {% set images = block.images.all() ??? block.images ??? [] %}
-{% endif %}
-
-{% if imagesource == 'collect' %}
-    {% set params = {
-        limit: block.source.settings.limit ??? -1,
-        field: 'images'
-    } %}
-
-    {% set images = CollectionBase( block.collections.ids(), params ) %}
-{% endif %}
-
-{% embed [ "_site/block", "_core/block" ] with {
-    block: block,
-    images: images,
-    settings: settings,
-    imagelayer: imagelayer,
-    microlayout: microlayout,
-} %}
-    {## Image Block Content ##}
-    {% block content %}
-        {% import "_assemble" as assemble %}
-        {{ assemble.microlayout( microlayout, {
-            zone1    : block('block__text'),
-            zone2    : block('block__images'),
-            header   : block('block__header'),
-            footer   : block('block__footer'),
-        }, settings ) }}
-    {% endblock %}
+{% extends [ "_site/block", "_core/block" ] %}
 
 
-    {## Zone 2 Content ##}
-    {% block block__images %}
-        {% import "_assemble" as assemble %}
-        {{ assemble.images( images, imagelayer, settings ) }}
-    {% endblock %}
-{% endembed %}
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+    {%- set settings = block.settings ??? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+    {%- set source = block.source.value ??? 'images'  -%}
+    {%- set images = ( source == 'images' )
+        ? block.images.all() ??? block.images ??? []
+        : null -%}
+
+    {# do we need to pull images from a collection? #}
+    {%- if source == 'collect' and block.collections and block.collections is iterable -%}
+        {%- set params = {
+            limit: block.source.limit ??? -1,
+            field: 'images'
+        } -%}
+
+        {%- set images = CollectionBase( block.collections, params ) -%}
+    {%- endif -%}
+
+    {## Let's us inherit from this template **at this point** in the render process,
+        without requiring that we duplicate the above "collection" logic ##}
+    {%- set blockname = 'image__' ~ settings.variant ??? 'default' -%}
+    {{- block( blockname ) is defined ? block( blockname ) : block( 'image__default' ) -}}
+{% endblock %}
+
+
+{## Image Default
+{-------------------------------------------------------------------------------------##}
+{% block image__default %}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { imagelayer: 'default' } | merge( settings ) -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.images( settings.imagelayer, images, settings ) -}}
+{% endblock %}

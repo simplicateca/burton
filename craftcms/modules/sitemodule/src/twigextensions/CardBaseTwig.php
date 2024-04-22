@@ -48,7 +48,7 @@ class CardBaseTwig extends AbstractExtension
     public function CardBase( $carditem, $settings ) : mixed
     {
         $carditem = (object) $carditem;
-        $settings = (object) $settings;
+        $settings = (array)  $settings;
 
         /**
          * Figure out the type of content we're creating a card for
@@ -65,16 +65,14 @@ class CardBaseTwig extends AbstractExtension
          * https://craftcms.com/docs/5.x/system/elements.html#element-types
          *
          */
-        $section   = $carditem->section->handle ?? $carditem->section ?? $settings->section   ?? null;
-        $entrytype = $carditem->type->handle    ?? $carditem->type    ?? $settings->entrytype ?? null;
+        $section   = $carditem->section->handle ?? $carditem->section ?? null;
+        $entrytype = $carditem->type->handle    ?? $carditem->type    ?? null;
 
         if( !$section && $carditem->id ?? null ) {
             // {% set itemtype = className( carditem ) ??? null | upper %}
             // {% if itemtype == 'ASSET'      %}{% set section = 'assets' %}{% endif %}
             // {% if itemtype == 'SUPERTABLE' %}{% set section = 'bits'   %}{% endif %}
         }
-
-        $cardlayer  = $settings->cardlayer ?? 'default';
 
         $cardimages = ( $carditem->images ?? null ) ? $carditem->images : null;
         $cardimages = is_string( $cardimages ) ? [$cardimages] : $cardimages;
@@ -96,25 +94,18 @@ class CardBaseTwig extends AbstractExtension
             $summary = '<p>' . $summary . '</p>';
         }
 
+        $url = $carditem->url ?? null;
+
         $card = [
             '_carditem' => $carditem,
-            'cardlayer' => $cardlayer,
             'headline'  => trim( $headline ),
             'fulltext'  => $fulltext,
             'summary'   => $summary,
             'eyebrow'   => trim( $eyebrow ),
             'section'   => $section,
-            'action'    => $carditem->action ?? $settings->action ?? null,
             'images'    => $cardimages,
             'type'      => $entrytype,
-            'path'      => $settings->path ?? [
-                "_site/card.".$cardlayer.".".$section.".".$entrytype,
-                "_site/card.".$cardlayer.".".$section,
-                "_site/card.".$cardlayer,
-                "_site/card",
-                "_core/card"
-            ],
-            'url' => $carditem->url  ?? null,
+            'url'       => $url,
         ];
 
         // Card Label - sometimes used for tabs or accordions titles

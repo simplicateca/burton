@@ -1,5 +1,5 @@
 {## Postmark Universal Transactional Email Template
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
  -> https://postmarkapp.com/transactional-email-templates
 {-------------------------------------------------------------------------------------##}
 {% extends template_from_string('{% block email %}{% endblock %}') %}
@@ -9,7 +9,7 @@
 {% block email__body    "" %}
 {% block email__footer  tag( 'a', { href: siteUrl, text: siteUrl } ) %}
 
-{% block font__base    'font-family: Montserrat Helvetica, Arial, sans-serif; word-break: break-word;  font-size: 16px;' %}
+{% block font__base    'font-family: Montserrat, Helvetica, Arial, sans-serif; word-break: break-word;  font-size: 16px;' %}
 
 {% block button__color '#ed1b24' %}
 
@@ -49,7 +49,7 @@
 
 
 {## Email HTML Base
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
 {% block email %}
@@ -63,7 +63,7 @@
             {{ block('email__styles') }}
         </head>
 
-        <body style="width: 100% !important; height: 100%; -webkit-text-size-adjust: none; font-family: Montserrat Helvetica, Arial, sans-serif; background-color: #F2F4F6; color: #51545E; margin: 0;" bgcolor="#F2F4F6">
+        <body style="width: 100% !important; height: 100%; -webkit-text-size-adjust: none; font-family: Montserrat, Helvetica, Arial, sans-serif; background-color: #F2F4F6; color: #51545E; margin: 0;" bgcolor="#F2F4F6">
             <span class="preheader" style="display: none !important; visibility: hidden; mso-hide: all; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden;">{{ block( 'email__pretext') }}</span>
             <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; background-color: #F2F4F6; margin: 0; padding: 0;" bgcolor="#F2F4F6">
                 <tr>
@@ -81,7 +81,7 @@
 
 
 {## Button Macro
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
   ✔ Cross Browser compatible HTML email code makes me want to cry.
 {-------------------------------------------------------------------------------------##}
 {% macro button(buttonText, buttonUrl, buttonColor) %}
@@ -91,11 +91,11 @@
     {% if buttonText is defined and buttonUrl is defined %}
         <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation" style="width: 100%; -premailer-width: 100%; -premailer-cellpadding: 0; -premailer-cellspacing: 0; text-align: center; margin: 30px auto; padding: 0;">
         <tr>
-            <td align="center" style="word-break: break-word; font-family: Montserrat Helvetica, Arial, sans-serif; font-size: 16px;">
+            <td align="center" style="word-break: break-word; font-family: Montserrat, Helvetica, Arial, sans-serif; font-size: 16px;">
             <!-- Border based button https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
             <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
                 <tr>
-                <td align="center" style="word-break: break-word; font-family: Montserrat Helvetica, Arial, sans-serif; font-size: 16px;">
+                <td align="center" style="word-break: break-word; font-family: Montserrat, Helvetica, Arial, sans-serif; font-size: 16px;">
                     <a href="{{buttonUrl}}" class="f-fallback button" target="_blank" style="color: #FFF; border-color: {{buttonColor}}; border-style: solid; border-width: 10px 18px; background-color: {{buttonColor}}; display: inline-block; text-decoration: none; border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); -webkit-text-size-adjust: none; box-sizing: border-box;">{{buttonText}}</a>
                 </td>
                 </tr>
@@ -122,7 +122,7 @@
 
 
 {## CSS Stylesheet
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
 {% block email__styles %}

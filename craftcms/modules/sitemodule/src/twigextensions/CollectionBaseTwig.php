@@ -1,6 +1,6 @@
 <?php
 /**
- * CCollection Processing Macro
+ * Collection Processing Macro
  *
  * Used to lookup the contents of Collection entries, including static and RSS feeds.
  *
@@ -15,6 +15,7 @@ use Craft;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 use mmikkel\retcon\Retcon;
+use Illuminate\Support\Collection;
 
 class CollectionBaseTwig extends AbstractExtension
 {
@@ -27,19 +28,71 @@ class CollectionBaseTwig extends AbstractExtension
     }
 
 
-    public function CollectionBase( $onlyIDs, $params ) {
+    private function elementQuery( $type ) {
+        switch ( strtolower( $type ?? 'entry' ) ) {
+            case 'product':
+                return \craft\commerce\elements\Product::find()->availableForPurchase(true);
+            case 'verbbevent':
+                return  \verbb\events\elements\Event::find();
+            case 'asset':
+                return  \craft\elements\Asset::find();
+            default:
+                return  \craft\elements\Entry::find();
+        }
+    }
 
-        // Get the selected Collection (or the first one if we're not filtering by collection)
-        $collection = Craft::configure( \craft\elements\Entry::find(), array_filter([
-            'section'    => 'collections',
-            'id'         => is_array( $onlyIDs ) ? $onlyIDs : $onlyIDs->all() ?? [],
-            'slug'       => Craft::$app->request->getParam('f') ?? $params['filter'] ?? null,
-            'fixedOrder' => true,
-        ]) )->one() ?? null;
+
+
+    public function CollectionBase( $collections, $params )
+    {
+        // We might get passed a list of Collection IDs to choose from, but since
+        // we can only load entries from one collection at a time,
+        // Regardless,
+        // so we need to figure out which one to use
+        $collection = null;
+        $isJustIds  = $this->justids( $collections );
+
+        // If were were given a list of (at least one) Collection ID to use...
+        if( $isJustIds )
+        {
+            $query = [
+                'section'    => 'collections',
+                'id'         => $collections,
+                'fixedOrder' => true,
+            ];
+
+            // Do we need to filter by slug?
+            // Happens if we have an array of colletions and we're toggling between them
+            if( $params['slug'] ?? null ) {
+                $query['slug'] = $params['slug'];
+            }
+
+            // Get the selected Collection (or the first one if we're not filtering by collection)
+            $collection = Craft::configure( \craft\elements\Entry::find(), $query )->one() ?? null;
+        }
+
+        // were we given a Collection Element?
+        if( is_object($collections) && $collections->one() ) {
+
+            // Do we need to filter by slug?
+            if( $params['slug'] ?? null ) {
+                $collections = $collection->slug($params['slug']);
+            }
+
+            $collection = $collections->one();
+        }
+
+        // Are we creating a collection on the fly?
+        if( !$isJustIds && !$collection && is_array( $collections ) )
+        {
+            if( $collections['where'] ?? null ) {
+                return $this->processManual( $collections, $params );
+            }
+        }
 
         if( !$collection ) { return []; }
 
-        $collectiontype = (string) $collection->type->handle ?? 'static';
+        $collectiontype = (string) $collection->type->handle ?? 'manual';
 
         switch ( strtolower( $collectiontype ) ) {
             case 'rss':
@@ -48,14 +101,71 @@ class CollectionBaseTwig extends AbstractExtension
             case 'dynamic':
                 return $this->processDynamic( $collection, $params );
                 break;
-            default:
+            case 'static':
                 return $this->processStatic( $collection, $params );
+                break;
+            default:
+
         }
     }
 
 
 
-    public function processStatic( $collection, $params ) : Array
+    public function processManual( $fly, $params ) : Mixed
+    {
+        $query = [
+            'where'   => $fly['where'] ?? null,
+            'with'    => $fly['with']  ?? null,
+            'order'   => $fly['order'] ?? $params['order'] ?? 'postDate DESC',
+            'limit'   => $fly['limit'] ?? $params['limit'] ?? -1,
+            'search'  => $fly['query'] ?? $params['query'] ?? null
+        ];
+
+        $elementQuery = $this->elementQuery( $fly['element'] ?? 'entry' );
+
+        if( $query['search'] ) {
+            $elementQuery->search( $query['search'] );
+            $query['order'] = 'score';
+        }
+
+        if( $fly['relatedTo'] ?? null ) {
+            $elementQuery->relatedTo( $fly['relatedTo'] );
+        }
+
+        if( $query['where'] && $query['where']['section'] ?? null ) {
+            $section = $query['where']['section'];
+            unset( $query['where']['section'] );
+            $elementQuery->section( $section );
+        }
+
+        if( $query['where'] && $query['where']['type'] ?? null ) {
+            $entrytype = $query['where']['type'];
+            unset( $query['where']['type'] );
+            $elementQuery->type( $entrytype );
+        }
+
+        if( !empty( $query['where'] ) ) {
+            $elementQuery->where( $query['where'] );
+        }
+
+        if( !empty( $query['with'] ) ) {
+            $elementQuery->with( $query['with'] );
+        }
+
+        $elementQuery->limit( $query['limit'] );
+        $elementQuery->orderBy( $query['order'] );
+
+        $returnObject = $params['return'] ?? 'results';
+        if( $returnObject  == 'query' ) {
+            return $elementQuery;
+        } else {
+            return $elementQuery->one() ? $elementQuery->all() : [];
+        }
+    }
+
+
+
+    public function processStatic( $collection, $params ) : Mixed
     {
         $field = $params['field'] ?? 'entries';
         $limit = $params['limit'] ?? -1;
@@ -64,8 +174,8 @@ class CollectionBaseTwig extends AbstractExtension
             return $collection->entries->limit( $limit )->all() ?? [];
         }
 
-        if( $field == 'assets' ) {
-            return $collection->assets->limit( $limit )->all() ?? [];
+        if( $field == 'media' ) {
+            return $collection->media->limit( $limit )->all() ?? [];
         }
 
         if( $field == 'images' ) {
@@ -84,25 +194,15 @@ class CollectionBaseTwig extends AbstractExtension
         $query = [
             'limit'   => $params['limit'] ?? -1,
             'order'   => $collection->sort->settings['order'] ?? 'postDate DESC',
-            'where'   => $collection->contentSource->settings['whereQuery'] ?? null,
-            'search'  => Craft::$app->request->getParam('q') ?? $params['query'] ?? null,
+            'where'   => $collection->contentSource->settings['where'] ?? null,
+            'with'    => $collection->contentSource->settings['with']  ?? null,
+            'search'  => $params['query'] ?? null
         ];
 
-        $elementType  = (string) $collection->contentSource->settings['elementType'] ?? 'entry';
-        $elementQuery = null;
-        switch ( strtolower( $elementType ) ) {
-            case 'product':
-                $elementQuery = \craft\commerce\elements\Product::find()->availableForPurchase(true);
-                break;
-            case 'verbbevent':
-                $elementQuery = \verbb\events\elements\Event::find();
-                break;
-            case 'asset':
-                $elementQuery = \craft\elements\Asset::find();
-                break;
-            default:
-                $elementQuery = \craft\elements\Entry::find();
-        }
+        $elementQuery = $this->elementQuery(
+            (string) $collection->contentSource->settings['element'] ?? 'entry'
+        );
+
 
         if( $query['search'] ) {
             $elementQuery->search( $query['search'] );
@@ -127,6 +227,10 @@ class CollectionBaseTwig extends AbstractExtension
 
         if( !empty( $query['where'] ) ) {
             $elementQuery->where( $query['where'] );
+        }
+
+        if( !empty( $query['with'] ) ) {
+            $elementQuery->with( $query['with'] );
         }
 
         $elementQuery->limit( $query['limit'] );
@@ -195,5 +299,11 @@ class CollectionBaseTwig extends AbstractExtension
         }
 
         return $items;
+    }
+
+
+    private function justids( $collections ) {
+        $array = Collection::make($collections)->toArray();
+        return array_filter($array, 'is_numeric') === $array;
     }
 }

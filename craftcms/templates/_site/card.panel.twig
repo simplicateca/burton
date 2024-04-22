@@ -1,20 +1,40 @@
+{## Panel Card   [Site Template]
+{-------------------------------------------------------------------------------------##}
 {% extends [ "_site/card", "_core/card" ] %}
 
-{% set card = card ??? null %}
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-
-{% set settings = settings | merge({
+{%- set settings = settings | merge({
     card__imagelayer: 'stretch'
-}) %}
+}) -%}
 
+
+{## Overload Parent Blocks
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
 {% block card__class "w-full relative grid grid-cols-1 @xl:grid-cols-2 gap-10" %}
 
-{% block card__words %}
+{% block card__words -%}
     <div class="flex flex-col gap-3 @container">
-        {% block card__headline %}<h3 class="!my-0">{{ card.headline }}</h3>{% endblock %}
+        {%- block card__headline %}<h3 class="!my-0">{{ card.headline }}</h3>{% endblock -%}
 
-        <div class="max-h-[50vh] overflow-y-auto -mr-8 pr-8 @container">
-            {{ ( card.fulltext ??? card.summary ) | raw }}
+        <div class="max-h-[50vh] overflow-y-auto -mr-8 pr-8 flex flex-col h-full">
+            <div class="@container flex-grow">
+                {{- ( card.fulltext ??? card.summary ) | raw -}}
+            </div>
+
+            {%- if card.url ??? null -%}
+                <div class="mt-10">
+                    <a href="{{ card.url }}" class="button block text-center">Read More</a>
+                </div>
+            {%- endif -%}
         </div>
     </div>
-{% endblock %}
+{%- endblock %}

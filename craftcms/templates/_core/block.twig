@@ -1,86 +1,226 @@
-{## Matrix Block & Builder Macros
-{-------------------------------------------------------------------------------------##
-    This file mostly contains macros for assembling matrix blocks and builders.
+{## Block Base   [Core Template]
+{---------------------------------------------------------------------------------------}
 
-    It *can* be inherited as a base block, but ideally only as a last resort fallback.
-
-    A more robust block base should be created in `_site/block`, which all default
-    blocks already look for in their inheritence chain before falling back to this file.
 {-------------------------------------------------------------------------------------##}
-{% extends template_from_string('{% block block %}{% endblock %}') %}
-{## --------------------------------------------------------------------------------- ##}
+{% extends template_from_string('{% block block_skeleton "" %}') %}
 
 {% import "_assemble" as assemble %}
 
-{## Yes, this is a valid name. Silly, right? ##}
-{% block block %}
 
-    {% set block = block ??? null %}
-    {% set settings = block.settings ??? null is null ? {} : block.settings %}
+{## Template Variables
+{---------------------------------------------------------------------------------------}
 
-    {% set settings = settings | merge({
-        block__first: loop.first ??? false,
-        block__last : loop.last  ??? false,
-    }) %}
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ??? null -%}
 
-    {## Spacer between blocks (Before) ##}
-    {% set includebefore = settings.includebefore ??? null %}
-    {% block before assemble.blockspacer( block, includebefore, settings ) %}
+{%- set settings = block.settings ??? null -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = {
+    block__first   : loop.first ??? false,
+    block__last    : loop.last  ??? false,
+    include__before: null,
+    include__after : null,
+    container      : 'default'
+} | merge( settings ) -%}
 
-    {## Theme block + open theme tag ##}
-    {% block theme %}
-    {% block theme__open assemble.blockpart( block, 'themeopen', settings ) %}
 
-        {## Section block + content ##}
-        {% block section %}
-            {% block open assemble.blockpart( block, 'contentopen', settings ) %}
-            {% block content block('block__html') %}
-            {% block close assemble.blockpart( block, 'contentclose', settings ) %}
-        {% endblock %}
 
-    {## Close theme tag + block  ##}
-    {% block theme__close assemble.blockpart( block, 'themeclose', settings ) %}
-    {% endblock theme %}
+{## Render HTML
+{---------------------------------------------------------------------------------------}
+    Generates the html structure for the entire block.
+{-------------------------------------------------------------------------------------##}
+{% block block_skeleton -%}
 
-    {## Spacing between blocks (After) ##}
-    {% set includeafter = settings.includeafter ??? null %}
-    {% block after assemble.blockspacer(  block, includeafter, settings ) %}
+    {# Spacer Before / Between Block #}
+    {%- block before assemble.spacer( settings.include__before, block, settings ) -%}
+
+    {# Open Theme / Container #}
+    {%- block theme -%}
+    {%- block theme__open assemble.blockpart( 'theme__open', block, settings ) -%}
+
+        {# Open Block Content Area #}
+        {%- block section -%}
+        {%- block open assemble.blockpart( 'block__open', block, settings ) -%}
+
+            {# Actual Block Content #}
+            {%- block content block('block__html') -%}
+
+        {# Close Block Content Area #}
+        {%- block close assemble.blockpart( 'block__close', block, settings ) -%}
+        {%- endblock section -%}
+
+    {# Close Theme / Container #}
+    {%- block theme__close assemble.blockpart( 'theme__close', block, settings ) -%}
+    {%- endblock theme -%}
+
+    {# Spacer After / Between Block #}
+    {%- block after assemble.spacer( settings.include__after, block, settings ) -%}
+{%- endblock %}
+
+
+
+{## Block HTML
+{---------------------------------------------------------------------------------------}
+    It's possible to add an `html` attribute to an otherwise empty hash and hand it off
+    to the Builder assembly (alone or spliced into a list of standard blocks).
+
+    If the current Block has the `html` attribute, we'll output it wrapped in a.
+    container. Otherwise, we'll generate the content using the microlayout assembly.
+
+    Sample of a Raw HTML Block:
+{---------------------------------------------------------------------------------------}
+    {%- set blocks = entry.bodyBuilder.all() | merge([{ html: "Your Content" }]) -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.builder( 'default', blocks, settings ) -}}
+{-------------------------------------------------------------------------------------##}
+{% block block__html -%}
+    {%- import "_assemble" as assemble -%}
+    {{- ( block.html ?? null )
+        ? assemble.container( settings.container, block.html )
+        : block('block__microlayout') -}}
+{%- endblock %}
+
+
+{## Assemble Block Content with a Microlayout
+{-------------------------------------------------------------------------------------##}
+{% block block__microlayout %}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { microlayout: 'default' } | merge( settings ) -%}
+
+    {{- assemble.microlayout( settings.microlayout, {
+        zone1 : block('block__zone1'),
+        zone2 : block('block__zone2'),
+        header: block('block__header'),
+        footer: block('block__footer'),
+    }, settings ) -}}
 {% endblock %}
 
 
-{% block block__html -%}
-    {% if block.html ??? null %}
-        {% set container = block.settings.container ??? 'default' %}
-        {{ assemble.container( container, block.html ) }}
-    {% else %}
-        {{- block('block__text') ??? '' -}}
-    {% endif %}
-{%- endblock %}
 
-
-{% block block__text -%}
-    {{- block.text ??? '' -}}
-{%- endblock %}
-
-
-
-
-{## Open Theme
-{-------------------------------------------------------------------------------------##
-    Opens a theme wrapper inside a block (or anywhere else really)
+{## Default Zone 1 (Text) Content
 {-------------------------------------------------------------------------------------##}
-{% macro themeopen( block, settings = null ) -%}
+{% block block__zone1 -%}
+{% if block.text ?? null -%}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { textlayer: 'default' } | merge( settings ) -%}
+    {{- assemble.text( settings.textlayer, block.text, settings ) -}}
+{%- endif %}{% endblock %}
+
+
+
+{## Default Blocks
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2  "" %}
+{% block block__header "" %}
+{% block block__footer "" %}
+
+
+
+{## Builder Macros
+{-------------------------------------------------------------------------------------##}
+{% macro builder__default( blocks, settings ) -%}
+
+    {%- set blocks   = blocks is null or blocks is not iterable ? [] : blocks -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+
+    {## Find Block Owner Entry
+    {-----------------------------------------------------------------------------------}
+        Try to find if any of the blocks are actual Matrix Blocks that are owned by
+        a page. If so, we can use that entry to set the section, entryid, entryurl, etc.
+
+        The only time this won't work is if the blocks are all manual html blocks.
+        If that's the case, its probably worth setting an owner object along with the
+        first block or just using a differnt builder macro altogether.
+    {---------------------------------------------------------------------------------##}
+    {% set hasentry = null %}
+    {% for b in blocks %}
+        {% set hasentry = b['owner'] is defined and not hasentry ? b.owner : hasentry %}
+    {% endfor %}
+
+
+    {## Default Block `settings`
+    {-----------------------------------------------------------------------------------}
+        The `settings` object gets passed along with every Twig embed, include, or macro
+        related to rendering the content for the block. Typically through the one of
+        the Assemble macros.
+
+     ## Template Lookup Path
+    {-----------------------------------------------------------------------------------}
+        The `blockpath` object is a list of possible paths that the block template
+        could be located at, with placeholders that will be replaced with the actual
+        values for each block (see the `replace()` filter within the loop below).
+
+        Any placeholder used in the `blockpath` need to have corresponding replacement
+        entries in the `replace()` filter within the loop below. And as such, that
+        probably means that your placeholder values should be present in the blocks'
+        `settings` object.
+    {---------------------------------------------------------------------------------##}
+    {% set settings = {
+        theme    : 'base',
+        builder  : 'default',
+        container: 'default',
+        blocktype: 'html',
+        section  : hasentry.section.handle ?? hasentry.section ?? null,
+        entrytype: hasentry.type.handle    ?? hasentry.type    ?? null,
+        entryid  : hasentry.id  ?? null,
+        entryurl : hasentry.url ?? null,
+        blockpath: [
+            "_site/block.%blocktype%.%variant%",
+            "_core/block.%blocktype%.%variant%",
+            "_site/block.%blocktype%",
+            "_core/block.%blocktype%",
+            "_site/block",
+            "_core/block"
+        ],
+    } | merge( settings ) %}
+
+
+    {## BuilderBase() Macro
+    {-----------------------------------------------------------------------------------}
+        BuilderBase() is custom Twig macro used to handle a couple of tasks that are
+        difficult to do well in Twig alone. As part of the SiteModule, this macro is
+        autoloaded and can be called from any Twig template.
+
+        You may view/edit the macro and read more about why it's written in PHP here:
+
+     -> `craftcms/modules/sitemodule/src/twigextensions/BlockBaseTwig.php`
+    {---------------------------------------------------------------------------------##}
+    {% for block in BuilderBase( blocks, settings ) %}
+
+        {% set path = settings.blockpath | map( p => p|replace({
+            '%layout%'   : block.settings.layout    ??? null,
+            '%section%'  : block.settings.section   ??? null,
+            '%builder%'  : block.settings.builder   ??? null,
+            '%blocktype%': block.settings.blocktype ??? null,
+            '%entrytype%': block.settings.entrytype ??? null,
+            '%variant%'  : block.settings.variant   ??? null,
+        }) ) %}
+        {{ include( path, { block: block, loop: loop }, withContext = false ) }}
+
+    {% endfor %}
+{% endmacro %}
+
+
+
+{## Theme + Container Open / Close
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro theme__open( block, settings = null ) -%}
     {% set settings = settings is null ? {} : settings %}
 
-    {% set opentag  = settings.theme__tag   ??? "div" %}
-    {% set class    = settings.theme__class  ?? "theme relative" %}
+    {% set opentag   = settings.theme__tag   ??? "div" %}
+    {% set class     = settings.theme__class  ?? "theme relative" %}
 
     {% set themedata = {
-        onscroll: true,
-        theme   : settings.theme      ??? "default",
-        block   : settings.blocktype  ??? "default",
-        'next-theme': settings.next.theme ??? null,
-        'prev-theme': settings.prev.theme ??? null,
+        scrolltrigger: true,
+        theme        : settings.theme      ??? "base",
+        block        : settings.blocktype  ??? "html",
+        'next-theme' : settings.next.theme ??? null,
+        'prev-theme' : settings.prev.theme ??? null,
     } %}
 
     {## We only open the theme tag if it's different from the previous block ##}
@@ -98,13 +238,13 @@
 
     {% if spacerabove %}
         {% import "_assemble" as assemble %}
-        {{ assemble.blockspacer( block, spacerabove, settings ) }}
+        {{ assemble.spacer( spacerabove, block, settings ) }}
     {% endif %}
 {% endmacro %}
 
 
 
-{% macro themeclose( block, settings ) %}
+{% macro theme__close( block, settings ) %}
     {% import "_assemble" as assemble %}
 
     {% set settings = settings is null ? {} : settings %}
@@ -120,15 +260,19 @@
         unlink openTheme(), we only add a spacer if we're closing the theme
      -------------------------------------------------------------------------------- ##}
     {%- if settings.themenext != settings.theme and settings.spacer -%}
-        {{ assemble.blockspacer( block, settings.spacer, settings ) }}
+        {{ assemble.spacer( settings.spacer, block, settings ) }}
         </{{settings.tag}}>
     {%- endif -%}
 {% endmacro %}
-{## --------------------------------------------------------------------------------- ##}
 
 
 
-{% macro contentopen( block, settings = null ) -%}
+
+{## Block Content Open / Close
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro block__open( block, settings = null ) -%}
     {% set settings = settings is null ? {} : settings %}
     {% set opentag  = settings.block__tag  ??? settings.tag  ??? "section" %}
     {% set class    = settings.block__class ?? settings.class ?? "w-full relative z-20" %}
@@ -144,7 +288,8 @@
     {{ raw( "<" ~ opentag ~ " " ~ attr({ class: class, data: blockdata } ) ~ ">" ) }}
 {%- endmacro %}
 
-{% macro contentclose( block, settings ) -%}
+
+{% macro block__close( block, settings ) -%}
     {% set settings = settings is null ? {} : settings %}
     {% set closetag = settings.block__tag ??? settings.tag ??? "section" %}
     {{ raw( "</#{closetag}>" ) }}
@@ -153,23 +298,17 @@
 
 
 
-{## Default Block Spacer
-{-------------------------------------------------------------------------------------##
-{-------------------------------------------------------------------------------------##}
-{% macro spacer__default() %}{{ tag( 'div', { style: 'height: 100px;' } ) }}{% endmacro %}
-
-
 
 
 {## Reusable Content (Fragments & Bits)
-{-------------------------------------------------------------------------------------##
-
+{---------------------------------------------------------------------------------------}
+    Coming soon...
 {-------------------------------------------------------------------------------------##}
 {# {% macro fragment( query = null, builder = 'content', settings = {} ) %}
     {%- if query.id ??? query.slug ??? query.preset ??? null -%}
         {% set fragment = craft.entries({section:"reusable"}|merge( query )).one() ??? null %}
         {% if fragment %}
-            {{ _self.findBlockOrBuilder( null, builder, fragment, settings ) }}
+
         {% endif %}
     {%- endif -%}
 {% endmacro %} #}

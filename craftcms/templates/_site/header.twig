@@ -1,19 +1,16 @@
-{## Page Header (<header>) Base Elements & Defaults
-{-------------------------------------------------------------------------------------##
-
+{## Page Header Elements   [Site Template]
+{---------------------------------------------------------------------------------------}
     Defaults & common elements that appear in and around the site-wide page <header>.
-
     - http://localhost:8000/sitehub/layout/header
-
 {-------------------------------------------------------------------------------------##}
 {% block header__base %}
     {% import "_assemble" as assemble %}
 
-    {% set blocks   = entry.headerBuilder.all() ??? null %}
-    {% set intopbar = ( blocks and blocks[0].settings.spacerabove ??? false == 'topbar' ) %}
-    {% set theme    = ( blocks and blocks[0].settings.theme ??? 'base' ) %}
+    {% set headblocks = entry.headerBuilder.all() ??? null %}
+    {% set intopbar   = ( headblocks and headblocks[0].settings.spacerabove ??? false == 'topbar' ) %}
+    {% set theme      = ( headblocks and headblocks[0].settings.theme ??? 'base' ) %}
 
-    {% if not blocks or not intopbar %}
+    {% if not headblocks or not intopbar %}
         {{ block('header__topbar') }}
         {{ block('header__breadcrumb') }}
     {% endif %}
@@ -30,10 +27,10 @@
     {% block header__content %}
         {% import "_assemble" as assemble %}
 
-        {% set blocks = entry.headerBuilder.all() ??? [] %}
-        {% set blocks = blocks ? blocks : [{ html: block('header__plainH1') }] %}
+        {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? null %}
+        {% set headblocks = headblocks ? headblocks : [{ html: block('header__plainH1') }] %}
 
-        {{ assemble.builder( blocks, 'header', {
+        {{ assemble.builder( 'header', headblocks, {
             container  : "fluid",
             spacerabove: "none",
             spacerbelow: "none"
@@ -42,7 +39,7 @@
 
     {% block header__close "</header>" %}
 
-    {% if blocks and intopbar %}
+    {% if headblocks and intopbar %}
         {{ block('header__breadcrumb') }}
     {% endif %}
 {% endblock %}
@@ -80,12 +77,11 @@
         <div class="flex">
 
             {% block header__topbar__logo %}
-                <div class="flex items-center w-full gap-8">
-                    {{ _self.logo() }}
-                </div>
+                <div class="flex items-center w-full gap-8">{{ _self.logo() }}</div>
             {% endblock %}
 
             {% block header__topbar__navigation %}
+
                 <div class="w-full lg:flex flex-col flex-grow text-right items-end gap-6">
                     {% block header__topbar__navUtility %}
                         <div class="flex items-center gap-3">
@@ -106,6 +102,7 @@
                         {# {{ mobilemenu.trigger() }} #}
                     {% endblock %}
                 </div>
+
             {% endblock %}
         </div>
 

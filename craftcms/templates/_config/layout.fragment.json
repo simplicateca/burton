@@ -1,27 +1,25 @@
 [{
     "label": "Text Above",
     "value": "textAbove",
+    "settings": {
+        "microlayout": "zone1Top"
+    },
     "docs": {
         "tooltip": ""
     },
     "inputs" : [
-        {% if object.field ??? null != 'sidebarBuilder' %}
+        {% if object.field ?? null != 'sidebarBuilder' %}
             {{ block( 'inputTextTopSizes', '_config/_selectplus_virtual_fields' ) }}
         {% endif %}
-    ],
-    "settings": {
-        "microlayout": "zone1Top"
-    }
+    ]
 },{
     "label": "Text Below",
     "value": "textBelow",
+    "settings": {
+        "microlayout": "bottomTop"
+    },
     "docs": {
         "tooltip": ""
     },
-    "inputs" : [
-
-    ],
-    "settings": {
-        "microlayout": "bottomTop"
-    }
+    "inputs" : []
 }]

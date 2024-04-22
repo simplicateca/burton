@@ -55,18 +55,6 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            fieldUid: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Items
-            instructions: null
-            label: null
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 4043fe8b-846c-4408-af28-90d689ede417
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
             fieldUid: 9a818c17-ad1d-488d-945a-777b6b8b702f # Content Entries
             instructions: null
             label: null
@@ -74,6 +62,18 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 3683d32b-df1e-4a5a-b7ed-621696fce332
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 5347a201-6da8-47ff-bc5b-20a0dc63d44e # Inline Items
+            instructions: null
+            label: null
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4043fe8b-846c-4408-af28-90d689ede417
             userCondition: null
             warning: null
             width: 50
@@ -234,7 +234,7 @@ fields:
     searchable: true
     settings:
       blockTypeFields: 0
-      changedFieldIndicator: 508840169
+      changedFieldIndicator: 66644484
       columns:
         __assoc__:
           -
@@ -300,7 +300,7 @@ fields:
     searchable: false
     settings:
       columnType: null
-      configFile: _config/block.collection.json
+      configFile: _config/block.carddeck.json
     translationKeyFormat: null
     translationMethod: none
     type: simplicateca\selectplus\fields\SelectPlusField
@@ -332,6 +332,6 @@ fields:
     translationKeyFormat: null
     translationMethod: none
     type: craft\redactor\Field
-handle: collection
+handle: carddeck
 name: 'Card Deck'
 sortOrder: 4

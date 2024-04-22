@@ -1,11 +1,12 @@
-{% extends "_site/layout" %}
-
 {## Default Profile Entry
 {-------------------------------------------------------------------------------------##}
-{% set entrytype = entry.type.handle|default(null) %}
+{% extends "_site/template.full" %}
 
-{## Generate the URI for profile entries
-{-------------------------------------------------------------------------------------##
+{% set entrytype = entry.type.handle ?? entry.type ?? 'default' %}
+
+
+{## Profile Entry URI Generator
+{---------------------------------------------------------------------------------------}
     Often easier than trying to cram a bunch of conditional twig logic into the tiny
     space provided by the URI Format field in the control panel.
 

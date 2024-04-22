@@ -1,27 +1,25 @@
-{% set card     = card     ??? null -%}
-{% set cardpath = path     ??? card.path ??? ["_site/card","_core/card"] -%}
+{## FAQ Cards   [Content Specific Factory]
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
+{%- set path = path ??? ["_site/card","_core/card"] -%}
+
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-{% if card -%}
-{## unindented if <gasp> ------------------------------------------------------------ ##}
+{%- set settings = { cardlayer: 'default' } | merge( settings ) -%}
 
 
-{## FAQ Card Factory
-{-------------------------------------------------------------------------------------##
+
+{## Render the Card
+{---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
-{%- embed cardpath with {
-    card: card,
-    settings: settings | merge({
+{%- if card -%}
+{%- embed path with { card: card, settings: settings } -%}
 
-    })
-} %}
-
-    {% block card__headline %}
+    {%- block card__headline -%}
         <div class="eyebrow">Question</div>
-    {% endblock %}
+        {{- parent{} -}}
+    {%- endblock -%}
 
-{% endembed %}
-
-
-{## end unindented if <sigh> -------------------------------------------------------- ##}
+{%- endembed -%}
 {%- endif %}

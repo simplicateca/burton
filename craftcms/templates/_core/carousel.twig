@@ -1,39 +1,42 @@
-{% extends template_from_string('{% block carousel %}{% endblock %}') %}
+{## Carousel Component   [Core Template]
+{---------------------------------------------------------------------------------------}
+    A simple AlpineJS & Splide nased carousel component.
+  -> https://splidejs.com/guides/options/
+--------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block carousel__skeleton "" %}') %}
 
-{## Default Carousel Config
-    -------------------------------------------------------------------------------- ##
+
+{## How to Use
+{---------------------------------------------------------------------------------------}
     You may overload the `splide__config` block within the below {% embed %} to
     customize the carousel configuration.
 
-    -> Splide expects a JSON object, so be aware of what you output.
-    -------------------------------------------------------------------------------- ##
+  -> Splide expects a JSON object, so be aware of what you output.
+
     Additional {% block %} sections are available for customizing the
     `class` value for various elements within the carousel.
-    -------------------------------------------------------------------------------- ##
+{---------------------------------------------------------------------------------------}
     If you require additional flexibility:
 
-    - Create a copy of `_core/carousel.twig`
-    - Name it `_site/carousel.twig` or `_site/carousel.feature.twig`
-    - Update `templatepath` to include your new version (globally or dynamically)
-    -------------------------------------------------------------------------------- ##}
+  - Create a copy of `_core/carousel.twig`
+  - Name it `_site/carousel.twig` or `_site/carousel.feature.twig`
+  - Update `templatepath` to include your new version (globally or dynamically)
+{-------------------------------------------------------------------------------------##}
 
-        {## Default Carousel Settings (Overloadable)
-         ---------------------------------------------------------------------------- ##
-        {% block class__base  "min-w-[260px] relative z-40 mb-6 lg:mb-0" %}
-        {% block class__track "mx-8" %}
-        {% block class__ul    "" %}
-        {% block class__slide "flex flex-col items-center justify-start" %}
-        {% block class__pagination "" %}
 
-        {% block splide__config %}{
-            type: 'loop',
-            perPage: 1
-        }{% endblock %}
-         ---------------------------------------------------------------------------- ##
-        ##}
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{%- set items = items ??? [] -%}
+{%- set count = items | length -%}
+{%- set title = title ??? 'Carousel' -%}
+{%- set uuid  = "splide-#{create('craft\\helpers\\StringHelper').UUID()}" -%}
 
-{% set uuid = "splide-#{create('craft\\helpers\\StringHelper').UUID()}" %}
 
+
+{## Default Configuration
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
 {% block class__base  "min-w-[260px] relative z-40 mb-6 lg:mb-0" %}
 {% block class__track "" %}
 {% block class__ul    "h-full" %}
@@ -42,17 +45,15 @@
 {% block class__pagination "" %}
 
 {% block splide__config %}{
-    type: 'loop',
-    perPage: 1
+    type: 'fade'
 }{% endblock %}
 
-{% set items = items ??? [] %}
-{% set count = items | length %}
-{% set title = title ??? 'Carousel' %}
 
-{## AlpineJS Carousel Component ##}
-{% block carousel -%}
-{%- if items -%}
+
+{## Render Carousel HTML
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% block carousel__skeleton %}{% if items -%}
 
     {## Load Splide JS from CDN ##}
     {% html at head %}
@@ -105,4 +106,4 @@
             </footer>
         </section>
     </div>
-{%- endif -%}{%- endblock %}
+{%- endif %}{% endblock %}

@@ -74,7 +74,7 @@ fieldLayouts:
                 -
                   class: craft\fields\conditions\RelationalFieldConditionRule
                   elementId: null
-                  fieldUid: 12ebd69f-28fa-42bb-ae95-8ff3d3eb5135 # Assets
+                  fieldUid: 12ebd69f-28fa-42bb-ae95-8ff3d3eb5135 # Media
                   operator: empty
                   uid: 68e9fb5d-6b17-4254-846c-d01acb5d076a
               elementType: craft\elements\Entry
@@ -101,7 +101,7 @@ fieldLayouts:
                   uid: 890ed55f-29c7-4cbe-ad37-cf9e2e0aeb8e
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: 12ebd69f-28fa-42bb-ae95-8ff3d3eb5135 # Assets
+            fieldUid: 12ebd69f-28fa-42bb-ae95-8ff3d3eb5135 # Media
             instructions: null
             label: null
             required: false

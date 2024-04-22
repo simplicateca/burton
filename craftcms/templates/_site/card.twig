@@ -1,40 +1,94 @@
-{## Site Base Card Template
- ------------------------------------------------------------------------------------- ##
+{## Card Base   [Site Template]
+{---------------------------------------------------------------------------------------}
     This is the base card template that all site cards extend from. It provides the
     basic structure and layout for all cards, along with a variety of common elements.
 
-    Most card templates should inherit directly from thie template.
- ------------------------------------------------------------------------------------- ##}
+    Most card templates should inherit directly from this template.
+{-------------------------------------------------------------------------------------##}
 {% extends "_core/card" %}
 
-{% block card__headline %}{{ parent() | retconChange( 'h3', 'div' ) | attr({ class: 'like-h3 my-3' }) | raw }}{% endblock %}
 
-{% block card__images1 "" %}
+{## Template Variables
+{---------------------------------------------------------------------------------------}
 
-{% block card__action -%}
-    {% import "_core/card" as cardactions %}
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
 
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {% set action   = settings.action ??? 'autolink' %}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = settings | merge({
 
-    {%- if action in ['autolink','default'] -%}
-        {{- cardactions.invisibleclickcover( card, settings ) -}}
-    {%- endif -%}
-    {%- if action == 'modal' -%}
-        {{- cardactions.modallink( card, settings ) -}}
-    {%- endif -%}
-{%- endblock %}
+}) -%}
+
+
+
+{## Overload Core Blocks
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block card__headline -%}
+    {{ parent() | retconChange( 'h3', 'div' ) | attr({ class: 'like-h3 my-3' }) }}
+{% endblock %}
 
 
 {## If Handle Card Action = 'None'
- ------------------------------------------------------------------------------------- ##
+{---------------------------------------------------------------------------------------}
     If `settings.action` equals 'none' we will remove any embedded rich text links
     or buttons from Redactor / CKeditor `summary` or `dek` fields.
- ------------------------------------------------------------------------------------- ##}
-{% block card__summary -%}
+{-------------------------------------------------------------------------------------##}
+{# {% block card__summary -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {% set action   = settings.action ??? 'autolink' %}
     {{- action ??? null == 'none'
         ? parent() | retconRemove( ['a','button'] ) | raw
         : parent() -}}
-{%- endblock %}
+{%- endblock %} #}
+
+
+
+{## Deck Iterators
+{---------------------------------------------------------------------------------------}
+    There are several default Deck Iterators in `_core/card`
+{-------------------------------------------------------------------------------------##}
+
+
+{## Auto-Grid Layout
+{-------------------------------------------------------------------------------------##}
+{% macro deck__autogrid( items, settings = null ) -%}
+{%- if items ??? null and items is iterable -%}
+
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { cardlayer: 'default' } | merge( settings ) -%}
+
+    {%- set class = "w-full grid grid-cols-1 gap-4 lg:gap-8 xl:gap-16 " -%}
+    {%- set count = items | length %}
+
+    {%- if count == 1 -%}
+        {%- set class = class ~ "" -%}
+    {%- elseif count == 2 -%}
+        {%- set class = class ~ "@sm:grid-cols-2" -%}
+    {%- elseif count == 3 -%}
+        {%- set class = class ~ "@3xl:grid-cols-3" -%}
+    {%- elseif count == 4 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4" -%}
+    {%- elseif count == 5 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3" -%}
+    {%- elseif count == 6 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3" -%}
+    {%- elseif count == 7 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4" -%}
+    {%- elseif count == 8 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4" -%}
+    {%- elseif count == 9 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @6xl:grid-cols-5" -%}
+    {%- elseif count == 10 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4 @6xl:grid-cols-5" -%}
+    {%- elseif count == 11 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 @6xl:grid-cols-6" -%}
+    {%- elseif count >= 12 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 @6xl:grid-cols-6" -%}
+    {%- endif -%}
+
+    {%- import "_assemble" as assemble -%}
+    {%- set items = items | map( item => assemble.card( settings.cardlayer, item, settings ) ) -%}
+    {{- tag( 'div', { html: items | join(''), class: class, 'data-grid': 'autogrid' } ) -}}
+{%- endif %}{% endmacro %}

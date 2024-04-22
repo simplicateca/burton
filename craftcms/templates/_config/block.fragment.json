@@ -3,11 +3,19 @@
     "value": "seamless",
     "settings" : {
 
-    }
+    },
+    "docs": {
+        "tooltip": ""
+    },
+    "inputs": []
 },{
     "label": "Interactive",
     "value": "interactive",
     "settings" : {
 
-    }
+    },
+    "docs": {
+        "tooltip": ""
+    },
+    "inputs": []
 }]

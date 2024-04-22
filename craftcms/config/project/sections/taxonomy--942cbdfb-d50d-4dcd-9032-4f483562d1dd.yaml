@@ -19,6 +19,6 @@ siteSettings:
   94414f3a-f6f6-40ce-b8ea-c865fc1fc491: # Main Site
     enabledByDefault: true
     hasUrls: true
-    template: _site/topics._entry.twig
-    uriFormat: '{% import "_site/topics._entry" as e %}{{ e.uri(object) }}'
+    template: _site/taxonomy._entry.twig
+    uriFormat: '{% import "_site/taxonomy._entry" as e %}{{ e.uri(object) }}'
 type: channel

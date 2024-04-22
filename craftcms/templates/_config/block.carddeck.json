@@ -1,7 +1,8 @@
 [{
     "label": "Card Grid",
     "value": "cardgrid",
-    "docs" : {
+    "settings": {},
+    "docs": {
         "tooltip": "Present users with a grid of cards, each representing an item from the collection."
     },
     "inputs": [
@@ -22,7 +23,7 @@
 
        ,{
             "label": "Grid Type",
-            "field": "collectionlayer",
+            "field": "decklayer",
             "type" : "select",
             "instructions": "Which grid type should be used for the layout?",
             "default": "autogrid",
@@ -43,39 +44,15 @@
             ]
         }
 
-       ,{
-            "label": "Click Action",
-            "field": "action",
-            "type" : "select",
-            "default": "autolink",
-            "instructions": "What will happen when a user clicks on an item?",
-            "fieldClass": "width-50",
-            "options" : [
-                {
-                    "label" : "Auto Link",
-                    "value" : "autolink"
-                }
-               ,{
-                    "label" : "Summary Modal",
-                    "value" : "modal"
-                }
-               ,{
-                    "label" : "Dynamic Modal",
-                    "value" : "dynamic"
-                }
-               ,{
-                    "label" : "No clickthrough",
-                    "value" : "none"
-                }
-            ]
-        }
-    ],
-
-    "settings": {}
+        ,{{ block( 'inputClickAction', '_config/_selectplus_virtual_fields' ) }}
+    ]
 },{
     "label": "Accordion Panels",
     "value": "accordion",
-    "docs" : {
+    "settings": {
+        "decklayer": "accordion"
+    },
+    "docs": {
         "tooltip": "Present users with a list of items, each represented by an accordion panel."
     },
     "inputs": [
@@ -95,51 +72,49 @@
                 "accordion": "Simple Panel"
             }
         }
-    ],
-    "settings": {
-        "collectionlayer": "accordion"
-    }
+    ]
 },{
     "label": "Carousel",
     "value": "carousel",
-    "docs" : {
-        "tooltip": ""
-    },
-    "inputs": [],
     "settings": {
         "cardlayer": "summary",
-        "collectionlayer": "carousel"
-    }
+        "decklayer": "carousel"
+    },
+    "docs": {
+        "tooltip": ""
+    },
+    "inputs": []
+
 },{
     "label": "Masonry Boxes",
     "value": "masonry",
-    "docs" : {
+    "settings": {
+        "decklayer": "masonry"
+    },
+    "docs": {
         "tooltip": ""
     },
-    "inputs": [],
-    "settings": {
-        "collectionlayer": "masonry"
-    }
+    "inputs": []
 },{
     "label": "Tab Panels",
     "value": "tabs",
-    "docs" : {
+    "settings": {
+        "decklayer": "tabs",
+        "cardlayer": "panel"
+    },
+    "docs": {
         "tooltip": ""
     },
-    "inputs": [],
-    "settings": {
-        "collectionlayer": "tabs",
-        "cardlayer": "panel"
-    }
+    "inputs": []
 },{
     "label": "Spotlight",
     "value": "spotlight",
-    "docs" : {
+    "settings": {
+        "decklayer": "carousel",
+        "cardlayer": "spotlight"
+    },
+    "docs": {
         "tooltip": ""
     },
-    "inputs": [],
-    "settings": {
-        "collectionlayer": "carousel",
-        "cardlayer": "spotlight"
-    }
+    "inputs": []
 }]

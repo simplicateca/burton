@@ -4,6 +4,9 @@
     "settings": {
         "modal__cardlayer": "panel.media"
     },
+    "docs": {
+        "tooltip": ""
+    },
     "inputs": [
         {
             "label": "Player Type",
@@ -29,7 +32,7 @@
         }
        ,{
             "label": "Multiple Media Files?",
-            "field": "mediacollection",
+            "field": "mediadeck",
             "type" : "select",
             "default": "single",
             "instructions": "Layout to use if/when the block has multple media files.",
@@ -66,10 +69,13 @@
         "medialayer": "posterpreview",
         "modal__cardlayer": "panel.media"
     },
+    "docs": {
+        "tooltip": ""
+    },
     "inputs": [
         {
             "label": "Grid Layout",
-            "field": "mediacollection",
+            "field": "mediadeck",
             "type" : "select",
             "default": "single",
             "instructions": "Layout to use for the teaser grid.",
@@ -87,8 +93,19 @@
         }
     ]
 },{
+    "label": "Code Embed",
+    "value": "code",
+    "settings": {},
+    "docs": {
+        "tooltip": ""
+    },
+    "inputs": []
+},{
     "label": "Background",
     "value": "background",
     "settings": {},
+    "docs": {
+        "tooltip": ""
+    },
     "inputs": []
 }]

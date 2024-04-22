@@ -1,38 +1,28 @@
-{## Media Block Base
-{-------------------------------------------------------------------------------------##
-    -> http://localhost:8000/sitehub/blocks/media
+{## Media Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+ -> http://localhost:8000/sitehub/blocks/media
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block", "_core/block" ] %}
 
 
-{## Media Block Content ##}
-{% block content block('block__assemble') %}
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+    {%- set settings = block.settings ??? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
-{% block block__assemble %}
-    {% set settings    = settings ??? block.settings ??? {}  %}
-    {% set microlayout = settings.microlayout ??? 'zone1Top' %}
+    {%- set source  = block.source.value  ??? 'media'   -%}
+    {%- set variant = block.variant.value ??? 'default' -%}
 
-    {% import "_assemble" as assemble %}
-    {{ assemble.microlayout( microlayout, {
-        zone1 : block('block__text'),
-        zone2 : block('block__media'),
-        header: block('block__header'),
-        footer: block('block__footer'),
-    }, settings ) }}
-{% endblock %}
+    {%- set mediaitems = source == 'media'
+        ? block.media.all() ??? block.media ??? []
+        : null -%}
 
+    {%- if source == 'media' -%}
+        {%- set mediaitems = block.media.all() ??? block.media ??? [] -%}
+    {%- endif -%}
 
-{## Zone 2 Content ##}
-{% block block__media %}
-    {% set settings    = settings ??? block.settings ??? {}  %}
-    {% set mediasource = block.source.value   ??? 'assets'   %}
-    {% set mediaitems  = [] %}
-
-    {% if mediasource == 'assets' %}
-        {% set mediaitems = block.assets.all() ??? block.assets ??? [] %}
-    {% endif %}
-
-    {% if mediasource == 'external' %}
+    {%- if source == 'external' -%}
         {% for item in block.external.all() ??? block.external ??? [] %}
             {% set url = item.sourceUrl ??? item.url ??? null %}
             {% if url %}
@@ -48,23 +38,48 @@
                 }]) %}
             {% endif %}
         {% endfor %}
-    {% endif %}
+    {%- endif -%}
 
-    {% if mediasource == 'code' %}
-        {% set mediaitems = block.images.all() ??? block.images ??? [] %}
-    {% endif %}
-
-    {% if mediasource == 'collect' %}
+    {% if source == 'collect' %}
         {% set params = {
             limit: block.source.settings.limit ??? -1,
-            field: 'assets'
+            field: 'media'
         } %}
 
-        {% set mediaitems = CollectionBase( block.collections.ids(), params ) %}
+        {% set mediaitems = CollectionBase( block.collections, params ) %}
     {% endif %}
 
-    {% import "_assemble" as assemble %}
-    {% set mediacollection = settings.mediacollection ??? 'default' %}
+    {% if settings.variant ??? 'default' == 'code' %}
 
-    {{ assemble.media( mediaitems, mediacollection, settings ) }}
+    {% endif %}
+
+    {## Let's us inherit from this template **at this point** in the render process,
+        without requiring that we duplicate the above "collection" logic ##}
+    {%- set blockname = 'media__' ~ settings.variant ??? 'default' -%}
+    {{- block( blockname ) is defined ? block( blockname ) : block( 'media__default' ) -}}
+{% endblock %}
+
+
+
+{## Media Default
+{-------------------------------------------------------------------------------------##}
+{% block media__default %}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { mediadeck: 'default' } | merge( settings ) -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.media( settings.mediadeck, mediaitems, settings ) -}}
+{% endblock %}
+
+
+
+{## Media Third Party Embed
+{-------------------------------------------------------------------------------------##}
+{% block media__code %}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { mediadeck: 'default' } | merge( settings ) -%}
+
+    {# {% import "_assemble" as assemble %}
+    {{ assemble.iframe( block.code|default(), block.settings ) }} #}
 {% endblock %}

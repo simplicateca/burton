@@ -1,20 +1,31 @@
 [
-   {
+    {
         "label": "Feedback Form",
-        "value": "form"
+        "value": "form",
+        "settings": {},
+        "docs": {
+            "tooltip": ""
+        },
+        "inputs": []
     }
 
    ,{
-        "label": "Special Component",
-        "value": "component"
+        "label": "Site / System Component",
+        "value": "system",
+        "settings": {},
+        "docs": {
+            "tooltip": ""
+        },
+        "inputs": []
     }
    ,{
-        "label": "Search Interface",
+        "label": "Collection Search / Index",
         "value": "search",
-        "docs" : {
+        "settings": {},
+        "docs": {
             "tooltip": "Present users an opportunity to search and filter one or more collections.",
             "modalTitle": "Collection Search + Results User Interface",
-            "modalIntro": "Customize the appearance and behavior of the search results interface for this collection block."
+            "modalIntro": "Customize the appearance and behavior of the search results interface."
         },
         "inputs": [
             {
@@ -46,7 +57,7 @@
 
            ,{
                 "label"  : "Results per page",
-                "field"  : "perpage",
+                "field"  : "limit",
                 "type"   : "number",
                 "fieldClass": "width-50",
                 "instructions": "How many results should be shown per page?",
@@ -61,41 +72,30 @@
                 "default": "none",
                 "instructions": "What search options should be presented to the user?",
                 "fieldClass": "width-50",
-                "options" : [
-                    {
-                        "value" : "none",
-                        "label" : "No Search Options"
-                    }
-                   ,{
-                        "value" : "keyword",
-                        "label" : "Keyword Search Only"
-                    }
-                   ,{
-                        "value" : "topic",
-                        "label" : "Topic Filtering Only"
-                    }
-                   ,{
-                        "value" : "both",
-                        "label" : "Keyword & Topic Filtering"
-                    }
-                ]
+                "options" : {
+                    "keyword": "Keyword Search Only",
+                    "topic"  : "Topic Filtering Only",
+                    "keywordtopic" : "Keyword & Topic Filtering",
+                    "none"   : "No Search Options"
+                }
             }
 
            ,{
-                "label": "Require User Input First?",
-                "instructions": "Does the user need to enter a keyword before results appear?",
-                "field": "requireInput",
+                "label": "Automatic Results",
+                "instructions": "Show results before requiring any user input or filtering.",
+                "field": "results",
+                "default": "true",
                 "fieldClass": "width-50",
                 "type" : "lightswitch"
             }
 
            ,{
                 "label": "Presentation",
-                "field": "collectionlayer",
+                "field": "decklayer",
                 "type" : "select",
                 "instructions": "How should the search results be presented?",
                 "fieldClass": "width-50",
-                "default"   : "grid2",
+                "default"   : "grid3",
                 "options" : [
                     {
                         "label" : "2 Columns (Summary)",
@@ -104,7 +104,7 @@
                     }
                    ,{
                         "label" : "3 Columns (Summary)",
-                        "value" : "grid2",
+                        "value" : "grid3",
                         "cardlayer": "summary"
                     }
                    ,{
@@ -113,38 +113,13 @@
                     }
                    ,{
                         "label" : "Search Results",
-                        "value" : "default",
+                        "value" : "search",
                         "cardlayer": "search"
                     }
                 ]
             }
 
-           ,{
-                "label": "Click Action",
-                "field": "action",
-                "type" : "select",
-                "default": "autolink",
-                "instructions": "What will happen when a user clicks on an item?",
-                "fieldClass": "width-50",
-                "options" : [
-                    {
-                        "label" : "Auto Link",
-                        "value" : "autolink"
-                    }
-                   ,{
-                        "label" : "Summary Modal",
-                        "value" : "modal"
-                    }
-                   ,{
-                        "label" : "Dynamic Modal",
-                        "value" : "dynamic"
-                    }
-                   ,{
-                        "label" : "No clickthrough",
-                        "value" : "none"
-                    }
-                ]
-            }
+           ,{{ block( 'inputClickAction', '_config/_selectplus_virtual_fields' ) }}
         ]
    }
 ]

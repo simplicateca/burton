@@ -1,5 +1,5 @@
 {## Conditional Matrix Fields for Craft CMS 4.x
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     https://github.com/simplicateca/craft4-matrix-conditionals
     Steve Comrie <steve@simplicate.ca>
 {-------------------------------------------------------------------------------------##}
@@ -11,7 +11,7 @@
 // ---------------------------------------------------------------
 var matrixConditionalsConfig = {
 
-    // text block type
+    // text block variant
     '*.text.variant': {
 
         'single': {
@@ -35,7 +35,7 @@ var matrixConditionalsConfig = {
         }
     },
 
-    // image block type
+    // image content source
     '*.image.source': {
 
         'images': {
@@ -49,32 +49,34 @@ var matrixConditionalsConfig = {
         }
     },
 
-    // media block type
-    '*.media.source': {
+    // media block variant
+    '*.media.variant': {
+        'code': {
+            showAll: ['code'],
+            hideAll: ['media','collections','external', 'source'],
+        }
+    },
 
-        'assets': {
-            showAll: ['assets'],
+    // media content source
+    '*.media.source': {
+        'media': {
+            showAll: ['media'],
             hideAll: ['external','code','collections'],
         },
 
         'external': {
             showAll: ['external'],
-            hideAll: ['assets','code','collections'],
+            hideAll: ['media','code','collections'],
         },
 
         'collect': {
             showAll: ['collections'],
-            hideAll: ['assets','code','external'],
-        },
-
-        'code': {
-            showAll: ['code'],
-            hideAll: ['assets','collections','external'],
+            hideAll: ['media','code','external'],
         }
     },
 
-    // collections block type
-    '*.collection.source':
+    // carddeck content source
+    '*.carddeck.source':
     {
         'entries': {
             showAll: ['entries'],
@@ -92,32 +94,21 @@ var matrixConditionalsConfig = {
         },
     },
 
-
-    // collections variant
-    '*.collection.variant':
-    {
-        'search': {
-            hideAll: ['source'],
-            notShowAll: ['source'],
-        }
-    },
-
-
-    // action block type
-    '*.action.variant':
+    // component block variant
+    '*.component.variant':
     {
         'search': {
             showAll: ['collections'],
-            hideAll: ['component', 'form'],
+            hideAll: ['element', 'form'],
         },
 
         'form': {
             showAll: ['form'],
-            hideAll: ['collections', 'component'],
+            hideAll: ['collections', 'element'],
         },
 
-        'component': {
-            showAll: ['component'],
+        'system': {
+            showAll: ['element'],
             hideAll: ['collections', 'form'],
         }
     }
@@ -135,12 +126,6 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
 
             if( $anyMatrixMatch = this.findFieldCondition(`*.${block}.${field}`) )
                 return $anyMatrixMatch
-
-            {# if( $anyBlockMatch = this.findFieldCondition(`${matrix}.*.${field}`) )
-                return $anyBlockMatch #}
-
-            {# if( $anyField = this.findFieldCondition(`*.*.${field}`) )
-                return $anyField #}
         },
 
         findFieldCondition( condition ) {
@@ -212,13 +197,13 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
             value = this.currentValue
             cond  = this.currentCondition
 
-            firstMatch   = null
-            foundVisible = false
+            {# firstMatch   = null
+            foundVisible = false #}
 
             fields.forEach(function (item, index) {
                 if( matchingField = block.querySelector(`.field[data-attribute="${item}"]`) ) {
 
-                    if( setting == 'showOnlyOne' ) {
+                    {# if( setting == 'showOnlyOne' ) {
                         firstMatch = firstMatch ?? matchingField
                         if( foundVisible ) {
                             matchingField.classList.add('matrixConditionals--hidden' )
@@ -227,31 +212,37 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
                                 foundVisible = true
                             }
                         }
-                    }
+                    } #}
 
                     if( setting == 'showAll' ) {
                         matchingField.classList.remove('matrixConditionals--hidden' )
+                        matchingField.setAttribute('data-condition', cond);
+
                         if( this.debug ) {
                             console.log( `applying "${value}" for rule matching: ${cond}\n  ${setting}: ${item}`)
                         }
                     }
 
                     if( setting == 'hideAll' ) {
-                        matchingField.classList.add('matrixConditionals--hidden' )
-                        if( this.debug ) {
-                            console.log( `applying "${value}" for rule matching: ${cond}\n  ${setting}: ${item}`)
+                        if( !matchingField.classList.contains('matrixConditionals--hidden') ) {
+                            matchingField.classList.add('matrixConditionals--hidden' )
+                            matchingField.setAttribute('data-condition', cond )
+
+                            if( this.debug ) {
+                                console.log( `applying "${value}" for rule matching: ${cond}\n  ${setting}: ${item}`)
+                            }
                         }
                     }
                 }
             });
 
-            if( setting == 'showOnlyOne' && ! foundVisible ) {
+            {# if( setting == 'showOnlyOne' && ! foundVisible ) {
                 firstMatch.classList.remove('matrixConditionals--hidden' )
 
                 if( this.debug ) {
                     console.log( `applying "${value}" for rule matching: ${cond}\n  ${setting}`)
                 }
-            }
+            } #}
         },
 
         testField( input, useValue = null, firstRun = false ) {
@@ -535,45 +526,8 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
     };
 }
 
-if( typeof Craft.BurtonMatrixTweaks === 'undefined' ) {
-    Craft.BurtonMatrixTweaks = {
-
-        init() {
-
-            // create a mutation observer to watch for when new blocks get added to a matrix field
-            const blockObserver = new MutationObserver(function(mutations) {
-                const addedNode = mutations[0].addedNodes[0] ?? null;
-                if( addedNode ) {
-                    layoutFields = addedNode.querySelectorAll('#content div.matrix-field .flex-fields div[data-attribute="layout"]')
-                    layoutFields.forEach((layoutField) => {
-                        setTimeout(() => {
-                            layoutField.insertAdjacentHTML( 'beforebegin', '<span class="flex-break"></span>' );
-                        }, 1000);
-                    });
-                }
-            });
-
-            // find all the block fields for each matrix field on the page and observe it
-            blockFields = document.querySelectorAll('.matrix.matrix-field>.blocks')
-            blockFields.forEach((blockField) => {
-                blockObserver.observe(blockField, {
-                    childList: true
-                });
-            });
-
-            layoutFields = document.querySelectorAll('#content div.matrix-field .flex-fields div[data-attribute="layout"]')
-            layoutFields.forEach( (layoutField) => {
-                setTimeout(() => {
-                    layoutField.insertAdjacentHTML( 'beforebegin', '<span class="flex-break"></span>' );
-                }, 1000);
-            });
-        }
-    };
-}
-
 document.addEventListener('DOMContentLoaded', (event) => {
     Craft.MatrixConditionals.init( debug = true, matrixConditionalsConfig );
-    {# Craft.BurtonMatrixTweaks.init(); #}
 });
 
 {% endjs %}

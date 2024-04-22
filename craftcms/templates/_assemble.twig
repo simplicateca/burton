@@ -1,215 +1,123 @@
-{% macro images( images, imagelayer, settings ) %}{{ raw(
-    include( "_site/image.#{imagelayer}", { images: images, settings: settings }, ignoreMissing = true )
-    ??? _self.runmacro( 'image', imagelayer, images, settings )
-) }}{% endmacro %}
+{## Site Assembler
+{---------------------------------------------------------------------------------------}
+    This file is the primary assembler for the site. It is responsible for determining
+    which files and/or macro to use based on the provided arguments and the existence
+    of the necessary files and macro definitions.
 
-
-{% macro collection( items = null, collectionlayer = null, settings = {} ) -%}{{ raw(
-    include( "_site/collection.#{collectionlayer}", { items: items, settings: settings }, ignoreMissing = true )
-    ??? _self.runmacro( 'collection', collectionlayer, items, settings )
-) }}{% endmacro %}
-
-
-{% macro builder( blocks = null, builder = null, settings = {} ) %}{{ raw(
-    _self.runmacro( 'builder', builder, blocks, settings )
-)}}{% endmacro %}
-
-
-{% macro searchpart( params = null, partname = null, settings = {} ) %}{{ raw(
-    _self.runmacro( 'search', partname, params, settings )
-)}}{% endmacro %}
-
-
-{% macro accountparts( params = null, partname = null, settings = {} ) %}{{ raw(
-    _self.runmacro( 'account', partname, params, settings )
-)}}{% endmacro %}
-
-
-{## Card Rendering
-{-------------------------------------------------------------------------------------##
-    Rendering cards is a bit more complext than other elements because of the need to
-    maintain a consistent, but flexible interface across content types.
-
-    To achieve this, we've used a couple of different strategies:
-
-     - Craft Field Name Standardization
-     - CaseBase() Custom Twig Function
-     - Template Naming & Inheritence Chains
-     - Content Specific Card Factories
-
-
-
-{## CardBase()
-{-------------------------------------------------------------------------------------##
-    CardBase() is a relatively simple Twig macro used to define a consistent data
-    structure for card objects. As part of the SiteModule, this macro is autoloaded and
-    can be called from any Twig template.
-
-    You may view/edit the macro and read more about why it's written in PHP here:
-
--> `craftcms/modules/sitemodule/src/twigextensions/CardBaseTwig.php`
-{-------------------------------------------------------------------------------------##
-    Content specific cards can override and/or inject content into any part of
-    the requested card layout. Default path: `_content/<sectionHandle>/card.twig`
-
-    Variations for different entrytypes can generally be dealt with inside the
-    section-level card file. If separate entrytype specific card overrides are
-    necessary, the card path below can be adjusted to something like:
-
-    {% set cardpath = [
-        "_content/#{section}/card.#{entrytype}",
-        "_content/#{section}/card",
-    ] %}
-
-    Content specific override cards are passed the desired card layout as a variable
-    called `extends` which they should use to dynamically extend themselves from.
+    This allows macros to exist in both `_site` and `_core` and to prefer using the
+    version from the file in the `_site` folder over `_core`, but still allowing for
+    a graceful fallback if something is missing.
 {-------------------------------------------------------------------------------------##}
-{% macro card( carditem, cardpath, settings = null, loop = null ) -%}
-{%- if carditem and cardpath -%}
-
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {% set settings = settings | merge({ loop: loop }) %}
-
-    {## If the Card Path was provided as a string, test if a file exists at that path.
-        If not, consider it a cardlayer name and let CardBase generate a default path ##}
-    {% if cardpath is not null and cardpath is not iterable %}
-        {% if '/' not in cardpath and 'card.' not in cardpath %}
-            {% set settings = settings | merge({ cardlayer: cardpath }) %}
-            {% set cardpath = null %}
-        {% endif %}
-    {% endif %}
-
-    {## Push the cardpath onto the settings so that it will get picked up by CardBase ##}
-    {% set settings = settings | merge({ path: cardpath }) %}
-
-
-    {## Base Card Object
-    {## ----------------------------------------------------------------------------- ##}
-        {% set card = CardBase( carditem, settings ) %}
-    {## ----------------------------------------------------------------------------- ##
-        `CardBase` is a very simple Twig function written in PHP and editable here:
-        -> `craftcms/modules/sitemodule/src/twigextensions/CardBaseTwig.php`
-
-        It is a necessary evil for it to exist outside of Twig inorder to provide a
-        consistent and predictable card object to all card layouts at any point in
-        the inheritence & render chain.
-
-        If Twig had a more robust way to return a variable from an inline {% macro %}
-        exectution (without rendering it), `CardBase` could easily exist as Twig code.
-     -------------------------------------------------------------------------------- ##}
-
-
-    {## Content Specific Card Factor
-    {## ----------------------------------------------------------------------------- ##}
-        {%- set html = include([
-            "_site/#{card.section}.#{card.type}._card",
-            "_site/#{card.section}._card"
-        ], {
-            card: card,
-            settings: settings
-        }, withContext = false, ignoreMissing = true ) ??? null -%}
-    {## ----------------------------------------------------------------------------- ##
-
-        Card Factory files are named using `section` and `type` handles for the
-        content type they represent. They are used to adjust how any card layout will
-        render for a specific content type.
-
-            _site/<section>.<entrytype>._card.twig
-
-            _site/articles._card.twig
-            _site/topics._card.twig
-            _site/articles.blog._card.twig
-            _site/articles.news._card.twig
-
-
-        Not to be confused with an content specific cardlayer, which can be used to
-        adjust how a single card layout will render for a specific content type.
-
-            _site/card.summary.blog.twig
-            _site/card.thumbnail.profile.twig
-
-     -------------------------------------------------------------------------------- ##}
-
-    {## Render normally if no Card Factory exists for this content type ##}
-    {%- set html = html ? html : include( card.path, {
-        card: card,
-        settings: settings
-    }, withContext = false ) -%}
-
-    {{- raw( html ) -}}
-{% endif %}{%- endmacro %}
 
 
 
 {## Text Layer / Typography Adjustments
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
+    Looks for a macro named after the value of `textlayer` argument within a file in
+    the path below. If no match is found, it will fallback to use the `default()` macro.
 
+    Text Layer macros can be found in:
+    `_site/text.twig`
+    `_core/text.twig`
 {-------------------------------------------------------------------------------------##}
-{% macro text( text = null, textlayer = null, settings = {} ) %}{{ raw(
-    _self.runmacro( 'text', textlayer, text, settings )
-)}}{% endmacro %}
+{% macro text( textlayer, text, settings ) -%}
+    {{- raw( _self._macro( 'text', textlayer, text, settings ) ) -}}
+{%- endmacro -%}
 
 
 
-{## Media Elements
-{-------------------------------------------------------------------------------------##
-    <video>, <audio>, <iframe>
+{## Media Layer Adjustments
+{---------------------------------------------------------------------------------------}
+    Looks for a macro named after the value of `medialayer` argument within a file in
+    the path below. If no match is found, it will fallback to use the `default()` macro.
+
+    Media Layer macros can be found in:
+    `_site/media.twig`
+    `_core/media.twig`
 {-------------------------------------------------------------------------------------##}
-{% macro media( media = null, medialayer = null, settings = {} ) %}{{ raw(
-    _self.runmacro( 'media', medialayer, media, settings )
-)}}{% endmacro %}
+{% macro media( medialayer, media, settings ) -%}
+    {%- set html = include( "_site/media.#{medialayer}", { media: media, settings: settings }, ignoreMissing = true ) -%}
+    {%- set html = html ? html : _self._macro( 'media', medialayer, media, settings ) -%}
+    {{- html ? raw( html ) -}}
+{%- endmacro %}
 
 
-{% macro medialayer( media = null, medialayer = null, settings = {} ) %}{{ raw(
-    _self.runnamedmacro( 'media', medialayer, media, settings )
-)}}{% endmacro %}
 
+{## Image Layer Adjustments
+{---------------------------------------------------------------------------------------}
+    Looks for a file named after the value of `imagelayer` argument in the path below.
+    `_site/image.<imagelayer>.twig`
 
-{## Block Spacers / Separators / Dividers
-{-------------------------------------------------------------------------------------##
+    If not file is found, look for a macro named after the value of `imagelayer` argument
+    within a file in the path below. If no match is found, it will fallback to use the
+    `default()` macro.
 
+    Image Layer macros can be found in:
+    `_site/image.twig`
+    `_core/image.twig`
 {-------------------------------------------------------------------------------------##}
-{% macro blockspacer( block = null, spacer = null, settings = {} ) %}{{ spacer ? raw(
-    _self.runmacro( 'block', "spacer__#{spacer}", block, settings )
-) }}{% endmacro %}
+{% macro images( imagelayer, images, settings ) %}
+    {%- set html = include( "_site/image.#{imagelayer}", { images: images, settings: settings }, ignoreMissing = true ) -%}
+    {%- set html = html ? html : _self._macro( 'image', imagelayer, images, settings ) -%}
+    {{- html ? raw( html ) -}}
+{% endmacro %}
 
 
 
-{## Block Layout
-{-------------------------------------------------------------------------------------##
-    Theme Open / Close + Content Open / Close
+{## Card Decks
+{---------------------------------------------------------------------------------------}
+    Looks for a file named after the value of `decklayer` argument in the path below.
+    `_site/carddeck.<carddeck>.twig`
+
+    If not file is found, look for a macro named after the value of `carddeck` argument
+    with the prefix `carddeck__` within a file in the path below. If no match is found,
+    it will fallback to use the `carddeck__default()` macro.
+
+    Card Deck macros have the `carddeck__` prefix and can be found in:
+    `_site/card.twig`
+    `_core/card.twig`
 {-------------------------------------------------------------------------------------##}
-{% macro blockpart( block = null, layoutpart = null, settings = {} ) %}{{ raw(
-    _self.runmacro( 'block', layoutpart, block, settings )
-) }}{% endmacro %}
+{% macro carddeck( decklayer, items, settings ) -%}
+    {%- set html = include( "_site/carddeck.#{decklayer}", { items: items, settings: settings }, ignoreMissing = true ) -%}
+    {%- set html = html ? html : _self._macro( 'card:deck', decklayer, items, settings ) -%}
+    {{- html ? raw( html ) -}}
+{%- endmacro %}
 
 
 
-{## Menus
-{-------------------------------------------------------------------------------------##
+{## Block Builders
+{---------------------------------------------------------------------------------------}
+    Looks for a file named after the value of `builder` argument in the path below.
+    `_site/builder.<builder>.twig`
 
+    If not file is found, look for a macro named after the value of `builder` argument
+    with the prefix `cbuilder__` within a file in the path below. If no match is found,
+    it will fallback to use the `builder__default()` macro.
+
+    Block Builder macros have the `builder__` prefix and can be found in:
+    `_site/block.twig`
+    `_core/block.twig`
 {-------------------------------------------------------------------------------------##}
-{% macro menu( entry = null, menu = null, settings = {} ) %}{{ raw(
-        include( "_site/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true )
-    ??? include( "_core/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true )
-    ??? _self.runmacro( 'menu', menu, entry, settings )
-) }}{% endmacro %}
+{% macro builder( builder, items, settings ) -%}
+    {%- set html = include( "_site/builder.#{builder}", { items: items, settings: settings }, ignoreMissing = true ) -%}
+    {%- set html = html ? html : _self._macro( 'block:builder', builder, items, settings ) -%}
+    {{- html ? raw( html ) -}}
+{% endmacro %}
 
 
 
-{## Two-Zone Micro Layouts
+{## Block Parts
+{---------------------------------------------------------------------------------------}
+    Handles rendering of the parts of a block that are not the main content.
+{-------------------------------------------------------------------------------------##}
+{% macro blockpart( part, block, settings ) -%}
+    {{- raw( _self._macro( 'block', part, block, settings ) ) -}}
+{%- endmacro %}
+
+
+
+{## Micro Layouts
 {------------------------------------------------------------------------------------ ##
-    Maintains layout consistency across the site with named macros for frequently used,
-    non-grid layouts. i.e. things like:
-
-    - Text Left / Image Right
-    - Text Top / Collection Bottom
-    - etc.
-
-    Micro Layouts also allow for the use of a "header" and "footer" zone that can be
-    populated with additional content as determined (mostly) by the individual blocks.
-
-    Individual macro definitions can be found in: `_site/microlayouts.twig`
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout( microlayout, content, settings = null ) -%}
 {%- if content is iterable -%}
@@ -219,23 +127,36 @@
         header: content.header is defined ? content.header | trim : null,
         footer: content.footer is defined ? content.footer | trim : null,
     } -%}
-    {%- set settings  = settings is null or settings is not iterable ? {} : settings -%}
-    {%- set settings  = settings | merge({ microlayout: microlayout }) -%}
-    {{- raw( _self.runnamedmacro( 'microlayouts', microlayout, content, settings ) ) -}}
+    {%- set settings = settings is null or settings is not iterable ? {} : settings -%}
+    {%- set settings = settings | merge({ microlayout: microlayout }) -%}
+    {{- raw( _self._macro( 'layouts:micro', microlayout, content, settings ) ) -}}
 {%- endif %}{% endmacro %}
 {## --------------------------------------------------------------------------------- ##}
 
+{% macro gridlayout( grid, content, settings = null ) -%}
+    {{- content ? raw( _self._macro( 'layouts:grid', grid, content, settings )) -}}
+{%- endmacro %}
 
 
-{## Containers & Spacing
+{## Layout Separators & Dividers
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% macro spacer( spacer, block = null, settings = null ) -%}
+    {{- spacer ? _self._macro( 'layouts:spacer', spacer, block, settings ) -}}
+{%- endmacro %}
+
+
+
+{## Containers
 {-------------------------------------------------------------------------------------##}
 {% macro container( container, html, settings = null ) -%}
 {%- if html | trim -%}
     {%- set container = container and container is not iterable ? container : 'default' -%}
     {%- set settings  = settings is null or settings is not iterable ? {} : settings    -%}
-    {%- import "_site/layout._containers" as containers -%}
-    {%- set json  = containers.definitions() | json_decode -%}
-    {%- set class = json[container] ?? json.default ??? null -%}
+    {# {%- import "_site/layouts" as containers -%} #}
+    {%- import "_site/layouts" as containers -%}
+    {%- set json  = containers.containers() | json_decode -%}
+    {%- set class = json[container] ?? json.default ?? 'default' -%}
     {{- class ? tag('div', { class: class, html: html }) : html -}}
 {%- endif %}{% endmacro %}
 
@@ -247,55 +168,201 @@
 
 
 
-{% macro runmacro( element = null, macroname = null, content = null, settings = null ) -%}
-    {% set element   = element   | replace('/[^\\w\.]+/', '') %}
-    {% set macroname = macroname | replace('/[^\\w]+/', '') %}
-    {% set macroname = macroname ??? 'default' %}
-    {% set macrohtml = "" %}
+{## Search Parts
+{---------------------------------------------------------------------------------------}
+    Looks for a macro named after the value of `partname` argument within a file in
+    the path below. If no match is found, it will render *nothing*.
 
-    {% set core__named   = "{% from '_core/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" %}
-    {% set core__default = "{% from '_core/#{element}' import default as m %}{{ m is defined ? m(c,s) : '' }}" %}
-
-    {## if the local `_site/<element>.twig` file exists ##}
-    {% if source( "_site/#{element}", ignore_missing = true) %}
-
-        {% set site__named   = "{% from '_site/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" %}
-        {% set site__default = "{% from '_site/#{element}' import default as m %}{{ m is defined ? m(c,s) : '' }}" %}
-
-        {% set macrohtml = ( macroname == 'default' )
-            ?       include( template_from_string( site__default ), { c: content, s: settings } )
-                ??? include( template_from_string( core__default ), { c: content, s: settings } )
-
-            :       include( template_from_string( site__named   ), { c: content, s: settings } )
-                ??? include( template_from_string( core__named   ), { c: content, s: settings } )
-                ??? include( template_from_string( site__default ), { c: content, s: settings } )
-                ??? include( template_from_string( core__default ), { c: content, s: settings } ) %}
-
-    {## otherwise, just use the core files ##}
-    {% else %}
-        {% set macrohtml = ( macroname == 'default' )
-            ?       include( template_from_string( core__default ), { c: content, s: settings } )
-
-            :       include( template_from_string( core__named   ), { c: content, s: settings } )
-                ??? include( template_from_string( core__default ), { c: content, s: settings } ) %}
-    {% endif %}
-
-    {{- macrohtml | trim ? raw(macrohtml) : '' -}}
+    Search Part macros can be found in:
+    `_site/search.twig`
+    `_core/search.twig`
+{-------------------------------------------------------------------------------------##}
+{% macro searchpart( params = null, partname = null, settings = {} ) -%}
+    {{- raw( _self._macro( 'search', partname, params, settings ) ) -}}
 {%- endmacro %}
 
 
 
-{% macro runnamedmacro( element = null, macroname = null, content = null, settings = null ) -%}
-    {%- set element   = element   | replace('/[^\\w\.]+/', '') -%}
-    {%- set macroname = macroname | replace('/[^\\w]+/', '') -%}
-    {%- set macroname = macroname ??? null -%}
-    {%- set corenamed = "{% from '_core/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" -%}
-    {%- set sitenamed = "{% from '_site/#{element}' import #{macroname} as m %}{{ m is defined ? m(c,s) : '' }}" -%}
-    {%- set macrohtml = source( "_site/#{element}", ignore_missing = true)
-            ? include( template_from_string( sitenamed ), { c: content, s: settings } )
-               ??? include( template_from_string( corenamed ), { c: content, s: settings } )
-               ??? null
-            : include( template_from_string( corenamed ), { c: content, s: settings } )
-               ??? null %}
-    {{- macrohtml | trim ? raw(macrohtml) : '' -}}
+{## Account Parts
+{---------------------------------------------------------------------------------------}
+    Looks for a macro named after the value of `partname` argument within a file in
+    the path below. If no match is found, it will render *nothing*.
+
+    Account Part macros can be found in:
+    `_site/account.twig`
+    `_core/account.twig`
+{-------------------------------------------------------------------------------------##}
+{% macro accountparts( params = null, partname = null, settings = {} ) -%}
+    {{- raw( _self._macro( 'account', partname, params, settings ) ) -}}
+{%- endmacro %}
+
+
+
+{## Card Rendering Macro
+{---------------------------------------------------------------------------------------}
+    Rendering cards is a bit more complex than other elements because of the need to
+    maintain a consistent, but flexible interface across content types.
+
+    To achieve this, we've used a couple of different strategies:
+
+    - Input Field Name Standardization
+    - Template Naming & Inheritence Chains
+    - CaseBase() Custom Twig Function
+    - Content Specific Card Factories
+{-------------------------------------------------------------------------------------##}
+{% macro card( cardlayer, carditem, settings = null ) -%}
+{%- if carditem and cardlayer -%}
+
+    {## CardBase()
+    {-----------------------------------------------------------------------------------}
+        CardBase() is a relatively simple Twig macro used to define a consistent data
+        structure for card objects. As part of the SiteModule, this macro is autoloaded
+        and can be called from any Twig template.
+
+        You may view/edit the macro and read more about why it's written in PHP here:
+
+    -> `craftcms/modules/sitemodule/src/twigextensions/CardBaseTwig.php`
+    {---------------------------------------------------------------------------------##}
+    {% set card = CardBase( carditem, settings ) %}
+
+
+    {## Content Specific Card Factories
+    {-----------------------------------------------------------------------------------}
+        Card Factory can monitor and adjust how a specific content type will render
+        regardless of the card being used.
+
+        Card Factory template files end in `._card.twig` and are named using the
+        `section` and (optionally) `type` handles of the content they represent.
+
+            `_site/<section>.<entrytype>._card.twig`
+            `_site/<section>._card.twig`
+            ------------------------------------
+            `_site/articles.news._card.twig`
+            `_site/articles._card.twig`
+
+    {-----------------------------------------------------------------------------------}
+        These should not be confused with a card that has a variant for a specific
+        type of content, which will only adjust how that single card layout will render.
+
+            _site/card.summary._blog.twig
+            _site/card.spotlight._profile.twig
+    {---------------------------------------------------------------------------------##}
+    {%- set factorypath = [
+        "_site/#{card.section}.#{card.type}._card",
+        "_site/#{card.section}._card"
+    ] -%}
+
+    {%- set cardpath = [
+        "_site/card.#{cardlayer}.#{card.section}.#{card.type}",
+        "_site/card.#{cardlayer}.#{card.section}",
+        "_site/card.#{cardlayer}",
+        "_site/card",
+        "_core/card"
+    ] -%}
+
+    {## Check if cardlayer is actually a card path ##}
+    {%- set ispath   = ( cardlayer ends with '.twig' or '/' in cardlayer ) -%}
+    {%- set cardpath = ( ispath ) ? [cardlayer] : cardpath -%}
+
+    {{- include( factorypath | merge(cardpath), {
+        card: card,
+        path: cardpath,
+        settings: settings
+    }, withContext = false ) -}}
+
+{%- endif %}{%- endmacro %}
+
+
+
+
+
+
+
+{## Menus
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro menu( entry = null, menu = null, settings = {} ) %}
+    {%- set html = include( "_site/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true ) -%}
+    {%- set html = html ? html : include( "_core/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true ) -%}
+    {%- set html = html ? html : _self._macro( 'menu', menu, entry, settings ) -%}
+    {{- html ? raw( html ) -}}
+{% endmacro %}
+
+
+
+{## Macro Chain
+{------------------------------------------------------------------------------------ ##
+    This macro is the brain of the assembly file. It is responsible for determining
+    which macro to run (in which file) based on the provided arguments.
+
+    First it checks `_site/<template>`, then `_core/<template>` for a macro matching
+    the provided `macroname`. If no match is found, it check for a fallback
+    `default()` macro (first in `_site`, then in `_core`).
+
+    A `default()` or `<part>__default()` macro should always exist in the `_core`
+    file for any element being assembled.
+
+    For clarity, below is an unminified, unoptimized, pseudocode version of what this
+    macro is doing -- just with better error handling.
+{------------------------------------------------------------------------------------ ##
+    {%- from '_site/element' import macroname as site__element__macroname,
+                                    default   as site__element__default -%}
+
+    {%- from '_core/element' import macroname as core__element__macroname,
+                                    default   as core__element__default -%}
+
+    {{- site__element__macroname(content,settings) ??
+        core__element__default(  content,settings) ??
+        site__element__macroname(content,settings) ??
+        core__element__default(  content,settings) -}}
+{-------------------------------------------------------------------------------------##}
+{% macro _macro( template = null, macroname = null, content = null, settings = null ) -%}
+
+    {% set template = template ?? null %}
+    {% set template = template is not null and template is not iterable
+        ? template | replace('/[^\\w\.\:]+/', '') : null %}
+
+    {% set macroname = macroname ?? null %}
+    {% set macroname = macroname is not null and macroname is not iterable
+        ? macroname | replace('/[^\\w]+/', '') : null %}
+    {% set macroname = macroname ?? 'default' %}
+
+  {% if template %}
+    {# if template is a compound name, split it into parts #}
+    {% set name  = macroname %}
+    {% set dflt  = 'default' %}
+    {% set parts = template | split(':') %}
+    {% if parts | length > 1 %}
+        {% set template = parts[0] %}
+        {% set name = [ parts[1], name ] | join('__') %}
+        {% set dflt  = [ parts[1], dflt  ] | join('__') %}
+    {% endif %}
+
+    {# localization #}
+    {%- set temp_slug  = template | replace('/[^\\w]+/', '') %}
+    {%- set site_name  = "__site__#{temp_slug}__#{name}" | snake -%}
+    {%- set site_dflt  = "__site__#{temp_slug}__#{dflt}" | snake -%}
+    {%- set core_name  = "__core__#{temp_slug}__#{name}" | snake -%}
+    {%- set core_dflt  = "__core__#{temp_slug}__#{dflt}" | snake -%}
+
+    {%- set source_file   = template ends with '.twig' ? template : template ~ '.twig' -%}
+    {%- set site__element = source( "_site/#{source_file}", ignore_missing = true ) -%}
+
+    {# default macro in `_site/<template>` or `_core/<template>` #}
+    {% set template_string = site__element
+        ? "{% from '_site/#{template}' import #{dflt} as #{site_dflt}  %}{% from '_core/#{template}' import #{dflt} as #{core_dflt} %}{{- #{site_dflt} is defined ? #{site_dflt}(c,s) : #{core_dflt}(c,s) -}}"
+        : "{% from '_core/#{template}' import #{dflt} as #{core_name} %}{{ #{core_name}(c,s) }}" %}
+
+    {# named macro in `_site/<template>` or `_core/<template>`, fallback to `default`  #}
+    {% if name != dflt %}
+        {% set template_string = site__element
+            ? "{% from '_site/#{template}' import #{name} as #{site_name}, #{dflt} as #{site_dflt} %}{% from '_core/#{template}' import #{name} as #{core_name}, #{dflt} as #{core_dflt} %}{{ #{site_name} is defined ? #{site_name}(c,s) : #{core_name} is defined ? #{core_name}(c,s) : #{site_dflt} is defined ? #{site_dflt}(c,s) : #{core_dflt}(c,s) }}"
+            : "{% from '_core/#{template}' import #{name} as #{core_name}, #{dflt} as #{core_dflt} %}{{ #{core_name} is defined ? #{core_name}(c,s) : #{core_dflt}(c,s) }}"
+        %}
+    {% endif %}
+
+    {# run our macro #}
+    {{ include( template_from_string( template_string ), { c: content, s: settings }, withContext = false ) }}
+  {%- endif -%}
 {%- endmacro %}

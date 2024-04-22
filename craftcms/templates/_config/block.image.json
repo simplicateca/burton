@@ -1,6 +1,7 @@
 [{
     "label": "Simple Image",
     "value": "simple",
+    "settings": {},
     "docs": {
         "tooltip": "A flexible variant for simple presentation of one or more images."
     },
@@ -83,34 +84,12 @@
                 }
             ]
         }
-       ,{
-            "label": "Image Click Action",
-            "field": "action",
-            "type" : "select",
-            "default": "autolink",
-            "fieldClass": "field width-50",
-            "instructions": "What will happen when a user clicks on an image?",
-            "options" : [
-                {
-                    "value" : "autolink",
-                    "label" : "Auto Link"
-                }
-               ,{
-                    "value" : "lightbox",
-                    "label" : "Lightbox"
-                }
-               ,{
-                    "value" : "nothing",
-                    "label" : "Nothing"
-                }
-            ]
-        }
-
-    ],
-    "settings": {}
+       ,{{ block( 'inputImageClickAction', '_config/_selectplus_virtual_fields' ) }}
+    ]
 },{
     "label": "Fancy Images",
     "value": "fancy",
+    "settings": {},
     "docs": {
         "tooltip": ""
     },
@@ -141,96 +120,24 @@
                 }
             ]
         }
-       ,{
-            "label": "Image Click Action",
-            "field": "action",
-            "type" : "select",
-            "default": "autolink",
-            "instructions": "What will happen when a user clicks on an image?",
-            "fieldClass": "field width-50",
-            "options" : [
-                {
-                    "value" : "autolink",
-                    "label" : "Auto Link"
-                }
-               ,{
-                    "value" : "lightbox",
-                    "label" : "Lightbox"
-                }
-               ,{
-                    "value" : "nothing",
-                    "label" : "Nothing"
-                }
-            ]
-        }
-    ],
-    "settings": {}
+       ,{{ block( 'inputImageClickAction', '_config/_selectplus_virtual_fields' ) }}
+    ]
 },{
     "label": "Gallery",
     "value": "gallery",
+    "settings": {
+        "imagelayer": "gallery"
+    },
     "docs": {
         "tooltip": "Display multiple images in a gallery format"
     },
-    "inputs": [
-        {
-            "label": "Image Transformation",
-            "field": "transform",
-            "type" : "select",
-            "default": "",
-            "fieldClass": "field width-50",
-            "instructions": "Should we transform the image?",
-            "options" : [
-                {
-                    "value" : "",
-                    "label" : "None"
-                }
-               ,{
-                    "value" : "square",
-                    "label" : "Square aspect ratio"
-                }
-               ,{
-                    "value" : "widescreen",
-                    "label" : "Widescreen aspect ratio"
-                }
-            ]
-        }
-       ,{
-            "label": "Gallery Layout",
-            "field": "imagelayer",
-            "type" : "select",
-            "default": "gallery",
-            "instructions": "Layout to use for displaying gallery images.",
-            "fieldClass": "field width-50",
-            "options" : [
-                {
-                    "value" : "gallery",
-                    "label" : "Auto-Grid"
-                }
-            ]
-        }
-       ,{
-            "label": "Click Action",
-            "field": "action",
-            "type" : "select",
-            "default": "autolink",
-            "fieldClass": "field width-50",
-            "instructions": "What will happen when a user clicks on an image?",
-            "options" : [
-                {
-                    "value" : "autolink",
-                    "label" : "Auto Link"
-                }
-               ,{
-                    "value" : "lightbox",
-                    "label" : "Lightbox"
-                }
-            ]
-        }
-    ],
-    "settings": {}
+    "inputs": []
 },{
     "label": "Background",
     "value": "background",
+    "settings": {
+        "imagelayer": "gallery"
+    },
     "docs": {
         "tooltip": ""
     },
@@ -250,6 +157,5 @@
 
             }
         ]
-    }],
-    "settings": {}
+    }]
 }]

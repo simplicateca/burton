@@ -3,23 +3,23 @@
 {% set template  = null %}
 {% set entrytype = entry.type.handle|default(null) %}
 
-{% if entrytype == 'redirect' and entry.redirect.url ??? null %}
+{% if entrytype == 'redirect' and entry.redirect.url ?? null %}
     {% redirect entry.redirect.url %}
 {% endif %}
 
 {% if entrytype == 'standard' %}
-    {% set template = "_site/layout" %}
+    {% set template = "_site/template.full" %}
 {% endif %}
 
 {% if entrytype == 'sidebar' %}
-    {% set template = "_site/layout.sidebar" %}
+    {% set template = "_site/template.sidebar" %}
 {% endif %}
 
 {% if entrytype == 'landingPages' %}
-    {% set template = "_site/layout" %}
+    {% set template = "_site/template.full" %}
 
     {% if entry.sidebarBuilder.one() ??? null %}
-        {% set template = "_site/layout.sidebar" %}
+        {% set template = "_site/template.sidebar" %}
     {% endif %}
 {% endif %}
 
@@ -30,8 +30,9 @@
 {% endif %}
 
 
-{## Generate the URI for page entries
-{-------------------------------------------------------------------------------------##
+
+{## Page Entry URI Generator
+{---------------------------------------------------------------------------------------}
     Often easier than trying to cram a bunch of conditional twig logic into the tiny
     space provided by the URI Format field in the control panel.
 
@@ -39,8 +40,8 @@
     the URI sturcture in the below macro for existing records.
 {-------------------------------------------------------------------------------------##}
 {% macro uri( entry ) %}{% apply spaceless %}
-    {% set entrytype = entry.type.handle ??? null %}
-    {% set parenturi = entry.parent.uri  ??? null %}
+    {% set entrytype = entry.type.handle ?? entry.type ?? null %}
+    {% set parenturi = entry.parent.uri  ?? null %}
     {% set prefixdir = entry.type.handle == 'landingPages' ? 'go' : null %}
     {{ [prefixdir, parenturi, entry.slug] | filter | join('/') }}
 {% endapply %}{% endmacro %}

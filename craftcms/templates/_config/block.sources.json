@@ -3,18 +3,18 @@
     {
         "label": "Local Image Files",
         "value": "images",
+        "settings": {},
         "docs": {
             "tooltip": ""
         },
-        "inputs": [],
-        "settings": {}
+        "inputs": []
     },
   {% endif %}
-
 
     {
         "label": "From a Collection",
         "value": "collect",
+        "settings": {},
         "docs": {
             "tooltip": ""
         },
@@ -26,61 +26,60 @@
                 "default": 12,
                 "size"   : 8
             }
-        ],
-        "settings": {}
+        ]
     }
 
   {% if object.type ?? null == 'media' %}
     ,{
         "label": "External Media URLs",
         "value": "external",
+        "settings": {},
         "docs": {
             "tooltip": "External URLs (Youtube, Vimeo, etc)"
         },
-        "inputs": [],
-        "settings": {}
+        "inputs": []
     }
 
    ,{
         "label": "Local Media Files",
-        "value": "assets",
+        "value": "media",
+        "settings": {},
         "docs": {
             "tooltip": "Uploaded Files (Craft CMS Assets)"
         },
-        "inputs": [],
-        "settings": {}
+        "inputs": []
     }
 
    ,{
         "label": "Third Party iFrame/Code",
         "value": "code",
+        "settings": {},
         "docs": {
             "tooltip": "Embed elements from a trusted third party service (Google Maps, Airtable, Spotify, etc)"
         },
-        "inputs": [],
-        "settings": {}
+        "inputs": []
     }
   {% endif %}
 
-  {% if object.type ?? null == 'collection' %}
+  {% if object.type ?? null == 'carddeck' %}
    ,{
         "label": "Content Entries",
         "value": "entries",
+        "settings": {},
         "docs": {
             "tooltip": ""
         },
-        "inputs": [],
-        "settings": {}
+        "inputs": []
     }
 
    ,{
         "label": "Inline single-use items",
         "value": "items",
+        "settings": {},
         "docs": {
             "tooltip": "Content stored and available only within this block."
         },
-        "inputs": [],
-        "settings": {}
+        "inputs": []
     }
   {% endif %}
 ]

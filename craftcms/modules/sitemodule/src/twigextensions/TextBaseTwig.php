@@ -40,8 +40,8 @@ class TextBaseTwig extends AbstractExtension
             return $html;
         }
 
-        $cacheKey  =  "TextBase-" . md5($html);
-        $textParts = \Craft::$app->cache->getOrSet( $cacheKey, function () use ($html) {
+        // $cacheKey  =  "TextBase1-" . md5($html);
+        // $textParts = \Craft::$app->cache->getOrSet( $cacheKey, function () use ($html) {
 
             // selector configs
             // TODO: move these into a config file
@@ -51,7 +51,7 @@ class TextBaseTwig extends AbstractExtension
                 'defaultMarkSelector' => "mark:not(.m1):not(.m2)",
                 'defaultMarkClass'    => "m1",
                 'markSelectors'       => ['mark.m1','mark.m2'],
-                'ctaSelector'         => "a",
+                'ctaSelector'         => "a,button",
                 'lastSmallSelector'   => "p.small:last-child",
                 'trailingCtaSelector' => "p[data-only-links]:last-child",
                 'figureClassPrefix'   => "imageCard",
@@ -161,9 +161,8 @@ class TextBaseTwig extends AbstractExtension
 
             return $textParts;
 
-        }, 86400 );
-
-        return $textParts;
+        // }, 86400 );
+        // return $textParts;
     }
 
 
@@ -188,8 +187,8 @@ class TextBaseTwig extends AbstractExtension
                 if( $node ) {
 
                     $node = $this->setNodeAlignment( $node, $settings );
-
                     $nodeHtml = "";
+
                     switch( mb_strtolower( $node->tagName ?? "" ) ) {
                         // case 'figure':
                         //     $nodeHtml = $this->generateFigureHtml( $node, $settings['figureClassPrefix'] ?? null );
@@ -279,13 +278,15 @@ class TextBaseTwig extends AbstractExtension
     private function generateParagraphHtml( $node, $ctaSelector )
     {
         $paraHtml = $node->ownerDocument->saveHTML( $node );
-
-        if( $this->retconOnly( $paraHtml, $ctaSelector ) ) {
+        $links = $this->retconOnly( $paraHtml, $ctaSelector );
+        if( $links ) {
             $whatsLeft = $this->retconRemove( $paraHtml, $ctaSelector );
-            if( (string) Retcon::getInstance()->retcon->removeEmpty( $whatsLeft ) ) {
+            $whatsLeft = (string) Retcon::getInstance()->retcon->removeEmpty( $whatsLeft );
+
+            if( empty( $whatsLeft ) ) {
                 $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['data-only-links' => true] );
             } else {
-                $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['s' => true] );
+                $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['data-has-link' => true] );
             }
         }
 

@@ -1,29 +1,26 @@
-{% set card     = card     ??? null -%}
-{% set cardpath = path     ??? card.path ??? ["_site/card","_core/card"] -%}
-{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-{% if card -%}
-{## unindented if <gasp> ------------------------------------------------------------ ##}
-
-
-{## Asset Card Factory
-{-------------------------------------------------------------------------------------##
-
+{## Asset Cards   [Content Specific Factory]
 {-------------------------------------------------------------------------------------##}
-{%- embed cardpath with {
-    card: card,
-    settings: settings | merge({
+{%- set card = card ??? null -%}
 
-    })
-} %}
+{%- set path = path ??? ["_site/card","_core/card"] -%}
+
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = { cardlayer: 'default' } | merge( settings ) -%}
+
+
+{## Render the Card
+{-------------------------------------------------------------------------------------##}
+{%- if card -%}
+{%- embed path with { card: card, settings: settings } %}
+
 
 {% endembed %}
+{%- endif -%}
 
 
-{## end unindented if <sigh> -------------------------------------------------------- ##}
-{%- endif %}
 
 {## Asset - Card Override
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     This file not typically called directly. It is dynamically inserted to a cards
     inheritence order when generated via the `render()` macro in `_cards/base`.
 

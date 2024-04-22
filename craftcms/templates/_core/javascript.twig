@@ -1,5 +1,5 @@
 {## Page Head / Meta / Script Base Elements & Defaults
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     Common elements that appear in and around <head> or right before </body>
 ------------------------------------------------------------------------------------ ##}
 {% macro polyfillio( release = 'v3' ) %}
@@ -23,6 +23,18 @@
 
 
 
+{## Vite Frontend Build
+    -------------------------------------------------------------------------------- ##
+    Responsible for handling the frontend build process and injecting appropriate
+    <link> & <script> elemends into the page <head>.
+
+    Vite builds these files by default:
+        `frontend/css/app.pcss`
+        `frontend/js/app,js`
+
+    Manage Vite configuration via:
+        `frontend/vite.config.js`
+    -------------------------------------------------------------------------------- ##}
 {% macro vite() %}
     {% set cssHash = craft.vite.getCssHash("js/app.js") %}
     <!--# if expr="$HTTP_COOKIE=/critical\-css\={{ cssHash }}/" -->

@@ -1,0 +1,126 @@
+{## Component Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+ -> http://localhost:8000/sitehub/blocks/component
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_site/block", "_core/block" ] %}
+
+
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+    {%- set settings = block.settings ??? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+    {## Let's us inherit from this template **at this point** in the render process,
+        without requiring that we duplicate the above "collection" logic ##}
+    {%- set blockname = 'component__' ~ settings.variant ??? 'default' -%}
+    {{ blockname }}
+    {# {{- block( blockname ) is defined ? block( blockname ) : block( 'component__default' ) -}} #}
+{% endblock %}
+
+
+{% block component__default getenv('CRAFT_ENVIRONMENT') == 'dev' ? "Technically you shouldn't be here" %}
+
+
+{## Form Variant
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% block component__form %}
+    {% set form = block.form.one() ??? null %}
+    {% if form %}
+        <div class="bg-theme-backgroundOff p-10">
+            {{ craft.formie.renderForm(form) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+
+{## Menu Variant
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% block component__menu %}
+    <div class="@container text-xl">
+        {{ craft.navigation.render( block.menu|default(), {
+            ulClass: 'flex flex-wrap justify-center w-full gap-6',
+            aClass: 'px-4 py-2 font-display block border-2',
+        } ) }}
+    </div>
+{% endblock %}
+
+
+
+{## Component Variant
+{---------------------------------------------------------------------------------------}
+    Also creates a simple JSON representation of the current Block and passes it into
+    the Vue component as a prop named `block` (which may be freely used or ignored).
+{-------------------------------------------------------------------------------------##}
+{% block component__system %}
+    {%- if block.element.vueComponent ??? null -%}
+        {{- _self.vue__async( block.element.vueComponent, block, settings ) -}}
+    {% endif %}
+
+    {%- if block.element.accountComponent ??? null -%}
+        {%- import "_assemble" as assemble -%}
+        {%- switch block.element.accountComponent -%}
+            {%- case "login" -%}
+                {{- assemble.accountparts( block, 'login', settings ) -}}
+            {%- case "forgot" -%}
+                {{- assemble.accountparts( block, 'forgot', settings ) -}}
+            {%- default -%}
+        {%- endswitch -%}
+    {%- endif -%}
+{%- endblock -%}
+
+
+
+{## Vue AsyncComponent Macro
+{---------------------------------------------------------------------------------------}
+    Asynchronously load a Vue Component into the DOM. The component must already be
+    registered in your `app.js` file with code similar to the example below.
+{---------------------------------------------------------------------------------------}
+    import {createApp, defineAsyncComponent} from 'vue';
+    const main = async() => {
+        return {
+            '<YOUR_COMPONENT_NAME>': defineAsyncComponent( () =>
+                import('@/vue/PathToYourComponent.vue')
+            )
+        }
+    }
+    main().then( (app) => {
+        window.app = app
+    });
+{---------------------------------------------------------------------------------------}
+    Replacing the following placeholders with your actual values:
+
+    YOUR_COMPONENT_NAME    ->  Should match the value of the `component` argument.
+    ComponentFilePath.vue  ->  Component filename (and path) relative to `frontend/vue`
+
+    Also creates a simple JSON representation of the current Block and passes it into
+    the Vue component as a prop named `block` (which may be freely used or ignored).
+{-------------------------------------------------------------------------------------##}
+{% macro vue__async( component, block, settings ) -%}
+    {%- set simpleblock = {
+        id: block.id ??? null,
+        settings: settings ??? {},
+        owner: {
+            id   : block.owner.id       ??? null,
+            title: block.owner.title    ??? null,
+            dek  : block.owner.dek      ??? block.owner.summary ???  null,
+            text : block.owner.text     ??? null,
+            slug : block.owner.slug     ??? null,
+            url  : block.owner.url      ??? null ,
+            date : block.owner.postDate ??? null ,
+            image: block.owner.images.asArray ??? [],
+        }
+    } | json_encode -%}
+    {%- set uuid = md5( simpleblock ) -%}
+    <div id="vue__{{uuid}}" class="w-full"></div>
+    {% js %}
+        window.waitForGlobal("app.createApp", function() {
+            app.createApp( app.{{ component }}, { block: {{- raw(simpleblock) -}} } )
+               .mount( '#vue__{{uuid}}')
+        })
+    {% endjs %}
+{% endmacro %}

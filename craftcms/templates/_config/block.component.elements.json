@@ -2,17 +2,24 @@
     {
         "label": "Account Login",
         "value": "accountlogin",
-
         "settings" : {
-
-        }
+            "accountComponent": "login"
+        },
+        "docs": {
+            "tooltip": ""
+        },
+        "inputs": []
     }
-   ,{
+    ,
+    {
         "label": "Sample Vue Component",
         "value": "slime",
-
         "settings" : {
             "vueComponent": "vueTestSlime"
-        }
+        },
+        "docs": {
+            "tooltip": ""
+        },
+        "inputs": []
     }
 ]

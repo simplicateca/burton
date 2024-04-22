@@ -1,42 +1,44 @@
+{## HTML Skeleton  [Core Template]
+{---------------------------------------------------------------------------------------}
+    What more could you possibly need?
+{-------------------------------------------------------------------------------------##}
 {% block html %}
-
 {% block doctype '<!doctype html>' %}
-
-{% block html__open %}
-<html {{ attr({
+{% block html__open %}<html {{ attr({
     prefix: "og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#",
     lang  : craft.app.language | slice(0,2)
 } )}} class="{% block html__class '' %}">
 {% endblock %}
-
     <head>
-        {% block head__top head() %}
-
         {% block head__meta    '<meta charset="utf-8">' %}
         {% block head__fonts   '' %}
         {% block head__styles  '' %}
         {% block head__scripts '' %}
+        {{ head() }} {# https://craftcms.com/docs/4.x/dev/functions.html#head #}
     </head>
-
-    {% block body__open %}
-        <body class="{% block body__class '' %}">
-    {% endblock %}
-
-        {## https://craftcms.com/docs/4.x/dev/functions.html#beginbody ##}
-        {{ beginBody() }}
-
+    {% block body__open %}<body class="{% block body__class '' %}">{% endblock %}
+        {{ beginBody() }} {# https://craftcms.com/docs/4.x/dev/functions.html#beginbody #}
         {% block page "" %}
-
-        {## https://craftcms.com/docs/4.x/dev/functions.html#endbody ##}
-        {{ endBody() }}
-
-    {% block body__close "</body>" %}
-</html>
-{% endblock html %}
+        {{ endBody()   }} {# https://craftcms.com/docs/4.x/dev/functions.html#endbody #}
+    {% block body__close '</body>' %}
+</html>{% endblock html %}
 
 
 
-{## Prefetch & Preconnect headers and <link> elements ##}
+{## Prefetch & Preconnect Macro
+{---------------------------------------------------------------------------------------}
+    Adds meta <link> tags and HTTP headers for DNS prefetching and preconnecting.
+    Original Source: [nystudios107 Craft Starter](https://github.com/nystudio107/craft)
+
+    How to Use:
+{---------------------------------------------------------------------------------------}
+    {%- from '_core/html' import prefetch -%}
+    {{- prefetch([
+        'https://unpkg.com',
+        'https://fonts.googleapis.com',
+        'https://fonts.gstatic.com',
+    ]) -}}
+{-------------------------------------------------------------------------------------##}
 {% macro prefetch(urls) %}
     {% set headerLink = "Link: " %}
     {% for url in urls %}
@@ -53,39 +55,37 @@
 
 
 
-{## Cookie Macros
-{-------------------------------------------------------------------------------------##
-    Macros for getting and setting cookies natively with Craft CMS 3.1.17 or later
+{## HTTP Cookie Get & Set Macros
+{---------------------------------------------------------------------------------------}
+    Macros for getting and setting cookies natively with Craft CMS 3.1.17 or later.
+    Original Source: [nystudios107 Craft Starter](https://github.com/nystudio107/craft)
 
-    Usage:
-
-      {% import "_core/html" as cookies %}
-      {% set woof = cookies.get('woof') %}
-      {% do cookies.set('woof', 'bark', now | date_modify('+1 hour').timestamp) %}
+    How to Use:
+{---------------------------------------------------------------------------------------}
+    {%- import "_core/html" as cookies -%}
+    {%- set woof = cookies.get('woof') -%}
+    {%- do cookies.set('woof', 'bark', now | date_modify('+1 hour').timestamp) -%}
 {-------------------------------------------------------------------------------------##}
 {%- macro get(name, cookieJar = null) -%}
-    {% apply spaceless %}
-        {% set cookieJar = cookieJar ?? craft.app.request.cookies %}
-        {% set cookie = cookieJar.get(name) %}
-        {{ cookie.value ?? '' }}
-    {% endapply %}
-{%- endmacro -%}
-
+{%- apply spaceless %}
+    {% set cookieJar = cookieJar ?? craft.app.request.cookies %}
+    {% set cookie = cookieJar.get(name) %}
+    {{ cookie.value ?? '' }}
+{% endapply %}{%- endmacro -%}
 
 {%- macro set(name, value = '', expires = 0, path = '/', domain = '', secure = false, httpOnly = false, cookieJar = null) -%}
-    {% apply spaceless %}
-        {% set cookieJar = cookieJar ?? craft.app.response.cookies %}
-        {% set domain = domain | length ?: craft.app.config.general.defaultCookieDomain %}
-        {% set cookie = create({
-            'class': 'yii\\web\\Cookie',
-            'name': name,
-            'value': value,
-            'path': path,
-            'domain': domain,
-            'secure': secure,
-            'httpOnly': httpOnly,
-            'expire': expires
-        }) %}
-        {% do cookieJar.add(cookie) %}
-    {% endapply %}
-{%- endmacro -%}
+{%- apply spaceless %}
+    {% set cookieJar = cookieJar ?? craft.app.response.cookies %}
+    {% set domain = domain | length ?: craft.app.config.general.defaultCookieDomain %}
+    {% set cookie = create({
+        'class': 'yii\\web\\Cookie',
+        'name': name,
+        'value': value,
+        'path': path,
+        'domain': domain,
+        'secure': secure,
+        'httpOnly': httpOnly,
+        'expire': expires
+    }) %}
+    {% do cookieJar.add(cookie) %}
+{% endapply %}{%- endmacro -%}

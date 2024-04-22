@@ -1,20 +1,27 @@
+{## Overlay Card   [Site Template]
+{-------------------------------------------------------------------------------------##}
 {% extends [ "_site/card", "_core/card" ] %}
 
-{% set card = card ??? null %}
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = settings | merge({
 
-{% set settings = settings | merge({
+}) -%}
 
-}) %}
 
-{% block card__words %}
+{## Overload Parent Blocks
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block card__words -%}
     <div class="absolute inset-0 flex p-2 z-30 flex-col justify-center h-full items-center group overflow-hidden">
-        {{ block( 'card__headline' ) | attr( { class: 'knockout' } ) }}
-
-        <div class="absolute w-full inset-0 transition translate-y-full group-hover:translate-y-0 flex flex-col">
-            <div class="flex-grow"></div>
-
-            {{ block('card__action') }}
-        </div>
+        {{- block( 'card__headline' ) | attr( { class: 'knockout' } ) -}}
+        {{- block('card__action') -}}
     </div>
-{% endblock %}
+{%- endblock %}

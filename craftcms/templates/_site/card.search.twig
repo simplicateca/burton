@@ -1,14 +1,33 @@
+{## Search Result (Text) Card   [Site Template]
+{-------------------------------------------------------------------------------------##}
 {% extends [ "_site/card", "_core/card" ] %}
 
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = settings | merge({
+
+}) -%}
+
+
+{## Overload Parent Blocks
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
 {% block card__images "" %}
 
-{% block card__headline %}
-    {{ parent() }}
+{% block card__headline -%}
+    {{- parent() -}}
 
-    {% set index = settings.loop.index ?? null %}
-    {% if index %}
+    {%- set index = settings.loop.index ?? null -%}
+    {%- if index -%}
         <div class="text-xs -mt-2 pb-4">
             <strong>({{ index }})</strong> <a href="{{ card.url }}">{{ card.url }}</a>
         </div>
-    {% endif %}
+    {%- endif -%}
 {% endblock %}

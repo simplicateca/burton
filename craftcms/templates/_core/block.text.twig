@@ -1,60 +1,54 @@
-{## Text Block Base
-{-------------------------------------
-{-------------------------------------------------------------------------------------##
-    http://localhost:8000/sitehub/blocks/text
+{## Text Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+ -> http://localhost:8000/sitehub/blocks/text
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block", "_core/block" ] %}
 
-{## Text Block Content ##}
-{% block content block('block__assemble') %}
-
-{% block block__assemble -%}
-    {%- set settings    = settings is not null and settings is iterable ? settings : {} -%}
-    {%- set microlayout = settings.microlayout ??? 'zone1Top' -%}
-    {%- import "_assemble" as assemble -%}
-    {{- assemble.microlayout( microlayout, {
-        zone1 : block('block__text'),
-        zone2 : block('block__text2'),
-        header: block('block__header'),
-        footer: block('block__footer'),
-    }, settings ) -}}
-{%- endblock %}
-
 
 {## Zone 1 Content
-{-------------------------------------------------------------------------------------##
+{---------------------------------------------------------------------------------------}
     Since all Blocks have a `text` field, {% block block__text %} is shared by all
-    block types. It is usually found along this path: ['_site/block', '_core/block']
+    block types and usually in a file in this path: ['_site/block', '_core/block']
 
-    The code below exists only to demonstrate the minimum necessary for a block to
-    override `block__text` with its own layout.
+    Otherwise, something like the below code could be used to render the zone1 text.
 {-------------------------------------------------------------------------------------##}
-{# {% block block__text %}
+{# {% block block__zone1 %}
+    {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { textlayer: 'default' } | merge( settings ) -%}
     {%- import "_assemble" as assemble -%}
-    {{- assemble.text(
-        block.text ??? "",
-        settings.textlayer ??? 'default',
-        settings
-    ) -}}
-{% endblock %} #}
+    {{- assemble.text( settings.textlayer, block.text2, settings ) -}}
+{% endblock %}#}
 
 
-{## Zone 2 Content
-{-------------------------------------------------------------------------------------##
+
+{## Zone 2 Variant Routing
+{---------------------------------------------------------------------------------------}
     This block will look for blocks name `text2__<variant>` to use to render zone2.
     If it doesn't find one, it will perform a basic render to text2 content.
 {-------------------------------------------------------------------------------------##}
-{% block block__text2 -%}
-    {%- set settings  = settings is not null and settings is iterable ? settings : {} -%}
-    {%- set blockname = 'text2__' ~ settings.variant ??? 'single' %}
-    {%- import "_assemble" as assemble -%}
-    {{- block( blockname ) is defined
-          ? block( blockname )
-          : assemble.text(
-            block.text2 ??? "",
-            settings.text2layer ??? 'default',
-            settings
-          )
-    -}}
+{% block block__zone2 -%}
+    {%- set settings = block.settings ??? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+
+    {## Let's us inherit from this template **at this point** in the render process,
+        without requiring that we duplicate the above "collection" logic ##}
+    {%- set blockname = 'text2__' ~ settings.variant ??? 'default' -%}
+    {{- block( blockname ) is defined ? block( blockname ) : '' -}}
 {%- endblock %}
+
+
+
+{## Text2 Default
+{---------------------------------------------------------------------------------------}
+    This block will look for blocks name `text2__<variant>` to use to render zone2.
+    If it doesn't find one, it will perform a basic render to text2 content.
+{-------------------------------------------------------------------------------------##}
+{% block text2__default -%}
+{% if block.text2 ??? null -%}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = { text2layer: 'default' } | merge( settings ) -%}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.text( settings.text2layer, block.text2, settings ) -}}
+{%- endif %}{% endblock %}
