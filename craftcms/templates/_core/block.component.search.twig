@@ -1,127 +1,136 @@
-{## Component Block   Collection Search Variant [Core Template]
+{## Component Search Variant Block   [Core Template]
 {---------------------------------------------------------------------------------------}
-    The Collection Search component can be loaded with Sprig for a better frontend
-    user experience.
-
-    When we do this, we want to take over the entire `Micro-layout` as opposed to just
-    the `zone2` content. This gives Sprig a little more flexibility about where it
-    can lay out its parts.
+    Search results / index page for Collection content. Optionally Sprig/htmx enabled.
+  > http://localhost:8000/sitehub/blocks/component/search
 {-------------------------------------------------------------------------------------##}
-{% extends _callback is defined and _callback
-    ? template_from_string('{% block search__microlayout "" %}')
+{% extends _usesprig is defined and _usesprig
+    ? template_from_string('{% block sprig__content "" %}')
     : [ "_site/block.component", "_core/block.component" ] %}
 
 
-{%- set settings = block.settings ??? settings ???  null %}
+{## Template Variables & Defaults
+{-------------------------------------------------------------------------------------##}
+{%- import "_assemble" as assemble -%}
+
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ?? settings ?? null -%}
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set uniqueid = block.id ??? md5( settings | json_encode() ) | camel -%}
+{%- set settings = {
+    variant    : 'search',
+    textlayer  : 'default',
+    microlayout: 'default',
+    interface  : 'keyword',
+    pagination : 'nextprev',
+    decklayer  : 'grid3',
+    limit      : 100,
+    results    : false,
+    uuid       : "sprig__#{uniqueid}",
+    baseurl    : settings.entryurl ?? siteUrl( craft.app.request.url ),
+} | merge( settings ) -%}
 
 
+{## Sprig Variable Reminder
+{---------------------------------------------------------------------------------------}
+    Since this block can load itself via Sprig, we need to pause and think a little more
+    about exactly what data we need in-order to implement the content + layout.
+
+    Normally, we can simply pass the entire `block.collections` entries field to
+    `CollectionResults()` and receive a list of results to display as cards.
+
+    However, since Sprig doesn't accept complex objects as arguments we have to modify
+    how we it what to search through. There are two options:
+
+ 1) A list of Collection IDs:
+    collectids: [1,2,3]
+
+ 2) An on-the-fly Collection description:
+    collect: {
+        element  : 'entry',
+        where    : { section: 'articles', type: 'blog'),
+        orderBy  : 'postDate DESC',
+        relatedTo: entry.id,
+    }
+
+    More information about Sprig Variables can be found in the Sprig documentation:
+ -> https://putyourlightson.com/plugins/sprig#component-variables
+{-------------------------------------------------------------------------------------##}
+{%- set collect = collect ?? null -%}
+{%- set collect = collect is not null and collect is iterable ? collect : null -%}
+
+{%- set collectids = collectids ?? collect( block.collections ?? [] ).pluck('id').toArray ?? null -%}
+{%- set collectids = collectids is not null and collectids is iterable ? collectids : null -%}
+
+
+{## Search object for storing+accessing query/result related data ##}
+{%- set search = {
+    uuid   : settings.uuid,
+    page   : craft.app.request.getParam('page') ?? craft.app.request.pageNum ?? 1,
+    query  : craft.app.request.getParam('q')    ?? null,
+    filter : craft.app.request.getParam('f')    ?? null,
+    static : 'entries',
+    limit  : settings.limit,
+    baseurl: settings.baseurl,
+} -%}
+
+{## require some kind of user input before doing the search or nah? ##}
+{%- set search = search | merge({
+    execute: ( settings.results or search.query or search.filter or search.page > 1 )
+}) -%}
+
+
+{## Basic Version
+{-------------------------------------------------------------------------------------##}
+{# {% block block__microlayout %}
+    {%- import "_assemble" as assemble -%}
+    {{- assemble.microlayout( settings.microlayout, {
+        zone1 : block('search__zone1'),
+        zone2 : block('search__zone2'),
+        header: block('block__header'),
+        footer: block('block__footer'),
+    }, settings ) -}}
+{% endblock %} #}
+
+
+{## Sprig Enabled Version
+{-------------------------------------------------------------------------------------##}
 {% block block__microlayout %}
-    {%- set settings = block.settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-
     {{ sprig( _self, {
-        _callback      : true,
+        _usesprig      : true,
         settings       : settings,
-        collectionids  : block.collections.one() ? collect( block.collections.ids() ).toArray : [],
+        collectids     : collect( block.collections ).pluck('id').toArray,
         zone1__content : block('block__zone1'),
         header__content: block('block__header'),
         footer__content: block('block__footer')
     } ) }}
 {% endblock %}
+{% block sprig__content block('search__microlayout') %}
 
 
 {%- block search__microlayout %}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-
-    {%- set settings = {
-        microlayout: 'default',
-        interface  : 'keyword',
-        pagination : 'nextprev',
-        decklayer  : 'grid3',
-        limit      : 12,
-        results    : false,
-    } | merge( settings ) -%}
-
 
     {## Collect Search Parameters & Pagination Results
     {---------------------------------------------------------------------------------------}
-        CollectionBase is a PHP Twig macro that returns a query object based on the
+        CollectionBase() is a PHP Twig macro that returns a query object based on the
         search params passed into it. It is editable here:
 
-        -> `craftcms/modules/sitemodule/src/twigextensions/CollectionBaseTwig.php`
+     -> `craftcms/modules/sitemodule/src/twigextensions/CollectionBaseTwig.php`
 
-        It is a necessary evil for it to exist outside of Twig in order to provide a
-        consistent and predictable interface to looking up collections from different
-        content sources and conforming their results so that any colllection iterator
-        can generate output from them.
-
-        If Twig had a more robust way to return a variable from an inline {% macro %}
-        exectution (without rendering it), `CollectionBase` could easily exist as Twig.
+        Like CollectionResults(), except where it returns an array of indivudal results,
+        CollectionBase() returns the Craft ElementQuery object.
     {-------------------------------------------------------------------------------------##}
-    {% set search = {
-        page  : craft.app.request.getParam('page') ??? craft.app.request.pageNum ??? 1,
-        query : craft.app.request.getParam('q') ??? null,
-        filter: craft.app.request.getParam('f') ??? null,
-        limit : settings.limit ??? 12,
-        return: 'query'
-    } %}
+    {%- set collections = block.collections ??? collectids ??? collect ??? [] -%}
 
+    {%- set queryobj = ( search.execute ) ? CollectionBase( collections, search ) : null -%}
+    {%- set pageinfo = queryobj ? sprig.paginate( queryobj, search.page ) : null -%}
+    {%- set results  = queryobj ? pageinfo.pageResults : [] -%}
 
-    {## Handling Variables with Sprig
-    {---------------------------------------------------------------------------------------}
-        Sprig can't pass objects around, so in order to tell Sprig which Collection(s) we
-        want to search through, we have two options:
-
-     1) We can pass a list of Collection IDs:
-
-        collectionsids: [1,2,3]
-
-     2) We can create a Collection on the fly:
-
-        collect: {
-            section  : 'articles',
-            type     : 'blog',
-            relatedTo: entry.id,
-        }
-    {-------------------------------------------------------------------------------------##}
-    {% set collect = collect ??? null %}
-    {% set collect = collect is not null and collect is iterable ? collect : null %}
-
-    {% set collectionids = collectionids ??? null %}
-    {% set collectionids = collectionids is not null and collectionids is iterable ? collectionids : [] %}
-
-    {% set searchOK = settings.results or search.query or search.filter or search.page > 1 ? true : false %}
-
-    {% set queryobj = searchOK ? CollectionBase( collect ?? collectionids, search ) : null %}
-    {% set pageinfo = null %}
-    {% set results  = [] %}
-
-    {% if queryobj %}
-        {% set pageinfo = sprig.paginate( queryobj, search.page ) %}
-        {% set results  = pageinfo.pageResults %}
-    {% endif %}
-
-
-    {## Create Params Object for Search Macros
-    {---------------------------------------------------------------------------------------}
-        This will become the primary object that gets passed to all search related macros.
-        Basically a combination of the original search parameters + pagination info.
-    {-------------------------------------------------------------------------------------##}
-    {%- set uuid = 'sprig_' ~ md5( settings | json_encode() ) | camel -%}
-    {%- set params = search | merge({
-        uuid    : uuid,
-        last    : pageinfo.last  ??? 0,
-        first   : pageinfo.first ??? 0,
-        total   : pageinfo.total ??? 0,
-        pages   : pageinfo.totalPages ??? 0,
-        sprig   : true,
-        trigger : pageinfo.pageTrigger ??? 'p',
-        baseurl : settings.entryurl ??? siteUrl( craft.app.request.url ),
+    {%- set search = search | merge({
+        results : results,
+        pageinfo: pageinfo,
     }) -%}
 
-
-    {%- import "_assemble" as assemble -%}
     {{- assemble.microlayout( settings.microlayout, {
         zone1 : block('search__zone1'),
         zone2 : block('search__zone2'),
@@ -134,12 +143,12 @@
 
 {%- block search__zone1 -%}
     <div class="sticky top-20">
-        {{ zone1__content ? raw( zone1__content ) : '' }}
+        {{ zone1__content is defined ? raw( zone1__content ) : '' }}
         {% if settings.interface != 'none' %}
-            <form method="get" action="{{ params.baseurl }}" class="max-w-5xl w-full pb-10">
+            <form method="get" action="{{ search.baseurl }}" class="max-w-5xl w-full pb-10">
                 {% import "_assemble" as assemble %}
-                {{ assemble.searchpart( params, 'keywordinput', settings ) }}
-                {{ assemble.searchpart( params, 'topicfilter', settings ) }}
+                {{ assemble.searchpart( 'keywordinput', search, settings ) }}
+                {{ assemble.searchpart( 'topicfilter', search, settings ) }}
             </form>
         {% endif %}
     </div>
@@ -147,13 +156,12 @@
 
 
 {%- block search__zone2 -%}
-    {% import "_assemble" as assemble %}
-    <div class="w-full" id="{{ params.uuid }}">
-        {% if results %}
-            {{ assemble.carddeck( settings.decklayer, results, settings ) }}
+    <div class="w-full" id="{{ search.uuid }}">
+        {% if search.results %}
+            {{ assemble.carddeck( settings.decklayer, search.results, settings ) }}
 
-            {% if params.pages > 1 %}
-                <div class="pt-10">{{ assemble.searchpart( params, 'pagination', settings ) }}</div>
+            {% if search.pageinfo.totalPages > 1 and settings.pagination != 'none' %}
+                <div class="pt-10">{{ assemble.searchpart(  'pagination', search, settings ) }}</div>
             {% endif %}
         {% endif %}
     </div>

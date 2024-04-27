@@ -134,7 +134,7 @@
 
 @media only screen and (max-width:1535px) {
 
-    #content div.matrix-field .flex-fields .field.width-25[data-attribute="bits"],
+    /* #content div.matrix-field .flex-fields .field.width-25[data-attribute="bits"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="images"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="external"],
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="assets"],
@@ -146,7 +146,7 @@
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="text2"]
     #content div.matrix-field .flex-fields .field.width-50[data-attribute="text"] {
         width: 100% !important;
-    }
+    } */
 }
 
 @media only screen and (max-width:500px) {

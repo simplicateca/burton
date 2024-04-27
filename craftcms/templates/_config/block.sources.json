@@ -50,15 +50,6 @@
         "inputs": []
     }
 
-   ,{
-        "label": "Third Party iFrame/Code",
-        "value": "code",
-        "settings": {},
-        "docs": {
-            "tooltip": "Embed elements from a trusted third party service (Google Maps, Airtable, Spotify, etc)"
-        },
-        "inputs": []
-    }
   {% endif %}
 
   {% if object.type ?? null == 'carddeck' %}

@@ -27,9 +27,9 @@
 {## Template Variables
 {---------------------------------------------------------------------------------------}
 {-------------------------------------------------------------------------------------##}
-{%- set items = items ??? [] -%}
+{%- set items = items ?? [] -%}
 {%- set count = items | length -%}
-{%- set title = title ??? 'Carousel' -%}
+{%- set title = title ?? 'Carousel' -%}
 {%- set uuid  = "splide-#{create('craft\\helpers\\StringHelper').UUID()}" -%}
 
 

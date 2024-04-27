@@ -1,8 +1,22 @@
 {## Text Block   [Core Template]
 {---------------------------------------------------------------------------------------}
- -> http://localhost:8000/sitehub/blocks/text
+  > http://localhost:8000/sitehub/blocks/text
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block", "_core/block" ] %}
+
+
+{## Template Variables & Defaults
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ?? null -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = {
+    variant    : null,
+    textlayer  : 'default',
+    text2layer : 'default',
+} | merge( settings ) -%}
+
 
 
 {## Zone 1 Content
@@ -28,18 +42,19 @@
     If it doesn't find one, it will perform a basic render to text2 content.
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 -%}
-    {%- set settings = block.settings ??? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
-    {## Let's us inherit from this template **at this point** in the render process,
-        without requiring that we duplicate the above "collection" logic ##}
-    {%- set blockname = 'text2__' ~ settings.variant ??? 'default' -%}
-    {{- block( blockname ) is defined ? block( blockname ) : '' -}}
+    {## Named Variant Block or Default Layout
+    {---------------------------------------------------------------------------------##}
+    {%- set blockname = "text2__#{settings.variant}" -%}
+    {{- ( block( blockname ) is defined )
+        ? block( blockname )
+        : block( 'text2__default' ) -}}
+
 {%- endblock %}
 
 
 
-{## Text2 Default
+{## Text2 Default Layout
 {---------------------------------------------------------------------------------------}
     This block will look for blocks name `text2__<variant>` to use to render zone2.
     If it doesn't find one, it will perform a basic render to text2 content.

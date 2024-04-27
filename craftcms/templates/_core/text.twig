@@ -56,8 +56,8 @@
     {%- set html  = html | trim -%}
     {% if html %}
     {%- set attrs = html | retconRemove( '.eyebrow' ) | parseAttr -%}
-    {%- set style = attrs.style['text-align']|default() -%}
-    {%- set class = attrs.class|default() -%}
+    {%- set style = attrs.style['text-align'] ?? null -%}
+    {%- set class = attrs.class ?? null -%}
     {%- set align = ( 'text-center' in class or style == 'center' ) ? 'mx-auto' -%}
     {%- set align = ( 'text-left'   in class or style == 'left'   ) ? 'mr-auto' : align -%}
     {%- set align = ( 'text-right'  in class or style == 'right'  ) ? 'ml-auto' : align -%}

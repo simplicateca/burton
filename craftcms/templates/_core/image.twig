@@ -9,17 +9,17 @@
 {-------------------------------------------------------------------------------------##}
 {# one or more images to generate a tag for #}
 {# {%- set images = images ??? image ??? null -%} #}
-{%- set images = images ??? null -%}
+{%- set images = images ?? null -%}
 
 {# caption text / html #}
-{%- set caption = caption ??? null -%}
+{%- set caption = caption ?? null -%}
 
 {# settings object #}
-{%- set settings = settings ??? null -%}
+{%- set settings = settings ?? null -%}
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
 {# <figure> attributes - to use when generating tag with: `{{ tag('figure', attr ) }}` #}
-{%- set figure = figure ??? null -%}
+{%- set figure = figure ?? settings.figure ?? null -%}
 {%- set figure = figure is not null and figure is iterable ? figure : {} -%}
 
 
@@ -45,12 +45,11 @@
     {% tag block('figure__tag') with figure %}
         {%- block figure -%}
             {%- block image -%}
-                {# {%- tag block('picture__tag') with { class: block('picture__class') } -%} #}
+                {%- tag block('picture__tag') with { class: block('picture__class') } -%}
                     {%- block sources "" -%}
                     {%- set settings = { imgclass: block('img__class') } | merge( settings ) -%}
-                    {%- set imgtag = _self.imgtag( images, settings ) %}
-                    {%- block img -%}{{imgtag}}{% endblock %}
-                {# {%- endtag -%} #}
+                    {%- block img -%}{{ imgtag ?? _self.imgtag( images, settings ) }}{% endblock %}
+                {%- endtag -%}
             {%- endblock -%}
 
             {%- block caption ( caption )
@@ -169,8 +168,7 @@
     {%- set imgconfig = {
         transform: "widescreen",
         figure: {
-            class: 'aspect-video overflow-hidden rounded-lg relative cursor-pointer',
-            'x-on:click': 'switch( this )'
+            class: 'aspect-video overflow-hidden rounded-lg relative cursor-pointer'
         },
     } -%}
 
@@ -255,7 +253,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro imgtag( imageinput, frame = null ) -%}
 
-    {%- set imageinput = imageinput ??? null -%}
+    {%- set imageinput = imageinput ?? null -%}
 
     {## your instinct might tell you to use a conditional statement here to skip the
         tag generation if we don't have any input, and maybe that's fine for production,
@@ -277,11 +275,19 @@
     {%- set image = null -%}
 
     {# an array of images (manual or eager loaded) OR an AssetQuery object. same same. #}
-    {% if image is null and ( imageinput[0] ??? null or imageinput.one() ??? null ) %}
-        {% set image = imageinput | first %}
-    {% endif %}
+    {%- if image is null and ( imageinput[0] ??? null or imageinput.one() ??? null ) -%}
 
-    {%- if image is null -%}
+        {# passed an array of image urls strings? #}
+        {%- set image = ( imageinput[0] ??? null) and (imageinput[0] is not iterable)
+            ? { url: imageinput | first }
+            : imageinput | first -%}
+    {%- endif -%}
+
+    {%- if image is null and imageinput is not iterable -%}
+        {%- set image = { url: imageinput } -%}
+    {%- endif -%}
+
+    {%- if image is null and imageinput.url ??? null -%}
         {%- set image = imageinput -%}
     {%- endif -%}
 
@@ -292,7 +298,7 @@
         layout. Disabled by default in `staging` and `production` environments, but very
         useful during wireframing and development.
     {---------------------------------------------------------------------------------##}
-    {{ ( not image or image is null ) ? _self.placeholder( frame ) }}
+    {{- ( image is null ) ? _self.placeholder( frame ) -}}
 
 
     {## Local Assets
@@ -322,10 +328,9 @@
     {---------------------------------------------------------------------------------##}
     {%- elseif image is not null -%}
 
-        {%- set url  = image.url ?? image -%}
-        {%- set show = ( url starts with '//' or url|lower starts with 'http' ) %}
+        {%- set show = ( image.url starts with '//' or image.url|lower starts with 'http' ) %}
         {{- show ? tag( 'img', {
-            src    : url,
+            src    : image.url,
             alt    : image.alt ?? '',
             class  : frame.imgclass,
             loading: 'lazy'

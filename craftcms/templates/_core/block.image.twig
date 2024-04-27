@@ -1,35 +1,52 @@
 {## Image Block   [Core Template]
 {---------------------------------------------------------------------------------------}
- -> http://localhost:8000/sitehub/blocks/image
+  > http://localhost:8000/sitehub/blocks/image
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block", "_core/block" ] %}
+
+
+{## Template Variables & Defaults
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ?? null -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = {
+    variant   : null,
+    textlayer : 'default',
+    source    : 'images',
+    limit     : 24
+} | merge( settings ) -%}
 
 
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 %}
-    {%- set settings = block.settings ??? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
-    {%- set source = block.source.value ??? 'images'  -%}
-    {%- set images = ( source == 'images' )
+    {## are we getting our assets from the block field? ##}
+    {%- set images = ( settings.source == 'images' )
         ? block.images.all() ??? block.images ??? []
         : null -%}
 
-    {# do we need to pull images from a collection? #}
-    {%- if source == 'collect' and block.collections and block.collections is iterable -%}
-        {%- set params = {
-            limit: block.source.limit ??? -1,
-            field: 'images'
-        } -%}
+    {## or do we need to pull them from a collection? ##}
+    {%- if settings.source == 'collect' -%}
 
-        {%- set images = CollectionBase( block.collections, params ) -%}
+        {%- set collections = block.collections ??? [] -%}
+        {%- set collections = collections is iterable ? collections : [] -%}
+
+        {%- set images = CollectionResults( collections, {
+            limit : settings.limit,
+            static: 'images'
+        } ) -%}
     {%- endif -%}
 
-    {## Let's us inherit from this template **at this point** in the render process,
-        without requiring that we duplicate the above "collection" logic ##}
-    {%- set blockname = 'image__' ~ settings.variant ??? 'default' -%}
-    {{- block( blockname ) is defined ? block( blockname ) : block( 'image__default' ) -}}
+
+    {## Named Variant Block or Standard Layout
+    {---------------------------------------------------------------------------------##}
+    {%- set blockname = "image__#{settings.variant}" -%}
+    {{- ( block( blockname ) is defined )
+        ? block( blockname )
+        : block( 'image__default' ) -}}
 {% endblock %}
 
 

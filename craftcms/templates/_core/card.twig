@@ -39,6 +39,9 @@
     {%- switch settings.clickaction -%}
         {%- case 'modal' -%}
             {{- _self.action__inlinemodal( card, settings ) -}}
+
+        {%- case 'dynamic' -%}
+            {{- _self.action__dynamicmodal( card, settings ) -}}
         {%- case 'none' -%}
 
         {%- default -%}
@@ -233,9 +236,9 @@
 {% macro action__invisiblecover( card, settings ) -%}
     {%- if card.url|default() -%}
         {{ tag( 'a', {
-            href       : card.url,
-            class      : 'click__cover',
-            html       : '<span class="hidden">Read More →</span>',
+            href : card.url,
+            class: 'click__cover',
+            html : '<span class="hidden">Read More →</span>',
         } ) }}
     {%- endif -%}
 {%- endmacro %}
@@ -258,8 +261,8 @@
     {% set cardlayer  = card.modal__cardlayer ??? 'panel' %}
 
     {% set modal = settings | merge({
+        clickaction: 'default',
         cardlayer: cardlayer,
-        action: false
     }) %}
 
     {{ include( modallayer, { content: assemble.card( cardlayer, card._carditem ??? card, modal ) }, withContext = false ) }}

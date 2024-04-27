@@ -81,7 +81,7 @@
 {# served when page requested via ajax #}
 {% block page__ajax %}
 
-    {{ block( 'header__content', '_site/header' ) }}
+    {{ block( 'header__builder', '_site/header' ) }}
 
     {{ assemble.builder( 'ajax', blocks, {
         container  : "fluid",

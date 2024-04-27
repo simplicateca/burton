@@ -1,33 +1,52 @@
 {## Media Block   [Core Template]
 {---------------------------------------------------------------------------------------}
- -> http://localhost:8000/sitehub/blocks/media
+  > http://localhost:8000/sitehub/blocks/media
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block", "_core/block" ] %}
+
+
+{## Template Variables & Defaults
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ?? null -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
 
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 %}
-    {%- set settings = block.settings ??? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
-    {%- set source  = block.source.value  ??? 'media'   -%}
-    {%- set variant = block.variant.value ??? 'default' -%}
+    {%- set settings = {
+        variant   : null,
+        textlayer : 'default',
+        limit     : 24,
+        source    : 'media',
+        mediadeck : 'default',
+        medialayer: 'default',
+    } | merge( settings ) -%}
 
-    {%- set mediaitems = source == 'media'
-        ? block.media.all() ??? block.media ??? []
-        : null -%}
+    {%- set mediaitems = [] -%}
 
-    {%- if source == 'media' -%}
+    {## Item Source: Media Field
+    {-----------------------------------------------------------------------------##}
+    {%- if settings.source == 'media' -%}
         {%- set mediaitems = block.media.all() ??? block.media ??? [] -%}
     {%- endif -%}
 
-    {%- if source == 'external' -%}
-        {% for item in block.external.all() ??? block.external ??? [] %}
-            {% set url = item.sourceUrl ??? item.url ??? null %}
-            {% if url %}
-                {% set oembed = MediaBase( url ) %}
-                {% set mediaitems = mediaitems|merge([{
+
+    {## Item Source: External Embed via URL
+    {-------------------------------------------------------------------------------}
+        MediaBase() documentation coming. But basically it's oembed.
+    {-----------------------------------------------------------------------------##}
+    {%- if settings.source == 'external' -%}
+        {%- set mediaurls = block.external.all() ??? block.external ??? [] -%}
+        {%- for item in mediaurls -%}
+            {%- set url = item.sourceUrl ??? item.url ??? null -%}
+            {%- if url -%}
+                {%- set oembed = MediaBase( url ) -%}
+                {## TODO: Add items.images to eager loading ##}
+                {%- set mediaitems = mediaitems|merge([{
                     _media   : item,
                     url      : url,
                     kind     : 'external',
@@ -35,27 +54,35 @@
                     images   : item.images.one() ? item.images.all() : [],
                     summary  : item.summary  ??? oembed.summary ??? null,
                     headline : item.headline ??? oembed.title   ??? null,
-                }]) %}
-            {% endif %}
-        {% endfor %}
+                }]) -%}
+            {%- endif -%}
+        {%- endfor -%}
     {%- endif -%}
 
-    {% if source == 'collect' %}
-        {% set params = {
-            limit: block.source.settings.limit ??? -1,
-            field: 'media'
-        } %}
 
-        {% set mediaitems = CollectionBase( block.collections, params ) %}
-    {% endif %}
+    {## Item Source: Collection
+    {-------------------------------------------------------------------------------}
+        When loading from a Collection, using `CollectionResults()` is easier than
+        rewriting the query inline each time you need it -- or trying to implement
+        it as an inline Twig macro.
 
-    {% if settings.variant ??? 'default' == 'code' %}
+        CollectionResults() is a PHP Twig macro that returns a query object based
+        on the search params passed into it. It is editable here:
 
+        -> `craftcms/modules/sitemodule/src/twigextensions/CollectionBaseTwig.php`
+    {-----------------------------------------------------------------------------##}
+    {% if settings.source == 'collect' %}
+        {%- set collections = block.collections ?? [] -%}
+        {%- set collections = collections is iterable ? collections : [] -%}
+        {%- set mediaitems = CollectionResults( collections, {
+            limit : settings.limit,
+            static: 'media'
+        } ) -%}
     {% endif %}
 
     {## Let's us inherit from this template **at this point** in the render process,
         without requiring that we duplicate the above "collection" logic ##}
-    {%- set blockname = 'media__' ~ settings.variant ??? 'default' -%}
+    {%- set blockname = 'media__' ~ settings.variant -%}
     {{- block( blockname ) is defined ? block( blockname ) : block( 'media__default' ) -}}
 {% endblock %}
 
@@ -67,6 +94,7 @@
     {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {%- set settings = { mediadeck: 'default' } | merge( settings ) -%}
+
     {%- import "_assemble" as assemble -%}
     {{- assemble.media( settings.mediadeck, mediaitems, settings ) -}}
 {% endblock %}
@@ -80,6 +108,9 @@
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {%- set settings = { mediadeck: 'default' } | merge( settings ) -%}
 
-    {# {% import "_assemble" as assemble %}
-    {{ assemble.iframe( block.code|default(), block.settings ) }} #}
+    {{ block.code | retconOnly('iframe') | retconAttr( 'iframe', {
+        class : 'aspect-video',
+        width : false,
+        height: false,
+    })  }}
 {% endblock %}

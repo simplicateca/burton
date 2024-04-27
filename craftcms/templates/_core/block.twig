@@ -11,16 +11,17 @@
 {---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
-{%- set block = block ??? null -%}
+{%- set block = block ?? null -%}
 
-{%- set settings = block.settings ??? null -%}
+{%- set settings = block.settings ?? null -%}
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 {%- set settings = {
-    block__first   : loop.first ??? false,
-    block__last    : loop.last  ??? false,
+    block__first   : loop.first ?? false,
+    block__last    : loop.last  ?? false,
     include__before: null,
     include__after : null,
-    container      : 'default'
+    container      : 'default',
+    microlayout    : 'default'
 } | merge( settings ) -%}
 
 
@@ -84,16 +85,18 @@
 {## Assemble Block Content with a Microlayout
 {-------------------------------------------------------------------------------------##}
 {% block block__microlayout %}
-    {%- set settings = settings ?? block.settings ?? null -%}
+    {# {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- set settings = { microlayout: 'default' } | merge( settings ) -%}
+    {%- set settings = { microlayout: 'default' } | merge( settings ) -%} #}
 
-    {{- assemble.microlayout( settings.microlayout, {
+    {% set content = {
         zone1 : block('block__zone1'),
         zone2 : block('block__zone2'),
         header: block('block__header'),
         footer: block('block__footer'),
-    }, settings ) -}}
+    } %}
+
+    {{- assemble.microlayout( settings.microlayout, content, settings ) -}}
 {% endblock %}
 
 
@@ -102,9 +105,9 @@
 {-------------------------------------------------------------------------------------##}
 {% block block__zone1 -%}
 {% if block.text ?? null -%}
-    {%- set settings = settings ?? block.settings ?? null -%}
+    {# {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- set settings = { textlayer: 'default' } | merge( settings ) -%}
+    {%- set settings = { textlayer: 'default' } | merge( settings ) -%} #}
     {{- assemble.text( settings.textlayer, block.text, settings ) -}}
 {%- endif %}{% endblock %}
 
@@ -113,8 +116,8 @@
 {## Default Blocks
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2  "" %}
-{% block block__header "" %}
-{% block block__footer "" %}
+{% block block__header "123" %}
+{% block block__footer "456" %}
 
 
 
@@ -135,10 +138,10 @@
         If that's the case, its probably worth setting an owner object along with the
         first block or just using a differnt builder macro altogether.
     {---------------------------------------------------------------------------------##}
-    {% set hasentry = null %}
-    {% for b in blocks %}
-        {% set hasentry = b['owner'] is defined and not hasentry ? b.owner : hasentry %}
-    {% endfor %}
+    {%- set hasentry = null -%}
+    {%- for b in blocks -%}
+        {%- set hasentry = b['owner'] is defined and not hasentry ? b.owner : hasentry -%}
+    {%- endfor -%}
 
 
     {## Default Block `settings`
@@ -158,7 +161,7 @@
         probably means that your placeholder values should be present in the blocks'
         `settings` object.
     {---------------------------------------------------------------------------------##}
-    {% set settings = {
+    {%- set settings = {
         theme    : 'base',
         builder  : 'default',
         container: 'default',
@@ -175,7 +178,7 @@
             "_site/block",
             "_core/block"
         ],
-    } | merge( settings ) %}
+    } | merge( settings ) -%}
 
 
     {## BuilderBase() Macro
@@ -188,19 +191,20 @@
 
      -> `craftcms/modules/sitemodule/src/twigextensions/BlockBaseTwig.php`
     {---------------------------------------------------------------------------------##}
-    {% for block in BuilderBase( blocks, settings ) %}
+    {%- for block in BuilderBase( blocks, settings ) -%}
 
-        {% set path = settings.blockpath | map( p => p|replace({
+        {%- set path = settings.blockpath | map( p => p|replace({
             '%layout%'   : block.settings.layout    ??? null,
             '%section%'  : block.settings.section   ??? null,
             '%builder%'  : block.settings.builder   ??? null,
             '%blocktype%': block.settings.blocktype ??? null,
             '%entrytype%': block.settings.entrytype ??? null,
             '%variant%'  : block.settings.variant   ??? null,
-        }) ) %}
-        {{ include( path, { block: block, loop: loop }, withContext = false ) }}
+        }) ) -%}
 
-    {% endfor %}
+        {{- include( path, { block:block, settings:block.settings, loop:loop }, withContext = false ) -}}
+
+    {%- endfor -%}
 {% endmacro %}
 
 

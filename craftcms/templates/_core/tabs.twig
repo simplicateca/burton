@@ -22,23 +22,25 @@
 {---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
-{% block class__panel        "p-6" %}
-{% block class__panels       "rounded-b-md border bg-theme-contrast" %}
-{% block class__ul           "!mb-0 flex flex-wrap sm:flex-row items-stretch justify-center sm:justify-start" %}
+{% block class__wrapper      "" %}
+
+{% block class__wrapper_vert "flex flex-col @2xl:flex-row gap-x-8" %}
+
+{% block class__panel        "p-6 @container" %}
+{% block class__panels       "rounded-b-md border w-full flex-grow bg-canvas-light" %}
+{% block class__ul           "!m-0 !p-0 flex flex-wrap sm:flex-row items-stretch justify-center sm:justify-start" %}
+{% block class__ul_vert      "!m-0 !p-0 " %}
 {% block class__li           "list-none !mb-0" %}
+
 {% block class__buttonactive "bg-theme-accent text-canvas-light" %}
 {% block class__button "
     inline-flex
     rounded
-    sm:rounded-b-0
     border
-    sm:border-b-0
     px-3
-    py-2.5
-    text-sm
-    md:text-base
-    lg:text-xs
-    xl:text-base
+    py-1.5
+    text-base
+    whitespace-nowrap
 " %}
 
 
@@ -66,6 +68,8 @@
     }"
     x-cloak
     x-id="['tabs-{{uuid}}']"
+
+    class="{{ block('class__wrapper') }}"
 >
     <!-- Tab List -->
     <ul

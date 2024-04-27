@@ -1,9 +1,16 @@
 {## Component Block   [Core Template]
 {---------------------------------------------------------------------------------------}
- -> http://localhost:8000/sitehub/blocks/component
+  > http://localhost:8000/sitehub/blocks/component
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block", "_core/block" ] %}
 
+
+{## Template Variables & Defaults
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ?? null -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 
 
 {## Zone 2 Content / Variant Routing
@@ -11,16 +18,20 @@
 {% block block__zone2 %}
     {%- set settings = block.settings ??? null -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = {
+        variant  : null,
+        textlayer: 'default',
+        limit     : 100
+    } | merge( settings ) -%}
 
     {## Let's us inherit from this template **at this point** in the render process,
         without requiring that we duplicate the above "collection" logic ##}
-    {%- set blockname = 'component__' ~ settings.variant ??? 'default' -%}
-    {{ blockname }}
-    {# {{- block( blockname ) is defined ? block( blockname ) : block( 'component__default' ) -}} #}
+    {%- set blockname = 'component__' ~ settings.variant -%}
+    {{- block( blockname ) is defined
+        ? block( blockname )
+        : getenv('CRAFT_ENVIRONMENT') == 'dev' ? "Technically you shouldn't be here. A Twig {% block component__<variant> %} should exist for every component variant type." -}}
 {% endblock %}
 
-
-{% block component__default getenv('CRAFT_ENVIRONMENT') == 'dev' ? "Technically you shouldn't be here" %}
 
 
 {## Form Variant
@@ -51,12 +62,13 @@
 
 
 
-{## Component Variant
+{## System Variant
 {---------------------------------------------------------------------------------------}
     Also creates a simple JSON representation of the current Block and passes it into
     the Vue component as a prop named `block` (which may be freely used or ignored).
 {-------------------------------------------------------------------------------------##}
 {% block component__system %}
+
     {%- if block.element.vueComponent ??? null -%}
         {{- _self.vue__async( block.element.vueComponent, block, settings ) -}}
     {% endif %}
@@ -65,9 +77,9 @@
         {%- import "_assemble" as assemble -%}
         {%- switch block.element.accountComponent -%}
             {%- case "login" -%}
-                {{- assemble.accountparts( block, 'login', settings ) -}}
+                {{- assemble.accountpart( 'login', {}, settings ) -}}
             {%- case "forgot" -%}
-                {{- assemble.accountparts( block, 'forgot', settings ) -}}
+                {{- assemble.accountpart( 'forgot', {}, settings ) -}}
             {%- default -%}
         {%- endswitch -%}
     {%- endif -%}

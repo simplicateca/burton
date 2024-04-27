@@ -3,22 +3,22 @@
 
 {-------------------------------------------------------------------------------------##}
 
-{% macro default( params, settings ) %}
+{% macro default( search, settings ) %}
     Default Search Part
 {% endmacro %}
 
 {## Keyword Search Field ##}
-{% macro keywordinput( params, settings ) %}
+{% macro keywordinput( search, settings ) %}
     <div class="border border-canvas-dark bg-canvas-light flex flex-row rounded-lg p-2">
         <input
             name="q"
             type="search"
-            value="{{params.query}}"
+            value="{{search.query}}"
             placeholder="Enter search term..."
             class="flex-grow w-full !p-0 border-none"
             sprig
             s-val:page="1"
-            s-replace="#{{params.uuid}}"
+            s-replace="#{{search.uuid}}"
             s-trigger="keyup changed delay:300ms"
         >
         <button class="button" sprig>Search</button>
@@ -28,7 +28,7 @@
 
 
 {# Topic Filter #}
-{% macro topicfilter( params, settings ) %}
+{% macro topicfilter( search, settings ) %}
     {# {% set isSprig   = isSprig   ??? false %}
     {% set params    = params    ??? null %}
     {% set settings  = settings  ??? null %}
@@ -90,8 +90,8 @@
 
 
 {## Basic Pagination ##}
-{% macro pagination( params, settings ) -%}
-{%- if params.total > 1 %}
+{% macro pagination( search, settings ) -%}
+{%- if search.pageinfo.totalPages > 1 %}
     <nav
         role="navigation"
         aria-label="Pagination Navigation"
@@ -99,13 +99,13 @@
     >
         {% import "_assemble" as assemble %}
         <ul class="flex justify-between w-full list-none items-end">
-            <li class="list-none">{{ assemble.searchpart( params, 'previouspage', settings ) }}</li>
+            <li class="list-none">{{ assemble.searchpart( 'previouspage', search, settings ) }}</li>
 
             <li class="flex flex-col text-center items-center">
                 <strong class="text-xs uppercase">Page</strong>
-                <div>{{params.page}} / {{params.pages}}</div>
+                <div>{{search.page}} / {{search.pageinfo.totalPages}}</div>
             </li>
-            <li class="list-none text-right">{{ assemble.searchpart( params, 'nextpage', settings ) }}</li>
+            <li class="list-none text-right">{{ assemble.searchpart( 'nextpage', search, settings ) }}</li>
         </ul>
     </nav>
 {%- endif %}{% endmacro %}
@@ -113,13 +113,13 @@
 
 
 {## Previous Link ##}
-{% macro previouspage( params, settings ) %}
-    {% set baseurl   = params.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
-    {% set prevpage  = params.page - 1 %}
+{% macro previouspage( search, settings ) %}
+    {% set baseurl   = search.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
+    {% set prevpage  = search.page - 1 %}
 
     {% set urlparams = { } %}
-    {% set urlparams = params.filter ? urlparams | merge( { f: params.filter } ) : urlparams %}
-    {% set urlparams = params.query  ? urlparams | merge( { q: params.query  } ) : urlparams %}
+    {% set urlparams = search.filter ? urlparams | merge( { f: search.filter } ) : urlparams %}
+    {% set urlparams = search.query  ? urlparams | merge( { q: search.query  } ) : urlparams %}
 
     {% if prevpage < 1 %}
         {{ tag( 'span', {
@@ -131,7 +131,7 @@
         {## avoids /p1 in the url ##}
         {% set prevurl = prevpage == 1
             ? siteUrl( baseurl, urlparams )
-            : siteUrl( baseurl ~ "/" ~ params.trigger ~ prevpage, urlparams ) %}
+            : siteUrl( baseurl ~ "/" ~ search.pageinfo.pageTrigger ~ prevpage, urlparams ) %}
 
         {{ tag( 'a', {
             text : "← Prev"|t,
@@ -140,7 +140,7 @@
             sprig: true,
             's-push-url': prevurl,
             's-val:page': prevpage,
-            's-replace' : '#' ~ params.uuid,
+            's-replace' : '#' ~ search.uuid,
         }) }}
     {% endif %}
 {% endmacro %}
@@ -148,21 +148,21 @@
 
 
 {## Next Link  ##}
-{% macro nextpage( params, settings ) %}
-    {% set baseurl   = params.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
-    {% set nextpage  = params.page + 1 %}
+{% macro nextpage( search, settings ) %}
+    {% set baseurl   = search.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
+    {% set nextpage  = search.page + 1 %}
 
     {% set urlparams = {} %}
-    {% set urlparams = params.filter ? urlparams | merge( { f: params.filter } ) : urlparams %}
-    {% set urlparams = params.query  ? urlparams | merge( { q: params.query  } ) : urlparams %}
+    {% set urlparams = search.filter ? urlparams | merge( { f: search.filter } ) : urlparams %}
+    {% set urlparams = search.query  ? urlparams | merge( { q: search.query  } ) : urlparams %}
 
-    {% if nextpage > params.pages %}
+    {% if nextpage > search.pageinfo.totalPages %}
         {{ tag( 'span', {
             text : "Next →"|t,
             class: "whitespace-nowrap opacity-50 cursor-not-allowed",
         }) }}
     {% else %}
-        {% set nexturl = siteUrl( baseurl ~ "/" ~ params.trigger ~ nextpage, urlparams ) %}
+        {% set nexturl = siteUrl( baseurl ~ "/" ~ search.pageinfo.pageTrigger ~ nextpage, urlparams ) %}
 
         {{ tag( 'a', {
             text : "Next →"|t,
@@ -171,7 +171,7 @@
             sprig: true,
             's-push-url': nexturl,
             's-val:page': nextpage,
-            's-replace' : '#' ~ params.uuid,
+            's-replace' : '#' ~ search.uuid,
         }) }}
     {% endif %}
 {% endmacro %}
@@ -179,7 +179,7 @@
 
 
 {## No Results Message ##}
-{% macro noresults( params, settings ) %}
+{% macro noresults( search, settings ) %}
     <div class="max-w-5xl mx-auto @container mb-8">
         <p class="html larger text-center">
             <strong>Sorry</strong>, we could not find any matches for your search.
@@ -191,7 +191,7 @@
 
 
 {## Load More Pagination ##}
-{% macro loadmore( params, settings ) -%}
+{% macro loadmore( search, settings ) -%}
 
     {## arguments passed to this template
     {% set isSprig  = isSprig  ??? false %}

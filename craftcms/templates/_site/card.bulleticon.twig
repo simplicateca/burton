@@ -24,7 +24,7 @@
 {% block card__words -%}
     <div class="flex flex-col gap-4">
         {%- block card__headline -%}
-            {%- if card.headline %}<h3 class="!my-0 text-center">{{ card.headline }}</h3>{% endif -%}
+            {%- if card.headline %}<h3 class="!my-0 text-center">{{ raw( card.headline ) }}</h3>{% endif -%}
         {%- endblock -%}
 
         {%- block card__summary -%}

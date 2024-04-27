@@ -1,60 +1,87 @@
 {## Card Deck Block   [Core Template]
 {---------------------------------------------------------------------------------------}
- -> http://localhost:8000/sitehub/blocks/carddeck
+  > http://localhost:8000/sitehub/blocks/carddeck
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block", "_core/block" ] %}
+
+
+{## Template Variables & Defaults
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ?? null -%}
+{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set carddeck = [] -%}
 
 
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 %}
-    {%- set settings = block.settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- set settings = { variant: 'default', source: 'items' } | merge( settings ) -%}
 
-    {% set carddeck = [] %}
+    {%- set settings = {
+        variant  : null,
+        textlayer: 'default',
+        limit    : 100,
+        source   : 'items',
+        decklayer: 'default'
+    } | merge( settings ) -%}
 
+
+    {## Item Source: Specific Entries
+    {---------------------------------------------------------------------------------##}
+    {%- if settings.source == 'entries' -%}
+        {%- set carddeck = block.entries.with(['images', 'taxonomies']).all() ??? block.entries ??? [] -%}
+    {%- endif -%}
+
+
+    {## Item Source: Inline Items
+    {---------------------------------------------------------------------------------##}
+    {## TODO: Allow for overwriting a bit with the inline form values? ##}
     {%- if settings.source == 'items' -%}
         {%- for item in block.items.with(['images', 'bit']).all() ??? block.items ??? [] -%}
-            {## TODO: Allow for overwriting a bit with the inline form values? ##}
-            {%- set carddeck = item.bit[0] ?? null
-                    ? carddeck | merge([ item.bit[0] | merge({ item }) ])
+            {%- set carddeck = item.bit[0] ??? null
+                    ? carddeck | merge([item.bit[0] | merge({ item })])
                     : carddeck | merge([item])
                 -%}
         {%- endfor -%}
     {%- endif -%}
 
-    {%- if settings.source == 'entries' -%}
-        {%- set carddeck = block.entries.with(['images', 'taxonomies']).all() ??? block.entries ??? [] -%}
-    {%- endif -%}
 
-    {%- if settings.source == 'collect' -%}
-        {%- set params = {
-            page  : craft.app.request.getParam('page') ?? craft.app.request.pageNum ?? 1,
-            slug  : craft.app.request.getParam('f')    ?? block.filter ?? null,
-            search: craft.app.request.getParam('q')    ?? block.query  ?? null,
-            limit : block.source.settings.limit ?? -1,
-            field : 'entries'
-        } -%}
+    {## Item Source: Collection
+    {-----------------------------------------------------------------------------------}
+        When loading from a Collection, using `CollectionResults()` is easier than
+        rewriting the query inline each time you need it -- or trying to implement
+        it as an inline Twig macro.
 
-        {%- set carddeck = CollectionBase( block.collections, params ) -%}
-    {%- endif -%}
+        CollectionResults() is a PHP Twig macro that returns a query object based
+        on the search params passed into it. It is editable here:
+
+        -> `craftcms/modules/sitemodule/src/twigextensions/CollectionBaseTwig.php`
+    {---------------------------------------------------------------------------------##}
+    {% if settings.source == 'collect' %}
+        {%- set collections = block.collections ??? [] -%}
+        {%- set collections = collections is iterable ? collections : [] -%}
+        {%- set carddeck = CollectionResults( collections, {
+            limit : settings.limit,
+            static: 'entries',
+            page  : request.getParam('page') ?? request.pageNum ?? 1,
+            slug  : request.getParam('f')    ?? null,
+            search: request.getParam('q')    ?? null,
+        } ) -%}
+    {% endif %}
+
 
     {## Let's us inherit from this template **at this point** in the render process,
         without requiring that we duplicate the above "collection" logic ##}
-    {%- set blockname = 'carddeck__' ~ settings.variant ?? 'default' -%}
-    {{- block( blockname ) is defined ? block( blockname ) : block('carddeck__default') -}}
+    {%- set blockname = 'carddeck__' ~ settings.variant -%}
+    {{- block( blockname ) is defined ? block( blockname ) : block('carddeck__content') -}}
 {% endblock %}
 
 
 
-{## Card Deck Default
+{## Render Default Card Deck
 {-------------------------------------------------------------------------------------##}
-{% block carddeck__default -%}
-    {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- set settings = { decklayer: 'default' } | merge( settings ) -%}
-
+{% block carddeck__content -%}
     {%- import "_assemble" as assemble -%}
     {{- assemble.carddeck( settings.decklayer, carddeck, settings ) -}}
 {%- endblock %}

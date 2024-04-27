@@ -24,24 +24,27 @@
         }) }}>
     {% endblock %}
 
-    {% block header__content %}
-        {% import "_assemble" as assemble %}
-
-        {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? null %}
-        {% set headblocks = headblocks ? headblocks : [{ html: block('header__plainH1') }] %}
-
-        {{ assemble.builder( 'header', headblocks, {
-            container  : "fluid",
-            spacerabove: "none",
-            spacerbelow: "none"
-        }) }}
-    {% endblock %}
+    {{ block( 'header__builder' ) }}
 
     {% block header__close "</header>" %}
 
     {% if headblocks and intopbar %}
         {{ block('header__breadcrumb') }}
     {% endif %}
+{% endblock %}
+
+
+{% block header__builder %}
+    {% import "_assemble" as assemble %}
+
+    {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? null %}
+    {% set headblocks = headblocks ? headblocks : [{ html: block('header__plainH1') }] %}
+
+    {{ assemble.builder( 'header', headblocks, {
+        container  : "fluid",
+        spacerabove: "none",
+        spacerbelow: "none"
+    }) }}
 {% endblock %}
 
 
@@ -52,8 +55,15 @@
     {% set title    = entry.title    ??? null %}
     {% set subtitle = entry.subtitle ??? null %}
 
-    {{ title    ? tag( 'h1', { text: title, class: "" } ) }}
-    {{ subtitle ? assemble.container( 'prose', tag( 'p', { html: subtitle, class: 'larger' } ), { 'data-bodytext': true } ) }}
+    <div class="max-w-7xl">
+        {{ title ? tag( 'h1', { html: title|widont, class: "max-w-7xl" } ) }}
+
+        {% if subtitle %}
+            <div class="max-w-5xl" data-bodytext>
+                {{ tag( 'p', { html: subtitle, class: 'larger' } ) }}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 
 
@@ -72,7 +82,7 @@
 
     <div {{ attr({ class: ["w-full relative z-50"], 'data-theme': 'light' }) }}>
 
-        {{ assemble.opencontainer( 'fluid' ) }}
+        {{ assemble.container__open( 'fluid' ) }}
 
         <div class="flex">
 
@@ -105,8 +115,7 @@
 
             {% endblock %}
         </div>
-
-        {{ assemble.closecontainer() }}
+        {{ assemble.container__close( 'fluid' ) }}
     </div>
 {% endblock %}
 

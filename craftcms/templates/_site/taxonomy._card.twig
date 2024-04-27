@@ -1,8 +1,8 @@
 {## Taxonomy (Topic) Cards   [Content Specific Factory]
 {-------------------------------------------------------------------------------------##}
-{%- set card = card ??? null -%}
+{%- set card = card ?? null -%}
 
-{%- set path = path ??? ["_site/card","_core/card"] -%}
+{%- set path = path ?? ["_site/card","_core/card"] -%}
 
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 {%- set settings = {

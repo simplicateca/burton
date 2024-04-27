@@ -278,10 +278,14 @@ class TextBaseTwig extends AbstractExtension
     private function generateParagraphHtml( $node, $ctaSelector )
     {
         $paraHtml = $node->ownerDocument->saveHTML( $node );
+
         $links = $this->retconOnly( $paraHtml, $ctaSelector );
         if( $links ) {
             $whatsLeft = $this->retconRemove( $paraHtml, $ctaSelector );
-            $whatsLeft = (string) Retcon::getInstance()->retcon->removeEmpty( $whatsLeft );
+            $whatsLeft = (string) Retcon::getInstance()->retcon->change( $whatsLeft, 'p', false );
+            $whatsLeft = trim( $whatsLeft );
+            $whatsLeft = preg_replace('/<br>$/', '', $whatsLeft);
+            $whatsLeft = preg_replace('/<br\s*\/>$/', '', $whatsLeft);
 
             if( empty( $whatsLeft ) ) {
                 $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['data-only-links' => true] );

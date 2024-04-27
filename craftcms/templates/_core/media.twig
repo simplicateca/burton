@@ -1,6 +1,6 @@
 {## Media Elements   [Core Template]
 {-------------------------------------------------------------------------------------##}
-{% extends template_from_string('{% block media__skeleton %}') %}
+{% extends template_from_string('{% block media__skeleton "" %}') %}
 
 
 {## Template Variables
@@ -27,11 +27,11 @@
 } | merge( figure ) -%} #}
 
 {# settings object #}
-{# {%- set settings = settings ??? null -%}
+{%- set settings = settings ??? null -%}
 {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
 {%- set settings = {
-    imgclass: block('img__class')
-} | merge( settings ) -%} #}
+    'medialayer': 'default',
+} | merge( settings ) -%}
 
 
 
@@ -39,7 +39,7 @@
 {---------------------------------------------------------------------------------------}
 {-------------------------------------------------------------------------------------##}
 {% block audio__class        audio__class       ?? "block w-full max-w-4xl bg-[#f1f3f4]" %}
-{% block audio__posterclass  audio__posterclass ?? "block w-full h-64" %}
+{% block audio__posterclass  audio__posterclass ?? "block w-full h-48" %}
 {% block audio__figureclass  audio__figureclass ?? "flex flex-col w-full" %}
 
 {% block video__class        video__class       ?? "w-full aspect-video" %}
@@ -71,15 +71,14 @@
 {% endblock %}
 
 
-
 {% block media__sources -%}
-    {%- if item.url ?? null and item.mimeType ?? null -%}
+    {%- if item.url ??? null and item.mimeType ??? null -%}
         <source src="{{item.url}}" type="{{item.mimeType}}"/>
     {%- endif %}
 {% endblock %}
 
 {% block media__transcript -%}
-    {%- if item.transcript ?? null %}
+    {%- if item.transcript ??? null %}
         <a href="#">Transcript Available</a>
     {%- endif -%}
 {%- endblock %}
@@ -153,9 +152,7 @@
 
     {## Prepare the <img> tag for the poster image ##}
     {%- from "_core/image" import imgtag -%}
-    {%- set asset  = item.images.one() ? item.images|first : null -%}
-    {%- set asset  = item.images and item.images is iterable and not asset ? item.images|first : null -%}
-    {%- set imgtag = imgtag(asset, poster) ?? null -%}
+    {%- set imgtag = imgtag(item.images, poster) ?? null -%}
 
     {## Add simple alpine JS click to toggle the poster image ##}
     {%- set imgtag = imgtag ? raw( imgtag | attr({
@@ -171,12 +168,13 @@
     {## If a poster img exists, wrap a <figure> around the <img> and <audio> tags ##}
     {%- if imgtag -%}
         {%- embed ['_site/image', '_core/image'] with {
-            img      : imgtag,
+            imgtag   : imgtag,
             figure   : figure,
             settings : settings,
             audiohtml: audiohtml
         } only %}
-            {% block figcaption audiohtml %}
+            {% block caption audiohtml %}
+            {% block captiontag "div" %}
         {% endembed -%}
 
     {## Otherwise just output the <audio> element ##}
@@ -220,7 +218,7 @@
             open: false,
             play() {
                 this.open = true
-                $refs.#{uuid}.play()
+                $nextTick(() => { $refs.#{uuid}.play() } )
             }
         }",
     } | merge( figure ) -%}
@@ -228,10 +226,7 @@
 
     {## Prepare the <img> tag for the poster image ##}
     {%- from "_core/image" import imgtag -%}
-    {%- set images   = item.images ??? null %}
-    {%- set asset    = ( images.url ??? null ) ? images : null -%}
-    {%- set asset    = asset is null and images and images is iterable ? images|first : asset -%}
-    {%- set imgtag   = imgtag(asset, poster) ?? null -%}
+    {%- set imgtag = imgtag(item.images ??? null, poster) ?? null -%}
 
     {% set medialayer = medialayer ??? settings.medialayer ??? 'default' %}
 
@@ -239,6 +234,12 @@
     {% if item.oembed.html ??? null %}
         {% set videotag = item.oembed.html
             | retconAttr( 'iframe', { height: false, width: false, class: video.class } ) %}
+
+        {%- set figure = {
+            'x-data': "{
+                open: false
+            }",
+        } | merge( figure ) -%}
 
         {% if videotag and imgtag and medialayer != 'default' %}
             {% set videotag -%}
@@ -259,19 +260,20 @@
     }) ) %}
 
     {## Prepare the transcript link ##}
-    {% set transcript = block( 'media__videotranscript' ) ??? null %}
+    {% set transcript = block( 'video__transcript' ) ??? null %}
 
     {% set videohtml  = raw( videotag ~ transcript ) %}
 
     {## If a poster img exists, wrap a <figure> around the <img> and <video> tags ##}
     {%- if imgtag -%}
         {%- embed ['_site/image', '_core/image'] with {
-            img      : imgtag,
+            imgtag   : imgtag,
             figure   : figure,
             settings : settings,
             videohtml: videohtml,
         } only %}
-            {% block figcaption videohtml %}
+            {% block caption videohtml %}
+            {% block captiontag "div" %}
         {% endembed -%}
 
     {## Otherwise just output the <video> element ##}
@@ -281,7 +283,7 @@
 
 
 {## Default Media Frame ##}
-{% macro media__default( media, settings = null ) -%}
+{% macro default( media, settings = null ) -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {%- set single = ( media.id ??? null or media.url ??? null ) ? media : null %}
     {%- set single = ( single is null and media | length == 1 ) ? media | first : single -%}
@@ -298,12 +300,12 @@
 {% endmacro %}
 
 
-{% macro media__randomize( items, settings ) -%}
-    {{- _self.media__single( shuffle(items), settings ) -}}
+{% macro randomize( items, settings ) -%}
+    {{- _self.single( shuffle(items), settings ) -}}
 {%- endmacro %}
 
 
-{% macro media__single( items, settings = null ) -%}
+{% macro single( items, settings = null ) -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {%- set settings = { medialayer: 'default' } | merge(settings) -%}
     {%- import "_assemble" as assemble -%}
@@ -312,26 +314,52 @@
 
 
 
-{% macro media__carousel( items, settings = null ) -%}
-{%- if items -%}
+{## Basic Two/Three Column Grids
+{---------------------------------------------------------------------------------------}
+ !! IMPORTANT CAVEAT: Unlike Cards that have a deck iterator and a card layout,
+    media macros are assumed to handle one or both cases at the same time.
+
+    Specifically, in the case of these grid macros, the `medialayer` *MUST BE CHANGED*
+    to something else before running them through `assemble.media()` again.
+
+    Otherwise, they'll try to loop back on themselves and re-run the `grid2` or `grid3`
+    `medialayer` again, ending up in an infinite loop.
+
+    This will be changed in a future version to more explicit and separate iterator
+    and frame macros.
+{-------------------------------------------------------------------------------------##}
+{% macro media__grid( gridlayout, media, settings = null ) %}
+    {%- set gridlayout = gridlayout ?? 'default' -%}
+
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {% set settings = {
-        medialayer: 'posterpreview',
-    } | merge( settings ) %}
+    {%- set settings = settings | merge( { gridlayout: gridlayout, medialayer: 'default' } ) -%}
 
     {%- import "_assemble" as assemble -%}
-    {%- set items = items | map( item => assemble.media( item, settings.medialayer, settings ) ) -%}
 
-    {% embed ['_site/carousel','_core/carousel'] with {
-        items: items,
-        settings: settings
-    } only %}{% endembed %}
-{%- endif -%}{%- endmacro %}
+    {%- set media = media ?? null -%}
+    {%- set media = media is not null and media is iterable ? media : [] -%}
+    {%- set media = media | map( item => assemble.media( settings.medialayer, item, settings ) ) -%}
+
+    {{- assemble.gridlayout( settings.gridlayout, media|join , settings ) -}}
+{% endmacro %}
+
+{% macro grid2( media, settings = null ) -%}
+    {{- ( media ?? null and media|length == 1 )
+        ? _self.media__grid( 'single', media, settings )
+        : _self.media__grid( 'flexible2', media, settings )
+    -}}
+{%- endmacro %}
+
+{% macro grid3( media, settings = null ) -%}
+    {{- ( media ?? null and media|length < 3 )
+        ? _self.grid2( media, settings )
+        : _self.media__grid( 'fixed3', media, settings )
+    -}}
+{%- endmacro %}
 
 
 
-
-{% macro media__accordion( items, settings = null ) -%}
+{% macro accordion( items, settings = null ) -%}
 {%- if items -%}
     {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
     {% set settings = {
@@ -352,7 +380,7 @@
             {% set textlayer = settings.textlayer ??? 'default' %}
 
             <div class="flex flex-col gap-8">
-                {{ assemble.media( item, medialayer, settings ) }}
+                {{ assemble.media( medialayer, item, settings ) }}
                 {% if item.summary %}
                     <div class="@container">{{ assemble.text( textlayer, item.summary, settings ) }}</div>
                 {% endif %}
@@ -361,56 +389,3 @@
 
     {% endembed %}
 {%- endif -%}{%- endmacro %}
-
-
-
-{% macro media__grid2( items, settings = null ) %}
-    {% import "_assemble" as assemble %}
-
-    {% set flexible   = 'grid items-start grid-cols-1 @md:grid-cols-2 gap-4 @xl:gap-8 @4xl:gap-12 @7xl:gap-16' %}
-    {% set fixed      = 'grid items-start grid-cols-2 gap-8 @3xl:gap-16 @7xl:gap-24' %}
-    {% set medialayer = settings.medialayer ??? 'default' %}
-
-    {% if items %}
-        {% set html %}
-            {% for item in items %}
-                {{ assemble.media( item, medialayer, settings ) }}
-            {% endfor %}
-        {% endset %}
-
-        {% set grid = {
-            html : html,
-            data : { layout: 'grid2flexible' },
-            class: flexible
-        } %}
-
-        <div class="w-full">{{ tag( 'div', grid ) }}</div>
-    {% endif %}
-{% endmacro %}
-
-
-
-
-{% macro media__grid3( items, settings = null ) %}
-    {% import "_assemble" as assemble %}
-
-    {% set flexible   = 'grid items-start grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3 gap-8 @5xl:gap-12 @7xl:gap-16' %}
-    {% set fixed      = 'grid items-start grid-cols-3 gap-4 @3xl:gap-12 @5xl:gap-16 @7xl:gap-20' %}
-    {% set medialayer = settings.medialayer ??? 'default' %}
-
-    {% if items %}
-        {% set html %}
-            {% for item in items %}
-                {{ assemble.media( item, medialayer, settings ) }}
-            {% endfor %}
-        {% endset %}
-
-        {% set grid = {
-            html : html,
-            data : { layout: 'grid3fixed' },
-            class: fixed
-        } %}
-
-        <div class="w-full">{{ tag( 'div', grid ) }}</div>
-    {% endif %}
-{% endmacro %}

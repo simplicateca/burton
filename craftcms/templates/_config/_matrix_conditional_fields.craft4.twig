@@ -49,29 +49,47 @@ var matrixConditionalsConfig = {
         }
     },
 
-    // media block variant
-    '*.media.variant': {
-        'code': {
-            showAll: ['code'],
-            hideAll: ['media','collections','external', 'source'],
-        }
-    },
-
     // media content source
     '*.media.source': {
         'media': {
             showAll: ['media'],
-            hideAll: ['external','code','collections'],
+            hideAll: ['external','collections'],
+            showIf: 'source'
         },
 
         'external': {
             showAll: ['external'],
-            hideAll: ['media','code','collections'],
+            hideAll: ['media','collections'],
+            showIf: 'source'
         },
 
         'collect': {
             showAll: ['collections'],
-            hideAll: ['media','code','external'],
+            hideAll: ['media','external'],
+            showIf: 'source'
+        }
+    },
+
+    // media block variant
+    '*.media.variant': {
+        'player': {
+            showAll: ['source'],
+            hideAll: ['code'],
+            showAllTrigger: 'source'
+        },
+        'teaser': {
+            showAll: ['source'],
+            hideAll: ['code'],
+            showAllTrigger: 'source'
+        },
+        'code': {
+            showAll: ['code'],
+            hideAll: ['source','media','external','collections']
+        },
+        'background': {
+            showAll: ['source'],
+            hideAll: ['code'],
+            showAllTrigger: 'source'
         }
     },
 
@@ -151,7 +169,7 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
         evaluateConditions( block, value, conditions ) {
             const thisObj  = this
             const strValue = this.cleanValue( value )
-
+            console.log( block )
             Object.keys(conditions).forEach(function(key, index) {
                 if( typeof this[key] === 'object' && this[key] !== null ) {
 
@@ -168,17 +186,30 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
                         ( strValue == strKey )
                     )
 
-                    if( ! isEqual ) {
-                        thisObj.toggleFields( 'hideAll', block, this[key].notHideAll ?? [] )
-                        thisObj.toggleFields( 'showAll', block, this[key].notShowAll ?? [] )
-                    }
-
                     if( isEqual ) {
-                        thisObj.toggleFields( 'hideAll', block, this[key].hideAll ?? [] )
-                        thisObj.toggleFields( 'showAll', block, this[key].showAll ?? [] )
 
-                        if( this[key].showOnlyOne ?? null ) {
-                            thisObj.toggleFields( 'showOnlyOne', block, this[key].showOnlyOne )
+                        // ShowIf lets you show fields based on the value of (usually) a parent field
+                        if( this[key].showIf ?? null ) {
+                            console.log( this[key].showIf )
+                            if( block && block.querySelector('.field[data-attribute='+this[key].showIf+']') ) {
+                                classes = block.querySelector('.field[data-attribute='+this[key].showIf+']').classList
+                                if( classes.contains('matrixConditionals--hidden') ) {
+                                    // do nothing
+                                } else {
+                                    thisObj.toggleFields( 'showAll', block, this[key].showAll ?? [] )
+                                }
+                            }
+                        } else {
+                            thisObj.toggleFields( 'showAll', block, this[key].showAll ?? [] )
+                        }
+
+                        thisObj.toggleFields( 'hideAll', block, this[key].hideAll ?? [] )
+
+                        // showAllTrigger lets you choose a field to trigger an onChange() on after
+                        // the showAll/hideAll fields have been shown
+                        if( this[key].showAllTrigger ?? null ) {
+                            let field = block.querySelector('.field[data-attribute="' + this[key].showAllTrigger + '"] select.selectized') ?? null
+                            if( field ) { thisObj.testField( field ) }
                         }
                     }
 
@@ -197,25 +228,10 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
             value = this.currentValue
             cond  = this.currentCondition
 
-            {# firstMatch   = null
-            foundVisible = false #}
-
             fields.forEach(function (item, index) {
                 if( matchingField = block.querySelector(`.field[data-attribute="${item}"]`) ) {
-
-                    {# if( setting == 'showOnlyOne' ) {
-                        firstMatch = firstMatch ?? matchingField
-                        if( foundVisible ) {
-                            matchingField.classList.add('matrixConditionals--hidden' )
-                        } else {
-                            if( !matchingField.classList.contains('matrixConditionals--hidden') ) {
-                                foundVisible = true
-                            }
-                        }
-                    } #}
-
                     if( setting == 'showAll' ) {
-                        matchingField.classList.remove('matrixConditionals--hidden' )
+                        matchingField.classList.remove('matrixConditionals--hidden')
                         matchingField.setAttribute('data-condition', cond);
 
                         if( this.debug ) {
@@ -224,25 +240,20 @@ if( typeof Craft.MatrixConditionals === 'undefined' ) {
                     }
 
                     if( setting == 'hideAll' ) {
+
                         if( !matchingField.classList.contains('matrixConditionals--hidden') ) {
-                            matchingField.classList.add('matrixConditionals--hidden' )
+
+                            matchingField.classList.add('matrixConditionals--hidden')
                             matchingField.setAttribute('data-condition', cond )
 
                             if( this.debug ) {
                                 console.log( `applying "${value}" for rule matching: ${cond}\n  ${setting}: ${item}`)
                             }
                         }
+
                     }
                 }
             });
-
-            {# if( setting == 'showOnlyOne' && ! foundVisible ) {
-                firstMatch.classList.remove('matrixConditionals--hidden' )
-
-                if( this.debug ) {
-                    console.log( `applying "${value}" for rule matching: ${cond}\n  ${setting}`)
-                }
-            } #}
         },
 
         testField( input, useValue = null, firstRun = false ) {

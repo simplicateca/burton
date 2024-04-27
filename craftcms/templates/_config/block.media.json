@@ -47,16 +47,9 @@
                     "label" : "Choose one at random"
                 }
                ,{
-                    "value" : "carousel",
-                    "label" : "Basic carousel"
-                }
-               ,{
                     "value" : "accordion",
-                    "label" : "Basic accordion"
-                }
-               ,{
-                    "value" : "playlist",
-                    "label" : "Playlist"
+                    "label" : "Basic accordion",
+                    "firstopen" : true
                 }
             ]
         }
@@ -77,9 +70,9 @@
             "label": "Grid Layout",
             "field": "mediadeck",
             "type" : "select",
-            "default": "single",
+            "default": "grid2",
             "instructions": "Layout to use for the teaser grid.",
-            "fieldClass": "field width-50",
+            "fieldClass": "field width-100",
             "options" : [
                 {
                     "value" : "grid2",
