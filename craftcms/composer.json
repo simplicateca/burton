@@ -25,7 +25,7 @@
   "minimum-stability": "beta",
   "require": {
     "craftcms/ckeditor": "^4.0.4",
-    "craftcms/cms": "^5.0.5",
+    "craftcms/cms": "^5.1.0",
     "embed/embed": "^4.4.10",
     "mmikkel/retcon": "^3.0.0",
     "nystudio107/craft-emptycoalesce": "^5.0.0",
@@ -39,7 +39,7 @@
     "yiisoft/yii2-redis": "^2.0.18"
   },
   "require-dev": {
-    "craftcms/generator": "^2.0",
+    "craftcms/generator": "^2.0.1",
     "yiisoft/yii2-shell": "^2.0.5"
   },
   "autoload": {

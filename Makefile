@@ -11,13 +11,13 @@ IS_RUNNING:=`docker compose ps --services | grep 'php'`
 # ---------------------------------------------------------------------
 # launches and prepares the docker based development environment
 dev: prep
-	[ $(IS_RUNNING) ] || docker compose up
+	[ $(IS_RUNNING) ] || docker compose up ;
 
 run: prep
-	[ $(IS_RUNNING) ] || docker compose up -d
+	[ $(IS_RUNNING) ] || docker compose up -d ;
 
 down:
-	docker compose down
+	docker compose down ;
 
 
 # > make prep
@@ -31,43 +31,43 @@ prep:
 # > make craft "tool/command arg1 arg2"
 # ---------------------------------------------------------------------
 # issue commands to the craft cli console
-craft: run
-	docker compose exec php $(CRAFT_PATH) $(filter-out $@,$(MAKECMDGOALS))
+craft:
+	docker compose exec php $(CRAFT_PATH) $(filter-out $@,$(MAKECMDGOALS)) ;
 
 
 # > make composer "install php/library"
 # ---------------------------------------------------------------------
 # issue commands to the php composer cli. surround arguments in quotes
-composer: run
-	docker compose run composer $(filter-out $@,$(MAKECMDGOALS))
+composer:
+	docker compose run composer $(filter-out $@,$(MAKECMDGOALS)) ;
 
 
 # > make npm "install javascript/package"
 # ---------------------------------------------------------------------
 # issue commands to the npm cli. surround arguments in quotes
-npm: run
-	docker compose exec frontend npm $(filter-out $@,$(MAKECMDGOALS))
+npm:
+	docker compose exec frontend npm $(filter-out $@,$(MAKECMDGOALS)) ;
 
 
 # > make lint
 # ---------------------------------------------------------------------
 # run the vite/npm lint scripts
-lint: run
-	docker compose exec frontend npm run lint
+lint:
+	docker compose exec frontend npm run lint ;
 
 
 # > make build
 # ---------------------------------------------------------------------
 # run the vite/npm lint & build scripts
-build: run
-	docker compose exec frontend npm run build
+build:
+	docker compose exec frontend npm run build ;
 
 
 # > make exportdb
 # ---------------------------------------------------------------------
 # short cut to run the craft database export
-exportdb: run
-	docker compose exec php $(CRAFT_PATH) db/backup
+exportdb:
+	docker compose exec php $(CRAFT_PATH) db/backup ;
 
 
 # > make exportdbseed
@@ -83,8 +83,8 @@ exportdbseed: exportdb
 # > make ssh
 # ---------------------------------------------------------------------
 # ssh into the php-fpm container
-ssh: run
-	docker compose exec php /bin/bash
+ssh:
+	docker compose exec php /bin/bash ;
 
 
 # > make clean
@@ -103,7 +103,7 @@ clean:
 # remove the mysql database. files in './etc/database-seed' will be
 # used to recreate the database the next time the project spins up
 wipedb:
-	docker compose down -v
+	docker compose down -v ;
 
 
 # > make nuke
@@ -111,7 +111,7 @@ wipedb:
 # removes all persistent data (mysql volume included), deletes composer
 # and php libraries, and recreates the entire project from scratch
 nuke: clean wipedb
-	docker compose up --build --force-recreate
+	docker compose up --build --force-recreate ;
 
 
 %:

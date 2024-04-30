@@ -1,12 +1,10 @@
-version: '3.9'
-
 services:
     # Node.js - Vite Frontend Development
     # https://github.com/nodejs/docker-node/tree/cd41dbe222da1ce72d61d8fbaa06ac79316ac6d5/16
     frontend:
         image: node:lts
         restart: unless-stopped
-        user: "${PUID:-1000}:${PGID:-1000}"
+        user: "1000:1000"
         working_dir: /var/www/frontend
         stop_grace_period: 1s
         tty: true
@@ -58,42 +56,19 @@ services:
         image: composer
         command: "composer install --verbose --no-progress --optimize-autoloader --no-interaction"
         tty: true
-        user: "${PUID:-1000}:${PGID:-1000}"
+        user: "1000:1000"
         volumes:
             - ./craftcms:/app
         depends_on:
             mysql:
                 condition: service_healthy
 
-    # Craft CMS - Install
-    # https://github.com/simplicateca/docker-php-fpm
-    # install: &craft
-    #     image: simplicateca/php-fpm:8.2
-    #     user: "${PUID:-1000}:${PGID:-1000}"
-    #     working_dir: /app
-    #     env_file:
-    #         *env
-    #     command: >
-    #       bash -c "./craft install --email='craft@example.com' --password='letmein' --site-name='Craft CMS' --site-url='http://localhost:8000'"
-    #     volumes:
-    #         - ./craftcms:/app:cached
-    #         - ./frontend/public/static:/app/web/static:ro
-    #         - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
-    #         - ./etc:/app/etc
-    #     depends_on:
-    #         composer:
-    #             condition: service_completed_successfully
-    #         mysql:
-    #             condition: service_healthy
-    #         redis:
-    #             condition: service_started
-
 
     # Craft CMS - Migrate, Update, Clear Caches (ends once complete)
     # https://github.com/simplicateca/docker-php-fpm
     migrations: &craft
         image: simplicateca/php-fpm:8.2
-        user: "${PUID:-1000}:${PGID:-1000}"
+        user: "1000:1000"
         working_dir: /app
         env_file:
             *env
@@ -184,8 +159,42 @@ services:
             frontend:
                  condition: service_healthy
 
+
+    ## Reinstall Craft CMS
+    ## ---------------------------------------------------------------
+    ## Usage:
+    ##   docker compose exec php app/craft db/backup
+    ##   docker compose down -v
+    ##   docker compose up --profile install
+    ## ---------------------------------------------------------------
+    ## NOTE: This will **DELETE** existing Craft CMS SQL database.
+    ## ---------------------------------------------------------------
+    install: &craft
+        image: simplicateca/php-fpm:8.2
+        profiles: [install]
+        user: "1000:1000"
+        working_dir: /app
+        env_file:
+            *env
+        command: >
+          bash -c "./craft install --email='craft@example.com' --password='letmein' --site-name='Craft CMS' --site-url='http://localhost:8000'"
+        volumes:
+            - ./craftcms:/app:cached
+            - ./frontend/public/static:/app/web/static:ro
+            - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./etc:/app/etc
+        depends_on:
+            composer:
+                condition: service_completed_successfully
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_started
+
+    # Adminer / PhpMyAdmin - Database Management (Debug Profile)
     adminer:
         image: adminer
+        profiles: [debug]
         depends_on:
             mysql:
                 condition: service_healthy
