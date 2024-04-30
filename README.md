@@ -43,7 +43,7 @@ vite_1   |   > Network:  http://192.168.96.5:3000/
 
 URL:  http://localhost:8000/admin
 
-Login: `craft-admin@example.com`
+Login: `craft@example.com`
 
 Password: `letmein`
 

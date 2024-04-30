@@ -1,0 +1,50 @@
+color: null
+fieldLayouts:
+  f95c6ac3-8994-4936-919f-cf7d84dde245:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: a7407c6a-cf24-4101-b8e5-40db983e544c
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: c4b0958c-e3d0-4bb0-8c28-96f4eaaddad9
+        userCondition: null
+handle: redirect
+hasTitleField: true
+icon: circle-arrow-right
+name: Redirect
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

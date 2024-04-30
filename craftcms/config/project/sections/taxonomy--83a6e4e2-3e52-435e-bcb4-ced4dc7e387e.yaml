@@ -1,0 +1,31 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Fullpage
+  - a28f735a-3f02-4039-aaf6-a9c50e93122f # Sidebar
+handle: taxonomy
+maxAuthors: 1
+name: Taxonomies
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+    enabledByDefault: true
+    hasUrls: true
+    template: _site/taxonomy._entry.twig
+    uriFormat: '{% from ''_site/taxonomy._entry'' import uri %}{{ uri( object ) }}'
+structure:
+  maxLevels: null
+  uid: cc00ceed-0937-472c-b55c-c83fa5fce262
+type: structure

@@ -69,7 +69,7 @@ class SiteModule extends Module
         HtmlTextHelper::enable();
 
         // Basically a copy of the old Sidebar Entry Type Helper
-        EntrySidebarHelper::enable();
+        // EntrySidebarHelper::enable();
 
         // Enable Twig Extensions
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\TextBaseTwig() );
@@ -129,7 +129,6 @@ class SiteModule extends Module
         // Include `craftcms/templates` in the template path for templates in `craftcms/modules/sitemodule/templates`
         Event::on( View::class, View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) {
             $e->roots['_core']  = CRAFT_BASE_PATH . '/templates/_core';
-            $e->roots['_email'] = CRAFT_BASE_PATH . '/templates/_email';
             $e->roots['_site']  = CRAFT_BASE_PATH . '/templates/_site';
             $e->roots['']       = CRAFT_BASE_PATH . '/templates';
         });

@@ -1,0 +1,29 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+  - ff76eb70-820e-4752-b138-daef62692e3f # Body Fragment
+  - e56447b6-2288-47ba-89a8-e90f3970f3c7 # Sidebar Fragment
+handle: reusable
+maxAuthors: 1
+name: 'Reusable Pieces'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

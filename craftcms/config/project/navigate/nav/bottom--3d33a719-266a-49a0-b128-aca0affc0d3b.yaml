@@ -1,6 +1,0 @@
-adminOnly: 1
-allowSources: '*'
-enabledSiteGroups: '*'
-handle: bottom
-levels: 1
-title: Bottom

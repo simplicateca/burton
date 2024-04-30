@@ -1,0 +1,50 @@
+color: null
+fieldLayouts:
+  3a5fcba1-7080-4398-abf6-19311eb4d489:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: c56a05a3-8a2a-4dcc-8672-dff79e54ad39
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 2ca4add9-ebec-491f-a9b6-b090360c7775
+        userCondition: null
+handle: static
+hasTitleField: true
+icon: list-radio
+name: 'Static Collection'
+showSlugField: false
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

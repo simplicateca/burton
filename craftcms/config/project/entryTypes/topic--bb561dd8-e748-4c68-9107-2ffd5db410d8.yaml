@@ -1,0 +1,50 @@
+color: null
+fieldLayouts:
+  eef57681-5e0b-4580-b05a-72dea32206f5:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: b18e5684-7dcc-4721-8753-fd6cbe1a6d93
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: cbf19f7c-2dd0-4513-bc6c-370b9bd8fe10
+        userCondition: null
+handle: topic
+hasTitleField: true
+icon: tags
+name: Topic
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

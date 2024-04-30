@@ -35,6 +35,8 @@
 
      -> blog/my-article-title
      -> news/news-title
+
+     {% from '_site/articles._entry' import uri %}{{ uri( object ) }}
 {-------------------------------------------------------------------------------------##}
 {% macro uri( entry ) %}{% apply spaceless %}
     {{ entry.type.handle|kebab }}/{{ entry.slug }}

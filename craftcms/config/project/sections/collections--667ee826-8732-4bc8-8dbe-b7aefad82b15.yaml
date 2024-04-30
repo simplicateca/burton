@@ -1,0 +1,29 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  - 21710874-0ba0-423c-82ec-7fd855abb982 # Dynamic Collection
+  - d7748b2a-ae79-4961-b103-a5aa758e39ab # Static Collection
+  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # RSS Feed
+handle: collections
+maxAuthors: 1
+name: Collections
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary entry page'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

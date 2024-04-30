@@ -12,6 +12,8 @@
 
     However, you do need to trigger a manual resave of all entries if you change
     the URI sturcture in the below macro for existing records.
+
+    {% from '_site/profiles._entry' import uri %}{{ uri( object ) }}
 {-------------------------------------------------------------------------------------##}
 {% macro uri( entry ) %}{% apply spaceless %}
     profile/{{ entry.slug }}

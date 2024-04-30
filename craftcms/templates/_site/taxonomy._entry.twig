@@ -21,6 +21,8 @@
 
     However, you do need to trigger a manual resave of all entries if you change
     the URI sturcture in the below macro for existing records.
+
+    {% from '_site/taxonomy._entry' import uri %}{{ uri( object ) }}
 {-------------------------------------------------------------------------------------##}
 {% macro uri( entry ) %}{% apply spaceless %}
     {{ entry.type.handle == 'topic' ? "topics/#{entry.slug}" : null }}

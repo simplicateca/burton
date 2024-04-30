@@ -16,7 +16,7 @@ Frontend Website
 
 Craft CMS Admin
  >> http://localhost:8000/${CRAFT_CP_TRIGGER:-admin}
- u: craft-admin@example.com
+ u: craft@example.com
  p: letmein
 
 Editor Facing Style/Layout/Component Guide

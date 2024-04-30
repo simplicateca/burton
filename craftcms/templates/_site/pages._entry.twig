@@ -1,26 +1,18 @@
 {## Page & Landing Page Entry Router
 {-------------------------------------------------------------------------------------##}
 {% set template  = null %}
-{% set entrytype = entry.type.handle|default(null) %}
+{% set entrytype = entry.type.handle ?? null %}
 
 {% if entrytype == 'redirect' and entry.redirect.url ?? null %}
     {% redirect entry.redirect.url %}
 {% endif %}
 
-{% if entrytype == 'standard' %}
-    {% set template = "_site/template.full" %}
+{% if entrytype == 'fullpage' %}
+    {% set template = "_site/template.fullpage" %}
 {% endif %}
 
 {% if entrytype == 'sidebar' %}
     {% set template = "_site/template.sidebar" %}
-{% endif %}
-
-{% if entrytype == 'landingPages' %}
-    {% set template = "_site/template.full" %}
-
-    {% if entry.sidebarBuilder.one() ??? null %}
-        {% set template = "_site/template.sidebar" %}
-    {% endif %}
 {% endif %}
 
 {% if entrytype and template %}
@@ -38,6 +30,8 @@
 
     However, you do need to trigger a manual resave of all entries if you change
     the URI sturcture in the below macro for existing records.
+
+    {% from '_site/pages._entry' import uri %}{{ uri( object ) }}
 {-------------------------------------------------------------------------------------##}
 {% macro uri( entry ) %}{% apply spaceless %}
     {% set entrytype = entry.type.handle ?? entry.type ?? null %}

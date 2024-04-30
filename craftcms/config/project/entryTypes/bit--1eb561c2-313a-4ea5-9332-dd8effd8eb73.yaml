@@ -1,0 +1,50 @@
+color: null
+fieldLayouts:
+  d5987dad-8fc6-4016-8a6f-f88bdcfc6149:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 6867bcd7-af17-492f-a3a7-047f563b42f5
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: fc93ce85-8a48-4e3f-b1e4-636a7627734e
+        userCondition: null
+handle: bit
+hasTitleField: true
+icon: bin-recycle
+name: Bit
+showSlugField: false
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

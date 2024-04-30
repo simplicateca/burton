@@ -1,0 +1,50 @@
+color: null
+fieldLayouts:
+  bf98dc04-1899-442c-baa2-2ad98f79e2dd:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 0f564e2e-5e05-48a8-81c7-e6dc92f04c78
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 234a7ecd-45dc-43e5-b9d1-c5a2da00ad8a
+        userCondition: null
+handle: fragment
+hasTitleField: false
+icon: puzzle-piece
+name: Fragment
+showSlugField: false
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

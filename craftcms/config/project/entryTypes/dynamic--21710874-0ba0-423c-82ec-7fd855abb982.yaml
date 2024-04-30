@@ -1,0 +1,50 @@
+color: null
+fieldLayouts:
+  645125bd-a9d4-4a89-9473-0b31f120ad4f:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 0ced76d2-45fd-4a95-98d0-d4aace59627a
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 13018e87-c248-4884-8a35-03e84d892886
+        userCondition: null
+handle: dynamic
+hasTitleField: true
+icon: radar
+name: 'Dynamic Collection'
+showSlugField: false
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

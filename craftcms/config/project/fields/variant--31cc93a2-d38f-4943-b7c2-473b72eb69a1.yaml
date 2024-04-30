@@ -1,0 +1,11 @@
+columnSuffix: null
+handle: variant
+instructions: null
+name: Variant
+searchable: false
+settings:
+  columnType: null
+  configFile: _config/block.variant.json
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\selectplus\fields\SelectPlusField

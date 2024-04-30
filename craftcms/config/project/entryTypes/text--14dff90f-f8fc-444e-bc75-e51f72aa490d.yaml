@@ -1,0 +1,162 @@
+color: null
+fieldLayouts:
+  0f501c95-7567-4821-af33-c3872e0d6947:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: de1772ac-b6f7-4eaa-b01f-2bf60292d95a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Block Variant'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e8f4518e-9c6e-4b97-9b49-14f582079e52
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 524c3914-caed-4fd7-a0cf-d6fb1c373632
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+                  layoutElementUid: e8f4518e-9c6e-4b97-9b49-14f582079e52
+                  operator: in
+                  uid: 4f3459b4-5e3f-4a00-890d-ec1f05fd1eef
+                  values:
+                    - double
+                    - reveal
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
+            handle: text2
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ca82525a-4eef-4cca-b5bd-b9064fbd6487
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+                  layoutElementUid: e8f4518e-9c6e-4b97-9b49-14f582079e52
+                  operator: in
+                  uid: 8f08bbe9-ac01-48e7-b587-a514fa476596
+                  values:
+                    - callout
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ca49e688-1a34-4bed-b18d-57ec0e712abb
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+                  layoutElementUid: e8f4518e-9c6e-4b97-9b49-14f582079e52
+                  operator: in
+                  uid: 2f688f6d-7b6a-4f5f-a029-d840446ab912
+                  values:
+                    - callout
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2 # Bits
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 32e05ff3-dd1a-4365-ba8f-08bd77df0e7f
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: e021dbe8-88ec-4222-8d73-b314e36951e3
+        userCondition: null
+handle: text
+hasTitleField: false
+icon: font-case
+name: Text
+showSlugField: false
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
