@@ -12,9 +12,9 @@
 {-------------------------------------------------------------------------------------##}
 {% block text2__reveal -%}
 {%- if block.text2 ?? null %}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {%- set settings = {
-        revealLabel: 'View Hidden Content'|t,
+        buttontext: 'View Hidden Content'|t,
         text2layer : 'default',
     } | merge( settings ) -%}
 
@@ -27,13 +27,13 @@
         :class="revealed ? 'w-full' : 'w-full h-full'"
     >
         <template x-if="!revealed">
-            <div class="w-full h-full flex items-center justify-center p-8 bg-canvas-dark">
-                <button x-on:click="reveal" class="button">{{settings.revealLabel}}</button>
+            <div class="w-full h-full flex items-center justify-center p-8 bg-theme-tint2">
+                <button x-on:click="reveal" class="button">{{settings.buttontext}}</button>
             </div>
         </template>
 
         <div x-show="revealed">
-            {%- import "_assemble" as assemble -%}
+            {%- import "_core" as assemble -%}
             {{- assemble.text( settings.text2layer, block.text2, settings ) -}}
         </div>
     </div>
@@ -47,7 +47,7 @@
     `summary` field of the attached Reusable Content Bit.
 {-------------------------------------------------------------------------------------##}
 {% block text2__callout -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {%- set settings = { text2layer : 'callout' } | merge( settings ) -%}
 
     {%- set thistext = block.summary ?? "" -%}
@@ -56,6 +56,6 @@
         {%- set thistext = bit ? bit.summary ?? bit.text ?? null : thistext -%}
     {%- endif -%}
 
-    {%- import "_assemble" as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.text( settings.text2layer, thistext, settings ) -}}
 {%- endblock %}

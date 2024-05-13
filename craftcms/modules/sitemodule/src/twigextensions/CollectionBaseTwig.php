@@ -40,9 +40,9 @@ class CollectionBaseTwig extends AbstractExtension
             case 'verbbevent':
                 return  \verbb\events\elements\Event::find();
             case 'asset':
-                return  \craft\elements\Asset::find();
+                return \craft\elements\Asset::find();
             default:
-                return  \craft\elements\Entry::find();
+                return \craft\elements\Entry::find();
         }
     }
 
@@ -61,7 +61,7 @@ class CollectionBaseTwig extends AbstractExtension
         if( $collections == null || empty( $collections ) ) { return []; }
         $collection = null;
 
-        // First, we need to figure out what the $collections argument contains..
+        // First, we need to figure out what the $collections argument contains.
 
         // Option 1
         // A list of Collection IDs (probably came through Sprig)
@@ -99,11 +99,16 @@ class CollectionBaseTwig extends AbstractExtension
 
         // Option 3
         // An ElementQuery search description built on the fly in twig
-        if( !$collection && is_array( $collections ) && !$this->isOnlyIDs( $collections ) )
+        if( !$collection && is_array( $collections ) && isset( $collections['where'] ) )
         {
-            if( $collections['where'] ?? null ) {
-                return $this->processManual( $collections, $params );
-            }
+            return $this->processManual( $collections, $params );
+        }
+
+        // Option 4
+        // An Array of Collections (probably an eager loaded version of option 2)
+        if( !$collection && is_array( $collections ) )
+        {
+            $collection = $collections[0];
         }
 
         // If we still don't have a collection, we can't do anything.
@@ -203,10 +208,10 @@ class CollectionBaseTwig extends AbstractExtension
     public function processDynamic( $collection, $params ) : Mixed
     {
         $query = [
-            'element' => $collection->contentSource->settings['element'] ?? 'entry',
-            'where'   => $collection->contentSource->settings['where'] ?? null,
-            'with'    => $collection->contentSource->settings['with']  ?? null,
-            'orderBy' => $collection->sort->settings['orderBy'] ?? $collection->sort->settings['order'] ?? 'postDate DESC',
+            'element' => $collection->source->settings['element'] ?? 'entry',
+            'where'   => $collection->source->settings['where'] ?? null,
+            'with'    => $collection->source->settings['with']  ?? null,
+            'orderBy' => $collection->source->settings['orderBy'] ?? $collection->source->settings['order'] ?? 'postDate DESC',
             'limit'   => $params['limit'] ?? 100,
             'keyword' => $params['query'] ?? null
         ];
@@ -222,25 +227,32 @@ class CollectionBaseTwig extends AbstractExtension
             $elementQuery->relatedTo( $taxonomies );
         }
 
-        if( $query['where'] && $query['where']['section'] ?? null ) {
-            $section = $query['where']['section'];
-            unset( $query['where']['section'] );
-            $elementQuery->section( $section );
+        if( isset( $query['where'] ) && !empty( $query['where'] ) ) {
+
+            if( $query['where'] && isset( $query['where']['section'] ) ) {
+                $section = $query['where']['section'];
+                unset( $query['where']['section'] );
+                $elementQuery->section( $section );
+            }
+
+            if( $query['where'] && isset( $query['where']['type'] ) ) {
+                $entrytype = $query['where']['type'];
+                unset( $query['where']['type'] );
+                $elementQuery->type( $entrytype );
+            }
+
+            if( !empty( $query['where'] ) ) {
+                $elementQuery->where( $query['where'] );
+            }
         }
 
-        if( $query['where'] && $query['where']['type'] ?? null ) {
-            $entrytype = $query['where']['type'];
-            unset( $query['where']['type'] );
-            $elementQuery->type( $entrytype );
-        }
-
-        if( !empty( $query['where'] ) ) {
-            $elementQuery->where( $query['where'] );
-        }
 
         if( !empty( $query['with'] ) ) {
             $elementQuery->with( $query['with'] );
         }
+
+        dump( $query );
+        exit;
 
         $elementQuery->limit( $query['limit'] );
         $elementQuery->orderBy( $query['orderBy'] );
@@ -252,7 +264,7 @@ class CollectionBaseTwig extends AbstractExtension
 
     public function processRSS( $collection, $params ) : Array
     {
-        $feedUrl = $collection->sourceUrl ?? null;
+        $feedUrl = $collection->website ?? null;
         if( !$feedUrl ) { return []; }
 
         return $this->_feedContent( $feedUrl, $params['limit'] ?? 10 ) ?? [];

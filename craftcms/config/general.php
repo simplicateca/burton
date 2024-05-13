@@ -25,6 +25,11 @@ return GeneralConfig::create()
     // https://craftcms.com/docs/4.x/config/general.html#allowupdates
     ->allowUpdates(false)
 
+    // Partial Templates Path
+    // https://craftcms.com/docs/5.x/system/elements.html#rendering-elements
+    // https://craftcms.com/docs/5.x/reference/config/general.html#partialtemplatespath
+    // ->partialTemplatesPath('_sitehub/partials')
+
     // Enable Caching
     ->enableTemplateCaching( (App::env('CRAFT_ENVIRONMENT') == 'production') )
 

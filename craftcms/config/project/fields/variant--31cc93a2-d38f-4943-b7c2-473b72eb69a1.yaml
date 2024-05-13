@@ -5,7 +5,7 @@ name: Variant
 searchable: false
 settings:
   columnType: null
-  configFile: _config/block.variant.json
+  configFile: _config/_variant.json.twig
 translationKeyFormat: null
 translationMethod: none
 type: simplicateca\selectplus\fields\SelectPlusField

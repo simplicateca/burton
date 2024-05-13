@@ -1,0 +1,130 @@
+altTranslationKeyFormat: null
+altTranslationMethod: none
+fieldLayouts:
+  d3a488f5-d1b6-48da-8988-528d9d988f24:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\assets\AssetTitleField
+            uid: f0565c04-9f10-4bde-b781-963b66b706fe
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: alt
+            class: null
+            cols: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: true
+            required: false
+            rows: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\assets\AltField
+            uid: 47195c7c-997f-4cde-8db9-e1afac538596
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c35ff24f-0a55-4920-819a-927bd63098ad
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 955eba0c-1846-4be2-8e96-4c882ccecb2c
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition:
+              class: craft\elements\conditions\assets\AssetCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\assets\FileTypeConditionRule
+                  operator: in
+                  uid: 6cdc9060-cb0d-435d-8010-45debe79a512
+                  values:
+                    - audio
+                    - video
+              elementType: craft\elements\Asset
+              fieldContext: global
+            fieldUid: bdc12ed2-dd0e-4189-9c87-1adaee91e73c # Transcript
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8e072708-a739-4c11-b884-44e0e80c462b
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 0cd93f5d-f311-4305-b915-c920b68b05f0
+        userCondition: null
+fs: spaces
+handle: static
+name: Static
+sortOrder: 2
+subpath: static
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+transformFs: ''
+transformSubpath: _transforms

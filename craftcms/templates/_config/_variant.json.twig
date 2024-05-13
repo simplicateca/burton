@@ -1,0 +1,38 @@
+{## SelectPlus Variant Field Configuration
+{---------------------------------------------------------------------------------------}
+ !! OUTPUT FORMAT should be a **PLAINTEXT JSON ARRAY**  i.e.  [{...},{...},{...},{...}]
+
+    `type`  is the **handle** of the EntryType this SelectPlus field is attached to.
+    `field` is the **handle** of this SelectPlus field.
+
+    Other fields are available: https://github.com/simplicateca/craft-selectplus-field
+
+    When `type` is null, it's because Craft is looking for all possible options to use
+    in a list of conditional field settings.
+{-------------------------------------------------------------------------------------##}
+{%- set type  = type  ?? '' -%}
+{%- set type  = type  | lower -%}
+{%- set field = field ?? null -%}
+
+{## MatrixBlock Entries ##}
+{% if type == 'text'      %}{{ include( '_config/block.text.json'      ) }}{% endif %}
+{% if type == 'image'     %}{{ include( '_config/block.image.json'     ) }}{% endif %}
+{% if type == 'media'     %}{{ include( '_config/block.media.json'     ) }}{% endif %}
+{% if type == 'carddeck'  %}{{ include( '_config/block.carddeck.json'  ) }}{% endif %}
+{% if type == 'component' %}{{ include( '_config/block.component.json' ) }}{% endif %}
+{% if type == 'fragment'  %}{{ include( '_config/block.fragment.json'  ) }}{% endif %}
+
+{## Addon Entry ##}
+{% if type == 'addon'     %}{{ include( '_config/addon.json'  ) }}{% endif %}
+
+{## All possible options ##}
+{% if not type %}
+    {% set combined =       [] | merge( include( '_config/block.text.json'      ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.image.json'     ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.media.json'     ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.carddeck.json'  ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.component.json' ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.fragment.json'  ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/addon.json'           ) | json_decode ) %}
+    {{ combined | json_encode }}
+{% endif %}

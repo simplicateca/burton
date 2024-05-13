@@ -4,7 +4,7 @@
     - http://localhost:8000/sitehub/layout/header
 {-------------------------------------------------------------------------------------##}
 {% block header__base %}
-    {% import "_assemble" as assemble %}
+    {% import "_core" as assemble %}
 
     {% set headblocks = entry.headerBuilder.all() ??? null %}
     {% set intopbar   = ( headblocks and headblocks[0].settings.spacerabove ??? false == 'topbar' ) %}
@@ -19,7 +19,7 @@
         <header {{attr({
             id   : "masthead",
             role : "banner",
-            class: "relative z-40 py-10",
+            class: "relative z-10 py-20 canvas",
             data : { theme: theme }
         }) }}>
     {% endblock %}
@@ -35,7 +35,7 @@
 
 
 {% block header__builder %}
-    {% import "_assemble" as assemble %}
+    {% import "_core" as assemble %}
 
     {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? null %}
     {% set headblocks = headblocks ? headblocks : [{ html: block('header__plainH1') }] %}
@@ -50,16 +50,16 @@
 
 
 {% block header__plainH1 %}
-    {% import "_assemble" as assemble %}
+    {% import "_core" as assemble %}
 
     {% set title    = entry.title    ??? null %}
     {% set subtitle = entry.subtitle ??? null %}
 
-    <div class="max-w-7xl">
-        {{ title ? tag( 'h1', { html: title|widont, class: "max-w-7xl" } ) }}
+    <div class="max-w-7xl mx-auto text-center">
+        {{ title ? tag( 'h1', { html: title|widont, class: "max-w-7xl knockout" } ) }}
 
         {% if subtitle %}
-            <div class="max-w-5xl" data-bodytext>
+            <div class="max-w-5xl mx-auto text-center" data-bodycopy>
                 {{ tag( 'p', { html: subtitle, class: 'larger' } ) }}
             </div>
         {% endif %}
@@ -69,18 +69,17 @@
 
 
 {% block header__breadcrumb %}
-    <div >
-        {% import "_assemble" as assemble %}
-        {{ assemble.container( 'fluid', assemble.menu( entry, 'breadcrumb', {} ) ) }}
-    </div>
+    {%- import "_core" as assemble -%}
+    {%- set breadcrumbs = assemble.container( 'fluid', assemble.menu( entry, 'breadcrumb', {} ) ) -%}
+    {{- breadcrumbs | attr({ class: "relative z-10 opacity-50 hover:opacity-100 focus-within:opacity-100" }) -}}
 {% endblock %}
 
 
 
 {% block header__topbar %}
-    {% import "_assemble" as assemble %}
+    {% import "_core" as assemble %}
 
-    <div {{ attr({ class: ["w-full relative z-50"], 'data-theme': 'light' }) }}>
+    <div {{ attr({ class: ["w-full relative z-50 canvas"], 'data-theme': 'light' }) }}>
 
         {{ assemble.container__open( 'fluid' ) }}
 
@@ -92,23 +91,21 @@
 
             {% block header__topbar__navigation %}
 
-                <div class="w-full lg:flex flex-col flex-grow text-right items-end gap-6">
+                <div class="w-full lg:flex flex-col flex-grow text-right items-end gap-6 justify-center @container">
                     {% block header__topbar__navUtility %}
-                        <div class="flex items-center gap-3">
-                            {% import "_assemble" as assemble %}
-                            {{ assemble.menu( entry, 'utility', {} ) }}
-                        </div>
+                        {% import "_core" as assemble %}
+                        {{ assemble.menu( entry, 'utility', {} ) }}
                     {% endblock %}
 
                     {% block header__topbar__navPrimary %}
                         <div class="flex items-center gap-6">
-                            {% import "_assemble" as assemble %}
+                            {% import "_core" as assemble %}
                             {{ assemble.menu( entry, 'primary', {} ) }}
                         </div>
                     {% endblock %}
 
                     {% block header__topbar__navMobileTrigger %}
-                        {% import "_core/menu.mobile" as mobilemenu %}
+                        {# {% import "_core/menu.mobile" as mobilemenu %} #}
                         {# {{ mobilemenu.trigger() }} #}
                     {% endblock %}
                 </div>
@@ -122,9 +119,9 @@
 
 
 {% macro logo() %}
-    <a href="{{ siteUrl('/') }}" class="py-4 text-theme hover:text-link-active block" x-cloak x-data>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 75" class="block h-10 fill-current">
-            <g fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-width=".6" font-size="12">
+    <a href="{{ siteUrl('/') }}" class="py-4 text-theme-bodycopy/50 hover:text-theme-accent block" x-cloak x-data>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 75" class="block h-7 fill-current">
+            <g fill-rule="evenodd" stroke="transparent" stroke-linecap="round" stroke-width=".6" font-size="12">
                 <path d="M26 74H14a5 5 0 0 1-1 0l-2-1-1-2L0 7h0l1-2 1-1h16a6 6 0 0 1 1 0l2 2a4 4 0 0 1 0 1l5 33 6-17a4 4 0 0 1 0-1l1-1a2 2 0 0 1 1-1h10a5 5 0 0 1 0 0h1a2 2 0 0 1 1 1 12 12 0 0 1 0 1h1a5 5 0 0 1 0 1l6 17 5-33a3 3 0 0 1 0-1q1-2 3-2h15a2 2 0 0 1 2 1 3 3 0 0 1 0 0 2 2 0 0 1 0 1 2 2 0 0 1 1 1h0q0 0 0 0L69 71a3 3 0 0 1-1 1 5 5 0 0 1-1 1 4 4 0 0 1-2 1 6 6 0 0 1-1 0H52l-2-1-2-1-9-25-9 25-1 1a9 9 0 0 1 0 0 3 3 0 0 1-1 1h-2Z" vector-effect="non-scaling-stroke"/>
                 <path d="M104 74H89a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1 0-2 3 3 0 0 1 0 0V25a3 3 0 0 1 0-1 3 3 0 0 1 0-1 3 3 0 0 1 2-1 3 3 0 0 1 0 0h15l2 1 1 2v47l-1 2h-2Zm0-58H89a3 3 0 0 1-1 0 3 3 0 0 1 0-1 3 3 0 0 1-1-2 3 3 0 0 1 0 0V3l1-2 1-1h15a3 3 0 0 1 2 1 3 3 0 0 1 0 0 3 3 0 0 1 0 1 3 3 0 0 1 1 1v10l-1 2-2 1Z" vector-effect="non-scaling-stroke"/>
                 <path d="M135 74h-15a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V25a3 3 0 0 1 0-1 3 3 0 0 1 1-1 3 3 0 0 1 2-1 3 3 0 0 1 0 0h14a3 3 0 0 1 1 1 3 3 0 0 1 1 0 3 3 0 0 1 1 2 3 3 0 0 1 0 0v4l7-5a20 20 0 0 1 6-2 24 24 0 0 1 2 0h5l1 1 1 2v13l-1 2h-13l-4 1a6 6 0 0 0-1 1 6 6 0 0 0-2 3v2a13 13 0 0 0 0 1v24a3 3 0 0 1 0 1 3 3 0 0 1-1 1 3 3 0 0 1-2 0 3 3 0 0 1 0 0Z" vector-effect="non-scaling-stroke"/>

@@ -4,17 +4,17 @@
 
 {%- set path = path ?? ["_site/card","_core/card"] -%}
 
-{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 {%- set settings = {
-    cardlayer: 'default',
-    color    : card._carditem.color.getHex() ?? null
+    cardname: 'default',
+    color    : card._element.color.getHex() ?? null
 } | merge( settings ) -%}
 
 
 {## Use Skull Placeholder except on Panel Cards (Modal, etc.)
 {-------------------------------------------------------------------------------------##}
 {%- set color = settings.color ?? '#000000' -%}
-{%- set panelcard = ( settings.cardlayer == 'panel' )
+{%- set panelcard = ( settings.cardname == 'panel' )
     ? { _placeholder: 'default', transform: '', imagelayer: 'stretch' }
     : { _placeholder: 'skull', transform: 'square', imagelayer: 'icon' } -%}
 
@@ -30,11 +30,11 @@
 {%- embed path with { card: card, settings: settings } -%}
 
     {# No Summary text on bulleticon cards #}
-    {%- block card__summary settings.cardlayer == 'bulleticon' ? '' : parent() -%}
+    {%- block card__summary settings.cardname == 'bulleticon' ? '' : parent() -%}
 
     {# Add colour overlay to Topic modal / panel cards #}
     {%- block card__images -%}
-        {%- if settings.cardlayer == 'panel' -%}
+        {%- if settings.cardname == 'panel' -%}
             <div class="relative">
                 <div class="absolute inset-0 z-20 bg-blend-multiply bg-[color:var(--topic-color)] opacity-50"
                     style="--topic-color:{{color}}"></div>

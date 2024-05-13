@@ -1,0 +1,11 @@
+columnSuffix: null
+handle: theme
+instructions: null
+name: 'Block Theme'
+searchable: false
+settings:
+  columnType: null
+  configFile: _config/_theme.json.twig
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\selectplus\fields\SelectPlusField

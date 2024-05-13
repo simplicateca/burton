@@ -1,6 +1,14 @@
-{# {% macro utility( handle = null ) %}
+{% macro utility( handle = null ) %}
+    {% set handle = handle ??? 'utility' %}
+    {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
 
-{% endmacro %} #}
+    {% if nodes | length %}
+        <div class="flex items-center gap-3">
+
+        </div>
+    {% endif %}
+
+{% endmacro %}
 
 
 {% macro contact( handle = null ) %}
@@ -34,8 +42,9 @@
                     flex-col
                     items-center
                     whitespace-nowrap
+                    text-theme-link
+                    hover:text-theme-link-tint
                     hover:underline
-                    hover:text-link-active
                 {% endblock %}
             {% endembed %}
         </div>
@@ -74,8 +83,9 @@
                     flex-col
                     items-center
                     whitespace-nowrap
+                    text-theme-link
+                    hover:text-theme-link-tint
                     hover:underline
-                    hover:text-link-active
                 {% endblock %}
             {% endembed %}
         </div>
@@ -110,8 +120,9 @@
                 flex-col
                 items-center
                 whitespace-nowrap
+                text-theme-link
+                hover:text-theme-link-tint
                 hover:underline
-                hover:text-link-active
             {% endblock %}
         {% endembed %}
     {% endif %}

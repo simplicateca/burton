@@ -10,10 +10,48 @@ settings:
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
-  selectionLabel: Choose
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 85252864-2831-4ff8-8d3e-aa80d4a2aa2f
+              -
+                - operator
+                - ni
+              -
+                - values
+                -
+                  - 40f8a572-f12e-49f2-849d-8fbe3395eb5c # Addon
+                  - 21710874-0ba0-423c-82ec-7fd855abb982 # Dynamic Collection
+                  - d7748b2a-ae79-4961-b103-a5aa758e39ab # Static Collection
+                  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # RSS Feed
+                  - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragments
+                  - 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
+                  - 8b83b1c6-3917-4365-bc67-1f94599cbb08 # Private Tag
+  selectionLabel: 'Choose Content Entries'
   showCardsInGrid: true
   showSiteMenu: true
-  sources: '*'
+  sources:
+    - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Articles
+    - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Page Content
+    - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
   targetSiteId: null
   validateRelatedElements: false
   viewMode: cards

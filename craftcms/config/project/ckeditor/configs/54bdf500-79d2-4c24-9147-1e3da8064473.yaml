@@ -1,0 +1,25 @@
+headingLevels:
+  - 2
+  - 3
+  - 4
+name: Full
+options:
+  alignment:
+    options:
+      - left
+      - center
+      - right
+  fontSize:
+    options:
+      - small
+      - big
+toolbar:
+  - heading
+  - '|'
+  - bold
+  - italic
+  - link
+  - alignment
+  - fontSize
+  - bulletedList
+  - numberedList

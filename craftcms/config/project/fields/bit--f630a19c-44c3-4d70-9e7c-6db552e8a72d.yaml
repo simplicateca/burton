@@ -1,0 +1,20 @@
+columnSuffix: null
+handle: bit
+instructions: null
+name: Bit
+searchable: false
+settings:
+  createButtonLabel: null
+  entryTypes:
+    - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+  includeTableView: false
+  maxEntries: 1
+  minEntries: 1
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: false
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

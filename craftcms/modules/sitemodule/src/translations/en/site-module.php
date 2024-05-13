@@ -7,5 +7,5 @@
  */
 
 return [
-    'Site Module loaded' => 'Site Module has been successfully loaded!',
+    'SiteModule loaded' => 'Site Module has been successfully loaded!',
 ];

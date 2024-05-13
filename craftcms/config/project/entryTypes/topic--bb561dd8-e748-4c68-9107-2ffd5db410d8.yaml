@@ -34,8 +34,104 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
+          -
+            elementCondition: null
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d160421c-609a-4c22-a650-6bea31dabc48
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e22de661-6d83-4cfe-bae8-6e96baf0941c
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Body Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a29392b6-40b3-4b3d-bd85-41144fbab6a0
+            userCondition: null
+            warning: null
+            width: 100
         name: Content
         uid: cbf19f7c-2dd0-4513-bc6c-370b9bd8fe10
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f880c0f7-cd7a-48a9-be98-0518791226c0
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3fec2755-573a-4898-86ef-b240e1ebf5a8
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bd03a8af-0d80-4fc8-a594-6046b1e8c373
+            userCondition: null
+            warning: null
+            width: 100
+        name: Essentials
+        uid: bf4c58ed-49c4-48c1-8f56-2536ca2a4adf
         userCondition: null
 handle: topic
 hasTitleField: true

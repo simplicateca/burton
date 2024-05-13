@@ -1,161 +1,110 @@
 [{
-    "label": "Simple Image",
     "value": "simple",
+    "label": "Simple Image",
+    "tooltips": {
+        "inline": "A flexible variant for simple presentation of one or more images."
+    },
     "settings": {},
-    "docs": {
-        "tooltip": "A flexible variant for simple presentation of one or more images."
-    },
-    "inputs": [
-        {
-            "label": "Image Transformation",
-            "field": "transform",
-            "type" : "select",
-            "default": "",
-            "fieldClass": "field width-50",
-            "instructions": "Should we transform the image?",
-            "options" : [
-                {
-                    "value" : "",
-                    "label" : "None"
-                }
-               ,{
-                    "value" : "square",
-                    "label" : "Square aspect ratio"
-                }
-               ,{
-                    "value" : "widescreen",
-                    "label" : "Widescreen aspect ratio"
-                }
-            ]
-        }
-       ,{
-            "label": "Captions & Titles",
-            "field": "captionlayer",
-            "type" : "select",
-            "default": "",
-            "fieldClass": "field width-50",
-            "instructions": "Display titles and/or captions?",
-            "options" : [
-                {
-                    "value" : "",
-                    "label" : "None"
-                }
-               ,{
-                    "value" : "caption",
-                    "label" : "Use Image `Summary`"
-                }
-               ,{
-                    "value" : "title",
-                    "label" : "Show Image `Title` only"
-                }
-               ,{
-                    "value" : "full",
-                    "label" : "Show Image `Title` + `Summary`"
-                }
-            ]
-        }
-       ,{
-            "label": "Handle Multiple Images",
-            "field": "imagelayer",
-            "type" : "select",
-            "default": "single",
-            "instructions": "Layout to use if/when the block has multple images.",
-            "fieldClass": "field width-50",
-            "options" : [
-                {
-                    "value" : "single",
-                    "label" : "Ignore multiple images"
-                }
-               ,{
-                    "value" : "randomize",
-                    "label" : "Random single image"
-                }
-               ,{
-                    "value" : "carousel",
-                    "label" : "Basic carousel"
-                }
-               ,{
-                    "value" : "grid2",
-                    "label" : "Two (2) column grid"
-                }
-               ,{
-                    "value" : "grid3",
-                    "label" : "Three (3) column grid"
-                }
-            ]
-        }
-       ,{{ block( 'inputImageClickAction', '_config/_selectplus_virtual_fields' ) }}
-    ]
-},{
-    "label": "Fancy Images",
-    "value": "fancy",
-    "settings": {},
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": [
-        {
-            "label": "Fancy Frame",
-            "field": "imagelayer",
-            "type" : "select",
-            "default": "stretch",
-            "instructions": "What frame should we use for this image",
-            "fieldClass": "field width-50",
-            "options" : [
-                {
-                    "value" : "stretch",
-                    "label" : "Stretch to Fit"
-                }
-               ,{
-                    "value" : "parallax",
-                    "label" : "Parallax"
-                }
-                ,{
-                    "value" : "callout",
-                    "label" : "Callout"
-                }
-               ,{
-                    "value" : "cluster",
-                    "label" : "Animated 3-up cluster"
-                }
-            ]
-        }
-       ,{{ block( 'inputImageClickAction', '_config/_selectplus_virtual_fields' ) }}
-    ]
-},{
-    "label": "Gallery",
-    "value": "gallery",
-    "settings": {
-        "imagelayer": "gallery"
-    },
-    "docs": {
-        "tooltip": "Display multiple images in a gallery format"
-    },
-    "inputs": []
-},{
-    "label": "Background",
-    "value": "background",
-    "settings": {
-        "imagelayer": "gallery"
-    },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": [{
-        "label": "Usage",
-        "field": "imagelayer",
+    "virtuals": [{
         "type" : "select",
+        "name" : "iterator",
+        "value": "single",
+        "label": "Handling Multiple Images",
+        "instructions": "Applied if adding multple images",
         "options" : [
-            {
-                "label" : "Replace Page Background",
-                "value" : "replace"
-
-            }
-           ,{
-                "label" : "Overlap Text on Background",
-                "value" : "overlap"
-
-            }
+            { "value": "single",    "label": "Ignore multiple images" },
+            { "value": "randomize", "label": "Random single image" },
+            { "value": "carousel",  "label": "Basic carousel",          "imagelayer": "widescreen" },
+            { "value": "grid2",     "label": "Two (2) column grid",     "imagelayer": "widescreen" },
+            { "value": "grid3",     "label": "Three (3) column grid",   "imagelayer": "widescreen" }
         ]
+    },{
+        "type" : "number",
+        "name" : "limit",
+        "value": "8",
+        "label": "Limit",
+        "instructions": "If pulling from Collection, etc"
+    },{
+        "type" : "select",
+        "name" : "force",
+        "value": "nothing",
+        "label": "Force Transform?",
+        "instructions": "",
+        "options" : [
+            { "value": "nothing", "label": "Use Default" }
+            {{ block( 'json__systemtransforms', '_config/_virtuals' ) }}
+        ]
+    },{
+        "type" : "select",
+        "name" : "caption",
+        "value": "hidden",
+        "label": "Caption / Attribution",
+        "instructions": "",
+        "options" : [
+            { "value": "hidden",  "label": "Hidden" },
+            { "value": "title",   "label": "Title",           "captionlayer": "figcaption__title" },
+            { "value": "summary", "label": "Summary",         "captionlayer": "figcaption__summary" },
+            { "value": "full",    "label": "Title + Summary", "captionlayer": "figcaption__full" }
+        ]
+    },{{ block( 'imageClickAction', '_config/_virtuals' ) }}]
+},{
+    "value": "fancy",
+    "label": "Fancy Frame",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": [{
+            "type" : "select",
+            "name" : "imagelayer",
+            "value": "stretch",
+            "label": "Choose Frame",
+            "instructions": "",
+            "options" : {
+                "stretch"  : "Stretch to Fit",
+                "parallax" : "Parallax",
+                "attention": "Attention Grabber",
+                "cluster"  : "Three-up Cluster"
+            }
+        },
+        {{ block( 'imageClickAction', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "gallery",
+    "label": "Gallery",
+    "tooltips": {
+        "inline": "Display multiple images in a gallery format"
+    },
+    "settings": {
+        "iterator": "gallery"
+    },
+    "virtuals": []
+},{
+    "value": "background",
+    "label": "Background Image",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": [{
+        "type" : "select",
+        "name" : "imagelayer",
+        "value": "replacebg",
+        "label": "Usage",
+        "options" : {
+            "replacebg": "Replace Page Background",
+            "blockbg"  : "This Block Only"
+        }
+    },{
+        "type" : "color",
+        "name" : "overlay",
+        "value": "#ffffff",
+        "label": "Overlay",
+        "fieldClass": "width-25"
+    },{
+        "type" : "number",
+        "name" : "opacity",
+        "min"  : 0,
+        "step" : 5,
+        "max"  : 100,
+        "value": "25",
+        "label": "Opacity",
+        "fieldClass": "width-25"
     }]
 }]

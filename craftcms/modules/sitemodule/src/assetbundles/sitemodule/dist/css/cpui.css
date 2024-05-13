@@ -1,0 +1,21 @@
+.fieldTemplate {
+    background: #fff;
+}
+
+.fieldTemplate h2 {
+    font-size: 18px;
+}
+
+.fieldTemplate p {
+    max-width: 720px;
+}
+
+.fieldTemplate__headerBuilder {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+#content .flex-fields #fields-headerBuilder-field + hr {
+    margin-top: 3rem !important;
+    margin-bottom: 4rem !important;
+}

@@ -1,15 +1,7 @@
 {## Article Router
 {-------------------------------------------------------------------------------------##}
-{% set template  = null %}
+{% set template  = "_site/template.fullpage" %}
 {% set entrytype = entry.type.handle|default(null) %}
-
-{% if entrytype == 'blog' %}
-    {% set template = "_site/template.full" %}
-{% endif %}
-
-{% if entrytype == 'news' %}
-    {% set template = "_site/template.sidebar" %}
-{% endif %}
 
 {% if entrytype and template %}
     {{ include( template ) }}
@@ -52,14 +44,14 @@
 {-------------------------------------------------------------------------------------##}
 {# {% block article_timedate %}
     <timedate>
-        {{ card._carditem.postDate|date('long') ??? null }}
+        {{ card._element.postDate|date('long') ??? null }}
     </timedate>
 {% endblock %}
 
 {% block article_author %}
     <span class="flex items-center gap-2">
         <div class="bg-theme-accent h-10 w-10 rounded-full flex">&nbsp;</div>
-        {{ card._carditem.author.name ??? null }}
+        {{ card._element.author.name ??? null }}
     </span>
 {% endblock %}
 

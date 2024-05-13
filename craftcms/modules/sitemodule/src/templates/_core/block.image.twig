@@ -1,0 +1,66 @@
+{## Image Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+  > http://localhost:8000/sitehub/blocks/image
+{-------------------------------------------------------------------------------------##}
+{%- extends [ "_site/block", "_core/block" ] -%}
+
+{%- import "_core" as assemble -%}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+    Reminder about Twig Variable Scope: Don't change or set default values on `block`
+    or `settings` both inside AND outside of inheritable {% block %} scope. Pick one!
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ??? null -%}
+{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+
+    {%- set settings = {
+        variant : null,
+        limit   : 24,
+        iterator: 'single',
+    } | merge( settings ) -%}
+
+    {## are we getting our assets from the block field? ##}
+    {%- set images = collect( block.images ).all() -%}
+
+    {## set an autolink value in case we need it for later ##}
+    {%- set text1 = TextBase(block.text) ??? null %}
+    {%- set autolink = ( text1.action ??? text1.body ) | retconOnly( "a[data-only-link]" ) %}
+    {%- set autolink = autolink ? autolink | parseAttr : null -%}
+    {%- if autolink.href ??? null -%}
+        {%- set settings = settings | merge({autolink: autolink.href}) -%}
+    {%- endif -%}
+
+    {## or do we need to pull them from a collection? ##}
+    {%- if not images | length -%}
+        {%- set collections = collect( block.collections ).all() -%}
+        {%- set images = CollectionResults( collections, {
+            limit : settings.limit,
+            slug  : request.getParam('f') ?? null,
+            static: 'images'
+        } ) -%}
+    {%- endif -%}
+
+
+    {## Named Variant Block or Standard Layout
+    {---------------------------------------------------------------------------------##}
+    {%- set blockname = "image__#{settings.variant}" -%}
+    {{- ( block( blockname ) is defined )
+        ? block( blockname )
+        : block( 'image__fallback' ) -}}
+{% endblock %}
+
+
+{## Image Default
+{-------------------------------------------------------------------------------------##}
+{% block image__fallback %}
+    {{- assemble.images( settings.iterator, images ??? [], settings ??? {} ) -}}
+{% endblock %}

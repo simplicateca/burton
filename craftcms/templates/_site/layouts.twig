@@ -1,7 +1,7 @@
 {## Two Column Layout (Aside Right)
 {-------------------------------------------------------------------------------------##}
 {% macro sidebar__right(content, settings) %}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {%- set settings = { container: 'fluid' } | merge(settings) -%}
 
     {%- set content -%}
@@ -11,7 +11,7 @@
         </div>
     {%- endset -%}
 
-    {%- import "_assemble" as assemble -%}
+    {%- import "_core" as assemble -%}
     {{ assemble.container( settings.container, content, settings ) -}}
 {% endmacro %}
 
@@ -20,7 +20,7 @@
 {## Two Column Layout (Aside Left)
 {-------------------------------------------------------------------------------------##}
 {% macro sidebar__left(content, settings) -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {%- set settings = { container: 'fluid' } | merge(settings) -%}
 
     {%- set content -%}
@@ -30,7 +30,7 @@
         </div>
     {%- endset -%}
 
-    {%- import "_assemble" as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.container( settings.container, content, settings ) -}}
 {%- endmacro %}
 
@@ -38,42 +38,86 @@
 
 {## Container Macros
 {-------------------------------------------------------------------------------------##}
-{% macro container__default(content, settings) %}{{
-    tag('div', { html: content, class: '@container container' } )
-}}{% endmacro %}
+{% macro container__default(content, settings) -%}{{ _self.container__static(content, settings) }}{% endmacro %}
 
-{% macro container__fluid(content, settings) %}{{
-    tag('div', { html: content, class: '@container 2xl:container px-4 md:max-2xl:px-4' } )
-}}{% endmacro %}
+{% macro container__static(content, settings) -%}
+    {%- set theme   = _self._containertheme( settings ) -%}
+    {%- set canvas  = theme ? '<div data-canvas="container"></div>' : '' %}
+    {%- set dataset = theme ? { theme: theme, coverage: 'container' } : null -%}
 
-{% macro container__relative(content, settings) %}{{
-    tag('div', { html: content, class: '@container relative' } )
-}}{% endmacro %}
+    {{- tag('div', {
+        html : canvas ~ content,
+        data : dataset,
+        class: '@container max-w-7xl mx-auto relative container',
+    }) -}}
+{%- endmacro %}
+
+
+{% macro container__fluid(content, settings) -%}
+    {%- set theme   = _self._containertheme( settings ) -%}
+    {%- set canvas  = theme ? '<div data-canvas="container"></div>' : '' %}
+    {%- set dataset = theme ? { theme: theme, coverage: 'container' } : null -%}
+
+    {{- tag('div', {
+        html : canvas ~ content,
+        data : dataset,
+        class: '@container 2xl:container px-4 sm:px-8 md:max-2xl:px-4',
+    }) -}}
+{%- endmacro %}
+
+
+{% macro container__tablet(content, settings) -%}
+    {%- set theme   = _self._containertheme( settings ) -%}
+    {%- set canvas  = theme ? '<div data-canvas="container"></div>' : '' %}
+    {%- set dataset = theme ? { theme: theme, coverage: 'container' } : null -%}
+
+    {{- tag('div', {
+        html : canvas ~ content,
+        data : dataset,
+        class: '@container max-w-5xl mx-auto relative',
+    }) -}}
+{%- endmacro %}
+
+
+{% macro container__relative(content, settings) -%}
+    {%- set theme   = _self._containertheme( settings ) -%}
+    {%- set canvas  = theme ? '<div data-canvas="container"></div>' : '' %}
+    {%- set dataset = theme ? { theme: theme, coverage: 'container' } : null -%}
+
+    {{- tag('div', {
+        html : canvas ~ content,
+        data : dataset,
+        class: '@container relative',
+    }) -}}
+{%- endmacro %}
+
 
 
 
 {## Content Spacers
 {-------------------------------------------------------------------------------------##}
-{% macro spacer__large(block, settings) -%}
+{% macro separator__default(block, settings) -%}{{ _self.separator__normal(block, settings) }}{% endmacro %}
+
+{% macro separator__large(block, settings) -%}
     {{- tag('div', { class: [
         '@container after:block after:content-[""]',
         'after:h-20 @3xl:after:h-28 @7xl:after:h-48' ]}) -}}
 {%- endmacro %}
 
-{% macro spacer__default(block, settings) -%}
+{% macro separator__normal(block, settings) -%}
     {{- tag('div', { class: ['
         @container after:block after:content-[""]',
         'after:h-12 @3xl:after:h-20 @7xl:after:h-36' ]}) -}}
 {%- endmacro %}
 
-{% macro spacer__small(block, settings) -%}
+{% macro separator__small(block, settings) -%}
     {{- tag('div', { class: ['
         @container after:block after:content-[""]',
         'after:h-8 @3xl:after:h-12 @7xl:after:h-18'
     ]}) -}}
 {%- endmacro %}
 
-{% macro spacer__topbar(block, settings) -%}
+{% macro separator__topbar(block, settings) -%}
     {{ block('header__topbar', "_site/header" ) }}
 {% endmacro %}
 
@@ -81,48 +125,74 @@
 
 {## Theme Dividers
 {-------------------------------------------------------------------------------------##}
-{% macro spacer__tilt(block, settings) -%}
+{% macro separator__tilt(block, settings) -%}
+    {%- set block = block ??? null and block is iterable ? block : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
-    {%- set block = block ?? null -%}
-    {%- set block = block is not null and block is iterable ? block : {} -%}
+    {%- set theme  = settings.theme ??? 'base' %}
+    {%- set bottom = settings._closing ??? false -%}
 
-    {%- set settings = settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set svgclass = "
+        absolute
+        block
+        m-0
+        p-0
+        w-full
+        scale-x-[-1]
+        h-12
+        @3xl:h-20
+        @7xl:h-36
+    " -%}
 
-    <div class="z-10 !bg-prev-block-bg h-16 mb-[-1px]"  data-theme="{{ settings.theme ??? null }}" data-prev-theme="{{ settings.next.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
-        <svg class="fill-next-block-bg h-full w-full rotate-180 block m-0 p-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill h-full w-full"></path>
+    {%- set svgclass = ( bottom )
+        ? "bottom-0 translate-y-full #{svgclass}"
+        : "rotate-180 -translate-y-full top-0#{svgclass}" -%}
+
+    <div class="@container relative z-10">
+        <svg data-theme="{{ theme }}" class="{{svgclass}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="fill-theme" d="M1200 120L0 16.48 0 0 1200 0 1200 120z"></path>
         </svg>
+        {{ _self.separator__small() }}
     </div>
 {%- endmacro %}
 
-{% macro spacer__wave(block, settings) -%}
 
-    {%- set block = block ?? null -%}
-    {%- set block = block is not null and block is iterable ? block : {} -%}
 
-    {%- set settings = settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    <div class="z-10 !bg-prev-block-bg h-16 mb-[-1px]" data-theme="{{ block.settings.theme ??? null }}" data-prev-theme="{{ block.prev.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
-        <svg class="fill-next-block-bg h-full w-full rotate-180 block m-0 p-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+{% macro separator__wave(block, settings) -%}
+
+    {%- set block = block ??? null and block is iterable ? block : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
+    {%- set theme  = settings.theme ??? 'base' %}
+    {%- set bottom = settings._closing ??? false -%}
+
+    {%- set svgclass = ( bottom )
+        ? 'bottom-0 translate-y-full mt-[-1px]'
+        : 'rotate-180 -translate-y-full top-0 mb-[-1px]' -%}
+
+    {%- set svgclass = svgclass ~ "
+        absolute
+        block
+        mx-0
+        p-0
+        w-full
+        scale-x-[-1]
+        h-10
+        @3xl:h-16
+        @7xl:h-24
+    " -%}
+
+    <div class="@container relative z-10">
+        <svg  data-theme="{{ theme }}" class="{{svgclass}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path class="fill-theme" d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
         </svg>
+        {{- tag('div', { class: ['
+            @container after:block after:content-[""]',
+            'after:h-10 @3xl:after:h-16 @7xl:after:h-24' ]}) -}}
     </div>
 {%- endmacro %}
 
-{% macro spacer__stitch(block, settings) -%}
 
-    {%- set block = block ?? null -%}
-    {%- set block = block is not null and block is iterable ? block : {} -%}
-
-    {%- set settings = settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-
-    <div class="relative w-full" data-theme="{{ block.settings.theme ??? null }}" data-prev-theme="{{ block.prev.theme ??? null }}" data-next-theme="{{ block.next.theme ??? null }}">
-        <div class="absolute left-1/2 bottom-0 h-8 border-dashed border-l-4 border-next-block-bg" aria-hidden="true"></div>
-        <div class="absolute left-1/2 top-0 h-8 border-dashed border-l-4 border-prev-block-bg" aria-hidden="true"></div>
-    </div>
-{%- endmacro %}
 
 
 
@@ -191,8 +261,23 @@
 
     Is it *too much* separation of concerns? Maybe. Fight me.
 {-------------------------------------------------------------------------------------##}
-{% macro _default_zonegap() %} gap-8 @7xl:gap-16{% endmacro %}
+{% macro _default_zonegap() %} gap-8 @7xl:gap-16 gap-y-16{% endmacro %}
 
+{## Used to add `data-coverage` attributes to containers or block wrappers ##}
+{% macro _coverage( settings, key ) %}{% apply spaceless %}
+    {{- ( settings.coverage ??? null == key )
+        ? key : null -}}
+{% endapply %}{%- endmacro %}
+
+{% macro _containertheme( settings ) %}{% apply spaceless %}
+    {{- ( settings.coverage ??? null == 'container' )
+        ? settings.theme : null -}}
+{% endapply %}{%- endmacro %}
+
+{% macro _blocktheme( settings ) %}{% apply spaceless %}
+    {{- ( settings.coverage ??? null == 'block' )
+        ? settings.theme : null -}}
+{% endapply %}{%- endmacro %}
 
 
 {## Single Zone Microlayout
@@ -203,9 +288,10 @@
     - Responsive Collapse : No change
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1(content, settings) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'max-w-5xl',
         clear      : true,
         container  : settings.container ?? 'default',
@@ -228,9 +314,10 @@
     - Responsive Collapse : No change
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Top(content, settings) -%}
-    {%- import "_assemble" as assemble -%}
+    {%- import "_core" as assemble -%}
     {{ assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'max-w-5xl',
         clear      : true,
         container  : settings.container ?? 'default',
@@ -242,11 +329,12 @@
 {## - Horizontal Alignment: Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Top__center( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
-        headerclass: 'max-w-5xl mx-auto',
-        footerclass: 'max-w-3xl mx-auto',
+        headerclass: 'max-w-5xl mx-auto pb-10',
+        footerclass: 'max-w-3xl mx-auto pt-10',
         class      : "w-full flex flex-col" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'max-w-5xl mx-auto',
         autoalign  : false,
         clear      : true,
@@ -260,11 +348,12 @@
     - Horizontal Alignment: Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Top__narrow( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         headerclass: 'max-w-3xl mx-auto',
         footerclass: 'max-w-3xl mx-auto',
         class      : "w-full flex flex-col" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'max-w-3xl mx-auto',
         autoalign  : false,
         clear      : true,
@@ -284,9 +373,10 @@
     - Responsive Collapse : No change
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Bottom( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col-reverse" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'max-w-5xl',
         autoalign  : 'zone1',
         clear      : true,
@@ -299,11 +389,12 @@
 {## - Horizontal Alignment: Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Bottom__center( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
-        headerclass: 'max-w-5xl mx-auto',
-        footerclass: 'max-w-3xl mx-auto',
+        headerclass: 'max-w-5xl mx-auto pb-10',
+        footerclass: 'max-w-3xl mx-auto pt-10 ',
         class      : "w-full flex flex-col" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'max-w-5xl mx-auto',
         autoalign  : false,
         clear      : true,
@@ -323,9 +414,10 @@
     - Responsive Collapse: Full Width (Top/Bottom)
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Left( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-1/2',
         zone2class : 'lg:w-1/2',
         autoalign  : 'zone1',
@@ -338,9 +430,10 @@
 {## - Vertical Alignment : Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Left__center( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-1/2',
         zone2class : 'lg:w-1/2',
         autoalign  : 'zone1',
@@ -361,9 +454,10 @@
     - Responsive Collapse: Full Width (Top/Bottom)
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Right( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row-reverse" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-1/2',
         zone2class : 'lg:w-1/2',
         autoalign  : 'zone1',
@@ -376,9 +470,10 @@
 {## - Vertical Alignment : Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Right__center( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-1/2',
         zone2class : 'lg:w-1/2',
         autoalign  : 'zone1',
@@ -399,9 +494,10 @@
     - Responsive Collapse: Full Width (Top/Bottom)
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1LeftWide( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-3/5',
         zone2class : 'lg:w-2/5',
         autoalign  : 'zone1',
@@ -414,9 +510,10 @@
 {## - Vertical Alignment : Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1LeftWide__center( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-3/5',
         zone2class : 'lg:w-2/5',
         autoalign  : 'zone1',
@@ -437,9 +534,10 @@
     - Responsive Collapse: Full Width (Top/Bottom)
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1LeftNarrow( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-2/5',
         zone2class : 'lg:w-3/5',
         autoalign  : 'zone1',
@@ -452,9 +550,10 @@
 {## - Vertical Alignment : Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1LeftNarrow__center( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-2/5',
         zone2class : 'lg:w-3/5',
         autoalign  : 'zone1',
@@ -475,9 +574,10 @@
     - Responsive Collapse: Full Width (Top/Bottom)
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1RightWide( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row-reverse" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-3/5',
         zone2class : 'lg:w-2/5',
         autoalign  : 'zone1',
@@ -490,9 +590,10 @@
 {## - Vertical Alignment : Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1RightWide__center( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-3/5',
         zone2class : 'lg:w-2/5',
         autoalign  : 'zone1',
@@ -513,9 +614,10 @@
     - Responsive Collapse: Full Width (Top/Bottom)
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1RightNarrow( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row-reverse" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-2/5',
         zone2class : 'lg:w-3/5',
         autoalign  : 'zone1',
@@ -528,9 +630,10 @@
 {## - Vertical Alignment : Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1RightNarrow__center( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : 'lg:w-2/5',
         zone2class : 'lg:w-3/5',
         autoalign  : 'zone1',
@@ -551,9 +654,10 @@
     - Responsive Collapse: No change
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zoneOverlap( content, settings ) -%}
-    {%- import "_assemble"  as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         class      : "w-full overflow-hidden",
+        data       : { coverage: _self._coverage( settings, 'block' ) },
         zone1class : "max-w-5xl p-5 @lg:p-10 @3xl:p-20 relative z-20 mx-auto",
         zone2base  : 'absolute inset-0 w-full h-full z-10',
         autoalign  : 'zone1',

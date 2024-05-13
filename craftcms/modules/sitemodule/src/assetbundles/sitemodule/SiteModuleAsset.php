@@ -1,6 +1,6 @@
 <?php
 /**
- * Site Module - Asset Bundle
+ * SiteModule - Control Panel Asset Bundle Loader
  */
 
 namespace modules\sitemodule\assetbundles\sitemodule;

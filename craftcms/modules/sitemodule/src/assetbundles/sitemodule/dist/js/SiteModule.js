@@ -1,3 +1,3 @@
 /**
- * Site Module - Craft Admin JS
+ * SiteModule - Craft CMS Control Panel JavaScript
  */

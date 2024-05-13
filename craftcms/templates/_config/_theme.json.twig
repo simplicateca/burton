@@ -1,0 +1,20 @@
+{## SelectPlus Theme Field Configuration
+{---------------------------------------------------------------------------------------}
+ !! OUTPUT FORMAT should be a **PLAINTEXT JSON ARRAY**  i.e.  [{...},{...},{...},{...}]
+
+    `type`  is the **handle** of the EntryType this SelectPlus field is attached to.
+    `field` is the **handle** of this SelectPlus field.
+
+    Other fields are available: https://github.com/simplicateca/craft-selectplus-field
+
+    When `type` is null, it's because Craft is looking for all possible options to use
+    in a list of conditional field settings.
+{-------------------------------------------------------------------------------------##}
+{%- set type  = type  ?? null -%}
+{%- set field = field ?? null -%}
+
+{## Add a 'Use Fragment' option to all Theme configs that aren't headerBuilder ##}
+{%- set themes = include( '_config/theme.json' ) | trim | spaceless -%}
+{{- type == 'fragment'
+    ? themes | trim(']', 'right') ~ ',{ "label": "Use Setting from Fragment", "value": "FRAGMENT" }]'
+    : themes -}}

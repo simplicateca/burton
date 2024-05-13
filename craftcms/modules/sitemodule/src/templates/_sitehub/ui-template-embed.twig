@@ -1,0 +1,11 @@
+{% set element = element ?? null %}
+{% set values  = element.fieldValues ?? null %}
+{% if element.website ?? null %}
+    {% set oembed = MediaBase( element.website ) %}
+    {% if oembed.html is defined %}
+        {{ oembed.html | retconAttr( 'iframe', {
+            class : 'w-full h-auto',
+            width : false,
+            height: false }) }}
+    {% endif %}
+{% endif %}

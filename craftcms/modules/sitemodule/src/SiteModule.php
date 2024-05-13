@@ -16,12 +16,6 @@ use yii\base\Module;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
 
-use modules\sitemodule\helpers\SitehubHelper;
-use modules\sitemodule\helpers\OpenAiHelper;
-use modules\sitemodule\helpers\HtmlTextHelper;
-use modules\sitemodule\helpers\EntrySidebarHelper;
-
-
 class SiteModule extends Module
 {
     public static SiteModule $instance;
@@ -54,33 +48,20 @@ class SiteModule extends Module
     }
 
 
-    public function init(): void
-    {
+    public function init(): void {
         parent::init();
         self::$instance = $this;
-
-        // Enable Sitehub Functionality
-        SitehubHelper::enable();
-
-        // Let OpenAI autofill missing summary fields
-        OpenAiHelper::enable();
-
-        // Redactor, Html Purifier, and other helpers related to managing HTML / Rich Text field content.
-        HtmlTextHelper::enable();
-
-        // Basically a copy of the old Sidebar Entry Type Helper
-        // EntrySidebarHelper::enable();
 
         // Enable Twig Extensions
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\TextBaseTwig() );
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\CardBaseTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\BlockBaseTwig() );
+        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\BuilderBaseTwig() );
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\CollectionBaseTwig() );
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\MediaBaseTwig() );
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\ToolboxTwig() );
 
         // Report that the module is loaded
-        Craft::info( Craft::t( 'site-module', '{name} loaded', ['name' => 'Site Module'] ), __METHOD__ );
+        Craft::info( Craft::t( 'site-module', '{name} loaded', ['name' => 'SiteModule'] ), __METHOD__ );
     }
 
 
@@ -89,9 +70,9 @@ class SiteModule extends Module
     {
         Event::on(\craft\web\UrlManager::class, \craft\web\UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function(\craft\events\RegisterUrlRulesEvent $event) {
-                // $event->rules = array_merge($event->rules, [
-                //     'site-module/whatever' => 'site-module/default/index',
-                // ]);
+                $event->rules = array_merge($event->rules, [
+                    'topics/secret-topic' => 'site-module/default/index',
+                ]);
             }
         );
     }
@@ -125,20 +106,14 @@ class SiteModule extends Module
             });
         }
 
-
-        // Include `craftcms/templates` in the template path for templates in `craftcms/modules/sitemodule/templates`
-        Event::on( View::class, View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) {
-            $e->roots['_core']  = CRAFT_BASE_PATH . '/templates/_core';
-            $e->roots['_site']  = CRAFT_BASE_PATH . '/templates/_site';
-            $e->roots['']       = CRAFT_BASE_PATH . '/templates';
+        // setup the paths that will be available in all twig templates
+        Event::on( View::class, View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) use ($basePath) {
+            $e->roots['_sitemodule'] = $basePath . DIRECTORY_SEPARATOR . 'templates';
+            $e->roots['_core']       = $basePath . DIRECTORY_SEPARATOR . 'templates/_core';
+            $e->roots['_sitehub']    = $basePath . DIRECTORY_SEPARATOR . 'templates/_sitehub';
+            $e->roots['_config']     = CRAFT_BASE_PATH . '/templates/_config';
+            $e->roots['_site']       = CRAFT_BASE_PATH . '/templates/_site';
         });
-
-
-        // Add SiteVariable to Template
-        // Event::on( \craft\web\twig\variables\CraftVariable::class, \craft\web\twig\variables\CraftVariable::EVENT_INIT, function (Event $event) {
-        //     $variable = $event->sender;
-        //     $variable->set('site', \modules\sitemodule\variables\SiteVariable::class);
-        // });
     }
 
 

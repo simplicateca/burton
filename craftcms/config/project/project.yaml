@@ -1,4 +1,4 @@
-dateModified: 1714449503
+dateModified: 1715373866
 elementSources:
   craft\elements\Entry:
     -
@@ -30,11 +30,41 @@ elementSources:
       heading: 'Secondary Content'
       type: heading
     -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
       key: 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:9cf1fb90-7384-41c9-8eda-fd8d9f2cd574' # Embeddables
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - link
       type: native
     -
       heading: 'Meta Content'
       type: heading
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:9efdcfc8-0f66-4c82-bada-08eb257b6060' # Addons
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - link
+      type: native
     -
       defaultSort:
         - postDate
@@ -51,7 +81,18 @@ elementSources:
         - postDate
         - desc
       disabled: false
-      key: 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusable Pieces
+      key: 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Content Bits
+      tableAttributes:
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:a7cc6203-a411-490b-8938-390040843dbf' # Fragments
       tableAttributes:
         - postDate
         - expiryDate
@@ -80,61 +121,150 @@ elementSources:
         - expiryDate
         - link
       type: native
+  verbb\formie\elements\Form:
+    -
+      defaultSort:
+        - title
+        - desc
+      disabled: false
+      key: '*'
+      tableAttributes:
+        - title
+        - handle
+        - template
+        - dateCreated
+        - dateUpdated
+      type: native
+    -
+      condition:
+        class: verbb\formie\elements\conditions\FormCondition
+        conditionRules:
+          -
+            class: craft\elements\conditions\SlugConditionRule
+            operator: '**'
+            uid: 72cee00d-5507-412b-bfd4-029ea81a6d8d
+            value: embeddable
+        elementType: verbb\formie\elements\Form
+        fieldContext: global
+      defaultSort:
+        - title
+        - asc
+      key: 'custom:5f6662e7-042d-4a2a-b5f9-9fb6bf1bb66d'
+      label: Embeddable
+      tableAttributes: '-'
+      type: custom
 email:
   fromEmail: craft@example.com
   fromName: 'Craft CMS'
   transportType: craft\mail\transportadapters\Sendmail
+fs:
+  spaces:
+    hasUrls: true
+    name: Spaces
+    settings:
+      bucket: $S3_BUCKET
+      contentDisposition: ''
+      endpoint: $S3_ENDPOINT
+      expires: '30 days'
+      keyId: $S3_KEY
+      region: $S3_REGION
+      secret: $S3_SECRET
+      subfolder: $CDN_FOLDER
+    type: vaersaagod\dospaces\Fs
+    url: $CDN_BASE
 meta:
   __names__:
     0c3eb4bf-9fe7-422e-9947-289edfc00105: Redirect # Redirect
+    01c13296-4c57-49c0-802a-e980de4d84e0: Addons # Addons
+    01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa: 'Content Layout' # Content Layout
     1eb561c2-313a-4ea5-9332-dd8effd8eb73: Bit # Bit
     1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40: Collections # Collections
+    2ccb2a52-562c-4cc8-ac89-d14784532a6b: Block # Block
+    2f49bc19-1268-44b4-a2b9-82985d4df78f: Static # Static
     4b2a900b-f8d6-4b24-aee5-10ebc4051eb6: 'RSS Feed' # RSS Feed
     4b104ed0-4b08-424b-a744-f9bbf418fc2f: Images # Images
+    04de3988-1519-432d-92a4-e455f30a3afc: Form # Form
     06d15756-5b0e-4a06-a8db-0f2343d4b25f: Fragment # Fragment
-    8b83b1c6-3917-4365-bc67-1f94599cbb08: Private # Private
+    8b83b1c6-3917-4365-bc67-1f94599cbb08: 'Private Tag' # Private Tag
+    8fdbf754-ae65-42c5-ba4b-09de9259cad2: Source # Source
+    9be9dfbd-e578-410f-ad06-8b7a6e9a0734: 'Table of Contents' # Table of Contents
+    9cf1fb90-7384-41c9-8eda-fd8d9f2cd574: Embeddables # Embeddables
+    9efdcfc8-0f66-4c82-bada-08eb257b6060: Addons # Addons
     14dff90f-f8fc-444e-bc75-e51f72aa490d: Text # Text
     31cc93a2-d38f-4943-b7c2-473b72eb69a1: Variant # Variant
+    40f8a572-f12e-49f2-849d-8fbe3395eb5c: Addon # Addon
+    54bdf500-79d2-4c24-9147-1e3da8064473: Full # Full
     80b8014d-fa4b-4271-9c59-73cd7c7c6d78: Article # Article
     83a6e4e2-3e52-435e-bcb4-ced4dc7e387e: Taxonomies # Taxonomies
     93a86902-7a1b-4986-ba7f-35cef71233ac: 'Craft CMS' # Craft CMS
-    99d1e742-e9ee-4468-8f52-06f9672d8f68: Fullpage # Fullpage
+    97c10fff-f319-4ab2-8dac-c631658cb9a2: Fragments # Fragments
+    99d1e742-e9ee-4468-8f52-06f9672d8f68: 'Content Page' # Content Page
     247cf34e-12cf-4324-b034-3209f48a18ff: 'Page Content' # Page Content
+    335b1087-e2f6-41b1-b7de-f8d4b61d6c1e: Headline # Headline
     581b9070-f50c-49a0-91c7-2921437ad0fb: Color # Color
+    615b4078-5891-406a-ba93-6eb8e1528924: Users # Users
     667ee826-8732-4bc8-8dbe-b7aefad82b15: Collections # Collections
-    685e625d-7180-40dc-a031-953f5f9a8cef: 'Reusable Pieces' # Reusable Pieces
+    685e625d-7180-40dc-a031-953f5f9a8cef: 'Content Bits' # Content Bits
     4248eeb1-ca4d-476f-9998-7780ee611c74: Image # Image
     4688dcb4-257f-4a94-b8b7-db234f63e0a9: 'Landing Pages' # Landing Pages
+    5635a1ac-adca-4a96-816a-7ae1b664bc4d: 'Block Theme' # Block Theme
     7487ca3f-f51b-40e9-a538-40ab5b2c4a27: Text # Text
     96192f21-960f-489c-a380-96e4b51f2777: 'Card Deck' # Card Deck
-    2508516d-3329-44ec-8518-04f2a29ca3f3: 'External Media' # External Media
+    280486f4-01ac-42a0-8604-c20f6b62b5df: Uploads # Uploads
+    2508516d-3329-44ec-8518-04f2a29ca3f3: Embed # Embed
     21710874-0ba0-423c-82ec-7fd855abb982: 'Dynamic Collection' # Dynamic Collection
-    a28f735a-3f02-4039-aaf6-a9c50e93122f: Sidebar # Sidebar
+    a03cf6a5-0e00-43cb-871c-3a37dde51a3e: 'Header Builder' # Header Builder
+    a7cc6203-a411-490b-8938-390040843dbf: Fragments # Fragments
+    a186d4ae-477e-4b06-868e-add5e8f44b0c: Embeds # Embeds
+    a6272176-e780-4d5e-90f2-df0115d1a324: 'Sidebar Builder' # Sidebar Builder
     ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2: Bits # Bits
     b1ee8bc9-827b-4fec-943c-c6ff229adb59: Articles # Articles
+    b24f1298-62ac-4de3-9ac3-32e644553bab: Code # Code
     b54aca1f-5631-4f76-a248-e953c4ada5bd: Icon # Icon
+    b161e6c6-3186-4ba2-b215-948d7a2d359a: 'Lead Gen Short' # Lead Gen Short
     b4753be4-da84-4306-82e8-a9473ca5398f: 'Body Builder' # Body Builder
     b4783a60-e9ff-40a2-8e9e-159b24fad0a9: Media # Media
     bb561dd8-e748-4c68-9107-2ffd5db410d8: Topic # Topic
+    bdc12ed2-dd0e-4189-9c87-1adaee91e73c: Transcript # Transcript
+    d3d3706c-8e74-46e7-801c-ceea9f8ee159: 'Newsletter Signup' # Newsletter Signup
     d8bf6768-4ff5-4727-ac20-12f8f0344542: Media # Media
     d34bee8e-bf22-451d-8339-a4342630833d: 'Craft CMS' # Craft CMS
+    d54e9112-8ddd-477c-b0db-038d553edef4: Square # Square
+    d89ead44-6b42-4317-9e6d-d8227a50a622: 'Contact Form' # Contact Form
     d554a8e7-e8ad-493b-aaa8-d611bf04b257: 'Website / Content URL' # Website / Content URL
+    d794ad1d-257e-41a6-a11e-6e0c66406d07: Headline # Headline
     d7748b2a-ae79-4961-b103-a5aa758e39ab: 'Static Collection' # Static Collection
-    e56447b6-2288-47ba-89a8-e90f3970f3c7: 'Sidebar Fragment' # Sidebar Fragment
-    ef0d77ed-a6ab-49db-afe4-2be38730d402: Simple # Simple
+    e034ba0c-9edc-4c7c-91a5-8b3b0b8430c6: Menu # Menu
+    e99d0421-a8b0-490d-98be-c5eb531ef855: New # New
+    ec92452d-10f2-4a41-a9ee-bf384facb572: 'Topics & Tags' # Topics & Tags
+    ef0d77ed-a6ab-49db-afe4-2be38730d402: Summary # Summary
     f3d34d10-7741-40ba-9fae-27d87f771b4d: Summary # Summary
     f240ce26-8d9d-4668-b18b-73371d5c5211: Entries # Entries
+    f630a19c-44c3-4d70-9e7c-6db552e8a72d: Bit # Bit
     faaa512e-f0ed-4151-97de-d73bdc9a4f5e: Component # Component
-    ff76eb70-820e-4752-b138-daef62692e3f: 'Body Fragment' # Body Fragment
+    ff76eb70-820e-4752-b138-daef62692e3f: 'Block Fragments' # Block Fragments
 plugins:
   ckeditor:
     edition: standard
     enabled: true
     schemaVersion: 3.0.0.0
+  dospaces:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.0.0
   empty-coalesce:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+  feed-me:
+    edition: standard
+    enabled: true
+    schemaVersion: 5.1.0.0
+  formie:
+    edition: standard
+    enabled: true
+    licenseKey: NM40O8AZHW8MPQI3G0MQM82C
+    schemaVersion: 3.4.3
   navigation:
     edition: standard
     enabled: true

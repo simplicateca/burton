@@ -34,6 +34,170 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2ec3f0f1-055f-48da-8594-9f94c6d495a3
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\fields\conditions\RelationalFieldConditionRule
+                  elementId: null
+                  fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
+                  layoutElementUid: 9cee8f53-059c-4850-a006-4ccfda545173
+                  operator: empty
+                  uid: f36ab690-69fa-40f7-8a64-39197da597f5
+                -
+                  class: craft\fields\conditions\RelationalFieldConditionRule
+                  elementId: null
+                  fieldUid: ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2 # Bits
+                  layoutElementUid: a960653e-54c9-4312-b852-57de4047b417
+                  operator: empty
+                  uid: fe97df0b-37dd-423c-aeb8-e353da4b2a8c
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40 # Collections
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: fb10dc32-2785-478a-becb-a1689fbea371
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\fields\conditions\RelationalFieldConditionRule
+                  elementId: null
+                  fieldUid: 1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40 # Collections
+                  layoutElementUid: fb10dc32-2785-478a-becb-a1689fbea371
+                  operator: empty
+                  uid: 029a874b-6c52-4547-9dec-c9ba05ddc7c3
+                -
+                  class: craft\fields\conditions\RelationalFieldConditionRule
+                  elementId: null
+                  fieldUid: ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2 # Bits
+                  layoutElementUid: a960653e-54c9-4312-b852-57de4047b417
+                  operator: empty
+                  uid: c18f9e14-f714-4f19-8ef7-b0edf19af466
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9cee8f53-059c-4850-a006-4ccfda545173
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\fields\conditions\RelationalFieldConditionRule
+                  elementId: null
+                  fieldUid: 1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40 # Collections
+                  layoutElementUid: fb10dc32-2785-478a-becb-a1689fbea371
+                  operator: empty
+                  uid: 1048a576-a209-4178-ae8d-dff39d39fc9b
+                -
+                  class: craft\fields\conditions\RelationalFieldConditionRule
+                  elementId: null
+                  fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
+                  layoutElementUid: 9cee8f53-059c-4850-a006-4ccfda545173
+                  operator: empty
+                  uid: 42c72a54-0ff7-4a98-839f-9efe9f9e90c9
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2 # Bits
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a960653e-54c9-4312-b852-57de4047b417
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: ab4d8fb0-41e4-4810-980f-9b82fc58663f
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Content Layout
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bc7e6b90-0f58-415a-b6f2-86313eae7a65
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3a2b3676-ed86-4681-8367-9d79cbae8ba7
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Block Theme
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6fd100c3-9941-4570-8969-0ee8b78a20af
+            userCondition: null
+            warning: null
+            width: 75
         name: Content
         uid: 46e6a9a3-4c05-449f-a4c2-492c41a78ebb
         userCondition: null
@@ -41,7 +205,7 @@ handle: carddeck
 hasTitleField: false
 icon: cards
 name: 'Card Deck'
-showSlugField: false
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

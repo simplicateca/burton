@@ -1,131 +1,194 @@
-{% block styles %}
-    <style type="text/css">
+{## Inline <html> styles
+{-------------------------------------------------------------------------------------##}
+{% block styles %}<style type="text/css">
 
-        body {
-            background-color: #f8f8f8;
-            background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23e3e3e3' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
-        }
 
-        [v-cloak], [x-cloak] { display: none !important; }
-        html{ visibility: hidden; opacity:0; }
+{## Prevents janky FOUC
+{-------------------------------------------------------------------------------------##}
+[v-cloak], [x-cloak] { display: none !important; }
+html{ visibility: hidden; opacity:0; }
 
-        :root {
-            /* Backgrounds */
-            --color-white      : #FFFFFF;
-            --color-white-50   : #F8F8F8;
-            --color-white-100  : #F1F1F1;
-            --color-white-200  : #EAEAEA;
-            --color-white-300  : #E3E3E3;
-            --color-white-400  : #DCDCDC;
-            --color-white-500  : #D5D5D5;
 
-            /* Text Colors */
-            --color-grey-100   : #434548;
-            --color-grey-200   : #4B4E51;
-            --color-grey-300   : #54575A;
-            --color-grey-400   : #65676A;
-            --color-grey-500   : #76787A;
+{## Default <body> style
+{---------------------------------------------------------------------------------------}
+    The overall <body> background should be tinted so that the transition to a solid
+    white background is noticable but not jarring. Subtle (or not) background patterns
+    can be added to the <body> tag to add visual interest.
+{-------------------------------------------------------------------------------------##}
+body {
+    margin: 0;
+    padding: 0;
+    color: #171717; {# neutral-900 #}
+    background-color: #f5f5f5; {# neutral-100 #}
 
-            --color-grey-light : #797D82;
-            --color-grey       : #54575A;
-            --color-grey-dark  : #2F3132;
+    /** alternating random blocks
+        background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23e5e5e5' fill-opacity='0.5' fill-rule='evenodd'/%3E%3C/svg%3E");
+    **/
 
-            /* Brand Colors */
-            --color-corp        : #0F3140;
-            --color-corp-light  : #1B5974;
-            --color-corp-dark   : #040D11;
+    /** blueprint looking grid **/
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNWY1ZjUiPjwvcmVjdD4KPGcgZmlsbD0iI2U1ZTVlNSIgZmlsbC1vcGFjaXR5PSIwLjUiPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEiIHk9IjIwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMSIgeT0iNDAiPjwvcmVjdD4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxIiB5PSI2MCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEiIHk9IjgwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEwMCIgeD0iMjAiPjwvcmVjdD4KPHJlY3Qgd2lkdGg9IjEiIGhlaWdodD0iMTAwIiB4PSI0MCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxMDAiIHg9IjYwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEwMCIgeD0iODAiPjwvcmVjdD4KPC9nPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2U9IiNmZmYiPjwvcmVjdD4KPC9zdmc+");
+}
 
-            --color-alert       : #ECA520;
-            --color-alert-light : #F2C166;
-            --color-alert-dark  : #B0780F;
 
-            /* Primary Colors */
-            {% block theme__colors %}
-            --color-primary      : var(--color-corp);
-            --color-primary-light: var(--color-corp-light);
-            --color-primary-dark : var(--color-corp-dark);
-            {% endblock %}
-        }
+{## Color Schemes & Block Themes
+{---------------------------------------------------------------------------------------}
+    The default template uses three different color schemes or "themes". Each theme
+    uses roughly 10 CSS variables for coloring & styling various elements.
 
-        :root,
-        *[data-theme="base"],
-        *[data-next-theme="base"],
-        *[data-prev-theme="base"] {
-        {% block theme__base %}
-            --theme-canvas        : transparent;
-            --theme-canvas-light  : var(--color-white-50);
-            --theme-canvas-dark   : var(--color-white-100);
-            --theme-text-light    : var(--color-grey-300);
-            --theme-text          : var(--color-grey-400);
-            --theme-text-dark     : var(--color-grey-500);
-            --theme-accent        : var(--color-primary-light);
-            --theme-headline      : var(--color-primary);
-            --theme-eyebrow       : var(--color-primary-light);
-            --theme-link          : var(--color-primary-light);
-            --theme-link-bg       : transparent;
-            --theme-link-active   : var(--color-primary-light);
-            --theme-link-active-bg: transparent;
-            --theme-btn           : var(--color-primary);
-            --theme-btn-b         : var(--color-primary);
-            --theme-btn-bg        : var(--color-white-100);
-            --theme-btn-active    : var(--color-alert);
-            --theme-btn-active-bg : var(--color-primary-light);
-            --theme-btn-active-b  : var(--color-primary);
-        {% endblock %}
-        }
+    Content blocks can be styled by applying a `data-theme` attribute to the block:
 
-        *[data-theme="light"],
-        *[data-prev-theme="light"],
-        *[data-next-theme="light"]
-        {
-        {% block theme__light %}
-            --theme-canvas-light  : var(--color-white);
-            --theme-canvas        : var(--color-white-50);
-            --theme-canvas-dark   : var(--color-white-200);
-            --theme-text          : var(--color-grey-300);
-            --theme-text-light    : var(--color-grey-200);
-            --theme-text-dark     : var(--color-grey-400);
-            --theme-accent        : var(--color-primary-light);
-            --theme-headline      : var(--color-primary);
-            --theme-eyebrow       : var(--color-primary-light);
-            --theme-link          : var(--color-primary-light);
-            --theme-link-bg       : transparent;
-            --theme-link-active   : var(--color-primary-light);
-            --theme-link-active-bg: transparent;
-            --theme-btn           : var(--color-primary);
-            --theme-btn-b         : var(--color-primary);
-            --theme-btn-bg        : transparent;
-            --theme-btn-active    : var(--color-alert);
-            --theme-btn-active-bg : var(--color-primary-light);
-            --theme-btn-active-b  : var(--color-primary);
-        {% endblock %}
-        }
+    <div data-theme="accent"> ... </div>
 
-        *[data-theme="accent"],
-        *[data-prev-theme="accent"],
-        *[data-next-theme="accent"]
-        {
-        {% block theme__accent %}
-            --theme-canvas-light  : var(--color-primary-light);
-            --theme-canvas        : var(--color-primary);
-            --theme-canvas-dark   : var(--color-primary-dark);
-            --theme-text          : var(--color-white-50);
-            --theme-text-light    : var(--color-white);
-            --theme-text-dark     : var(--color-white-100);
-            --theme-accent        : var(--color-primary-light);
-            --theme-headline      : var(--color-white);
-            --theme-eyebrow       : var(--color-alert);
-            --theme-link          : var(--color-white);
-            --theme-link-bg       : transparent;
-            --theme-link-active   : var(--color-alert);
-            --theme-link-active-bg: transparent;
-            --theme-btn           : var(--color-white);
-            --theme-btn-b         : var(--color-white);
-            --theme-btn-bg        : transparent;
-            --theme-btn-active    : var(--color-alert);
-            --theme-btn-active-bg : var(--color-primary-light);
-            --theme-btn-active-b  : var(--color-primary-light);
-        {% endblock %}
-        }
-    </style>
-{% endblock %}
+    Each theme also has a `--reverse` version that can be used to style elements
+    inside a block using an alternate or "knockout" version to the current theme.
+
+    <div data-theme="accent">
+        <main> ... </main>
+        <aside data-theme="accent--reverse"> ... </aside>
+    </div>
+
+    Themes and color variables can be customized and expanded as necessary.
+    The defaults are a simple, consistent starting point.
+
+
+### Default Themes (Base, Light, Accent, Dark)
+
+    The `base` theme uses a transparent background so that the <body> background is
+    visible. This also lets additional background elements be layered behind it.
+
+    The `light` theme is identical to `base` but uses a solid (light) background
+    color (typically white). It also acts as the reverse of the `accent` theme.
+
+    The `accent` theme typically uses a bold color (usually brand relevant) for the
+    background with lighter (white) foreground text color. It also acts as the
+    reverse of both the `base` and `light` block themes.
+
+    The `dark` theme is mostly the sames as the `accent` theme but with a monotone
+    dark background color and light foreground text color. It also acts as the
+    reverse of the `base` theme.
+
+
+### Next & Previous Block Themes
+
+
+
+
+### Naming & Nomenclature
+
+  - `-tint` or `-tint2` is a similar version of a color.
+  - `-alt`  or `-alt2`  is a contrasting version of a color.
+
+    Applied, you can think of a `tint` as being useful or applicable for things
+    like borders or hover states. Where as `alt` is useful for making sure text
+    elements have sufficient contrast on a background color.
+
+    The `-tint2` shade only exists because it's useful to have a second tint of your
+    background color if your primary background color is "transparent". That said,
+    `headings2` and `headings3` are pretty intuitive by-products.
+
+
+### Tailwind and Accessibility
+
+    When adding new color variables here, don't forget to update the Tailwind
+    configuration so that all colors are available using Tailwind classes like
+    `bg-theme-accent` or `text-theme-headings`, etc.
+
+   > frontend/tailwind.config.js
+
+    The default themes are based on the Tailwind palettes of Neutral & Violet.
+    Color usage & application should be a11y contrast compliant.
+
+ -> https://tailwindcss.com/docs/customizing-colors#using-css-variables
+ -> https://webaim.org/resources/contrastchecker/
+
+{-------------------------------------------------------------------------------------##}
+
+
+{## Base (Neutral) Theme
+{---------------------------------------------------------------------------------##}
+:root,
+*[data-theme="base"] {
+    --background      : transparent;
+    --background-tint : 229 229 229; /**  e5e5e5  |  neutral-200  **/
+    --background-tint2: 212 212 212; /**  d4d4d4  |  neutral-300  **/
+
+    --headings        : 38 38 38;    /**  262626  |  neutral-800  **/
+    --headings-alt    : 255 255 255; /**  ffffff  |  white        **/
+    --bodycopy        : 23 23 23;    /**  171717  |  neutral-900  **/
+    --highlight       : 196 181 253; /**  c4b5fd  |  violet-300   **/
+
+    --link            : 30 64 175;   /**  1e40af  |  blue-800     **/
+    --link-tint       : 91 33 182;   /**  5b21b6  |  violet-800   **/
+    --accent          : 91 33 182;   /**  5b21b6  |  violet-800   **/
+    --accent-tint     : 30 64 175;   /**  1e40af  |  blue-800     **/
+    --accent-alt      : 255 255 255; /**  ffffff  |  white        **/
+}
+
+
+{## Light (White) Theme
+{---------------------------------------------------------------------------------##}
+*[data-theme="light"],
+*[data-theme="dark--reverse"],
+*[data-theme="accent--reverse"] {
+    --background      : 255 255 255; /**  ffffff  |  white        **/
+    --background-tint : 229 229 229; /**  e5e5e5  |  neutral-200  **/
+    --background-tint2: 212 212 212; /**  d4d4d4  |  neutral-300  **/
+
+    --headings        : 38 38 38;    /**  262626  |  neutral-800  **/
+    --headings-alt    : 255 255 255; /**  ffffff  |  white        **/
+    --bodycopy        : 23 23 23;    /**  171717  |  neutral-900  **/
+    --highlight       : 196 181 253; /**  c4b5fd  |  violet-300   **/
+
+    --link            : 30 64 175;   /**  1e40af  |  blue-800     **/
+    --link-tint       : 91 33 182;   /**  5b21b6  |  violet-800   **/
+    --accent          : 91 33 182;   /**  5b21b6  |  violet-800   **/
+    --accent-tint     : 30 64 175;   /**  1e40af  |  blue-800     **/
+    --accent-alt      : 255 255 255; /**  ffffff  |  white        **/
+}
+
+
+
+{## Accent (Brand) Theme
+{---------------------------------------------------------------------------------##}
+*[data-theme="accent"],
+*[data-theme="light--reverse"] {
+    --background      : 91 33 182;   /**  5b21b6  |  violet-800   **/
+    --background-tint : 46 16 101;   /**  2e1065  |  violet-950   **/
+    --background-tint2: 124 58 237;  /**  7c3aed  |  violet-600   **/
+
+    --headings        : 212 212 212; /**  d4d4d4  |  neutral-300  **/
+    --headings-alt    : 91 33 182;   /**  5B21B6  |  violet-800   **/
+    --bodycopy        : 229 229 229; /**  e5e5e5  |  neutral-200  **/
+    --highlight       : 124 58 237;  /**  7c3aed  |  violet-600   **/
+
+    --link            : 96 165 250;  /**  60a5fa  |  blue-400     **/
+    --link-tint       : 167 139 250; /**  a78bfa  |  violet-400   **/
+    --accent          : 167 139 250; /**  a78bfa  |  violet-400   **/
+    --accent-tint     : 96 165 250;  /**  60a5fa  |  blue-400     **/
+    --accent-alt      : 38 38 38;    /**  262626  |  white        **/
+}
+
+
+{## Dark (Knockout) Theme
+{---------------------------------------------------------------------------------##}
+*[data-theme="dark"],
+*[data-theme="base--reverse"] {
+    --background      : 38 38 38;    /**  262626  |  neutral-800  **/
+    --background-tint : 23 23 23;    /**  171717  |  neutral-900  **/
+    --background-tint2: 10 10 10;    /**  7c3aed  |  neutral-950  **/
+
+    --headings        : 212 212 212; /**  d4d4d4  |  neutral-300  **/
+    --headings-alt    : 64 64 64;    /**  404040  |  neutral-700  **/
+    --bodycopy        : 229 229 229; /**  e5e5e5  |  neutral-200  **/
+    --highlight       : 124 58 237;  /**  404040  |  neutral-700  **/
+
+    --link            : 96 165 250;  /**  60a5fa  |  blue-400     **/
+    --link-tint       : 167 139 250; /**  a78bfa  |  violet-400   **/
+    --accent          : 167 139 250; /**  a78bfa  |  violet-400   **/
+    --accent-tint     : 96 165 250;  /**  60a5fa  |  blue-400     **/
+    --accent-alt      : 38 38 38;    /**  262626  |  white        **/
+}
+
+
+{##-------------------------------------------------------------------------------##}
+</style>{% endblock %}

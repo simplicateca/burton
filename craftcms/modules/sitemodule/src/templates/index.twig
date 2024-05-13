@@ -1,14 +1,18 @@
-{% set entry = { title: "Site Module Index" } %}
-{% extends "_site/template.full" %}
+{% extends "_site/template.fullpage" %}
+
+{% set entry = { title: "Secret Topic" } %}
 
 {% block content %}
-    <div class="max-w-5xl @container">
-        <p class="html larger">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi vero, inquit?
-        </p>
+    <div data-theme="light" class="@container canvas autospace" data-bodycopy>
+        {% import "_core" as assemble %}
+        {{ assemble.container__open( 'fluid' ) }}
 
-        <p class="html">
+        <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mihi vero, inquit?</h2>
+
+        <p>
             Ut nemo dubitet, eorum omnia officia quo spectare, quid sequi, quid fugere debeant? Cupit enim dícere nihil posse ad beatam vitam deesse sapienti.
         </p>
+
+        {{ assemble.container__close() }}
     </div>
 {% endblock %}

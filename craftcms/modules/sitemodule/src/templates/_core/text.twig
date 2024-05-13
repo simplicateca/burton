@@ -1,0 +1,106 @@
+{## Text Layer Adjustments   [Core Template]
+{-------------------------------------------------------------------------------------##}
+{% macro fallback( content, settings ) -%}
+    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- if content -%}<div class="@container">{{ raw( content ) }}</div>{%- endif -%}
+{%- endmacro %}
+
+
+{% macro larger( content, settings ) -%}
+    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- if content -%}<div class="@container/large">{{ raw( content ) }}</div>{%- endif -%}
+{%- endmacro %}
+
+
+{% macro smaller( content, settings ) -%}
+    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- if content -%}<div class="@container/small">{{ raw( content ) }}</div>{%- endif -%}
+{%- endmacro %}
+
+
+{% macro twocols( content, settings ) -%}
+    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- if content %}<div class="@container/small columns-2 gap-8">{{- raw( content ) -}}</div>{% endif -%}
+{%- endmacro %}
+
+
+{% macro callout( content, settings ) -%}
+    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
+    {%- if content -%}
+        {% set theme = settings.theme ??? 'base' %}
+        <div data-theme="{{theme}}--reverse" class="p-4 @xl:p-10 border-2 border-theme-tint2 rounded @container/small canvas">
+            {{- raw( content ) -}}
+        </div>
+    {%- endif -%}
+{%- endmacro %}
+
+
+{% macro quote( content, settings ) -%}
+    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
+    {%- if content -%}
+        <div class="p-4 @xl:p-10 bg-theme-tint relative @container/small">
+            <span class="absolute -left-4 top-0 opacity-15 like-h1">&#x201C;</span>
+            {{- raw( content ) -}}
+            <span class="absolute -right-4 bottom-0 opacity-15 like-h1">&#x201E;</span>
+        </div>
+    {%- endif -%}
+{%- endmacro %}
+
+
+
+{## Text Alignment / Margin Matching Macro
+{---------------------------------------------------------------------------------------}
+    This Macro will accept a string of HTML and find the text alignment of the first
+    block level element in the HTML string.
+
+  * Note: This macro ignores any `<div class='eyebrow'>` elements that appear at th
+    start of the HTML string. Often because they are the thing that needs alignment
+    to match the headline above which it appears.
+
+    Other times you need to match the alignment of a text zone within the layout so
+    that it matches the content alignment (particularly opening headlines).
+
+    For example, if you have a single text zone that:
+
+     - Not as wide as your container
+     - Defaults to left alignment
+     - Has content that is justified center
+
+    Before:                                 After:
+    ┌----------------------------┐          ┌----------------------------┐
+    |   This headline   |        |          |    |   This zone is    |   |
+    |    is centered    |        |          |    |     centered      |   |
+    |                   |        |          |    |                   |   |
+    |    Which feels    |        |    vs    |    |    Which feels    |   |
+    |      awkward      |        |          |    |      better.      |   |
+    └----------------------------┘          └----------------------------┘
+           Zone 1         Margin            Margin      Zone 1      Margin
+
+
+    This macro helps resolve that situation by letting you peak at the text alignment
+    of the first block level element in the text zone and use it to decide whether
+    or not you want to change something about the selected microlayout.
+
+    You could even decide to silently pass the content off to a different microlayout
+    that is better suited to the alignment of the content.
+{-------------------------------------------------------------------------------------##}
+{% macro margin_from_alignment( html = "" ) %}{% apply spaceless -%}
+    {%- set html  = html | trim -%}
+    {% if html %}
+    {%- set attrs = html | retconRemove( '.eyebrow' ) | retconUnwrap( [ 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ] ) | parseAttr -%}
+    {%- set style = attrs.style['text-align'] ?? null -%}
+    {%- set class = attrs.class ?? null -%}
+    {%- set align = ( 'text-center' in class or style == 'center' ) ? 'mx-auto' -%}
+    {%- set align = ( 'text-left'   in class or style == 'left'   ) ? 'mr-auto' : align -%}
+    {%- set align = ( 'text-right'  in class or style == 'right'  ) ? 'ml-auto' : align -%}
+    {{- align -}}
+    {% endif %}
+{%- endapply %}{% endmacro %}

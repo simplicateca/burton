@@ -1,0 +1,110 @@
+{## Carousel Component   [Core Template]
+{---------------------------------------------------------------------------------------}
+    A simple AlpineJS & Splide nased carousel component.
+  -> https://splidejs.com/guides/options/
+--------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block carousel__skeleton "" %}') %}
+
+
+{## How to Use
+{---------------------------------------------------------------------------------------}
+    You may overload the `splide__json` block within the below {% embed %} to
+    customize the carousel configuration.
+
+  -> Splide expects a JSON object, so be aware of what you output.
+
+    Additional {% block %} sections are available for customizing the
+    `class` value for various elements within the carousel.
+{---------------------------------------------------------------------------------------}
+    If you require additional flexibility:
+
+  - Create a copy of `_core/carousel.twig`
+  - Name it `_site/carousel.twig` or `_site/carousel.feature.twig`
+  - Update `templatepath` to include your new version (globally or dynamically)
+{-------------------------------------------------------------------------------------##}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{%- set items = items ?? [] -%}
+{%- set count = items | length -%}
+{%- set title = title ?? 'Carousel' -%}
+{%- set uuid  = "splide#{random()}" -%}
+
+
+
+{## Default Configuration
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% block class__base  "min-w-[260px] relative z-40 mb-6 lg:mb-0" %}
+{% block class__track "" %}
+{% block class__ul    "h-full" %}
+{% block class__li    "flex flex-col items-center justify-start" %}
+{% block class__slide block('class__li') %}{## class__slide is an alias for class_li ##}
+{% block class__pagination "" %}
+
+{% block splide__json %}{
+    type: 'fade'
+}{% endblock %}
+
+
+
+{## Render Carousel HTML
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% block carousel__skeleton %}{% if items -%}
+
+    {## Load Splide JS from CDN ##}
+    {% html at head %}
+        <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    {%- endhtml %}
+
+    {## Load Splide CSS from CDN ##}
+    {% css "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" %}
+    {% css %}
+        button.splide__arrow { background: rgb( var(--background-tint) ); }
+        .splide__arrow svg { fill: rgb( var(--bodycopy) ); }
+        .splide__arrow--prev { left : -1rem; }
+        .splide__arrow--next { right: -1rem; }
+        .splide__pagination__page { bottom: -4rem; background-color: rgb( var(--theme-accent) ) !important; }
+        .splide__pagination__page.is-active { background-color: rgb( var(--theme-headline) ); }
+    {% endcss %}
+
+    <div
+        class="w-full relative"
+        x-data="{ splide: null }"
+        x-cloak
+        x-init="$nextTick(() => {
+            splide = new Splide( document.querySelector('#{{uuid}}'), {{ block('splide__json') }} )
+
+            splide.on( 'overflow', function() {
+                splide.options = {
+                    arrows    : ( {{ count }} > splide.options.perPage ),
+                    pagination: ( {{ count }} > splide.options.perPage ),
+                    drag      : ( {{ count }} > splide.options.perPage )
+                }
+            } )
+
+            splide.mount()
+        })">
+
+        <section
+            id="{{uuid}}"
+            class="splide {{ block('class__base') }}"
+            aria-label="{{title}}"
+        >
+            <div class="splide__track {{ block('class__track') }}">
+                <ul class="splide__list {{ block('class__ul') }}">
+                    {% for item in items %}
+                        <li class="splide__slide {{ block('class__li') }}">{% block slide item %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <footer class="relative">
+                <ul class="splide__pagination {{ block('class__pagination') }}"></ul>
+            </footer>
+        </section>
+    </div>
+{%- endif %}{% endblock %}

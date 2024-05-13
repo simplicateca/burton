@@ -1,0 +1,115 @@
+[{
+    "value": "articles",
+    "label": "Articles",
+    "tooltips": {
+        "inline" : "Articles + Blog Posts"
+    },
+    "settings": {
+        "with": ["images", "taxonomies"],
+        "where": {
+            "type": ["article"]
+        }
+    },
+    "virtuals": [{
+        "type" : "select",
+        "name" : "sort",
+        "label": "Default Sorting",
+        "value": "recent",
+        "instructions": "Unless otherwise overridden",
+        "options": [{
+            "value": "recent",
+            "label": "Most Recent",
+            "orderby": "postDate DESC"
+        },{
+            "value": "alpha",
+            "label": "Alphabetically",
+            "orderby": "title ASC"
+        },{
+            "value": "random",
+            "label": "Random",
+            "orderby": "RAND()"
+        }]
+    },{
+        "type" : "date",
+        "name" : "before",
+        "label": "Posted Before",
+        "fieldClass": "width-25",
+        "instructions": "Exclude older"
+    },{
+        "type" : "date",
+        "name" : "after",
+        "label": "Posted After",
+        "fieldClass": "width-25",
+        "instructions": "Exclude newer"
+    }]
+},{
+    "value": "pages",
+    "label": "Pages",
+    "settings": {
+        "with": ["images", "taxonomies"],
+        "where": {
+            "section": "pages"
+        }
+    }
+},{
+    "value": "topics",
+    "label": "Topics",
+    "settings": {
+        "with": ["images"],
+        "where": {
+            "type": "topic",
+            "section": "taxonomy"
+        }
+    }
+},{
+    "value": "sitesearch",
+    "label": "Public Content",
+    "tooltips": {
+        "inline" : "Articles + Pages + Topics"
+    },
+    "settings": {
+        "with": ["images", "taxonomies"],
+        "where": {
+            "type": "!= private",
+            "section": ["articles", "pages", "taxonomy"]
+        }
+    }
+},{
+    "value": "bits",
+    "label": "Content Bits",
+    "settings" : {
+        "with": ["images", "taxonomies"],
+        "where": {
+            "type": "bit"
+        }
+    }
+},{
+    "value": "embeds",
+    "label": "Embeddable Media",
+    "settings" : {
+        "with": ["images", "taxonomies"],
+        "where": {
+            "type": "embed"
+        }
+    }
+},{
+    "value": "media",
+    "label": "Media",
+    "settings" : {
+        "element": "asset",
+        "with": [],
+        "where": {
+            "kind": ["video","audio","compressed","pdf","excel","word"]
+        }
+    }
+},{
+    "value": "images",
+    "label": "Images",
+    "settings" : {
+        "element": "asset",
+        "with": [],
+        "where": {
+            "kind": "image"
+        }
+    }
+}]

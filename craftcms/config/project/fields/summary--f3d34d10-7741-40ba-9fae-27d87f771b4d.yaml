@@ -6,7 +6,7 @@ searchable: true
 settings:
   availableTransforms: ''
   availableVolumes: ''
-  ckeConfig: ef0d77ed-a6ab-49db-afe4-2be38730d402 # Simple
+  ckeConfig: ef0d77ed-a6ab-49db-afe4-2be38730d402 # Summary
   createButtonLabel: null
   defaultTransform: null
   enableSourceEditingForNonAdmins: false
@@ -15,7 +15,7 @@ settings:
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   showWordCount: true
-  wordLimit: null
+  wordLimit: 100
 translationKeyFormat: null
 translationMethod: none
 type: craft\ckeditor\Field

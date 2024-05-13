@@ -4,7 +4,7 @@ instructions: null
 name: 'Body Builder'
 searchable: true
 settings:
-  createButtonLabel: 'Add Block'
+  createButtonLabel: 'Body Block'
   entryTypes:
     - 14dff90f-f8fc-444e-bc75-e51f72aa490d # Text
     - 4248eeb1-ca4d-476f-9998-7780ee611c74 # Image

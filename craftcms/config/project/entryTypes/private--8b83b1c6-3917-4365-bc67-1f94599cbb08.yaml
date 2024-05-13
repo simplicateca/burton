@@ -40,7 +40,7 @@ fieldLayouts:
 handle: private
 hasTitleField: true
 icon: user-secret
-name: Private
+name: 'Private Tag'
 showSlugField: false
 showStatusField: true
 slugTranslationKeyFormat: null

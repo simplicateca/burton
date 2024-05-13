@@ -16,7 +16,7 @@ settings:
     - video
     - word
   branchLimit: null
-  defaultUploadLocationSource: null
+  defaultUploadLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Uploads
   defaultUploadLocationSubpath: null
   localizeRelations: false
   maintainHierarchy: false
@@ -26,11 +26,11 @@ settings:
   restrictFiles: true
   restrictLocation: false
   restrictedDefaultUploadSubpath: null
-  restrictedLocationSource: null
+  restrictedLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Uploads
   restrictedLocationSubpath: null
-  selectionLabel: Choose
-  showCardsInGrid: false
-  showSiteMenu: false
+  selectionLabel: 'Choose Media'
+  showCardsInGrid: true
+  showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   sources: '*'

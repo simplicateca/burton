@@ -27,9 +27,9 @@
         - Userflow / Quicklinks
         - Legal Navigation
 --------------------------------------------------------------------------------------##}
-{% import "_assemble" as assemble %}
+{% import "_core" as assemble %}
 
-{% set blocks = entry.bodyBuilder
+{% set blocks = blocks ??? collect( entry.bodyBuilder
     .with([
         "text:bits",
         "image:collections",     "image:images",
@@ -37,7 +37,7 @@
         "carddeck:collections",  "carddeck:entries", "carddeck:items",
         "component:collections", "component:form",
         "fragment:fragments"
-    ])
+    ]) ??? null )
     .all()
 %}
 
@@ -46,8 +46,8 @@
     {% block page__main     block( 'main__base' ) %}
     {% block page__bottom   block( 'footer__base', '_site/footer' ) %}
 
-    {% from "_core/modal" import dynamic %}
-    {{ dynamic() }}
+    {% from "_core/modal" import dynamic as dynamic_modal_target %}
+    {{ dynamic_modal_target() }}
 {% endblock %}
 
 
@@ -65,15 +65,17 @@
         If the theme of the first block in the header builder, matches the theme of the
         first block in the body builder, skip the first spacer
     ----------------------------------------------------------------------------------##}
-    {% set firstblock = blocks | first %}
-    {% set headerattr = block( 'page__top' ) | retconOnly( 'header *[data-theme]' ) | parseAttr %}
-    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme.value ??? "base" %}
+    {% set firstblock  = blocks | first %}
+    {% set headerattr  = block( 'page__top' ) | retconOnly( 'header *[data-theme]' ) | parseAttr %}
+    {% set headertheme = headerattr ? headerattr.data.theme ??? "base" : "base" %}
+    {% set firsttheme  = firstblock.theme is defined ? firstblock.theme | t ??? "base" : "base" %}
+    {% set themematch  = headertheme == firsttheme or firstblock.theme.coverage ??? null != 'full' %}
 
     {{ assemble.builder( 'mainfull', blocks, {
         container  : "fluid",
-        spacerfirst: themematch ? "none" : "default",
-        spacerabove: "default",
-        spacerbelow: "default"
+        spacerfirst: themematch ? "none" : "normal",
+        spacerabove: "normal",
+        spacerbelow: "normal"
     }) }}
 {% endblock %}
 

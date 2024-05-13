@@ -48,7 +48,6 @@ class DefaultController extends Controller
 
         ];
 
-        // \Craft::$app->view->setTemplatesPath(__DIR__ . '/../templates');
-        return $this->renderTemplate('index.twig', $variables);
+        return $this->renderTemplate('_sitemodule/index', $variables );
     }
 }

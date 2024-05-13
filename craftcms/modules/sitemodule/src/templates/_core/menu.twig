@@ -1,0 +1,153 @@
+{## Menu Elements   [Core Template]
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro fallback( handle ) %}{% endmacro %}
+
+{% macro primary( entry, setting ) %}
+
+    {% set handle = 'primary' %}
+    {% set title  = title ??? craft.navigation.getNavByHandle( handle ).name ??? null %}
+    {% set nodes  = craft.navigation.nodes().handle( handle ).level(1) %}
+
+    {% embed ["_site/menu.list", "_core/menu.list"] with {
+        title : title,
+        handle: handle,
+        items : nodes.all() ??? null,
+    } %}
+        {% block item %}
+            {{ node.hasDescendants ??? null ? block('dropdownMenu') : parent() }}
+        {% endblock %}
+
+        {% block dropdownMenu %}
+            {% embed ["_site/menu.dropdown", "_core/menu.dropdown"] with { dropdown: node } %}{% endembed %}
+        {% endblock %}
+
+        {% block lastItem %}
+            {{ block( 'openItem' ) }}
+
+            {{ tag( 'a', {
+                href : siteUrl('/search'),
+                class: 'block w-6 h-6',
+                html : svg( '@appicons/search.svg' ) | attr({ 'class': 'w-6 h-6 block fill-current'})
+            }) }}
+
+            {{ block( 'closeItem' ) }}
+        {% endblock %}
+    {% endembed %}
+{% endmacro %}
+
+
+{% macro a11y( entry, settings ) %}
+    <div
+        x-cloak
+        x-data="{}"
+        data-theme="dark"
+        class="
+            absolute
+            z-max
+            top-0
+            inset-x-0
+            h-12
+            flex
+            items-center
+            justify-center
+            -translate-y-full
+            opacity-0
+            transition-transform
+            focus:translate-y-0
+            focus:opacity-100
+            focus-within:translate-y-0
+            focus-within:opacity-100
+        ">
+        <div>
+            Skip to <a href='#content' aria-label="Jump to Content" class="font-medium no-underline p-2 inline-block">content</a>
+                or <a href='#footer'  aria-label="Jump to Footer"  class="font-medium no-underline p-2 inline-block">footer</a>.
+        </div>
+    </div>
+{% endmacro %}
+
+
+
+{% macro breadcrumb( entry, setting ) %}
+
+    {% set crumbs = crumbs ??? craft.navigation.breadcrumbs() ??? null %}
+
+    {% if crumbs|length > 1 %}
+        <nav class="flex py-2" aria-label="Breadcrumb">
+            <ol class="
+                inline-flex
+                items-center
+                space-x-1
+                md:space-x-2
+                text-theme-bodycopy
+                text-xs
+                sm:text-sm
+            ">
+                {% for crumb in crumbs %}
+                    {% if loop.first and crumb.segment == '' %}
+                        <li class="inline-flex items-center">
+                            <a href="{{ siteUrl('/') }}" class="inline-flex items-center gap-1 md:gap-2 text-theme-link hover:text-theme-link-tint">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        {% set title     = crumb.title ??? null %}
+                        {% set url       = crumb.url   ??? null %}
+                        {% set isVisible = true %}
+
+                        {% if isVisible %}
+                            <li class="hidden {{loop.index > 2 ? 'sm:block' : 'xs:block' }}">
+                                <div class="flex items-center gap-1 md:gap-2">
+                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                    <a href="{{url}}" class="hover:text-theme-link-tint font-medium truncate max-w-xs">{{ title }}</a>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </nav>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro langtoggle( entry, settings ) %}
+    {{ _self.sitetoggle( entry, settings ) }}
+{% endmacro %}
+
+
+{% macro sitetoggle( entry, settings ) %}
+
+    {# Create an array with the homepages #}
+    {% set langSwitcher = craft.app.sites.getAllSites() %}
+    <ul>
+        {% for lang in langSwitcher %}
+            {% if lang.id != currentSite.id %}
+                {% set alternateUrl = null %}
+
+                {# Entry is defined #}
+                {% if entry.id ??? null %}
+                    {% set otherLocaleEntry = craft.entries.siteId(lang.id).id(entry.id).one() %}
+                    {% set alternateUrl = otherLocaleEntry.url|default() %}
+                {% endif %}
+
+                {% if alternateUrl %}
+                    <li>
+                        <a href="{{alternateUrl}}"
+                        class="
+                            flex
+                            px-4
+                            py-2
+                            text-sm
+                            text-theme-link
+                            hover:text-theme-link-tint
+                        "
+                        ><span class="w-4 text-center">{{lang.language|upper|slice(0,2) }}</span></a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endmacro %}

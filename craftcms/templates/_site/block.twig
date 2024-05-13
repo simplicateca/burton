@@ -32,26 +32,59 @@
 {% block block__zone1 -%}
 {%- if block.text ??? null -%}
     {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {%- set settings = {
-        text1__headers: 'inline',
-        text1__ctas   : 'inline',
-        textlayer     : 'default',
+        blockintro: 'inline',
+        blockcta  : 'inline',
+        textlayer : 'default',
     } | merge( settings ) -%}
 
-    {%- set textbase = TextBase( block.text ??? null ) -%}
-    {%- set content  = textbase.body ??? null -%}
+    {%- import "_core" as assemble -%}
+    {%- import "_core/text" as utils -%}
 
-    {%- set content  = settings.text1__headers == 'inline'
-        ? textbase.eyebrow ~ textbase.headline ~ content
-        : content -%}
+    {%- set textbase = TextBase( block.text ) -%}
+    {%- set blockintro = settings.blockintro -%}
 
-    {%- set content  = settings.text1__ctas == 'inline'
-        ? content ~ textbase.cta
-        : content -%}
+    {## build eyebrow ##}
+    {%- set eyebrow = textbase.eyebrow | striptags ??? settings.eyebrow ??? null -%}
+    {%- if eyebrow ??? settings.eyebrowicon ??? null -%}
+        {%- set eyebrowlayer = settings.eyebrowlayer ??? 'basic' -%}
+        {%- set eyebrow = assemble.text( "eyebrow__#{eyebrowlayer}", eyebrow, settings | merge({
+            eyebrowalign: utils.margin_from_alignment( textbase.headline ~ textbase.intro ~ textbase.body )
+        }) ) -%}
+    {%- endif -%}
 
-    {%- import "_assemble" as assemble -%}
+    {% set content %}
+        {%- if blockintro == 'inline' -%}
+            {{ eyebrow }}
+            {{ raw( textbase.headline ) }}
+            {{ raw( textbase.intro ) }}
+        {%- endif -%}
+
+        {## hypothetically these should be empty .. unless they're set accidentally ##}
+        {%- if blockintro == 'lead' -%}{{ raw( textbase.headline ) }}{%- endif -%}
+        {%- if blockintro == 'intro' -%}{{ raw( textbase.headlines[1:]|join ) }}{%- endif -%}
+
+        {%- if blockintro == 'headers' -%}{{ raw( textbase.intro ) }}{%- endif -%}
+
+        {%- if blockintro == 'first' -%}
+            {{ raw( textbase.headlines[1:]|join ) }}
+            {{ raw( textbase.intro ) }}
+        {%- endif -%}
+
+        {{- raw( textbase.body ) -}}
+
+        {%- if settings.blockcta == 'inline' -%}
+            {{- raw( textbase.action ) -}}
+            {{- raw( textbase.kicker ) -}}
+        {%- endif -%}
+    {% endset %}
+
+    {%- import "_core" as assemble -%}
     {{- assemble.text( settings.textlayer, content, settings ) -}}
+
+    {# {{ dump( collect( settings ).sortKeys.all ) }} #}
+
 {%- endif %}{%- endblock %}
 
 
@@ -60,15 +93,45 @@
 {-------------------------------------------------------------------------------------##}
 {% block block__header -%}
 {%- if block.text ??? null -%}
-    {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {% set settings = {
-        text1__headers: 'inline',
-    } | merge( settings ) %}
 
-    {%- if settings.text1__headers == 'header' -%}
+    {## Pull Block Intro from CKEditor field ##}
+    {%- if settings.blockintro is defined and settings.blockintro != 'inline' -%}
+
+        {%- import "_core" as assemble -%}
+        {%- import "_core/text" as utils -%}
+
         {%- set textbase = TextBase( block.text ) -%}
-        {{- raw( textbase.eyebrow ~ textbase.headline ) -}}
+        {%- set headline = textbase.headlines[0:1]|join ??? null -%}
+        {%- set content  = "" -%}
+
+        {## build eyebrow ##}
+        {%- set eyebrow = textbase.eyebrow | striptags ??? settings.eyebrow ??? null -%}
+        {%- if eyebrow ??? settings.eyebrowicon ??? null -%}
+            {%- set eyebrowlayer = settings.eyebrowlayer ??? 'basic' -%}
+            {%- set eyebrow = assemble.text( "eyebrow__#{eyebrowlayer}", eyebrow, settings | merge({
+                eyebrowalign: utils.margin_from_alignment( textbase.headline ~ textbase.intro ~ textbase.body )
+            }) ) -%}
+        {%- endif -%}
+
+        {%- switch settings.blockintro -%}
+            {%- case "lead" -%}
+                {%- set content = textbase.intro -%}
+            {%- case "headers" -%}
+                {%- set content = textbase.headline -%}
+            {%- case "full" -%}
+                {%- set content = textbase.headline ~ textbase.intro -%}
+            {%- case "first" -%}
+                {%- set content = headline -%}
+            {%- case "intro" -%}
+                {%- set content = headline ~ textbase.intro -%}
+            {%- default -%}
+        {%- endswitch -%}
+
+        {%- if content | trim -%}
+            {{ eyebrow }}
+            {{- raw( content ) -}}
+            {{- assemble.separator( 'small' ) -}}
+        {% endif -%}
     {%- endif -%}
 {%- endif %}{% endblock %}
 
@@ -79,13 +142,15 @@
 {% block block__footer -%}
 {%- if block.text ??? null -%}
     {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- set settings = {
-        text1__ctas: 'inline',
-    } | merge( settings ) -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
-    {%- if settings.text1__ctas == 'footer' -%}
-        {{- raw( TextBase( block.text )['cta'] ?? '' ) -}}
+    {%- if settings.blockcta ??? null == 'footer' -%}
+        {%- set textbase = TextBase( block.text ) -%}
+        {%- if textbase.action or textbase.kicker -%}
+            {%- import "_core" as assemble -%}
+            {{- assemble.separator( 'small' ) -}}
+            {{- raw( textbase.action ~ textbase.kicker ) -}}
+        {%- endif -%}
     {%- endif -%}
 {%- endif %}{% endblock %}
 
@@ -94,13 +159,13 @@
 {## Body Builder - Single Column Layout
 {---------------------------------------------------------------------------------------}
     If we wanted to change how the body builder renders whether it's in a single column
-    template or one with a sidebar, we could do it here. See `builder_default` in
-    `_core/card`
+    template or one with a sidebar, we could do it here. See `builder_fallback` in
+    `_core/block`
 {-------------------------------------------------------------------------------------##}
 {% macro builder__singlecol( blocks, settings ) -%}
     {%- set blocks   = blocks is null ? [] : blocks -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
-    {%- import "_assemble" as assemble -%}
+    {%- import "_core" as assemble -%}
     {{- assemble.builder( 'default', blocks, settings ) -}}
 {% endmacro %}

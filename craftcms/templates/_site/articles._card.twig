@@ -4,8 +4,8 @@
 
 {%- set path = path ??? ["_site/card","_core/card"] -%}
 
-{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-{%- set settings = { cardlayer: 'default' } | merge( settings ) -%}
+{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = { cardname: 'default' } | merge( settings ) -%}
 
 
 {## Render the Card
@@ -26,7 +26,7 @@
         itemscope: true,
         itemtype : "https://schema.org/BlogPosting",
         itemid   : card.url ??? null,
-        'data-card': settings.cardlayer
+        'data-card': settings.cardname
     }) %}
 
 
@@ -58,7 +58,7 @@
     which was pushed into `settings` object above.
 {-------------------------------------------------------------------------------------##}
 {% set typetag = card.type is defined ? tag( 'div', {
-    class: "absolute right-0 bottom-0 py-0.5 px-3 text-sm uppercase bg-canvas-light text-headline",
+    class: "absolute right-0 bottom-0 py-0.5 px-3 text-sm uppercase bg-theme-tint2 text-headline",
     text : card.type
 } ) : null %}
 

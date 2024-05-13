@@ -2,10 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-
-
 /**
- * This file contains base typography styles for most text elements.
+ * This file contains base styles for many common "atomic" elements.
  *
  *  0| BASE SETUP
  *  1| HEADLINE FORMATTING (h1-h6)
@@ -25,16 +23,39 @@
  * General styles and formats that apply all types of text through-out the site.
  *
 */
-[data-theme="light"] {
-    @apply text-theme bg-canvas-light;
-}
+[data-theme] {
+    @apply text-theme-bodycopy;
+    &.canvas, .canvas { @apply bg-theme; }
 
-[data-theme="accent"] {
-    @apply text-theme bg-canvas-light;
+    [data-canvas] {
+        @apply bg-theme absolute inset-0 z-0;
+    }
+
+    &[data-coverage=container] {
+        @apply relative xl:p-4 @4xl:p-12;
+
+        [data-canvas] {
+            @apply bg-theme absolute -inset-4 z-0 rounded-xl border-theme-tint border-2 shadow-2xl;
+        }
+    }
+
+    &[data-coverage=twozone] {
+        @apply relative;
+
+        [data-zone] {
+            @apply relative z-20;
+        }
+
+        [data-canvas] {
+            @apply bg-theme absolute -inset-4 z-0 rounded-xl border-theme-tint border-2 shadow-2xl;
+        }
+    }
+
+    &.autospace { @apply py-16; }
 }
 
 ::selection {
-    @apply bg-theme-accent text-white;
+    @apply text-theme-bodycopy bg-theme-highlight;
 }
 
 
@@ -44,30 +65,46 @@
 /--------------------------------------------------------------------------------------**/
 h1,h2,h3,h4,h5,h6,
 .like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
-    @apply font-headline text-theme-headline font-extrabold leading-tight mb-5;
+    @apply font-headline font-extrabold leading-tight mb-5 text-theme-headings;
 
     &.knockout {
-        @apply bg-theme-headline text-canvas-light p-2 inline-table text-center;
+        @apply bg-theme-highlight text-theme-headings p-2 inline-table text-center;
     }
 }
 
 h1, .like-h1 {
-    /* font-display
-    leading-snug */
 
     @apply
+        font-display    text-theme-accent
         text-4xl    @lg:text-5xl    @2xl:text-6xl   @4xl:text-7xl   @6xl:text-8xl
     ;
 
     strong {
-        @apply text-theme-accent;
+        @apply text-theme-highlight;
     }
 }
 
 h2, .like-h2 {
     @apply
-        text-3xl    @lg:text-4xl    @2xl:text-5xl   @4xl:text-6xl   @6xl:text-7xl
+        text-3xl pb-4 relative
+
+        @xs/large:text-4xl    @lg/large:text-5xl    @2xl/large:text-6xl   @4xl/large:text-7xl   @6xl/large:text-8xl
+              @xs:text-3xl          @lg:text-4xl          @2xl:text-5xl         @4xl:text-6xl         @6xl:text-7xl
+        @xs/small:text-2xl    @lg/small:text-3xl    @2xl/small:text-4xl   @4xl/small:text-5xl   @6xl/small:text-6xl
     ;
+
+    &:after {
+        @apply bg-theme-highlight;
+        content: '';
+        position: absolute;
+        display: block;
+        width: 8rem;
+        height: 0.5rem;
+        bottom: -0.5rem;
+    }
+
+    &[class*="text-center"]:after { transform: translateX(-50%); left:50%; width: 10rem; }
+    &[class*="text-right"]:after  { right: 0rem; }
 
     &+h3, &+.like-h3 { @apply -mt-2.5; }
 }
@@ -75,7 +112,11 @@ h2, .like-h2 {
 
 h3, .like-h3 {
     @apply
-        text-2xl    @lg:text-3xl    @2xl:text-4xl   @4xl:text-5xl   @6xl:text-6xl
+        text-2xl
+
+        @xs/large:text-3xl    @lg/large:text-4xl    @2xl/large:text-5xl   @4xl/large:text-6xl   @6xl/large:text-7xl
+              @xs:text-2xl          @lg:text-3xl          @2xl:text-4xl         @4xl:text-5xl         @6xl:text-6xl
+        @xs/small:text-xl     @lg/small:text-2xl    @2xl/small:text-3xl   @4xl/small:text-4xl   @6xl/small:text-5xl
     ;
 
     &+h4, &+.like-h4 { @apply -mt-2.5; }
@@ -83,7 +124,11 @@ h3, .like-h3 {
 
 h4, .like-h4 {
     @apply
-        text-lg     @lg:text-xl     @2xl:text-2xl   @4xl:text-3xl   @6xl:text-4xl
+        text-lg border-b-2 border-theme-highlight
+
+        @xs/large:text-2xl    @lg/large:text-3xl    @2xl/large:text-4xl   @4xl/large:text-5xl   @6xl/large:text-6xl
+              @xs:text-xl           @lg:text-2xl          @2xl:text-3xl         @4xl:text-4xl         @6xl:text-5xl
+        @xs/small:text-lg     @lg/small:text-xl     @2xl/small:text-2xl   @4xl/small:text-3xl   @6xl/small:text-4xl
     ;
 
     &+p, &+ul, &+ol { @apply -mt-2.5; }
@@ -103,61 +148,11 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
 }
 
 
-/** 1b | Eyebrows
-/----------------------------------------------------------------------------------------/
-    Eyebrows can be added to most Redactor text fields via the Eyebrow plugin.
-
- -> https://github.com/simplicateca/redactor-eyebrow
- -> https://uxmovement.com/content/increasing-headline-clicks-with-eyebrow-text/
-
-    Available options configured via the `eyebrows` attribute in each Redactor config
- -> cms/config/redactor/???.json
-/--------------------------------------------------------------------------------------**/
-.eyebrow {
-    @apply
-        table pb-3 text-theme-eyebrow uppercase font-display text-base
-    ;
-
-    &+h2, &+.like-h2,
-    &+h3, &+.like-h3,
-    &+h4, &+.like-h4 {
-        @apply mt-0;
-    }
-
-    /* &.eyebrowIcon {
-        @apply
-            -translate-y-4
-            relative
-            pt-16
-        ;
-
-        min-width: 64px;
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            min-width: 64px;
-            height: 64px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23ECA520' d='M13.21 3.1c-.5-1-1.93-1-2.42 0L8.43 7.88l-5.27.77a1.35 1.35 0 0 0-.75 2.3l3.82 3.72-.9 5.25a1.35 1.35 0 0 0 1.95 1.42L12 18.86l4.72 2.48c.99.52 2.14-.32 1.96-1.42l-.9-5.25 3.81-3.72c.8-.78.36-2.14-.75-2.3l-5.27-.77-2.36-4.78Zm-12.05.68a.75.75 0 0 0 .12 1.06l2.5 2a.75.75 0 1 0 .94-1.18l-2.5-2a.75.75 0 0 0-1.06.12Z'/%3E%3Cpath fill='%23ECA520' d='M22.84 18.22a.75.75 0 0 0-.12-1.06l-2.5-2a.75.75 0 0 0-.94 1.18l2.5 2a.75.75 0 0 0 1.06-.12ZM1.28 17.16a.75.75 0 1 0 .94 1.18l2.5-2a.75.75 0 0 0-.94-1.18l-2.5 2ZM22.84 3.78a.75.75 0 0 1-.12 1.06l-2.5 2a.75.75 0 0 1-.94-1.18l2.5-2a.75.75 0 0 1 1.06.12Z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat no-repeat;
-            background-position: center center;
-            background-size: cover;
-
-            .theme-dark & {
-                background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.209 3.103c-.495-1.004-1.926-1.004-2.421 0L8.43 7.88l-5.273.766c-1.107.161-1.55 1.522-.748 2.303l3.815 3.72-.9 5.25c-.19 1.103.968 1.944 1.959 1.424l4.715-2.48 4.716 2.48c.99.52 2.148-.32 1.96-1.424l-.902-5.25 3.816-3.72c.8-.78.359-2.142-.748-2.303l-5.273-.766-2.358-4.777ZM9.74 8.615l2.258-4.576 2.259 4.576a1.35 1.35 0 0 0 1.016.738l5.05.734-3.654 3.562a1.35 1.35 0 0 0-.388 1.195l.862 5.03-4.516-2.375a1.35 1.35 0 0 0-1.257 0l-4.516 2.374.862-5.029a1.35 1.35 0 0 0-.388-1.195l-3.654-3.562 5.05-.734c.44-.063.82-.34 1.016-.738ZM1.164 3.782a.75.75 0 0 0 .118 1.054l2.5 2a.75.75 0 1 0 .937-1.172l-2.5-2a.75.75 0 0 0-1.055.118Z' fill='%23ffffff'/%3E%3Cpath d='M22.836 18.218a.75.75 0 0 0-.117-1.054l-2.5-2a.75.75 0 0 0-.938 1.172l2.5 2a.75.75 0 0 0 1.055-.117ZM1.282 17.164a.75.75 0 1 0 .937 1.172l2.5-2a.75.75 0 0 0-.937-1.172l-2.5 2ZM22.836 3.782a.75.75 0 0 1-.117 1.054l-2.5 2a.75.75 0 0 1-.938-1.172l2.5-2a.75.75 0 0 1 1.055.118Z' fill='%23ffffff'/%3E%3C/svg%3E");
-            }
-        }
-    } */
-}
-
 
 /**
  * 3 | BODY TEXT FORMATTING
  *
- * Styles for elements within an *ancestor* containing the `data-bodytext` attribute
+ * Styles for elements within an *ancestor* containing the `data-bodycopy` attribute
  * are defined here. This attribute is applied within the `openTheme` or `openBlock`
  * macros, both in `templates/_core/block.twig`.
  *
@@ -190,39 +185,122 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
  *
  */
 
-/** base text elements **/
-*[data-bodytext] p,
-*[data-bodytext] ol,
-*[data-bodytext] ul,
-*[data-bodytext] blockquote {
-    @apply
-        font-body text-theme leading-snug mb-6 @xl:mb-8 @3xl:mb-10 @5xl:mb-12
-    ;
+/** bodycopy elements **/
+*[data-bodycopy] {
 
-    /** the ones that are not .larger or .smaller **/
-    &:not(.larger):not(.smaller) {
+    p, ul, ol, blockquote {
         @apply
-            text-base   @md:text-lg     @xl:text-xl     @3xl:text-2xl   @5xl:text-3xl
+            font-body leading-snug text-theme-bodycopy
+                mb-6                        @xl:mb-8        @3xl:mb-10      @5xl:mb-12
         ;
+
+        /** the ones that are neither .larger or .smaller **/
+        &:not(.larger):not(.smaller) {
+            @apply        text-base          @md:text-lg            @xl:text-xl            @3xl:text-2xl          @5xl:text-3xl;
+            @apply
+                @xs/small:text-sm      @md/small:text-base    @xl/small:text-lg      @3xl/small:text-xl     @5xl/small:text-2xl
+                @xs/large:text-lg      @md/large:text-xl      @xl/large:text-2xl     @3xl/large:text-3xl    @5xl/large:text-4xl;
+
+        }
+
+        /** the ones that are .. **/
+        &.larger {
+            @apply        text-lg            @md:text-xl            @xl:text-2xl           @3xl:text-3xl          @5xl:text-4xl;
+            @apply
+                @xs/large:text-xl      @md/large:text-2xl     @xl/large:text-3xl     @3xl/large:text-4xl    @5xl/large:text-5xl
+                @xs/small:text-base    @md/small:text-lg      @xl/small:text-xl      @3xl/small:text-2xl    @5xl/small:text-3xl;
+        }
+
+        &.smaller {
+            @apply        text-sm            @md:text-base          @xl:text-lg            @3xl:text-xl           @5xl:text-2xl;
+            @apply
+                @xs/large:text-base    @md/large:text-lg      @xl/large:text-xl      @3xl/large:text-2xl    @5xl/large:text-3xl
+                @xs/small:text-xs      @md/small:text-sm      @xl/small:text-base    @3xl/small:text-lg     @5xl/small:text-xl;
+        }
+
+        /** The `data-only-links` attribute is applied to paragraphs that only contain links (plain or buttons).
+            We're targetting tags that don't have that attribute, which should be just inline text links. **/
+        &:not([data-only-links]) {
+            a {
+                @apply
+                    underline
+                    underline-offset-2
+                    hover:no-underline
+                    focus:underline-offset-4
+
+                    text-theme-link
+                    hover:text-theme-link-tint
+                    focus:text-theme-link-tint
+                ;
+            }
+        }
     }
 
-    /** the ones that are .. **/
-    &.larger {
-        @apply
-            text-lg     @md:text-xl     @xl:text-2xl    @3xl:text-3xl   @5xl:text-4xl
-            text-theme-lead
-        ;
-    }
-
-    &.smaller {
-        @apply
-            text-sm     @md:text-base   @xl:text-lg     @3xl:text-xl    @5xl:text-2xl
-        ;
+    blockquote {
+        @apply bg-theme-tint2 p-4 @xl:p-10;
     }
 }
 
-*[data-bodytext] blockquote {
-    @apply bg-canvas-dark p-8;
+/** Links that appear inside a paragraph that only contains links -- but is not a button **/
+p[data-only-links] {
+    a { @apply mr-5; }
+
+    a:not(.button) {
+        @apply
+            font-display
+            py-3
+            inline-block
+            font-normal
+            leading-none
+            transition
+            underline-offset-8
+            decoration-transparent
+            decoration-4
+            relative
+            pr-8
+
+            text-theme-link-tint
+            hover:text-theme-link
+            hover:decoration-theme-link
+            focus:decoration-theme-link
+        ;
+
+        &:after {
+            position: absolute;
+            transition: transform 0.2s ease;
+            content: '➔';
+            margin-left: 0.35rem;
+        }
+
+        &:hover {
+            &:after {
+                transform: translateX(0.15rem);
+            }
+        }
+    }
+}
+
+/** Keeping the `.button` class outside the `data-bodycopy` attribute so that it can
+    be used in other contexts  **/
+.button {
+    @apply
+        font-display
+        bg-theme
+        border-theme-link
+        text-theme-link
+        hover:bg-theme-accent-tint
+        hover:text-theme-accent-alt
+        border-2
+        rounded-md
+        py-3
+        px-4
+        inline-block
+        whitespace-nowrap
+        no-underline
+        font-semibold
+        !leading-none
+        transition
+    ;
 }
 
 
@@ -234,7 +312,7 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
    https://github.com/tailwindlabs/tailwindcss-container-queries
 */
 
-*[data-bodytext] div.columns-2 p {
+/* *[data-bodycopy="smaller"] div.columns-2 p {
     @apply
         !text-base
         !mb-4
@@ -245,12 +323,12 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
         @5xl:!text-2xl
         @5xl:!mb-10
    ;
-}
+} */
 
 
 /* Because usually you want to remove the auto margin from the bottom of things like this so that
    it doesn't affect the look and feel of bottom padding on the block or theme */
-*[data-bodytext] .\@container {
+*[data-bodycopy] .\@container {
     & > h2:last-child,
     & > h3:last-child,
     & > h4:last-child,
@@ -275,8 +353,8 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
  *
 */
 
-*[data-bodytext] ol,
-*[data-bodytext] ul {
+*[data-bodycopy] ol,
+*[data-bodycopy] ul {
 
     &:not(ul):not(.checkList):not(.columnList):not(.rowList) {
         @apply list-decimal pl-[2em];
@@ -329,7 +407,7 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
             @apply
                 max-w-2xl
                 border-b
-                border-theme-light
+                border-theme-tint2
                 p-4
                 mx-auto
                 my-0
@@ -349,17 +427,16 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
     Different `<mark>` options can be configured inside the "baukasten" Redactor plugin.
  -> cms/config/redactor/plugins/baukasten.js
 /--------------------------------------------------------------------------------------**/
-*[data-bodytext] mark {
+*[data-bodycopy] mark {
     @apply
         inline-block
         relative
-        bg-transparent
     ;
 
     &.m1 {
     	&::before {
       		@apply
-        		bg-theme-accent
+        		bg-theme-highlight
         		content-[""]
                 absolute
                 bottom-1
@@ -377,109 +454,39 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
 
   	&.m2 {
     	span {
-      		@apply whitespace-nowrap text-theme;
+      		@apply whitespace-nowrap;
     	}
   	}
 }
 
 
-
-
-
-/** 7 | Buttons & Links
+/** 7 | Buttons
 /--------------------------------------------------------------------------------------**/
-p[data-only-links] {
-    a { @apply mr-4 ; }
-}
 
-.button {
-    @apply
-      bg-button-base
-      border-button-border
-      text-button
-      hover:bg-button-active-base
-      hover:border-button-active-border
-      hover:text-button-active
-      text-sm
-      border-2
-      rounded-md
-      !m-0
-      p-4
-      px-6
-      inline-block
-      whitespace-nowrap
-      uppercase
-      no-underline
-      font-semibold
-      !leading-none
-      transition
-  ;
-}
 
-.buttonSmall {
+/* .buttonSmall {
 @apply
-      bg-button-base
-      border-button-border
-      text-button
-      hover:bg-button-active-base
-      hover:border-button-active-border
-      hover:text-button-active
-      text-sm
-      border-2
-      !m-0
-      p-2
-      px-4
-      inline-block
-      whitespace-nowrap
-      no-underline
-      !leading-none
+    bg-theme-accent
+    border-theme-accent-tint
+    text-theme-accent-alt
+    hover:bg-theme-accent-tint
+    text-sm
+    border-2
+    !m-0
+    p-2
+    px-4
+    inline-block
+    whitespace-nowrap
+    no-underline
+    !leading-none
   ;
-}
+} */
 
-
-.buttonText {
-    @apply
-        p-4
-        text-base
-        text-theme
-        underline
-        underline-offset-2
-        decoration-theme-accent
-
-        hover:underline-offset-4
-        hover:text-theme-accent
-        hover:decoration-theme-accent
-    ;
-
-    &:first-child {
-        @apply -ml-4;
-    }
-
-    br {
-        display: none !important;
-    }
-
-    &::after {
-        @apply transition;
-
-        content: " ›";
-        right: -12px;
-        top: 50%;
-        transform: translateY(-50%);
-        line-height: 1em;
-    }
-
-    &:hover {
-        &::after {
-        @apply translate-x-0.5;
-        }
-    }
-}
 
 a.click__cover,
 button.click__cover {
     &::before {
-        @apply absolute content-[""] inset-0 z-20;
+        @apply absolute content-[""] inset-0 z-50;
     }
 }
 
@@ -490,6 +497,7 @@ button.click__cover {
 a.pill {
     @apply
         text-xs
+        text-theme-link
         inline-flex
         items-center
         font-medium
@@ -499,17 +507,18 @@ a.pill {
         py-2
         rounded-full
         border
-        border-button-border
-        bg-button-base
-        text-button
-        hover:text-button-active
-        hover:bg-button-active-base
+        border-theme-tint2
+        bg-theme-tint
+        hover:bg-theme-accent
+        hover:text-theme-accent-alt
     ;
 
     &.isActive {
         @apply
-            text-button-active
-            bg-button-active-base
+            text-theme-accent-alt
+            border-theme-accent
+            bg-theme-accent-tint
+            hover:bg-theme-accent-tint
             cursor-default
         ;
     }
@@ -520,16 +529,18 @@ a.pill {
 
 select,
 textarea,
+input[type="money"],
+input[type="number"],
 input[type="text"],
 input[type="search"],
 input[type="password"],
 input[type="email"] {
     @apply
-        p-2
-        text-theme
+        p-2.5
         rounded-lg
         border
-        border-canvas-light
-        bg-canvas-light
+        border-theme-tint
+        text-theme-bodycopy
+        bg-theme-tint2
     ;
 }

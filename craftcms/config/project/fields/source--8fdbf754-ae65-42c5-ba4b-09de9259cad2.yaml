@@ -1,0 +1,11 @@
+columnSuffix: null
+handle: source
+instructions: null
+name: Source
+searchable: false
+settings:
+  columnType: null
+  configFile: _config/_source.json.twig
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\selectplus\fields\SelectPlusField

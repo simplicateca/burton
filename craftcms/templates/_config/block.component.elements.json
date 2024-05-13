@@ -1,25 +1,21 @@
 [
     {
-        "label": "Account Login",
         "value": "accountlogin",
+        "label": "Account Login",
+        "tooltips": { "inline": "" },
         "settings" : {
-            "accountComponent": "login"
+            "account__component": "login"
         },
-        "docs": {
-            "tooltip": ""
-        },
-        "inputs": []
+        "virtuals": []
     }
     ,
     {
+        "value": "vueslime",
         "label": "Sample Vue Component",
-        "value": "slime",
+        "tooltips": { "inline": "" },
         "settings" : {
-            "vueComponent": "vueTestSlime"
+            "vue__component": "vueTestSlime"
         },
-        "docs": {
-            "tooltip": ""
-        },
-        "inputs": []
+        "virtuals": []
     }
 ]

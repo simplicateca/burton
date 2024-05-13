@@ -1,0 +1,274 @@
+data:
+  dataRetention: forever
+  dataRetentionValue: ''
+  fileUploadsAction: retain
+  pages:
+    -
+      label: 'Page 1'
+      rows:
+        -
+          fields:
+            -
+              settings:
+                conditions: null
+                cssClasses: null
+                defaultValue: null
+                emailValue: null
+                enableConditions: false
+                enableContentEncryption: false
+                enabled: true
+                errorMessage: null
+                handle: email
+                includeInEmail: true
+                instructions: null
+                instructionsPosition: null
+                label: Email
+                labelPosition: null
+                matchField: null
+                placeholder: null
+                prePopulate: null
+                required: false
+                uniqueValue: false
+                validateDomain: false
+                visibility: null
+              type: verbb\formie\fields\Email
+        -
+          fields:
+            -
+              settings:
+                conditions:
+                  conditionRule: all
+                  conditions:
+                    -
+                      condition: contains
+                      field: '{field:email}'
+                      id: new6856-3566
+                      value: '@'
+                  showRule: show
+                contentTable: null
+                cssClasses: null
+                defaultValue: null
+                emailValue: null
+                enableConditions: true
+                enableContentEncryption: false
+                enabled: true
+                errorMessage: null
+                handle: name1
+                includeInEmail: true
+                inputAttributes: null
+                instructions: null
+                instructionsPosition: verbb\formie\positions\AboveInput
+                label: Name
+                labelPosition: null
+                matchField: null
+                nestedLayoutId: null
+                placeholder: null
+                prePopulate: null
+                required: false
+                rows:
+                  -
+                    fields:
+                      -
+                        settings:
+                          conditions: null
+                          containerAttributes: null
+                          cssClasses: null
+                          defaultValue: null
+                          emailValue: null
+                          enableConditions: false
+                          enableContentEncryption: false
+                          enabled: false
+                          errorMessage: null
+                          handle: prefix
+                          includeInEmail: true
+                          inputAttributes:
+                            -
+                              label: autocomplete
+                              value: honorific-prefix
+                          instructions: null
+                          instructionsPosition: null
+                          label: Prefix
+                          labelPosition: null
+                          layout: null
+                          limitOptions: false
+                          matchField: null
+                          max: null
+                          min: null
+                          multi: false
+                          optgroups: true
+                          options:
+                            -
+                              isDefault: true
+                              label: 'Select an option'
+                              value: ''
+                          placeholder: null
+                          prePopulate: null
+                          required: false
+                          visibility: null
+                        type: verbb\formie\fields\subfields\NamePrefix
+                      -
+                        settings:
+                          conditions: null
+                          containerAttributes: null
+                          cssClasses: null
+                          defaultValue: null
+                          emailValue: null
+                          enableConditions: false
+                          enableContentEncryption: false
+                          enabled: true
+                          errorMessage: null
+                          handle: firstName
+                          includeInEmail: true
+                          inputAttributes:
+                            -
+                              label: autocomplete
+                              value: given-name
+                          instructions: null
+                          instructionsPosition: null
+                          label: 'First Name'
+                          labelPosition: null
+                          limit: false
+                          matchField: null
+                          max: null
+                          maxType: characters
+                          min: null
+                          minType: characters
+                          placeholder: null
+                          prePopulate: null
+                          required: false
+                          uniqueValue: false
+                          visibility: null
+                        type: verbb\formie\fields\subfields\NameFirst
+                      -
+                        settings:
+                          conditions: null
+                          containerAttributes: null
+                          cssClasses: null
+                          defaultValue: null
+                          emailValue: null
+                          enableConditions: false
+                          enableContentEncryption: false
+                          enabled: false
+                          errorMessage: null
+                          handle: middleName
+                          includeInEmail: true
+                          inputAttributes:
+                            -
+                              label: autocomplete
+                              value: additional-name
+                          instructions: null
+                          instructionsPosition: null
+                          label: 'Middle Name'
+                          labelPosition: null
+                          limit: false
+                          matchField: null
+                          max: null
+                          maxType: characters
+                          min: null
+                          minType: characters
+                          placeholder: null
+                          prePopulate: null
+                          required: false
+                          uniqueValue: false
+                          visibility: null
+                        type: verbb\formie\fields\subfields\NameMiddle
+                      -
+                        settings:
+                          conditions: null
+                          containerAttributes: null
+                          cssClasses: null
+                          defaultValue: null
+                          emailValue: null
+                          enableConditions: false
+                          enableContentEncryption: false
+                          enabled: true
+                          errorMessage: null
+                          handle: lastName
+                          includeInEmail: true
+                          inputAttributes:
+                            -
+                              label: autocomplete
+                              value: family-name
+                          instructions: null
+                          instructionsPosition: null
+                          label: 'Last Name'
+                          labelPosition: null
+                          limit: false
+                          matchField: null
+                          max: null
+                          maxType: characters
+                          min: null
+                          minType: characters
+                          placeholder: null
+                          prePopulate: null
+                          required: false
+                          uniqueValue: false
+                          visibility: null
+                        type: verbb\formie\fields\subfields\NameLast
+                subFieldLabelPosition: null
+                useMultipleFields: false
+                visibility: null
+              type: verbb\formie\fields\Name
+      settings:
+        backButtonLabel: Back
+        buttonsPosition: left
+        cssClasses: null
+        enableJsEvents: false
+        enableNextButtonConditions: false
+        enablePageConditions: false
+        saveButtonLabel: Save
+        saveButtonStyle: link
+        showBackButton: false
+        showSaveButton: false
+        submitButtonLabel: Signup
+  settings:
+    collectIp: false
+    collectUser: false
+    dataRetention: null
+    dataRetentionValue: null
+    defaultEmailTemplateId: null
+    defaultInstructionsPosition: verbb\formie\positions\AboveInput
+    defaultLabelPosition: verbb\formie\positions\AboveInput
+    disableCaptchas: false
+    displayCurrentPageTitle: false
+    displayFormTitle: false
+    displayPageProgress: false
+    displayPageTabs: false
+    errorMessage: '[{"type":"paragraph","attrs":{"textAlign":"start"},"content":[{"type":"text","text":"Couldn’t save submission due to errors."}]}]'
+    errorMessagePosition: top-form
+    fileUploadsAction: null
+    limitSubmissions: false
+    limitSubmissionsMessage: '[{"type":"paragraph","attrs":{"textAlign":"start"}}]'
+    limitSubmissionsNumber: null
+    limitSubmissionsType: total
+    loadingIndicator: null
+    loadingIndicatorText: null
+    pageRedirectUrl: null
+    progressPosition: end
+    redirectUrl: null
+    requireUser: false
+    requireUserMessage: '[{"type":"paragraph","attrs":{"textAlign":"start"}}]'
+    requiredIndicator: asterisk
+    scheduleForm: false
+    scheduleFormEnd: null
+    scheduleFormExpiredMessage: '[{"type":"paragraph","attrs":{"textAlign":"start"}}]'
+    scheduleFormPendingMessage: '[{"type":"paragraph","attrs":{"textAlign":"start"}}]'
+    scheduleFormStart: null
+    scrollToTop: true
+    submissionTitleFormat: '{timestamp}'
+    submitAction: message
+    submitActionFormHide: false
+    submitActionMessage: '[{"type":"paragraph","attrs":{"textAlign":"start"},"content":[{"type":"text","text":"Submission saved."}]}]'
+    submitActionMessagePosition: top-form
+    submitActionMessageTimeout: null
+    submitActionTab: null
+    submitActionUrl: null
+    submitMethod: page-reload
+    validationOnFocus: false
+    validationOnSubmit: true
+  userDeletedAction: retain
+defaultStatus: e99d0421-a8b0-490d-98be-c5eb531ef855 # New
+handle: newsletterSignup
+name: 'Newsletter Signup'
+submitActionEntry: null
+template: null

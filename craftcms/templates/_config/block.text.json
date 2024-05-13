@@ -1,117 +1,115 @@
 [{
-    "label": "Single Text",
     "value": "single",
-    "settings": {},
-    "docs": {
-        "tooltip": "The simplest and most humble of all variants, this is a single text block."
+    "label": "Single Text",
+    "tooltips": {
+        "inline": "The simplest and most humble of all variants, this is a single text block."
     },
-    "inputs": [
-        {
-            "label": "Primary Copy Format",
-            "field": "textlayer",
-            "type" : "select",
-            "default": "default",
-            "instructions": "Typography treatment for the Primary Copy",
-            "options" : {
-                "default"   : "Default",
-                "default2col"  : "Two Columns (Auto)"
-            }
+    "settings": {},
+    "virtuals": [{
+        "type" : "select",
+        "name" : "textlayer",
+        "value": "default",
+        "label": "Primary Copy Format",
+        "instructions": "Typography treatment for the Primary Copy",
+        "options" : {
+            "default": "Default Text Treatment",
+            "twocols": "Two Columns (Auto)"
         }
-    ]
+    }]
 },{
-    "label": "Text (with Secondary Reveal)",
     "value": "reveal",
-    "settings": {},
-    "docs": {
-        "tooltip": "A single text block with an interactive reveal for secondary content."
+    "label": "Text (with Secondary Reveal)",
+    "tooltips": {
+        "inline": "A single text block with an interactive reveal for secondary content."
     },
-    "inputs": [
-        {
-            "label": "Primary Copy Format",
-            "field": "textlayer",
-            "type" : "select",
-            "instructions": "Typography treatment for the Primary Copy",
-            "default": "default",
-            "options" : {
-                "default": "Default Treatment"
-            }
+    "settings": {},
+    "virtuals": [{
+        "type" : "select",
+        "name" : "textlayer",
+        "value": "default",
+        "label": "Primary Copy Format",
+        "instructions": "Typography treatment for the Primary Copy",
+        "options" : {
+            "default": "Default Text Treatment"
         }
-       ,{
-            "label": "Secondary Copy Format",
-            "field": "text2layer",
-            "type" : "select",
-            "instructions": "Typography treatment for the Secondary Copy",
-            "default": "default",
-            "options" : {
-                "default": "Default Treatment",
-                "default__boxout": "Box Knockout"
-            }
+    },{
+        "type" : "select",
+        "name" : "text2layer",
+        "value": "default",
+        "label": "Secondary Copy Format",
+        "instructions": "Typography treatment for the Secondary Copy",
+        "options" : {
+            "default": "Default Treatment",
+            "boxout" : "Box Knockout"
         }
-       ,{
-            "label": "Revealer Button Label",
-            "field": "revealLabel",
-            "type" : "text",
-            "default": "Continue Reading..."
-        }
-    ]
+    },{
+        "type" : "text",
+        "name" : "buttontext",
+        "value": "Continue Reading...",
+        "label": "Reveal Button Text"
+    }]
 },{
-    "label": "Text with Callout",
     "value": "callout",
-    "settings": {},
-    "docs": {
-        "tooltip": "A single text block with an aside."
+    "label": "Text with Callout",
+    "tooltips": {
+        "inline": "A single text block with an aside."
     },
-    "inputs": [
+    "settings": {},
+    "virtuals": [
         {
-            "label": "Primary Copy Format",
-            "field": "textlayer",
             "type" : "select",
-            "default": "default",
+            "name" : "textlayer",
+            "value": "default",
+            "label": "Primary Copy Format",
             "instructions": "Typography treatment for the Primary Copy",
             "options" : {
-                "default"   : "Default"
+                "default": "Default Text Treatment"
             }
         }
        ,{
-            "label": "Callout Format",
-            "field": "text2layer",
             "type" : "select",
+            "name" : "text2layer",
+            "value": "callout",
+            "label": "Callout Format",
             "instructions": "Typography treatment for the Callout",
             "options" : {
                 "callout": "Default",
-                "callout__quote": "Quote",
-                "callout__info" : "Information",
-                "callout__warn" : "Warning"
+                "callout__quote": "Quote"
             }
         }
     ]
 },{
-    "label": "Double Text (Side-by-Side)",
     "value": "double",
-    "settings": {},
-    "docs": {
-        "tooltip": "Two text blocks, side-by-side."
+    "label": "Double Text",
+    "tooltips": {
+        "inline": "Two text blocks, side-by-side."
     },
-    "inputs": [
+    "settings": {},
+    "virtuals": [
         {
-            "label": "Primary Copy Format",
-            "field": "textlayer",
             "type" : "select",
+            "name" : "textlayer",
+            "value": "default",
+            "label": "Primary Copy Format",
             "instructions": "Typography treatment for the Primary Copy",
-            "default": "default",
             "options" : {
-                "default": "Default Treatment"
+                "default": "Default Text Treatment",
+                "larger" : "Larger Text",
+                "smaller": "Smaller Text",
+                "callout": "Reverse / Knockout Text"
             }
         }
        ,{
-            "label": "Secondary Copy Format",
-            "field": "text2layer",
             "type" : "select",
+            "name" : "text2layer",
+            "value": "default",
+            "label": "Secondary Copy Format",
             "instructions": "Typography treatment for the Secondary Copy",
-            "default": "default",
             "options" : {
-                "default": "Default Treatment",
-                "default__boxout": "Box Knockout"
+                "default": "Default Text Treatment",
+                "larger" : "Larger Text",
+                "smaller": "Smaller Text",
+                "callout": "Reverse / Knockout Text"
             }
         }
     ]

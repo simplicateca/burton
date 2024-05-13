@@ -1,0 +1,192 @@
+color: null
+fieldLayouts:
+  c78854db-e1e0-457e-81b6-8637252ac031:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: ed397e10-39e7-447f-8f93-35eee2d0bc7f
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-header-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: fb7bcd4f-a8fe-4688-9dc3-54f1d02efa3a
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 044d2e39-8c3d-48c2-b3ba-0fc191287212
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a032eab6-7596-4f92-bd18-4d8fd254c6a9
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: fdc45b4f-113b-4dbd-bbfb-0a3ddb88e5f6
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-body-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 966444fe-f535-4f49-ab04-e680993cbc99
+            userCondition: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Body Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a83ec247-8188-46ad-8dd3-fb5acd4caec8
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: 84e2ea5c-d6e3-44cf-ac8f-207b0fb8c88a
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2e683c6f-3f9e-472f-9df7-2a7a3b889601
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1feb8506-1993-4113-a1de-1832cc39948f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: fa90e5bd-112c-42d7-9639-22c09116af46
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: fd2f7628-3882-4f3a-a6e7-a2d5ea5f6c6d
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-sidebar-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 4d9695ec-a8ec-4782-aeaf-44d6cdb8556f
+            userCondition: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a6272176-e780-4d5e-90f2-df0115d1a324 # Sidebar Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e14cdcca-0d93-444d-878b-94feb898b43d
+            userCondition: null
+            warning: null
+            width: 50
+        name: Meta
+        uid: 3e153a92-1bfa-4879-b254-a188b527834a
+        userCondition: null
+handle: page
+hasTitleField: true
+icon: sidebar
+name: 'Content Page'
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

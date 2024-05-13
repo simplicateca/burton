@@ -39,11 +39,11 @@ settings:
                 - values
                 -
                   - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
-  selectionLabel: null
+  selectionLabel: 'Choose Content Bits'
   showCardsInGrid: false
-  showSiteMenu: false
+  showSiteMenu: true
   sources:
-    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusable Pieces
+    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Content Bits
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list

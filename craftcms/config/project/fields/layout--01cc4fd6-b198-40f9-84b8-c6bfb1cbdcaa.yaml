@@ -1,0 +1,11 @@
+columnSuffix: null
+handle: layout
+instructions: null
+name: 'Content Layout'
+searchable: false
+settings:
+  columnType: null
+  configFile: _config/_layout.json.twig
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\selectplus\fields\SelectPlusField

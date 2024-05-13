@@ -1,49 +1,58 @@
-[
-    {
-        "label": "Primary Copy (Top)",
-        "value": "textAbove",
-        "settings": {},
-        "docs": {
-            "tooltip": ""
-        },
-        "inputs" : [
-            {% if object.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputTextTopSizes',     '_config/_selectplus_virtual_fields' ) }},
-                {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
-                {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }}
-            {% endif %}
-        ]
-    }
+{%- set name = name ??? 'Other' -%}
 
-   ,{
-        "label": "Primary Copy (Left)",
-        "value": "textLeft",
-        "settings": {},
-        "docs": {
-            "tooltip": "Horizontal layout with primary content on the right and `Copy` on the left."
-        },
-        "inputs" : [
-            {% if object.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
-                {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }},
-                {{ block( 'inputTextLeftSizes',    '_config/_selectplus_virtual_fields' ) }}
-            {% endif %}
-        ]
-    }
-
-   ,{
-        "label": "Primary Copy (Right)",
-        "value": "textRight",
-        "settings": {},
-        "docs": {
-            "tooltip": "Horizontal layout with primary content on the left and `Copy` on the right."
-        },
-        "inputs" : [
-            {% if object.field ?? null != 'sidebarBuilder' %}
-                {{ block( 'inputHeadlinePosition', '_config/_selectplus_virtual_fields' ) }},
-                {{ block( 'inputButtonPositions',  '_config/_selectplus_virtual_fields' ) }},
-                {{ block( 'inputTextRightSizes',   '_config/_selectplus_virtual_fields' ) }}
-            {% endif %}
-        ]
-    }
-]
+[{
+    "value": "copyAbove",
+    "label": "Copy Above {{name}} Content",
+    "default" : true,
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
+        {% if field ??? null != 'sidebarBuilder' %}
+            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
+            ,{{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
+        {% endif %}
+    ]
+},{
+    "value": "copyLeft",
+    "label": "Copy Left ({{name}} Right)",
+    "tooltips": {
+        "inline": "Two column layout with Copy on the left and {{name}} content on the right"
+    },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
+        {% if field ??? null != 'sidebarBuilder' %}
+            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
+            ,{{ block( 'copyLayoutLeft',  '_config/_virtuals' ) }}
+        {% endif %}
+    ]
+},{
+    "value": "copyRight",
+    "label": "{{name}} Left (Copy Right)",
+    "tooltips": {
+        "inline": "Two column layout with {{name}} content on the left and Copy on the right"
+    },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
+        {% if field ??? null != 'sidebarBuilder' %}
+            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
+            ,{{ block( 'copyLayoutRight', '_config/_virtuals' ) }}
+        {% endif %}
+    ]
+},{
+    "value": "copyBelow",
+    "label": "{{name}} Content Above Copy",
+    "tooltips": { "inline": "" },
+    "settings": {
+        "microlayout": "zone1Bottom"
+    },
+    "virtuals": [
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
+        {% if field ??? null != 'sidebarBuilder' %}
+            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
+            ,{{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
+        {% endif %}
+    ]
+}]

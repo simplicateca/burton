@@ -4,25 +4,21 @@
 
 
 
-{## Frame Macros
-{---------------------------------------------------------------------------------------}
-
+{## Image Layer Macros
 {-------------------------------------------------------------------------------------##}
-{%- macro default( images, settings = null ) -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- macro default( images, settings ) -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {%- set settings = {
         imgclass: "w-full max-w-full h-auto rounded-lg",
-        imagelayer: 'default',
-        _placeholder: settings.transform ?? 'default',
+        _placeholder: 'default',
      } | merge( settings ) %}
-
     {{- include( ['_site/image', '_core/image'], { images: images, settings: settings } ) -}}
 {% endmacro %}
 
 
 
-{% macro icon( image, settings = null ) %}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} %}
+{% macro icon( image, settings ) %}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} %}
     {{- _self.default( image, {
         figureclass : "max-w-[80px] @3xl/zone:max-w-[170px] mx-auto relative",
         _placeholder: "icon"
@@ -31,18 +27,8 @@
 
 
 
-{% macro widescreen( image, settings = null ) %}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {{- _self.default( image, {
-        transform: "widescreen",
-        imgclass: "aspect-video w-full"
-    } | merge( settings ) ) -}}
-{%- endmacro %}
-
-
-
-{% macro callout( images, settings = null ) %}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{% macro attention( images, settings ) %}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {%- set settings = {
         imgclass : "rounded-3xl z-30 aspect-square w-full relative mx-auto max-w-[16rem] sm:max-w-xs md:max-w-sm",
         transform: "square",
@@ -62,8 +48,8 @@
 
 
 
-{% macro stretch( image, settings = null ) %}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{% macro stretch( image, settings ) %}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {{- _self.default( image, {
         imgclass   : "object-cover object-center h-full w-full",
         figureclass: "h-full w-full relative z-10",
@@ -72,8 +58,8 @@
 
 
 
-{% macro parallax( images, settings = null ) -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{% macro parallax( images, settings ) -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
     {% set imghtml = _self.default( images, {
         imgclass   : "object-cover object-center h-full w-full",
@@ -105,6 +91,66 @@
             });
         });
     {% endif %}{%- endjs -%}
+{% endmacro %}
+
+
+{## TODO: Implement ##}
+{% macro blockbg( images, settings ) -%}
+{% endmacro %}
+
+
+{% macro replacebg( images, settings ) -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
+    {% set uuid = uuid ??? "replacebg#{random()}" %}
+
+    {% set imghtml = _self.default( images, {
+        imgclass   : "object-cover object-center h-full w-full",
+        figureclass: "absolute inset-0 translate-y-full",
+    } | merge( settings ) ) -%}
+
+    {% set overlay -%}
+        <div class="absolute inset-0 image-overlay-{{uuid}} z-10 opacity-60"></div>
+    {%- endset %}
+
+    {% if settings.overlay %}
+        {% set imghtml = imghtml | retconInject( 'figure', overlay ) %}
+    {% endif %}
+
+    <div
+        x-data="{ visible: false }"
+        data-trigger="{{uuid}}"
+        class="h-0 overflow-hidden"
+    ><template x-teleport="body" x-show="visible"><div data-scene="{{uuid}}" class="fixed inset-0 overflow-hidden z-0">{{imghtml}}</div></template></div>
+
+    {%- css -%}
+        .image-overlay-{{uuid}} {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNWY1ZjUiPjwvcmVjdD4KPGcgZmlsbD0iI2U1ZTVlNSIgZmlsbC1vcGFjaXR5PSIwLjUiPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEiIHk9IjIwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMSIgeT0iNDAiPjwvcmVjdD4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxIiB5PSI2MCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEiIHk9IjgwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEwMCIgeD0iMjAiPjwvcmVjdD4KPHJlY3Qgd2lkdGg9IjEiIGhlaWdodD0iMTAwIiB4PSI0MCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxMDAiIHg9IjYwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEwMCIgeD0iODAiPjwvcmVjdD4KPC9nPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2U9IiNmZmYiPjwvcmVjdD4KPC9zdmc+");
+        }
+    {%- endcss -%}
+
+    {%- js -%}
+        window.waitForGlobal("app.gsap", function() {
+            app.gsap.utils.toArray("*[data-trigger]").forEach((trigger, i) => {
+                const scene = document.querySelector( "[data-scene='" + trigger.dataset.trigger + "']" )
+                if( scene ) {
+                    app.gsap.fromTo( scene.querySelector("figure"), {
+                        y: '100%'
+                    }, {
+                        y: '0%',
+                        scrollTrigger: {
+                            trigger: trigger,
+                            start: () => "top bottom",
+                            end: "bottom top",
+                            scrub: true,
+                            invalidateOnRefresh: true
+                        }
+                    });
+                }
+            });
+        });
+    {%- endjs -%}
+
 {% endmacro %}
 
 

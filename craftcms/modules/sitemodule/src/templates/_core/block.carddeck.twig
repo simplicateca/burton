@@ -1,0 +1,79 @@
+{## Cards / Deck Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+  > http://localhost:8000/sitehub/blocks/carddeck
+{-------------------------------------------------------------------------------------##}
+{%- extends [ "_site/block", "_core/block" ] -%}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+    Reminder about Twig Variable Scope: Don't change or set default values on `block`
+    or `settings` variables both inside AND outside of {% block %} scope. Pick one!
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ??? null -%}
+{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
+{%- set deck = [] -%}
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+
+    {%- set settings = {
+        variant  : null,
+        limit    : 100,
+        iterator : 'single'
+    } | merge( settings ) -%}
+
+
+    {## Specific Entries
+    {---------------------------------------------------------------------------------##}
+    {%- set deck = collect( block.entries.with(['images', 'taxonomies']) ).all() -%}
+
+
+    {## Content Bits
+    {---------------------------------------------------------------------------------##}
+    {%- if not deck | length -%}
+        {%- set deck = collect( block.bits.with(['images', 'taxonomies']) ).all() -%}
+    {%- endif -%}
+
+
+    {## Collection Results
+    {-----------------------------------------------------------------------------------}
+        When loading from a Collection, using `CollectionResults()` is easier than
+        rewriting the query inline each time you need it -- or trying to implement
+        it as an inline Twig macro.
+
+        CollectionResults() is a PHP Twig macro that returns a query object based
+        on the search params passed into it. It is editable here:
+
+        -> `craftcms/modules/sitemodule/src/twigextensions/CollectionBaseTwig.php`
+    {---------------------------------------------------------------------------------##}
+    {%- if not deck | length -%}
+        {%- set collections = collect( block.collections ).all() ??? [] -%}
+        {%- set deck = CollectionResults( collections, {
+            limit : settings.limit,
+            slug  : request.getParam('f') ?? null,
+            static: 'entries'
+        } ) -%}
+    {%- endif -%}
+
+
+    {## Named Variant Block or Fallback?
+    {---------------------------------------------------------------------------------##}
+    {%- set blockname = "carddeck__#{settings.variant}" -%}
+    {{- ( block( blockname ) is defined )
+        ? block( blockname )
+        : block( 'carddeck__fallback' ) -}}
+{% endblock %}
+
+
+
+{## Render Default Card Deck
+{-------------------------------------------------------------------------------------##}
+{% block carddeck__fallback -%}
+    {%- import "_core" as assemble -%}
+    {{- assemble.deck( settings.iterator, deck, settings ) -}}
+{%- endblock %}

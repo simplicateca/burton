@@ -1,17 +1,18 @@
 {## Page & Landing Page Entry Router
 {-------------------------------------------------------------------------------------##}
-{% set template  = null %}
-{% set entrytype = entry.type.handle ?? null %}
+{% set template   = null %}
+{% set entrytype  = entry.type.handle ?? null %}
+{% set hasSidebar = entry.sidebarBuilder.one() ?? null %}
 
 {% if entrytype == 'redirect' and entry.redirect.url ?? null %}
     {% redirect entry.redirect.url %}
 {% endif %}
 
-{% if entrytype == 'fullpage' %}
+{% if entrytype == 'page' and not hasSidebar %}
     {% set template = "_site/template.fullpage" %}
 {% endif %}
 
-{% if entrytype == 'sidebar' %}
+{% if entrytype == 'page' and hasSidebar %}
     {% set template = "_site/template.sidebar" %}
 {% endif %}
 

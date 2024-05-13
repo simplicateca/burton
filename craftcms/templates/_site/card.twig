@@ -10,24 +10,26 @@
 
 {## Template Variables
 {---------------------------------------------------------------------------------------}
+    Generally not a good idea to effect template variables outside of a {% block %} or
+    {% macro %} context when inside a template that extends (and is extended by) other
+    templates.
 
-{-------------------------------------------------------------------------------------##}
-{%- set card = card ??? null -%}
-
-{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-{%- set settings = settings | merge({
-
-}) -%}
-
-
-
-{## Overload Core Blocks
+    Below is what the variables should be when passed to this template. Use this code
+    inside {% block %} contexts to validate incoming data.
 {---------------------------------------------------------------------------------------}
+    {%- set card = card ??? null and card is iterable ? card : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{-------------------------------------------------------------------------------------##}
 
+
+{## Override Example
+{---------------------------------------------------------------------------------------}
+    Change <h3> headlines to <div class="like-h3"> elements
 {-------------------------------------------------------------------------------------##}
 {% block card__headline -%}
     {{ parent() | retconChange( 'h3', 'div' ) | attr({ class: 'like-h3 my-3' }) }}
 {% endblock %}
+
 
 
 {## If Handle Card Action = 'None'
@@ -36,7 +38,7 @@
     or buttons from Redactor / CKeditor `summary` or `dek` fields.
 {-------------------------------------------------------------------------------------##}
 {# {% block card__summary -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {% set action   = settings.action ??? 'autolink' %}
     {{- action ??? null == 'none'
         ? parent() | retconRemove( ['a','button'] ) | raw
@@ -45,19 +47,13 @@
 
 
 
-{## Deck Iterators
-{---------------------------------------------------------------------------------------}
-    There are several default Deck Iterators in `_core/card`
+{## Auto-Grid Iterators
 {-------------------------------------------------------------------------------------##}
-
-
-{## Auto-Grid Layout
-{-------------------------------------------------------------------------------------##}
-{% macro deck__autogrid( items, settings = null ) -%}
+{% macro iterator__autogrid( items, settings ) -%}
 {%- if items ??? null and items is iterable -%}
 
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- set settings = { cardlayer: 'default' } | merge( settings ) -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = { cardname: 'default' } | merge( settings ) -%}
 
     {%- set class = "w-full grid grid-cols-1 gap-4 lg:gap-8 xl:gap-16 " -%}
     {%- set count = items | length %}
@@ -88,7 +84,7 @@
         {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 @6xl:grid-cols-6" -%}
     {%- endif -%}
 
-    {%- import "_assemble" as assemble -%}
-    {%- set items = items | map( item => assemble.card( settings.cardlayer, item, settings ) ) -%}
+    {%- import "_core" as assemble -%}
+    {%- set items = items | map( item => assemble.card( settings.cardname, item, settings ) ) -%}
     {{- tag( 'div', { html: items | join(''), class: class, 'data-grid': 'autogrid' } ) -}}
 {%- endif %}{% endmacro %}

@@ -1,0 +1,19 @@
+[{
+    "value"   : "addon__alert",
+    "label"   : "Alert Notice",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "addon__modal",
+    "label"   : "Popup Modal",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "addon__code",
+    "label"   : "Code Embed",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

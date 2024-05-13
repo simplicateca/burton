@@ -1,7 +1,7 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Fullpage
+  - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Content Page
   - 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
 handle: landingPages
 maxAuthors: 1

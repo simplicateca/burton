@@ -1,25 +1,27 @@
 [{
-    "label": "Text Above",
-    "value": "textAbove",
+    "value": "copyAbove",
+    "label": "Copy Above",
+    "tooltips": { "inline": "" },
     "settings": {
         "microlayout": "zone1Top"
     },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs" : [
-        {% if object.field ?? null != 'sidebarBuilder' %}
-            {{ block( 'inputTextTopSizes', '_config/_selectplus_virtual_fields' ) }}
+    "virtuals" : [
+        {% if field ?? null != 'sidebarBuilder' %}
+            {{ block( 'headFootGroup',   '_config/_virtuals' ) }}
+            {{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
         {% endif %}
     ]
 },{
-    "label": "Text Below",
-    "value": "textBelow",
+    "value": "copyBelow",
+    "label": "Copy Below",
+    "tooltips": { "inline": "" },
     "settings": {
-        "microlayout": "bottomTop"
+        "microlayout": "zone1Bottom"
     },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs" : []
+    "virtuals" : [
+        {% if field ?? null != 'sidebarBuilder' %}
+            {{ block( 'headFootGroup',   '_config/_virtuals' ) }},
+            {{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
+        {% endif %}
+    ]
 }]

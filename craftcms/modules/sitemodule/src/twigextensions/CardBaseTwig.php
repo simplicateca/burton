@@ -2,7 +2,7 @@
 /**
  * Card Layer Twig Functions
  *
- * Like its cousins (TextBase, ImageBase, BlockBase, etc), the use of PHP to create
+ * Like its cousins (TextBase, ImageBase, BuilderBase, etc), the use of PHP to create
  *   this macro instead of defining it within Twig is a bit of a necessasry evil.
  *
  *   Twig lacks a way to return variables from inline macros, which makes it very hard
@@ -45,9 +45,9 @@ class CardBaseTwig extends AbstractExtension
     }
 
 
-    public function CardBase( $carditem, $settings ) : mixed
+    public function CardBase( $content, $settings ) : mixed
     {
-        $carditem = (object) $carditem;
+        $content  = (object) $content;
         $settings = (array)  $settings;
 
         /**
@@ -58,33 +58,33 @@ class CardBaseTwig extends AbstractExtension
          *
          * -> https://craftcms.com/docs/5.x/reference/element-types/entries.html
          *
-         * If a section isn't provided, but the carditem entry has an `id` property, we
+         * If a section isn't provided, but the content entry has an `id` property, we
          * can assume it's another element type (like an Asset or SuperTable row).
          *
          * !! TODO: Include all Craft Element Types + Commerce Products + Verbb Events
          * https://craftcms.com/docs/5.x/system/elements.html#element-types
          *
          */
-        $section   = $carditem->section->handle ?? $carditem->section ?? null;
-        $entrytype = $carditem->type->handle    ?? $carditem->type    ?? null;
+        $section   = $content->section->handle ?? $content->section ?? null;
+        $entrytype = $content->type->handle    ?? $content->type    ?? null;
 
-        if( !$section && $carditem->id ?? null ) {
-            // {% set itemtype = className( carditem ) ??? null | upper %}
-            // {% if itemtype == 'ASSET'      %}{% set section = 'assets' %}{% endif %}
-            // {% if itemtype == 'SUPERTABLE' %}{% set section = 'bits'   %}{% endif %}
-        }
+        // if( !$section && $content->id ?? null ) {
+        //     // {% set itemtype = className( content ) ??? null | upper %}
+        //     // {% if itemtype == 'ASSET'      %}{% set section = 'assets' %}{% endif %}
+        //     // {% if itemtype == 'SUPERTABLE' %}{% set section = 'bits'   %}{% endif %}
+        // }
 
-        $cardimages = ( $carditem->images ?? null ) ? $carditem->images : null;
+        $cardimages = ( $content->images ?? null ) ? $content->images : null;
         $cardimages = is_string( $cardimages ) ? [$cardimages] : $cardimages;
         $cardimages = is_object( $cardimages ) ? $cardimages->all() : $cardimages;
 
-        $headline   = trim( $carditem->headline ?? $carditem->title ?? null );
+        $headline   = trim( $content->headline ?? $content->title ?? null );
         $eyebrow    = Retcon::getInstance()->retcon->only( $headline, 'div.eyebrow' ) ?? null;
         $headline   = Retcon::getInstance()->retcon->change( $headline, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div'], false );
         $headline   = Retcon::getInstance()->retcon->remove( $headline, ['img', 'a', 'figure', 'iframe', 'div.eyebrow'] );
 
-        $fulltext   = trim( $carditem->text ?? null );
-        $summary    = trim( $carditem->summary ?? $carditem->dek ?? null );
+        $fulltext   = trim( $content->text ?? null );
+        $summary    = trim( $content->summary ?? $content->dek ?? null );
 
         if( $fulltext && empty( $summary ) ) {
             $summary = $this->truncate( $fulltext, 150 );
@@ -94,10 +94,10 @@ class CardBaseTwig extends AbstractExtension
             $summary = '<p>' . $summary . '</p>';
         }
 
-        $url = $carditem->url ?? null;
+        $url = $content->url ?? null;
 
         $card = [
-            '_carditem' => $carditem,
+            '_element' => $content,
             'headline'  => trim( $headline ),
             'fulltext'  => $fulltext,
             'summary'   => $summary,

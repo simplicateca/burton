@@ -1,0 +1,75 @@
+{## Text Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+  > http://localhost:8000/sitehub/blocks/text
+{-------------------------------------------------------------------------------------##}
+{%- extends [ "_site/block", "_core/block" ] -%}
+
+{%- import "_core" as assemble -%}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+    Reminder about Twig Variable Scope: Don't change or set default values on `block`
+    or `settings` both inside AND outside of inheritable {% block %} scope. Pick one!
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ??? null -%}
+{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
+
+{## Zone 1 Content
+{---------------------------------------------------------------------------------------}
+    Since all Blocks have a `text` field, {% block block__text %} is shared by all
+    block types and usually in a file in this path: ['_site/block', '_core/block']
+
+    Otherwise, something like the below code could be used to render the zone1 text.
+{-------------------------------------------------------------------------------------##}
+{# {% block block__zone1 %}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = { textlayer: 'default' } | merge( settings ) -%}
+    {%- import "_core" as assemble -%}
+    {{- assemble.text( settings.textlayer, block.text2, settings ) -}}
+{% endblock %}#}
+
+
+
+{## Zone 2 Variant Routing
+{---------------------------------------------------------------------------------------}
+    This block will look for blocks name `text2__<variant>` to use to render zone2.
+    If it doesn't find one, it will perform a basic render to text2 content.
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 -%}
+
+    {%- set settings = {
+        variant   : null,
+        textlayer : 'default',
+        text2layer: 'default',
+    } | merge( settings ) -%}
+
+
+    {## Named Variant Block or Default Layout
+    {---------------------------------------------------------------------------------##}
+    {%- set blockname = "text2__#{settings.variant}" -%}
+    {{- ( block( blockname ) is defined )
+        ? block( blockname )
+        : block( 'text2__fallback' ) -}}
+
+{%- endblock %}
+
+
+
+{## Text2 Default Layout
+{---------------------------------------------------------------------------------------}
+    This block will look for blocks name `text2__<variant>` to use to render zone2.
+    If it doesn't find one, it will perform a basic render to text2 content.
+{-------------------------------------------------------------------------------------##}
+{% block text2__fallback -%}
+{% if block.text2 ??? null -%}
+    {%- set settings = settings ?? block.settings ?? null -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = { text2layer: 'default' } | merge( settings ) -%}
+    {%- import "_core" as assemble -%}
+    {{- assemble.text( settings.text2layer, block.text2, settings ) -}}
+{%- endif %}{% endblock %}

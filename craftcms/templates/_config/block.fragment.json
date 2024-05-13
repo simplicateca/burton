@@ -1,21 +1,13 @@
 [{
-    "label": "Seamless",
     "value": "seamless",
-    "settings" : {
-
-    },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": []
+    "label": "Seamless",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
 },{
-    "label": "Interactive",
     "value": "interactive",
-    "settings" : {
-
-    },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": []
+    "label": "Interactive",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
 }]

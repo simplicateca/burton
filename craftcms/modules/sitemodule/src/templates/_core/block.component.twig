@@ -1,0 +1,144 @@
+{## Component Block   [Core Template]
+{---------------------------------------------------------------------------------------}
+  > http://localhost:8000/sitehub/blocks/component
+{-------------------------------------------------------------------------------------##}
+{%- extends [ "_site/block", "_core/block" ] -%}
+
+{%- import "_core" as assemble -%}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+    Reminder about Twig Variable Scope: Don't change or set default values on `block`
+    or `settings` both inside AND outside of inheritable {% block %} scope. Pick one!
+{-------------------------------------------------------------------------------------##}
+{%- set block = block ?? {} -%}
+
+{%- set settings = block.settings ??? null -%}
+{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+    {%- set settings = block.settings ??? null -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = {
+        variant  : null,
+        textlayer: 'default',
+        limit     : 100
+    } | merge( settings ) -%}
+
+    {## Let's us inherit from this template **at this point** in the render process,
+        without requiring that we duplicate the above "collection" logic ##}
+    {%- set blockname = 'component__' ~ settings.variant -%}
+    {{- block( blockname ) is defined
+        ? block( blockname )
+        : getenv('CRAFT_ENVIRONMENT') == 'dev' ? "Technically you shouldn't be here. A Twig {% block component__<variant> %} should exist for every component variant type." -}}
+{% endblock %}
+
+
+
+{## Form Variant
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% block component__form %}
+    {% set form = block.form.one() ??? null %}
+    {% if form %}
+        <div class="bg-theme-backgroundOff p-10">
+            {{ craft.formie.renderForm(form) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+
+{## Menu Variant
+{---------------------------------------------------------------------------------------}
+{-------------------------------------------------------------------------------------##}
+{% block component__menu %}
+    {% set menu = collect( block.menu ).first %}
+    <div class="@container text-xl">
+        {{ craft.navigation.render(menu, {
+            ulClass: 'flex flex-wrap justify-center w-full gap-6',
+            aClass: 'px-4 py-2 font-display block border-2',
+        } ) }}
+    </div>
+{% endblock %}
+
+
+
+{## System Variant
+{---------------------------------------------------------------------------------------}
+    Also creates a simple JSON representation of the current Block and passes it into
+    the Vue component as a prop named `block` (which may be freely used or ignored).
+{-------------------------------------------------------------------------------------##}
+{% block component__system %}
+
+    {%- if block.element.vue__component ??? null -%}
+        {{- _self.vue__async( block.element.vue__component, block, settings ) -}}
+    {% endif %}
+
+    {%- if block.element.account__component ??? null -%}
+        {%- import "_core" as assemble -%}
+        {%- switch block.element.account__component -%}
+            {%- case "login" -%}
+                {{- assemble.accountpart( 'login', {}, settings ) -}}
+            {%- case "forgot" -%}
+                {{- assemble.accountpart( 'forgot', {}, settings ) -}}
+            {%- default -%}
+        {%- endswitch -%}
+    {%- endif -%}
+{%- endblock -%}
+
+
+
+{## Vue AsyncComponent Macro
+{---------------------------------------------------------------------------------------}
+    Asynchronously load a Vue Component into the DOM. The component must already be
+    registered in your `app.js` file with code similar to the example below.
+{---------------------------------------------------------------------------------------}
+    import {createApp, defineAsyncComponent} from 'vue';
+    const main = async() => {
+        return {
+            '<YOUR_COMPONENT_NAME>': defineAsyncComponent( () =>
+                import('@/vue/PathToYourComponent.vue')
+            )
+        }
+    }
+    main().then( (app) => {
+        window.app = app
+    });
+{---------------------------------------------------------------------------------------}
+    Replacing the following placeholders with your actual values:
+
+    YOUR_COMPONENT_NAME    ->  Should match the value of the `component` argument.
+    ComponentFilePath.vue  ->  Component filename (and path) relative to `frontend/vue`
+
+    Also creates a simple JSON representation of the current Block and passes it into
+    the Vue component as a prop named `block` (which may be freely used or ignored).
+{-------------------------------------------------------------------------------------##}
+{% macro vue__async( component, block, settings ) -%}
+    {%- set simpleblock = {
+        id: block.id ??? null,
+        settings: settings ??? {},
+        owner: {
+            id   : block.owner.id       ??? null,
+            title: block.owner.title    ??? null,
+            dek  : block.owner.dek      ??? block.owner.summary ???  null,
+            text : block.owner.text     ??? null,
+            slug : block.owner.slug     ??? null,
+            url  : block.owner.url      ??? null ,
+            date : block.owner.postDate ??? null ,
+            image: block.owner.images.asArray ??? [],
+        }
+    } | json_encode -%}
+    {%- set uuid = md5( simpleblock ) -%}
+    <div id="vue__{{uuid}}" class="w-full"></div>
+    {% js %}
+        window.waitForGlobal("app.createApp", function() {
+            app.createApp( app.{{ component }}, { block: {{- raw(simpleblock) -}} } )
+               .mount( '#vue__{{uuid}}')
+        })
+    {% endjs %}
+{% endmacro %}

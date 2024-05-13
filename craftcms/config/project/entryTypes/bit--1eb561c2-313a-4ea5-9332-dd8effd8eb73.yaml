@@ -33,7 +33,119 @@ fieldLayouts:
             uid: 6867bcd7-af17-492f-a3a7-047f563b42f5
             userCondition: null
             warning: null
-            width: 100
+            width: 50
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-reusable-bit.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 63c0f42e-9e2d-4ed0-8960-dc425e26a087
+            userCondition: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: bb99f315-92b5-4fcf-976c-2a5692944e67
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4bcbbf21-6e8a-4e5a-bcb8-9679d3c0729e
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 324b9f40-3cf0-453f-a5cf-55f84541dcc6
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ca9862ec-4309-4813-b2d3-bdc8b92ed755
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\LineBreak
+            uid: 7af8d9e8-585e-495d-957e-031a3259ab85
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5983dad4-8807-4bd1-9a4b-3a659008ae64
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 05b8915d-85a6-45a5-9e41-a84d08934d25
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 99face47-9c70-4f37-90b8-bba2a152ab37
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c5669682-e32b-4105-a1a0-9b323d4b9385
+            userCondition: null
+            warning: null
+            width: 75
         name: Content
         uid: fc93ce85-8a48-4e3f-b1e4-636a7627734e
         userCondition: null
@@ -41,7 +153,7 @@ handle: bit
 hasTitleField: true
 icon: bin-recycle
 name: Bit
-showSlugField: false
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

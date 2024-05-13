@@ -1,104 +1,80 @@
 [{
-    "label": "Play in Place",
-    "value": "player",
-    "settings": {
-        "modal__cardlayer": "panel.media"
-    },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": [
-        {
-            "label": "Player Type",
-            "field": "medialayer",
-            "type" : "select",
-            "default": "default",
-            "instructions": "How to present the media on page load?",
-            "fieldClass": "field width-50",
-            "options" : [
-                {
-                    "value" : "default",
-                    "label" : "Native Player"
-                }
-               ,{
-                    "value" : "posterpreview",
-                    "label" : "Poster Preview (Native Player)"
-                }
-               ,{
-                    "value" : "fancypreview",
-                    "label" : "Fancy Preview (Modal)"
-                }
-            ]
+    "value": "inplace",
+    "label": "Player in Place",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": [{
+        "type" : "select",
+        "name" : "medialayer",
+        "value": "native",
+        "label": "Media Cover",
+        "instructions": "How to present the media on page load?",
+        "options" : {
+            "native": "Default Player",
+            "poster": "Poster Preview",
+            "fancy" : "Fancy Teaser (Modal Load)"
         }
-       ,{
-            "label": "Multiple Media Files?",
-            "field": "mediadeck",
-            "type" : "select",
-            "default": "single",
-            "instructions": "Layout to use if/when the block has multple media files.",
-            "fieldClass": "field width-50",
-            "options" : [
-                {
-                    "value" : "single",
-                    "label" : "Ignore multiples"
-                }
-               ,{
-                    "value" : "randomize",
-                    "label" : "Choose one at random"
-                }
-               ,{
-                    "value" : "accordion",
-                    "label" : "Basic accordion",
-                    "firstopen" : true
-                }
-            ]
+    },{
+        "type" : "select",
+        "name" : "iterator",
+        "value": "single",
+        "label": "Multiple Media Files?",
+        "instructions": "Layout to use if/when the block has multple media files.",
+        "options" : {
+            "single"    : "Ignore multiples",
+            "randomize" : "Choose one at random",
+            "accordion" : "Basic accordion"
+
         }
-    ]
+    }]
 },{
-    "label": "Teaser Grid",
     "value": "teaser",
+    "label": "Teaser Grid",
+    "tooltips": { "inline": "" },
     "settings": {
-        "action": "modal",
-        "medialayer": "posterpreview",
-        "modal__cardlayer": "panel.media"
+        "clickaction": "modal",
+        "medialayer" : "poster"
     },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": [
-        {
-            "label": "Grid Layout",
-            "field": "mediadeck",
-            "type" : "select",
-            "default": "grid2",
-            "instructions": "Layout to use for the teaser grid.",
-            "fieldClass": "field width-100",
-            "options" : [
-                {
-                    "value" : "grid2",
-                    "label" : "Two Columns"
-                }
-               ,{
-                    "value" : "grid3",
-                    "label" : "Three Columns"
-                }
-            ]
+    "virtuals": [{
+        "type" : "select",
+        "name" : "iterator",
+        "value": "grid2",
+        "label": "Grid Layout",
+        "instructions": "Layout to use for the teaser grid.",
+        "options" : {
+            "grid1" : "One Column",
+            "grid2" : "Two Columns",
+            "grid3" : "Three Columns"
         }
-    ]
+    }]
 },{
-    "label": "Code Embed",
-    "value": "code",
-    "settings": {},
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": []
-},{
-    "label": "Background",
     "value": "background",
+    "label": "Background Video",
+    "tooltips": { "inline": "" },
     "settings": {},
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": []
+    "virtuals": [{
+        "type" : "select",
+        "name" : "medialayer",
+        "value": "replacebg",
+        "label": "Usage",
+        "options" : {
+            "replacebg": "Replace Page Background",
+            "blockbg"  : "This Block Only"
+        }
+    },{
+        "type" : "color",
+        "name" : "overlay",
+        "value": "#ffffff",
+        "label": "Overlay",
+        "fieldClass": "width-25"
+    },{
+        "type" : "number",
+        "name" : "opacity",
+        "min"  : 0,
+        "step" : 5,
+        "max"  : 100,
+        "value": "25",
+        "label": "Opacity",
+        "fieldClass": "width-25"
+    }]
 }]

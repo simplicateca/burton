@@ -4,8 +4,8 @@
 
 {%- set path = path ??? ["_site/card","_core/card"] -%}
 
-{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-{%- set settings = { cardlayer: 'default' } | merge( settings ) -%}
+{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = { cardname: 'default' } | merge( settings ) -%}
 
 
 {## Render the Card
@@ -32,9 +32,9 @@
 
 {% block card_headline %}
     {% if card_type in [ 'modal', 'detail' ] %}
-        {% set card = card|merge({ headline: card._carditem.alt ??? card._carditem.title ??? null }) %}
-        {% set kind = card.type ??? card._carditem.kind ??? null | lower %}
-        {% if card._carditem.url|default() and kind in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
+        {% set card = card|merge({ headline: card._element.alt ??? card._element.title ??? null }) %}
+        {% set kind = card.type ??? card._element.kind ??? null | lower %}
+        {% if card._element.url|default() and kind in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
             <div class="eyebrow">FREE Downloadable {{kind|upper}}</div>
         {% endif %}
         {{ parent() }}
@@ -45,8 +45,8 @@
 
 
 {% block card_image %}
-    {% set kind = card.type ??? card._carditem.kind ??? null | lower %}
-    {% if card_type in [ 'modal', 'detail' ] and card._carditem.url|default() and kind in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
+    {% set kind = card.type ??? card._element.kind ??? null | lower %}
+    {% if card_type in [ 'modal', 'detail' ] and card._element.url|default() and kind in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
 
     {% else %}
         {{ parent() }}
@@ -56,7 +56,7 @@
 
 {% block card_summary %}
     {% if card_type in [ 'modal', 'detail' ] %}
-        {% set card = card|merge({ summary: card._carditem.text ??? card._carditem.summary ??? card._carditem.dek ??? null }) %}
+        {% set card = card|merge({ summary: card._element.text ??? card._element.summary ??? card._element.dek ??? null }) %}
     {% endif %}
     {{ parent() }}
 {% endblock %}
@@ -66,11 +66,11 @@
     {% if card_type|default('overlay') == 'overlay' %}
         {{ block('action_modal', '_cards/parts.actions' ) }}
     {% else %}
-        {% set kind = card.type ??? card._carditem.kind ??? null | lower %}
-        {% if card._carditem.url|default() and kind in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
+        {% set kind = card.type ??? card._element.kind ??? null | lower %}
+        {% if card._element.url|default() and kind in ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt'] %}
             <form class="flex w-full gap-8 mt-10 p-2 border rounded-lg bg-theme-contrast-light">
                 <input type="email" placeholder="Enter your email address" class="input w-full flex-grow !border-0 !p-0" />
-                <a href="{{ card._carditem.url }}" class="button" target="_blank">Download {{ kind|upper}}</a>
+                <a href="{{ card._element.url }}" class="button" target="_blank">Download {{ kind|upper}}</a>
             </form>
         {% else %}
             {{ block('action_default', '_cards/parts.actions' ) }}

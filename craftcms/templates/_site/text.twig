@@ -1,72 +1,34 @@
-{## Text Layer Adjustments   [Site Template]
+{## Text Layer Adjustments   [Site Specific]
 {-------------------------------------------------------------------------------------##}
-{% macro default( content = null, settings = null ) -%}
-    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {{- content ? raw( content ) -}}
-{%- endmacro %}
 
 
+{## Basic Eyebrow
+{-------------------------------------------------------------------------------------##}
+{% macro eyebrow__basic( text, settings ) -%}
+    {%- set text  = text ??? null -%}
+    {%- set icon  = settings.eyebrowicon  ??? null -%}
+    {%- set align = settings.eyebrowalign ??? '' -%}
 
-{% macro callout__quote( content = null, settings = null ) -%}
-    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- if content -%}
-        <div class="p-8">
-            {{- raw( content ) -}}
+    {%- if text or icon -%}
+        <div class="eyebrow table pb-3 {{align}}">
+            <div class="flex flex-col gap-3" data-eyebrow="basic">
+                {{ tag( 'div', { html: svg("@appicons/#{icon}.svg")
+                    | attr({ class: ["w-10 fill-theme-accent", align] }) }) }}
+                {{ tag('span', { class: 'text-sm uppercase font-headline text-theme-accent', text: text }) }}
+            </div>
         </div>
-    {%- endif -%}
-{%- endmacro %}
-
-
-{% macro callout__info( content = null, settings = null ) -%}
-    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- if content -%}
-        <div class="bg-canvas-light p-8 border border-canvas-dark rounded @container">
-            {{- raw( content ) -}}
-        </div>
-    {%- endif -%}
-{%- endmacro %}
-
-
-
-{% macro card__summary( content = null, settings = null ) -%}
-    {% set content = content ?? null %}
-    {% if content %}
-    <p class="line-clamp-3 !mb-0">
-        {{ content
-            | retconRemove( [ 'img', 'blockquote' ] )
-            | retconChange( [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'p' ], false )
-        }}
-    </p>
     {% endif %}
-{% endmacro %}
-
-
-
-{% macro block__header( content = null, settings = null ) -%}
-    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- if content %}<div class="@container after:block after:content-[''] after:h-8 @3xl:after:h-12 @7xl:after:h-18">{{ raw( content ) }}</div>{% endif -%}
 {%- endmacro %}
 
 
 
+{## Image Captions
+{-------------------------------------------------------------------------------------##}
+{% macro image__caption( content, settings ) -%}
+    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
-{% macro block__footer( content, settings ) -%}
-    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-    {%- if content %}<div class="@container before:block before:content-[''] before:h-8 @3xl:before:h-12 @7xl:before:h-18r">{{ raw( content ) }}</div>{% endif -%}
-{%- endmacro %}
-
-
-
-{% macro image__caption( content = null, settings = null ) %}
-    {%- set content  = content  is not null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings is not null and settings is iterable ? settings : {} -%}
-
-    {% set captionlayer = settings.captionlayer %}
+    {% set captionlayer = settings.captionlayer ??? 'default' %}
 
     {% if caption.alt and not caption.summary %}
         {% set caption = caption | merge({ summary: "<p>#{caption.alt}</p>" }) %}

@@ -12,7 +12,6 @@
     {{ block( 'footer__fat'    ) }}
     {{ block( 'footer__bottom' ) }}
     {{ block( 'footer__close'  ) }}
-    {{ block( 'footer__theme'  ) }}
 {% endblock %}
 
 
@@ -20,7 +19,6 @@
     {{ block( 'footer__open'   ) }}
     {{ block( 'footer__bottom' ) }}
     {{ block( 'footer__close'  ) }}
-    {{ block( 'footer__theme'  ) }}
 {% endblock %}
 
 
@@ -35,22 +33,17 @@
 
 
 {% block footer__fat %}
-    {% import "_assemble" as assemble %}
+    {% import "_core" as assemble %}
 
-    {% set menuColumns %}
-        {# {{ assemble.menu( entry, 'contact',  {} ) }}
-        {{ assemble.menu( entry, 'features', {} ) }} #}
-
-        {# {{ assemble.iterate( 'grid2', 'html', [ assemble.menu('contact'), assemble.menu('features') ] ) }} #}
+    {% set menus %}
+        {{ assemble.menu( entry, 'contact',  {} ) }}
+        {{ assemble.menu( entry, 'features', {} ) }}
     {% endset %}
 
-    {# {{ assemble.container(
-        'fluid',
-        tag( 'div', {
-            class: "pt-10 pb-6 flex flex-col gap-y-12",
-            html : assemble.iterate( 'grid2', 'html', [ menuColumns, block( 'footer__fatCta' ) ] )
-        })
-    ) }} #}
+    {% set menuColumns = assemble.gridlayout( 'flexible2', menus ) %}
+    {% set footerCta   = block( 'footer__fatCta' ) %}
+
+    {{ assemble.container( 'fluid', assemble.gridlayout( 'flexible2', menuColumns ~ footerCta ) ) }}
 {% endblock %}
 
 
@@ -58,63 +51,38 @@
     <footer {{attr({
         id   : 'footer',
         role : 'contentinfo',
-        class: 'relative z-20 bg-canvas',
-        data : { theme: 'footer' }
+        class: 'relative z-20 canvas',
+        data : { theme: 'dark' }
     })}}>
 {% endblock %}
 {% block footer__close %}</footer>{% endblock %}
 
 
 {% block footer__bottom %}
-    {% import "_assemble" as assemble %}
-    {# {{ assemble.container(
+    {% import "_core" as assemble %}
+    {{ assemble.container(
         'fluid',
         tag( 'div', {
             class: "flex flex-col md:flex-row py-4 items-center text-xs md:text-base gap-3",
             html : block('footer__message') ~ assemble.menu( entry, 'legal', {} )
         } )
-    ) }} #}
+    ) }}
 {% endblock %}
-
-
-{% block footer__theme %}
-    {% css %}
-        *[data-theme="footer"] {
-            --theme-canvas-light  : var(--color-primary);
-            --theme-canvas        : var(--color-primary-dark);
-            --theme-canvas-dark   : var(--color-primary-dark);
-            --theme-text          : var(--color-white-50);
-            --theme-text-light    : var(--color-white);
-            --theme-text-dark     : var(--color-white-100);
-            --theme-accent        : var(--color-primary);
-            --theme-headline      : var(--color-primary-light);
-            --theme-eyebrow       : var(--color-primary-light);
-            --theme-link          : var(--color-white);
-            --theme-link-bg       : transparent;
-            --theme-link-active   : var(--color-alert);
-            --theme-link-active-bg: transparent;
-            --theme-btn           : var(--color-white);
-            --theme-btn-b         : var(--color-white);
-            --theme-btn-bg        : transparent;
-            --theme-btn-active    : var(--color-alert);
-            --theme-btn-active-bg : var(--color-primary-dark);
-            --theme-btn-active-b  : var(--color-alert);
-        }
-    {% endcss %}
-{% endblock %}
-
 
 
 {% macro social() %}
-    <div class="flex flex-row gap-2 mt-8">
-        {% for social in seomatic.site.sameAsLinks %}
-            {% if social.url %}
-                <div>
-                    <a href="{{social.url ??? '#'}}" class="flex" title="{{social.siteName}}" target="_blank" rel="noopener">
-                        <span class="h-8 w-8 xl:w-10 xl:h-10">{{ svg( '@webroot/static/svg/#{social.handle}.svg' ) }}</span>
-                    </a>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </div>
+    {% set accounts = seomatic.site.sameAsLinks ??? [] %}
+    {% if accounts is iterable and accounts | length %}
+        <div class="flex flex-row gap-2 mt-8">
+            {% for social in accounts %}
+                {% if social.url %}
+                    <div>
+                        <a href="{{social.url ??? '#'}}" class="flex" title="{{social.siteName}}" target="_blank" rel="noopener">
+                            <span class="h-8 w-8 xl:w-10 xl:h-10">{{ svg( '@webroot/static/svg/#{social.handle}.svg' ) }}</span>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endmacro %}

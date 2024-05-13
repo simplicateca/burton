@@ -64,11 +64,11 @@
 {% set defaultTitle   = defaultMsgs[statusCode].title   ??? defaultMsgs['000'].title   %}
 {% set defaultText    = defaultMsgs[statusCode].text    ??? defaultMsgs['000'].text    %}
 
-{% import "_assemble" as assemble %}
+{% import "_core" as assemble %}
 
 {% block content %}
     {% set message %}
-        <div data-bodytext>
+        <div data-bodycopy>
             <p>{{ defaultText | raw }}</p>
         </div>
     {% endset %}

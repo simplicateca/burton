@@ -22,6 +22,7 @@ services:
         volumes:
             - ./frontend:/var/www/frontend:delegated
             - ./craftcms/templates:/var/www/craftcms/templates:ro
+            - ./craftcms/modules:/var/www/craftcms/modules:ro
         healthcheck:
             test: ["CMD", "curl", "-f", "http://localhost:3000/js/app.js"]
             interval: 5s
@@ -84,7 +85,6 @@ services:
             - ./craftcms:/app:cached
             - ./frontend/public/static:/app/web/static:ro
             - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
-            - ./etc:/app/etc
         depends_on:
             composer:
                 condition: service_completed_successfully
@@ -182,7 +182,6 @@ services:
             - ./craftcms:/app:cached
             - ./frontend/public/static:/app/web/static:ro
             - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
-            - ./etc:/app/etc
         depends_on:
             composer:
                 condition: service_completed_successfully

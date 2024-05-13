@@ -1,10 +1,6 @@
 /**
- * Site Module - Craft Admin CSS
- *
- * Use this file to improve the AX of inline content
- * editing by (optionally) mimicing the frontend typography
- * styles for things like font-family, colours, sizes, etc.
+ * SiteModule - Craft CMS Control Panel CSS
  */
 
-@import 'matrix.css';
-@import 'redactor.css';
+
+ @import 'cpui.css';

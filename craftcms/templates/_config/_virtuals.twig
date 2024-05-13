@@ -1,0 +1,375 @@
+{## SelectPlus Virtual Field Definitions
+{---------------------------------------------------------------------------------------}
+    Each block below defines a virtual field for the SelectPlus plugin to render & save.
+
+    Virtual Fields can be defined directly in a SelectPlus `.json` config ...
+
+    BUT ..
+
+    Since all files in this folder get parsed by twig (regardless of file extension),
+    this file is a handy way to avoid needless duplication of commonly used fields.
+
+    And also lets us provide a little documentation for each field.
+
+    Usage example:
+
+        "virtuals" : [
+            {{ block( 'spacer', '_config/_virtuals' ) }},
+            {{ block( 'limit',  '_config/_virtuals' ) }}
+        ],
+
+    Caveats:
+
+        1) Do not use this file as a SelectPlus config file. It will not work.
+        2) Mind your JSON syntax. Twig will not catch errors in this file or
+           when including Twig syntax in JSON files.
+
+ -> https://github.com/simplicateca/craft-selectplus-field/blob/main/README.md
+{-------------------------------------------------------------------------------------##}
+
+{% block eyebrowGroup %}{
+    "type" : "text",
+    "name" : "eyebrow",
+    "value": "",
+    "label": "Eyebrow",
+    "instructions": ""
+  },{
+    "type" : "select",
+    "name" : "eyebrowlayer",
+    "value": "basic",
+    "label": "Format",
+    "fieldClass": "width-25",
+    "instructions": "",
+    "options" : {
+        "basic": "Basic"
+    }
+  },{
+    "type" : "icon",
+    "name" : "eyebrowicon",
+    "value": "",
+    "label": "Icon",
+    "fieldClass": "width-25",
+    "instructions": ""
+  },{
+    "type": "hr"
+}{% endblock %}
+
+
+
+{% block headFootGroup %}{
+    "type" : "select",
+    "name" : "blockintro",
+    "value": "inline",
+    "label": "Content Intro",
+    "instructions": "Use lead content as an intro.",
+    "options" : {
+        "inline" : "- Leave Inline -",
+        "lead"   : "First (Lead) Paragraph",
+        "headers": "All Opening Headlines",
+        "full"   : "Opening Headlines + Lead",
+        "first"  : "First Headline",
+        "intro"  : "First Headline + Lead"
+    }
+  },{
+    "type" : "select",
+    "name" : "blockcta",
+    "value": "inline",
+    "label": "Content Call-to-Action",
+    "instructions": "Use trailing content as a CTA.",
+    "options" : {
+        "inline" : "- Leave Inline -",
+        "buttons": "Move trailing buttons"
+    }
+}{% endblock %}
+
+
+{% block separatorBase %}{
+    "type" : "select",
+    "name": "spacerabove",
+    "value": "normal",
+    "label": "Before Content",
+    "instructions": "Whitespace, dividers, etc",
+    "options" : [{
+        "optgroup": "Empty Space"
+     },{
+        "value": "large",
+        "label": "Large Gap"
+     },{
+        "value": "normal",
+        "label": "Normal Gap"
+     },{
+        "value": "small",
+        "label": "Small Gap"
+     },{
+        "value": "none",
+        "label": "No Gap"
+     },{
+        "optgroup": "Transition"
+     }]
+  },{
+    "type" : "select",
+    "name" : "spacerbelow",
+    "value": "normal",
+    "label": "After Content",
+    "instructions": "Whitespace, dividers, etc",
+    "options" : [{
+        "optgroup": "Empty Space"
+     },{
+        "value": "large",
+        "label": "Large Gap"
+     },{
+        "value": "normal",
+        "label": "Normal Gap"
+     },{
+        "value": "small",
+        "label": "Small Gap"
+     },{
+        "value": "none",
+        "label": "No Gap"
+     }]
+}{% endblock %}
+
+
+{% block separatorCanvas %}{
+    "type" : "select",
+    "name": "spacerabove",
+    "value": "normal",
+    "label": "Before Content",
+    "instructions": "Whitespace, dividers, etc",
+    "options" : [{
+        "optgroup": "Empty Space"
+     },{
+        "value": "large",
+        "label": "Large Gap"
+     },{
+        "value": "normal",
+        "label": "Normal Gap"
+     },{
+        "value": "small",
+        "label": "Small Gap"
+     },{
+        "value": "none",
+        "label": "No Gap"
+     },{
+        "optgroup": "Transition"
+     },{
+        "value": "wave",
+        "label": "Wave"
+     },{
+        "value": "tilt",
+        "label": "Tilt"
+     }]
+  },{
+    "type" : "select",
+    "name" : "spacerbelow",
+    "value": "normal",
+    "label": "After Content",
+    "instructions": "Whitespace, dividers, etc",
+    "options" : [{
+        "optgroup": "Empty Space"
+     },{
+        "value": "large",
+        "label": "Large Gap"
+     },{
+        "value": "normal",
+        "label": "Normal Gap"
+     },{
+        "value": "small",
+        "label": "Small Gap"
+     },{
+        "value": "none",
+        "label": "No Gap"
+     },{
+        "optgroup": "Transition"
+     },{
+        "value": "wave",
+        "label": "Wave"
+     },{
+        "value": "tilt",
+        "label": "Tilt"
+     }]
+}{% endblock %}
+
+
+{% block cardClickAction %}{
+    "type" : "select",
+    "name" : "clickaction",
+    "value": "autolink",
+    "label": "Click Action",
+    "instructions": "",
+    "options" : {
+        "autolink": "Auto Link",
+        "modal"   : "Summary Modal",
+        "dynamic" : "Dynamic Modal",
+        "none"    : "No Click Action"
+    }
+}{% endblock %}
+
+
+
+{% block imageClickAction %}{
+    "type" : "select",
+    "name" : "clickaction",
+    "value": "autolink",
+    "label": "Click Action",
+    "instructions": "",
+    "options" : {
+        "autolink": "Auto Link",
+        "lightbox": "Lightbox",
+        "download": "Download Image",
+        "none"    : "No Click Action"
+    }
+}{% endblock %}
+
+
+
+{% block copyLayoutFull %}{
+    "type" : "select",
+    "name" : "copylayout",
+    "value": "left",
+    "label": "Copy Width + Alignment",
+    "instructions": "Relative to other content elements",
+    "options" : [{
+        "value": "left",
+        "label": "Left Aligned",
+        "microlayout" : "zone1Top"
+    },{
+        "value": "wideTop",
+        "label": "Middle Aligned",
+        "microlayout" : "zone1Top__center"
+    },{
+        "value": "narrowTop",
+        "label": "Middle Aligned (Narrow)",
+        "microlayout": "zone1Top__narrow"
+    }]
+}{% endblock %}
+
+
+
+{% block copyLayoutRight %}{
+    "type" : "select",
+    "name" : "copylayout",
+    "value": "even",
+    "label": "Copy Width + Alignment",
+    "instructions": "Relative to other content elements",
+    "options" : [{
+        "optgroup": "Top Aligned"
+    },{
+        "value": "evenTop",
+        "label": "Even Width Zones",
+        "microlayout": "zone1Right"
+    },{
+        "value": "wideTop",
+        "label": "Wide Copy Zone",
+        "microlayout": "zone1RightWide"
+    },{
+        "value": "narrowTop",
+        "label": "Narrow Copy Zone",
+        "microlayout": "zone1RightNarrow"
+    },{
+        "optgroup": "Center Align Vertical"
+    },{
+        "value": "evenVert",
+        "label": "Even Width Zones",
+        "microlayout": "zone1Right__center"
+    },{
+        "value": "wideVert",
+        "label": "Wide Copy Zone",
+        "microlayout": "zone1RightWide__center"
+    },{
+        "value": "narrowVert",
+        "label": "Narrow Copy Zone",
+        "microlayout": "zone1RightNarrow__center"
+    }]
+}{% endblock %}
+
+
+
+{% block copyLayoutLeft %}{
+    "type" : "select",
+    "name" : "copylayout",
+    "value": "even",
+    "label": "Text Zone Layout",
+    "instructions": "Copy position and size relative to additional elements.",
+    "options" : [{
+        "optgroup": "Top Aligned"
+    },{
+        "value": "evenTop",
+        "label": "Even Width Zones",
+        "microlayout": "zone1Left"
+    },{
+        "value": "wideTop",
+        "label": "Wide Copy Zone",
+        "microlayout": "zone1LeftWide"
+    },{
+        "value": "narrowTop",
+        "label": "Narrow Copy Zone",
+        "microlayout": "zone1LeftNarrow"
+    },{
+        "optgroup": "Center Align Vertical"
+    },{
+        "value": "evenVert",
+        "label": "Even Width Zones",
+        "microlayout": "zone1Left__center"
+    },{
+        "value": "wideVert",
+        "label": "Wide Copy Zone",
+        "microlayout": "zone1LeftWide__center"
+    },{
+        "value": "narrowVert",
+        "label": "Narrow Copy Zone",
+        "microlayout": "zone1LeftNarrow__center"
+    }]
+}{% endblock %}
+
+
+{% block viewportBase %}{
+    "type" : "select",
+    "name" : "viewport",
+    "value": "fluid",
+    "label": "Viewport",
+    "instructions": "",
+    "options" : [
+        { "value": "fluid",  "label": "Fluid Widescreen",           "container": "fluid",  "coverage": "full"  },
+        { "value": "static", "label": "Static Desktop Width",       "container": "static", "coverage": "full"  },
+        { "value": "tablet", "label": "Narrow (Tablet Portrait)",   "container": "tablet", "coverage": "full"  },
+        { "value": "none",   "label": "No Container",               "container": "none",   "coverage": "full"  }
+    ]
+}{% endblock %}
+
+
+{% block viewportCanvas %}{
+    "type" : "select",
+    "name" : "viewport",
+    "value": "fluid",
+    "label": "Viewport &amp; Canvas",
+    "instructions": "",
+    "options" : [
+        { "optgroup": "Full Bleed Background" },
+            { "value": "fluid",            "label": "Fluid Widescreen",           "container": "fluid",  "coverage": "full" },
+            { "value": "static",           "label": "Static Desktop Width",       "container": "static", "coverage": "full" },
+            { "value": "tablet",           "label": "Narrow (Tablet Portrait)",   "container": "tablet", "coverage": "full" },
+            { "value": "none",             "label": "No Container",               "container": "none",   "coverage": "full" },
+        { "optgroup": "Large Box Background" },
+            { "value": "fluid_container",  "label": "Fluid Widescreen",           "container": "fluid",  "coverage": "container", "basetheme": "base" },
+            { "value": "static_container", "label": "Static Desktop Width",       "container": "static", "coverage": "container", "basetheme": "base" },
+            { "value": "tablet_container", "label": "Narrow (Tablet Portrait)",   "container": "tablet", "coverage": "container", "basetheme": "base" },
+        { "optgroup": "Tight Box Background" },
+            { "value": "fluid_twozone",    "label": "Fluid Widescreen",           "container": "fluid",  "coverage": "twozone", "basetheme": "base" },
+            { "value": "static_twozone",   "label": "Static Desktop Width",       "container": "static", "coverage": "twozone", "basetheme": "base" },
+            { "value": "tablet_twozone",   "label": "Narrow (Tablet Portrait)",   "container": "tablet", "coverage": "twozone", "basetheme": "base" }
+    ]
+}{% endblock %}
+
+
+{% block json__systemtransforms -%}
+    {%- set transforms = craft.app.getImageTransforms().allTransforms ??? [] -%}
+    {%- if transforms | length -%}
+        {% for t in transforms -%}
+            {%- if loop.first -%}
+                ,{ "optgroup": "System Transforms" }
+            {%- endif -%}
+           ,{ "value": "{{ t.handle }}", "label": "{{ t.name }}", "transform": "{{ t.handle }}" }
+        {%- endfor -%}
+    {%- endif -%}
+{%- endblock %}

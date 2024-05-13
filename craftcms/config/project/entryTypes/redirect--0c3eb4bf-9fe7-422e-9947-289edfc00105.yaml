@@ -34,6 +34,36 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
+          -
+            elementCondition: null
+            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4a5da56e-9645-4504-9fe0-7afe8e91f921
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 075baa23-e65d-4eaf-a913-3502ccb618e9
+            userCondition: null
+            warning: null
+            width: 100
         name: Content
         uid: c4b0958c-e3d0-4bb0-8c28-96f4eaaddad9
         userCondition: null

@@ -1,120 +1,104 @@
 [{
-    "label": "Card Grid",
     "value": "cardgrid",
+    "label": "Card Grid",
+    "default": true,
+    "tooltips": {
+        "inline": "Lay the cards out in a uniform grid."
+    },
     "settings": {},
-    "docs": {
-        "tooltip": "Present users with a grid of cards, each representing an item from the collection."
-    },
-    "inputs": [
-        {
-            "label": "Card Type",
-            "field": "cardlayer",
-            "type" : "select",
-            "default": "default",
-            "instructions": "Which card layout should be used to present the content?",
-            "options" : {
-                "default"   : "Default",
-                "text"      : "Text Only",
-                "summary"   : "Summary",
-                "overlay"   : "Overlay",
-                "bulleticon": "Bullet Icon"
-            }
+    "virtuals": [{
+        "type" : "select",
+        "name" : "cardname",
+        "value": "none",
+        "label": "Card Design",
+        "instructions": "Choose the design to wrap around individual content items.",
+        "options" : {
+            "none"      : "Basic",
+            "text"      : "Text Only",
+            "summary"   : "Summary",
+            "overlay"   : "Overlay",
+            "bulleticon": "Bullet Icon"
         }
-
-       ,{
-            "label": "Grid Type",
-            "field": "decklayer",
-            "type" : "select",
-            "instructions": "Which grid type should be used for the layout?",
-            "default": "autogrid",
-            "fieldClass": "width-50",
-            "options" : [
-                {
-                    "value" : "autogrid",
-                    "label" : "Autogrid"
-                }
-               ,{
-                    "value" : "grid2",
-                    "label" : "2 Column Grid"
-                }
-               ,{
-                    "value" : "grid3",
-                    "label" : "3 Column Grid"
-                }
-            ]
+    },{
+        "type" : "select",
+        "name" : "iterator",
+        "value": "autogrid",
+        "label": "Grid Layout",
+        "instructions": "Which grid type should be used for the layout?",
+        "options" : {
+            "autogrid": "Autogrid",
+            "masonry" : "Masonry",
+            "grid2"   : "2 Column Grid",
+            "grid3"   : "3 Column Grid"
         }
-
-        ,{{ block( 'inputClickAction', '_config/_selectplus_virtual_fields' ) }}
-    ]
+    },{
+        "type" : "number",
+        "name" : "limit",
+        "value": "8",
+        "label": "Limit",
+        "instructions": "If pulling from Collection, etc"
+    },{{ block( 'cardClickAction', '_config/_virtuals' ) }}]
 },{
-    "label": "Accordion Panels",
     "value": "accordion",
+    "label": "Accordion Panels",
+    "tooltips": {
+        "inline": "Present users with a list of items, each represented by an accordion panel."
+    },
     "settings": {
-        "decklayer": "accordion"
+        "iterator": "accordion"
     },
-    "docs": {
-        "tooltip": "Present users with a list of items, each represented by an accordion panel."
-    },
-    "inputs": [
-        {
-            "label": "Start with first panel open?",
-            "field": "firstopen",
-            "default": "1",
-            "type" : "lightswitch"
+    "virtuals": [{
+        "label": "Start with first panel open?",
+        "name": "firstopen",
+        "value": "1",
+        "type" : "lightswitch"
+    },{
+        "label": "Panel Content Card",
+        "name" : "cardname",
+        "type" : "select",
+        "value": "accordion",
+        "instructions": "Which card layout should be used to present the panel content?",
+        "options" : {
+            "accordion": "Simple Panel"
         }
-       ,{
-            "label": "Panel Content Card",
-            "field": "cardlayer",
-            "type" : "select",
-            "default": "accordion",
-            "instructions": "Which card layout should be used to present the panel content?",
-            "options" : {
-                "accordion": "Simple Panel"
-            }
-        }
-    ]
+    },{
+        "type" : "number",
+        "name" : "limit",
+        "value": "8",
+        "label": "Limit",
+        "instructions": "If pulling from Collection, etc"
+    }]
 },{
-    "label": "Carousel",
     "value": "carousel",
+    "label": "Carousel",
+    "tooltips": {
+        "inline": ""
+    },
     "settings": {
-        "cardlayer": "summary",
-        "decklayer": "carousel"
+        "cardname": "summary",
+        "iterator": "carousel"
     },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": []
-
+    "virtuals": []
 },{
-    "label": "Masonry Boxes",
-    "value": "masonry",
-    "settings": {
-        "decklayer": "masonry"
-    },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": []
-},{
-    "label": "Tab Panels",
     "value": "tabs",
+    "label": "Tab Panels",
+    "tooltips": {
+        "inline": ""
+    },
     "settings": {
-        "decklayer": "tabs",
-        "cardlayer": "panel"
+        "iterator": "tabs",
+        "cardname": "panel"
     },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": []
+    "virtuals": []
 },{
-    "label": "Spotlight",
     "value": "spotlight",
+    "label": "Spotlight Feature",
+    "tooltips": {
+        "inline": ""
+    },
     "settings": {
-        "decklayer": "carousel",
-        "cardlayer": "spotlight"
+        "iterator": "single",
+        "cardname": "spotlight"
     },
-    "docs": {
-        "tooltip": ""
-    },
-    "inputs": []
+    "virtuals": []
 }]

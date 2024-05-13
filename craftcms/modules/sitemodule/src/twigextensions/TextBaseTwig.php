@@ -1,317 +1,344 @@
 <?php
-/**
- * SiteModule - Rich Html Processing Twig Extension
- *
- * Does processing of rich html strings to perform additional cleanup, and to
- * extract and manipulate the contents
- * for more control over the layout and presentation of the content.
- *
- * Including:
- * ------------------------------------------------------
- * - Remove / extract leading headers (h1,h2,h3,etc)
- * - Remove / extract trailing buttons (a.button)
- * - Remove / extract div.eyebrow elements
- * - Wrap side-by-side buttons in a <p> with p.button-group
- *
- */
+    /**
+     * TextBase - Better Processing for <HtmlFieldData> strings
+     *
+     * TODO: This should be its own installable and configurable plugin.
+     *
+     * Cleans up strings of <HtmlFieldData> and splits them into different parts that can
+     * be useful for improving the presentation of individual CKEditor fields without
+     * increasing the complexity of the UI.
+     *
+     */
 
-namespace modules\sitemodule\twigextensions;
+    namespace modules\sitemodule\twigextensions;
 
-use Craft;
-use Twig\TwigFunction;
-use Twig\Extension\AbstractExtension;
-use mmikkel\retcon\Retcon;
+    use Craft;
+    use Twig\TwigFunction;
+    use Twig\Extension\AbstractExtension;
+    use mmikkel\retcon\Retcon;
 
-class TextBaseTwig extends AbstractExtension
-{
-
-    public function getFunctions(): array
+    class TextBaseTwig extends AbstractExtension
     {
-        return [
-            new TwigFunction( 'TextBase', [$this, 'TextBase'] ),
-            new TwigFunction( 'textbase', [$this, 'TextBase'] ),
+        // TODO: move these into a config file
+        const SELECTORS = [
+            'eyebrows'  => ["div.eyebrow:first-child"],
+            'headlines' => ['h1:first-child','h2:first-child','h3:first-child'],
+            'intros'    => ['p:first-child'],
+            'kickers'   => ["p:last-child"],
+            'actions'   => ["p[data-only-links]:last-child"],
         ];
-    }
 
 
-    public function TextBase( mixed $html = "" ): array
-    {
-        if( is_array( $html ) ) {
+        const PARTS =  [
+            'eyebrows'  => [],   'eyebrow'   => null,
+            'headlines' => [],   'headline'  => null,
+            'intros'    => [],   'intro'     => null,
+            'kickers'   => [],   'kicker'    => null,
+            'actions'   => [],   'action'    => null,
+            'body'      => null,
+        ];
+
+
+        public function getFunctions(): array {
+            return [
+                new TwigFunction( 'TextBase', [$this, 'TextBase'] ),
+                new TwigFunction( 'textbase', [$this, 'TextBase'] ),
+            ];
+        }
+
+
+        public function TextBase( mixed $html = "" ): array
+        {
+            if( is_array( $html ) ) { return $html; }
+
+            $selectors = self::SELECTORS;
+
+            // TODO: Making Caching configurable
+            // $cacheKey  =  "TextBase-" . md5($html);
+            // $textparts = \Craft::$app->cache->getOrSet( $cacheKey, function () use ($html) {
+
+                $textparts = self::PARTS;
+                if( empty( trim( $html ) ) ) { return $textparts; }
+
+                // <p style="text-align:center;"> ➔ <p class="text-center">
+                // process the top level DomElements in the rich html string for:
+                //  - embedded rich media (images, videos, url strings, etc)
+                //  - replace style="text-align:left|center|right" attriutes with class names
+                //  - paragraphs that contain one or more buttons
+                $html = $this->_blockelements( $html );
+
+
+                // collect all the parts
+                foreach( ['eyebrows', 'headlines', 'intros', 'kickers', 'actions'] as $el ) {
+                    foreach( $selectors[$el] as $s ) {
+                        if( $match = $this->_retconOnly( $html, $s ) ) {
+                            $textparts[$el][] = $match;
+                            $html = $this->_retconRemove( $html, $s );
+                        }
+                    }
+
+                    // singularize the parts into a string
+                    $single = rtrim($el,'s');
+                    $textparts[$single] = join( "\n", $textparts[$el] );
+                }
+
+                // if kickers without actions, leave kickers inline
+                // if( empty($textparts['actions']) && !empty($textparts['kickers']) ) {
+                //     $html.= $textparts['kicker'];
+                //     $textparts['kickers'] = null;
+                //     $textparts['kicker']  = null;
+                // }
+
+                $textparts['body'] = $html;
+
+                return $textparts;
+
+            // }, 86400 );
+            // return $textparts;
+        }
+
+
+        private function _blockelements( $html ) {
+
+            // <a data-href="..."> ➔ <a href="..." data-href="...">
+            // give all <a> tags a data-href attribute that matches the value of their current
+            // href attribute, making it easier and more accessible to target with JS/CSS
+            $html = (string) Retcon::getInstance()->retcon->renameAttr( $html, "a", [ 'href' => 'data-href' ] );
+            $html = preg_replace('/data-href="(.*?)"/', "href=\"$1\" data-href=\"$1\"", $html );
+
+            // <a data-only-link>...</a>
+            // if only one link exists in the string, give it a data-only-link attribute to make it
+            // targetable with JS/CSS so that it may be styled or treated differently.
+            if( mb_substr_count( mb_strtolower( $html ), "</a>" ) == 1 && !mb_substr_count( mb_strtolower( $html ), "<button" ) ) {
+                $html = (string) Retcon::getInstance()->retcon->attr( $html, "a", [ "data-only-link" => true ] );
+            }
+
+            // any top level blocks elements in the html string?
+            // <p> <h2> <blockquote> <ul>, etc
+            if( $domnodes = $this->_html2nodes( $html ) ) {
+
+                // loop through them
+                $html = "";
+                foreach( $domnodes AS $node ) {
+                    if(!$node) { continue; }
+
+                    // style="text-align:center;" ➔ class="text-center"
+                    $node = $this->_realign( $node );
+
+                    // handle each type of block element
+                    $tagname = mb_strtolower( $node->tagName ?? "" );
+                    switch( $tagname ) {
+                        case 'p':
+                            $html .= $this->_paragraph( $node );
+                            break;
+                        case 'ol':
+                            $html .= $this->_list( $node );
+                            break;
+                        case 'ul':
+                            $html .= $this->_list( $node );
+                            break;
+                        case 'blockquote':
+                            $html .= $this->_blockquote( $node );
+                            break;
+                        case 'div':
+                            $html .= $this->_div( $node );
+                            break;
+                        case 'figure':
+                            $html .= $this->_figure( $node );
+                            break;
+                        default:
+                            $html .= $node->ownerDocument->saveHTML($node);
+                    }
+                }
+            }
+
             return $html;
         }
 
-        // $cacheKey  =  "TextBase1-" . md5($html);
-        // $textParts = \Craft::$app->cache->getOrSet( $cacheKey, function () use ($html) {
 
-            // selector configs
-            // TODO: move these into a config file
-            $settings = [
-                'eyebrowSelector'     => "div.eyebrow:first-child",
-                'headlineSelectors'   => ['h1:first-child','h2:first-child','h3:first-child'],
-                'defaultMarkSelector' => "mark:not(.m1):not(.m2)",
-                'defaultMarkClass'    => "m1",
-                'markSelectors'       => ['mark.m1','mark.m2'],
-                'ctaSelector'         => "a,button",
-                'lastSmallSelector'   => "p.small:last-child",
-                'trailingCtaSelector' => "p[data-only-links]:last-child",
-                'figureClassPrefix'   => "imageCard",
-            ];
 
-            // keep a copy of the original unchanged text body
-            $processed = $html;
-            $textParts = [
-                'eyebrow'   => null,
-                'headline'  => null,
-                'cta'       => null,
-                'body'      => null,
-                'oAlign'    => null,
-            ];
+        // <p style="text-align:center;"> ➔ <p class="text-center">
+        // <p style="text-align : left ; fizz:buzz"> ➔ <p class="text-left" style="fizz:buzz;">
+        // ...etc for text-right / text-justify
+        private function _realign( $node ) {
+            $class = $node->getAttribute('class') ?? "";
+            $style = mb_strtolower( mb_ereg_replace( ' ', '', $node->getAttribute('style') ?? "" ) );
+            $style.= empty($style) || str_ends_with( $style, ';' ) ? '' : ';';
 
-            if( !$html ) {
-                return $textParts;
+            if( !empty($style) ) {
+
+                if( strstr( $style, "text-align:left;" ) ) {
+                    $style = mb_ereg_replace('text-align:left;', '', $style);
+                    $class.= " text-left";
+                }
+
+                if( strstr( $style, "text-align:center;" ) ) {
+                    $style = mb_ereg_replace('text-align:center;', '', $style);
+                    $class.= " text-center";
+                }
+
+                if( strstr( $style, "text-align:right;" ) ) {
+                    $style = mb_ereg_replace('text-align:right;', '', $style);
+                    $class.= " text-right";
+                }
+
+                if( strstr( $style, "text-align:justify;" ) ) {
+                    $style = mb_ereg_replace('text-align:justify;', '', $style);
+                    $class.= " text-justify";
+                }
+
+                $class = trim( $class );
+                if( $class ) { $node->setAttribute( "class", $class ); }
+
+                $style = trim( $style );
+                if( $style ) { $node->setAttribute( "style", $style ); }
+                else { $node->removeAttribute( "style" ); }
             }
 
-            // give all <a> tags a data-href attribute that matches the value of their current
-            // href attribute, making it easier and more accessible to target with JS/CSS
-            $processed = (string) Retcon::getInstance()->retcon->renameAttr( $processed, "a", [ 'href' => 'data-ahref' ] );
-            $processed = preg_replace('/data-ahref="(.*?)"/', "href=\"$1\" data-ahref=\"$1\"", $processed );
+            return $node;
+        }
 
 
-            // if only one link exists in the string, give it a data-only-link attribute to make it
-            // targetable with JS/CSS so that it may be styled or treated differently.
-            if( mb_substr_count( mb_strtolower( $processed ), "</a>" ) == 1 ) {
-                $processed = (string) Retcon::getInstance()->retcon->attr( $processed, "a", [ "data-only-link" => true ] );
+        // paragraph tag adjustments: <p>
+        // mostly just identifying paragraphs with links and/or only links/buttons in them
+        private function _paragraph( $node ) {
+            $paragraph = $node->ownerDocument->saveHTML( $node );
+
+            if( $this->_retconOnly( $paragraph, "span.text-big" ) ) {
+                $paragraph = $this->_retconChange( $paragraph, 'span.text-big', false );
+                $paragraph = $this->_retconAttr( $paragraph, 'p', [ 'class' => 'large' ], false );
             }
 
-
-            // process the top level DomElements in the rich html string for:
-            //  - embedded rich media (images, videos, url strings, etc)
-            //  - replace style="text-align:left|center|right" attriutes with class names
-            //  - paragraphs that contain one or more buttons
-            $processed = $this->processTopLevelDomElements( $processed, $settings );
-
-
-            // extract the div.eyebrow element appearing before any other element in the html string
-            $textParts['eyebrow'] = $this->retconOnly( $processed, $settings['eyebrowSelector'] );
-            $processed = $this->retconRemove( $processed, $settings['eyebrowSelector'] );
-
-            // TODO: automatically add id to eyebrow
-            // {% set eyebrowText = ( eyebrow ?? '' )|striptags|trim|lower|ascii|kebab  %}
-            // {% if eyebrowText %}
-            //     {% set eyebrow = eyebrow|retconAttr( 'div', { id: eyebrowText }) %}
-            // {% endif %}
-
-
-            // find the alignment of the opening element.
-            // it's important that this not happen until after the eyebrow has been removed, but
-            // before any of the leading headers are removed, as the opening alignment could be
-            // on a headline, but it could also be on a <p> or heaven forbid a <ul> or <ol>.
-            $textParts['oAlign'] = $this->openingBlockAlignment( $processed, $settings );
-
-
-
-            // now we can extract any h1,h2,h3 elements that appear before any other elements,
-            // and move them to the headline section of the textParts array.
-            foreach( $settings['headlineSelectors'] as $headerTagSelector ) {
-                $textParts['headline'] .= $this->retconOnly( $processed, $headerTagSelector );
-                $processed = $this->retconRemove( $processed, $headerTagSelector );
+            if( $this->_retconOnly( $paragraph, "span.text-small" ) ) {
+                $paragraph = $this->_retconChange( $paragraph, 'span.text-small', false );
+                $paragraph = $this->_retconAttr( $paragraph, 'p', [ 'class' => 'small' ], false );
             }
 
+            // <p data-only-links><a href="#">...</a></p>
+            // <p data-has-link>... <a href="#">...</a> ...</p>
+            $selector = 'a,button';
+            $links = $this->_retconOnly( $paragraph, $selector );
+            if( $links ) {
+                $leftover = $this->_retconRemove( $paragraph, 'a,button' );
+                $leftover = (string) Retcon::getInstance()->retcon->change( $leftover, 'p', false );
 
-            // if we could detect a specific alignment on the first block element in the html string,
-            // the we could try to replicate that alignment on the eyebrow element which doesn't have
-            // it's own alignment settings. this is a bit of a hack, but it works.
-            if( $textParts['oAlign'] && $textParts['eyebrow'] ) {
-                $mx = "mr-auto";
-                $mx = 'center' == $textParts['oAlign'] ? 'mx-auto' : $mx;
-                $mx = 'right'  == $textParts['oAlign'] ? 'ml-auto' : $mx;
+                $leftover = trim( $leftover );
+                $leftover = preg_replace('/&nbsp;/', ' ', $leftover);
+                $leftover = preg_replace('/<br>\s*$/', '', $leftover);
+                $leftover = preg_replace('/<br\s*\/>\s*$/', '', $leftover);
+                $leftover = trim( $leftover );
 
-                // manipulate the eyebrow element alignment
-                $textParts['eyebrow'] = (string) Retcon::getInstance()->retcon->attr(
-                    $textParts['eyebrow'],
-                    '.eyebrow',
-                    [ 'class' => $mx ],
-                    false // overwrite
-                );
-            }
-
-
-            // find any "kickers" at the bottom of the html, just before any (otherwise)
-            // trailing button(s). these small/micetype paragraphs are typically used to
-            // provide additional context to the button(s) above them, and should be extracted
-            // to the cta section of the textParts array as well.
-            // these  sometimes sit below a trailing buttons and should be extracted with it
-            $lastSmallPara = $this->retconOnly( $processed, $settings['lastSmallSelector'] );
-            $processed = $this->retconRemove( $processed, $settings['lastSmallSelector'] );
-
-            // grab the last paragraph and test to see if it contains buttons. or more specifically,
-            // test if the first child of last paragraph is a link of some kind (typically a call-to-action)
-            $lastButtonPara = $this->retconOnly( $processed, $settings['trailingCtaSelector'] );
-            $processed = $this->retconRemove( $processed, $settings['trailingCtaSelector'] );
-
-            // if we found a trailing button paragraph, save it separately with the last small paragraph (if any).
-            // otherwise, slap push any last small paragraph element on to the bottom of the processed html string
-            if( $lastButtonPara ) {
-                $textParts['cta'] = $lastButtonPara . $lastSmallPara;
-            } else {
-                $processed .= $lastSmallPara;
-            }
-
-            $textParts['body'] = $processed;
-
-            return $textParts;
-
-        // }, 86400 );
-        // return $textParts;
-    }
-
-
-    private function retconOnly( $html, $selector ) {
-        $html = (string) Retcon::getInstance()->retcon->only( "<template>$html</template>", "template $selector" ) ?? null;
-        return trim( $html );
-    }
-
-
-    private function retconRemove( $html, $selector ) {
-        $html = (string) Retcon::getInstance()->retcon->remove( "<template>$html</template>", "template $selector" );
-        $html = (string) Retcon::getInstance()->retcon->change( $html, "template", false );
-        return trim( $html );
-    }
-
-
-    private function processTopLevelDomElements( $html, $settings ) {
-
-        if( $nodes = $this->_html2nodes( $html ) ) {
-            $html = "";
-            foreach( $nodes AS $node ) {
-                if( $node ) {
-
-                    $node = $this->setNodeAlignment( $node, $settings );
-                    $nodeHtml = "";
-
-                    switch( mb_strtolower( $node->tagName ?? "" ) ) {
-                        // case 'figure':
-                        //     $nodeHtml = $this->generateFigureHtml( $node, $settings['figureClassPrefix'] ?? null );
-                        //     break;
-                        case 'p':
-                            $nodeHtml = $this->generateParagraphHtml( $node, $settings['ctaSelector'] ?? null );
-                            break;
-                        default:
-                            $nodeHtml = $node->ownerDocument->saveHTML($node);
-                    }
-
-                    $html .= $nodeHtml;
+                if( empty( $leftover ) ) {
+                    $paragraph = (string) Retcon::getInstance()->retcon->attr( $paragraph, 'p', ['data-only-links' => true] );
+                } else {
+                    $paragraph = (string) Retcon::getInstance()->retcon->attr( $paragraph, 'p', ['data-has-link' => true] );
                 }
             }
+
+            $paragraph = trim( $paragraph );
+            $paragraph = preg_replace('/&nbsp;/', ' ', $paragraph);
+            $paragraph = preg_replace('/<br>\s*$/', '', $paragraph);
+            $paragraph = preg_replace('/<br\s*\/>\s*$/', '', $paragraph);
+
+            return $paragraph;
         }
 
-        return $html;
+
+        // saving these for later
+        private function _list( $node )       { return $node->ownerDocument->saveHTML( $node ); }
+        private function _blockquote( $node ) { return $node->ownerDocument->saveHTML( $node ); }
+        private function _div( $node )        { return $node->ownerDocument->saveHTML( $node ); }
+        private function _figure( $node )     { return $node->ownerDocument->saveHTML( $node ); }
+
+
+        // shorthand for calling Retcon::getInstance()->retcon->only()
+        private function _retconOnly( $html, $selector ) {
+            $html = (string) Retcon::getInstance()->retcon->only( "<template>$html</template>", "template $selector" ) ?? null;
+            return trim( $html );
+        }
+
+
+        // shorthand for calling Retcon::getInstance()->retcon->attr()
+        private function _retconAttr( $html, $selector, $attr, $overwrite = true ) {
+            $html = (string) Retcon::getInstance()->retcon->attr( $html, $selector, $attr, $overwrite ) ?? null;
+            return trim( $html );
+        }
+
+
+        // shorthand for calling Retcon::getInstance()->retcon->attr()
+        private function _retconChange( $html, $selector, $attr ) {
+            $html = (string) Retcon::getInstance()->retcon->change( $html, $selector, $attr ) ?? null;
+            return trim( $html );
+        }
+
+
+        // shorthand for calling Retcon::getInstance()->retcon->remove()
+        private function _retconRemove( $html, $selector ) {
+            $html = (string) Retcon::getInstance()->retcon->remove( "<template>$html</template>", "template $selector" );
+            $html = (string) Retcon::getInstance()->retcon->change( $html, "template", false );
+            return trim( $html );
+        }
+
+
+        // convert a string of html into a collection of DomNodes using Symfony\Component\DomCrawler\Crawler
+        // https://symfony.com/doc/current/components/dom_crawler.html
+        // https://github.com/symfony/dom-crawler
+        private function _html2nodes( $html ) {
+            $html = \mb_convert_encoding($html, 'HTML-ENTITIES', Craft::$app->getView()->getTwig()->getCharset());
+            if( mb_substr($html,0,1) != '<' ) { return null; }
+            $libxmlerrors = \libxml_use_internal_errors(true);
+            $doc = new \DOMDocument();
+            $doc->loadHTML("<template>$html</template>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            \libxml_use_internal_errors($libxmlerrors);
+            $crawler = new \Symfony\Component\DomCrawler\Crawler($doc);
+            return $crawler->filter('template')->children();
+        }
+
+
+
+        // pretty sure most of this got pushed into {% macro margin_from_alignment %} in
+        // craftcms/modules/sitemodule/src/templates/_core/text.twig
+        //-------------------------------------------------------------------------------------
+        // find the alignment of the opening element.
+        // it's important that this not happen until after the eyebrow has been removed, but
+        // before any of the leading headers are removed, as the opening alignment could be
+        // on a headline, but it could also be on a <p> or heaven forbid a <ul> or <ol>.
+        // $textparts['oAlign'] = $this->openingBlockAlignment( $html, $selectors );
+        // if we could detect a specific alignment on the first block element in the html string,
+        // the we could try to replicate that alignment on the eyebrow element which doesn't have
+        // it's own alignment settings. this is a bit of a hack, but it works.
+        // if( $textparts['oAlign'] && $textparts['eyebrow'] ) {
+        //     $mx = "mr-auto";
+        //     $mx = 'center' == $textparts['oAlign'] ? 'mx-auto' : $mx;
+        //     $mx = 'right'  == $textparts['oAlign'] ? 'ml-auto' : $mx;
+        //     // manipulate the eyebrow element alignment
+        //     $textparts['eyebrow'] = (string) Retcon::getInstance()->retcon->attr(
+        //         $textparts['eyebrow'],
+        //         '.eyebrow',
+        //         [ 'class' => $mx ],
+        //         false // overwrite
+        //     );
+        // }
+        // private function openingBlockAlignment( $html, $selectors ) {
+        //     $classLeft   = $selectors["classLeft"]   ?? "text-left";
+        //     $classCenter = $selectors["classCenter"] ?? "text-center";
+        //     $classRight  = $selectors["classRight"]  ?? "text-right";
+        //     if( $nodes = $this->_html2nodes( $html ) ) {
+        //         foreach ( $nodes as $key => $node) {
+        //             $class = $node->getAttribute('class') ?? '';
+        //             if( mb_strstr( $class, 'eyebrow' ) ) { continue; }
+        //             foreach( [$classLeft,$classCenter,$classRight] AS $align ) {
+        //                 if( mb_strstr( $class, $align ) ) {
+        //                     if( $align == $classLeft   ) { return 'left';   }
+        //                     if( $align == $classCenter ) { return 'center'; }
+        //                     if( $align == $classRight  ) { return 'right';  }
+        //                 }
+        //             }
+        //             return null;
+        //         }
+        //     }
+
+        //     return null;
+        // }
+
     }
-
-
-    private function openingBlockAlignment( $html, $settings ) {
-
-        $classLeft   = $settings["classLeft"]   ?? "text-left";
-        $classCenter = $settings["classCenter"] ?? "text-center";
-        $classRight  = $settings["classRight"]  ?? "text-right";
-
-        if( $nodes = $this->_html2nodes( $html ) ) {
-            foreach ( $nodes as $key => $node) {
-                $class = $node->getAttribute('class') ?? '';
-                if( mb_strstr( $class, 'eyebrow' ) ) { continue; }
-                foreach( [$classLeft,$classCenter,$classRight] AS $align ) {
-                    if( mb_strstr( $class, $align ) ) {
-                        if( $align == $classLeft   ) { return 'left';   }
-                        if( $align == $classCenter ) { return 'center'; }
-                        if( $align == $classRight  ) { return 'right';  }
-                    }
-                }
-                return null;
-            }
-        }
-
-        return null;
-    }
-
-
-
-    // convert inline css text alignment:
-    //  -> style="text-align:left/center/right"
-    //
-    // to tailwind classes:
-    //  -> class="text-left/text-center/text-right"
-    private function setNodeAlignment( $node, $settings )
-    {
-        $classLeft   = $settings["classLeft"]   ?? "text-left";
-        $classCenter = $settings["classCenter"] ?? "text-center";
-        $classRight  = $settings["classRight"]  ?? "text-right";
-
-        $nodeStyle = $node->getAttribute('style') ?? "";
-        $nodeClass = $node->getAttribute('class') ?? "";
-        $nodeStyle = mb_strtolower( mb_ereg_replace( ' ', '', $nodeStyle ) );
-
-        if( strstr( $nodeStyle, "text-align:left" ) ) {
-            $node->setAttribute( "class", implode( " ", [$nodeClass, $classLeft] ) );
-        }
-
-        if( strstr( $nodeStyle, "text-align:center" ) ) {
-            $node->setAttribute( "class", implode( " ", [$nodeClass, $classCenter] ) );
-        }
-
-        if( strstr( $nodeStyle, "text-align:right" ) ) {
-            $node->setAttribute( "class", implode( " ", [$nodeClass, $classRight] ) );
-        }
-
-        // clean up the style tag
-        $nodeStyle = mb_ereg_replace( 'text-align:left',   '', $nodeStyle );
-        $nodeStyle = mb_ereg_replace( 'text-align:center', '', $nodeStyle );
-        $nodeStyle = mb_ereg_replace( 'text-align:right',  '', $nodeStyle );
-
-        empty( $nodeStyle )
-            ? $node->removeAttribute( "style" )
-            : $node->setAttribute( "style", $nodeStyle );
-
-        return $node;
-    }
-
-
-    private function generateParagraphHtml( $node, $ctaSelector )
-    {
-        $paraHtml = $node->ownerDocument->saveHTML( $node );
-
-        $links = $this->retconOnly( $paraHtml, $ctaSelector );
-        if( $links ) {
-            $whatsLeft = $this->retconRemove( $paraHtml, $ctaSelector );
-            $whatsLeft = (string) Retcon::getInstance()->retcon->change( $whatsLeft, 'p', false );
-            $whatsLeft = trim( $whatsLeft );
-            $whatsLeft = preg_replace('/<br>$/', '', $whatsLeft);
-            $whatsLeft = preg_replace('/<br\s*\/>$/', '', $whatsLeft);
-
-            if( empty( $whatsLeft ) ) {
-                $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['data-only-links' => true] );
-            } else {
-                $paraHtml = (string) Retcon::getInstance()->retcon->attr( $paraHtml, 'p', ['data-has-link' => true] );
-            }
-        }
-
-        return trim( $paraHtml );
-    }
-
-
-    private function _html2nodes( $html )
-    {
-        $html = \mb_convert_encoding($html, 'HTML-ENTITIES', Craft::$app->getView()->getTwig()->getCharset());
-        if( mb_substr($html,0,1) != '<' ) {
-            return null;
-        }
-
-        $libxmlUseInternalErrors = \libxml_use_internal_errors(true);
-        $doc = new \DOMDocument();
-        $doc->loadHTML("<template>$html</template>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-        \libxml_use_internal_errors($libxmlUseInternalErrors);
-
-        $crawler = new \Symfony\Component\DomCrawler\Crawler($doc);
-        return $crawler->filter('template')->children();
-    }
-
-}

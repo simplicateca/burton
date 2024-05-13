@@ -34,6 +34,86 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0ad24987-d61b-4290-bec2-18b6b706d989
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 97c10fff-f319-4ab2-8dac-c631658cb9a2 # Fragments
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 92335426-57b3-4a4c-82bc-858d88a6252d
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: e6e155f7-d871-4497-bc48-97ac0ca665b6
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Content Layout
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: aa74f610-6bb5-405e-a702-4b2971d087f5
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 60bcc797-b0ac-4bd9-b7b3-36b4de6eebd7
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Block Theme
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2848cec0-794d-489d-8fd6-f0b64d2f4621
+            userCondition: null
+            warning: null
+            width: 75
         name: Content
         uid: 234a7ecd-45dc-43e5-b9d1-c5a2da00ad8a
         userCondition: null
@@ -41,7 +121,7 @@ handle: fragment
 hasTitleField: false
 icon: puzzle-piece
 name: Fragment
-showSlugField: false
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

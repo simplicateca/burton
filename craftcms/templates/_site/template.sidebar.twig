@@ -1,19 +1,19 @@
 {## Content + Sidebar (Aside)   [Site Template]
 {---------------------------------------------------------------------------------------}
-    Inherits everything from `_site/template.full` with the following changes:
+    Inherits everything from `_site/template.fullpage` with the following changes:
 
   - Overloads {% main__content %} to create a two-column layout.
   - Overloads {% page__bottom %} to use a slim footer.
   - Pulls content from the `entry.bodyBuilder` and `entry.sidebarBuilder` matrix fields.
 --------------------------------------------------------------------------------------##}
-{% extends "_site/template.full" %}
-{% import "_assemble" as assemble %}
+{% extends "_site/template.fullpage" %}
+{% import "_core" as assemble %}
 
 
 {## Template Variables
 {-------------------------------------------------------------------------------------##}
 {%- set settings = settings ?? null %}
-{%- set settings = settings is not null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
 
 {## Two Column Layout
@@ -62,13 +62,13 @@
 {% block content -%}
     {% set firstblock = mainblocks | first %}
     {% set headerattr = block( 'page__top' ) | retconOnly( 'header *[data-theme]' ) | parseAttr %}
-    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme.value ??? "base" %}
+    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme|t ??? "base" %}
 
     {{- assemble.builder( 'maincolumn', mainblocks ?? null, {
         container  : "relative",
-        spacerfirst: themematch ? "none" : "default",
-        spacerabove: "default",
-        spacerbelow: "default"
+        spacerfirst: themematch ? "none" : "normal",
+        spacerabove: "normal",
+        spacerbelow: "normal"
     }) -}}
 {%- endblock %}
 

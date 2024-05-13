@@ -1,67 +1,38 @@
-[
-    {% if object.type ?? null == 'fragment' %}{ "label": "Use Setting from Fragment", "value": "FRAGMENT" },{% endif %}
-
-    {
-        "label": "Base (Page Background Visible)",
-        "value": "base",
-        "settings": {},
-        "docs": {
-            "tooltip" : ""
-        },
-        "inputs": [
-            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
-        ]
-    }
-
-   ,{
-        "label": "White (Light)",
-        "value": "light",
-        "settings": {},
-        "docs": {
-            "tooltip" : ""
-        },
-        "inputs": [
-            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }}
-        ]
-    }
-
-   ,{
-        "label": "Accent (Dark)",
-        "value": "accent",
-        "settings": {},
-        "docs": {
-            "tooltip" : ""
-        },
-        "inputs": [
-            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }},
-
-            {{ block( 'inputCanvasCoverage', '_config/_selectplus_virtual_fields' ) }}
-        ]
-    }
-
-   ,{
-        "label": "Inherit from Block Above",
-        "value": "INHERIT",
-        "settings": {},
-        "docs": {
-            "tooltip" : ""
-        },
-        "inputs": [
-            {{ block( 'inputSpacerAbove', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputSpacerBelow', '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputContainer',   '_config/_selectplus_virtual_fields' ) }},
-            {{ block( 'inputBlockBottom', '_config/_selectplus_virtual_fields' ) }}
-        ]
-
-    }
-]
+[{
+    "value": "base",
+    "label": "Base Block Theme",
+    "default": true,
+    "tooltips": { "inline" : "No solid colour block page background" },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'separatorBase',   '_config/_virtuals' ) }},
+        {{ block( 'viewportBase',    '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "light",
+    "label": "Light Block Theme",
+    "tooltips": { "inline" : "White background alternative to base theme" },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'separatorCanvas', '_config/_virtuals' ) }},
+        {{ block( 'viewportCanvas',  '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "accent",
+    "label": "Accent Block Theme",
+    "tooltips": { "inline" : "Dark background with lighter text" },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'separatorCanvas', '_config/_virtuals' ) }},
+        {{ block( 'viewportCanvas',  '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "INHERIT",
+    "label": "Inherit from Block Above",
+    "tooltips": { "inline" : "" },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'separatorCanvas', '_config/_virtuals' ) }},
+        {{ block( 'viewportCanvas',  '_config/_virtuals' ) }}
+    ]
+}]

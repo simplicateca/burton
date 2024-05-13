@@ -10,9 +10,9 @@ settings:
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
-  selectionLabel: Choose
+  selectionLabel: 'Choose Collection'
   showCardsInGrid: false
-  showSiteMenu: false
+  showSiteMenu: true
   sources:
     - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
   targetSiteId: null

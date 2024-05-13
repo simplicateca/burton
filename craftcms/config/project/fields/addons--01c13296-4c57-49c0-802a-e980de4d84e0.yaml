@@ -1,0 +1,51 @@
+columnSuffix: null
+handle: addons
+instructions: null
+name: Addons
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 00442d39-f939-41bc-a593-abf4bea52d44
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 40f8a572-f12e-49f2-849d-8fbe3395eb5c # Addon
+  selectionLabel: null
+  showCardsInGrid: false
+  showSiteMenu: true
+  sources: '*'
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

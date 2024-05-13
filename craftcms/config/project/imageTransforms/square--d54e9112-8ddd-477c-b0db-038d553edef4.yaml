@@ -1,0 +1,11 @@
+fill: null
+format: null
+handle: square
+height: 960
+interlace: none
+mode: crop
+name: Square
+position: center-center
+quality: null
+upscale: true
+width: 960

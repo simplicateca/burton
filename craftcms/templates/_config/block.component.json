@@ -1,125 +1,89 @@
-[
-    {
-        "label": "Feedback Form",
-        "value": "form",
-        "settings": {},
-        "docs": {
-            "tooltip": ""
-        },
-        "inputs": []
-    }
-
-   ,{
-        "label": "Site / System Component",
-        "value": "system",
-        "settings": {},
-        "docs": {
-            "tooltip": ""
-        },
-        "inputs": []
-    }
-   ,{
-        "label": "Collection Search / Index",
-        "value": "search",
-        "settings": {},
-        "docs": {
-            "tooltip": "Present users an opportunity to search and filter one or more collections.",
-            "modalTitle": "Collection Search + Results User Interface",
-            "modalIntro": "Customize the appearance and behavior of the search results interface."
-        },
-        "inputs": [
-            {
-                "label": "Paginatation",
-                "field": "pagination",
-                "type" : "select",
-                "default": "nextprev",
-                "instructions": "How do you want to handle more than one 'page' of results?",
-                "fieldClass": "width-50",
-                "options" : [
-                    {
-                        "value" : "none",
-                        "label" : "No Pagination"
-                    }
-                   ,{
-                        "value" : "nextprev",
-                        "label" : "Next / Previous"
-                    }
-                   ,{
-                        "value" : "loadmore",
-                        "label" : "Load More"
-                    }
-                   ,{
-                        "value" : "infinite",
-                        "label" : "Infinite Scroll"
-                    }
-                ]
-            }
-
-           ,{
-                "label"  : "Results per page",
-                "field"  : "limit",
-                "type"   : "number",
-                "fieldClass": "width-50",
-                "instructions": "How many results should be shown per page?",
-                "default": 12,
-                "size"   : 8
-            }
-
-           ,{
-                "label": "Search Interface",
-                "field": "interface",
-                "type" : "select",
-                "default": "none",
-                "instructions": "What search options should be presented to the user?",
-                "fieldClass": "width-50",
-                "options" : {
-                    "keyword": "Keyword Search Only",
-                    "topic"  : "Topic Filtering Only",
-                    "keywordtopic" : "Keyword & Topic Filtering",
-                    "none"   : "No Search Options"
-                }
-            }
-
-           ,{
-                "label": "Automatic Results",
-                "instructions": "Show results before requiring any user input or filtering.",
-                "field": "results",
-                "default": "true",
-                "fieldClass": "width-50",
-                "type" : "lightswitch"
-            }
-
-           ,{
-                "label": "Presentation",
-                "field": "decklayer",
-                "type" : "select",
-                "instructions": "How should the search results be presented?",
-                "fieldClass": "width-50",
-                "default"   : "grid3",
-                "options" : [
-                    {
-                        "label" : "2 Columns (Summary)",
-                        "value" : "grid2",
-                        "cardlayer": "summary"
-                    }
-                   ,{
-                        "label" : "3 Columns (Summary)",
-                        "value" : "grid3",
-                        "cardlayer": "summary"
-                    }
-                   ,{
-                        "label" : "Masonry Grid",
-                        "value" : "masonry"
-                    }
-                   ,{
-                        "label" : "Search Results",
-                        "value" : "search",
-                        "cardlayer": "search"
-                    }
-                ]
-            }
-
-           ,{{ block( 'inputClickAction', '_config/_selectplus_virtual_fields' ) }}
-        ]
-   }
-]
+[{
+    "value": "search",
+    "label": "Search Component",
+    "tooltips": {
+        "inline"  : "Allow users to search, sort, and filter Collection results.",
+        "virtuals": "Search Options & Output Format",
+        "form"    : "These settings allow for fine tuning the presentation of the search result and the available input filters.",
+        "help"    : "Need Help?",
+        "template": "_sitehub/ui-selectplus-variant"
+    },
+    "settings": {},
+    "virtuals": [{
+        "type" : "select",
+        "name" : "pagination",
+        "value": "nextprev",
+        "label": "Paginatation",
+        "instructions": "How do you want to handle more than one 'page' of results?",
+        "options" : {
+            "none"    : "No Pagination",
+            "nextprev": "Next / Previous",
+            "loadmore": "Load More",
+            "infinite": "Infinite Scroll"
+        }
+    },{
+        "type" : "number",
+        "name" : "limit",
+        "label": "Results per page",
+        "value": 12,
+        "instructions": "How many results should be shown per page?"
+    },{
+        "type" : "select",
+        "name" : "interface",
+        "value": "topic",
+        "label": "Search Interface",
+        "instructions": "What search options should be presented to the user?",
+        "options" : {
+            "keyword": "Keyword Search Only",
+            "topics" : "Topic Filtering Only",
+            "both"   : "Keyword & Topic Filtering",
+            "none"   : "No Search Options"
+        }
+    },{
+        "type" : "lightswitch",
+        "name" : "results",
+        "value": "true",
+        "label": "Automatic Results",
+        "instructions": "Show results before requiring any user input or filtering."
+    },{
+        "type" : "select",
+        "name" : "iterator",
+        "value": "grid3",
+        "label": "Presentation",
+        "instructions": "How should the search results be presented?",
+        "options" : [{
+            "value": "grid2",
+            "label": "2 Columns (Summary)",
+            "cardname": "summary"
+        },{
+            "value": "grid3",
+            "label": "3 Columns (Summary)",
+            "cardname": "summary"
+        },{
+            "value": "masonry",
+            "label": "Masonry Grid"
+        },{
+            "value": "search",
+            "label": "Search Results",
+            "cardname": "search"
+        }]
+    }]
+},{
+    "value"     : "form",
+    "label"     : "Form Component",
+    "tooltips"  : { "inline": "" },
+    "settings"  : {},
+    "virtuals"  : []
+},{
+    "value"     : "addon",
+    "label"     : "Addon Component",
+    "tooltips"  : { "inline": "" },
+    "settings"  : {},
+    "virtuals"  : []
+},{
+    "value"     : "system",
+    "label"     : "System Component",
+    "tooltips"  : { "inline": "" },
+    "settings"  : {},
+    "virtuals"  : []
+}]

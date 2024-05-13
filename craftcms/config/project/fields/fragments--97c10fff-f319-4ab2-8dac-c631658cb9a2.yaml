@@ -1,0 +1,52 @@
+columnSuffix: null
+handle: fragments
+instructions: null
+name: Fragments
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 48a4f27f-c6fe-4cba-ae57-6084a145e89e
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragments
+  selectionLabel: null
+  showCardsInGrid: false
+  showSiteMenu: false
+  sources:
+    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Content Bits
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

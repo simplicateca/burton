@@ -1,0 +1,52 @@
+columnSuffix: null
+handle: embeds
+instructions: null
+name: Embeds
+searchable: true
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - dc029042-0858-4f38-b528-588cd20ca879
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 2508516d-3329-44ec-8518-04f2a29ca3f3 # Embed
+  selectionLabel: 'Embed Media'
+  showCardsInGrid: true
+  showSiteMenu: true
+  sources:
+    - 'section:9cf1fb90-7384-41c9-8eda-fd8d9f2cd574' # Embeddables
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries
