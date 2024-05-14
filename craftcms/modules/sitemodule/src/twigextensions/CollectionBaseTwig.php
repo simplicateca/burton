@@ -74,8 +74,8 @@ class CollectionBaseTwig extends AbstractExtension
 
             // Do we need to filter by slug?
             // Happens if we have an array of colletions and we're toggling between them
-            if( $params['slug'] ?? null ) {
-                $query['slug'] = $params['slug'];
+            if( $params['filter'] ?? null ) {
+                $query['slug'] = $params['filter'];
             }
 
             // Get the selected Collection (or the first one if we're not filtering by collection)
@@ -85,13 +85,13 @@ class CollectionBaseTwig extends AbstractExtension
 
         // Option 2
         // ElementQuery of Collection entries, i.e. the "Collections" Entries field
-        // -> https://docs.craftcms.com/api/v4/craft-elements-db-elementquery.html
-        // -> https://craftcms.com/docs/4.x/entries-fields.html
+        // -> https://docs.craftcms.com/api/v5/craft-elements-db-elementquery.html#elementquery
+        // -> https://craftcms.com/docs/5.x/reference/field-types/entries.html
         if( is_object($collections) && $collections->one() ) {
 
             // Do we need to filter by slug?
-            if( $params['slug'] ?? null ) {
-                $collections = $collection->slug($params['slug']);
+            if( $params['filter'] ?? null ) {
+                $collections = $collection->slug($params['filter']);
             }
 
             $collection = $collections->one() ?? null;
@@ -110,6 +110,7 @@ class CollectionBaseTwig extends AbstractExtension
         {
             $collection = $collections[0];
         }
+
 
         // If we still don't have a collection, we can't do anything.
         if( !$collection ) { return []; }
@@ -132,14 +133,17 @@ class CollectionBaseTwig extends AbstractExtension
 
 
 
+    // TODO: processManual() and processDynamic() are almost identical, and should be refactored
     public function processManual( $fly, $params ) : Mixed
     {
         $query = [
-            'where'   => $fly['where'] ?? null,
-            'with'    => $fly['with']  ?? null,
+            'where'   => $fly['where']   ?? null,
+            'with'    => $fly['with']    ?? null,
             'orderBy' => $fly['orderBy'] ?? $params['orderBy'] ?? $fly['order'] ?? $params['order'] ?? 'postDate DESC',
-            'limit'   => $fly['limit'] ?? $params['limit'] ?? 100,
-            'keyword' => $fly['query'] ?? $params['query'] ?? null
+            'limit'   => $fly['limit']   ?? $params['limit'] ?? 100,
+            'keyword' => $fly['query']   ?? $params['query'] ?? null,
+            'before'  => $fly['before']  ?? null,
+            'after'   => $fly['after']   ?? null,
         ];
 
         $elementQuery = $this->elementQuery( $fly['element'] ?? 'entry' );
@@ -171,6 +175,22 @@ class CollectionBaseTwig extends AbstractExtension
 
         if( !empty( $query['with'] ) ) {
             $elementQuery->with( $query['with'] );
+        }
+
+        $postdate = [];
+        if( $query['before'] ) {
+            $postdate[] = "<= " . date( 'Y-m-d', strtotime( $query['before'] ) );
+        }
+
+        if( $query['after'] ) {
+            $postdate[] = ">= " . date( 'Y-m-d', strtotime( $query['after'] ) );
+        }
+
+        if( count( $postdate ) ) {
+            $elementQuery->postDate( count( $postdate ) == 2
+                ? [ 'and', $postdate[0], $postdate[1] ]
+                : $postdate[0]
+            );
         }
 
         $elementQuery->limit( $query['limit'] );
@@ -213,7 +233,9 @@ class CollectionBaseTwig extends AbstractExtension
             'with'    => $collection->source->settings['with']  ?? null,
             'orderBy' => $collection->source->settings['orderBy'] ?? $collection->source->settings['order'] ?? 'postDate DESC',
             'limit'   => $params['limit'] ?? 100,
-            'keyword' => $params['query'] ?? null
+            'keyword' => $params['query'] ?? null,
+            'before'  => $collection->source->settings['before'] ?? null,
+            'after'   => $collection->source->settings['after'] ?? null,
         ];
 
         $elementQuery = $this->elementQuery( $query['element'] );
@@ -224,6 +246,10 @@ class CollectionBaseTwig extends AbstractExtension
         }
 
         if( $taxonomies = $collection->taxonomies->exists() ? $collection->taxonomies->ids() : [] ) {
+            $elementQuery->relatedTo( $taxonomies );
+        }
+
+        if( $users = $collection->taxonomies->exists() ? $collection->taxonomies->ids() : [] ) {
             $elementQuery->relatedTo( $taxonomies );
         }
 
@@ -246,13 +272,25 @@ class CollectionBaseTwig extends AbstractExtension
             }
         }
 
-
         if( !empty( $query['with'] ) ) {
             $elementQuery->with( $query['with'] );
         }
 
-        dump( $query );
-        exit;
+        $postdate = [];
+        if( $query['before'] ) {
+            $postdate[] = "<= " . date( 'Y-m-d', strtotime( $query['before'] ) );
+        }
+
+        if( $query['after'] ) {
+            $postdate[] = ">= " . date( 'Y-m-d', strtotime( $query['after'] ) );
+        }
+
+        if( count( $postdate ) ) {
+            $elementQuery->postDate( count( $postdate ) == 2
+                ? [ 'and', $postdate[0], $postdate[1] ]
+                : $postdate[0]
+            );
+        }
 
         $elementQuery->limit( $query['limit'] );
         $elementQuery->orderBy( $query['orderBy'] );

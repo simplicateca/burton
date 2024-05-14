@@ -1,4 +1,4 @@
-# Site module for Craft CMS 4.x
+# Site module for Craft CMS 5.x
 
 Use this module to add any custom logic for this project
 

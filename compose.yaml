@@ -104,7 +104,7 @@ services:
                 condition: service_completed_successfully
 
     # Craft CMS - Queue Listerer / Runner
-    # https://craftcms.com/docs/4.x/extend/queue-jobs.html
+    # https://craftcms.com/docs/5.x/extend/queue-jobs.html
     queue:
         <<: *craft
         restart: unless-stopped

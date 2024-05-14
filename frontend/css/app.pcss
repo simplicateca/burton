@@ -2,30 +2,23 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/**
- * This file contains base styles for many common "atomic" elements.
- *
- *  0| BASE SETUP
- *  1| HEADLINE FORMATTING (h1-h6)
- *  2| REDACTOR / BODY TEXT FORMATTING
- *  3| LIST STYLE FORMATTING (Checkmarks, Grids, etc)
- *  4| BLOCKQUOTES
- *  5| TEXT MARKING / HIGH-LIGHTING
- *  6| EYEBROW FORMATS
- *  7| BUTTONS & BUTTON GROUPS
- *  8| TAG / PILL FORMATS
- *  9| FORMS STUFFS
-*/
+/** Base Site Styles
+/---------------------------------------------------------------------------------------/
+    1. Block Themes
+    2. Form Controls
+    3. Typography
+      - Body Copy (p, ul, ol, blockquote)
+      - Headlines
+      - Buttons & Links
+/-------------------------------------------------------------------------------------**/
 
-/**
- * 0| BASE SETUP
- *
- * General styles and formats that apply all types of text through-out the site.
- *
-*/
+
+/** 1. Block Themes
+/-------------------------------------------------------------------------------------**/
 [data-theme] {
     @apply text-theme-bodycopy;
     &.canvas, .canvas { @apply bg-theme; }
+    &.autospace { @apply py-16; }
 
     [data-canvas] {
         @apply bg-theme absolute inset-0 z-0;
@@ -50,148 +43,72 @@
             @apply bg-theme absolute -inset-4 z-0 rounded-xl border-theme-tint border-2 shadow-2xl;
         }
     }
-
-    &.autospace { @apply py-16; }
-}
-
-::selection {
-    @apply text-theme-bodycopy bg-theme-highlight;
 }
 
 
-/** 1b | Headline Formats
-/----------------------------------------------------------------------------------------/
 
-/--------------------------------------------------------------------------------------**/
-h1,h2,h3,h4,h5,h6,
-.like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
-    @apply font-headline font-extrabold leading-tight mb-5 text-theme-headings;
-
-    &.knockout {
-        @apply bg-theme-highlight text-theme-headings p-2 inline-table text-center;
-    }
-}
-
-h1, .like-h1 {
-
+/** 2. Form Controls
+/-------------------------------------------------------------------------------------**/
+select,
+textarea,
+input[type="money"],
+input[type="number"],
+input[type="text"],
+input[type="search"],
+input[type="password"],
+input[type="email"] {
     @apply
-        font-display    text-theme-accent
-        text-4xl    @lg:text-5xl    @2xl:text-6xl   @4xl:text-7xl   @6xl:text-8xl
+        p-2.5
+        rounded-lg
+        border
+        border-theme-tint
+        text-theme-bodycopy
+        bg-theme-tint
     ;
-
-    strong {
-        @apply text-theme-highlight;
-    }
-}
-
-h2, .like-h2 {
-    @apply
-        text-3xl pb-4 relative
-
-        @xs/large:text-4xl    @lg/large:text-5xl    @2xl/large:text-6xl   @4xl/large:text-7xl   @6xl/large:text-8xl
-              @xs:text-3xl          @lg:text-4xl          @2xl:text-5xl         @4xl:text-6xl         @6xl:text-7xl
-        @xs/small:text-2xl    @lg/small:text-3xl    @2xl/small:text-4xl   @4xl/small:text-5xl   @6xl/small:text-6xl
-    ;
-
-    &:after {
-        @apply bg-theme-highlight;
-        content: '';
-        position: absolute;
-        display: block;
-        width: 8rem;
-        height: 0.5rem;
-        bottom: -0.5rem;
-    }
-
-    &[class*="text-center"]:after { transform: translateX(-50%); left:50%; width: 10rem; }
-    &[class*="text-right"]:after  { right: 0rem; }
-
-    &+h3, &+.like-h3 { @apply -mt-2.5; }
 }
 
 
-h3, .like-h3 {
+input[type=radio].sr-only:checked + label {
     @apply
-        text-2xl
-
-        @xs/large:text-3xl    @lg/large:text-4xl    @2xl/large:text-5xl   @4xl/large:text-6xl   @6xl/large:text-7xl
-              @xs:text-2xl          @lg:text-3xl          @2xl:text-4xl         @4xl:text-5xl         @6xl:text-6xl
-        @xs/small:text-xl     @lg/small:text-2xl    @2xl/small:text-3xl   @4xl/small:text-4xl   @6xl/small:text-5xl
-    ;
-
-    &+h4, &+.like-h4 { @apply -mt-2.5; }
-}
-
-h4, .like-h4 {
-    @apply
-        text-lg border-b-2 border-theme-highlight
-
-        @xs/large:text-2xl    @lg/large:text-3xl    @2xl/large:text-4xl   @4xl/large:text-5xl   @6xl/large:text-6xl
-              @xs:text-xl           @lg:text-2xl          @2xl:text-3xl         @4xl:text-4xl         @6xl:text-5xl
-        @xs/small:text-lg     @lg/small:text-xl     @2xl/small:text-2xl   @4xl/small:text-3xl   @6xl/small:text-4xl
-    ;
-
-    &+p, &+ul, &+ol { @apply -mt-2.5; }
-}
-
-
-/* add a little extra spacing before headers that appear after body text */
-p+h2, ul+h2, ol+h2, blockquote+h2,
-p+h3, ul+h3, ol+h3, blockquote+h3,
-p+h4, ul+h4, ol+h4, blockquote+h4,
-p+.like-h2, ul+.like-h2, ol+.like-h2, blockquote+.like-h2,
-p+.like-h3, ul+.like-h3, ol+.like-h3, blockquote+.like-h3,
-p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
-    @apply
-        mt-5 @xl:mt-8 @3xl:mt-8 @5xl:mt-10
+        bg-theme-accent
+        text-theme-accent-alt
+        cursor-default
     ;
 }
 
 
 
-/**
- * 3 | BODY TEXT FORMATTING
- *
- * Styles for elements within an *ancestor* containing the `data-bodycopy` attribute
- * are defined here. This attribute is applied within the `openTheme` or `openBlock`
- * macros, both in `templates/_core/block.twig`.
- *
- * Typically, these elements include those found in a Redactor text field: p, ol, ul,
- * blockquote, h1-h6, hr, etc.
- *
- * The Tailwind Container Query plugin is used to automatically handle scaling based on
- * the ancestor element's display width, not the total screen width.
- *
- * Learn more about the Container Query plugin:
- * - https://github.com/tailwindlabs/tailwindcss-container-queries
- *
- * It introduces the responsive `@container` class to designate the ancestor element,
- * along with '@' based responsive prefixes. They function like core responsive prefixes:
- *
- * @xs  @container (min-width: 20rem) 320px
- * @sm  @container (min-width: 24rem) 384px
- * @md  @container (min-width: 28rem) 448px
- * @lg  @container (min-width: 32rem) 512px
- * @xl  @container (min-width: 36rem) 576px
- * @2xl @container (min-width: 42rem) 672px
- * @3xl @container (min-width: 48rem) 768px
- * @4xl @container (min-width: 56rem) 896px
- * @5xl @container (min-width: 64rem) 1024px
- * @6xl @container (min-width: 72rem) 1152px
- * @7xl @container (min-width: 80rem) 1280px
- *
- * Core responsive prefixes still work as expected and are based on the device screen width.
- * They can be used with container query based prefixes.
- *
- */
+/** 3. Typography
+/---------------------------------------------------------------------------------------/
+    This stylesheet makes use of the Tailwind Container Query plugin. It introduces the
+    `@container` class to mark parent elements as a responsive container "viewport".
+    It also introduces new container-based responsive prefixes: @xs:, @sm:, @md:, etc.
 
-/** bodycopy elements **/
-*[data-bodycopy] {
+    These new prefixes work exactly like the core responsive prefixes (sm:/lg:/2xl:etc),
+    only using the parent container with for making adjustments, not the device width.
 
+ -> https://github.com/tailwindlabs/tailwindcss-container-queries
+/-------------------------------------------------------------------------------------**/
+
+
+/** 3.1 Body Text ----------------------------------------------------------------------/
+
+    Use `data-bodycopy` as an attribute on parent elements containing text that comes
+    from a CKEditor / Redactor field. This allows a consistent style to be applied to
+    <HtmlFieldData> text without crashing into other styles for common html elements.
+
+/**-----------------------------------------------------------------------------------**/
+p, ul, ol, blockquote {
+    @apply font-body leading-snug text-theme-bodycopy;
+}
+
+[data-bodycopy] {
+
+    /** text sizing **/
     p, ul, ol, blockquote {
         @apply
             font-body leading-snug text-theme-bodycopy
-                mb-6                        @xl:mb-8        @3xl:mb-10      @5xl:mb-12
+            mb-6 @xl:mb-8 @3xl:mb-10 @5xl:mb-12
         ;
 
         /** the ones that are neither .larger or .smaller **/
@@ -200,7 +117,6 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
             @apply
                 @xs/small:text-sm      @md/small:text-base    @xl/small:text-lg      @3xl/small:text-xl     @5xl/small:text-2xl
                 @xs/large:text-lg      @md/large:text-xl      @xl/large:text-2xl     @3xl/large:text-3xl    @5xl/large:text-4xl;
-
         }
 
         /** the ones that are .. **/
@@ -217,21 +133,60 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
                 @xs/large:text-base    @md/large:text-lg      @xl/large:text-xl      @3xl/large:text-2xl    @5xl/large:text-3xl
                 @xs/small:text-xs      @md/small:text-sm      @xl/small:text-base    @3xl/small:text-lg     @5xl/small:text-xl;
         }
+    }
 
-        /** The `data-only-links` attribute is applied to paragraphs that only contain links (plain or buttons).
-            We're targetting tags that don't have that attribute, which should be just inline text links. **/
-        &:not([data-only-links]) {
-            a {
-                @apply
-                    underline
-                    underline-offset-2
-                    hover:no-underline
-                    focus:underline-offset-4
+    /* add a little extra spacing before headers that appear after body text */
+    p+h2, ul+h2, ol+h2, blockquote+h2,
+    p+h3, ul+h3, ol+h3, blockquote+h3,
+    p+h4, ul+h4, ol+h4, blockquote+h4,
+    p+.like-h2, ul+.like-h2, ol+.like-h2, blockquote+.like-h2,
+    p+.like-h3, ul+.like-h3, ol+.like-h3, blockquote+.like-h3,
+    p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
+        @apply
+            mt-5 @xl:mt-8 @3xl:mt-8 @5xl:mt-10
+        ;
+    }
 
-                    text-theme-link
-                    hover:text-theme-link-tint
-                    focus:text-theme-link-tint
-                ;
+    /** This is a pretty hack way to do two columns, but it gets the point across. It could
+        be better, especially if Tailwind Container Queries understood CSS columns. **/
+    div.columns-2 p {
+        @apply !text-base !mb-4 @xl:!text-lg @xl:!mb-6 @3xl:!text-xl @3xl:!mb-8 @5xl:!text-2xl @5xl:!mb-10;
+    }
+
+
+    /** basic list layout options **/
+    ol, ul {
+
+        /** plain <ul> **/
+        &:not(ul):not(.checklist):not(.columnlist):not(.rowlist) {
+            @apply list-decimal pl-[2em];
+        }
+
+        /** plain <ol> **/
+        &:not(ol):not(.checklist):not(.columnlist):not(.rowlist) {
+            @apply list-disc pl-[1em] pr-[2em];
+        }
+
+        /** checkmark list **/
+        &.checklist {
+            @apply ml-6;
+            list-style-image: url("data:image/svg+xml,<svg width='16' height='16' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m8.5 16.586-3.793-3.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l11-11a1 1 0 0 0-1.414-1.414L8.5 16.586Z' fill='%23333333'/></svg>");
+
+            li { @apply mb-3; }
+        }
+
+        /** two column list **/
+        &.columnlist {
+            @apply grid grid-cols-1 gap-5 @lg:grid-cols-2;
+        }
+
+        /** row list with separator lines **/
+        &.rowlist {
+            @apply grid grid-cols-1 items-center justify-center;
+
+            li {
+                @apply max-w-2xl border-b border-theme-tint2 p-4 mx-auto my-0 text-center;
+                &:last-of-type { @apply border-0; }
             }
         }
     }
@@ -239,95 +194,25 @@ p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
     blockquote {
         @apply bg-theme-tint2 p-4 @xl:p-10;
     }
-}
 
-/** Links that appear inside a paragraph that only contains links -- but is not a button **/
-p[data-only-links] {
-    a { @apply mr-5; }
+    mark {
+        @apply inline-block relative ;
 
-    a:not(.button) {
-        @apply
-            font-display
-            py-3
-            inline-block
-            font-normal
-            leading-none
-            transition
-            underline-offset-8
-            decoration-transparent
-            decoration-4
-            relative
-            pr-8
-
-            text-theme-link-tint
-            hover:text-theme-link
-            hover:decoration-theme-link
-            focus:decoration-theme-link
-        ;
-
-        &:after {
-            position: absolute;
-            transition: transform 0.2s ease;
-            content: '➔';
-            margin-left: 0.35rem;
-        }
-
-        &:hover {
-            &:after {
-                transform: translateX(0.15rem);
+        &.highlight {
+            span { @apply relative z-10; }
+            &::before {
+                  @apply bg-theme-highlight content-[""] absolute bottom-1 -translate-y-1/3 top-1/2 -inset-x-0.5 z-0;
             }
-        }
+          }
+
+          &.nowrap {
+            span { @apply whitespace-nowrap; }
+          }
     }
 }
 
-/** Keeping the `.button` class outside the `data-bodycopy` attribute so that it can
-    be used in other contexts  **/
-.button {
-    @apply
-        font-display
-        bg-theme
-        border-theme-link
-        text-theme-link
-        hover:bg-theme-accent-tint
-        hover:text-theme-accent-alt
-        border-2
-        rounded-md
-        py-3
-        px-4
-        inline-block
-        whitespace-nowrap
-        no-underline
-        font-semibold
-        !leading-none
-        transition
-    ;
-}
-
-
-/* terrible (but functional) example for changing <p> size inside CSS columns, which
-   as of 2024.04.14, apparently isn't handled automatically by tailwind container
-   queries. implement this better if using dynamic css columns in production.
-
-   https://tailwindcss.com/docs/columns
-   https://github.com/tailwindlabs/tailwindcss-container-queries
-*/
-
-/* *[data-bodycopy="smaller"] div.columns-2 p {
-    @apply
-        !text-base
-        !mb-4
-        @xl:!text-lg
-        @xl:!mb-6
-        @3xl:!text-xl
-        @3xl:!mb-8
-        @5xl:!text-2xl
-        @5xl:!mb-10
-   ;
-} */
-
-
-/* Because usually you want to remove the auto margin from the bottom of things like this so that
-   it doesn't affect the look and feel of bottom padding on the block or theme */
+/** Removing the bottom margin on the last element inside one of these blocks is almost
+    always a good thing to help alignment with other elements and reduce large gaps. **/
 *[data-bodycopy] .\@container {
     & > h2:last-child,
     & > h3:last-child,
@@ -341,206 +226,132 @@ p[data-only-links] {
 }
 
 
+/** 3.2 Headlines **********************************************************************/
 
-/**
- * 3| LIST STYLE FORMATTING (Checkmarks, Grids, etc)
- *
- * These classes are made available inside Redactor by the List Class plugin
- *  -> https://github.com/simplicateca/redactor-list-class
- *
- * Available options configured via the `listClasses` attribute in each Redactor config
- *  -> cms/config/redactor/???.json
- *
-*/
+h1,h2,h3,h4,h5,h6,
+.like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
+    @apply font-headline font-extrabold leading-tight mb-5 text-theme-headings;
 
-*[data-bodycopy] ol,
-*[data-bodycopy] ul {
+    strong { @apply text-theme-highlight; }
 
-    &:not(ul):not(.checkList):not(.columnList):not(.rowList) {
-        @apply list-decimal pl-[2em];
-    }
-
-    &:not(ol):not(.checkList):not(.columnList):not(.rowList) {
-        @apply list-disc pl-[1em] pr-[2em];
-    }
-
-    &:not(.checkList):not(.columnList):not(.rowList) {
-        &.smaller {
-            li {
-                @apply mb-1.5;
-            }
-        }
-
-        li {
-            @apply mb-3;
-        }
-    }
-
-    /* variations & alternate formats */
-    &.checkList {
-        @apply ml-6;
-        list-style-image: url("data:image/svg+xml,<svg width='16' height='16' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m8.5 16.586-3.793-3.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l11-11a1 1 0 0 0-1.414-1.414L8.5 16.586Z' fill='%23333333'/></svg>");
-
-        li {
-            @apply mb-3;
-        }
-    }
-
-    &.columnList {
-        @apply
-            grid
-            grid-cols-1
-            gap-5
-            @lg:grid-cols-2
-        ;
-    }
-
-    &.rowList {
-        @apply
-            grid
-            grid-cols-1
-            items-center
-            justify-center
-        ;
-
-        li {
-            @apply
-                max-w-2xl
-                border-b
-                border-theme-tint2
-                p-4
-                mx-auto
-                my-0
-                text-center
-            ;
-
-            &:last-of-type {
-                @apply border-0;
-            }
-        }
-    }
+    &.knockout { @apply bg-theme-accent text-theme-accent-alt p-2 inline-table text-center; }
 }
 
-
-/** 5 | <mark>
-/----------------------------------------------------------------------------------------/
-    Different `<mark>` options can be configured inside the "baukasten" Redactor plugin.
- -> cms/config/redactor/plugins/baukasten.js
-/--------------------------------------------------------------------------------------**/
-*[data-bodycopy] mark {
+h1, .like-h1 {
     @apply
-        inline-block
-        relative
+        font-display text-theme-accent
+        text-4xl    @lg:text-5xl    @2xl:text-6xl   @4xl:text-7xl   @6xl:text-8xl
     ;
 
-    &.m1 {
-    	&::before {
-      		@apply
-        		bg-theme-highlight
-        		content-[""]
-                absolute
-                bottom-1
-                -translate-y-1/3
-                top-1/2
-                -inset-x-0.5
-                z-0
-            ;
-    	}
+    /** a little less gap if immediately followed by <h2> **/
+    &+h2, &+.like-h2 { @apply -mt-2.5; }
+}
 
-		span {
-			@apply relative z-10;
-		}
-  	}
+h2, .like-h2 {
+    @apply
+        text-3xl pb-4 relative
 
-  	&.m2 {
-    	span {
-      		@apply whitespace-nowrap;
-    	}
-  	}
+        @xs/large:text-4xl    @lg/large:text-5xl    @2xl/large:text-6xl   @4xl/large:text-7xl   @6xl/large:text-8xl
+              @xs:text-3xl          @lg:text-4xl          @2xl:text-5xl         @4xl:text-6xl         @6xl:text-7xl
+        @xs/small:text-2xl    @lg/small:text-3xl    @2xl/small:text-4xl   @4xl/small:text-5xl   @6xl/small:text-6xl
+    ;
+
+    /** a stylish underline :) **/
+    &:after { @apply bg-theme-highlight absolute content-[''] block w-16 h-1 -bottom-1; }
+    &[class*="text-center"]:after { transform: translateX(-50%); left:50%; width: 10rem; }
+    &[class*="text-right"]:after  { right: 0rem; }
+
+    /** a little less gap if immediately followed by <h3> **/
+    &+h3, &+.like-h3 { @apply -mt-2.5; }
+}
+
+h3, .like-h3 {
+    @apply
+        text-2xl
+
+        @xs/large:text-3xl    @lg/large:text-4xl    @2xl/large:text-5xl   @4xl/large:text-6xl   @6xl/large:text-7xl
+              @xs:text-2xl          @lg:text-3xl          @2xl:text-4xl         @4xl:text-5xl         @6xl:text-6xl
+        @xs/small:text-xl     @lg/small:text-2xl    @2xl/small:text-3xl   @4xl/small:text-4xl   @6xl/small:text-5xl
+    ;
+
+    /** a little less gap if immediately followed by <h4> **/
+    &+h4, &+.like-h4 { @apply -mt-2.5; }
+}
+
+h4, .like-h4 {
+    @apply
+        text-lg border-b-2 border-theme-highlight
+
+        @xs/large:text-2xl    @lg/large:text-3xl    @2xl/large:text-4xl   @4xl/large:text-5xl   @6xl/large:text-6xl
+              @xs:text-xl           @lg:text-2xl          @2xl:text-3xl         @4xl:text-4xl         @6xl:text-5xl
+        @xs/small:text-lg     @lg/small:text-xl     @2xl/small:text-2xl   @4xl/small:text-3xl   @6xl/small:text-4xl
+    ;
+
+    /** a little less gap if immediately followed by <p>, <ul>. <ol> **/
+    &+p, &+ul, &+ol { @apply -mt-2.5; }
+}
+/**-----------------------------------------------------------------------------------**/
+
+
+/** 3.2 Buttons & Links ****************************************************************/
+
+/** The `data-only-links` attribute gets added to a bodycopy parent container
+    if that element ONLY contains links (which is typical of call-to-action sections).
+    Here, we're targetting bodycopy links that are NOT inside a `data-only-links`
+    parent, which should be all other types of inline textual links. **/
+[data-bodycopy] :not([data-only-links]) a {
+    @apply
+        underline
+        underline-offset-2
+        hover:no-underline
+        focus:underline-offset-4
+
+        text-theme-link
+        hover:text-theme-link-tint
+        focus:text-theme-link-tint
+    ;
+}
+
+/** Links inside header tags **/
+h1,h2,h3,h4,h5,h6, .like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+/** Simple. unassuming button **/
+.button {
+    @apply
+        py-3
+        px-4
+        border-2
+        bg-theme
+        rounded-lg
+        transition
+        inline-block
+        border-theme-accent-tint
+
+        font-display
+        font-semibold
+        no-underline
+        !leading-none
+        whitespace-nowrap
+        text-theme-accent
+
+        hover:bg-theme-accent-tint
+        hover:text-theme-accent-alt
+    ;
 }
 
 
-/** 7 | Buttons
-/--------------------------------------------------------------------------------------**/
 
-
-/* .buttonSmall {
-@apply
-    bg-theme-accent
-    border-theme-accent-tint
-    text-theme-accent-alt
-    hover:bg-theme-accent-tint
-    text-sm
-    border-2
-    !m-0
-    p-2
-    px-4
-    inline-block
-    whitespace-nowrap
-    no-underline
-    !leading-none
-  ;
-} */
-
-
+/** Utility class for making a parent element (card) clickable without resorting to
+    wrapping the card in it's own <a> tag, using multiple tags, or onclick events.
+    Make sure the parent element has class='relative' or .. you know ..  **/
 a.click__cover,
 button.click__cover {
     &::before {
         @apply absolute content-[""] inset-0 z-50;
     }
-}
-
-
-
-/** 8 | Tags / Pills
-/--------------------------------------------------------------------------------------**/
-a.pill {
-    @apply
-        text-xs
-        text-theme-link
-        inline-flex
-        items-center
-        font-medium
-        !leading-none
-        uppercase
-        px-3
-        py-2
-        rounded-full
-        border
-        border-theme-tint2
-        bg-theme-tint
-        hover:bg-theme-accent
-        hover:text-theme-accent-alt
-    ;
-
-    &.isActive {
-        @apply
-            text-theme-accent-alt
-            border-theme-accent
-            bg-theme-accent-tint
-            hover:bg-theme-accent-tint
-            cursor-default
-        ;
-    }
-}
-
-
-
-
-select,
-textarea,
-input[type="money"],
-input[type="number"],
-input[type="text"],
-input[type="search"],
-input[type="password"],
-input[type="email"] {
-    @apply
-        p-2.5
-        rounded-lg
-        border
-        border-theme-tint
-        text-theme-bodycopy
-        bg-theme-tint2
-    ;
 }

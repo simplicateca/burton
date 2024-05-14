@@ -1,6 +1,6 @@
 <?php
 /**
- * Site Module for Craft CMS 4.x
+ * Site Module for Craft CMS 5.x
  *
  * @link      https://simplicate.ca
  * @copyright Copyright (c) 2024 simplicate

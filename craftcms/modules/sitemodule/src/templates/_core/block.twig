@@ -17,8 +17,10 @@
 {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
 {%- set settings = {
-    loop__first    : loop.first ?? false,
-    loop__last     : loop.last  ?? false,
+    loop__first    : loop.first  ?? false,
+    loop__index    : loop.index  ?? false,
+    loop__index0   : loop.index0 ?? false,
+    loop__last     : loop.last   ?? false,
     include__before: null,
     include__after : null,
     container      : 'default',
@@ -133,6 +135,7 @@
         If that's the case, its probably worth setting an owner object along with the
         first block or just using a differnt builder macro altogether.
     {---------------------------------------------------------------------------------##}
+    {## TODO: Use collect() / firstWhere() instead of a loop ##}
     {%- set owner = null -%}
     {%- for b in blocks -%}
         {%- set owner = owner is not null and b.owner ??? null ? b.owner : owner -%}

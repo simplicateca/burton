@@ -32,15 +32,15 @@
     },{
         "type" : "date",
         "name" : "before",
-        "label": "Posted Before",
+        "label": "On or Before",
         "fieldClass": "width-25",
-        "instructions": "Exclude older"
+        "instructions": "Exclude newer"
     },{
         "type" : "date",
         "name" : "after",
-        "label": "Posted After",
+        "label": "On or After",
         "fieldClass": "width-25",
-        "instructions": "Exclude newer"
+        "instructions": "Exclude older"
     }]
 },{
     "value": "pages",

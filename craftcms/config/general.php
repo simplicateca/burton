@@ -22,7 +22,7 @@ return GeneralConfig::create()
     ->allowAdminChanges( (App::env('CRAFT_ENVIRONMENT') != 'production') )
 
     // Only allow plugin / Craft updates through the command line
-    // https://craftcms.com/docs/4.x/config/general.html#allowupdates
+    // https://craftcms.com/docs/5.x/reference/config/general.html#allowupdates
     ->allowUpdates(false)
 
     // Partial Templates Path
@@ -37,7 +37,7 @@ return GeneralConfig::create()
     ->disallowRobots( (App::env('CRAFT_ENVIRONMENT') != 'production') )
 
     // Don't announce CMS
-    // https://craftcms.com/docs/4.x/config/general.html#sendpoweredbyheader
+    // https://craftcms.com/docs/5.x/reference/config/general.html#sendpoweredbyheader
     ->sendPoweredByHeader(false)
 
     // aliases for s3 / object storage assets
@@ -70,7 +70,7 @@ return GeneralConfig::create()
     ->maxUploadFileSize('100M')
 
     // let users sign-up with just an email and set a password after email confirmation
-    // https://craftcms.com/docs/4.x/config/general.html#deferpublicregistrationpassword
+    // https://craftcms.com/docs/5.x/reference/config/general.html#deferpublicregistrationpassword
     ->deferPublicRegistrationPassword(true)
 
     ->useEmailAsUsername(true)

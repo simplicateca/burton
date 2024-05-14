@@ -63,6 +63,7 @@ class CardBaseTwig extends AbstractExtension
          *
          * !! TODO: Include all Craft Element Types + Commerce Products + Verbb Events
          * https://craftcms.com/docs/5.x/system/elements.html#element-types
+         * 
          *
          */
         $section   = $content->section->handle ?? $content->section ?? null;

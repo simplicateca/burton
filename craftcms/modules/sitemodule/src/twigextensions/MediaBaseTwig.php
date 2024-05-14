@@ -12,14 +12,11 @@ namespace modules\sitemodule\twigextensions;
 use Craft;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
-use mmikkel\retcon\Retcon;
 use Embed\Embed;
 
-class MediaBaseTwig extends AbstractExtension
-{
+class MediaBaseTwig extends AbstractExtension {
 
-    public function getFunctions(): array
-    {
+    public function getFunctions(): array {
         return [
             new TwigFunction( 'MediaBase', [ $this, 'MediaBase' ] ),
             new TwigFunction( 'mediabase', [ $this, 'MediaBase' ] ),
@@ -27,8 +24,7 @@ class MediaBaseTwig extends AbstractExtension
     }
 
 
-    public function MediaBase( $url )
-    {
+    public function MediaBase( $url ) {
         $embedData = \Craft::$app->cache->getOrSet( "oembed-$url", function () use ($url) {
             $embed = new Embed();
             $info = $embed->get($url);

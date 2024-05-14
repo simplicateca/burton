@@ -24,9 +24,8 @@
     {%- set settings = block.settings ??? null -%}
     {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
     {%- set settings = {
-        variant  : null,
-        textlayer: 'default',
-        limit     : 100
+        variant: null,
+        limit  : 100
     } | merge( settings ) -%}
 
     {## Let's us inherit from this template **at this point** in the render process,

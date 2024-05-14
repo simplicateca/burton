@@ -100,19 +100,19 @@
 
 {% macro separator__large(block, settings) -%}
     {{- tag('div', { class: [
-        '@container after:block after:content-[""]',
+        "@container after:block after:content-['']",
         'after:h-20 @3xl:after:h-28 @7xl:after:h-48' ]}) -}}
 {%- endmacro %}
 
 {% macro separator__normal(block, settings) -%}
-    {{- tag('div', { class: ['
-        @container after:block after:content-[""]',
+    {{- tag('div', { class: [
+        "@container after:block after:content-['']",
         'after:h-12 @3xl:after:h-20 @7xl:after:h-36' ]}) -}}
 {%- endmacro %}
 
 {% macro separator__small(block, settings) -%}
-    {{- tag('div', { class: ['
-        @container after:block after:content-[""]',
+    {{- tag('div', { class: [
+        "@container after:block after:content-['']",
         'after:h-8 @3xl:after:h-12 @7xl:after:h-18'
     ]}) -}}
 {%- endmacro %}

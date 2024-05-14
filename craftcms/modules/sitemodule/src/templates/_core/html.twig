@@ -14,12 +14,12 @@
         {% block head__fonts   '' %}
         {% block head__styles  '' %}
         {% block head__scripts '' %}
-        {{ head() }} {# https://craftcms.com/docs/4.x/dev/functions.html#head #}
+        {{ head() }} {# https://craftcms.com/docs/5.x/reference/twig/functions.html#head #}
     </head>
     {% block body__open %}<body class="{% block body__class '' %}">{% endblock %}
-        {{ beginBody() }} {# https://craftcms.com/docs/4.x/dev/functions.html#beginbody #}
+        {{ beginBody() }} {# https://craftcms.com/docs/5.x/reference/twig/functions.html#beginbody #}
         {% block page "" %}
-        {{ endBody()   }} {# https://craftcms.com/docs/4.x/dev/functions.html#endbody #}
+        {{ endBody()   }} {# https://craftcms.com/docs/5.x/reference/twig/functions.html#endbody #}
     {% block body__close '</body>' %}
 </html>{% endblock html %}
 

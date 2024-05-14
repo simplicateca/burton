@@ -41,7 +41,7 @@
     For non-manual blocks, we use the `fieldValues` property of the block Entry to
     give us access to all custom field values.
 
- -> https://docs.craftcms.com/api/v4/craft-base-element.html#property-fieldvalues
+ -> https://docs.craftcms.com/api/v5/craft-base-element.html#property-fieldvalues
 
     We include our `settings` property and also store to original block entry object
     in `_block` so that the Twig templates never lose access to the full object.

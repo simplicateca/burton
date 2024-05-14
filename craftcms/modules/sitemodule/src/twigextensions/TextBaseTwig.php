@@ -51,50 +51,41 @@
         {
             if( is_array( $html ) ) { return $html; }
 
-            $selectors = self::SELECTORS;
-
             // TODO: Making Caching configurable
-            // $cacheKey  =  "TextBase-" . md5($html);
-            // $textparts = \Craft::$app->cache->getOrSet( $cacheKey, function () use ($html) {
+            $cacheKey  =  "TextBase-" . md5($html);
+            $textparts = \Craft::$app->cache->getOrSet( $cacheKey, function () use ($html) {
 
                 $textparts = self::PARTS;
                 if( empty( trim( $html ) ) ) { return $textparts; }
 
-                // <p style="text-align:center;"> ➔ <p class="text-center">
                 // process the top level DomElements in the rich html string for:
-                //  - embedded rich media (images, videos, url strings, etc)
-                //  - replace style="text-align:left|center|right" attriutes with class names
-                //  - paragraphs that contain one or more buttons
+                // - replace style="text-align:left|center|right" attriutes with class names
+                // - paragraphs that contain one or more buttons
                 $html = $this->_blockelements( $html );
 
 
                 // collect all the parts
-                foreach( ['eyebrows', 'headlines', 'intros', 'kickers', 'actions'] as $el ) {
-                    foreach( $selectors[$el] as $s ) {
+                $selectors = self::SELECTORS;
+                foreach( $selectors as $key => $selector ) {
+                    foreach( $selector as $s ) {
                         if( $match = $this->_retconOnly( $html, $s ) ) {
-                            $textparts[$el][] = $match;
+                            $textparts[$key][] = $match;
                             $html = $this->_retconRemove( $html, $s );
                         }
                     }
 
-                    // singularize the parts into a string
-                    $single = rtrim($el,'s');
-                    $textparts[$single] = join( "\n", $textparts[$el] );
+                    // singularize the parts into a joined string
+                    $single = rtrim($key,'s');
+                    $textparts[$single] = join( "\n", $textparts[$key] );
                 }
-
-                // if kickers without actions, leave kickers inline
-                // if( empty($textparts['actions']) && !empty($textparts['kickers']) ) {
-                //     $html.= $textparts['kicker'];
-                //     $textparts['kickers'] = null;
-                //     $textparts['kicker']  = null;
-                // }
 
                 $textparts['body'] = $html;
 
                 return $textparts;
 
-            // }, 86400 );
-            // return $textparts;
+            }, 86400 );
+
+            return $textparts;
         }
 
 
@@ -293,52 +284,4 @@
             $crawler = new \Symfony\Component\DomCrawler\Crawler($doc);
             return $crawler->filter('template')->children();
         }
-
-
-
-        // pretty sure most of this got pushed into {% macro margin_from_alignment %} in
-        // craftcms/modules/sitemodule/src/templates/_core/text.twig
-        //-------------------------------------------------------------------------------------
-        // find the alignment of the opening element.
-        // it's important that this not happen until after the eyebrow has been removed, but
-        // before any of the leading headers are removed, as the opening alignment could be
-        // on a headline, but it could also be on a <p> or heaven forbid a <ul> or <ol>.
-        // $textparts['oAlign'] = $this->openingBlockAlignment( $html, $selectors );
-        // if we could detect a specific alignment on the first block element in the html string,
-        // the we could try to replicate that alignment on the eyebrow element which doesn't have
-        // it's own alignment settings. this is a bit of a hack, but it works.
-        // if( $textparts['oAlign'] && $textparts['eyebrow'] ) {
-        //     $mx = "mr-auto";
-        //     $mx = 'center' == $textparts['oAlign'] ? 'mx-auto' : $mx;
-        //     $mx = 'right'  == $textparts['oAlign'] ? 'ml-auto' : $mx;
-        //     // manipulate the eyebrow element alignment
-        //     $textparts['eyebrow'] = (string) Retcon::getInstance()->retcon->attr(
-        //         $textparts['eyebrow'],
-        //         '.eyebrow',
-        //         [ 'class' => $mx ],
-        //         false // overwrite
-        //     );
-        // }
-        // private function openingBlockAlignment( $html, $selectors ) {
-        //     $classLeft   = $selectors["classLeft"]   ?? "text-left";
-        //     $classCenter = $selectors["classCenter"] ?? "text-center";
-        //     $classRight  = $selectors["classRight"]  ?? "text-right";
-        //     if( $nodes = $this->_html2nodes( $html ) ) {
-        //         foreach ( $nodes as $key => $node) {
-        //             $class = $node->getAttribute('class') ?? '';
-        //             if( mb_strstr( $class, 'eyebrow' ) ) { continue; }
-        //             foreach( [$classLeft,$classCenter,$classRight] AS $align ) {
-        //                 if( mb_strstr( $class, $align ) ) {
-        //                     if( $align == $classLeft   ) { return 'left';   }
-        //                     if( $align == $classCenter ) { return 'center'; }
-        //                     if( $align == $classRight  ) { return 'right';  }
-        //                 }
-        //             }
-        //             return null;
-        //         }
-        //     }
-
-        //     return null;
-        // }
-
     }

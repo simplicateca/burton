@@ -8,18 +8,16 @@
 {## Keyword Search Field ##}
 {% macro keywordinput( search, settings ) %}
     <div class="border border-theme-tint2 bg-theme-tint flex flex-row rounded-lg p-2">
+        {%- set i = settings.loop__index ??? 1 %}
         <input
-            name="q"
+            name="q{{i}}"
             type="search"
             value="{{search.query}}"
             placeholder="Enter search term..."
             class="flex-grow w-full !p-0 border-none"
-            sprig
-            s-val:page="1"
-            s-replace="#{{search.uuid}}"
-            s-trigger="keyup changed delay:300ms"
+            hx-trigger="keyup changed delay:300ms"
         >
-        <button class="button" sprig>Search</button>
+        <button class="button">Search</button>
     </div>
 {% endmacro %}
 
@@ -27,62 +25,35 @@
 
 {# Topic Filter #}
 {% macro topicfilter( search, settings ) %}
-    {# {% set isSprig   = isSprig   ??? false %}
-    {% set params    = params    ??? null %}
-    {% set settings  = settings  ??? null %}
-    {% set feedIds   = feedIds   ??? [] %}
-    {% set interface = interface ??? null %}
-    {% set baseurl   = baseurl   ??? siteUrl( craft.app.request.pathInfo ) ??? null %}
 
-    {% set params    = params ??? null %}
-    {% set urlParams = {} %}
-    {% set urlParams = params.query|default() ? urlParams|merge({ q: params.query  }) : urlParams %}
+    {%- set topics = collect( search.collections ??? [] ) -%}
+    {%- set i = settings.loop__index ??? 1 %}
 
-    {% if feedIds and feedIds|length > 1 %}
+    {%- if topics.count > 1 -%}
+        <div class="flex flex-row gap-4 mx-auto">
+            {%- set active = topics.firstWhere( 'slug', search.filter ) ?? topics.first() -%}
 
-        {% set feeds = craft.entries()
-            .id(feedIds)
-            .fixedOrder(true)
-            .section('taxonomy')
-            .type('contentFeed')
-            .all()
-        %}
+            {%- for t in topics -%}
+                    {%- set radioid  = "radio__#{t.slug|id}" -%}
+                    {%- set isactive = active.slug == t.slug -%}
+                    <div>
+                        <input id="{{radioid}}" type="radio" name="f{{i}}" value="{{t.slug}}" {{ active.slug == t.slug ? 'checked' }}  class="sr-only" />
+                        <label for="{{radioid}}" class="
+                            py-1.5 px-3
+                            text-sm
+                            uppercase
+                            rounded-full
+                            inline-block
+                            bg-theme-tint
+                            text-theme-bodytext
+                            hover:bg-theme-highlight
+                            cursor-pointer
+                        "><span>{{ t.title }}</span></label>
 
-        {% set activeFilter = params.filter ??? feeds|first.slug %}
-
-        {% set align = interface == 'filterByFeed' ? 'justify-center' : '' %}
-
-        <div class="flex {{align}}" x-data="{ active: '{{ activeFilter }}' }">
-            <ul class="list-none m-0 p-0 flex justify-center gap-4">
-                {% set activeFeed = null %}
-                {% for feed in feeds %}
-
-                    {% set feedUrl  = siteUrl( baseurl, urlParams|merge({ f: feed.slug }) ) %}
-                    {% set isActive = ( activeFilter == feed.slug ) %}
-                    {% set activeFeed = isActive ? feed : activeFeed %}
-
-                    <li>{{ tag( 'a', {
-                        text : feed.label ??? feed.title,
-                        href : feedUrl,
-                        class: "pill",
-                        ':class': "active == '#{feed.slug}' ? 'isActive' : ''",
-                        'x-on:click': "active = '#{feed.slug}'"
-                    } | merge( not isSprig ? {} : {
-                        sprig: true,
-                        's-push-url': feedUrl,
-                        's-val:f': feed.slug }
-                    ) )}}</li>
-                {% endfor %}
-            </ul>
-
-            <input type="hidden" name="f" :value="active" />
+                    </div>
+            {%- endfor -%}
         </div>
-
-        <div class="text-center @container max-w-5xl">
-            {{ activeFeed.dek ??? activeFeed.summary ??? null
-                | retconAttr( 'p', { class: 'html' }, false ) }}
-        </div>
-    {% endif %} #}
+    {%- endif -%}
 {% endmacro %}
 
 
@@ -90,13 +61,19 @@
 {## Basic Pagination ##}
 {% macro pagination( search, settings ) -%}
 {%- if search.pageinfo.totalPages > 1 %}
+    {% import "_core" as assemble %}
     <nav
         role="navigation"
         aria-label="Pagination Navigation"
         class="mx-auto flex flex-col items-center justify-center max-w-xs @container"
     >
-        {% import "_core" as assemble %}
-        <ul class="flex justify-between w-full list-none items-end">
+
+        <ul class="flex justify-between w-full list-none items-end"
+            hx-select="#{{ search.uuid }}"
+            hx-target="#{{ search.uuid }}"
+            hx-swap="outerHTML ignoreTitle:true show:top"
+            {% if search.hxvals %}hx-vals='{{ search.hxvals | json_encode }}'{% endif %}
+        >
             <li class="list-none">{{ assemble.searchpart( 'previouspage', search, settings ) }}</li>
 
             <li class="flex flex-col text-center items-center">
@@ -115,7 +92,7 @@
     {% set baseurl   = search.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
     {% set prevpage  = search.page - 1 %}
 
-    {% set urlparams = { } %}
+    {% set urlparams = {} %}
     {% set urlparams = search.filter ? urlparams | merge( { f: search.filter } ) : urlparams %}
     {% set urlparams = search.query  ? urlparams | merge( { q: search.query  } ) : urlparams %}
 
@@ -131,15 +108,12 @@
             ? siteUrl( baseurl, urlparams )
             : siteUrl( baseurl ~ "/" ~ search.pageinfo.pageTrigger ~ prevpage, urlparams ) %}
 
-        {{ tag( 'a', {
-            text : "← Prev"|t,
-            class: "whitespace-nowrap",
-            href : prevurl,
-            sprig: true,
-            's-push-url': prevurl,
-            's-val:page': prevpage,
-            's-replace' : '#' ~ search.uuid,
-        }) }}
+        <a
+            href="{{ prevurl }}"
+            class="whitespace-nowrap"
+            hx-get="{{ prevurl }}"
+            hx-push-url="{{ prevurl }}"
+        >{{"← Prev"|t}}</a>
     {% endif %}
 {% endmacro %}
 
@@ -150,7 +124,7 @@
     {% set baseurl   = search.baseurl ??? siteUrl( craft.app.request.pathInfo ) %}
     {% set nextpage  = search.page + 1 %}
 
-    {% set urlparams = {} %}
+    {% set urlparams = { } %}
     {% set urlparams = search.filter ? urlparams | merge( { f: search.filter } ) : urlparams %}
     {% set urlparams = search.query  ? urlparams | merge( { q: search.query  } ) : urlparams %}
 
@@ -161,16 +135,12 @@
         }) }}
     {% else %}
         {% set nexturl = siteUrl( baseurl ~ "/" ~ search.pageinfo.pageTrigger ~ nextpage, urlparams ) %}
-
-        {{ tag( 'a', {
-            text : "Next →"|t,
-            class: "whitespace-nowrap",
-            href : nexturl,
-            sprig: true,
-            's-push-url': nexturl,
-            's-val:page': nextpage,
-            's-replace' : '#' ~ search.uuid,
-        }) }}
+        <a
+            href="{{ nexturl }}"
+            class="whitespace-nowrap"
+            hx-get="{{ nexturl }}"
+            hx-push-url="{{ nexturl }}"
+        >{{"Next →"|t}}</a>
     {% endif %}
 {% endmacro %}
 
