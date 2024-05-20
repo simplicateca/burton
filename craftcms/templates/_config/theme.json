@@ -1,8 +1,8 @@
 [{
     "value": "base",
-    "label": "Base Block Theme",
+    "label": "Default ‘Base’ Theme",
     "default": true,
-    "tooltips": { "inline" : "No solid colour block page background" },
+    "tooltips": { "inline" : "Transparent base, page background visible" },
     "settings": {},
     "virtuals": [
         {{ block( 'separatorBase',   '_config/_virtuals' ) }},
@@ -10,8 +10,8 @@
     ]
 },{
     "value": "light",
-    "label": "Light Block Theme",
-    "tooltips": { "inline" : "White background alternative to base theme" },
+    "label": "White ‘Light’ Theme",
+    "tooltips": { "inline" : "White background, alternative to base theme" },
     "settings": {},
     "virtuals": [
         {{ block( 'separatorCanvas', '_config/_virtuals' ) }},
@@ -19,8 +19,8 @@
     ]
 },{
     "value": "accent",
-    "label": "Accent Block Theme",
-    "tooltips": { "inline" : "Dark background with lighter text" },
+    "label": "Dark ‘Accent’ Theme",
+    "tooltips": { "inline" : "Dark background with white text" },
     "settings": {},
     "virtuals": [
         {{ block( 'separatorCanvas', '_config/_virtuals' ) }},
@@ -29,7 +29,7 @@
 },{
     "value": "INHERIT",
     "label": "Inherit from Block Above",
-    "tooltips": { "inline" : "" },
+    "tooltips": { "inline" : "Matches the theme of the previous block (or defaults to ‘Base’)." },
     "settings": {},
     "virtuals": [
         {{ block( 'separatorCanvas', '_config/_virtuals' ) }},

@@ -1,7 +1,7 @@
 [
   {
     "title": "Empowering Communities Through Innovation",
-    "dek": "<p>Discover how our organization is driving positive change through innovative solutions. Join us in making a lasting impact on communities worldwide.</p>",
+    "summary": "<p>Discover how our organization is driving positive change through innovative solutions. Join us in making a lasting impact on communities worldwide.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -21,7 +21,7 @@
   },
   {
     "title": "Sustainability in Action",
-    "dek": "<p>Explore our commitment to sustainability and how we're making a difference in preserving the environment. Join us on the journey to a greener future.</p>",
+    "summary": "<p>Explore our commitment to sustainability and how we're making a difference in preserving the environment. Join us on the journey to a greener future.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -41,7 +41,7 @@
   },
   {
     "title": "Innovative Technology for Tomorrow",
-    "dek": "<p>Stay ahead with the latest in technology. Explore how our organization is leveraging cutting-edge innovations to shape the future.</p>",
+    "summary": "<p>Stay ahead with the latest in technology. Explore how our organization is leveraging cutting-edge innovations to shape the future.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -61,7 +61,7 @@
   },
   {
     "title": "Building Stronger Communities",
-    "dek": "<p>Learn about our initiatives to build stronger and more resilient communities. Together, we can create a brighter future for everyone.</p>",
+    "summary": "<p>Learn about our initiatives to build stronger and more resilient communities. Together, we can create a brighter future for everyone.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -81,7 +81,7 @@
   },
   {
     "title": "Unlocking Potential Through Education",
-    "dek": "<p>Discover the transformative power of education. Join us in empowering individuals and communities through access to quality education.</p>",
+    "summary": "<p>Discover the transformative power of education. Join us in empowering individuals and communities through access to quality education.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -101,7 +101,7 @@
   },
   {
     "title": "Celebrating Diversity and Inclusion",
-    "dek": "<p>Explore our commitment to fostering diversity and inclusion. Learn how we celebrate differences and create a culture of belonging.</p>",
+    "summary": "<p>Explore our commitment to fostering diversity and inclusion. Learn how we celebrate differences and create a culture of belonging.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -121,7 +121,7 @@
   },
   {
     "title": "Health and Wellness for All",
-    "dek": "<p>Discover our initiatives to promote health and wellness for all. Join us in creating a world where everyone can thrive.</p>",
+    "summary": "<p>Discover our initiatives to promote health and wellness for all. Join us in creating a world where everyone can thrive.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -141,7 +141,7 @@
   },
   {
     "title": "The Future of Work",
-    "dek": "<p>Explore the changing landscape of work and how our organization is shaping the future of the workplace. Join us in redefining work for everyone.</p>",
+    "summary": "<p>Explore the changing landscape of work and how our organization is shaping the future of the workplace. Join us in redefining work for everyone.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -161,7 +161,7 @@
   },
   {
     "title": "Art and Culture Exploration",
-    "dek": "<p>Immerse yourself in the world of art and culture. Discover how our organization supports and promotes creative expression for a vibrant society.</p>",
+    "summary": "<p>Immerse yourself in the world of art and culture. Discover how our organization supports and promotes creative expression for a vibrant society.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -181,7 +181,7 @@
   },
   {
     "title": "Exploring the Wonders of Science",
-    "dek": "<p>Journey with us into the fascinating realm of science. Learn about our initiatives to promote scientific discovery and innovation.</p>",
+    "summary": "<p>Journey with us into the fascinating realm of science. Learn about our initiatives to promote scientific discovery and innovation.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -201,7 +201,7 @@
   },
   {
     "title": "Connecting Through Technology",
-    "dek": "<p>Discover how technology brings people together. Explore our efforts to bridge gaps and create a connected and inclusive digital world.</p>",
+    "summary": "<p>Discover how technology brings people together. Explore our efforts to bridge gaps and create a connected and inclusive digital world.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",
@@ -221,7 +221,7 @@
   },
   {
     "title": "Culinary Adventures for Food Enthusiasts",
-    "dek": "<p>Embark on a culinary journey with us. From unique recipes to food culture, explore the world of gastronomy and satisfy your foodie cravings.</p>",
+    "summary": "<p>Embark on a culinary journey with us. From unique recipes to food culture, explore the world of gastronomy and satisfy your foodie cravings.</p>",
     "image": [
         {
             "url": "https://unsplash.it/1300/900",

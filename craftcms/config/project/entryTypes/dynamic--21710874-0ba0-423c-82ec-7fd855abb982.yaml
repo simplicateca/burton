@@ -6,6 +6,13 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            elementCondition: null
+            template: _sitehub/ui-template-collection.twig
+            type: craft\fieldlayoutelements\Template
+            uid: e261643b-c263-47ff-9272-a2e82415bf29
+            userCondition: null
+            width: 100
+          -
             autocapitalize: true
             autocomplete: false
             autocorrect: true
@@ -16,7 +23,7 @@ fieldLayouts:
             includeInCards: false
             inputType: null
             instructions: null
-            label: null
+            label: 'Collection Name'
             max: null
             min: null
             name: null
@@ -33,29 +40,19 @@ fieldLayouts:
             uid: 0ced76d2-45fd-4a95-98d0-d4aace59627a
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
             elementCondition: null
-            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 896d8ac6-191d-4191-bcc4-172cddd8c259
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: fdf71f01-3ee5-4356-abe0-65fdfc3e1c58
             userCondition: null
-            warning: null
-            width: 100
           -
             elementCondition: null
             fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
             handle: null
             includeInCards: false
             instructions: null
-            label: null
+            label: 'Content Source'
             providesThumbs: false
             required: false
             tip: null
@@ -100,7 +97,7 @@ fieldLayouts:
                   fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
                   layoutElementUid: 9283ceb7-142e-4115-804b-e3918ea8d85e
                   operator: in
-                  uid: 967f5c70-d3e6-49e5-a49a-7eb2a6f581ea
+                  uid: 19898f03-1285-4cdf-b5c8-30d123c9d401
                   values:
                     - articles
               elementType: craft\elements\Entry
@@ -109,12 +106,39 @@ fieldLayouts:
             handle: null
             includeInCards: false
             instructions: null
-            label: Author
+            label: 'Related Users'
             providesThumbs: false
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 6c3b7dc5-c1e3-4a79-bfff-401a9ec35084
+            uid: 062c0206-e94b-4523-8b87-11464e622421
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
+                  layoutElementUid: 9283ceb7-142e-4115-804b-e3918ea8d85e
+                  operator: in
+                  uid: 152a656f-b5a9-4a8f-b69a-c019535155d7
+                  values:
+                    - pages
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Related Entries'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 37ab177e-c0c8-4908-8960-ed2b953eda17
             userCondition: null
             warning: null
             width: 25
@@ -126,7 +150,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
             handle: null
             includeInCards: false
             instructions: null
@@ -135,22 +159,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 1ffd1279-df72-47a9-bf95-73628ac0d32c
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 39f58f4e-1210-4a42-9d1b-65d50521a123
+            uid: 0751e5e3-4bb4-404e-8b16-d9a2955ef36b
             userCondition: null
             warning: null
             width: 50
@@ -191,7 +200,7 @@ handle: dynamic
 hasTitleField: true
 icon: radar
 name: 'Dynamic Collection'
-showSlugField: false
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

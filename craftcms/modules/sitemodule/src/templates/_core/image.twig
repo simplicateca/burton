@@ -472,8 +472,8 @@
     {%- set width  = type == 'square'     ? 900 : width  -%}
     {%- set height = type == 'square'     ? 900 : height -%}
 
-    {%- set width  = type == 'skull'      ? 160 : width  -%}
-    {%- set height = type == 'skull'      ? 160 : height -%}
+    {%- set width  = type == 'skull'      ? 240 : width  -%}
+    {%- set height = type == 'skull'      ? 240 : height -%}
 
     {%- set color = settings.color ??? '#475569' -%}
     {%- set color = color|replace({'#':''})   -%}
@@ -490,6 +490,8 @@
         : source %}
 
     {# Use local SVG files for icon placeholders #}
+    {## TODO: Update this to use the new Craft 5 SVG Icon Library ##}
+    
     {% if type == 'icon' %}
         {% set svgs = ['brick','calendar','cart','circle-error','circle-check','phone','star','widget'] %}
         {{ svg( '@webroot/static/svg/' ~ shuffle(svgs)|first ~'.svg') | attr({ class: 'fill-current h-20 w-20 mx-auto' }) }}

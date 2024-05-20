@@ -6,7 +6,7 @@ searchable: true
 settings:
   availableTransforms: ''
   availableVolumes: ''
-  ckeConfig: 54bdf500-79d2-4c24-9147-1e3da8064473 # Full
+  ckeConfig: 54bdf500-79d2-4c24-9147-1e3da8064473 # Full Text
   createButtonLabel: null
   defaultTransform: null
   enableSourceEditingForNonAdmins: false

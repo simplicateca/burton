@@ -35,25 +35,20 @@
 
 {-------------------------------------------------------------------------------------##}
 {% block content %}
-    {%- set settings = {
-        container  : 'fluid',
-        microlayout: 'default',
-        interface  : 'keyword',
-        pagination : 'nextprev',
-        iterator  : 'grid3',
-        results    : true,
-        limit      : 3,
-    } -%}
-
-    {{ sprig( "_core/block.component.search", {
-        _usesprig: true,
-        settings: settings,
-        collect: {
-            where: {
-                section: 'articles',
-            },
+    {{ include( "_core/block.component.search", {
+        collections:[{
+            where: { section: 'articles' },
             with: ['images'],
             relatedTo: entry.id,
-        }
+        }],
+        block: { settings: {
+            container  : 'fluid',
+            microlayout: 'default',
+            interface  : 'keyword',
+            pagination : 'nextprev',
+            iterator   : 'grid3',
+            autosearch : true,
+            limit      : 3,
+        } }
     } ) }}
 {% endblock %}

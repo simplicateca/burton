@@ -10,7 +10,8 @@
     When `type` is null, it's because Craft is looking for all possible options to use
     in a list of conditional field settings.
 {-------------------------------------------------------------------------------------##}
-{%- set type  = type  ?? null -%}
+{%- set type  = type  ?? '' -%}
+{%- set type  = type  | lower -%}
 {%- set field = field ?? null -%}
 
 {## Add a 'Use Fragment' option to all Theme configs that aren't headerBuilder ##}

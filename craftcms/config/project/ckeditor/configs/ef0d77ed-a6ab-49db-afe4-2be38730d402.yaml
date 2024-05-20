@@ -1,6 +1,7 @@
 headingLevels:
-  - 1
-name: Summary
+  - 3
+  - 4
+name: Description
 toolbar:
   - heading
   - '|'

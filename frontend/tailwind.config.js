@@ -31,8 +31,16 @@ module.exports = {
                 body:     ["Roboto Mono"],
             },
 
+            lineHeight: {
+                'taut': '1.125'
+            },
+
+            // tiny container sizes are for column based
+            // container queries on already small screens
             containers: {
-                '2xs': '16rem'
+                '2xs': '16rem',
+                '3xs': '12rem',
+                '4xs': '8rem'
             },
 
             animation: {

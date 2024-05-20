@@ -63,7 +63,7 @@ class CardBaseTwig extends AbstractExtension
          *
          * !! TODO: Include all Craft Element Types + Commerce Products + Verbb Events
          * https://craftcms.com/docs/5.x/system/elements.html#element-types
-         * 
+         *
          *
          */
         $section   = $content->section->handle ?? $content->section ?? null;
@@ -75,51 +75,77 @@ class CardBaseTwig extends AbstractExtension
         //     // {% if itemtype == 'SUPERTABLE' %}{% set section = 'bits'   %}{% endif %}
         // }
 
-        $cardimages = ( $content->images ?? null ) ? $content->images : null;
-        $cardimages = is_string( $cardimages ) ? [$cardimages] : $cardimages;
-        $cardimages = is_object( $cardimages ) ? $cardimages->all() : $cardimages;
+        $eyebrow  = Retcon::getInstance()->retcon->only( $content->summary ?? '', 'div.eyebrow' );
+        $headline = $this->_cardheadline( $content->summary ?? '' ) ?? $content->title ?? null;
 
-        $headline   = trim( $content->headline ?? $content->title ?? null );
-        $eyebrow    = Retcon::getInstance()->retcon->only( $headline, 'div.eyebrow' ) ?? null;
-        $headline   = Retcon::getInstance()->retcon->change( $headline, ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div'], false );
-        $headline   = Retcon::getInstance()->retcon->remove( $headline, ['img', 'a', 'figure', 'iframe', 'div.eyebrow'] );
+        $label = $this->_cardlabel( $content->label ?? null )
+              ?? $this->_cardlabel( $eyebrow )
+              ?? $this->_cardlabel( $headline );
 
-        $fulltext   = trim( $content->text ?? null );
-        $summary    = trim( $content->summary ?? $content->dek ?? null );
-
-        if( $fulltext && empty( $summary ) ) {
-            $summary = $this->truncate( $fulltext, 150 );
-        }
-
-        if( $summary && !in_array( strtolower( substr( $summary, 0, 3) ), ['<p ', '<p>'] ) ) {
-            $summary = '<p>' . $summary . '</p>';
-        }
-
-        $url = $content->url ?? null;
+        $summary = $this->_cardtext( $content->summary ?? '' ) ?? $this->_cardtext( $content->headline ?? '' );
+        $summary = ( empty( $summary ) && $content->text ?? null )
+            ? $this->_truncate( $this->_cardtext( $content->text ), 150 )
+            : $summary;
 
         $card = [
-            '_element' => $content,
+            '_element'  => $content,
             'headline'  => trim( $headline ),
-            'fulltext'  => $fulltext,
+            'longtext'  => $content->text ?? '',
             'summary'   => $summary,
             'eyebrow'   => trim( $eyebrow ),
             'section'   => $section,
-            'images'    => $cardimages,
+            'images'    => $this->_cardimages( $content->images ?? null ),
+            'label'     => $label,
             'type'      => $entrytype,
-            'url'       => $url,
+            'url'       => $content->url ?? null,
         ];
-
-        // Card Label - sometimes used for tabs or accordions titles
-        $eyebrow_label  = trim( strip_tags( $card['eyebrow'] ) );
-        $headline_label = trim( strip_tags( $card['headline'] ) );
-        $card['label']  = empty( $eyebrow_label ) ? $headline_label : $eyebrow_label;
 
         return $card;
     }
 
 
 
-    private function truncate( $string, $length = 150 ) : string
+    private function _cardheadline( $content = "" ) : string|null {
+        $headline = $content;
+        $headline = Retcon::getInstance()->retcon->only( $headline, 'h3' );
+        $headline = Retcon::getInstance()->retcon->change( $headline, ['h3'], false );
+        $headline = Retcon::getInstance()->retcon->change( $headline, ['a', 'button'], 'span' );
+        $headline = Retcon::getInstance()->retcon->removeEmpty( $headline );
+
+        if( empty( trim( strip_tags($headline) ) ) ) { return null; }
+
+        return $headline;
+    }
+
+
+    private function _cardtext( $content = "" ) : string|null {
+
+        $summary = $content;
+        $summary = Retcon::getInstance()->retcon->remove( $summary, ['h1', 'h3', '.eyebrow'] );
+        $summary = Retcon::getInstance()->retcon->remove( $summary, ['img', 'figure', 'iframe'] );
+        $summary = Retcon::getInstance()->retcon->removeEmpty( $summary );
+
+        if( empty( trim( strip_tags($summary) ) ) ) { return null; }
+
+        $summary = Retcon::getInstance()->retcon->change( $summary, ['h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'li', 'div', 'p', 'a', 'button'], 'span' );
+
+        return "<p>{$summary}</p>";
+    }
+
+
+    private function _cardlabel( $content = "" ) : string|null {
+        return trim( strip_tags($content) );
+    }
+
+
+    private function _cardimages( $images = null ) : mixed {
+        $cardimages = is_string( $images ) ? [$images] : $images;
+        $cardimages = is_object( $images ) ? $images->all() : $images;
+        return $cardimages;
+    }
+
+
+    private function _truncate( $string, $length = 150 ) : string
     {
         $string = strip_tags( $string );
 

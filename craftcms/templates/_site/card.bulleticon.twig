@@ -10,16 +10,19 @@
 {%- set card = card ??? null -%}
 
 {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
-{%- set settings = settings | merge({
-    card__imagelayer: 'icon'
-}) -%}
-
 
 {## Overload Parent Blocks
-{---------------------------------------------------------------------------------------}
-
 {-------------------------------------------------------------------------------------##}
 {% block card__class "w-full relative @container flex flex-col gap-4" %}
+
+{% block card__images -%}
+    {% if card._element.icon ??? null %}
+        {{ svg( '@appicons/' ~ card._element.icon ~ '.svg' ) | attr({ 'class': 'w-16 h-16 inline-block fill-theme-accent mx-auto'}) }}
+    {% else %}
+        {%- import "_core" as assemble -%}
+        {{- assemble.imagelayer( 'icon', card.images, settings ) -}}
+    {% endif %}
+{%- endblock %}
 
 {% block card__words -%}
     <div class="flex flex-col gap-4">
@@ -28,7 +31,7 @@
         {%- endblock -%}
 
         {%- block card__summary -%}
-            {%- if card.summary %}{{ card.summary | attr({ class: "text-center" }) }}{% endif -%}
+            {%- if card.summary %}{{ card.summary | attr({ class: "text-center smaller @2xs:normal @sm:larger" }) }}{% endif -%}
         {%- endblock -%}
     </div>
 

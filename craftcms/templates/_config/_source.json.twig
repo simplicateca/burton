@@ -10,7 +10,22 @@
     When `type` is null, it's because Craft is looking for all possible options to use
     in a list of conditional field settings.
 {-------------------------------------------------------------------------------------##}
-{%- set type  = type  ?? null -%}
+{%- set type  = type  ?? '' -%}
+{%- set type  = type  | lower -%}
 {%- set field = field ?? null -%}
 
-{{- include( '_config/source.json' ) -}}
+{% if 'component' == type %}
+    {{- include( '_config/block.component.system.json' ) -}}
+{% endif %}
+
+{% if 'dynamic' == type %}
+    {{- include( '_config/dynamic.sources.json' ) -}}
+{% endif %}
+
+{## Probably just need a list of names & values for all possibly variants ##}
+{% if not type %}
+    {% set combined =       [] | merge( include( '_config/block.component.system.json' ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/dynamic.sources.json'        ) | json_decode ) %}
+
+    {{ combined | json_encode }}
+{% endif %}

@@ -20,7 +20,7 @@
 {% macro icon( image, settings ) %}
     {%- set settings = settings ??? null and settings is iterable ? settings : {} %}
     {{- _self.default( image, {
-        figureclass : "max-w-[80px] @3xl/zone:max-w-[170px] mx-auto relative",
+        figureclass : "max-w-28 @4xs:max-w-32 @3xs:max-w-36 mx-auto relative",
         _placeholder: "icon"
     } | merge( settings ) ) -}}
 {%- endmacro %}

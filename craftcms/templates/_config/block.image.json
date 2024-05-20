@@ -8,7 +8,7 @@
     "virtuals": [{
         "type" : "select",
         "name" : "iterator",
-        "value": "single",
+        "default": "single",
         "label": "Handling Multiple Images",
         "instructions": "Applied if adding multple images",
         "options" : [
@@ -21,13 +21,13 @@
     },{
         "type" : "number",
         "name" : "limit",
-        "value": "8",
+        "default": "8",
         "label": "Limit",
         "instructions": "If pulling from Collection, etc"
     },{
         "type" : "select",
         "name" : "force",
-        "value": "nothing",
+        "default": "nothing",
         "label": "Force Transform?",
         "instructions": "",
         "options" : [
@@ -37,7 +37,7 @@
     },{
         "type" : "select",
         "name" : "caption",
-        "value": "hidden",
+        "default": "hidden",
         "label": "Caption / Attribution",
         "instructions": "",
         "options" : [
@@ -55,7 +55,7 @@
     "virtuals": [{
             "type" : "select",
             "name" : "imagelayer",
-            "value": "stretch",
+            "default": "stretch",
             "label": "Choose Frame",
             "instructions": "",
             "options" : {
@@ -85,7 +85,7 @@
     "virtuals": [{
         "type" : "select",
         "name" : "imagelayer",
-        "value": "replacebg",
+        "default": "replacebg",
         "label": "Usage",
         "options" : {
             "replacebg": "Replace Page Background",
@@ -94,7 +94,7 @@
     },{
         "type" : "color",
         "name" : "overlay",
-        "value": "#ffffff",
+        "default": "#ffffff",
         "label": "Overlay",
         "fieldClass": "width-25"
     },{
@@ -103,7 +103,7 @@
         "min"  : 0,
         "step" : 5,
         "max"  : 100,
-        "value": "25",
+        "default": "25",
         "label": "Opacity",
         "fieldClass": "width-25"
     }]

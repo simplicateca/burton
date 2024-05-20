@@ -2,6 +2,24 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer utilities {
+    [data-bodycopy] {
+        .larger  { font-size: 1.20em; }
+        .normal  { font-size: 1.00em; }
+        .smaller { font-size: 0.80em; }
+    }
+
+/** Utility class for making a parent element (card) clickable without resorting to
+    wrapping the card in it's own <a> tag, using multiple tags, or onclick events.
+    Make sure the parent element has class='relative' or .. you know ..  **/
+    .click__cover {
+        &::before {
+            @apply absolute content-[""] inset-0 z-50;
+        }
+    }
+}
+
+
 /** Base Site Styles
 /---------------------------------------------------------------------------------------/
     1. Block Themes
@@ -58,12 +76,12 @@ input[type="search"],
 input[type="password"],
 input[type="email"] {
     @apply
+        bg-theme-tint
+        text-theme-bodycopy
         p-2.5
-        rounded-lg
         border
         border-theme-tint
-        text-theme-bodycopy
-        bg-theme-tint
+        rounded-lg
     ;
 }
 
@@ -87,7 +105,7 @@ input[type=radio].sr-only:checked + label {
     These new prefixes work exactly like the core responsive prefixes (sm:/lg:/2xl:etc),
     only using the parent container with for making adjustments, not the device width.
 
- -> https://github.com/tailwindlabs/tailwindcss-container-queries
+ -> https://tailwindcss.com/docs/plugins#container-queries
 /-------------------------------------------------------------------------------------**/
 
 
@@ -98,44 +116,24 @@ input[type=radio].sr-only:checked + label {
     <HtmlFieldData> text without crashing into other styles for common html elements.
 
 /**-----------------------------------------------------------------------------------**/
-p, ul, ol, blockquote {
-    @apply font-body leading-snug text-theme-bodycopy;
-}
+/* p, ul, ol, blockquote {
+    @apply font-body leading-relaxed text-theme-bodycopy;
+} */
 
 [data-bodycopy] {
 
-    /** text sizing **/
+    @apply
+        font-body
+        text-theme-bodycopy;
+
     p, ul, ol, blockquote {
         @apply
-            font-body leading-snug text-theme-bodycopy
-            mb-6 @xl:mb-8 @3xl:mb-10 @5xl:mb-12
-        ;
-
-        /** the ones that are neither .larger or .smaller **/
-        &:not(.larger):not(.smaller) {
-            @apply        text-base          @md:text-lg            @xl:text-xl            @3xl:text-2xl          @5xl:text-3xl;
-            @apply
-                @xs/small:text-sm      @md/small:text-base    @xl/small:text-lg      @3xl/small:text-xl     @5xl/small:text-2xl
-                @xs/large:text-lg      @md/large:text-xl      @xl/large:text-2xl     @3xl/large:text-3xl    @5xl/large:text-4xl;
-        }
-
-        /** the ones that are .. **/
-        &.larger {
-            @apply        text-lg            @md:text-xl            @xl:text-2xl           @3xl:text-3xl          @5xl:text-4xl;
-            @apply
-                @xs/large:text-xl      @md/large:text-2xl     @xl/large:text-3xl     @3xl/large:text-4xl    @5xl/large:text-5xl
-                @xs/small:text-base    @md/small:text-lg      @xl/small:text-xl      @3xl/small:text-2xl    @5xl/small:text-3xl;
-        }
-
-        &.smaller {
-            @apply        text-sm            @md:text-base          @xl:text-lg            @3xl:text-xl           @5xl:text-2xl;
-            @apply
-                @xs/large:text-base    @md/large:text-lg      @xl/large:text-xl      @3xl/large:text-2xl    @5xl/large:text-3xl
-                @xs/small:text-xs      @md/small:text-sm      @xl/small:text-base    @3xl/small:text-lg     @5xl/small:text-xl;
-        }
+            text-sm        @4xs:text-base     @md:text-lg       @xl:text-xl       @3xl:text-2xl      @5xl:text-3xl
+            leading-tight  @4xs:leading-snug  @md:leading-snug  @xl:leading-snug  @3xl:leading-snug  @5xl:leading-normal
+            mb-3           @4xs:mb-4          @md:mb-6          @xl:mb-8          @3xl:mb-10         @5xl:mb-12;
     }
 
-    /* add a little extra spacing before headers that appear after body text */
+    /* a little extra spacing before headers that appear after body text */
     p+h2, ul+h2, ol+h2, blockquote+h2,
     p+h3, ul+h3, ol+h3, blockquote+h3,
     p+h4, ul+h4, ol+h4, blockquote+h4,
@@ -143,8 +141,7 @@ p, ul, ol, blockquote {
     p+.like-h3, ul+.like-h3, ol+.like-h3, blockquote+.like-h3,
     p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 {
         @apply
-            mt-5 @xl:mt-8 @3xl:mt-8 @5xl:mt-10
-        ;
+            mt-6      @4xs:mt-8        @md:mt-12     @xl:mt-16     @3xl:mt-20      @5xl:mt-24;
     }
 
     /** This is a pretty hack way to do two columns, but it gets the point across. It could
@@ -192,7 +189,7 @@ p, ul, ol, blockquote {
     }
 
     blockquote {
-        @apply bg-theme-tint2 p-4 @xl:p-10;
+        @apply bg-theme-tint p-4 @xl:p-10;
     }
 
     mark {
@@ -213,7 +210,10 @@ p, ul, ol, blockquote {
 
 /** Removing the bottom margin on the last element inside one of these blocks is almost
     always a good thing to help alignment with other elements and reduce large gaps. **/
-*[data-bodycopy] .\@container {
+.last-child-mb-0,
+[data-bodycopy][class*="@container"],
+[data-bodycopy] .\@container {
+    & > h1:last-child,
     & > h2:last-child,
     & > h3:last-child,
     & > h4:last-child,
@@ -230,18 +230,34 @@ p, ul, ol, blockquote {
 
 h1,h2,h3,h4,h5,h6,
 .like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
-    @apply font-headline font-extrabold leading-tight mb-5 text-theme-headings;
+    @apply
+        font-headline
+        font-extrabold
+        text-theme-headings;
 
-    strong { @apply text-theme-highlight; }
+    strong {
+        @apply
+            text-theme-accent/70;
+    }
 
-    &.knockout { @apply bg-theme-accent text-theme-accent-alt p-2 inline-table text-center; }
+    &.knockout {
+        @apply
+            bg-theme-accent
+            text-theme-accent-alt
+            py-3
+            px-5
+            inline-table
+            text-center;
+     }
 }
 
 h1, .like-h1 {
     @apply
-        font-display text-theme-accent
-        text-4xl    @lg:text-5xl    @2xl:text-6xl   @4xl:text-7xl   @6xl:text-8xl
-    ;
+        font-display
+        text-theme-accent
+        text-xl        @4xs:text-2xl      @xs:text-4xl      @lg:text-5xl      @2xl:text-6xl       @4xl:text-7xl       @6xl:text-8xl
+        leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
+        mb-4      @4xs:mb-6       @md:mb-10       @3xl:mb-14;
 
     /** a little less gap if immediately followed by <h2> **/
     &+h2, &+.like-h2 { @apply -mt-2.5; }
@@ -249,14 +265,15 @@ h1, .like-h1 {
 
 h2, .like-h2 {
     @apply
-        text-3xl pb-4 relative
-
-        @xs/large:text-4xl    @lg/large:text-5xl    @2xl/large:text-6xl   @4xl/large:text-7xl   @6xl/large:text-8xl
-              @xs:text-3xl          @lg:text-4xl          @2xl:text-5xl         @4xl:text-6xl         @6xl:text-7xl
-        @xs/small:text-2xl    @lg/small:text-3xl    @2xl/small:text-4xl   @4xl/small:text-5xl   @6xl/small:text-6xl
+        text-lg        @4xs:text-xl       @xs:text-3xl      @lg:text-4xl      @2xl:text-5xl       @4xl:text-6xl       @6xl:text-7xl
+        leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
+        mb-4      @4xs:mb-6       @md:mb-10       @3xl:mb-14;
     ;
 
     /** a stylish underline :) **/
+    /* relative pb-4 */
+    position: relative;
+    padding-bottom: 1rem;
     &:after { @apply bg-theme-highlight absolute content-[''] block w-16 h-1 -bottom-1; }
     &[class*="text-center"]:after { transform: translateX(-50%); left:50%; width: 10rem; }
     &[class*="text-right"]:after  { right: 0rem; }
@@ -267,12 +284,9 @@ h2, .like-h2 {
 
 h3, .like-h3 {
     @apply
-        text-2xl
-
-        @xs/large:text-3xl    @lg/large:text-4xl    @2xl/large:text-5xl   @4xl/large:text-6xl   @6xl/large:text-7xl
-              @xs:text-2xl          @lg:text-3xl          @2xl:text-4xl         @4xl:text-5xl         @6xl:text-6xl
-        @xs/small:text-xl     @lg/small:text-2xl    @2xl/small:text-3xl   @4xl/small:text-4xl   @6xl/small:text-5xl
-    ;
+        text-base      @4xs:text-lg       @xs:text-2xl      @lg:text-3xl      @2xl:text-4xl       @4xl:text-5xl       @6xl:text-6xl
+        leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
+        mb-4    @4xs:mb-5    @md:mb-8    @3xl:mb-10;
 
     /** a little less gap if immediately followed by <h4> **/
     &+h4, &+.like-h4 { @apply -mt-2.5; }
@@ -280,12 +294,12 @@ h3, .like-h3 {
 
 h4, .like-h4 {
     @apply
-        text-lg border-b-2 border-theme-highlight
+        border-b-2
+        border-theme-highlight
 
-        @xs/large:text-2xl    @lg/large:text-3xl    @2xl/large:text-4xl   @4xl/large:text-5xl   @6xl/large:text-6xl
-              @xs:text-xl           @lg:text-2xl          @2xl:text-3xl         @4xl:text-4xl         @6xl:text-5xl
-        @xs/small:text-lg     @lg/small:text-xl     @2xl/small:text-2xl   @4xl/small:text-3xl   @6xl/small:text-4xl
-    ;
+        text-sm        @4xs:text-base     @xs:text-xl       @lg:text-2xl      @2xl:text-3xl       @4xl:text-4xl       @6xl:text-5xl
+        leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
+        mb-3      @4xs:mb-4       @md:mb-6        @3xl:mb-8;
 
     /** a little less gap if immediately followed by <p>, <ul>. <ol> **/
     &+p, &+ul, &+ol { @apply -mt-2.5; }
@@ -342,16 +356,4 @@ h1,h2,h3,h4,h5,h6, .like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
         hover:bg-theme-accent-tint
         hover:text-theme-accent-alt
     ;
-}
-
-
-
-/** Utility class for making a parent element (card) clickable without resorting to
-    wrapping the card in it's own <a> tag, using multiple tags, or onclick events.
-    Make sure the parent element has class='relative' or .. you know ..  **/
-a.click__cover,
-button.click__cover {
-    &::before {
-        @apply absolute content-[""] inset-0 z-50;
-    }
 }

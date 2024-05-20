@@ -1,10 +1,24 @@
+{% extends template_from_string('{% block header__base "" %}') %}
+
+{% import "_core" as assemble %}
+
+{% block header__open %}
+    <header {{attr({
+        id   : "masthead",
+        role : "banner",
+        class: "relative z-10 py-20 canvas",
+        data : { theme: theme ??? 'base' }
+    }) }}>
+{% endblock %}
+
+{% block header__close "</header>" %}
+
 {## Page Header Elements   [Site Template]
 {---------------------------------------------------------------------------------------}
     Defaults & common elements that appear in and around the site-wide page <header>.
     - http://localhost:8000/sitehub/layout/header
 {-------------------------------------------------------------------------------------##}
 {% block header__base %}
-    {% import "_core" as assemble %}
 
     {% set headblocks = entry.headerBuilder.all() ??? null %}
     {% set intopbar   = ( headblocks and headblocks[0].settings.spacerabove ??? false == 'topbar' ) %}
@@ -15,30 +29,26 @@
         {{ block('header__breadcrumb') }}
     {% endif %}
 
-    {% block header__open %}
-        <header {{attr({
-            id   : "masthead",
-            role : "banner",
-            class: "relative z-10 py-20 canvas",
-            data : { theme: theme }
-        }) }}>
-    {% endblock %}
+    {{ block( 'header__open' ) }}
+    {% block header__afteropen "" %}
 
     {{ block( 'header__builder' ) }}
-
-    {% block header__close "</header>" %}
 
     {% if headblocks and intopbar %}
         {{ block('header__breadcrumb') }}
     {% endif %}
+
+    {% block header__beforeclose "" %}
+    {{ block( 'header__close' ) }}
 {% endblock %}
+
 
 
 {% block header__builder %}
     {% import "_core" as assemble %}
 
     {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? null %}
-    {% set headblocks = headblocks ? headblocks : [{ html: block('header__plainH1') }] %}
+    {% set headblocks = headblocks ? headblocks : [{ html: block('header__plaintitle') }] %}
 
     {{ assemble.builder( 'header', headblocks, {
         container  : "fluid",
@@ -49,21 +59,18 @@
 
 
 
-{% block header__plainH1 %}
-    {% import "_core" as assemble %}
+{% block header__plaintitle %}
+    {%- set header__title    = header__title ??? entry.expandedTitle | retconOnly('h1') | retconChange( 'h1', false ) ??? null -%}
+    {%- set header__align    = header__align ??? 'center' -%}
+    {%- set header__title    = header__title ??? entry.title -%}
+    {%- set header__subtitle = header__subtitle ??? entry.expandedTitle | retconRemove('h1') ??? null -%}
 
-    {% set title    = entry.title    ??? null %}
-    {% set subtitle = entry.subtitle ??? null %}
-
-    <div class="max-w-7xl mx-auto text-center">
-        {{ title ? tag( 'h1', { html: title|widont, class: "max-w-7xl knockout" } ) }}
-
-        {% if subtitle %}
-            <div class="max-w-5xl mx-auto text-center" data-bodycopy>
-                {{ tag( 'p', { html: subtitle, class: 'larger' } ) }}
-            </div>
-        {% endif %}
-    </div>
+    {% if header__title or header__subtitle %}
+        <div class="max-w-7xl flex flex-col gap-3 @container/large last-child-mb-0 {{ header__align == 'center' ? 'mx-auto' }}" data-bodycopy>
+            {{ header__title    ? tag( 'h1',  { html: header__title|widont, class:['text-theme-accent', "#{header__align == 'center' ? 'text-center'}"], itemprop: 'headline' } ) }}
+            {{ header__subtitle ? tag( 'div', { html: header__subtitle|widont, class: ['max-w-5xl last-child-mb-0', "#{header__align == 'center' ? 'mx-auto text-center'}"], itemprop:'description' } ) }}
+        </div>
+    {% endif %}
 {% endblock %}
 
 

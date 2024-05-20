@@ -3,7 +3,7 @@ enableVersioning: true
 entryTypes:
   - 80b8014d-fa4b-4271-9c59-73cd7c7c6d78 # Article
 handle: articles
-maxAuthors: 1
+maxAuthors: 2
 name: Articles
 previewTargets:
   -

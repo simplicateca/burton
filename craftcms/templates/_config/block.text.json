@@ -8,12 +8,12 @@
     "virtuals": [{
         "type" : "select",
         "name" : "textlayer",
-        "value": "default",
-        "label": "Primary Copy Format",
-        "instructions": "Typography treatment for the Primary Copy",
+        "default": "default",
+        "label": "Typography",
+        "instructions": "Choose the base `Copy` format.",
         "options" : {
-            "default": "Default Text Treatment",
-            "twocols": "Two Columns (Auto)"
+            "default": "Default",
+            "twocols": "Two Columns"
         }
     }]
 },{
@@ -26,7 +26,7 @@
     "virtuals": [{
         "type" : "select",
         "name" : "textlayer",
-        "value": "default",
+        "default": "default",
         "label": "Primary Copy Format",
         "instructions": "Typography treatment for the Primary Copy",
         "options" : {
@@ -35,7 +35,7 @@
     },{
         "type" : "select",
         "name" : "text2layer",
-        "value": "default",
+        "default": "default",
         "label": "Secondary Copy Format",
         "instructions": "Typography treatment for the Secondary Copy",
         "options" : {
@@ -45,7 +45,7 @@
     },{
         "type" : "text",
         "name" : "buttontext",
-        "value": "Continue Reading...",
+        "default": "Continue Reading...",
         "label": "Reveal Button Text"
     }]
 },{
@@ -59,7 +59,7 @@
         {
             "type" : "select",
             "name" : "textlayer",
-            "value": "default",
+            "default": "default",
             "label": "Primary Copy Format",
             "instructions": "Typography treatment for the Primary Copy",
             "options" : {
@@ -69,7 +69,7 @@
        ,{
             "type" : "select",
             "name" : "text2layer",
-            "value": "callout",
+            "default": "callout",
             "label": "Callout Format",
             "instructions": "Typography treatment for the Callout",
             "options" : {
@@ -89,7 +89,7 @@
         {
             "type" : "select",
             "name" : "textlayer",
-            "value": "default",
+            "default": "default",
             "label": "Primary Copy Format",
             "instructions": "Typography treatment for the Primary Copy",
             "options" : {
@@ -102,7 +102,7 @@
        ,{
             "type" : "select",
             "name" : "text2layer",
-            "value": "default",
+            "default": "default",
             "label": "Secondary Copy Format",
             "instructions": "Typography treatment for the Secondary Copy",
             "options" : {

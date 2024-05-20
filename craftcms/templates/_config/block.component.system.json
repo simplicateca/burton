@@ -1,0 +1,45 @@
+[
+    { "optgroup": "Account Components", "label": "Account Components" },
+
+    {
+        "value": "accountregister",
+        "label": "Sign-up / Register",
+        "tooltips": { "inline": "" },
+        "settings" : {
+            "account__component": "register"
+        },
+        "virtuals": []
+    },
+
+    {
+        "value": "accountlogin",
+        "label": "Login",
+        "tooltips": { "inline": "" },
+        "settings" : {
+            "account__component": "login"
+        },
+        "virtuals": []
+    },
+
+    {
+        "value": "accountforgot",
+        "label": "Password Reset",
+        "tooltips": { "inline": "" },
+        "settings" : {
+            "account__component": "reset"
+        },
+        "virtuals": []
+    },
+
+    { "optgroup": "Misc Components", "label": "Misc Components" },
+
+    {
+        "value": "vuesample",
+        "label": "Vue Component Example",
+        "tooltips": { "inline": "" },
+        "settings" : {
+            "vue__component": "vueSampleComponent"
+        },
+        "virtuals": []
+    }
+]

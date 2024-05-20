@@ -27,7 +27,7 @@
     Change <h3> headlines to <div class="like-h3"> elements
 {-------------------------------------------------------------------------------------##}
 {% block card__headline -%}
-    {{ parent() | retconChange( 'h3', 'div' ) | attr({ class: 'like-h3 my-3' }) }}
+    {{ parent() | retconChange( 'h3', 'div' ) | attr({ class: 'like-h3 my-0' }) }}
 {% endblock %}
 
 
@@ -35,7 +35,7 @@
 {## If Handle Card Action = 'None'
 {---------------------------------------------------------------------------------------}
     If `settings.action` equals 'none' we will remove any embedded rich text links
-    or buttons from Redactor / CKeditor `summary` or `dek` fields.
+    or buttons from the CKeditor `summary` field.
 {-------------------------------------------------------------------------------------##}
 {# {% block card__summary -%}
     {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
@@ -73,11 +73,11 @@
     {%- elseif count == 7 -%}
         {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4" -%}
     {%- elseif count == 8 -%}
-        {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4" -%}
+        {%- set class = class ~ "@xs:grid-cols-2 @md:grid-cols-3 @2xl:grid-cols-4" -%}
     {%- elseif count == 9 -%}
         {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @6xl:grid-cols-5" -%}
     {%- elseif count == 10 -%}
-        {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4 @6xl:grid-cols-5" -%}
+        {%- set class = class ~ "@xs:grid-cols-2 @md:grid-cols-3 @2xl:grid-cols-4 @6xl:grid-cols-5" -%}
     {%- elseif count == 11 -%}
         {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 @6xl:grid-cols-6" -%}
     {%- elseif count >= 12 -%}

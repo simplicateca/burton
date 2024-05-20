@@ -1,4 +1,4 @@
-dateModified: 1715373866
+dateModified: 1715952492
 elementSources:
   craft\elements\Entry:
     -
@@ -175,6 +175,7 @@ fs:
 meta:
   __names__:
     0c3eb4bf-9fe7-422e-9947-289edfc00105: Redirect # Redirect
+    1a6e1555-2cf3-4964-96b6-9471a17e392a: 'Simple Text' # Simple Text
     01c13296-4c57-49c0-802a-e980de4d84e0: Addons # Addons
     01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa: 'Content Layout' # Content Layout
     1eb561c2-313a-4ea5-9332-dd8effd8eb73: Bit # Bit
@@ -193,21 +194,25 @@ meta:
     14dff90f-f8fc-444e-bc75-e51f72aa490d: Text # Text
     31cc93a2-d38f-4943-b7c2-473b72eb69a1: Variant # Variant
     40f8a572-f12e-49f2-849d-8fbe3395eb5c: Addon # Addon
-    54bdf500-79d2-4c24-9147-1e3da8064473: Full # Full
+    54bdf500-79d2-4c24-9147-1e3da8064473: 'Full Text' # Full Text
     80b8014d-fa4b-4271-9c59-73cd7c7c6d78: Article # Article
+    81fa1568-9bd5-4c7c-9562-cb6ac67ab298: Overview # Overview
     83a6e4e2-3e52-435e-bcb4-ced4dc7e387e: Taxonomies # Taxonomies
     93a86902-7a1b-4986-ba7f-35cef71233ac: 'Craft CMS' # Craft CMS
     97c10fff-f319-4ab2-8dac-c631658cb9a2: Fragments # Fragments
     99d1e742-e9ee-4468-8f52-06f9672d8f68: 'Content Page' # Content Page
     247cf34e-12cf-4324-b034-3209f48a18ff: 'Page Content' # Page Content
     335b1087-e2f6-41b1-b7de-f8d4b61d6c1e: Headline # Headline
+    461a993b-97dc-4ea7-99d2-4da5e4065337: Legal # Legal
+    545f1fed-e750-457f-91f5-47b4faf56f85: 'Expanded Title' # Expanded Title
     581b9070-f50c-49a0-91c7-2921437ad0fb: Color # Color
     615b4078-5891-406a-ba93-6eb8e1528924: Users # Users
     667ee826-8732-4bc8-8dbe-b7aefad82b15: Collections # Collections
     685e625d-7180-40dc-a031-953f5f9a8cef: 'Content Bits' # Content Bits
+    786cbf54-8fad-49b0-9d97-354b7aded9c4: Utility # Utility
     4248eeb1-ca4d-476f-9998-7780ee611c74: Image # Image
     4688dcb4-257f-4a94-b8b7-db234f63e0a9: 'Landing Pages' # Landing Pages
-    5635a1ac-adca-4a96-816a-7ae1b664bc4d: 'Block Theme' # Block Theme
+    5635a1ac-adca-4a96-816a-7ae1b664bc4d: 'Theme & Scenery' # Theme & Scenery
     7487ca3f-f51b-40e9-a538-40ab5b2c4a27: Text # Text
     96192f21-960f-489c-a380-96e4b51f2777: 'Card Deck' # Card Deck
     280486f4-01ac-42a0-8604-c20f6b62b5df: Uploads # Uploads
@@ -226,6 +231,8 @@ meta:
     b4783a60-e9ff-40a2-8e9e-159b24fad0a9: Media # Media
     bb561dd8-e748-4c68-9107-2ffd5db410d8: Topic # Topic
     bdc12ed2-dd0e-4189-9c87-1adaee91e73c: Transcript # Transcript
+    c8e327b3-dc6d-4da9-a4b8-0ebfd0dca1ae: Themes # Themes
+    c79e1e50-f4c9-4875-af8a-4a1be47d3c09: 'Extended Title' # Extended Title
     d3d3706c-8e74-46e7-801c-ceea9f8ee159: 'Newsletter Signup' # Newsletter Signup
     d8bf6768-4ff5-4727-ac20-12f8f0344542: Media # Media
     d34bee8e-bf22-451d-8339-a4342630833d: 'Craft CMS' # Craft CMS
@@ -234,10 +241,11 @@ meta:
     d554a8e7-e8ad-493b-aaa8-d611bf04b257: 'Website / Content URL' # Website / Content URL
     d794ad1d-257e-41a6-a11e-6e0c66406d07: Headline # Headline
     d7748b2a-ae79-4961-b103-a5aa758e39ab: 'Static Collection' # Static Collection
+    da081ad7-ada7-47b4-8049-d8707be07262: Primary # Primary
     e034ba0c-9edc-4c7c-91a5-8b3b0b8430c6: Menu # Menu
     e99d0421-a8b0-490d-98be-c5eb531ef855: New # New
     ec92452d-10f2-4a41-a9ee-bf384facb572: 'Topics & Tags' # Topics & Tags
-    ef0d77ed-a6ab-49db-afe4-2be38730d402: Summary # Summary
+    ef0d77ed-a6ab-49db-afe4-2be38730d402: Description # Description
     f3d34d10-7741-40ba-9fae-27d87f771b4d: Summary # Summary
     f240ce26-8d9d-4668-b18b-73371d5c5211: Entries # Entries
     f630a19c-44c3-4d70-9e7c-6db552e8a72d: Bit # Bit
@@ -264,7 +272,7 @@ plugins:
     edition: standard
     enabled: true
     licenseKey: NM40O8AZHW8MPQI3G0MQM82C
-    schemaVersion: 3.4.3
+    schemaVersion: 3.4.4
   navigation:
     edition: standard
     enabled: true
@@ -283,10 +291,6 @@ plugins:
     enabled: true
     licenseKey: 8F7J3RTMNWCHFZDNV5PYH126
     schemaVersion: 3.0.12
-  sprig:
-    edition: standard
-    enabled: true
-    schemaVersion: 1.0.1
   vite:
     edition: standard
     enabled: true
@@ -297,10 +301,3 @@ system:
   name: 'Craft CMS'
   schemaVersion: 5.0.0.20
   timeZone: America/Los_Angeles
-users:
-  allowPublicRegistration: false
-  defaultGroup: null
-  photoSubpath: null
-  photoVolumeUid: null
-  require2fa: false
-  requireEmailVerification: true

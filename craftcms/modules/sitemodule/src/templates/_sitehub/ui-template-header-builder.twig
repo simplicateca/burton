@@ -1,35 +1,12 @@
 <div class="fieldTemplate fieldTemplate__headerBuilder">
-    <h2>Header Builder</h2>
+    <h2>Header Content</h2>
 
     <p>
-        Use the header builder to introduce the content on the page, highlight vital information, solicit
-        conversions, or to tease the content that appears below the fold.
+        The <strong>Expanded Title</strong> allows for a <mark>lede</mark> or <mark>subtitle</mark> plus alternate &lt;h1&gt; text. The
+        <strong>Header Builder</strong> provides block layout flexibility. The entry <strong>Name</strong> is the fallback.
     </p>
 
-    <p>
-        If you don't customize the header section, the entry title (above) will be used.
-
+    {# <p>
         <a href="/sitehub/blocks/header" target="_blank">Header&nbsp;builder&nbsp;reference&nbsp;→</a>
-    </p>
+    </p> #}
 </div>
-
-{% css %}
-    {# #fields-headerBuilder .actions a.move.icon {
-        display: none;
-    } #}
-{% endcss %}
-
-
-{% js %}
-
-{# // provide a better message when a page already has a header block
-(function($) {
-    $(document).on('click', '#noMoreHerosText span[data-icon="settings"]', function(e) {
-        $(this)
-            .closest('div.matrix-field')
-            .find( 'div.actions button.settings' )
-            [ 0 ].click()
-    });
-})(jQuery); #}
-
-{% endjs %}

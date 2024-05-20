@@ -11,6 +11,7 @@ namespace modules\sitemodule\twigextensions;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
+use yii\helpers\Inflector;
 
 class ToolboxTwig extends AbstractExtension
 {
@@ -23,38 +24,54 @@ class ToolboxTwig extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction( 'md5',      [ $this, 'md5hash' ] ),
             new TwigFunction( 'hex2rgb',  [ $this, 'hex2rgb'  ] ),
             new TwigFunction( 'text4hex', [ $this, 'text4hex' ] ),
+            new TwigFunction( 'md5',      [ $this, 'md5hash'  ] ),
         ];
     }
 
     public function getFilters(): array
     {
         return [
+            // Yii Inflector Filters
+            // https://www.yiiframework.com/doc/api/2.0/yii-helpers-inflector
+            new TwigFilter( 'pluralize',    [ $this, 'pluralize' ] ),
+            new TwigFilter( 'singularize',  [ $this, 'singularize' ] ),
+            new TwigFilter( 'ordinalize',   [ $this, 'ordinalize' ] ),
+            new TwigFilter( 'humanize',     [ $this, 'humanize' ] ),
+            new TwigFilter( 'slugify',      [ $this, 'slugify' ] ),
+
+            // Color Filters
             new TwigFilter( 'hex2rgb',  [ $this, 'hex2rgb'  ] ),
             new TwigFilter( 'text4hex', [ $this, 'text4hex' ] ),
-            new TwigFilter( 'ucfirst',         'ucfirst' ),
-            new TwigFilter( 'decode_entities', 'html_entity_decode' ),
         ];
     }
+
+    public function pluralize( $string ) {
+        return Inflector::pluralize( $string );
+    }
+
+    public function singularize( $string ) {
+        return Inflector::singularize( $string );
+    }
+
+    public function ordinalize( $string ) {
+        return Inflector::ordinalize( $string );
+    }
+
+    public function humanize( $string ) {
+        return Inflector::humanize( $string );
+    }
+
+    public function slugify( $string ) {
+        return Inflector::slug( $string );
+    }
+
+
 
     public function md5hash( $string ) {
         return md5( $string );
     }
-
-    // public function ucFirstFilter(string|null $val)
-    // {
-    //     return ucfirst($val);
-    // }
-    //
-    //
-    //
-    // public function decodeEntities( string|null $html = "" ): string
-    // {
-    //     return html_entity_decode( $html );
-    // }
-
 
     /**
      * Convert a hex color value to RGB.

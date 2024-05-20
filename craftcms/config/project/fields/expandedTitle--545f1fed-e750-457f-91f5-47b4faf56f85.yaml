@@ -1,0 +1,21 @@
+columnSuffix: null
+handle: expandedTitle
+instructions: null
+name: 'Expanded Title'
+searchable: true
+settings:
+  availableTransforms: '*'
+  availableVolumes: '*'
+  ckeConfig: c79e1e50-f4c9-4875-af8a-4a1be47d3c09 # Extended Title
+  createButtonLabel: null
+  defaultTransform: null
+  enableSourceEditingForNonAdmins: false
+  purifierConfig: null
+  purifyHtml: true
+  showUnpermittedFiles: false
+  showUnpermittedVolumes: false
+  showWordCount: false
+  wordLimit: 150
+translationKeyFormat: null
+translationMethod: none
+type: craft\ckeditor\Field

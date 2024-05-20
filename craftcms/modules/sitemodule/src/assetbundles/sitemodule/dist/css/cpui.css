@@ -1,5 +1,13 @@
 .fieldTemplate {
     background: #fff;
+
+    mark {
+        background: #eee;
+    }
+
+    p {
+        line-height: 1.6em;
+    }
 }
 
 .fieldTemplate h2 {
@@ -10,9 +18,25 @@
     max-width: 720px;
 }
 
+.fieldTemplate div.flex {
+
+}
+
+.fieldTemplate div.flex iframe {
+
+}
+
 .fieldTemplate__headerBuilder {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+}
+
+#fields-headerBuilder-field {
+    padding-top: 1.25rem !important;
+}
+
+#fields-bodyBuilder-field {
+    padding-top: 2.25rem !important;
 }
 
 #content .flex-fields #fields-headerBuilder-field + hr {

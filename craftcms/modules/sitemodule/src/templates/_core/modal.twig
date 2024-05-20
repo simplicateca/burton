@@ -163,20 +163,47 @@
 
 
 
-
-
-
-{## Dynamic Component   [Core Template]
+{## Dynamic Modal Component
 {---------------------------------------------------------------------------------------}
-    How to Use:
 
-    <button hx-get="/path/to/content" hx-target="#modal__dynamic" hx-ext="ajax-header">Open a Modal</button>
+ 1| Make sure you are including htmx in your project (vite or <script> CDN).
+    https://htmx.org/docs/#installing
 
-    Note: `hx-ext="ajax-header"` Can be put on a parent element or even the <body> tag to have it apply to all
-    htmx requests -- which may or may not imact sprig requests. Be sure to test.
+
+ 2| Include the modal component before your closing </body> (like below), or use the
+    existing {% macro dynamic_target() %} as a template to create your own version.
+
+        {% import "_core/modal" as modal %}
+        {{ modal.dynamic_target() }}
+        </body>
+
+
+ 3| Trigger the Modal using one of the examples below. The <a> example is typically
+    preferable as it has a non-js fallback URL.
+
+    <a
+        href="/path/to/content"
+        hx-get="/path/to/content"
+        hx-target="#modal__dynamic"
+        hx-ext="ajax-header">Open a Modal</a>
+
+    -- OR --
+
+    <button
+        hx-get="/path/to/content"
+        hx-target="#modal__dynamic"
+        hx-ext="ajax-header"
+    >Open a Modal</button>
+
+{---------------------------------------------------------------------------------------}
+    The `hx-ext="ajax-header"` attribute will trigger Craft to report the request as an
+    AJAX request. This is useful for conditionally loading content based on whether the
+    request is loading full page or in a modal (see `_site/html.twig`).
+
+    Note: `hx-ext="ajax-header"` is inheritable and can be put on the <body> tag, but
+    I noticed some issues interacting with Sprig, so I moved it to the button level.
 {-------------------------------------------------------------------------------------##}
-{% macro dynamic() %}
-
+{% macro dynamic_target() %}
     <div
         role="dialog"
         aria-modal="true"

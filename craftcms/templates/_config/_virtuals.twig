@@ -30,13 +30,14 @@
 {% block eyebrowGroup %}{
     "type" : "text",
     "name" : "eyebrow",
-    "value": "",
-    "label": "Eyebrow",
+    "default": "",
+    "label": "Eyebrow Text",
+    "fieldClass": "width-35",
     "instructions": ""
   },{
     "type" : "select",
     "name" : "eyebrowlayer",
-    "value": "basic",
+    "default": "basic",
     "label": "Format",
     "fieldClass": "width-25",
     "instructions": "",
@@ -46,10 +47,10 @@
   },{
     "type" : "icon",
     "name" : "eyebrowicon",
-    "value": "",
+    "default": "",
     "label": "Icon",
-    "fieldClass": "width-25",
-    "instructions": ""
+    "instructions": "",
+    "fieldClass": "width-35"
   },{
     "type": "hr"
 }{% endblock %}
@@ -59,12 +60,12 @@
 {% block headFootGroup %}{
     "type" : "select",
     "name" : "blockintro",
-    "value": "inline",
-    "label": "Content Intro",
-    "instructions": "Use lead content as an intro.",
+    "default": "inline",
+    "label": "Create a ’Header-Zone’",
+    "instructions": "Choose content elements from ‘Copy’ to use as an introduction.",
     "options" : {
-        "inline" : "- Leave Inline -",
-        "lead"   : "First (Lead) Paragraph",
+        "inline" : "- No Header-Zone -",
+        "lead"   : "First ’Lead’ Paragraph",
         "headers": "All Opening Headlines",
         "full"   : "Opening Headlines + Lead",
         "first"  : "First Headline",
@@ -73,12 +74,12 @@
   },{
     "type" : "select",
     "name" : "blockcta",
-    "value": "inline",
-    "label": "Content Call-to-Action",
-    "instructions": "Use trailing content as a CTA.",
+    "default": "inline",
+    "label": "Create a ’Footer-Zone’",
+    "instructions": "Chose content+links from ‘Copy’ to use as a block Call-to-Action.",
     "options" : {
-        "inline" : "- Leave Inline -",
-        "buttons": "Move trailing buttons"
+        "inline" : "- No Footer-Zone -",
+        "buttons": "Use trailing buttons"
     }
 }{% endblock %}
 
@@ -86,9 +87,9 @@
 {% block separatorBase %}{
     "type" : "select",
     "name": "spacerabove",
-    "value": "normal",
-    "label": "Before Content",
-    "instructions": "Whitespace, dividers, etc",
+    "default": "normal",
+    "label": "Spacer Above Block",
+    "instructions": "",
     "options" : [{
         "optgroup": "Empty Space"
      },{
@@ -103,17 +104,15 @@
      },{
         "value": "none",
         "label": "No Gap"
-     },{
-        "optgroup": "Transition"
      }]
   },{
     "type" : "select",
     "name" : "spacerbelow",
-    "value": "normal",
-    "label": "After Content",
-    "instructions": "Whitespace, dividers, etc",
+    "default": "normal",
+    "label": "Spacer Below Block",
+    "instructions": "",
     "options" : [{
-        "optgroup": "Empty Space"
+        "optgroup": "Whitespace"
      },{
         "value": "large",
         "label": "Large Gap"
@@ -133,11 +132,11 @@
 {% block separatorCanvas %}{
     "type" : "select",
     "name": "spacerabove",
-    "value": "normal",
-    "label": "Before Content",
-    "instructions": "Whitespace, dividers, etc",
+    "default": "normal",
+    "label": "Spacer Above Block",
+    "instructions": "",
     "options" : [{
-        "optgroup": "Empty Space"
+        "optgroup": "Whitespace"
      },{
         "value": "large",
         "label": "Large Gap"
@@ -151,22 +150,24 @@
         "value": "none",
         "label": "No Gap"
      },{
-        "optgroup": "Transition"
+        "optgroup": "Canvas Transitions"
      },{
         "value": "wave",
-        "label": "Wave"
+        "label": "Wave",
+        "canvas": "true"
      },{
         "value": "tilt",
-        "label": "Tilt"
+        "label": "Tilt",
+        "canvas": "true"
      }]
   },{
     "type" : "select",
     "name" : "spacerbelow",
-    "value": "normal",
-    "label": "After Content",
-    "instructions": "Whitespace, dividers, etc",
+    "default": "normal",
+    "label": "Spacer Below Block",
+    "instructions": "",
     "options" : [{
-        "optgroup": "Empty Space"
+        "optgroup": "Whitespace"
      },{
         "value": "large",
         "label": "Large Gap"
@@ -180,13 +181,15 @@
         "value": "none",
         "label": "No Gap"
      },{
-        "optgroup": "Transition"
+        "optgroup": "Canvas Transitions"
      },{
         "value": "wave",
-        "label": "Wave"
+        "label": "Wave",
+        "canvas": "true"
      },{
         "value": "tilt",
-        "label": "Tilt"
+        "label": "Tilt",
+        "canvas": "true"
      }]
 }{% endblock %}
 
@@ -194,7 +197,7 @@
 {% block cardClickAction %}{
     "type" : "select",
     "name" : "clickaction",
-    "value": "autolink",
+    "default": "autolink",
     "label": "Click Action",
     "instructions": "",
     "options" : {
@@ -210,7 +213,7 @@
 {% block imageClickAction %}{
     "type" : "select",
     "name" : "clickaction",
-    "value": "autolink",
+    "default": "autolink",
     "label": "Click Action",
     "instructions": "",
     "options" : {
@@ -226,9 +229,10 @@
 {% block copyLayoutFull %}{
     "type" : "select",
     "name" : "copylayout",
-    "value": "left",
-    "label": "Copy Width + Alignment",
-    "instructions": "Relative to other content elements",
+    "default": "left",
+    "label": "Copy Container Layout",
+    "fieldClass": "width-70",
+    "instructions": "Set zone width &amp; alignment, particularly for screens wider than the maximum ‘Readable Width’.",
     "options" : [{
         "value": "left",
         "label": "Left Aligned",
@@ -249,7 +253,7 @@
 {% block copyLayoutRight %}{
     "type" : "select",
     "name" : "copylayout",
-    "value": "even",
+    "default": "even",
     "label": "Copy Width + Alignment",
     "instructions": "Relative to other content elements",
     "options" : [{
@@ -288,7 +292,7 @@
 {% block copyLayoutLeft %}{
     "type" : "select",
     "name" : "copylayout",
-    "value": "even",
+    "default": "evenVert",
     "label": "Text Zone Layout",
     "instructions": "Copy position and size relative to additional elements.",
     "options" : [{
@@ -326,7 +330,7 @@
 {% block viewportBase %}{
     "type" : "select",
     "name" : "viewport",
-    "value": "fluid",
+    "default": "fluid",
     "label": "Viewport",
     "instructions": "",
     "options" : [
@@ -341,7 +345,7 @@
 {% block viewportCanvas %}{
     "type" : "select",
     "name" : "viewport",
-    "value": "fluid",
+    "default": "fluid",
     "label": "Viewport &amp; Canvas",
     "instructions": "",
     "options" : [

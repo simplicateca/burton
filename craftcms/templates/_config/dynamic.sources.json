@@ -5,7 +5,7 @@
         "inline" : "Articles + Blog Posts"
     },
     "settings": {
-        "with": ["images", "taxonomies"],
+        "with": ["images", "taxonomies", "users"],
         "where": {
             "type": ["article"]
         }
@@ -14,7 +14,7 @@
         "type" : "select",
         "name" : "sort",
         "label": "Default Sorting",
-        "value": "recent",
+        "default": "recent",
         "instructions": "Unless otherwise overridden",
         "options": [{
             "value": "recent",
@@ -50,7 +50,27 @@
         "where": {
             "section": "pages"
         }
-    }
+    },
+    "virtuals": [{
+        "type" : "select",
+        "name" : "decendants",
+        "label": "Levels of Decendants?",
+        "default": "1",
+        "instructions": "Children of the related page.",
+        "options": [{
+            "value": "1",
+            "label": "One (1) Level Deep"
+        },{
+            "value": "2",
+            "label": "Two (2) Levels Deep"
+        }]
+    },{
+        "type" : "lightswitch",
+        "name" : "usecurrent",
+        "value": "yes",
+        "label": "Allow Dynamic Relationship?",
+        "instructions": "Use the ‘current page’ as the parent if none provided?"
+    }]
 },{
     "value": "topics",
     "label": "Topics",
@@ -63,7 +83,7 @@
     }
 },{
     "value": "sitesearch",
-    "label": "Public Content",
+    "label": "Public Facing Content",
     "tooltips": {
         "inline" : "Articles + Pages + Topics"
     },
@@ -85,7 +105,7 @@
     }
 },{
     "value": "embeds",
-    "label": "Embeddable Media",
+    "label": "Embeddable External Media",
     "settings" : {
         "with": ["images", "taxonomies"],
         "where": {
@@ -94,7 +114,7 @@
     }
 },{
     "value": "media",
-    "label": "Media",
+    "label": "Local Media Assets",
     "settings" : {
         "element": "asset",
         "with": [],
@@ -104,7 +124,7 @@
     }
 },{
     "value": "images",
-    "label": "Images",
+    "label": "Local Image Assets",
     "settings" : {
         "element": "asset",
         "with": [],

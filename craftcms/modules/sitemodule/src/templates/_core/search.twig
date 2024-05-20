@@ -8,16 +8,19 @@
 {## Keyword Search Field ##}
 {% macro keywordinput( search, settings ) %}
     <div class="border border-theme-tint2 bg-theme-tint flex flex-row rounded-lg p-2">
-        {%- set i = settings.loop__index ??? 1 %}
+        {%- set i = settings.loop__index ??? '' %}
         <input
             name="q{{i}}"
             type="search"
             value="{{search.query}}"
             placeholder="Enter search term..."
             class="flex-grow w-full !p-0 border-none"
+            hx-post="{{ search.baseurl }}"
             hx-trigger="keyup changed delay:300ms"
         >
-        <button class="button">Search</button>
+        <button class="button"
+            hx-post="{{ search.baseurl }}"
+        >Search →</button>
     </div>
 {% endmacro %}
 
@@ -27,30 +30,40 @@
 {% macro topicfilter( search, settings ) %}
 
     {%- set topics = collect( search.collections ??? [] ) -%}
-    {%- set i = settings.loop__index ??? 1 %}
+    {%- set i = settings.loop__index ??? '' %}
 
     {%- if topics.count > 1 -%}
         <div class="flex flex-row gap-4 mx-auto">
             {%- set active = topics.firstWhere( 'slug', search.filter ) ?? topics.first() -%}
 
             {%- for t in topics -%}
-                    {%- set radioid  = "radio__#{t.slug|id}" -%}
-                    {%- set isactive = active.slug == t.slug -%}
-                    <div>
-                        <input id="{{radioid}}" type="radio" name="f{{i}}" value="{{t.slug}}" {{ active.slug == t.slug ? 'checked' }}  class="sr-only" />
-                        <label for="{{radioid}}" class="
-                            py-1.5 px-3
-                            text-sm
-                            uppercase
-                            rounded-full
-                            inline-block
-                            bg-theme-tint
-                            text-theme-bodytext
-                            hover:bg-theme-highlight
-                            cursor-pointer
-                        "><span>{{ t.title }}</span></label>
-
-                    </div>
+                {%- set radioid = "radio__#{t.slug|id}" -%}
+                <div x-data><input
+                    id="{{radioid}}"
+                    type="radio"
+                    name="f{{i}}"
+                    value="{{t.slug}}" {{ active.slug == t.slug ? 'checked' }}
+                    class="sr-only"
+                    tabindex="-1"
+                    hx-post="{{ search.baseurl }}"
+                /><label
+                    for="{{radioid}}"
+                    tabindex="0"
+                    aria-role="button"
+                    aria-label="Filter by {{ t.title }}"
+                    hx-get="{{ search.baseurl }}"
+                    x-on:keyup.enter="$event.target.click()"
+                    class="
+                        py-1.5 px-3
+                        text-sm
+                        uppercase
+                        rounded-full
+                        inline-block
+                        bg-theme-tint
+                        text-theme-bodytext
+                        hover:bg-theme-highlight
+                        cursor-pointer"
+                ><span>{{ t.title }}</span></label></div>
             {%- endfor -%}
         </div>
     {%- endif -%}
@@ -147,6 +160,7 @@
 
 
 {## No Results Message ##}
+{## TODO: I don't think this is being called ##}
 {% macro noresults( search, settings ) %}
     <div class="max-w-5xl mx-auto @container mb-8">
         <p class="html larger text-center">
@@ -157,48 +171,5 @@
 
 
 
-
-{## Load More Pagination ##}
-{% macro loadmore( search, settings ) -%}
-
-    {## arguments passed to this template
-    {% set isSprig  = isSprig  ??? false %}
-    {% set paginate = paginate ??? null %}
-    {% set settings = settings ??? null %}
-    {% set baseurl  = baseurl  ??? siteUrl( craft.app.request.pathInfo ) ??? null %}
-##}
-
-    {## output the actual pagination component
-    {% if paginate.totalPages > 1 and paginate.currentPage < paginate.totalPages %}
-##}
-        {## prepare the url params
-        {% set params    = params ??? null %}
-        {% set urlParams = {} %}
-        {% set urlParams = params.query|default()  ? urlParams|merge({ q: params.query  }) : urlParams %}
-        {% set urlParams = params.filter|default() ? urlParams|merge({ f: params.filter }) : urlParams %}
- ##}
-
-        {## prepare the next page link
-        {% set nextPage = paginate.currentPage >= paginate.totalPages ? paginate.totalPages : paginate.currentPage + 1 %}
-        {% set nextUrl  = siteUrl( baseurl ~ "/p" ~ nextPage, urlParams ) %}
-        {% set nextAttr = {
-            text : "Load More…"|t,
-            href : nextUrl,
-            class: "button",
-        } | merge( not isSprig ? {} : {
-            sprig: true,
-            's-push-url': nextUrl,
-            's-target': 'closest nav',
-            's-swap': 'outerHTML',
-            's-val:page': nextPage }
-        ) %}
-
-        <nav
-            role="navigation"
-            aria-label="Pagination Navigation"
-            class="{{ setting.class|default('w-full text-center') }}"
-            data-theme="{{ setting.theme|default('base') }}"
-        >{{ tag( 'a', nextAttr )}}</nav>
-    {% endif %}
-##}
-{% endmacro %}
+{## TODO: Load More / Endless Sroll Pagination ##}
+{% macro loadmore( search, settings ) -%}{% endmacro %}

@@ -24,40 +24,103 @@ If you are a Windows user, having [WSL2](https://learn.microsoft.com/en-us/windo
 
 Please open an issue if you experience any issues getting the project up and running so that I can debug for other operating systems & setups.
 
-### Craft Plugins
+## Craft Plugin Requirements
 
-Burton operates efficiently with just a few essential Craft Plugins, meticulously chosen to deliver core functionality.
+### Essential Plugins
 
-**Required Craft CMS Plugins**
+Burton operates efficiently out-of-the-box with just a few essential Craft Plugins, each carefully selected to deliver core functionality.
 
-  - [CKEditor](https://plugins.craftcms.com/ckeditor?craft5)
-  - [SelectPlus](https://github.com/simplicateca/craft-selectplus-field)
-  - [Retcon](https://plugins.craftcms.com/retcon?craft5)
-  - [Empty Coalesce](https://plugins.craftcms.com/empty-coalesce)
-  - nystudio107/craft-closure
-  - Sprig
-  - Vite
+While not so much *required*, these plugins are so strongly recommended that they might as well be required for all the trouble it would take not to use them.
 
-While these plugins are included by default, users have the freedom to tailor their toolkit by adding optional plugins as needed.
+You may of course add additional plugins as needed, but the following are required for Burton to function as intended:
 
-**Recommended Craft CMS Plugins**
+**[SelectPlus](https://github.com/simplicateca/craft-selectplus-field)**
+
+Also by Simplicate (the creator of Burton), SelectPlus is the only paid plugin essential for Burton to operate as *efficiently* as possible.
+
+I say *efficiently* because, while it's hypothetically possible to omit SelectPlus, it would be at the detriment of layout flexibility, author-experience, and development speed.
+
+Obviously I'm biased, but I also didn't want to give you the impression that SelectPlus is the only option for managing block-level design & layout tokens in Craft.
+
+[Design Tokens by TrendyMinds](https://plugins.craftcms.com/designtokens), [LJ Dynamic Fields by Lewis Jenkins](https://plugins.craftcms.com/craft-dynamic-fields?craft5), and [Element Meta by BlueWhale](https://plugins.craftcms.com/entry-meta?craft5=) are three plugins that might also be able to work.
+
+And of course you always have the option of rolling your own solution for the Variant / Layout / Theme attribute fields.
+
+
+### Pre-Installed Plugins (FREE)
+
+ - **[CKEditor](https://plugins.craftcms.com/ckeditor?craft5)**
+
+This is installed by default, but you could just as easily use Redactor or any other rich-text field plugin available.
+
+Probably even get by with using a Markdown field, through it would be at a loss of some functionality and author-experience.
+
+
+ - **[Retcon](https://plugins.craftcms.com/retcon?craft5)**
+ - **[Empty Coalesce](https://plugins.craftcms.com/empty-coalesce)**
+
+These Twig helper plugins aren't *strictly required*, but there's really no reason you shouldn't already be using them on every project.
+
+Plus I like them and removing all references to them through-out the codebase would be a pain.
+
+
+ - **[Vite - by nystudio107](https://nystudio107.com/docs/vite/)**
+
+This most excellent plugin is included by default, but I would only call it *required* if you plan on using Vite as your frontend build tool.
+
+If you want to use something different, you're welcome to change it up -- or you can even use no frontend build tool at all (I too sometimes yearn for the simpler days of the web, back before webpack and npm; but then I remember IE5 and I'm like, "nah.").
+
+
+### Suggested Plugins (FREE)
+
+Configuration for these plugin is already included within Burton, but they are not installed by default.
 
 - Feed Me
+- topshelfcraft/environment-label
+- verbb/knock-knock
+- vaersaagod/dospaces (or something similar for asset management)
+
+
+**Recommended PAID Plugins**
+
+Configurations and presets for these plugins is already included within Burton, but they are not strictly speaking *required*.
+
+You are welcome to use other plugins (or none at all) to accomplish the functionality each of them provides:
+
 - SEOMatic
-- Formie
 - Navigation
+- Formie
 - putyourlightson/craft-blitz
 - putyourlightson/craft-sherlock
-- topshelfcraft/environment-label
-- vaersaagod/dospaces
-- verbb/knock-knock
+
 
 
 ### Frontend Tools & Frameworks
 
-While Burton comes preconfigured with Vite as the frontend build tool, it's important to note that Vite is not a strict requirement and can be swapped out if needed.
+#### CSS
 
-Additionally, Tailwind 3, along with PostCSS and the Tailwind Container Queries plugin, are utilized for styling.
+Tailwind 3 (and PostCSS with Vite) are used for the default template style, but they aren't strictly required.
+
+Great care has been taken to minimalize the usage of Tailwind within the core templates. Some class names linger, but they are replaceable.
+
+The Tailwind Container Query plugin is also used quite extensively in the default site theme.
+
+
+#### JavaScript
+
+Alpine.js and htmx are used for client-side interactivity. They aren't strictly required, but you will have to roll several of your own components to replace the out-of-the-box versions of: modals, accordions, tabs, search fields, drop-downs, carousels, etc.
+
+The default interactive components were built to be: accessibility, seo, performance, and customization friendly.
+
+Additionallly there are examples of how to implement custom Vue.js components and Greensock JS animations within the Burton templates.
+
+Both Vue and Greensock are included in the frontend `package.json` file, but like pretty much everything else, they aren't strictly required (unless you want the functionality they provide, then things get a little more strict).
+
+
+#### Vite
+
+As mentioned above in the plugin section, Burton comes preconfigured with Vite as the frontend build tool, but it's not a strict requirement and can be swapped out if needed.
+
 
 While the wireframe layouts provided with Burton are designed to look and function well "out of the box," they are intentionally lightweight and minimal, allowing for easy customization using vanilla CSS, Sass, or alternative styling approaches.
 
@@ -67,6 +130,30 @@ While the wireframe layouts provided with Burton are designed to look and functi
 Burton is configured to utilize Amazon S3 or an S3-compatible CDN for asset storage.
 
 While this provides a sensible default for asset management, it is not a strict requirement, and asset storage can be reconfigured as needed.
+
+#### Setup & Configuration
+
+**Edit the following in `craftcms/.env`**
+
+```
+CDN_URL=https://[YOUR_BUCKET].[YOUR_REGION].digitaloceanspaces.com
+
+CDN_FOLDER=[asset/root/folder]
+
+S3_KEY=[...]
+
+S3_SECRET=[...]
+
+S3_ENDPOINT=https://[YOUR_REGION].digitaloceanspaces.com
+
+S3_BUCKET=[YOUR_BUCKET]
+
+S3_REGION=[YOUR_REGION]
+
+```
+
+Restart Docker after making changes to the `.env` file, they use the above fields to configure the asset volumes in the Craft admin interface.
+
 
 
 ### Build & Deployment
@@ -114,8 +201,8 @@ If all has gone well, the site frontend will now be available at: http://localho
 
 The Craft CMS admin panel is accessible at http://localhost:8000/cms using the credentials: craft@example.com/letmein.
 
-## Configuration
 
+## Configuration
 
 ### Environment File
 
@@ -124,26 +211,8 @@ The Craft CMS admin panel is accessible at http://localhost:8000/cms using the c
 Note: If you make a change to the contents of the `.env file` you will need to shutdown the docker container and restart it.
 
 
-### Asset Object Storage / CDN
+## Twig Templating
 
-Edit the following in `craftcms/.env`
-
-```
-CDN_URL=https://[YOUR_BUCKET].[YOUR_REGION].digitaloceanspaces.com
-
-CDN_FOLDER=[asset/root/folder]
-
-S3_KEY=[...]
-
-S3_SECRET=[...]
-
-S3_ENDPOINT=https://[YOUR_REGION].digitaloceanspaces.com
-
-S3_BUCKET=[YOUR_BUCKET]
-
-S3_REGION=[YOUR_REGION]
-
-```
 
 
 ## How Do I ... ?

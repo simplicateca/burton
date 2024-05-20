@@ -6,6 +6,13 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            elementCondition: null
+            template: _sitehub/ui-template-collection.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 6bf895f4-35be-4982-b3a6-3ec91a9dc746
+            userCondition: null
+            width: 100
+          -
             autocapitalize: true
             autocomplete: false
             autocorrect: true
@@ -16,7 +23,7 @@ fieldLayouts:
             includeInCards: false
             inputType: null
             instructions: null
-            label: null
+            label: 'Collection Name'
             max: null
             min: null
             name: null
@@ -33,29 +40,19 @@ fieldLayouts:
             uid: ffd4f14a-5ac2-4c78-a29f-5917a566ca3b
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
             elementCondition: null
-            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 3f4d96bc-8928-4e87-b13a-e5e30be943c7
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 4c042122-01b4-4dcc-9378-8d5b8cd30d57
             userCondition: null
-            warning: null
-            width: 100
           -
             elementCondition: null
             fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
             handle: null
             includeInCards: false
             instructions: null
-            label: null
+            label: 'Feed URL'
             providesThumbs: false
             required: false
             tip: null
@@ -63,8 +60,8 @@ fieldLayouts:
             uid: 63d0e682-3bfb-4034-b833-278852df1c47
             userCondition: null
             warning: null
-            width: 100
-        name: Content
+            width: 50
+        name: 'Primary Content'
         uid: 6d0ed962-3faa-419f-a748-bcdbc5ff55a3
         userCondition: null
       -
@@ -72,7 +69,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
             handle: null
             includeInCards: false
             instructions: null
@@ -81,22 +78,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 9fade098-618e-4f81-abe6-594fed445e68
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 0410bb40-10db-47dc-9da8-732883a89096
+            uid: dedfb61b-8dd0-4bd1-a235-070e2978abb8
             userCondition: null
             warning: null
             width: 50
@@ -114,15 +96,30 @@ fieldLayouts:
             uid: e2be36c0-3439-48b6-8569-1f8b06de889b
             userCondition: null
             warning: null
-            width: 50
-        name: Meta
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5cd14e89-921f-4bd3-b0de-9d0a9c9d4e8a
+            userCondition: null
+            warning: null
+            width: 25
+        name: 'Meta Details'
         uid: e1addfa2-41e0-451f-abd5-58c5bae2eaac
         userCondition: null
 handle: rss
 hasTitleField: true
 icon: rss
 name: 'RSS Feed'
-showSlugField: false
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

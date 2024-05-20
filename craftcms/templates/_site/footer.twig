@@ -1,3 +1,6 @@
+{% extends template_from_string('{% block footer__base "" %}') %}
+
+
 {## Page Header Elements   [Site Template]
 {---------------------------------------------------------------------------------------}
     Offers two default footer layouts with all elements necessary to support it.
@@ -36,8 +39,8 @@
     {% import "_core" as assemble %}
 
     {% set menus %}
-        {{ assemble.menu( entry, 'contact',  {} ) }}
-        {{ assemble.menu( entry, 'features', {} ) }}
+        {{ assemble.menu( entry, 'overview', {} ) }}
+        {{ assemble.menu( entry, 'themes',   {} ) }}
     {% endset %}
 
     {% set menuColumns = assemble.gridlayout( 'flexible2', menus ) %}

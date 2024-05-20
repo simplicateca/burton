@@ -122,14 +122,15 @@
         id: block.id ??? null,
         settings: settings ??? {},
         owner: {
-            id   : block.owner.id       ??? null,
-            title: block.owner.title    ??? null,
-            dek  : block.owner.dek      ??? block.owner.summary ???  null,
-            text : block.owner.text     ??? null,
-            slug : block.owner.slug     ??? null,
-            url  : block.owner.url      ??? null ,
-            date : block.owner.postDate ??? null ,
-            image: block.owner.images.asArray ??? [],
+            id      : block.owner.id       ??? null,
+            title   : block.owner.title    ??? null,
+            headline: block.owner.headline ??? null,
+            summary : block.owner.summary  ??? null,
+            text    : block.owner.text     ??? null,
+            slug    : block.owner.slug     ??? null,
+            url     : block.owner.url      ??? null ,
+            date    : block.owner.postDate ??? null ,
+            image   : block.owner.images.asArray ??? [],
         }
     } | json_encode -%}
     {%- set uuid = md5( simpleblock ) -%}

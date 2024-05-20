@@ -128,6 +128,12 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 50
+        name: 'Primary Content'
+        uid: 2a8ab943-0b7a-407b-891a-366a3893b58a
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
           -
             elementCondition: null
             fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
@@ -142,7 +148,12 @@ fieldLayouts:
             uid: 7558aec8-7d83-4ec5-909c-5934d4282f03
             userCondition: null
             warning: null
-            width: 100
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: de613bee-ca00-4da7-8543-8a1e3cf72dba
+            userCondition: null
           -
             elementCondition: null
             fieldUid: bdc12ed2-dd0e-4189-9c87-1adaee91e73c # Transcript
@@ -157,9 +168,9 @@ fieldLayouts:
             uid: 0ce44ed6-f623-406f-893d-66c76e5e335c
             userCondition: null
             warning: null
-            width: 100
-        name: Content
-        uid: 2a8ab943-0b7a-407b-891a-366a3893b58a
+            width: 75
+        name: 'Meta Details'
+        uid: 624ceb73-0d40-4cfb-873b-dd11262fe5c6
         userCondition: null
 handle: embed
 hasTitleField: true

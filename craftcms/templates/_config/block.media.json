@@ -6,7 +6,7 @@
     "virtuals": [{
         "type" : "select",
         "name" : "medialayer",
-        "value": "native",
+        "default": "native",
         "label": "Media Cover",
         "instructions": "How to present the media on page load?",
         "options" : {
@@ -17,7 +17,7 @@
     },{
         "type" : "select",
         "name" : "iterator",
-        "value": "single",
+        "default": "single",
         "label": "Multiple Media Files?",
         "instructions": "Layout to use if/when the block has multple media files.",
         "options" : {
@@ -38,7 +38,7 @@
     "virtuals": [{
         "type" : "select",
         "name" : "iterator",
-        "value": "grid2",
+        "default": "grid2",
         "label": "Grid Layout",
         "instructions": "Layout to use for the teaser grid.",
         "options" : {
@@ -55,7 +55,7 @@
     "virtuals": [{
         "type" : "select",
         "name" : "medialayer",
-        "value": "replacebg",
+        "default": "replacebg",
         "label": "Usage",
         "options" : {
             "replacebg": "Replace Page Background",
@@ -64,7 +64,7 @@
     },{
         "type" : "color",
         "name" : "overlay",
-        "value": "#ffffff",
+        "default": "#ffffff",
         "label": "Overlay",
         "fieldClass": "width-25"
     },{
@@ -73,7 +73,7 @@
         "min"  : 0,
         "step" : 5,
         "max"  : 100,
-        "value": "25",
+        "default": "25",
         "label": "Opacity",
         "fieldClass": "width-25"
     }]

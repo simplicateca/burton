@@ -40,7 +40,7 @@ fieldLayouts:
             handle: null
             includeInCards: false
             instructions: null
-            label: __blank__
+            label: 'Deck Presentation'
             providesThumbs: false
             required: false
             tip: null
@@ -48,7 +48,7 @@ fieldLayouts:
             uid: 2ec3f0f1-055f-48da-8594-9f94c6d495a3
             userCondition: null
             warning: null
-            width: 75
+            width: 100
           -
             elementCondition:
               class: craft\elements\conditions\entries\EntryCondition
@@ -81,7 +81,7 @@ fieldLayouts:
             uid: fb10dc32-2785-478a-becb-a1689fbea371
             userCondition: null
             warning: null
-            width: 75
+            width: 100
           -
             elementCondition:
               class: craft\elements\conditions\entries\EntryCondition
@@ -114,7 +114,7 @@ fieldLayouts:
             uid: 9cee8f53-059c-4850-a006-4ccfda545173
             userCondition: null
             warning: null
-            width: 75
+            width: 100
           -
             elementCondition:
               class: craft\elements\conditions\entries\EntryCondition
@@ -147,7 +147,7 @@ fieldLayouts:
             uid: a960653e-54c9-4312-b852-57de4047b417
             userCondition: null
             warning: null
-            width: 75
+            width: 100
           -
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
@@ -159,7 +159,7 @@ fieldLayouts:
             handle: null
             includeInCards: false
             instructions: null
-            label: __blank__
+            label: 'Supporting Copy'
             providesThumbs: false
             required: false
             tip: null
@@ -167,9 +167,44 @@ fieldLayouts:
             uid: bc7e6b90-0f58-415a-b6f2-86313eae7a65
             userCondition: null
             warning: null
+            width: 100
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\MatrixFieldConditionRule
+                  operator: in
+                  uid: 008e39f3-e53c-473a-9aeb-5be87a019730
+                  values:
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f59c1458-18da-4ac5-ba8e-0ba1353cff55
+            userCondition: null
+            warning: null
             width: 75
           -
-            elementCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\MatrixFieldConditionRule
+                  operator: ni
+                  uid: 5e9578f0-e34e-4e17-aa43-e4f18957df3c
+                  values:
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+              elementType: craft\elements\Entry
+              fieldContext: global
             fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
             handle: null
             includeInCards: true
@@ -185,11 +220,16 @@ fieldLayouts:
             width: 75
           -
             elementCondition: null
-            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Block Theme
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 530112d5-8d6b-4555-a026-fb41c229535d
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Theme & Scenery
             handle: null
             includeInCards: false
             instructions: null
-            label: __blank__
+            label: null
             providesThumbs: false
             required: false
             tip: null
@@ -197,7 +237,7 @@ fieldLayouts:
             uid: 6fd100c3-9941-4570-8969-0ee8b78a20af
             userCondition: null
             warning: null
-            width: 75
+            width: 100
         name: Content
         uid: 46e6a9a3-4c05-449f-a4c2-492c41a78ebb
         userCondition: null

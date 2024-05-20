@@ -1,61 +1,61 @@
 [
   {
     "name": "Community Building",
-    "dek": "Fostering connections, collaboration, and resilience to create stronger and thriving communities.",
+    "summary": "Fostering connections, collaboration, and resilience to create stronger and thriving communities.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#f39c12"
   },
   {
     "name": "Education",
-    "dek": "Empowering individuals through access to quality education, unlocking their full potential.",
+    "summary": "Empowering individuals through access to quality education, unlocking their full potential.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#1abc9c"
   },
   {
     "name": "Sustainability",
-    "dek": "Promoting practices that ensure a harmonious balance between people, planet, and prosperity.",
+    "summary": "Promoting practices that ensure a harmonious balance between people, planet, and prosperity.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#e74c3c"
   },
   {
     "name": "Technology",
-    "dek": "Navigating the ever-evolving landscape of technological advancements and their impact on society.",
+    "summary": "Navigating the ever-evolving landscape of technological advancements and their impact on society.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#2ecc71"
   },
   {
     "name": "Innovation",
-    "dek": "Exploring groundbreaking ideas and solutions to drive positive change and progress.",
+    "summary": "Exploring groundbreaking ideas and solutions to drive positive change and progress.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#3498db"
   },
   {
     "name": "Diversity",
-    "dek": "Celebrating differences and embracing a diverse range of perspectives, backgrounds, and experiences.",
+    "summary": "Celebrating differences and embracing a diverse range of perspectives, backgrounds, and experiences.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#9b59b6"
   },
   {
     "name": "Health",
-    "dek": "Promoting well-being and creating a world where everyone has the opportunity to lead a healthy life.",
+    "summary": "Promoting well-being and creating a world where everyone has the opportunity to lead a healthy life.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#e67e22"
   },
   {
     "name": "Future of Work",
-    "dek": "Exploring the evolving nature of work and shaping a future where work is inclusive, dynamic, and meaningful.",
+    "summary": "Exploring the evolving nature of work and shaping a future where work is inclusive, dynamic, and meaningful.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#27ae60"
   },
   {
     "name": "Culture",
-    "dek": "Immersing in the rich world of artistic expression, creativity, and cultural exploration.",
+    "summary": "Immersing in the rich world of artistic expression, creativity, and cultural exploration.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#e84393"
   },
   {
     "name": "Science",
-    "dek": "Journeying into the wonders of scientific discovery and innovation to advance knowledge and understanding.",
+    "summary": "Journeying into the wonders of scientific discovery and innovation to advance knowledge and understanding.",
     "image": "https://placeskull.com/120/120/2563eb/",
     "color": "#2c3e50"
   }

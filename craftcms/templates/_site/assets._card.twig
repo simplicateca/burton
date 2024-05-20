@@ -54,14 +54,6 @@
 {% endblock %}
 
 
-{% block card_summary %}
-    {% if card_type in [ 'modal', 'detail' ] %}
-        {% set card = card|merge({ summary: card._element.text ??? card._element.summary ??? card._element.dek ??? null }) %}
-    {% endif %}
-    {{ parent() }}
-{% endblock %}
-
-
 {% block card_action %}
     {% if card_type|default('overlay') == 'overlay' %}
         {{ block('action_modal', '_cards/parts.actions' ) }}

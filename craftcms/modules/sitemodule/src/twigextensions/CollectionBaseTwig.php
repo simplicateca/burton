@@ -82,7 +82,6 @@ class CollectionBaseTwig extends AbstractExtension
             $collection = Craft::configure( \craft\elements\Entry::find(), $query )->one() ?? null;
         }
 
-
         // Option 2
         // ElementQuery of Collection entries, i.e. the "Collections" Entries field
         // -> https://docs.craftcms.com/api/v5/craft-elements-db-elementquery.html#elementquery
@@ -91,26 +90,29 @@ class CollectionBaseTwig extends AbstractExtension
 
             // Do we need to filter by slug?
             if( $params['filter'] ?? null ) {
-                $collections = $collection->slug($params['filter']);
+                $collection = $collections->firstWhere( 'slug', $params['filter'] ) ?? null;
             }
 
-            $collection = $collections->one() ?? null;
+            $collection = $collection ? $collection : $collections->first() ?? null;
+
+            if( is_array( $collection ) && isset( $collection['where'] ) ) {
+                return $this->processManual( $collection, $params );
+            }
         }
 
         // Option 3
-        // An ElementQuery search description built on the fly in twig
+        // An ElementQuery search description built on the fly in twig?
         if( !$collection && is_array( $collections ) && isset( $collections['where'] ) )
         {
             return $this->processManual( $collections, $params );
         }
 
         // Option 4
-        // An Array of Collections (probably an eager loaded version of option 2)
+        // An Array of Collections (probably an eager loaded version of option 2)?
         if( !$collection && is_array( $collections ) )
         {
             $collection = $collections[0];
         }
-
 
         // If we still don't have a collection, we can't do anything.
         if( !$collection ) { return []; }

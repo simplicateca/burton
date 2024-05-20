@@ -9,7 +9,7 @@
     "virtuals": [{
         "type" : "select",
         "name" : "cardname",
-        "value": "none",
+        "default": "none",
         "label": "Card Design",
         "instructions": "Choose the design to wrap around individual content items.",
         "options" : {
@@ -22,7 +22,7 @@
     },{
         "type" : "select",
         "name" : "iterator",
-        "value": "autogrid",
+        "default": "autogrid",
         "label": "Grid Layout",
         "instructions": "Which grid type should be used for the layout?",
         "options" : {
@@ -34,7 +34,7 @@
     },{
         "type" : "number",
         "name" : "limit",
-        "value": "8",
+        "default": "8",
         "label": "Limit",
         "instructions": "If pulling from Collection, etc"
     },{{ block( 'cardClickAction', '_config/_virtuals' ) }}]
@@ -49,14 +49,14 @@
     },
     "virtuals": [{
         "label": "Start with first panel open?",
-        "name": "firstopen",
-        "value": "1",
+        "name" : "firstopen",
+        "on"   : "true",
         "type" : "lightswitch"
     },{
         "label": "Panel Content Card",
         "name" : "cardname",
         "type" : "select",
-        "value": "accordion",
+        "default": "accordion",
         "instructions": "Which card layout should be used to present the panel content?",
         "options" : {
             "accordion": "Simple Panel"
@@ -64,7 +64,7 @@
     },{
         "type" : "number",
         "name" : "limit",
-        "value": "8",
+        "default": "8",
         "label": "Limit",
         "instructions": "If pulling from Collection, etc"
     }]

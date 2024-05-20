@@ -45,7 +45,7 @@ settings:
                   - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragments
                   - 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
                   - 8b83b1c6-3917-4365-bc67-1f94599cbb08 # Private Tag
-  selectionLabel: 'Choose Content Entries'
+  selectionLabel: 'Choose Entry'
   showCardsInGrid: true
   showSiteMenu: true
   sources:

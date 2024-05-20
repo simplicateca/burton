@@ -6,6 +6,13 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            elementCondition: null
+            template: _sitehub/ui-template-header-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 99581cb9-2e9f-431b-b1cf-1b89985898c8
+            userCondition: null
+            width: 100
+          -
             autocapitalize: true
             autocomplete: false
             autocorrect: true
@@ -16,7 +23,7 @@ fieldLayouts:
             includeInCards: false
             inputType: null
             instructions: null
-            label: null
+            label: 'Topic Name'
             max: null
             min: null
             name: null
@@ -36,7 +43,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
             handle: null
             includeInCards: false
             instructions: null
@@ -45,17 +52,17 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: d160421c-609a-4c22-a650-6bea31dabc48
+            uid: 8599ca63-6a95-4b66-94c9-c86b4ee53923
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
             elementCondition: null
             fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
             handle: null
             includeInCards: false
             instructions: null
-            label: null
+            label: __blank__
             providesThumbs: false
             required: false
             tip: null
@@ -63,14 +70,26 @@ fieldLayouts:
             uid: e22de661-6d83-4cfe-bae8-6e96baf0941c
             userCondition: null
             warning: null
-            width: 100
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: a3a70593-cc35-4318-aac0-4f57eb6202b3
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-body-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 6e83789f-48b2-41c6-ae04-77fecc764458
+            userCondition: null
+            width: 25
           -
             elementCondition: null
             fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Body Builder
             handle: null
             includeInCards: false
             instructions: null
-            label: null
+            label: __blank__
             providesThumbs: false
             required: false
             tip: null
@@ -78,8 +97,8 @@ fieldLayouts:
             uid: a29392b6-40b3-4b3d-bd85-41144fbab6a0
             userCondition: null
             warning: null
-            width: 100
-        name: Content
+            width: 75
+        name: 'Main Content'
         uid: cbf19f7c-2dd0-4513-bc6c-370b9bd8fe10
         userCondition: null
       -
@@ -87,7 +106,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
             handle: null
             includeInCards: false
             instructions: null
@@ -96,10 +115,10 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: f880c0f7-cd7a-48a9-be98-0518791226c0
+            uid: e35fd91f-e109-4f85-bfd9-9f7768318910
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
             elementCondition: null
             fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
@@ -114,7 +133,12 @@ fieldLayouts:
             uid: 3fec2755-573a-4898-86ef-b240e1ebf5a8
             userCondition: null
             warning: null
-            width: 100
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 30d69f28-3090-476e-8480-ccbf6daf7b24
+            userCondition: null
           -
             elementCondition: null
             fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
@@ -129,8 +153,23 @@ fieldLayouts:
             uid: bd03a8af-0d80-4fc8-a594-6046b1e8c373
             userCondition: null
             warning: null
-            width: 100
-        name: Essentials
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f880c0f7-cd7a-48a9-be98-0518791226c0
+            userCondition: null
+            warning: null
+            width: 25
+        name: 'Meta Details'
         uid: bf4c58ed-49c4-48c1-8f56-2536ca2a4adf
         userCondition: null
 handle: topic

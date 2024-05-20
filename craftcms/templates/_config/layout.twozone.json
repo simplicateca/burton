@@ -1,21 +1,46 @@
 {%- set name = name ??? 'Other' -%}
+{%- set name = ( name == 'Text' ) ? 'Supporting' : name -%}
 
 [{
     "value": "copyAbove",
-    "label": "Copy Above {{name}} Content",
+    "label": "Position Above {{ name }}",
     "default" : true,
     "tooltips": { "inline": "" },
     "settings": {},
     "virtuals": [
         {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
-        {% if field ??? null != 'sidebarBuilder' %}
-            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
+        {% if field ??? null == 'sidebarBuilder' %}
+            ,{
+                "type" : "select",
+                "name" : "textlayer",
+                "default": "default",
+                "label": "Typography",
+                "instructions": "Adjust text treatment.",
+                "options" : {
+                    "default": "Default",
+                    "knockout": "Knockout Box",
+                }
+            }
+        {% else %}
             ,{{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
+            ,{
+                "type" : "select",
+                "name" : "textlayer",
+                "default": "default",
+                "label": "Typography",
+                "instructions": "Adjust overall text treatment.",
+                "fieldClass": "width-30",
+                "options" : {
+                    "default": "Default",
+                    "twocols": "Two Columns"
+                }
+            }
+            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
         {% endif %}
     ]
 },{
     "value": "copyLeft",
-    "label": "Copy Left ({{name}} Right)",
+    "label": "Position Left of {{ name }}",
     "tooltips": {
         "inline": "Two column layout with Copy on the left and {{name}} content on the right"
     },
@@ -23,13 +48,13 @@
     "virtuals": [
         {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
         {% if field ??? null != 'sidebarBuilder' %}
-            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
             ,{{ block( 'copyLayoutLeft',  '_config/_virtuals' ) }}
+            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
         {% endif %}
     ]
 },{
     "value": "copyRight",
-    "label": "{{name}} Left (Copy Right)",
+    "label": "Position Right of {{name}}",
     "tooltips": {
         "inline": "Two column layout with {{name}} content on the left and Copy on the right"
     },
@@ -37,13 +62,13 @@
     "virtuals": [
         {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
         {% if field ??? null != 'sidebarBuilder' %}
-            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
             ,{{ block( 'copyLayoutRight', '_config/_virtuals' ) }}
+            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
         {% endif %}
     ]
 },{
     "value": "copyBelow",
-    "label": "{{name}} Content Above Copy",
+    "label": "Position Left Below {{name}}",
     "tooltips": { "inline": "" },
     "settings": {
         "microlayout": "zone1Bottom"
@@ -51,8 +76,8 @@
     "virtuals": [
         {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
         {% if field ??? null != 'sidebarBuilder' %}
-            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
             ,{{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
+            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
         {% endif %}
     ]
 }]

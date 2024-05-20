@@ -83,7 +83,11 @@
     {%- import "_core" as assemble -%}
     {{- assemble.text( settings.textlayer, content, settings ) -}}
 
-    {# {{ dump( collect( settings ).sortKeys.all ) }} #}
+    {# {{ dump( collect( settings ).sortKeys.all ) }}
+
+    {{ dump( block.variant.settings )}} #}
+
+    {{ dump( block.variant ) }}
 
 {%- endif %}{%- endblock %}
 

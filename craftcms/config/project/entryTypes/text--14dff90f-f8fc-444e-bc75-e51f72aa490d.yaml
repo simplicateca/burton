@@ -40,7 +40,7 @@ fieldLayouts:
             handle: null
             includeInCards: false
             instructions: null
-            label: __blank__
+            label: 'Primary Copy'
             providesThumbs: false
             required: false
             tip: null
@@ -48,9 +48,44 @@ fieldLayouts:
             uid: c0096786-c73b-4686-896c-d01fcfa0342c
             userCondition: null
             warning: null
+            width: 100
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\MatrixFieldConditionRule
+                  operator: in
+                  uid: 5f66ddeb-01ec-4f17-a63d-bdddd432bf91
+                  values:
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9cc963b2-61aa-46e2-8897-5b53c3005fb9
+            userCondition: null
+            warning: null
             width: 75
           -
-            elementCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\MatrixFieldConditionRule
+                  operator: ni
+                  uid: 56815f4f-8a07-4b9d-9276-c917b637cf1d
+                  values:
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+              elementType: craft\elements\Entry
+              fieldContext: global
             fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
             handle: null
             includeInCards: true
@@ -75,7 +110,7 @@ fieldLayouts:
             handle: null
             includeInCards: false
             instructions: null
-            label: __blank__
+            label: 'Supporting Content'
             providesThumbs: false
             required: false
             tip: null
@@ -83,7 +118,7 @@ fieldLayouts:
             uid: 8d6ef03d-c4ae-48c0-96a1-443447896cec
             userCondition: null
             warning: null
-            width: 75
+            width: 100
           -
             elementCondition:
               class: craft\elements\conditions\entries\EntryCondition
@@ -121,33 +156,6 @@ fieldLayouts:
                   fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
                   layoutElementUid: e8f4518e-9c6e-4b97-9b49-14f582079e52
                   operator: in
-                  uid: 2f688f6d-7b6a-4f5f-a029-d840446ab912
-                  values:
-                    - callout
-              elementType: craft\elements\Entry
-              fieldContext: global
-            fieldUid: ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2 # Bits
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 32e05ff3-dd1a-4365-ba8f-08bd77df0e7f
-            userCondition: null
-            warning: null
-            width: 75
-          -
-            elementCondition:
-              class: craft\elements\conditions\entries\EntryCondition
-              conditionRules:
-                -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
-                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
-                  layoutElementUid: e8f4518e-9c6e-4b97-9b49-14f582079e52
-                  operator: in
                   uid: 8f08bbe9-ac01-48e7-b587-a514fa476596
                   values:
                     - callout
@@ -167,13 +175,20 @@ fieldLayouts:
             warning: null
             width: 75
           -
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: 4b982825-8dc8-4761-9239-c84bb232d052
-            userCondition: null
-          -
-            elementCondition: null
-            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Block Theme
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+                  layoutElementUid: e8f4518e-9c6e-4b97-9b49-14f582079e52
+                  operator: in
+                  uid: 2f688f6d-7b6a-4f5f-a029-d840446ab912
+                  values:
+                    - callout
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2 # Bits
             handle: null
             includeInCards: false
             instructions: null
@@ -182,10 +197,30 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
+            uid: 32e05ff3-dd1a-4365-ba8f-08bd77df0e7f
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 4b982825-8dc8-4761-9239-c84bb232d052
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Theme & Scenery
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
             uid: 849d147a-2e1a-436e-bd2f-364140a84719
             userCondition: null
             warning: null
-            width: 75
+            width: 100
         name: Content
         uid: e021dbe8-88ec-4222-8d73-b314e36951e3
         userCondition: null

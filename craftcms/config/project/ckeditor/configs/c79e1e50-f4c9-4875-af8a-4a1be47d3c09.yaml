@@ -1,0 +1,8 @@
+headingLevels:
+  - 1
+name: 'Extended Title'
+toolbar:
+  - heading
+  - '|'
+  - bold
+  - italic

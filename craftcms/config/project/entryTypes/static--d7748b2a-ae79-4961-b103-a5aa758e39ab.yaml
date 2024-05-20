@@ -6,6 +6,13 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            elementCondition: null
+            template: _sitehub/ui-template-collection.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 11a46f43-8de5-403b-b0eb-086c32212362
+            userCondition: null
+            width: 100
+          -
             autocapitalize: true
             autocomplete: false
             autocorrect: true
@@ -16,7 +23,7 @@ fieldLayouts:
             includeInCards: false
             inputType: null
             instructions: null
-            label: null
+            label: 'Collection Name'
             max: null
             min: null
             name: null
@@ -33,22 +40,12 @@ fieldLayouts:
             uid: c56a05a3-8a2a-4dcc-8672-dff79e54ad39
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
             elementCondition: null
-            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 71d7bcce-0916-4208-8fda-32dcd120e8d4
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: be22b344-498e-448e-a9c7-9d13ee238e0a
             userCondition: null
-            warning: null
-            width: 100
           -
             elementCondition: null
             fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
@@ -124,7 +121,7 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 100
-        name: Content
+        name: 'Primary Content'
         uid: 2ca4add9-ebec-491f-a9b6-b090360c7775
         userCondition: null
       -
@@ -132,7 +129,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
             handle: null
             includeInCards: false
             instructions: null
@@ -141,7 +138,7 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: e0c41cbf-c3de-48e9-809e-b25b7d0b580c
+            uid: cd167373-c262-43d5-9d82-5cd99adc9382
             userCondition: null
             warning: null
             width: 50
@@ -175,14 +172,14 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 25
-        name: Meta
+        name: 'Meta Details'
         uid: f9901616-135e-431a-9e50-9c2d7523aee6
         userCondition: null
 handle: static
 hasTitleField: true
 icon: list-radio
 name: 'Static Collection'
-showSlugField: false
+showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site

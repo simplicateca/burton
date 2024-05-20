@@ -31,55 +31,66 @@
 {-------------------------------------------------------------------------------------##}
 {%- block block__microlayout %}
 
+    {%- set settings = block.settings ??? null -%}
+    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+
     {%- set settings = {
         iterator   : 'grid2',
         microlayout: 'default',
+        interface  : 'none',
+        pagination : 'none',
         loop__index: 1,
     } | merge(settings) -%}
 
-    {## Search object for storing+accessing query/result related data ##}
+
+    {## Search object for passing around query/result related data ##}
     {% set i = settings.loop__index %}
     {%- set search = {
-        uuid   : "search__#{i}",
-        page   : craft.app.request.getParam('page')  ?? craft.app.request.pageNum ?? 1,
-        query  : craft.app.request.getParam("q#{i}") ?? null,
-        filter : craft.app.request.getParam("f#{i}") ?? null,
-        static : 'entries',
-        limit  : settings.limit ??? 100,
-        baseurl: settings.entryurl ??? siteUrl( craft.app.request.pathInfo ),
-        hxvals : {}
+        uuid       : "search__#{i}",
+        page       : craft.app.request.getParam('page')  ?? craft.app.request.pageNum ?? 1,
+        query      : craft.app.request.getParam("q#{i}") ?? null,
+        filter     : craft.app.request.getParam("f#{i}") ?? null,
+        static     : 'entries',
+        limit      : settings.limit ??? 100,
+        baseurl    : settings.entryurl ??? siteUrl( craft.app.request.pathInfo ),
+        results    : [],
+        pageinfo   : null,
+        collections: collect( block.collections ??? collections ??? [] ),
     } -%}
 
+    {## shortcut for search params in other templates that use htmx ##}
+    {%- set hxvals = ( search.query ) ? { ("q#{i}") : search.query } : {} -%}
+    {%- set hxvals = ( search.filter and search.filter != collect(search.collections).first().slug )
+        ? hxvals|merge({ ("f#{i}") : search.filter })
+        : hxvals -%}
 
     {## require some kind of user input before doing the search or nah? ##}
     {%- set search = search | merge({
         execute: ( true or search.query or search.filter or search.page > 1 ),
-        baseurl: search.baseurl | replace({ ('/' ~ craft.app.config.general.pageTrigger ~ search.page) : '' } )
+        baseurl: search.baseurl | replace({ ('/' ~ craft.app.config.general.pageTrigger ~ search.page) : '' }),
+        hxvals : hxvals
     }) -%}
-
 
     {## collect the stuff we're searching ##}
-    {%- set collect     = collect ??? null and collect is iterable ? collect : null -%}
-    {%- set collections = collect( block.collections ??? collect ??? [] ) -%}
-    {%- set queryobj    = ( search.execute ) ? CollectionBase( collections.all(), search ) : null -%}
-    {% if queryobj %}{%- paginate queryobj as pageinfo, results -%}{% endif %}
-
-    {%- set search = search | merge({
-        results    : results ??? [],
-        pageinfo   : pageinfo ??? null,
-        collections: collections,
-    }) -%}
+    {% if settings.autosearch ??? false or ( search.query or search.filter or search.page > 1 ) %}
+        {% set results = CollectionBase( search.collections, search ) %}
+        {% if results %}
+            {%- paginate results as pageinfo, results -%}
+            {%- set search = search | merge({
+                pageinfo: pageinfo,
+                results: results
+            }) -%}
+        {% endif %}
+    {%- endif -%}
 
 
     {## https://htmx.org/headers/hx-push-url/ ##}
-    {%- set urlfilter = search.filter and search.filter != collections.first().slug ? search.filter : ''  -%}
-    {%- set search = search|merge({ hxvals: search.hxvals|merge( urlfilter    ? { ("f#{i}") : urlfilter    } : {} ) }) %}
-    {%- set search = search|merge({ hxvals: search.hxvals|merge( search.query ? { ("q#{i}") : search.query } : {} ) }) %}
-    {% if search.hxvals or search.page > 1 %}
-        {%- set pagebase = (search.page > 1) ? search.baseurl ~ "/p#{search.page}" : search.baseurl -%}
-        {%- set pushurl  = ( search.hxvals ) ? siteUrl( pagebase, search.hxvals ) : siteUrl( pagebase ) -%}
-        {% header "HX-Push-Url: #{pushurl}" %}
-    {% endif %}
+    {%- set pagedurl = (search.page > 1)
+        ? search.baseurl ~ '/' ~ craft.app.config.general.pageTrigger ~ search.page
+        : search.baseurl -%}
+    {% header ( search.hxvals )
+        ? "HX-Push-Url: " ~ siteUrl( pagedurl, search.hxvals )
+        : "HX-Push-Url: " ~ siteUrl( pagedurl )  %}
 
 
     {{- assemble.microlayout( settings.microlayout, {
@@ -99,7 +110,6 @@
         {% if settings.interface != 'none' %}
             {{- assemble.separator( 'small' ) -}}
             <form method="get" action="{{ search.baseurl }}" class="max-w-5xl w-full flex flex-col gap-y-3"
-                hx-get="{{ search.baseurl }}"
                 hx-select="#{{ search.uuid }}"
                 hx-target="#{{ search.uuid }}"
                 hx-swap="outerHTML ignoreTitle:true show:top"

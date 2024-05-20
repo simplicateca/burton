@@ -6,6 +6,13 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            elementCondition: null
+            template: _sitehub/ui-template-reusable-bit.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 63c0f42e-9e2d-4ed0-8960-dc425e26a087
+            userCondition: null
+            width: 100
+          -
             autocapitalize: true
             autocomplete: false
             autocorrect: true
@@ -33,13 +40,6 @@ fieldLayouts:
             uid: 6867bcd7-af17-492f-a3a7-047f563b42f5
             userCondition: null
             warning: null
-            width: 50
-          -
-            elementCondition: null
-            template: _sitehub/ui-template-reusable-bit.twig
-            type: craft\fieldlayoutelements\Template
-            uid: 63c0f42e-9e2d-4ed0-8960-dc425e26a087
-            userCondition: null
             width: 50
           -
             elementCondition: null
@@ -93,8 +93,8 @@ fieldLayouts:
             width: 50
           -
             elementCondition: null
-            type: craft\fieldlayoutelements\LineBreak
-            uid: 7af8d9e8-585e-495d-957e-031a3259ab85
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 266a6486-e076-41ca-8329-2d2d420df62d
             userCondition: null
           -
             elementCondition: null
@@ -146,7 +146,7 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 75
-        name: Content
+        name: 'Content Bit'
         uid: fc93ce85-8a48-4e3f-b1e4-636a7627734e
         userCondition: null
 handle: bit

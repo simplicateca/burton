@@ -16,7 +16,7 @@ fieldLayouts:
             includeInCards: false
             inputType: null
             instructions: null
-            label: null
+            label: 'Page Name'
             max: null
             min: null
             name: null
@@ -48,7 +48,7 @@ fieldLayouts:
             uid: 4a5da56e-9645-4504-9fe0-7afe8e91f921
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
             elementCondition: null
             fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
@@ -63,7 +63,7 @@ fieldLayouts:
             uid: 075baa23-e65d-4eaf-a913-3502ccb618e9
             userCondition: null
             warning: null
-            width: 100
+            width: 50
         name: Content
         uid: c4b0958c-e3d0-4bb0-8c28-96f4eaaddad9
         userCondition: null

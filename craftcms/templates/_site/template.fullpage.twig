@@ -46,14 +46,16 @@
     {% block page__main     block( 'main__base' ) %}
     {% block page__bottom   block( 'footer__base', '_site/footer' ) %}
 
-    {% from "_core/modal" import dynamic as dynamic_modal_target %}
-    {{ dynamic_modal_target() }}
+    {% import "_core/modal" as modal %}
+    {{ modal.dynamic_target() }}
 {% endblock %}
 
 
 {% block main__base %}
     {% block main__open    raw( "<main " ~ attr({ id: "content", class: "relative z-10 min-h-[50vh]" }) ~ ">" ) %}
+    {% block main__afteropen "" %}
     {% block main__content block('content') %}
+    {% block main__beforeclose "" %}
     {% block main__close   "</main>" %}
 {% endblock %}
 
@@ -82,13 +84,10 @@
 
 {# served when page requested via ajax #}
 {% block page__ajax %}
-
     {{ block( 'header__builder', '_site/header' ) }}
-
     {{ assemble.builder( 'ajax', blocks, {
         container  : "fluid",
         spacerabove: "small",
         spacerbelow: "small"
     }) }}
-
 {% endblock %}

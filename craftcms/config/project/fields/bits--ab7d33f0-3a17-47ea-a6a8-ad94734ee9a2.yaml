@@ -39,7 +39,7 @@ settings:
                 - values
                 -
                   - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
-  selectionLabel: 'Choose Content Bits'
+  selectionLabel: 'Choose Bit'
   showCardsInGrid: false
   showSiteMenu: true
   sources:

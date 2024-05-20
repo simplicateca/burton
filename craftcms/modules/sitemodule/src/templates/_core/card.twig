@@ -24,7 +24,7 @@
 {% block card__imagelayer card.imagelayer  ?? settings.card__imagelayer ?? 'default' %}
 {% block card__headline   card.headline     ? tag( 'h3', { html: card.headline } ) : null %}
 {% block card__summary    card.summary      ? raw( card.summary  ) : null %}
-{% block card__text       card.fulltext     ? raw( card.fulltext ) : null %}
+{% block card__text       card.longtext     ? raw( card.longtext ) : null %}
 
 {% block card__images -%}
     {%- import "_core" as assemble -%}

@@ -1,7 +1,7 @@
 [
     {
       "title": "Exciting Innovations Unveiled at Tech Expo 2022",
-      "dek": "Discover the future with groundbreaking technologies showcased at the Tech Expo 2022.",
+      "summary": "Discover the future with groundbreaking technologies showcased at the Tech Expo 2022.",
       "release_date": "2022-05-15",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -10,7 +10,7 @@
     },
     {
       "title": "Global Partnership Announcement: Building a Sustainable Future",
-      "dek": "Join hands for a greener planet! We're thrilled to announce a major global partnership focused on environmental sustainability.",
+      "summary": "Join hands for a greener planet! We're thrilled to announce a major global partnership focused on environmental sustainability.",
       "release_date": "2021-09-28",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -19,7 +19,7 @@
     },
     {
       "title": "Innovative Solutions for a Digital Tomorrow",
-      "dek": "Embark on a digital journey with our latest solutions! Embrace the future of technology and transform the way you work and live.",
+      "summary": "Embark on a digital journey with our latest solutions! Embrace the future of technology and transform the way you work and live.",
       "release_date": "2023-01-10",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -28,7 +28,7 @@
     },
     {
       "title": "Milestone Achieved: Celebrating Five Years of Excellence",
-      "dek": "Reflecting on our journey, we mark five years of innovation, dedication, and success. Thank you for being part of our story!",
+      "summary": "Reflecting on our journey, we mark five years of innovation, dedication, and success. Thank you for being part of our story!",
       "release_date": "2020-07-22",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -37,7 +37,7 @@
     },
     {
       "title": "Expanding Horizons: New Office Launch in Metropolis City",
-      "dek": "We're thrilled to announce the grand opening of our new office in Metropolis City! Join us as we embark on this exciting journey.",
+      "summary": "We're thrilled to announce the grand opening of our new office in Metropolis City! Join us as we embark on this exciting journey.",
       "release_date": "2019-03-05",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -46,7 +46,7 @@
     },
     {
       "title": "Artisanal Delights: New Flavors in Culinary Exploration",
-      "dek": "Embark on a gastronomic adventure as we introduce a delectable array of artisanal flavors, redefining the essence of culinary delight.",
+      "summary": "Embark on a gastronomic adventure as we introduce a delectable array of artisanal flavors, redefining the essence of culinary delight.",
       "release_date": "2023-09-12",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -55,7 +55,7 @@
     },
     {
       "title": "Unveiling the Future of Sustainable Fashion",
-      "dek": "Witness a fashion revolution! Our commitment to sustainability takes center stage as we unveil innovative and eco-friendly fashion solutions.",
+      "summary": "Witness a fashion revolution! Our commitment to sustainability takes center stage as we unveil innovative and eco-friendly fashion solutions.",
       "release_date": "2022-11-30",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -64,7 +64,7 @@
     },
     {
       "title": "Revolutionizing Fitness: Introducing Smart Workout Tech",
-      "dek": "Elevate your fitness journey with cutting-edge technology! Experience a new era of smart workout solutions designed for ultimate performance.",
+      "summary": "Elevate your fitness journey with cutting-edge technology! Experience a new era of smart workout solutions designed for ultimate performance.",
       "release_date": "2021-04-18",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -73,7 +73,7 @@
     },
     {
       "title": "Breaking Barriers: Empowering Women in STEM",
-      "dek": "Celebrate diversity and innovation! Join us in empowering women in STEM as we break barriers and foster equality in the tech world.",
+      "summary": "Celebrate diversity and innovation! Join us in empowering women in STEM as we break barriers and foster equality in the tech world.",
       "release_date": "2020-03-08",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [
@@ -82,7 +82,7 @@
     },
     {
       "title": "Discovering Hidden Wonders: Eco-Tourism Adventure Unveiled",
-      "dek": "Embark on a journey of discovery! Unveiling eco-tourism adventures that showcase the beauty of nature while preserving its delicate balance.",
+      "summary": "Embark on a journey of discovery! Unveiling eco-tourism adventures that showcase the beauty of nature while preserving its delicate balance.",
       "release_date": "2019-12-03",
       "feature_image_url": "https://unsplash.it/1300/900",
       "matrix": [

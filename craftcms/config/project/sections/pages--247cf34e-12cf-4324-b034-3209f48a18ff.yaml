@@ -2,7 +2,7 @@ defaultPlacement: end
 enableVersioning: true
 entryTypes:
   - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Content Page
-  - a28f735a-3f02-4039-aaf6-a9c50e93122f
+  - 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
 handle: pages
 maxAuthors: 1
 name: 'Page Content'

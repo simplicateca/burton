@@ -2,24 +2,55 @@ headingLevels:
   - 2
   - 3
   - 4
-name: Full
+name: 'Full Text'
 options:
   alignment:
     options:
       - left
       - center
       - right
-  fontSize:
+      - justify
+  highlight:
     options:
-      - small
-      - big
+      -
+        class: marker-green
+        color: var(--ck-highlight-marker-green)
+        model: greenMarker
+        title: 'Green marker'
+        type: marker
+      -
+        class: pen-red
+        color: var(--ck-highlight-pen-red)
+        model: redPen
+        title: 'Red pen'
+        type: pen
+  style:
+    definitions:
+      -
+        classes:
+          - knockout
+        element: h3
+        name: 'Knockout (H3)'
+      -
+        classes:
+          - marker
+        element: span
+        name: Marker
 toolbar:
   - heading
+  - alignment
   - '|'
+  - link
   - bold
   - italic
-  - link
-  - alignment
-  - fontSize
+  - '|'
+  - style
+  - '|'
   - bulletedList
   - numberedList
+  - todoList
+  - '|'
+  - blockQuote
+  - horizontalLine
+  - outdent
+  - indent

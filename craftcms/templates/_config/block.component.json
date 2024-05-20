@@ -2,17 +2,18 @@
     "value": "search",
     "label": "Search Component",
     "tooltips": {
-        "inline"  : "Allow users to search, sort, and filter Collection results.",
-        "virtuals": "Search Options & Output Format",
-        "form"    : "These settings allow for fine tuning the presentation of the search result and the available input filters.",
-        "help"    : "Need Help?",
-        "template": "_sitehub/ui-selectplus-variant"
+        "inline"   : "Allow users to **search**, **sort**, and [filter](http://www.simplicate.ca) Collection results.",
+        "virtuals" : "Search Options & Output Format",
+        "moreurl"  : "https://www.youtube.com/watch?v=x5bVKZxFdPo",
+        "aboveform": "These settings allow for **fine tuning the presentation** of the search result and the available __input filters__.",
+        "help"     : "Understanding the Search Component",
+        "template" : "_selectplus/help/basic.twig"
     },
     "settings": {},
     "virtuals": [{
         "type" : "select",
         "name" : "pagination",
-        "value": "nextprev",
+        "default": "nextprev",
         "label": "Paginatation",
         "instructions": "How do you want to handle more than one 'page' of results?",
         "options" : {
@@ -25,12 +26,12 @@
         "type" : "number",
         "name" : "limit",
         "label": "Results per page",
-        "value": 12,
+        "default": 12,
         "instructions": "How many results should be shown per page?"
     },{
         "type" : "select",
         "name" : "interface",
-        "value": "topic",
+        "default": "topic",
         "label": "Search Interface",
         "instructions": "What search options should be presented to the user?",
         "options" : {
@@ -41,36 +42,43 @@
         }
     },{
         "type" : "lightswitch",
-        "name" : "results",
-        "value": "true",
-        "label": "Automatic Results",
+        "name" : "autosearch",
+        "label": "Automatic Results?",
+        "default": "true",
         "instructions": "Show results before requiring any user input or filtering."
+
     },{
         "type" : "select",
         "name" : "iterator",
-        "value": "grid3",
+        "default": "grid3",
         "label": "Presentation",
         "instructions": "How should the search results be presented?",
         "options" : [{
             "value": "grid2",
-            "label": "2 Columns (Summary)",
+            "label": "2 Columns, Summary Card",
             "cardname": "summary"
         },{
             "value": "grid3",
-            "label": "3 Columns (Summary)",
+            "label": "3 Columns, Summary Card",
             "cardname": "summary"
         },{
             "value": "masonry",
             "label": "Masonry Grid"
         },{
             "value": "search",
-            "label": "Search Results",
+            "label": "Text Results",
             "cardname": "search"
         }]
     }]
 },{
     "value"     : "form",
     "label"     : "Form Component",
+    "tooltips"  : { "inline": "" },
+    "settings"  : {},
+    "virtuals"  : []
+},{
+    "value"     : "menu",
+    "label"     : "Menu Component",
     "tooltips"  : { "inline": "" },
     "settings"  : {},
     "virtuals"  : []
