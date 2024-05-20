@@ -1,32 +1,8 @@
-{## Block Base   [Core Template]
-{---------------------------------------------------------------------------------------}
-
+{## Block Core Template
 {-------------------------------------------------------------------------------------##}
 {%- extends template_from_string('{% block block_skeleton "" %}') -%}
 
 {%- import "_core" as assemble -%}
-
-
-{## Universal Block Defaults
-{---------------------------------------------------------------------------------------}
-
-{-------------------------------------------------------------------------------------##}
-{%- set block = block ?? null -%}
-
-{%- set settings = block.settings ?? null -%}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
-
-{%- set settings = {
-    loop__first    : loop.first  ?? false,
-    loop__index    : loop.index  ?? false,
-    loop__index0   : loop.index0 ?? false,
-    loop__last     : loop.last   ?? false,
-    include__before: null,
-    include__after : null,
-    container      : 'default',
-    microlayout    : 'default'
-} | merge( settings ) -%}
-
 
 
 {## Render HTML
@@ -34,6 +10,29 @@
     Generates the html structure for the entire block.
 {-------------------------------------------------------------------------------------##}
 {% block block_skeleton -%}
+
+    {## Universal Block Defaults
+    {-------------------------------------------------------------------------------------##}
+    {%- set block = block ?? null -%}
+
+    {%- set settings = block.settings ?? settings ?? null -%}
+    {%- set settings = settings is iterable ? settings : {} -%}
+
+    {%- set settings = {
+        include__before: null,
+        include__after : null,
+        container      : 'default',
+        microlayout    : 'default'
+    } | merge( settings ) -%}
+
+    {% if loop ?? null %}
+        {%- set settings = {
+            loop__first : loop.first ,
+            loop__index : loop.index ,
+            loop__index0: loop.index0,
+            loop__last  : loop.last  ,
+        } | merge( settings ) -%}
+    {% endif %}
 
     {# Spacer Before / Between Block #}
     {%- block before assemble.separator( settings.include__before, block, settings ) -%}

@@ -112,8 +112,8 @@
                     {% endblock %}
 
                     {% block header__topbar__navMobileTrigger %}
-                        {# {% import "_core/menu.mobile" as mobilemenu %} #}
-                        {# {{ mobilemenu.trigger() }} #}
+                        {% import "_core/menu.mobile" as mobilemenu %}
+                        {{ mobilemenu.trigger() }}
                     {% endblock %}
                 </div>
 

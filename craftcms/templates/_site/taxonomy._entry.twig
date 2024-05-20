@@ -31,24 +31,24 @@
 
 
 {## Topic Entry Content
-{---------------------------------------------------------------------------------------}
-
 {-------------------------------------------------------------------------------------##}
 {% block content %}
+
     {{ include( "_core/block.component.search", {
         collections:[{
             where: { section: 'articles' },
             with: ['images'],
             relatedTo: entry.id,
         }],
-        block: { settings: {
+        settings: {
             container  : 'fluid',
-            microlayout: 'default',
-            interface  : 'keyword',
+            spacerabove: 'none',
+            microlayout: 'zone1Top__center',
             pagination : 'nextprev',
             iterator   : 'grid3',
             autosearch : true,
             limit      : 3,
-        } }
+        }
     } ) }}
+
 {% endblock %}

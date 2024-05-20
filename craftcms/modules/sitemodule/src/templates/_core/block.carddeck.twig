@@ -1,21 +1,9 @@
-{## Cards / Deck Block   [Core Template]
+{## [Core Block] Card Deck
 {---------------------------------------------------------------------------------------}
   > http://localhost:8000/sitehub/blocks/carddeck
 {-------------------------------------------------------------------------------------##}
 {%- extends [ "_site/block", "_core/block" ] -%}
 
-
-{## Template Variables
-{---------------------------------------------------------------------------------------}
-    Reminder about Twig Variable Scope: Don't change or set default values on `block`
-    or `settings` variables both inside AND outside of {% block %} scope. Pick one!
-{-------------------------------------------------------------------------------------##}
-{%- set block = block ?? {} -%}
-
-{%- set settings = block.settings ??? null -%}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
-
-{%- set deck = [] -%}
 
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}

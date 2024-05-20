@@ -1,4 +1,4 @@
-{## Component Block   [Core Template]
+{## [Core Block] Site Component
 {---------------------------------------------------------------------------------------}
   > http://localhost:8000/sitehub/blocks/component
 {-------------------------------------------------------------------------------------##}
@@ -7,22 +7,10 @@
 {%- import "_core" as assemble -%}
 
 
-{## Template Variables
-{---------------------------------------------------------------------------------------}
-    Reminder about Twig Variable Scope: Don't change or set default values on `block`
-    or `settings` both inside AND outside of inheritable {% block %} scope. Pick one!
-{-------------------------------------------------------------------------------------##}
-{%- set block = block ?? {} -%}
-
-{%- set settings = block.settings ??? null -%}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
-
-
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 %}
-    {%- set settings = block.settings ??? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = {
         variant: null,
         limit  : 100
@@ -39,12 +27,11 @@
 
 
 {## Form Variant
-{---------------------------------------------------------------------------------------}
 {-------------------------------------------------------------------------------------##}
 {% block component__form %}
     {% set form = block.form.one() ??? null %}
     {% if form %}
-        <div class="bg-theme-backgroundOff p-10">
+        <div class="bg-theme-tint p-10">
             {{ craft.formie.renderForm(form) }}
         </div>
     {% endif %}
@@ -53,7 +40,6 @@
 
 
 {## Menu Variant
-{---------------------------------------------------------------------------------------}
 {-------------------------------------------------------------------------------------##}
 {% block component__menu %}
     {% set menu = collect( block.menu ).first %}

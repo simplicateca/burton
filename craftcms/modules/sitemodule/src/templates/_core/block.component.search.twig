@@ -1,4 +1,4 @@
-{## Component Search Variant Block   [Core Template]
+{## [Core Block] Search Component
 {---------------------------------------------------------------------------------------}
     Search results / index page for Collection content. Htmx enabled.
   > http://localhost:8000/sitehub/blocks/component/search
@@ -6,17 +6,6 @@
 {% extends [ "_site/block.component", "_core/block.component" ] %}
 
 {%- import "_core" as assemble -%}
-
-
-{## Template Variables
-{---------------------------------------------------------------------------------------}
-    Reminder about Twig Variable Scope: Don't change or set default values on `block`
-    or `settings` variables both inside AND outside of {% block %} scope. Pick one!
-{-------------------------------------------------------------------------------------##}
-{%- set block = block ??? null and block is iterable ? block : {} -%}
-
-{%- set settings = block.settings ??? settings ??? null -%}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
 
 {## Collect Search Parameters & Pagination Results
@@ -31,17 +20,15 @@
 {-------------------------------------------------------------------------------------##}
 {%- block block__microlayout %}
 
-    {%- set settings = block.settings ??? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- set settings = {
         iterator   : 'grid2',
         microlayout: 'default',
-        interface  : 'none',
+        interface  : 'keyword',
         pagination : 'none',
         loop__index: 1,
     } | merge(settings) -%}
-
 
     {## Search object for passing around query/result related data ##}
     {% set i = settings.loop__index %}
