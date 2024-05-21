@@ -5,8 +5,6 @@
 {-------------------------------------------------------------------------------------##}
 {% extends [ "_site/block.component", "_core/block.component" ] %}
 
-{%- import "_core" as assemble -%}
-
 
 {## Collect Search Parameters & Pagination Results
 {---------------------------------------------------------------------------------------}
@@ -80,6 +78,7 @@
         : "HX-Push-Url: " ~ siteUrl( pagedurl )  %}
 
 
+    {%- import "_core" as assemble -%}
     {{- assemble.microlayout( settings.microlayout, {
         zone1 : block('search__zone1'),
         zone2 : block('search__zone2'),
@@ -91,6 +90,7 @@
 
 
 {%- block search__zone1 -%}
+    {%- import "_core" as assemble -%}
     {%- set text = block('block__zone1') -%}
     <div class="sticky top-20">
         {{ raw( text ) }}
@@ -115,6 +115,7 @@
 
 
 {%- block search__zone2 -%}
+    {%- import "_core" as assemble -%}
     <div class="w-full scroll-mt-20" id="{{ search.uuid }}">
         {%- if search.results -%}
             {{- assemble.deck( settings.iterator, search.results, settings ) -}}

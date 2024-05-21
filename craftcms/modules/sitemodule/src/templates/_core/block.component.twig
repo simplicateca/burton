@@ -4,8 +4,6 @@
 {-------------------------------------------------------------------------------------##}
 {%- extends [ "_site/block", "_core/block" ] -%}
 
-{%- import "_core" as assemble -%}
-
 
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}
@@ -59,14 +57,13 @@
     the Vue component as a prop named `block` (which may be freely used or ignored).
 {-------------------------------------------------------------------------------------##}
 {% block component__system %}
-
-    {%- if block.element.vue__component ??? null -%}
-        {{- _self.vue__async( block.element.vue__component, block, settings ) -}}
+    {%- if block.source.vue__component ??? null -%}
+        {{- _self.vue__async( block.source.vue__component, block, settings ) -}}
     {% endif %}
 
-    {%- if block.element.account__component ??? null -%}
+    {%- if block.source.account__component ??? null -%}
         {%- import "_core" as assemble -%}
-        {%- switch block.element.account__component -%}
+        {%- switch block.source.account__component -%}
             {%- case "login" -%}
                 {{- assemble.accountpart( 'login', {}, settings ) -}}
             {%- case "forgot" -%}
@@ -104,8 +101,9 @@
     the Vue component as a prop named `block` (which may be freely used or ignored).
 {-------------------------------------------------------------------------------------##}
 {% macro vue__async( component, block, settings ) -%}
-    {%- set simpleblock = {
-        id: block.id ??? null,
+    {%- set uuid = "vue#{random()}" -%}
+    {%- set attributes = {
+        id: uuid,
         settings: settings ??? {},
         owner: {
             id      : block.owner.id       ??? null,
@@ -119,12 +117,10 @@
             image   : block.owner.images.asArray ??? [],
         }
     } | json_encode -%}
-    {%- set uuid = md5( simpleblock ) -%}
-    <div id="vue__{{uuid}}" class="w-full"></div>
+    <div id="{{uuid}}" data-vue="{{component}}" class="w-full">&nbsp;</div>
     {% js %}
         window.waitForGlobal("app.createApp", function() {
-            app.createApp( app.{{ component }}, { block: {{- raw(simpleblock) -}} } )
-               .mount( '#vue__{{uuid}}')
+            app.createApp( app.{{ component }}, { block: {{- raw(attributes) -}} } ).mount('#{{uuid}}')
         })
     {% endjs %}
 {% endmacro %}

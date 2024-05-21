@@ -15,7 +15,7 @@
 {%- set card  = card  ??? null -%}
 {%- set items = items ??? null -%}
 
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 {%- set settings = settings | merge({
     cardname: 'masonrybrick',
     card__imagelayer: 'stretch'

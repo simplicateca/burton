@@ -77,7 +77,7 @@
 
 {% block header__breadcrumb %}
     {%- import "_core" as assemble -%}
-    {%- set breadcrumbs = assemble.container( 'fluid', assemble.menu( entry, 'breadcrumb', {} ) ) -%}
+    {%- set breadcrumbs = assemble.container( 'fluid', assemble.menu( 'breadcrumb', entry, {} ) ) -%}
     {{- breadcrumbs | attr({ class: "relative z-10 opacity-50 hover:opacity-100 focus-within:opacity-100" }) -}}
 {% endblock %}
 
@@ -98,16 +98,16 @@
 
             {% block header__topbar__navigation %}
 
-                <div class="w-full lg:flex flex-col flex-grow text-right items-end gap-6 justify-center @container">
+                <div class="w-full flex flex-col flex-grow text-right items-end gap-6 justify-center @container">
                     {% block header__topbar__navUtility %}
                         {% import "_core" as assemble %}
-                        {{ assemble.menu( entry, 'utility', {} ) }}
+                        {{ assemble.menu( 'utility', entry, {} ) }}
                     {% endblock %}
 
                     {% block header__topbar__navPrimary %}
-                        <div class="flex items-center gap-6">
+                        <div class="hidden md:flex items-center gap-6">
                             {% import "_core" as assemble %}
-                            {{ assemble.menu( entry, 'primary', {} ) }}
+                            {{ assemble.menu( 'primary', entry, {} ) }}
                         </div>
                     {% endblock %}
 

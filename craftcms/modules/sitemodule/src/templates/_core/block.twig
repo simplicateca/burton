@@ -122,7 +122,7 @@
 {% macro builder__fallback( blocks, settings ) -%}
 
     {%- set blocks   = blocks   ??? null and blocks   is iterable ? blocks   : [] -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
     {## Find Block Owner Entry
@@ -211,7 +211,7 @@
 
 {-------------------------------------------------------------------------------------##}
 {% macro theme__open( block, settings = null ) -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
     {%- set tagname   = settings.theme__tag ??? "div" -%}
@@ -263,7 +263,7 @@
 
 
 {% macro theme__close( block, settings ) %}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {## Decide if we're closing the Theme (Basically the reverse of Open Theme) ##}
     {%- set closetheme = ( settings._next is not defined or not settings._next.match__theme ) -%}

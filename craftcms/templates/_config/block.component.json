@@ -2,12 +2,12 @@
     "value": "search",
     "label": "Search Component",
     "tooltips": {
-        "inline"   : "Allow users to **search**, **sort**, and [filter](http://www.simplicate.ca) Collection results.",
-        "virtuals" : "Search Options & Output Format",
-        "moreurl"  : "https://www.youtube.com/watch?v=x5bVKZxFdPo",
-        "aboveform": "These settings allow for **fine tuning the presentation** of the search result and the available __input filters__.",
-        "help"     : "Understanding the Search Component",
-        "template" : "_selectplus/help/basic.twig"
+        "inline"    : "Allow users to **search**, **sort**, and [filter](http://www.simplicate.ca) Collection results.",
+        "input"     : "Search Options & Output Format",
+        "inputabove": "These settings allow for **fine tuning the presentation** of the search result and the available __input filters__.",
+        "help"      : "Understanding the Search Component",
+        "helpurl"   : "https://www.youtube.com/watch?v=x5bVKZxFdPo",
+        "helptwig"  : "_selectplus/help/basic.twig"
     },
     "settings": {},
     "virtuals": [{

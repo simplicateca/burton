@@ -15,7 +15,7 @@
 {%- set block = block ?? {} -%}
 
 {%- set settings = block.settings ??? null -%}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
 {## Zone 1 Content
@@ -27,7 +27,7 @@
 {-------------------------------------------------------------------------------------##}
 {# {% block block__zone1 %}
     {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { textlayer: 'default' } | merge( settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.text( settings.textlayer, block.text2, settings ) -}}
@@ -60,7 +60,7 @@
 
 
 
-{## Text2 Default Layout
+{## Fallback Renderer for Text 2 Zones
 {---------------------------------------------------------------------------------------}
     This block will look for blocks name `text2__<variant>` to use to render zone2.
     If it doesn't find one, it will perform a basic render to text2 content.
@@ -68,7 +68,7 @@
 {% block text2__fallback -%}
 {% if block.text2 ??? null -%}
     {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { text2layer: 'default' } | merge( settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.text( settings.text2layer, block.text2, settings ) -}}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "340b823d3c7fdc1b23526e696ebbfdd0",
+    "content-hash": "dd5a38f82620df4e8ba616d2d2062fd7",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.306.6",
+            "version": "3.307.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "79a618bb5624e52f31de7083a26d1749050aa5a0"
+                "reference": "cc79f16e1a1bd3feee421401ba2f21915abfdf91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/79a618bb5624e52f31de7083a26d1749050aa5a0",
-                "reference": "79a618bb5624e52f31de7083a26d1749050aa5a0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/cc79f16e1a1bd3feee421401ba2f21915abfdf91",
+                "reference": "cc79f16e1a1bd3feee421401ba2f21915abfdf91",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +151,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.306.6"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.307.1"
             },
-            "time": "2024-05-14T18:05:44+00:00"
+            "time": "2024-05-17T18:07:44+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -746,16 +746,16 @@
         },
         {
             "name": "craftcms/ckeditor",
-            "version": "4.0.5",
+            "version": "4.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/craftcms/ckeditor.git",
-                "reference": "358ada3a176f53feaab1b9479391b9356a29a39e"
+                "reference": "6b949da6c11bbb9c6637021e88a33f6acf4290c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/ckeditor/zipball/358ada3a176f53feaab1b9479391b9356a29a39e",
-                "reference": "358ada3a176f53feaab1b9479391b9356a29a39e",
+                "url": "https://api.github.com/repos/craftcms/ckeditor/zipball/6b949da6c11bbb9c6637021e88a33f6acf4290c2",
+                "reference": "6b949da6c11bbb9c6637021e88a33f6acf4290c2",
                 "shasum": ""
             },
             "require": {
@@ -806,20 +806,20 @@
                 "rss": "https://github.com/craftcms/ckeditor/commits/master.atom",
                 "source": "https://github.com/craftcms/ckeditor"
             },
-            "time": "2024-05-14T17:27:27+00:00"
+            "time": "2024-05-15T21:44:09+00:00"
         },
         {
             "name": "craftcms/cms",
-            "version": "5.1.3",
+            "version": "5.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/craftcms/cms.git",
-                "reference": "495d5bd84e77d064e304f495493a0832943c1faa"
+                "reference": "114c19dbbb0a64ef83461b3523f0f2753bab7ab4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/495d5bd84e77d064e304f495493a0832943c1faa",
-                "reference": "495d5bd84e77d064e304f495493a0832943c1faa",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/114c19dbbb0a64ef83461b3523f0f2753bab7ab4",
+                "reference": "114c19dbbb0a64ef83461b3523f0f2753bab7ab4",
                 "shasum": ""
             },
             "require": {
@@ -932,7 +932,7 @@
                 "rss": "https://github.com/craftcms/cms/releases.atom",
                 "source": "https://github.com/craftcms/cms"
             },
-            "time": "2024-05-14T18:49:55+00:00"
+            "time": "2024-05-17T20:04:01+00:00"
         },
         {
             "name": "craftcms/feed-me",
@@ -2062,26 +2062,26 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v6.10.0",
+            "version": "v6.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "a49db6f0a5033aef5143295342f1c95521b075ff"
+                "reference": "500501c2ce893c824c801da135d02661199f60c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/a49db6f0a5033aef5143295342f1c95521b075ff",
-                "reference": "a49db6f0a5033aef5143295342f1c95521b075ff",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/500501c2ce893c824c801da135d02661199f60c5",
+                "reference": "500501c2ce893c824c801da135d02661199f60c5",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4||^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
-                "guzzlehttp/guzzle": "^6.5||^7.4",
+                "guzzlehttp/guzzle": "^7.4",
                 "phpspec/prophecy-phpunit": "^2.0",
                 "phpunit/phpunit": "^9.5",
-                "psr/cache": "^1.0||^2.0",
+                "psr/cache": "^2.0||^3.0",
                 "psr/http-client": "^1.0",
                 "psr/http-factory": "^1.0"
             },
@@ -2119,22 +2119,22 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v6.10.0"
+                "source": "https://github.com/firebase/php-jwt/tree/v6.10.1"
             },
-            "time": "2023-12-01T16:26:39+00:00"
+            "time": "2024-05-18T18:05:11+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "8.13.36",
+            "version": "8.13.37",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "9ca4179e4332d21578cb29f0c0406f0a2b8803e3"
+                "reference": "536c747ff1af433dddc615b26b9674047e013076"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/9ca4179e4332d21578cb29f0c0406f0a2b8803e3",
-                "reference": "9ca4179e4332d21578cb29f0c0406f0a2b8803e3",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/536c747ff1af433dddc615b26b9674047e013076",
+                "reference": "536c747ff1af433dddc615b26b9674047e013076",
                 "shasum": ""
             },
             "require": {
@@ -2196,7 +2196,7 @@
                 "issues": "https://github.com/giggsey/libphonenumber-for-php/issues",
                 "source": "https://github.com/giggsey/libphonenumber-for-php"
             },
-            "time": "2024-05-03T06:27:03+00:00"
+            "time": "2024-05-16T09:01:39+00:00"
         },
         {
             "name": "giggsey/locale",
@@ -6861,16 +6861,16 @@
         },
         {
             "name": "simplicateca/selectplus",
-            "version": "5.0.1-beta",
+            "version": "5.0.2-beta",
             "source": {
                 "type": "git",
                 "url": "https://github.com/simplicateca/craft-selectplus-field.git",
-                "reference": "42fb1bd1939644cede97e3f707272ac0c00ef5c5"
+                "reference": "5c70251417197f42b9cc9a0e038816cdbbcdc4b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/simplicateca/craft-selectplus-field/zipball/42fb1bd1939644cede97e3f707272ac0c00ef5c5",
-                "reference": "42fb1bd1939644cede97e3f707272ac0c00ef5c5",
+                "url": "https://api.github.com/repos/simplicateca/craft-selectplus-field/zipball/5c70251417197f42b9cc9a0e038816cdbbcdc4b9",
+                "reference": "5c70251417197f42b9cc9a0e038816cdbbcdc4b9",
                 "shasum": ""
             },
             "require": {
@@ -6912,7 +6912,7 @@
                 "issues": "https://github.com/simplicateca/craft-selectplus-field/issues?state=open",
                 "source": "https://github.com/simplicateca/craft-selectplus-field"
             },
-            "time": "2024-05-02T22:14:23+00:00"
+            "time": "2024-05-20T03:58:23+00:00"
         },
         {
             "name": "spomky-labs/cbor-php",
@@ -10229,16 +10229,16 @@
         },
         {
             "name": "verbb/auth",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/verbb/auth.git",
-                "reference": "8dd1204a21b13622cca7e7945324de316356762b"
+                "reference": "e18f5d642b12ad75110a0ca4a2eac4e8b4569cce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/verbb/auth/zipball/8dd1204a21b13622cca7e7945324de316356762b",
-                "reference": "8dd1204a21b13622cca7e7945324de316356762b",
+                "url": "https://api.github.com/repos/verbb/auth/zipball/e18f5d642b12ad75110a0ca4a2eac4e8b4569cce",
+                "reference": "e18f5d642b12ad75110a0ca4a2eac4e8b4569cce",
                 "shasum": ""
             },
             "require": {
@@ -10284,20 +10284,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-10T14:06:27+00:00"
+            "time": "2024-05-15T12:46:28+00:00"
         },
         {
             "name": "verbb/base",
-            "version": "3.0.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/verbb/verbb-base.git",
-                "reference": "5e283ec2aa7e1af8b43e15974e78b5e47822be41"
+                "reference": "63785695d99eadcbceafb0813cf9372c142377b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/verbb/verbb-base/zipball/5e283ec2aa7e1af8b43e15974e78b5e47822be41",
-                "reference": "5e283ec2aa7e1af8b43e15974e78b5e47822be41",
+                "url": "https://api.github.com/repos/verbb/verbb-base/zipball/63785695d99eadcbceafb0813cf9372c142377b3",
+                "reference": "63785695d99eadcbceafb0813cf9372c142377b3",
                 "shasum": ""
             },
             "require": {
@@ -10334,25 +10334,25 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-05-10T13:55:03+00:00"
+            "time": "2024-05-18T01:33:41+00:00"
         },
         {
             "name": "verbb/formie",
-            "version": "3.0.0-beta.10",
+            "version": "3.0.0-beta.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/verbb/formie.git",
-                "reference": "57a807ebc46d5ae1e2239d5fc618ada346e93f48"
+                "reference": "b379e7f3b1e08f4f83ae2b953c1a6b04c6347203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/verbb/formie/zipball/57a807ebc46d5ae1e2239d5fc618ada346e93f48",
-                "reference": "57a807ebc46d5ae1e2239d5fc618ada346e93f48",
+                "url": "https://api.github.com/repos/verbb/formie/zipball/b379e7f3b1e08f4f83ae2b953c1a6b04c6347203",
+                "reference": "b379e7f3b1e08f4f83ae2b953c1a6b04c6347203",
                 "shasum": ""
             },
             "require": {
                 "commerceguys/addressing": "^2.1.1",
-                "craftcms/cms": "^5.0.0-beta.1",
+                "craftcms/cms": "^5.0.0",
                 "dompdf/dompdf": "^1.0.2 || ^2.0.3",
                 "ezyang/htmlpurifier": "^4.13",
                 "fakerphp/faker": "^1.9.1",
@@ -10360,12 +10360,12 @@
                 "html2text/html2text": "^4.3",
                 "league/html-to-markdown": "^4.10 || ^5.0",
                 "moneyphp/money": "^4.0",
-                "nystudio107/craft-plugin-vite": "^5.0.0-beta.1",
+                "nystudio107/craft-plugin-vite": "^5.0.0",
                 "php": "^8.2",
                 "stripe/stripe-php": "^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
                 "symfony/expression-language": "^5.3.0",
-                "verbb/auth": "^2.0.0-beta.2",
-                "verbb/base": "^3.0.0-beta.1",
+                "verbb/auth": "^2.0.0-beta.3",
+                "verbb/base": "^3.0.0",
                 "voku/anti-xss": "^4.1"
             },
             "type": "craft-plugin",
@@ -10405,26 +10405,26 @@
                 "rss": "https://github.com/verbb/formie/commits/v2.atom",
                 "source": "https://github.com/verbb/formie"
             },
-            "time": "2024-05-07T15:05:25+00:00"
+            "time": "2024-05-20T11:02:38+00:00"
         },
         {
             "name": "verbb/navigation",
-            "version": "3.0.0-beta.3",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/verbb/navigation.git",
-                "reference": "336b1f266991d2177701d93ce4bc8cc98a07529d"
+                "reference": "b6930f2841198579259eda598a9fee3942646ee7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/verbb/navigation/zipball/336b1f266991d2177701d93ce4bc8cc98a07529d",
-                "reference": "336b1f266991d2177701d93ce4bc8cc98a07529d",
+                "url": "https://api.github.com/repos/verbb/navigation/zipball/b6930f2841198579259eda598a9fee3942646ee7",
+                "reference": "b6930f2841198579259eda598a9fee3942646ee7",
                 "shasum": ""
             },
             "require": {
-                "craftcms/cms": "^5.0.0-beta.1",
+                "craftcms/cms": "^5.0.0",
                 "php": "^8.2",
-                "verbb/base": "^3.0.0-beta.1"
+                "verbb/base": "^3.0.0"
             },
             "type": "craft-plugin",
             "extra": {
@@ -10464,7 +10464,7 @@
                 "rss": "https://github.com/verbb/navigation/commits/v2.atom",
                 "source": "https://github.com/verbb/navigation"
             },
-            "time": "2024-04-11T23:47:24+00:00"
+            "time": "2024-05-18T13:17:50+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -108,7 +108,7 @@
     {%- import "_core"  as assemble -%}
 
     {## default twozone micro layout config ##}
-    {%- set microlayout = microlayout ??? null and microlayout is iterable ? microlayout : {} -%}
+    {%- set microlayout = microlayout ?? null is iterable ? microlayout : {} -%}
     {%- set microlayout = {
         tag        : 'div',
         class      : '',
@@ -190,7 +190,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro twozone__zone( microlayout, settings ) -%}
 
-    {%- set microlayout = microlayout ??? null and microlayout is iterable ? microlayout : {} -%}
+    {%- set microlayout = microlayout ?? null is iterable ? microlayout : {} -%}
 
     {%- set zone = {
         zoneid : 1,

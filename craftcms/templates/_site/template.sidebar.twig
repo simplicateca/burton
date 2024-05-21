@@ -13,7 +13,7 @@
 {## Template Variables
 {-------------------------------------------------------------------------------------##}
 {%- set settings = settings ?? null %}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
 {## Two Column Layout

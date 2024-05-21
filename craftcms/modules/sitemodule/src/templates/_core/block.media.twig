@@ -13,7 +13,7 @@
 {%- set block = block ?? {} -%}
 
 {%- set settings = block.settings ??? null -%}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
 {## Zone 2 Content / Variant Routing
@@ -59,6 +59,7 @@
     {%- endif -%}
 
 
+
     {## Item Source: Collection
     {-------------------------------------------------------------------------------}
         When loading from a Collection, using `CollectionResults()` is easier than
@@ -79,6 +80,7 @@
         } ) -%}
     {%- endif -%}
 
+
     {## Named Variant Block or Standard Layout
     {---------------------------------------------------------------------------------##}
     {%- set blockname = "media__#{settings.variant}" -%}
@@ -89,7 +91,7 @@
 
 
 
-{## Media Default
+{## Fallback Renderer for Media Items
 {-------------------------------------------------------------------------------------##}
 {% block media__fallback %}
     {%- import "_core" as assemble -%}
@@ -102,7 +104,7 @@
 {-------------------------------------------------------------------------------------##}
 {% block media__code %}
     {%- set settings = settings ??? block.settings ??? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {{- block.code | retconOnly('iframe') | retconAttr( 'iframe', {
         class : 'aspect-video',

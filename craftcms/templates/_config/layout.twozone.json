@@ -68,7 +68,7 @@
     ]
 },{
     "value": "copyBelow",
-    "label": "Position Left Below {{name}}",
+    "label": "Position Below {{name}}",
     "tooltips": { "inline": "" },
     "settings": {
         "microlayout": "zone1Bottom"

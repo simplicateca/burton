@@ -32,7 +32,7 @@
 {% block block__zone1 -%}
 {%- if block.text ??? null -%}
     {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = {
         blockintro: 'inline',
         blockcta  : 'inline',
@@ -142,7 +142,7 @@
 {% block block__footer -%}
 {%- if block.text ??? null -%}
     {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- if settings.blockcta ??? null == 'footer' -%}
         {%- set textbase = TextBase( block.text ) -%}
@@ -164,7 +164,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro builder__singlecol( blocks, settings ) -%}
     {%- set blocks   = blocks is null ? [] : blocks -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- import "_core" as assemble -%}
     {{- assemble.builder( 'default', blocks, settings ) -}}

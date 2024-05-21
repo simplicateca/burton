@@ -7,9 +7,9 @@
 
 {## Template Variables
 {-------------------------------------------------------------------------------------##}
-{%- set card = card ??? null and card is iterable ? card : {} -%}
+{%- set card = card ?? null is iterable ? card : {} -%}
 
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
 {## Settings & Configuration
@@ -32,7 +32,7 @@
 {%- endblock %}
 
 {% block card__action -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { clickaction: 'autolink' } | merge( settings ) -%}
 
     {%- switch settings.clickaction -%}
@@ -82,7 +82,7 @@
     These macros are used to generate a variety of card layouts.
 {-------------------------------------------------------------------------------------##}
 {% macro iterator__fallback( items, settings = null ) -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { cardname: 'default' } | merge(settings) -%}
 
     {%- import "_core" as assemble -%}
@@ -110,7 +110,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro iterator__carousel( items, settings ) -%}
 {%- if items ??? null and items is iterable -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { cardname: 'summary' } | merge( settings ) -%}
 
     {%- import "_core" as assemble -%}
@@ -125,7 +125,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro iterator__accordion( items, settings = null ) -%}
 {%- if items ??? null and items is iterable -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { cardname: 'panel', firstopen: false } | merge( settings ) -%}
 
     {%- import "_core" as assemble -%}
@@ -149,7 +149,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro iterator__tabs( items, settings = null ) -%}
 {%- if items ??? null and items is iterable -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { cardname: 'panel' } | merge( settings ) -%}
 
     {%- import "_core" as assemble -%}
@@ -171,7 +171,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro iterator__grid2( items, settings ) -%}
     {%- set items    = items    ??? null and items    is iterable ? items    : [] -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- set settings = {
         gridlayout: 'flexible2',
@@ -190,7 +190,7 @@
 
 {% macro iterator__grid3( items, settings ) -%}
     {%- set items    = items    ??? null and items    is iterable ? items    : [] -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- set settings = {
         gridlayout: 'fixed3',

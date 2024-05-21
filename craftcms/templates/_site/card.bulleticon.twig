@@ -9,7 +9,7 @@
 {-------------------------------------------------------------------------------------##}
 {%- set card = card ??? null -%}
 
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 {## Overload Parent Blocks
 {-------------------------------------------------------------------------------------##}

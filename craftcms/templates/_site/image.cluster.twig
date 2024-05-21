@@ -10,7 +10,7 @@
 {%- set images = images ??? null -%}
 {%- set count  = images is iterable ? images|length : 0 -%}
 
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 {%- set settings = settings | merge({
     imgclass    : "object-cover w-full h-full rounded-lg shadow-lg",
     figureclass : "aspect-square overflow-hidden w-full h-full rounded-lg shadow-lg",

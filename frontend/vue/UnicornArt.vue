@@ -145,7 +145,6 @@
 
     computed : {
         lineColour() {
-            console.log( this.color5 )
             var color = this.color5;
                 color = color.substring(1);             // remove #
                 color = parseInt(color, 16);            // convert to integer

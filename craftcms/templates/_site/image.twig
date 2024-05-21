@@ -7,7 +7,7 @@
 {## Image Layer Macros
 {-------------------------------------------------------------------------------------##}
 {%- macro default( images, settings ) -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = {
         imgclass: "w-full max-w-full h-auto rounded-lg",
         _placeholder: 'default',
@@ -18,7 +18,7 @@
 
 
 {% macro icon( image, settings ) %}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} %}
+    {%- set settings = settings ?? null is iterable ? settings : {} %}
     {{- _self.default( image, {
         figureclass : "max-w-28 @4xs:max-w-32 @3xs:max-w-36 mx-auto relative",
         _placeholder: "icon"
@@ -28,7 +28,7 @@
 
 
 {% macro attention( images, settings ) %}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = {
         imgclass : "rounded-3xl z-30 aspect-square w-full relative mx-auto max-w-[16rem] sm:max-w-xs md:max-w-sm",
         transform: "square",
@@ -49,7 +49,7 @@
 
 
 {% macro stretch( image, settings ) %}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {{- _self.default( image, {
         imgclass   : "object-cover object-center h-full w-full",
         figureclass: "h-full w-full relative z-10",
@@ -59,7 +59,7 @@
 
 
 {% macro parallax( images, settings ) -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {% set imghtml = _self.default( images, {
         imgclass   : "object-cover object-center h-full w-full",
@@ -100,7 +100,7 @@
 
 
 {% macro replacebg( images, settings ) -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {% set uuid = uuid ??? "replacebg#{random()}" %}
 

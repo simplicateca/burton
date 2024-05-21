@@ -39,8 +39,8 @@
     {% import "_core" as assemble %}
 
     {% set menus %}
-        {{ assemble.menu( entry, 'overview', {} ) }}
-        {{ assemble.menu( entry, 'themes',   {} ) }}
+        {{ assemble.menu( 'overview', entry, {} ) }}
+        {{ assemble.menu( 'themes',   entry, {} ) }}
     {% endset %}
 
     {% set menuColumns = assemble.gridlayout( 'flexible2', menus ) %}
@@ -67,7 +67,7 @@
         'fluid',
         tag( 'div', {
             class: "flex flex-col md:flex-row py-4 items-center text-xs md:text-base gap-3",
-            html : block('footer__message') ~ assemble.menu( entry, 'legal', {} )
+            html : block('footer__message') ~ assemble.menu( 'legal', entry, {} )
         } )
     ) }}
 {% endblock %}

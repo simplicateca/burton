@@ -1,7 +1,7 @@
 {## Two Column Layout (Aside Right)
 {-------------------------------------------------------------------------------------##}
 {% macro sidebar__right(content, settings) %}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { container: 'fluid' } | merge(settings) -%}
 
     {%- set content -%}
@@ -20,7 +20,7 @@
 {## Two Column Layout (Aside Left)
 {-------------------------------------------------------------------------------------##}
 {% macro sidebar__left(content, settings) -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { container: 'fluid' } | merge(settings) -%}
 
     {%- set content -%}
@@ -126,8 +126,8 @@
 {## Theme Dividers
 {-------------------------------------------------------------------------------------##}
 {% macro separator__tilt(block, settings) -%}
-    {%- set block = block ??? null and block is iterable ? block : {} -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set block = block ?? null is iterable ? block : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- set theme  = settings.theme ??? 'base' %}
     {%- set bottom = settings._closing ??? false -%}
@@ -160,8 +160,8 @@
 
 {% macro separator__wave(block, settings) -%}
 
-    {%- set block = block ??? null and block is iterable ? block : {} -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set block = block ?? null is iterable ? block : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- set theme  = settings.theme ??? 'base' %}
     {%- set bottom = settings._closing ??? false -%}

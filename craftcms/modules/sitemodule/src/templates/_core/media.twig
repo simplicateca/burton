@@ -1,31 +1,7 @@
 {## [Core] Media Elements
 {-------------------------------------------------------------------------------------##}
-{% extends template_from_string('{% block media__skeleton "" %}') %}
+{% extends template_from_string('{% block mediaitem__skeleton "" %}') %}
 
-
-{## Template Variables
-{---------------------------------------------------------------------------------------}
-
-{-------------------------------------------------------------------------------------##}
-{# one or more media items to generate a tag for #}
-{%- set mediaitems = mediaitems ??? null and mediaitems is iterable ? mediaitems : [] -%}
-{%- set mediaitems = ( item ?? null ) ? mediaitems | merge([item]) : mediaitems -%}
-
-{# media item to render #}
-{#
-{%- set item = item is null and mediacount == 1 ? mediaitems|first : item %}
-
-{# caption text / html #}
-{# {%- set caption = caption ??? null -%} #}
-
-{# attributes for the <figure> tags #}
-{# {%- set figure = figure ??? null and figure is iterable ? figure : {} -%}
-{%- set figure = {
-    class: block('figure__class')
-} | merge( figure ) -%} #}
-
-{# settings object #}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
 
 {## Default Configuration
@@ -36,7 +12,7 @@
 {% block audio__figureclass  audio__figureclass ?? "flex flex-col w-full" %}
 
 {% block video__class        video__class       ?? "w-full aspect-video" %}
-{% block video__posterclass  video__posterclass ?? "absolute inset-0 z-20 object-cover" %}
+{% block video__posterclass  video__posterclass ?? "absolute inset-0 z-20 object-cover aspect-video" %}
 {% block video__figureclass  video__figureclass ?? "relative aspect-video w-full" %}
 
 {% block iframe__class       iframe__class      ?? "w-full h-auto" %}
@@ -48,7 +24,10 @@
     This is where the actual HTML is generated for whatever type of media is being
     rendered: <video>. <audio>, <iframe>, etc.
 {-------------------------------------------------------------------------------------##}
-{% block media__skeleton %}
+{% block mediaitem__skeleton %}
+    {%- set mediaitems = mediaitems ?? null is iterable ? mediaitems : [] -%}
+    {%- set mediaitems = ( mediaitem ?? null ) ? mediaitems | merge([mediaitem]) : mediaitems -%}
+
     {%- for item in mediaitems -%}
         {% if item.kind ?? null %}
             {%- block item -%}
@@ -71,8 +50,8 @@
 
     {%- if single -%}
         {{- include( ['_site/media', '_core/media'], {
-            item    : single,
-            settings: settings
+            mediaitem: single,
+            settings : settings
         }, withContext = false ) -}}
     {%- endif -%}
 {% endmacro %}
@@ -99,7 +78,7 @@
 
 {% block media__external -%}
 {%- if item.oembed.html ??? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set source = item.oembed.provider ??? null -%}
     {%- if source == 'youtube' or source == 'vimeo' -%}
         {{- block( 'media__video' ) -}}
@@ -114,7 +93,7 @@
 
 {% block media__audio -%}
 {%- if item ?? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- set medialayer = medialayer ??? settings.medialayer ??? 'default' -%}
     {%- set uuid = "audio#{random()}" -%}
@@ -189,12 +168,12 @@
 
 {% block media__video -%}
 {%- if item ?? null -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {% set uuid = "video#{random()}" %}
 
     {## Prepare Video Tag ##}
-    {%- set video = video ??? null and video is iterable ? video : {} %}
+    {%- set video = video ?? null is iterable ? video : {} %}
     {%- set video = {
         id      : uuid,
         'x-ref' : uuid,
@@ -206,13 +185,14 @@
     {% set videotag = tag( 'video', video ) -%}
 
     {## Prepare Poster / Cover Image ##}
-    {%- set poster = poster ??? null and poster is iterable ? poster : {} -%}
+    {%- set poster = poster ?? null is iterable ? poster : {} -%}
     {%- set poster = {
         imgclass: settings.video__posterclass ?? settings.posterclass ?? block('video__posterclass'),
+        _placeholder: 'widescreen'
     } | merge( poster ) -%}
 
     {## Prepare Figure Wrapper (just in case) ##}
-    {%- set figure = figure ??? null and figure is iterable ? figure : {} -%}
+    {%- set figure = figure ?? null is iterable ? figure : {} -%}
     {%- set figure = {
         class: settings.video__figureclass ?? settings.figureclass ?? block('video__figureclass'),
         'x-data': "{
@@ -229,7 +209,7 @@
     {%- from "_core/image" import imgtag -%}
     {%- set imgtag = imgtag(item.images ??? null, poster) ?? null -%}
 
-    {% set medialayer = medialayer ??? settings.medialayer ??? 'default' %}
+    {% set medialayer = medialayer ??? settings.medialayer ??? 'native' %}
 
     {## Is this an external video embed? ##}
     {% if item.oembed.html ??? null %}
@@ -242,7 +222,7 @@
             }",
         } | merge( figure ) -%}
 
-        {% if videotag and imgtag and medialayer != 'default' %}
+        {% if videotag and imgtag and medialayer != 'native' %}
             {% set videotag -%}
                 <template x-if="open">
                     {{ raw( videotag | replace({
@@ -254,7 +234,7 @@
     {% endif %}
 
     {## Add simple alpine JS click to toggle the poster image ##}
-    {%- set imgtag = imgtag and medialayer != 'default' ? raw( imgtag | attr({
+    {%- set imgtag = imgtag and medialayer != 'native' ? raw( imgtag | attr({
         'x-on:click': "play",
         'x-show': "!open",
         class: "cursor-pointer"
@@ -282,16 +262,15 @@
 {%- endif %}{% endblock %}
 
 
-
 {% macro iterator__randomize( items, settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.medialayer( settings.medialayer, shuffle(items)[:1], settings ) -}}
+    {{- assemble.medialayer( settings.medialayer, shuffle(items)[:1][0], settings ) -}}
 {%- endmacro %}
 
 
 {% macro iterator__single( items, settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.medialayer( settings.medialayer, items[:1], settings ) -}}
+    {{- assemble.medialayer( settings.medialayer, items[:1][0], settings ) -}}
 {%- endmacro %}
 
 
@@ -303,7 +282,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro iterator__grid2( medias, settings ) -%}
     {%- set medias   = medias   ??? null and medias   is iterable ? medias   : [] -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- set limit = settings.limit ??? 100 %}
 
@@ -329,7 +308,7 @@
 {% macro iterator__grid3( medias, settings ) -%}
     {%- import "_core" as assemble -%}
     {%- set medias   = medias   ??? null and medias   is iterable ? medias   : [] -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set limit = settings.limit ??? 100 %}
     {%- set medias = medias[0:limit] -%}
 
@@ -349,7 +328,7 @@
 
 {% macro iterator__accordion( items, settings ) -%}
 {%- if items -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = {
         medialayer: 'accordion__player',
         textlayer : 'accordion__text',

@@ -4,18 +4,6 @@
 {-------------------------------------------------------------------------------------##}
 {%- extends [ "_site/block", "_core/block" ] -%}
 
-{%- import "_core" as assemble -%}
-
-
-{## Template Variables
-{---------------------------------------------------------------------------------------}
-    Reminder about Twig Variable Scope: Don't change or set default values on `block`
-    or `settings` both inside AND outside of inheritable {% block %} scope. Pick one!
-{-------------------------------------------------------------------------------------##}
-{%- set block = block ?? {} -%}
-
-{%- set settings = block.settings ??? null -%}
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
 
 
 {## Zone 2 Content / Variant Routing
@@ -59,8 +47,9 @@
 {% endblock %}
 
 
-{## Image Default
+{## Fallback Renderer for Image Block
 {-------------------------------------------------------------------------------------##}
 {% block image__fallback %}
+    {%- import "_core" as assemble -%}
     {{- assemble.images( settings.iterator, images ??? [], settings ??? {} ) -}}
 {% endblock %}

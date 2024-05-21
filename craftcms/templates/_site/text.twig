@@ -26,7 +26,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro image__caption( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {% set captionlayer = settings.captionlayer ??? 'default' %}
 

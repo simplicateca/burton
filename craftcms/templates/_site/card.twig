@@ -17,8 +17,8 @@
     Below is what the variables should be when passed to this template. Use this code
     inside {% block %} contexts to validate incoming data.
 {---------------------------------------------------------------------------------------}
-    {%- set card = card ??? null and card is iterable ? card : {} -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set card = card ?? null is iterable ? card : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 {-------------------------------------------------------------------------------------##}
 
 
@@ -38,7 +38,7 @@
     or buttons from the CKeditor `summary` field.
 {-------------------------------------------------------------------------------------##}
 {# {% block card__summary -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {% set action   = settings.action ??? 'autolink' %}
     {{- action ??? null == 'none'
         ? parent() | retconRemove( ['a','button'] ) | raw
@@ -52,7 +52,7 @@
 {% macro iterator__autogrid( items, settings ) -%}
 {%- if items ??? null and items is iterable -%}
 
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = { cardname: 'default' } | merge( settings ) -%}
 
     {%- set class = "w-full grid grid-cols-1 gap-4 lg:gap-8 xl:gap-16 " -%}

@@ -1,9 +1,10 @@
-{% macro utility( handle = null ) %}
-    {% set handle = handle ??? 'utility' %}
+{% macro utility( entry, settings ) %}
+    {% set handle = 'utility' %}
+    {% set label  = settings.label ?? 'Utility' %}
     {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
 
     {% if nodes | length %}
-        <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-3">
 
         </div>
     {% endif %}
@@ -11,9 +12,10 @@
 {% endmacro %}
 
 
-{% macro contact( handle = null ) %}
-    {% set label  = 'Contact' %}
-    {% set handle = handle ??? 'contact' %}
+
+{% macro themes( entry, settings ) %}
+    {% set handle = 'themes' %}
+    {% set label  = settings.label ?? 'Themes' %}
     {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
 
     {% if nodes %}
@@ -52,9 +54,9 @@
 {% endmacro %}
 
 
-{% macro features( handle = null ) %}
-    {% set label  = 'Quick Links' %}
-    {% set handle = handle ??? 'features' %}
+{% macro overview( entry, settings ) %}
+    {% set handle = 'overview' %}
+    {% set label  = settings.label ?? 'Overview' %}
     {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
 
     {% if nodes %}
@@ -93,9 +95,9 @@
 {% endmacro %}
 
 
-{% macro legal( handle = null ) %}
-    {% set label  = 'Policies & Conditions' %}
-    {% set handle = handle ??? 'legal' %}
+{% macro legal( entry, settings ) %}
+    {% set handle = 'legal' %}
+    {% set label  = settings.label ?? 'Policies & Conditions' %}
     {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
 
     {% if nodes %}

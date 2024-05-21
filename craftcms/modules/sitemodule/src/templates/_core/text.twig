@@ -2,35 +2,35 @@
 {-------------------------------------------------------------------------------------##}
 {% macro fallback( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- if content -%}<div class="@container">{{ raw( content ) }}</div>{%- endif -%}
 {%- endmacro %}
 
 
 {% macro larger( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- if content -%}<div class="@container/large">{{ raw( content ) }}</div>{%- endif -%}
 {%- endmacro %}
 
 
 {% macro smaller( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- if content -%}<div class="@container/small">{{ raw( content ) }}</div>{%- endif -%}
 {%- endmacro %}
 
 
 {% macro twocols( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- if content %}<div class="@container/small columns-2 gap-8">{{- raw( content ) -}}</div>{% endif -%}
 {%- endmacro %}
 
 
 {% macro callout( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- if content -%}
         {% set theme = settings.theme ??? 'base' %}
@@ -43,7 +43,7 @@
 
 {% macro quote( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- if content -%}
         <div class="p-4 @xl:p-10 bg-theme-tint relative @container/small">

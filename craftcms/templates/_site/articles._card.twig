@@ -4,7 +4,7 @@
 
 {%- set path = path ??? ["_site/card","_core/card"] -%}
 
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 {%- set settings = { cardname: 'default' } | merge( settings ) -%}
 
 

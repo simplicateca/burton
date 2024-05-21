@@ -167,7 +167,7 @@
 {%- endblock %}
 
 {% block button -%}
-    {%- set titletag = titletag ??? null and titletag is iterable ? titletag : {} %}
+    {%- set titletag = titletag ?? null is iterable ? titletag : {} %}
     {%- set titletag = titletag is string ? { html: titletag } : titletag %}
     {%- set titletag = {
         class : settings.panel__titleclass ?? block('panel__titleclass') ?? "",

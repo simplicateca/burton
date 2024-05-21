@@ -273,7 +273,7 @@
         header: content.header is defined ? content.header | trim : null,
         footer: content.footer is defined ? content.footer | trim : null,
     } -%}
-    {%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = settings | merge({ microlayout: microlayout }) -%}
     {{- raw( _self._macro( 'layouts:microlayout', microlayout, content, settings ) ) -}}
 {%- endif %}{% endmacro %}
@@ -356,10 +356,10 @@
     with the prefix `menu__` within a file in the path below. If no match is found,
     it will fallback to use the `menu__default()` macro in _core/menu.twig.
 {-------------------------------------------------------------------------------------##}
-{% macro menu( entry = null, menu = null, settings = {} ) %}
-    {%- set html = include( "_site/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true ) -%}
-    {%- set html = html ? html : include( "_core/menu.#{menu}", { entry: entry, settings: settings }, ignoreMissing = true ) -%}
-    {%- set html = html ? html : _self._macro( 'menu', menu, entry, settings ) -%}
+{% macro menu( menuname = null, entry = null, settings = {} ) %}
+    {%- set html = include( "_site/menu.#{menuname}", { entry: entry, settings: settings }, ignoreMissing = true ) -%}
+    {%- set html = html ? html : include( "_core/menu.#{menuname}", { entry: entry, settings: settings }, ignoreMissing = true ) -%}
+    {%- set html = html ? html : _self._macro( 'menu', menuname, entry, settings ) -%}
     {{- html ? raw( html ) -}}
 {% endmacro %}
 

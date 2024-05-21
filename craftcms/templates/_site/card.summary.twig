@@ -5,9 +5,9 @@
 
 {## Template Variables
 {-------------------------------------------------------------------------------------##}
-{%- set card = card ??? null and card is iterable ? card : {} -%}
+{%- set card = card ?? null is iterable ? card : {} -%}
 
-{%- set settings = settings ??? null and settings is iterable ? settings : {} -%}
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
 {## Overload Parent Blocks
