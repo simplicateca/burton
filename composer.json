@@ -1,6 +1,6 @@
 {
   "name": "simplicateca/burton",
-  "description": "Burton is a protosite / starter kit for Craft CMS 4",
+  "description": "Burton is a protosite / starter kit for Craft CMS 5",
   "keywords": [
     "craft",
     "cms",
@@ -24,7 +24,7 @@
   "config": {
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.1"
+      "php": "8.2"
     }
   },
   "scripts": {
