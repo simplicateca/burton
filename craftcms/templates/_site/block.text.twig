@@ -54,6 +54,7 @@
     {%- if block.bits is iterable and block.bits.one() ??? null -%}
         {%- set bit = block.bits.one() -%}
         {%- set thistext = bit ? bit.summary ?? bit.text ?? null : thistext -%}
+        {%- set settings = settings | merge({ _bit: bit }) -%}
     {%- endif -%}
 
     {%- import "_core" as assemble -%}

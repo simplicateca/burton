@@ -1,8 +1,6 @@
-{%- set name = name ??? 'Other' -%}
-
 [{
     "value": "copyAbove",
-    "label": "Position Above {{ name }}",
+    "label": "Above Supporting Content",
     "default" : true,
     "tooltips": { "inline": "" },
     "settings": {},
@@ -21,7 +19,7 @@
                 }
             }
         {% else %}
-            ,{{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
+            ,{{ block( 'copyLayoutTextBlock',  '_config/_virtuals' ) }}
             ,{
                 "type" : "select",
                 "name" : "textlayer",
@@ -39,9 +37,9 @@
     ]
 },{
     "value": "copyLeft",
-    "label": "Position Left of {{ name }}",
+    "label": "Left of Supporting Content",
     "tooltips": {
-        "inline": "Two column layout with Copy on the left and {{name}} content on the right"
+        "inline": "Two column layout with Primary Copy on the left and Supporting content on the right"
     },
     "settings": {},
     "virtuals": [
@@ -53,9 +51,9 @@
     ]
 },{
     "value": "copyRight",
-    "label": "Position Right of {{name}}",
+    "label": "Right of Supporting Content",
     "tooltips": {
-        "inline": "Two column layout with {{name}} content on the left and Copy on the right"
+        "inline": "Two column layout with Supporting content on the left and Primary Copy on the right"
     },
     "settings": {},
     "virtuals": [
@@ -67,7 +65,7 @@
     ]
 },{
     "value": "copyBelow",
-    "label": "Position Below {{name}}",
+    "label": "Below Supporting Content",
     "tooltips": { "inline": "" },
     "settings": {
         "microlayout": "zone1Bottom"
@@ -75,7 +73,7 @@
     "virtuals": [
         {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
         {% if field ??? null != 'sidebarBuilder' %}
-            ,{{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
+            ,{{ block( 'copyLayoutTextBlock',  '_config/_virtuals' ) }}
             ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
         {% endif %}
     ]

@@ -1,3 +1,4 @@
+css: ".button {\r\n  display: inline-block;\r\n  border: 2px;\r\n  padding: 3px 8px;\r\n}"
 headingLevels:
   - 2
   - 3
@@ -36,6 +37,11 @@ options:
           - marker
         element: span
         name: Marker
+      -
+        classes:
+          - button
+        element: a
+        name: Button
 toolbar:
   - heading
   - alignment

@@ -225,11 +225,30 @@
 }{% endblock %}
 
 
+{% block copyLayoutTextBlock %}{
+    "type" : "select",
+    "name" : "copylayout",
+    "default": "zonesCenter",
+    "label": "Copy Container Layout",
+    "fieldClass": "width-70",
+    "instructions": "Set zone width &amp; alignment, particularly for screens wider than the maximum ‘Readable Width’.",
+    "options" : [{
+        "value": "left",
+        "label": "Left Aligned",
+        "microlayout" : "zonesLeft"
+    },{
+        "value": "wideTop",
+        "label": "Middle Aligned",
+        "microlayout" : "zonesCenter"
+    }]
+}{% endblock %}
+
+
 
 {% block copyLayoutFull %}{
     "type" : "select",
     "name" : "copylayout",
-    "default": "left",
+    "default": "wideTop",
     "label": "Copy Container Layout",
     "fieldClass": "width-70",
     "instructions": "Set zone width &amp; alignment, particularly for screens wider than the maximum ‘Readable Width’.",
@@ -241,10 +260,6 @@
         "value": "wideTop",
         "label": "Middle Aligned",
         "microlayout" : "zone1Top__center"
-    },{
-        "value": "narrowTop",
-        "label": "Middle Aligned (Narrow)",
-        "microlayout": "zone1Top__narrow"
     }]
 }{% endblock %}
 
@@ -255,6 +270,7 @@
     "name" : "copylayout",
     "default": "even",
     "label": "Copy Width + Alignment",
+    "fieldClass": "width-100",
     "instructions": "Relative to other content elements",
     "options" : [{
         "optgroup": "Top Aligned"
@@ -295,6 +311,7 @@
     "default": "evenVert",
     "label": "Text Zone Layout",
     "instructions": "Copy position and size relative to additional elements.",
+    "fieldClass": "width-100",
     "options" : [{
         "optgroup": "Top Aligned"
     },{

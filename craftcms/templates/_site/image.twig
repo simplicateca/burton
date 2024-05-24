@@ -26,6 +26,14 @@
 {%- endmacro %}
 
 
+{% macro circle__thumb( image, settings ) %}
+    {%- set settings = settings ?? null is iterable ? settings : {} %}
+    {{- _self.default( image, {
+        figureclass : "max-w-12 aspect-square mx-auto relative rounded-full overflow-hidden",
+        _placeholder: "icon"
+    } | merge( settings ) ) -}}
+{%- endmacro %}
+
 
 {% macro attention( images, settings ) %}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}

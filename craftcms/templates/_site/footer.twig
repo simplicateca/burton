@@ -31,7 +31,9 @@
 
 
 {% block footer__fatCta %}
-    <div class="h-full w-full min-h-[12rem] flex items-center justify-center text-lg font-medium">CALL TO ACTION</div>
+    <div class="h-full w-full min-h-[12rem] flex items-center justify-center text-lg font-medium">
+        <a href="#" class="block bg-theme-tint p-20 mr-0 w-3/4 text-center font-headline">CALL TO ACTION</a>
+    </div>
 {% endblock %}
 
 
@@ -54,7 +56,7 @@
     <footer {{attr({
         id   : 'footer',
         role : 'contentinfo',
-        class: 'relative z-20 canvas',
+        class: 'relative z-20 canvas pt-10',
         data : { theme: 'dark' }
     })}}>
 {% endblock %}

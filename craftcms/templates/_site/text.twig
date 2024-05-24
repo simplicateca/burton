@@ -25,7 +25,7 @@
 {## Image Captions
 {-------------------------------------------------------------------------------------##}
 {% macro image__caption( content, settings ) -%}
-    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
+    {%- set content  = content  ?? '' is iterable   ? '' : content|trim -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {% set captionlayer = settings.captionlayer ??? 'default' %}
@@ -60,3 +60,58 @@
         </figcaption>
     {% endif %}
 {% endmacro %}
+
+
+
+{## Callout
+{-------------------------------------------------------------------------------------##}
+{% macro callout( content, settings ) -%}
+    {%- set content  = content  ?? null is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ?? null is iterable     ? settings : {} -%}
+
+    <div class="max-w-3xl mx-auto @container" data-theme="{{settings.theme}}">
+        {% if settings._bit ?? null %}
+            {% set bit = settings._bit %}
+            {% if bit.images ??? null %}
+                {%- import "_core" as assemble -%}
+                {{- assemble.imagelayer( 'circle__thumb', bit.images, settings ) -}}
+   	    {% else if bit.icon %}
+		{{ svg( "@appicons/#{bit.icon}.svg" ) | attr({ class: 'h-12 w-12 block fill-theme-accent' }) }}
+            {% endif %}
+        {% endif %}
+
+        {{ raw( content ) }}
+    </div>
+{%- endmacro %}
+
+{% macro callout__knockout( content, settings ) -%}
+    {%- set theme = settings.theme ??? 'base' -%}
+    {%- set settings = settings | merge({ theme: "#{theme}-reverse" }) -%}
+    {{- _self.callout( content, settings ) -}}
+{%- endmacro %}
+
+
+{## Callout Quote
+{-------------------------------------------------------------------------------------##}
+{% macro callout__quote( content, settings ) -%}
+    {%- set content  = content  ?? null is not iterable ? content|trim : '' -%}
+    {%- set settings = settings ?? null is iterable     ? settings : {} -%}
+
+    <div class="max-w-3xl mx-auto @container">
+        {% set h4 = content | retconOnly( 'h4:last-of-type' ) %}
+        {% set content = content | retconRemove( 'h4:last-of-type' ) %}
+        {{ raw( content ) }}
+
+        {% if settings._bit ?? null %}
+            {% set bit = settings._bit %}
+            {% if bit.images ??? null %}
+                {%- import "_core" as assemble -%}
+                {{- assemble.imagelayer( 'circle__thumb', bit.images, settings ) -}}
+            {% endif %}
+        {% endif %}
+
+        {{ h4 | retconAttr( 'h4', { class: 'like-h4 pt-4' } ) }}
+    </div>
+{%- endmacro %}
+
+

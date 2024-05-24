@@ -326,6 +326,41 @@
 {%- endmacro %}
 
 
+{## - Horizontal Alignment, Both Zones Center
+{-------------------------------------------------------------------------------------##}
+{% macro microlayout__zonesCenter( content, settings ) -%}
+    {%- import "_core" as assemble -%}
+    {{- assemble.layout( 'twozone__microlayout', {
+        headerclass: 'max-w-5xl mx-auto pb-10',
+        footerclass: 'max-w-3xl mx-auto pt-10',
+        class      : "w-full flex flex-col" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
+        zone1class : 'max-w-5xl mx-auto',
+        zone2class : 'max-w-5xl mx-auto',
+        autoalign  : false,
+        clear      : true,
+        container  : settings.container ?? 'default',
+        content    : content
+    }, settings ) }}
+{%- endmacro %}
+
+{% macro microlayout__zonesLeft( content, settings ) -%}
+    {%- import "_core" as assemble -%}
+    {{- assemble.layout( 'twozone__microlayout', {
+        headerclass: 'max-w-5xl ml-0 pb-10',
+        footerclass: 'max-w-3xl ml-0 pt-10',
+        class      : "w-full flex flex-col" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
+        zone1class : 'max-w-5xl ml-0',
+        zone2class : 'max-w-5xl ml-0',
+        autoalign  : false,
+        clear      : true,
+        container  : settings.container ?? 'default',
+        content    : content
+    }, settings ) }}
+{%- endmacro %}
+
+
 {## - Horizontal Alignment: Center
 {-------------------------------------------------------------------------------------##}
 {% macro microlayout__zone1Top__center( content, settings ) -%}

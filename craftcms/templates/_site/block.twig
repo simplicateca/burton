@@ -30,7 +30,8 @@
       - CTA Buttons & Links (along with their kicker text), appearing after body text.
 {-------------------------------------------------------------------------------------##}
 {% block block__zone1 -%}
-{%- if block.text ??? null -%}
+{%- set blocktext = block.headline ??? block.text -%}
+{%- if blocktext ??? null -%}
     {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = {
@@ -42,7 +43,7 @@
     {%- import "_core" as assemble -%}
     {%- import "_core/text" as utils -%}
 
-    {%- set textbase = TextBase( block.text ) -%}
+    {%- set textbase = TextBase( blocktext ) -%}
     {%- set blockintro = settings.blockintro -%}
 
     {## build eyebrow ##}
@@ -92,7 +93,8 @@
 {## Block <header> zone content
 {-------------------------------------------------------------------------------------##}
 {% block block__header -%}
-{%- if block.text ??? null -%}
+{%- set blocktext = block.headline ??? block.text -%}
+{%- if blocktext ??? null -%}
 
     {## Pull Block Intro from CKEditor field ##}
     {%- if settings.blockintro is defined and settings.blockintro != 'inline' -%}
@@ -100,7 +102,7 @@
         {%- import "_core" as assemble -%}
         {%- import "_core/text" as utils -%}
 
-        {%- set textbase = TextBase( block.text ) -%}
+        {%- set textbase = TextBase( blocktext ) -%}
         {%- set headline = textbase.headlines[0:1]|join ??? null -%}
         {%- set content  = "" -%}
 
@@ -140,12 +142,13 @@
 {## Block <footer> zone content
 {-------------------------------------------------------------------------------------##}
 {% block block__footer -%}
-{%- if block.text ??? null -%}
+{%- set blocktext = block.headline ??? block.text -%}
+{%- if blocktext ??? null -%}
     {%- set settings = settings ?? block.settings ?? null -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- if settings.blockcta ??? null == 'footer' -%}
-        {%- set textbase = TextBase( block.text ) -%}
+        {%- set textbase = TextBase( blocktext ) -%}
         {%- if textbase.action or textbase.kicker -%}
             {%- import "_core" as assemble -%}
             {{- assemble.separator( 'small' ) -}}

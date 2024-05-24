@@ -2,8 +2,15 @@ headingLevels:
   - 3
   - 4
 name: Description
+options:
+  alignment:
+    options:
+      - left
+      - center
+      - right
 toolbar:
   - heading
+  - alignment
   - '|'
   - bold
   - italic

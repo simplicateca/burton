@@ -7,7 +7,7 @@
         "inputabove": "These settings allow for **fine tuning the presentation** of the search result and the available __input filters__.",
         "help"      : "Understanding the Search Component",
         "helpurl"   : "https://www.youtube.com/watch?v=x5bVKZxFdPo",
-        "helptwig"  : "_selectplus/help/basic.twig"
+        "helptwig"  : "_selectplus/help/sample.twig"
     },
     "settings": {},
     "virtuals": [{
@@ -60,6 +60,10 @@
         },{
             "value": "grid3",
             "label": "3 Columns, Summary Card",
+            "cardname": "summary"
+        },{
+            "value": "autogrid",
+            "label": "Autogrid, Summary Card",
             "cardname": "summary"
         },{
             "value": "masonry",
