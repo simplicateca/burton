@@ -75,11 +75,12 @@
             {% if bit.images ??? null %}
                 {%- import "_core" as assemble -%}
                 {{- assemble.imagelayer( 'circle__thumb', bit.images, settings ) -}}
-   	    {% else if bit.icon %}
-		{{ svg( "@appicons/#{bit.icon}.svg" ) | attr({ class: 'h-12 w-12 block fill-theme-accent' }) }}
+   	        {% else %}
+                {% if bit.icon ?? null %}
+		            {{ svg( "@appicons/#{bit.icon}.svg" ) | attr({ class: 'h-12 w-12 block fill-theme-accent' }) }}
+                {% endif %}
             {% endif %}
         {% endif %}
-
         {{ raw( content ) }}
     </div>
 {%- endmacro %}
@@ -113,5 +114,3 @@
         {{ h4 | retconAttr( 'h4', { class: 'like-h4 pt-4' } ) }}
     </div>
 {%- endmacro %}
-
-
