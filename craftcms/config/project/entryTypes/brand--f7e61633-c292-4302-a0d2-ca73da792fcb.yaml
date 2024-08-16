@@ -1,0 +1,247 @@
+color: null
+fieldLayouts:
+  2ca89dcd-e44b-49d8-8b84-6e156e4b0eec:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-header-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: e80cea6f-e409-487f-b1f6-222f13596dba
+            userCondition: null
+            width: 100
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: c08566fb-6009-4d37-80fc-409af550d731
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Full Title
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c3efacc5-b905-45ea-afbe-13428e60ad33
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: af0ef13a-17fd-4975-9f8e-26df07931657
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 854e95db-8337-4de9-a312-4dda2dec5194
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d4707092-ece0-4933-b85d-1baaee6b2bc9
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e4af8f46-b8d5-4d86-99d8-3288b4a6dd11
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 04d8512b-f814-40cf-b0ba-ba9956cbe59b
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-body-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 6b9c3cb3-bad5-4140-8d2d-077d67842048
+            userCondition: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Body Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 52d8dd59-b4fc-49a7-8e2b-584bed95ff3e
+            userCondition: null
+            warning: null
+            width: 75
+        name: 'Primary Content'
+        uid: 84133e81-886d-4f71-b3c7-0d52c45e8baa
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 13a18d2d-8f15-4235-bef6-7bc0e39af544
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 372d698c-b8b2-4fa8-9e95-e308ce0d6928
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: dd4802d1-85fb-4dec-a877-d7fe227b7c33
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 15948835-254d-45c3-b745-b185df38ec45 # City
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Cities
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ebd051d6-5426-4b8d-a7d9-770218d0644d
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab # Code
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 54c3d9b0-0013-4b08-942b-3ff98cc3a8c4
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 121e487d-d3f7-4592-a25e-519dba1d502f
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-addons.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 7d1153aa-1f71-4100-987a-f1f8c6380cff
+            userCondition: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 01c13296-4c57-49c0-802a-e980de4d84e0 # Addons
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c7dadf5d-c1b8-4fad-b8e1-0a046b306ed1
+            userCondition: null
+            warning: null
+            width: 50
+        name: 'Secondary Content'
+        uid: 571917e4-2791-43c8-ba1f-b50772b4da96
+        userCondition: null
+handle: brand
+hasTitleField: true
+icon: comet
+name: Brand
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: ''
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: ''
+titleTranslationMethod: site

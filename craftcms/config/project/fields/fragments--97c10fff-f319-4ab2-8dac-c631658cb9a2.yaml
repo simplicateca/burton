@@ -38,12 +38,12 @@ settings:
               -
                 - values
                 -
-                  - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragments
-  selectionLabel: null
+                  - ff76eb70-820e-4752-b138-daef62692e3f # Builder
+  selectionLabel: Choose
   showCardsInGrid: false
   showSiteMenu: false
   sources:
-    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Content Bits
+    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusables
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list

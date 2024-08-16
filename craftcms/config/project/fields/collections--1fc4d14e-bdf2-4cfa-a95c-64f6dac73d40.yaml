@@ -10,7 +10,7 @@ settings:
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
-  selectionLabel: 'Choose Collection'
+  selectionLabel: Choose
   showCardsInGrid: false
   showSiteMenu: true
   sources:

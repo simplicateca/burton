@@ -1,4 +1,4 @@
-dateModified: 1715952492
+dateModified: 1722443126
 elementSources:
   craft\elements\Entry:
     -
@@ -6,24 +6,40 @@ elementSources:
       type: heading
     -
       defaultSort:
-        - postDate
-        - desc
+        - structure
+        - asc
       disabled: false
-      key: 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Articles
+      key: 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
       tableAttributes:
-        - postDate
-        - expiryDate
+        - type
+        - 'field:4b104ed0-4b08-424b-a744-f9bbf418fc2f' # Images
+        - 'field:ec92452d-10f2-4a41-a9ee-bf384facb572' # Topics & Tags
         - link
       type: native
     -
       defaultSort:
-        - structure
-        - asc
+        - dateUpdated
+        - desc
       disabled: false
-      key: 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Page Content
+      key: 'section:d4c481a4-83d0-4824-968f-d14247ec9c65' # Event Logistics
       tableAttributes:
+        - type
+        - 'field:4b104ed0-4b08-424b-a744-f9bbf418fc2f' # Images
+        - 'field:3910377b-5ddd-4887-9b6b-a6a023e66464'
+        - link
+      type: native
+    -
+      defaultSort:
         - postDate
-        - expiryDate
+        - desc
+      disabled: false
+      key: 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
+      tableAttributes:
+        - type
+        - 'field:4b104ed0-4b08-424b-a744-f9bbf418fc2f' # Images
+        - authors
+        - 'field:ec92452d-10f2-4a41-a9ee-bf384facb572' # Topics & Tags
+        - postDate
         - link
       type: native
     -
@@ -36,8 +52,10 @@ elementSources:
       disabled: false
       key: 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
       tableAttributes:
+        - type
+        - 'field:4b104ed0-4b08-424b-a744-f9bbf418fc2f' # Images
+        - 'field:ec92452d-10f2-4a41-a9ee-bf384facb572' # Topics & Tags
         - postDate
-        - expiryDate
         - link
       type: native
     -
@@ -45,10 +63,27 @@ elementSources:
         - postDate
         - desc
       disabled: false
-      key: 'section:9cf1fb90-7384-41c9-8eda-fd8d9f2cd574' # Embeddables
+      key: 'section:24626664-b886-4d46-a8d0-bb30ed656725' # Profiles
       tableAttributes:
+        - type
+        - 'field:31cc93a2-d38f-4943-b7c2-473b72eb69a1' # Variant
+        - 'field:76ecf304-e477-4478-8bc3-a6b55558f3fd' # Organization
+        - 'field:4b104ed0-4b08-424b-a744-f9bbf418fc2f' # Images
+        - 'field:ec92452d-10f2-4a41-a9ee-bf384facb572' # Topics & Tags
         - postDate
-        - expiryDate
+        - link
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      disabled: false
+      key: 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusables
+      tableAttributes:
+        - type
+        - 'field:4b104ed0-4b08-424b-a744-f9bbf418fc2f' # Images
+        - 'field:ec92452d-10f2-4a41-a9ee-bf384facb572' # Topics & Tags
+        - postDate
         - link
       type: native
     -
@@ -59,43 +94,10 @@ elementSources:
         - postDate
         - desc
       disabled: false
-      key: 'section:9efdcfc8-0f66-4c82-bada-08eb257b6060' # Addons
-      tableAttributes:
-        - postDate
-        - expiryDate
-        - link
-      type: native
-    -
-      defaultSort:
-        - postDate
-        - desc
-      disabled: false
       key: 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
       tableAttributes:
-        - postDate
-        - expiryDate
-        - link
-      type: native
-    -
-      defaultSort:
-        - postDate
-        - desc
-      disabled: false
-      key: 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Content Bits
-      tableAttributes:
-        - postDate
-        - expiryDate
-        - link
-      type: native
-    -
-      defaultSort:
-        - postDate
-        - desc
-      disabled: false
-      key: 'section:a7cc6203-a411-490b-8938-390040843dbf' # Fragments
-      tableAttributes:
-        - postDate
-        - expiryDate
+        - type
+        - 'field:8fdbf754-ae65-42c5-ba4b-09de9259cad2' # Source
         - link
       type: native
     -
@@ -105,8 +107,9 @@ elementSources:
       disabled: false
       key: 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
       tableAttributes:
-        - postDate
-        - expiryDate
+        - type
+        - 'field:4b104ed0-4b08-424b-a744-f9bbf418fc2f' # Images
+        - 'field:581b9070-f50c-49a0-91c7-2921437ad0fb' # Color
         - link
       type: native
     -
@@ -120,6 +123,34 @@ elementSources:
         - postDate
         - expiryDate
         - link
+      type: native
+  verbb\events\elements\Event:
+    -
+      key: '*'
+      type: native
+    -
+      heading: 'Event Types'
+      type: heading
+    -
+      defaultSort:
+        - title
+        - asc
+      disabled: false
+      key: 'eventType:2b111a14-814e-464c-80a3-e31d2af89e9a' # Conference
+      tableAttributes:
+        - 'field:b24f1298-62ac-4de3-9ac3-32e644553bab' # Code
+        - startDate
+        - 'field:f6e557d8-e821-4ff3-ba2d-9fe578cc7885' # Event Brand
+        - 'field:15948835-254d-45c3-b745-b185df38ec45' # City
+        - 'field:d61293d5-457e-4131-ab86-9af77881772e' # Venue
+        - type
+        - postDate
+      type: native
+    -
+      key: 'eventType:532d1796-4b47-456a-a383-01bd79a33d74' # Workshop
+      type: native
+    -
+      key: 'eventType:99bdbd07-b566-487e-8378-6eb9ce75f160' # Live Stream
       type: native
   verbb\formie\elements\Form:
     -
@@ -174,88 +205,214 @@ fs:
     url: $CDN_BASE
 meta:
   __names__:
+    0b229987-523a-4f15-9fb6-ff9113242afe: Outline # Outline
     0c3eb4bf-9fe7-422e-9947-289edfc00105: Redirect # Redirect
+    0c659167-8917-4560-a17e-1b77c1469dd8: Download # Download
+    0d837ab7-b28b-4a3a-8037-c4ccbf153b04: New # New
     1a6e1555-2cf3-4964-96b6-9471a17e392a: 'Simple Text' # Simple Text
     01c13296-4c57-49c0-802a-e980de4d84e0: Addons # Addons
     01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa: 'Content Layout' # Content Layout
     1eb561c2-313a-4ea5-9332-dd8effd8eb73: Bit # Bit
     1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40: Collections # Collections
+    2b111a14-814e-464c-80a3-e31d2af89e9a: Conference # Conference
     2ccb2a52-562c-4cc8-ac89-d14784532a6b: Block # Block
+    2de4050c-a160-41cd-945c-294c25c46f31: Magazine # Magazine
+    2e044a61-9af9-452c-a361-bb3201ded89c: Collab # Collab
     2f49bc19-1268-44b4-a2b9-82985d4df78f: Static # Static
-    4b2a900b-f8d6-4b24-aee5-10ebc4051eb6: 'RSS Feed' # RSS Feed
+    3f9234b9-eff5-41c9-9171-94fccbed06d2: 'Downloadable Resource' # Downloadable Resource
+    4b2a900b-f8d6-4b24-aee5-10ebc4051eb6: 'RSS Collection' # RSS Collection
     4b104ed0-4b08-424b-a744-f9bbf418fc2f: Images # Images
+    4dce367e-15ad-4485-bca9-6069ca8f1fe8: Time # Time
     04de3988-1519-432d-92a4-e455f30a3afc: Form # Form
-    06d15756-5b0e-4a06-a8db-0f2343d4b25f: Fragment # Fragment
+    4df7052c-989e-4e15-8d24-31029f8fd2f6: Venue # Venue
+    5c046684-0f75-4dd0-90ab-18e17aea8e31: Stripe # Stripe
+    5c7bcb17-6261-4761-ad49-8b99add5d842: Shirt # Shirt
+    06d15756-5b0e-4a06-a8db-0f2343d4b25f: 'Fragment 🧱' # Fragment 🧱
+    6daa3f48-28bf-4e5b-a646-5528c9b225b8: Events # Events
+    7b261374-0dae-4e92-8b59-2a66b9de79a5: 'Canadian Store' # Canadian Store
+    8ae479a3-4fb7-4a94-a653-1c838d028f01: FAQs # FAQs
     8b83b1c6-3917-4365-bc67-1f94599cbb08: 'Private Tag' # Private Tag
     8fdbf754-ae65-42c5-ba4b-09de9259cad2: Source # Source
     9be9dfbd-e578-410f-ad06-8b7a6e9a0734: 'Table of Contents' # Table of Contents
-    9cf1fb90-7384-41c9-8eda-fd8d9f2cd574: Embeddables # Embeddables
-    9efdcfc8-0f66-4c82-bada-08eb257b6060: Addons # Addons
-    14dff90f-f8fc-444e-bc75-e51f72aa490d: Text # Text
+    14dff90f-f8fc-444e-bc75-e51f72aa490d: 'Text 🧱' # Text 🧱
+    16eeaaf8-6778-46b1-887b-f4a83630cda3: 'Magazine Issue' # Magazine Issue
+    29b673a0-177d-4ed0-b1e0-7328e02495e4: 'Outbound Links & Accounts' # Outbound Links & Accounts
     31cc93a2-d38f-4943-b7c2-473b72eb69a1: Variant # Variant
     40f8a572-f12e-49f2-849d-8fbe3395eb5c: Addon # Addon
+    041e750b-ab10-4fb9-a87b-41acf128aae2: City # City
     54bdf500-79d2-4c24-9147-1e3da8064473: 'Full Text' # Full Text
-    80b8014d-fa4b-4271-9c59-73cd7c7c6d78: Article # Article
-    81fa1568-9bd5-4c7c-9562-cb6ac67ab298: Overview # Overview
+    76ecf304-e477-4478-8bc3-a6b55558f3fd: Organization # Organization
+    79e1ae4f-2754-4f61-8843-34e07eef3d17: Package # Package
+    80b8014d-fa4b-4271-9c59-73cd7c7c6d78: 'News Release' # News Release
+    81fa1568-9bd5-4c7c-9562-cb6ac67ab298: 'Evergreen Content' # Evergreen Content
+    82af1834-4573-41c4-93ed-2d8a85f90892: Issue # Issue
     83a6e4e2-3e52-435e-bcb4-ced4dc7e387e: Taxonomies # Taxonomies
-    93a86902-7a1b-4986-ba7f-35cef71233ac: 'Craft CMS' # Craft CMS
+    85e153af-481d-4275-9d51-c3378b42e7e1: Knowledge # Knowledge
+    88fdcb93-d8c6-4625-807e-885199098b6c: Label # Label
+    93a86902-7a1b-4986-ba7f-35cef71233ac: Canadian # Canadian
     97c10fff-f319-4ab2-8dac-c631658cb9a2: Fragments # Fragments
-    99d1e742-e9ee-4468-8f52-06f9672d8f68: 'Content Page' # Content Page
-    247cf34e-12cf-4324-b034-3209f48a18ff: 'Page Content' # Page Content
+    99bdbd07-b566-487e-8378-6eb9ce75f160: 'Live Stream' # Live Stream
+    99d1e742-e9ee-4468-8f52-06f9672d8f68: Page # Page
+    105d868c-b1ba-4534-a294-c66bca17ed17: 'Audio Resource' # Audio Resource
+    215f4c77-1c97-456d-ac1a-d390d0f0cd64: Person # Person
+    247cf34e-12cf-4324-b034-3209f48a18ff: 'Core Pages' # Core Pages
     335b1087-e2f6-41b1-b7de-f8d4b61d6c1e: Headline # Headline
     461a993b-97dc-4ea7-99d2-4da5e4065337: Legal # Legal
-    545f1fed-e750-457f-91f5-47b4faf56f85: 'Expanded Title' # Expanded Title
+    532d1796-4b47-456a-a383-01bd79a33d74: Workshop # Workshop
+    545f1fed-e750-457f-91f5-47b4faf56f85: 'Full Title' # Full Title
     581b9070-f50c-49a0-91c7-2921437ad0fb: Color # Color
     615b4078-5891-406a-ba93-6eb8e1528924: Users # Users
+    638d56f9-7d8c-4ff1-9e7e-a692f3348ddf: 'United States' # United States
     667ee826-8732-4bc8-8dbe-b7aefad82b15: Collections # Collections
-    685e625d-7180-40dc-a031-953f5f9a8cef: 'Content Bits' # Content Bits
+    685e625d-7180-40dc-a031-953f5f9a8cef: Reusables # Reusables
+    704de27a-b3b1-42d5-97ba-f89c47d27077: Timeslot # Timeslot
     786cbf54-8fad-49b0-9d97-354b7aded9c4: Utility # Utility
-    4248eeb1-ca4d-476f-9998-7780ee611c74: Image # Image
+    905e95cc-d3e0-4019-8f80-4901e90bbbec: Availability # Availability
+    1538f51f-efd1-434a-86ff-dea11166dc2c: Lineup # Lineup
+    4248eeb1-ca4d-476f-9998-7780ee611c74: 'Image 🧱' # Image 🧱
     4688dcb4-257f-4a94-b8b7-db234f63e0a9: 'Landing Pages' # Landing Pages
     5635a1ac-adca-4a96-816a-7ae1b664bc4d: 'Theme & Scenery' # Theme & Scenery
+    7177d41a-9ac0-42bd-9028-346b207e3bc0: Contributors # Contributors
     7487ca3f-f51b-40e9-a538-40ab5b2c4a27: Text # Text
-    96192f21-960f-489c-a380-96e4b51f2777: 'Card Deck' # Card Deck
+    7797eddc-33dc-46d9-845a-840f747716bd: 'Ticket Packages' # Ticket Packages
+    8209c5fd-6e8c-45d3-8dc2-b44a991dc31e: Organization # Organization
+    34184a55-ddcb-4573-8156-20e90806caf3: 'Related Resources' # Related Resources
+    066383d2-4c3e-415b-be7e-93c6a4c5471b: Quote # Quote
+    96192f21-960f-489c-a380-96e4b51f2777: 'Card Deck 🧱' # Card Deck 🧱
+    98843cde-e128-4799-a8dd-1862eba69b21: Book # Book
     280486f4-01ac-42a0-8604-c20f6b62b5df: Uploads # Uploads
+    773096ce-2142-42b4-9cf9-a945483e7609: Session # Session
+    941927ac-1577-4a48-adde-7f457a78ace6: Outline # Outline
     2508516d-3329-44ec-8518-04f2a29ca3f3: Embed # Embed
+    5435578f-4317-4fbf-b24f-a5fd4d2e9f68: French # French
+    6959404b-a5e7-4b3c-ac92-144bfdf0e7ed: 'Knowledge Resource' # Knowledge Resource
+    15948835-254d-45c3-b745-b185df38ec45: City # City
     21710874-0ba0-423c-82ec-7fd855abb982: 'Dynamic Collection' # Dynamic Collection
+    24626664-b886-4d46-a8d0-bb30ed656725: Profiles # Profiles
+    67956569-dff3-4bc1-8009-9b5d838a0818: Products # Products
     a03cf6a5-0e00-43cb-871c-3a37dde51a3e: 'Header Builder' # Header Builder
-    a7cc6203-a411-490b-8938-390040843dbf: Fragments # Fragments
     a186d4ae-477e-4b06-868e-add5e8f44b0c: Embeds # Embeds
+    a410632e-9404-48a0-bada-427d97c46ea0: Books # Books
     a6272176-e780-4d5e-90f2-df0115d1a324: 'Sidebar Builder' # Sidebar Builder
     ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2: Bits # Bits
-    b1ee8bc9-827b-4fec-943c-c6ff229adb59: Articles # Articles
+    ad02d4ae-140c-42a7-ad18-9c14bd90aa05: Address # Address
+    ad3c4465-2c99-4028-82f5-cd2d63371663: FAQ # FAQ
+    b1ee8bc9-827b-4fec-943c-c6ff229adb59: 'Knowledge Base' # Knowledge Base
     b24f1298-62ac-4de3-9ac3-32e644553bab: Code # Code
     b54aca1f-5631-4f76-a248-e953c4ada5bd: Icon # Icon
     b161e6c6-3186-4ba2-b215-948d7a2d359a: 'Lead Gen Short' # Lead Gen Short
     b4753be4-da84-4306-82e8-a9473ca5398f: 'Body Builder' # Body Builder
-    b4783a60-e9ff-40a2-8e9e-159b24fad0a9: Media # Media
+    b4783a60-e9ff-40a2-8e9e-159b24fad0a9: 'Media 🧱' # Media 🧱
     bb561dd8-e748-4c68-9107-2ffd5db410d8: Topic # Topic
     bdc12ed2-dd0e-4189-9c87-1adaee91e73c: Transcript # Transcript
-    c8e327b3-dc6d-4da9-a4b8-0ebfd0dca1ae: Themes # Themes
+    be00849c-cd4a-4685-92e6-55e006f6f29a: Sessions # Sessions
+    c030bf7e-76ec-4238-9d69-b19391b4c40b: Organizations # Organizations
+    c1ea9486-a2c9-4169-9858-144fd21c25b9: Article # Article
+    c5da4c05-a571-456d-aa75-00a7802b85f1: 'People • Organizations' # People • Organizations
+    c8e327b3-dc6d-4da9-a4b8-0ebfd0dca1ae: 'Event Information' # Event Information
     c79e1e50-f4c9-4875-af8a-4a1be47d3c09: 'Extended Title' # Extended Title
+    c884ab2a-ca58-4452-af31-3280bf9a857b: 'Audience Streams' # Audience Streams
+    cc679936-0987-4bc9-9cf1-37916798be7a: Users # Users
+    cceeadbb-b529-40e2-9f4c-8eefa2162e74: Dummy # Dummy
+    ced51411-95db-4d01-ac65-47146c810d46: Account # Account
+    cedee256-4b86-498f-9815-fb586f30a664: Book # Book
     d3d3706c-8e74-46e7-801c-ceea9f8ee159: 'Newsletter Signup' # Newsletter Signup
+    d4c481a4-83d0-4824-968f-d14247ec9c65: 'Event Logistics' # Event Logistics
+    d4e393d2-e3cd-402c-a300-6f42cc0553c1: 'Audio MP3' # Audio MP3
     d8bf6768-4ff5-4727-ac20-12f8f0344542: Media # Media
-    d34bee8e-bf22-451d-8339-a4342630833d: 'Craft CMS' # Craft CMS
+    d34bee8e-bf22-451d-8339-a4342630833d: Canada # Canada
     d54e9112-8ddd-477c-b0db-038d553edef4: Square # Square
     d89ead44-6b42-4317-9e6d-d8227a50a622: 'Contact Form' # Contact Form
     d554a8e7-e8ad-493b-aaa8-d611bf04b257: 'Website / Content URL' # Website / Content URL
     d794ad1d-257e-41a6-a11e-6e0c66406d07: Headline # Headline
     d7748b2a-ae79-4961-b103-a5aa758e39ab: 'Static Collection' # Static Collection
-    da081ad7-ada7-47b4-8049-d8707be07262: Primary # Primary
+    d61293d5-457e-4131-ab86-9af77881772e: Venue # Venue
+    da081ad7-ada7-47b4-8049-d8707be07262: 'Primary Navigation (Global)' # Primary Navigation (Global)
+    daed701a-d2cb-4188-b5c2-40e06c01f5c6: Processed # Processed
+    ddaeabc4-cd5d-49a5-9783-ba7933a017c9: Speakers # Speakers
     e034ba0c-9edc-4c7c-91a5-8b3b0b8430c6: Menu # Menu
+    e7f9ef82-aa7c-4def-8477-dbe7648488b5: USA # USA
     e99d0421-a8b0-490d-98be-c5eb531ef855: New # New
+    eabb9afd-9bf0-404f-9141-cfe4df5563bb: Attendees # Attendees
+    eb0ccaf4-5d0a-49ed-a7cd-53644e347ce8: 'Sponsors & Partner' # Sponsors & Partner
+    ec7e5f34-b050-4b33-91c2-ec94e22dcd9a: 'Public Schema' # Public Schema
     ec92452d-10f2-4a41-a9ee-bf384facb572: 'Topics & Tags' # Topics & Tags
     ef0d77ed-a6ab-49db-afe4-2be38730d402: Description # Description
     f3d34d10-7741-40ba-9fae-27d87f771b4d: Summary # Summary
+    f6e557d8-e821-4ff3-ba2d-9fe578cc7885: 'Event Brand' # Event Brand
+    f7e61633-c292-4302-a0d2-ca73da792fcb: Brand # Brand
     f240ce26-8d9d-4668-b18b-73371d5c5211: Entries # Entries
     f630a19c-44c3-4d70-9e7c-6db552e8a72d: Bit # Bit
-    faaa512e-f0ed-4151-97de-d73bdc9a4f5e: Component # Component
-    ff76eb70-820e-4752-b138-daef62692e3f: 'Block Fragments' # Block Fragments
+    faaa512e-f0ed-4151-97de-d73bdc9a4f5e: 'Component 🧱' # Component 🧱
+    ff76eb70-820e-4752-b138-daef62692e3f: Builder # Builder
 plugins:
+  campaign:
+    edition: pro
+    enabled: true
+    licenseKey: EX1OUFVIPL00OR6RGKIOVLQO
+    schemaVersion: 3.1.2
+    settings:
+      addOneClickUnsubscribeHeaders: true
+      allowedOrigins: null
+      apiKey: ytzvohkzbuoywxah
+      defaultNotificationContactIds: null
+      enableAnonymousTracking: false
+      fromNamesEmails:
+        -
+          - 'The Art Of'
+          - events@theartof.com
+          - events@theartof.com
+          - '1'
+      geoIp: false
+      importJobPriority: 2048
+      importJobTtr: 300
+      ipstackApiKey: null
+      mailersendWebhookSigningSecret: null
+      mailgunWebhookSigningKey: null
+      maxPendingContacts: 5
+      maxRetryAttempts: 10
+      maxSendAttempts: 3
+      maxSendFailuresAllowed: 1
+      postmarkAllowedIpAddresses:
+        - 3.134.147.250
+        - 50.31.156.6
+        - 50.31.156.77
+        - 18.217.206.57
+      purgePendingContactsDuration: 0
+      reCaptcha: false
+      reCaptchaErrorMessage: 'Your form submission was blocked by Google reCAPTCHA. Please go back and try again.'
+      reCaptchaSecretKey: null
+      reCaptchaSiteKey: null
+      sendVerificationEmailsViaCraft: false
+      sendgridWebhookVerificationKey: null
+      sendoutJobBatchDelay: 0
+      sendoutJobBatchSize: 100
+      sendoutJobPriority: null
+      sendoutJobTtr: 300
+      showSendoutTitleField: false
+      syncJobPriority: 2048
+      syncJobTtr: 300
+      testMode: false
+      transportSettings:
+        __assoc__:
+          -
+            - command
+            - '/usr/sbin/sendmail -t -i'
+      transportType: craft\mail\transportadapters\Sendmail
+      validateWebhookRequests: false
   ckeditor:
     edition: standard
     enabled: true
     schemaVersion: 3.0.0.0
+  commerce:
+    edition: pro
+    enabled: true
+    licenseKey: CP2W4HHLC1HJCNJANMZEBFU9
+    schemaVersion: 5.0.74
+  commerce-stripe:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.0
   dospaces:
     edition: standard
     enabled: true
@@ -264,6 +421,11 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+  events:
+    edition: standard
+    enabled: true
+    licenseKey: ZVJJHKE9A070YWQ3JLE9TN1S
+    schemaVersion: 1.0.13
   feed-me:
     edition: standard
     enabled: true
@@ -296,7 +458,7 @@ plugins:
     enabled: true
     schemaVersion: 1.0.0
 system:
-  edition: solo
+  edition: pro
   live: true
   name: 'Craft CMS'
   schemaVersion: 5.0.0.20

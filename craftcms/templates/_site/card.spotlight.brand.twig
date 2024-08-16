@@ -1,0 +1,88 @@
+{## Panel Card   [Site Template]
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_site/card", "_core/card" ] %}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
+
+
+{## Overload Parent Blocks
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block card__class "w-full relative grid grid-cols-1" %}
+
+{% block card__images -%}
+    {%- set svglogo    = collect( card.images ).firstWhere( 'variant', 'svglogo' ) -%}
+    {%- set background = collect( card.images ).firstWhere( 'variant', 'background' ) -%}
+
+    {%- import "_core" as assemble -%}
+    {% if background and svglogo %}
+        {{- assemble.imagelayer( 'default', [background], settings ) -}}
+    {% else %}
+        {{- assemble.imagelayer( 'default', card.images, settings ) -}}
+    {% endif %}
+
+{%- endblock %}
+
+
+{% block card__words -%}
+
+    {%- set svglogo = collect( card.images ).firstWhere( 'variant', 'svglogo' ) -%}
+
+    <div class="absolute inset-0 z-30 flex items-center justify-center">
+        <div class="text-white text-center">
+            {% if svglogo %}
+                {{ svg( svglogo ) | retconAttr( 'path', { 'fill' : '#fff' } ) | attr({ 'class': 'w-full max-h-24 inline-block mx-auto mb-4' }) }}
+            {% else %}
+                <h3 class="text-white">{{ card.headline }}</h3>
+            {% endif %}
+
+            {% set summary = card._element.fullTitle ??? card.summary ??? null %}
+
+            {{ summary | raw }}
+        </div>
+    </div>
+
+    {{ block('card__action')}}
+{%- endblock %}
+
+
+{% macro upcoming( brand, settings ) %}
+    {% set events = craft.events.events()
+        .relatedTo( brand )
+        .all() %}
+
+    {%- import "_core" as assemble -%}
+
+    {% if events %}
+        <div class="pt-6">
+            <h4>Upcoming Dates</h4>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                {% for event in events %}
+                    <div class="relative">
+                        {% set city = event.city.one() %}
+                        {{- assemble.imagelayer( 'square', city.images, settings ) -}}
+
+                        <div class="absolute inset-0 flex justify-end align-center flex-col z-20 text-center bg-gradient-to-b from-transparent to-stone-900">
+                            <h5 class="text-white text-xl !mb-0 text-shadow">{{ city.title }}</h5>
+                            <div class="text-white text-md font-bold text !mb-3 text-shadow">{{ event.startDate |date('long') }}</div>
+                        </div>
+
+                        {{ tag( 'a', {
+                            href : event.url,
+                            class: 'click__cover',
+                            html : '<span class="hidden">Event Details →</span>',
+                        } ) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}

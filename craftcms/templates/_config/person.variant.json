@@ -1,0 +1,13 @@
+[{
+    "value"   : "person_leader",
+    "label"   : "Thought Leader",
+    "tooltips": { "inline": "Speakers, authors, titans of industry, etc." },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "person_contributor",
+    "label"   : "Contributor",
+    "tooltips": { "inline": "Content authors, presenters, team members, etc." },
+    "settings": {},
+    "virtuals": []
+}]

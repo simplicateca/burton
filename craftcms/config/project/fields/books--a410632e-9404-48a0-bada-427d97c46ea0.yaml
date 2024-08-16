@@ -1,0 +1,52 @@
+columnSuffix: null
+handle: books
+instructions: null
+name: Books
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 92ee441c-9200-4ab6-a26a-3c04763ed487
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 98843cde-e128-4799-a8dd-1862eba69b21 # Book
+  selectionLabel: Choose
+  showCardsInGrid: false
+  showSiteMenu: false
+  sources:
+    - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

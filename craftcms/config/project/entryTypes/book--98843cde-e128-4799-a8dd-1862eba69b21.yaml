@@ -1,0 +1,255 @@
+color: null
+fieldLayouts:
+  1a77314d-803b-4e0c-b25f-19fc0968e984:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-header-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 514026d1-fbf1-49ea-985c-de7bd392c7bf
+            userCondition: null
+            width: 100
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: 'Short Title'
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 91ff7ffd-3f3c-4ba2-a830-847a9800097a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Full Title
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a0ef659a-b28e-45f2-b70c-584d83fcf548
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4c7f8172-8dbb-4428-aed7-30ebb561debd
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: f12e629f-816a-426d-b4d1-ac1a4edc36d4
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: c5da4c05-a571-456d-aa75-00a7802b85f1 # People • Organizations
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Author(s)
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4ac3b4c4-7e6f-4484-b7cb-ad8411e902a5
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab # Code
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: ISBN
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 45c84887-6503-49e2-bd08-20abbdf80d1f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 2f025dd8-efcd-4847-bb76-7555e3ca50c4
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0ca26603-6221-4bba-9cb2-92bd2a2e4929
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Cover Image'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5dd72dec-c348-4c3c-8029-4caf3b2becec
+            userCondition: null
+            warning: null
+            width: 50
+        name: 'Primary Content'
+        uid: d2d197e4-826e-4017-b914-aeb5dd4b6d7e
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Text (Long)'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 667929a5-534c-4791-9081-00979a6908a3
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 34184a55-ddcb-4573-8156-20e90806caf3 # Related Resources
+            handle: null
+            includeInCards: false
+            instructions: 'Sample chapters, worksheets, summaries, etc.'
+            label: 'Extra Resources'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 529e7997-f8c9-4a66-af4d-a7e5ad249b85
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 87da74e2-c5b1-4bca-80ea-d8122d2029bb
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 29b673a0-177d-4ed0-b1e0-7328e02495e4 # Outbound Links & Accounts
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Links
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bd7783e5-9a28-499c-9e34-69f8b7655d06
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 213f5e60-24d3-4171-b1ea-9aad4e34fd36
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 6f68604e-54ed-43a4-93d0-e4acea1adf87
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-body-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: bde9f334-4706-4894-aa60-19e000bb4bfb
+            userCondition: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Body Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 76d39cbb-6c09-425a-9030-4af9135fe3ea
+            userCondition: null
+            warning: null
+            width: 75
+        name: 'Secondary Content'
+        uid: 7776cfd1-a514-4d98-81ad-f352a23c7d8d
+        userCondition: null
+handle: book
+hasTitleField: true
+icon: book
+name: Book
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: ''
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: ''
+titleTranslationMethod: site

@@ -1,42 +1,74 @@
-{## Page & Landing Page Entry Router
-{-------------------------------------------------------------------------------------##}
-{% set template   = null %}
-{% set entrytype  = entry.type.handle ?? null %}
-{% set hasSidebar = entry.sidebarBuilder.one() ?? null %}
-
-{% if entrytype == 'redirect' and entry.redirect.url ?? null %}
-    {% redirect entry.redirect.url %}
-{% endif %}
-
-{% if entrytype == 'page' and not hasSidebar %}
-    {% set template = "_site/template.fullpage" %}
-{% endif %}
-
-{% if entrytype == 'page' and hasSidebar %}
-    {% set template = "_site/template.sidebar" %}
-{% endif %}
-
-{% if entrytype and template %}
-    {{ include( template ) }}
-{% else %}
-    {% header "HTTP/1.0 404 Not Found" %}
-{% endif %}
-
-
-
-{## Page Entry URI Generator
+{## Entry Template for Core + Landing Page Sections
 {---------------------------------------------------------------------------------------}
-    Often easier than trying to cram a bunch of conditional twig logic into the tiny
-    space provided by the URI Format field in the control panel.
-
-    However, you do need to trigger a manual resave of all entries if you change
-    the URI sturcture in the below macro for existing records.
-
-    {% from '_site/pages._entry' import uri %}{{ uri( object ) }}
+    Admin (Core)    → http://localhost:8000/cms/settings/sections/1
+    Admin (Landing) ➜ http://localhost:8000/cms/settings/sections/4
 {-------------------------------------------------------------------------------------##}
-{% macro uri( entry ) %}{% apply spaceless %}
-    {% set entrytype = entry.type.handle ?? entry.type ?? null %}
-    {% set parenturi = entry.parent.uri  ?? null %}
-    {% set prefixdir = entry.type.handle == 'landingPages' ? 'go' : null %}
-    {{ [prefixdir, parenturi, entry.slug] | filter | join('/') }}
+{% set errortmpl = template_from_string('{% block catch %}{% header "HTTP/1.0 404 Not Found" %}{% endblock %}') %}
+{% set templates = [errortmpl] %}
+{% set handle    = entry.type.handle ?? null %}
+
+
+{## [Type] Redirect ➜ http://localhost:8000/cms/settings/entry-types/18
+{-------------------------------------------------------------------------------------##}
+{% set goto = entry.website ??? entry.entries.one().url ??? null %}
+{% if 'redirect' == handle and goto %}
+    {% redirect goto %}
+{% endif %}
+
+
+{## [Type] Page ➜ http://localhost:8000/cms/settings/entry-types/17
+{-------------------------------------------------------------------------------------##}
+{% set urislug  = entry.uri | replace({'/':'-'}) | slugify %}
+{% set uritmpl  = "_site/pages.#{urislug}" %}
+{% set basetmpl = entry.sidebarBuilder.one() ??? null
+    ? "_site/template.sidebar"
+    : "_site/template.fullpage" %}
+{% if 'page' == handle %}
+    {% set templates = [ uritmpl, basetmpl, errortmpl ] %}
+{% endif %}
+
+
+{## Render Template
+{---------------------------------------------------------------------------------------}
+    We use `extends` (vs `include`) to allow overriding template {% blocks %} in *this*
+    template, rather than forcing separate files for each type, even for minimal changes.
+  ➜ https://twig.symfony.com/doc/3.x/tags/extends.html
+{-------------------------------------------------------------------------------------##}
+{% extends templates %}
+
+
+{#######################################################################################}
+{##                                   Custom Macros                                   ##}
+{#######################################################################################}
+
+
+{## [Macro] Page URI Builder
+{---------------------------------------------------------------------------------------}
+    Better than a long-ass Twig-oneliner stuffed into the `URI Format` CP field:
+  ➜ {% from '_site/pages._entry' import uri %}{{ uri( object ) }}
+
+ ## Output Examples (Core)
+  └ level-one
+  └ level-one/sub-page-one
+  └ level-one/sub-page-one/part-eh
+
+ ## Output Examples (Landing)
+  └ go/landing-page-one
+  └ go/landing-page-two
+  └ go/landing-page-whatever
+
+ ## IMPORTANT ― Resave existing records (via console) anytime this macro changes:
+  ➜ make craft "resave/entries --section=pages,landings"
+{-------------------------------------------------------------------------------------##}
+{% macro uri( object ) %}{% apply spaceless %}
+    {% set root  = 'landings' == object.section.handle ? 'go' : null %}
+    {% set parts = [root, object.parent.uri ?? null, object.slug] %}
+
+    {{ parts | filter | join('/') }}
 {% endapply %}{% endmacro %}
+
+
+
+{#######################################################################################}
+{##                                Template Overrides                                 ##}
+{#######################################################################################}

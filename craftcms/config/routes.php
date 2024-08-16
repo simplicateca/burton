@@ -19,5 +19,7 @@
  */
 
 return [
-
+    // '<brandSlug:{slug}>/<citySlug:{slug}>' => [ 'template' => '_site/logistics._entry.twig' ],
+    'register/<actionSlug:{slug}>' => [ 'template' => '_site/pages.register.twig' ],
+    'account/<actionSlug:{slug}>'  => [ 'template' => '_site/pages.account.twig' ]
 ];

@@ -2,24 +2,15 @@
 {---------------------------------------------------------------------------------------}
   > http://localhost:8000/sitehub/blocks/media
 {-------------------------------------------------------------------------------------##}
-{%- extends [ "_site/block", "_core/block" ] -%}
-
-
-{## Template Variables
-{---------------------------------------------------------------------------------------}
-    Reminder about Twig Variable Scope: Don't change or set default values on `block`
-    or `settings` both inside AND outside of inheritable {% block %} scope. Pick one!
-{-------------------------------------------------------------------------------------##}
-{%- set block = block ?? {} -%}
-
-{%- set settings = block.settings ??? null -%}
-{%- set settings = settings ?? null is iterable ? settings : {} -%}
+{%- set _field = ( settings.field ??? block.settings.field ??? '' ) | replace({'Builder':''}) %}
+{%- extends [ "_site/#{_field}.block", "_site/block", "_core/block" ] -%}
 
 
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 %}
 
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = {
         variant   : null,
         limit     : 24,
@@ -31,33 +22,13 @@
 
     {## Item Source: Media Field
     {-----------------------------------------------------------------------------##}
-    {%- set mediaitems = collect( block.media ).all() -%}
+    {%- set mediaitems = collect( block.media ?? null ).all() -%}
 
     {## Item Source: External Embed via URL
     {-------------------------------------------------------------------------------}
         MediaBase() documentation coming. But basically it's oembed.
     {-----------------------------------------------------------------------------##}
     {%- set embeds = collect( block.embeds ).all() -%}
-    {%- if embeds -%}
-        {% set mediaitems = [] %}
-        {%- for item in embeds -%}
-            {%- set url = item.website ??? item.url ??? null -%}
-            {%- if url -%}
-                {%- set oembed = MediaBase( url ) -%}
-                {## TODO: Add items.images to eager loading ##}
-                {%- set mediaitems = mediaitems|merge([{
-                    _media   : item,
-                    url      : url,
-                    kind     : 'external',
-                    oembed   : oembed,
-                    images   : item.images.one() ? item.images.all() : [],
-                    summary  : item.summary  ??? oembed.summary ??? null,
-                    headline : item.headline ??? oembed.title   ??? null,
-                }]) -%}
-            {%- endif -%}
-        {%- endfor -%}
-    {%- endif -%}
-
 
 
     {## Item Source: Collection
@@ -78,6 +49,32 @@
             slug  : request.getParam('f') ?? null,
             static: 'media'
         } ) -%}
+
+        {% set firstitem = (mediaitems|first).type.handle ??? null %}
+        {% if firstitem == 'embed' %}
+            {% set embeds = mediaitems %}
+            {% set mediaitems = [] %}
+        {% endif %}
+    {%- endif -%}
+
+    {%- if embeds -%}
+        {% set mediaitems = [] %}
+        {%- for item in embeds -%}
+            {%- set url = item.website ??? item.url ??? null -%}
+            {%- if url -%}
+                {%- set oembed = MediaBase( url ) -%}
+                {## TODO: Add items.images to eager loading ##}
+                {%- set mediaitems = mediaitems|merge([{
+                    _media   : item,
+                    url      : url,
+                    kind     : 'external',
+                    oembed   : oembed,
+                    images   : item.images.one() ? item.images.all() : [],
+                    summary  : item.summary  ??? oembed.summary ??? null,
+                    headline : item.headline ??? oembed.title   ??? null,
+                }]) -%}
+            {%- endif -%}
+        {%- endfor -%}
     {%- endif -%}
 
 
@@ -103,8 +100,7 @@
 {## Media Third Party Embed
 {-------------------------------------------------------------------------------------##}
 {% block media__code %}
-    {%- set settings = settings ??? block.settings ??? null -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
 
     {{- block.code | retconOnly('iframe') | retconAttr( 'iframe', {
         class : 'aspect-video',

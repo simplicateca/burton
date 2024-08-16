@@ -1,0 +1,19 @@
+allowCheckoutWithoutPayment: '0'
+allowEmptyCartOnCheckout: '0'
+allowPartialPaymentOnCheckout: '0'
+autoSetCartShippingMethodOption: '0'
+autoSetNewCartAddresses: '0'
+autoSetPaymentSource: '0'
+currency: CAD
+freeOrderPaymentStrategy: complete
+handle: canadian
+minimumTotalPriceStrategy: default
+name: 'Canadian Store'
+orderReferenceFormat: '{{number[:7]}}'
+primary: true
+requireBillingAddressAtCheckout: '0'
+requireShippingAddressAtCheckout: '0'
+requireShippingMethodSelectionAtCheckout: '0'
+sortOrder: 99
+useBillingAddressForTax: '0'
+validateOrganizationTaxIdAsVatId: '0'

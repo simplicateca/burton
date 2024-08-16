@@ -1,0 +1,161 @@
+[{
+    "value"   : "package_silver",
+    "label"   : "Silver",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": [{
+        "type" : "text",
+        "name" : "seating",
+        "default": "Unassigned theatre seating behind Gold",
+        "label": "Seating Description",
+        "fieldClass": "width-100",
+        "instructions": ""
+    },{
+        "type" : "select",
+        "label": "Sticker",
+        "name" : "sticker",
+        "default": "none",
+        "instructions": "",
+        "fieldClass": "width-50",
+        "options" : {
+            "none"    : " - None - ",
+            "limited" : "Limited Availability",
+            "lowstock": "Low Stock",
+            "soldout" : "Sold Out"
+        }
+    },{
+        "type" : "select",
+        "label": "Lunch Options",
+        "name" : "lunch",
+        "default": "none",
+        "instructions": "",
+        "fieldClass": "width-50",
+        "options" : {
+            "none"  : " - None provided - ",
+            "lunch" : "Networking lunch",
+            "lunch2": "2-course, networking",
+            "lunch3": "3-course, networking",
+            "lunch4": "4-course, networking"
+        }
+    }]
+},{
+    "value"   : "package_gold",
+    "label"   : "Gold",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": [{
+        "type" : "text",
+        "name" : "seating",
+        "default": "Classroom seating behind Platinum, row 3+",
+        "label": "Seating Description",
+        "fieldClass": "width-100",
+        "instructions": ""
+    },{
+        "type" : "select",
+        "label": "Sticker",
+        "name" : "sticker",
+        "default": "none",
+        "instructions": "",
+        "fieldClass": "width-50",
+        "options" : {
+            "none"    : " - None - ",
+            "limited" : "Limited Availability",
+            "lowstock": "Low Stock",
+            "soldout" : "Sold Out"
+        }
+    },{
+        "type" : "select",
+        "label": "Lunch Options",
+        "name" : "lunch",
+        "default": "lunch3",
+        "fieldClass": "width-50",
+        "instructions": "",
+        "options" : {
+            "none"  : " - None provided - ",
+            "lunch" : "Networking lunch",
+            "lunch2": "2-course, networking",
+            "lunch3": "3-course, networking",
+            "lunch4": "4-course, networking"
+        }
+    }]
+},{
+    "value"   : "package_platinum",
+    "label"   : "Platinum",
+    "tooltips": { "inline": "Platinum tickets with Exclusive Extras" },
+    "settings": {},
+    "virtuals": [{
+        "type" : "text",
+        "name" : "seating",
+        "default": "Premier classroom seating row 1-2",
+        "label": "Seating Description",
+        "fieldClass": "width-100",
+        "instructions": ""
+    },{
+        "type" : "select",
+        "label": "Sticker",
+        "name" : "sticker",
+        "default": "limited",
+        "instructions": "",
+        "fieldClass": "width-50",
+        "options" : {
+            "none"    : " - None - ",
+            "limited" : "Limited Availability",
+            "lowstock": "Low Stock",
+            "soldout" : "Sold Out"
+        }
+    },{
+        "type" : "select",
+        "label": "Lunch Options",
+        "name" : "lunch",
+        "default": "lunch3",
+        "instructions": "",
+        "fieldClass": "width-50",
+        "options" : {
+            "none"  : " - None provided - ",
+            "lunch" : "Networking lunch",
+            "lunch2": "2-course, networking",
+            "lunch3": "3-course, networking",
+            "lunch4": "4-course, networking"
+        }
+    },{
+        "type" : "text",
+        "name" : "exclusive",
+        "default": "Exclusive reception and photo with…",
+        "label": "Platinum Exclusive",
+        "fieldClass": "width-100",
+        "instructions": ""
+    }]
+},{
+    "value"   : "package_general",
+    "label"   : "General Admission4",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": [{
+        "type" : "select",
+        "label": "Sticker",
+        "name" : "sticker",
+        "default": "none",
+        "instructions": "",
+        "fieldClass": "width-50",
+        "options" : {
+            "none"    : " - None - ",
+            "limited" : "Limited Availability",
+            "lowstock": "Low Stock",
+            "soldout" : "Sold Out"
+        }
+    },{
+        "type" : "select",
+        "label": "Lunch Options",
+        "name" : "lunch",
+        "default": "none",
+        "instructions": "",
+        "fieldClass": "width-50",
+        "options" : {
+            "none"  : " - None provided - ",
+            "lunch" : "Networking lunch",
+            "lunch2": "2-course, networking",
+            "lunch3": "3-course, networking",
+            "lunch4": "4-course, networking"
+        }
+    }]
+}]

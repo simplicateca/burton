@@ -1,0 +1,732 @@
+[
+    {
+      "title": "",
+      "body": "This series blew me away. The quality and quantity of speakers is unmatched by any other event I have ever seen.",
+      "headline": "D. Grieve, Sinclair Cockburn Financial Group",
+      "author": {
+        "name": "D. Grieve",
+        "title": "",
+        "company": "Sinclair Cockburn Financial Group"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "The best one day seminar I have ever attended.",
+      "headline": "B. Humphries, Account Manger, Sierra Systems",
+      "author": {
+        "name": "B. Humphries",
+        "title": "Account Manger",
+        "company": "Sierra Systems"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Terrific speakers, engaged audience, and relevant topics!",
+      "headline": "Michelle Aboud, Manager - Digital Marketing , The Gazette ",
+      "author": {
+        "name": "Michelle Aboud",
+        "title": "Manager - Digital Marketing ",
+        "company": "The Gazette "
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Outstanding day - Outstanding information!",
+      "headline": "Sue Robbins , CMO, RRi",
+      "author": {
+        "name": "Sue Robbins ",
+        "title": "CMO",
+        "company": "RRi"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "The Art of Marketing had an excellent line-up of speakers. I was engaged the whole time and got a lot of personal value from the material presented today. I would further recommend this event.",
+      "headline": "Sonya Jain, Campaign Director, IMPACT ",
+      "author": {
+        "name": "Sonya Jain",
+        "title": "Campaign Director",
+        "company": "IMPACT "
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "One of the most valuable days I've spent in a long time!",
+      "headline": "Bob Weeks, Editor, ScoreGolf",
+      "author": {
+        "name": "Bob Weeks",
+        "title": "Editor",
+        "company": "ScoreGolf"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "The Art of Marketing was a fantastic presentation of excellence in marketing. Informative and well structured, I will value the information I absorbed and debate the thought-provoking questions left at the end of the day.",
+      "headline": "Melissa Prince, Communications Specialist, STAPLES Advantage ",
+      "author": {
+        "name": "Melissa Prince",
+        "title": "Communications Specialist",
+        "company": "STAPLES Advantage "
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Outstanding event - First class speakers and usable content!",
+      "headline": "Lisa Borg, Director of Marketing, Slimband",
+      "author": {
+        "name": "Lisa Borg",
+        "title": "Director of Marketing",
+        "company": "Slimband"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Excellent value with strong content for me to adopt at our organization. Would 100% come again.",
+      "headline": "Ryan Demelo, Marketing Manager, Compucom",
+      "author": {
+        "name": "Ryan Demelo",
+        "title": "Marketing Manager",
+        "company": "Compucom"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "OMG, I'm now so plugged into where marketing is now and where it's going. Thanks a ton!",
+      "headline": "Tony Johnston, President, Compass North Inc.",
+      "author": {
+        "name": "Tony Johnston",
+        "title": "President",
+        "company": "Compass North Inc."
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Fascinating speakers and presentations, worth every dollar. I came all the way from Trinidad in the Caribbean and learned to be an artist and genius (according to Seth Godin).",
+      "headline": "Liliana Ragbir, Director Client Services, Pepper Advertising",
+      "author": {
+        "name": "Liliana Ragbir",
+        "title": "Director Client Services",
+        "company": "Pepper Advertising"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "The Art of Marketing was an event filled with inspirational speakers and ideas. Some of the industry's top talent showed their secrets of success and visions for the future, INVALUABLE!",
+      "headline": "Will Eagle, Sr. Digital Marketing Manager, Scotiabank",
+      "author": {
+        "name": "Will Eagle",
+        "title": "Sr. Digital Marketing Manager",
+        "company": "Scotiabank"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Insightful, relevant and interesting learnings from the change leaders and thought makers. Great selection of speakers and cultural observers!",
+      "headline": "Elizabeth Wetzel, Director Advertising Sales, Lavalife",
+      "author": {
+        "name": "Elizabeth Wetzel",
+        "title": "Director Advertising Sales",
+        "company": "Lavalife"
+      },
+      "tag": [
+        "Sales"
+      ]
+    },
+    {
+      "title": "",
+      "body": "I am sorry that more of our staff could not attend, this was a must see, must attend event!",
+      "headline": "Kathryn Bohnet, Marketing Manager, Travel Alberta",
+      "author": {
+        "name": "Kathryn Bohnet",
+        "title": "Marketing Manager",
+        "company": "Travel Alberta"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Awesome & Informative! Opened my eyes to new trends, ideas and most importantly how to implement them. THANK YOU!!!",
+      "headline": "Ike Janacek, AGM, Sutton Place Hotel",
+      "author": {
+        "name": "Ike Janacek",
+        "title": "AGM",
+        "company": "Sutton Place Hotel"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Passion is what sets The Art of Marketing apart from other conferences and events. The passion these speakers exhibit and exude takes the event to the next level - from informative to inspiring!",
+      "headline": "Jade Gulash, Marketing & Communications Consultant, Health Quality Council",
+      "author": {
+        "name": "Jade Gulash",
+        "title": "Marketing & Communications Consultant",
+        "company": "Health Quality Council"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Incredible line-up of speakers. I've never been to such an amazing conference.",
+      "headline": "Marc Binkley, Account Manager, Rogers",
+      "author": {
+        "name": "Marc Binkley",
+        "title": "Account Manager",
+        "company": "Rogers"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Conference was great. Fantastic insights and learning in an energetic and enticing way.",
+      "headline": "Jamie Poterfield, Marketing Coordinator, West Edmonton Mall",
+      "author": {
+        "name": "Jamie Poterfield",
+        "title": "Marketing Coordinator",
+        "company": "West Edmonton Mall"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "A tremendous opportunity to take a one day snap shot of great ides in the areas of marketing, corporate and personal development!",
+      "headline": "Dean McIntosh, Director Marketing, Hockey Canada",
+      "author": {
+        "name": "Dean McIntosh",
+        "title": "Director Marketing",
+        "company": "Hockey Canada"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "It is SO important to bring these minds, these discussions and the possibilities to the Calgary market. Please, please, please come back!",
+      "headline": "Brand & Communications Director, Critical Mass",
+      "author": {
+        "name": "Brand & Communications Director",
+        "title": "",
+        "company": "Critical Mass"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Amazing! Outstanding day! Highly inspirational, I learned more in one day at this event than my two years of marketing training.",
+      "headline": "Matthew Zoeteman, Project Manager, Holt & Vargo",
+      "author": {
+        "name": "Matthew Zoeteman",
+        "title": "Project Manager",
+        "company": "Holt & Vargo"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Great to see an event of this calibre in Calgary! Insightful group of speakers that really has the wheels turning in my head.",
+      "headline": "Laura Brick, Marketing Manager, Energy Navigator",
+      "author": {
+        "name": "Laura Brick",
+        "title": "Marketing Manager",
+        "company": "Energy Navigator"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Outstanding reminder of why I am a marketer (and proud of it)!",
+      "headline": "Jessie Cayabo, Communications Manager, Chinook Centre",
+      "author": {
+        "name": "Jessie Cayabo",
+        "title": "Communications Manager",
+        "company": "Chinook Centre"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Thank you! This is not my area of expertise, but one I need to know as a senior manager of my area. I learned and I was challenged in my thinking. A great day!",
+      "headline": "Lisa Pittet, Senior  Manager, MacEwan Centre for Sport & Wellness",
+      "author": {
+        "name": "Lisa Pittet",
+        "title": "Senior  Manager",
+        "company": "MacEwan Centre for Sport & Wellness"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Is this conference going to Vancouver? It was an excellent day well worth the time and money. I would love for my entire team to be able to attend.",
+      "headline": "Katherine Loughlin, Manager Market Development, Alberta Milk",
+      "author": {
+        "name": "Katherine Loughlin",
+        "title": "Manager Market Development",
+        "company": "Alberta Milk"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Congratulations on producing an outstanding event. It was a great learning and thought provoking experience!",
+      "headline": "Shannon Baillie, Manager Attractions Marketing, BC Public Service",
+      "author": {
+        "name": "Shannon Baillie",
+        "title": "Manager Attractions Marketing",
+        "company": "BC Public Service"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Thank you for bringing such a potent mix of marketing knowledge to us and presenting it in such an easily absorbed way! I'm taking so much away from today. THANK YOU, THANK YOU, THANK YOU!",
+      "headline": "Vicki Allen, Publisher, Canadian Professional Rodeo Association",
+      "author": {
+        "name": "Vicki Allen",
+        "title": "Publisher",
+        "company": "Canadian Professional Rodeo Association"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Fantastic! EVERYONE who markets MUST go.",
+      "headline": "Mark Soloway, Marketing Manager, Sangsters",
+      "author": {
+        "name": "Mark Soloway",
+        "title": "Marketing Manager",
+        "company": "Sangsters"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Event was extremely well done. It was executed successfully online and on Twitter. Audience was engaged and speakers were refreshing. The knowledge gained was well worth the money.",
+      "headline": "Jillian Walker, Healthy Workplace Coordinator, City of Calgary",
+      "author": {
+        "name": "Jillian Walker",
+        "title": "Healthy Workplace Coordinator",
+        "company": "City of Calgary"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "All the speakers were extremely innovative and experienced in their fields. They presented new ideas in a way that emotionally and intellectually stimulated the audience... Great choice of speakers!",
+      "headline": "Alexandra Margulescu, Concordia University",
+      "author": {
+        "name": "Alexandra Margulescu",
+        "title": "",
+        "company": "Concordia University"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Great conference... Montreal needs more great conferences!",
+      "headline": "Liseanne Gillham, Sr. Marketing Manger, Autodesk",
+      "author": {
+        "name": "Liseanne Gillham",
+        "title": "Sr. Marketing Manger",
+        "company": "Autodesk"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "The conference was inspiring - as a small business owner with a big visiion, it helps to have great speakers validate your fears, applaud your risks and give incentive to be even more creative. Thank you!",
+      "headline": "Annabelle Agnew, Owner, Emeline & Annabelle: Atelier Couture Cafe",
+      "author": {
+        "name": "Annabelle Agnew",
+        "title": "Owner",
+        "company": "Emeline & Annabelle: Atelier Couture Cafe"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "One of the most valuable days I've spent in a long time!",
+      "headline": "Bob Weeks, Editor, ScoreGolf",
+      "author": {
+        "name": "Bob Weeks",
+        "title": "Editor",
+        "company": "ScoreGolf"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Phenomenal combination of speakers & topics. Perfection collected at one time and one place for every executive - VERY EFFECTIVE!",
+      "headline": "Patrick Morello, President, LANDinc",
+      "author": {
+        "name": "Patrick Morello",
+        "title": "President",
+        "company": "LANDinc"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "The material presented was very relevant to the times, we could definitely learn from what was said today.",
+      "headline": "Ann Barna, Director of HR, HDS Retail North America",
+      "author": {
+        "name": "Ann Barna",
+        "title": "Director of HR",
+        "company": "HDS Retail North America"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Excellent value with strong content for me to adopt at our organization. Would 100% come again.",
+      "headline": "Ryan Demelo, Marketing Manager, Compucom",
+      "author": {
+        "name": "Ryan Demelo",
+        "title": "Marketing Manager",
+        "company": "Compucom"
+      },
+      "tag": [
+        "Marketing"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Fantastic Event... Very resourceful for Managers at all levels & of all areas!",
+      "headline": "Kara Lee Miller, Senior Manager Talent Development, CARA",
+      "author": {
+        "name": "Kara Lee Miller",
+        "title": "Senior Manager Talent Development",
+        "company": "CARA"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Made me think and consider things I hadn't before - Excellent!",
+      "headline": "Lorraine Bauer, Managing Director, Canadian Association of Family Entreprise",
+      "author": {
+        "name": "Lorraine Bauer",
+        "title": "Managing Director",
+        "company": "Canadian Association of Family Entreprise"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "An excellent selection of speakers on topics current to management development.",
+      "headline": "Corrie Gicante, Coordinator Coaching/Mentoring, Ontario Catholic Supervisory Officers Association",
+      "author": {
+        "name": "Corrie Gicante",
+        "title": "Coordinator Coaching/Mentoring",
+        "company": "Ontario Catholic Supervisory Officers Association"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Insightful, relevant and interesting learnings from the change leaders and thought makers. Great selection of speakers and cultural observers!",
+      "headline": "Elizabeth Wetzel, Director Advertising Sales, Lavalife",
+      "author": {
+        "name": "Elizabeth Wetzel",
+        "title": "Director Advertising Sales",
+        "company": "Lavalife"
+      },
+      "tag": [
+        "Sales"
+      ]
+    },
+    {
+      "title": "",
+      "body": "I have been a big fan & supporter of The Art of... conferences since the very beginning, simply because I believe it delivers real, actionable, business value. Thank you for helping me, and many others in the endless pursuit of knowledge.",
+      "headline": "David Yee, Vice President, Sales, Aon Risk Services",
+      "author": {
+        "name": "David Yee",
+        "title": "Vice President, Sales",
+        "company": "Aon Risk Services"
+      },
+      "tag": [
+        "Sales"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Enjoyed the day! Picked up excellent ideas that are immediately actionable. Great value, great networking and great takeaways.",
+      "headline": "Glain Roberts-McCabe, President, The Executive Roundtable",
+      "author": {
+        "name": "Glain Roberts-McCabe",
+        "title": "President",
+        "company": "The Executive Roundtable"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Awesome & Informative! Opened my eyes to new trends, ideas and most importantly how to implement them. THANK YOU!!!",
+      "headline": "Ike Janacek, AGM, Sutton Place Hotel",
+      "author": {
+        "name": "Ike Janacek",
+        "title": "AGM",
+        "company": "Sutton Place Hotel"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "The different mix of people, each with a few overlapping themes and ideas provided a learning experience that was well connected from one speaker to the next. The continuing thread of related ideas was the strength of this conference.",
+      "headline": "Arthur Deane, Manager, Human Development Consultants",
+      "author": {
+        "name": "Arthur Deane",
+        "title": "Manager",
+        "company": "Human Development Consultants"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Great variety of topics & thoughts to take away!",
+      "headline": "Aaron Bemarrell, Sr. Project Manager, Bell Canada",
+      "author": {
+        "name": "Aaron Bemarrell",
+        "title": "Sr. Project Manager",
+        "company": "Bell Canada"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "I have personally attended 100's of these events, this one was definitely at the top!",
+      "headline": "Sebastian Demedeiros, Director Training & Development, Timothy's",
+      "author": {
+        "name": "Sebastian Demedeiros",
+        "title": "Director Training & Development",
+        "company": "Timothy's"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "I had read much of the material that the speakers had published, but hearing them speak & how they engaged you in the material brought it to life. It was well worth my time and would recommend it to everyone!",
+      "headline": "Karen Lowery, Manager Financial & Logistical Services, George Brown College",
+      "author": {
+        "name": "Karen Lowery",
+        "title": "Manager Financial & Logistical Services",
+        "company": "George Brown College"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "All the speakers were extremely innovative and experienced in their fields. They presented new ideas in a way that emotionally and intellectually stimulated the audience... Great choice of speakers!",
+      "headline": "Alexandra Margulescu, Concordia University",
+      "author": {
+        "name": "Alexandra Margulescu",
+        "title": "",
+        "company": "Concordia University"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Inspiring speakers that cut to the chase of what is important and meaningful for managing the human element of organizations today.",
+      "headline": "Michael Tandoc, Consultant, Torlys",
+      "author": {
+        "name": "Michael Tandoc",
+        "title": "Consultant",
+        "company": "Torlys"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "The conference was inspiring - as a small business owner with a big vision, it helps to have great speakers validate your fears, applaud your risks and give incentive to be even more creative. Thank you!",
+      "headline": "Annabelle Agnew, Owner, Emeline & Annabelle: Atelier Couture Cafe",
+      "author": {
+        "name": "Annabelle Agnew",
+        "title": "Owner",
+        "company": "Emeline & Annabelle: Atelier Couture Cafe"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Mr. Coleman is an artful speaker who presents with insight, humor, and the kind of energy only found in Mountain Dew commercials!",
+      "headline": "Greg Mys, Director of Internet Operations, Accuform",
+      "author": {
+        "name": "Greg Mys",
+        "title": "Director of Internet Operations",
+        "company": "Accuform"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "The First 100 Days material Joey shared with us was useful and applied to our businesses. He had a way of opening our minds to new ways of thinking about our clients.",
+      "headline": "Robert Morris, Certified Fleet Services ",
+      "author": {
+        "name": "Robert Morris",
+        "title": "",
+        "company": "Certified Fleet Services "
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Joey brings a dynamism to the corporate world that somehow combines a shot of adrenaline of pure passion, and a Xanax pill of relaxation to know that real change is doable.",
+      "headline": "Robbe Richman, Zappos",
+      "author": {
+        "name": "Robbe Richman",
+        "title": "",
+        "company": "Zappos"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Very lively presentation! Keeps attention all the way through with some great numbers and great resources! If there is one presentation you should see, this is THE one!",
+      "headline": "Cathy van der Ha, entrepreneur",
+      "author": {
+        "name": "Cathy van der Ha",
+        "title": "",
+        "company": "entrepreneur"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Mindblowing!!! Joey has you riveted from start to finish. You will be hinging on every nuance of every word as the inflections in his voice take you to places you didn't know you could go as a new entrepreneur.",
+      "headline": "Dave Agnew, entrepreneur",
+      "author": {
+        "name": "Dave Agnew",
+        "title": "",
+        "company": "entrepreneur"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Joey Coleman gets it - he understands what makes customer relationships terrific. Understanding how our customers see the relationship is just the first step in building rewarding customer relationships that last a lifetime.",
+      "headline": "Michael Ramsay, Director, Deloitte Canada",
+      "author": {
+        "name": "Michael Ramsay",
+        "title": "Director",
+        "company": "Deloitte Canada"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Joey offers a unique and insightful take on customer experience; a topic that is well-covered but rarely covered well.",
+      "headline": "Partner, Deloitte Canada",
+      "author": {
+        "name": "Partner",
+        "title": "",
+        "company": "Deloitte Canada"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Participants now have practical tools to have inspiring dialogue. These enhanced discussions will ultimately create extraordinary moments for our fans.",
+      "headline": "Michael Bianchi, Director, Learning & Development, Maple Leaf Sports + Entertainment",
+      "author": {
+        "name": "Michael Bianchi",
+        "title": "Director, Learning & Development",
+        "company": "Maple Leaf Sports + Entertainment"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Bill created a very tailored training day focussing on key competencies, guiding all to complete and integrate a detailed action plan for improvement.",
+      "headline": "Tina Veenstra, Learning Specialist, Saint Elizabeth Health Care",
+      "author": {
+        "name": "Tina Veenstra",
+        "title": "Learning Specialist",
+        "company": "Saint Elizabeth Health Care"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "Bill is the best of the best – I’m happy to speak as a ‘happy customer’ and tell people how much of a partner he was in our journey",
+      "headline": "Lindsay Markle, Human Resources Consultant, Manulife Financial",
+      "author": {
+        "name": "Lindsay Markle",
+        "title": "Human Resources Consultant",
+        "company": "Manulife Financial"
+      },
+      "tag": []
+    },
+    {
+      "title": "",
+      "body": "The greatest outcomes I think were building a strong network of leader learners who continue to connect with one another today.",
+      "headline": "Brenda Schott, Learning Consultant - Global Leadership & Learning, Manulife Financial",
+      "author": {
+        "name": "Brenda Schott",
+        "title": "Learning Consultant - Global Leadership & Learning",
+        "company": "Manulife Financial"
+      },
+      "tag": [
+        "Leadership"
+      ]
+    },
+    {
+      "title": "",
+      "body": "Great day today! Bill Rocked it! You know you have something special going when you account managers are paying you compliments and staying engaged all day.",
+      "headline": "Mark Colella, Director of Sales, Eclipse Technology Solutions",
+      "author": {
+        "name": "Mark Colella",
+        "title": "Director of Sales",
+        "company": "Eclipse Technology Solutions"
+      },
+      "tag": [
+        "Sales"
+      ]
+    }
+  ]

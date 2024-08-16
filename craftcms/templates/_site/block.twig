@@ -2,6 +2,16 @@
 {-------------------------------------------------------------------------------------##}
 {% extends "_core/block" %}
 
+{%- import "_core" as assemble -%}
+
+{## Builder Macros
+{-------------------------------------------------------------------------------------##}
+{%- macro builder__header( blocks, settings ) -%}
+    {% embed "_site/header" with { blocks: blocks, settings: settings } %}
+        {% block base block('builder') %}
+    {% endembed %}
+{%- endmacro -%}
+
 
 {## Zone 1 Content (All Blocks)
 {---------------------------------------------------------------------------------------}
@@ -30,9 +40,9 @@
       - CTA Buttons & Links (along with their kicker text), appearing after body text.
 {-------------------------------------------------------------------------------------##}
 {% block block__zone1 -%}
-{%- if block.text ??? null -%}
-    {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+{%- set zone1content = block.text ??? block.headline ??? null -%}
+{%- if zone1content -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = {
         blockintro: 'inline',
         blockcta  : 'inline',
@@ -42,7 +52,7 @@
     {%- import "_core" as assemble -%}
     {%- import "_core/text" as utils -%}
 
-    {%- set textbase = TextBase( block.text ) -%}
+    {%- set textbase = TextBase( zone1content ) -%}
     {%- set blockintro = settings.blockintro -%}
 
     {## build eyebrow ##}
@@ -80,19 +90,24 @@
         {%- endif -%}
     {% endset %}
 
-    {%- import "_core" as assemble -%}
     {{- assemble.text( settings.textlayer, content, settings ) -}}
 
     {# {{ dump( collect( settings ).sortKeys.all ) }} #}
+
+    {% block block__zone1_after "" %}
 
 {%- endif %}{%- endblock %}
 
 
 
 {## Block <header> zone content
+{---------------------------------------------------------------------------------------}
+    This is not a page level <header> tag, but rather the header content for  "headline" content
+    for an individual block. This is typically used for the block's title or headline.
 {-------------------------------------------------------------------------------------##}
 {% block block__header -%}
-{%- if block.text ??? null -%}
+{%- set zone1content = block.text ??? block.headline ??? null -%}
+{%- if zone1content -%}
 
     {## Pull Block Intro from CKEditor field ##}
     {%- if settings.blockintro is defined and settings.blockintro != 'inline' -%}
@@ -100,7 +115,7 @@
         {%- import "_core" as assemble -%}
         {%- import "_core/text" as utils -%}
 
-        {%- set textbase = TextBase( block.text ) -%}
+        {%- set textbase = TextBase( zone1content ) -%}
         {%- set headline = textbase.headlines[0:1]|join ??? null -%}
         {%- set content  = "" -%}
 
@@ -138,14 +153,16 @@
 
 
 {## Block <footer> zone content
+{---------------------------------------------------------------------------------------}
+    Note, this isn't the same as a page level <footer> tag, but rather the "headline" content
+    for an individual block. This is typically used for the block's title or headline.
 {-------------------------------------------------------------------------------------##}
 {% block block__footer -%}
-{%- if block.text ??? null -%}
-    {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
-
-    {%- if settings.blockcta ??? null == 'footer' -%}
-        {%- set textbase = TextBase( block.text ) -%}
+{%- set zone1content = block.text ??? block.headline ??? null -%}
+{%- if zone1content -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
+    {%- if settings.blockcta ??? null == 'buttons' -%}
+        {%- set textbase = TextBase( zone1content ) -%}
         {%- if textbase.action or textbase.kicker -%}
             {%- import "_core" as assemble -%}
             {{- assemble.separator( 'small' ) -}}
@@ -153,19 +170,3 @@
         {%- endif -%}
     {%- endif -%}
 {%- endif %}{% endblock %}
-
-
-
-{## Body Builder - Single Column Layout
-{---------------------------------------------------------------------------------------}
-    If we wanted to change how the body builder renders whether it's in a single column
-    template or one with a sidebar, we could do it here. See `builder_fallback` in
-    `_core/block`
-{-------------------------------------------------------------------------------------##}
-{% macro builder__singlecol( blocks, settings ) -%}
-    {%- set blocks   = blocks is null ? [] : blocks -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
-
-    {%- import "_core" as assemble -%}
-    {{- assemble.builder( 'default', blocks, settings ) -}}
-{% endmacro %}

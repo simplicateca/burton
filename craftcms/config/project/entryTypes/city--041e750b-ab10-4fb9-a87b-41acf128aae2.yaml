@@ -1,0 +1,184 @@
+color: null
+fieldLayouts:
+  f00529ae-1933-467d-82c4-0e60323c9b71:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-header-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 92ff73d4-639d-4cfa-b0b7-7f7fc356ef35
+            userCondition: null
+            width: 100
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: 'City Name'
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 8cdd5eca-68e3-4086-ad32-de12e2cf1c4f
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Full Title
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bd0ed1ab-18f4-4e85-bc1f-baf0225db76e
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ea7054bb-8b7b-467c-a1e6-3426b002cd6c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: eab24628-7921-4631-9105-c9286799b811
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'City Type'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3004b731-2541-4064-8558-24311ef5b0fd
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 750a5995-763d-4682-88f6-fd6fcedd73ee
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 2dbeaf9e-f519-48d4-9126-fc689d32cd58
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7b72ac41-b129-41bc-9c2b-cd0bd43b75b4
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ba8e9151-defc-4d6a-8863-0e96cf9d426b
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 0c54d714-d13c-4322-9bec-60cc4216ec84
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-body-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 1d0631c7-1806-45bc-958d-70ba48985c76
+            userCondition: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Body Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 610fbc05-8f0b-4a26-9d78-703543162700
+            userCondition: null
+            warning: null
+            width: 75
+        name: 'Main Content'
+        uid: 05a5ad39-a526-4ca4-b4a0-bf0392fc4c66
+        userCondition: null
+handle: city
+hasTitleField: true
+icon: earth-americas
+name: City
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: ''
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: ''
+titleTranslationMethod: site

@@ -1,0 +1,31 @@
+[{
+    "value"   : "article_general",
+    "label"   : "General Article",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "article_guide",
+    "label"   : "Learning Guide",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "article_exclusive",
+    "label"   : "Digital Exclusive",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "article_audio",
+    "label"   : "Podcast • Audio",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "article_video",
+    "label"   : "Video Feature",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

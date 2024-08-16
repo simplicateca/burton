@@ -16,6 +16,8 @@ use yii\base\Module;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
 
+use modules\sitemodule\helpers\EventHelper;
+
 class SiteModule extends Module
 {
     public static SiteModule $instance;
@@ -59,6 +61,10 @@ class SiteModule extends Module
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\CollectionBaseTwig() );
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\MediaBaseTwig() );
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\ToolboxTwig() );
+
+        // Register Listeners on Verbb Events
+        // https://verbb.io/craft-plugins/events/docs/developers/events
+        EventHelper::listeners();
 
         // Report that the module is loaded
         Craft::info( Craft::t( 'site-module', '{name} loaded', ['name' => 'SiteModule'] ), __METHOD__ );

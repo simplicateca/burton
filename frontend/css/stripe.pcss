@@ -1,0 +1,51 @@
+    .gateway-payment-form input:hover { border: 1px solid rgba(107,114,128); }
+    {# Column containers #}
+    .gateway-payment-form .grid,
+    .gateway-payment-form .card-data div div:nth-child(2) { display: flex; margin-right: -0.75rem; margin-left: -0.75rem; }
+    {# Columns #}
+    .gateway-payment-form .grid .item,
+    .gateway-payment-form input.card-expiry,
+    .gateway-payment-form input.card-cvc { width: 50%; margin-right: 0.75rem; margin-left: 0.75rem; }
+
+    fieldset.card-holder {
+        margin-bottom: 50px;
+    }
+
+    fieldset.card-data {
+        position : relative;
+    }
+
+    fieldset.card-data::before {
+        content: 'Card Number & Expiry';
+        position: absolute;
+        top: -30px;
+        left: 0px;
+        font-weight: 700;
+        color: rgb(39 77 106 / var(--tw-text-opacity));
+
+    }
+
+    .stripe-payment-intents-form {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    legend {
+        display: block;
+        margin-bottom: 3px;
+        font-weight: 700;
+        color: rgb(39 77 106 / var(--tw-text-opacity));
+    }
+
+    .gateway-payment-form input[type="text"],
+    fieldset.card-data.StripeElement {
+        width: 100%;
+        border-radius: 1rem;
+        border-width: 1px;
+        --tw-border-opacity: 1;
+        border-color: rgb(140 202 238 / var(--tw-border-opacity));
+        --tw-bg-opacity: 1;
+        background-color: rgba(254, 249, 195, 0.5);
+        padding: 0.75rem;
+        line-height: 1;
+    }

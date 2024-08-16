@@ -1,0 +1,150 @@
+color: null
+fieldLayouts:
+  2c720167-de95-4664-b84a-ad08bfc2e06b:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 142c4e29-9a7a-4458-8e56-def051048cf2
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 0c659167-8917-4560-a17e-1b77c1469dd8 # Download
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Download
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 54f8054b-ce78-42cd-96f0-fa43af463427
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Relation
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f95ea217-5f9b-4313-be15-2d5980cc500c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: cbc74b1f-1f77-4ced-9d9a-aa213c24a981
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ce93ec08-05e2-4869-8494-585834a282b6
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 04de3988-1519-432d-92a4-e455f30a3afc # Form
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Form Gate'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: cc57e6f0-db5a-452e-9b6b-dd37f29e9c29
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 471c6aa9-c7ce-4d25-8096-fc9751e6a13a
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d54f1dbe-e7d2-4d74-82ac-0dc4d6b3a819
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c0067157-cd8a-4ec2-8886-42017783388b
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: f2694899-b67c-4ceb-96a9-383f15f7c31e
+        userCondition: null
+handle: download
+hasTitleField: false
+icon: download
+name: 'Downloadable Resource'
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: ''
+slugTranslationMethod: site
+titleFormat: '{{ object.headline ? object.headline | striptags | trim : object.download.one().title ??? null }}'
+titleTranslationKeyFormat: ''
+titleTranslationMethod: site

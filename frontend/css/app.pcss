@@ -3,12 +3,6 @@
 @import "tailwindcss/utilities";
 
 @layer utilities {
-    [data-bodycopy] {
-        .larger  { font-size: 1.20em; }
-        .normal  { font-size: 1.00em; }
-        .smaller { font-size: 0.80em; }
-    }
-
 /** Utility class for making a parent element (card) clickable without resorting to
     wrapping the card in it's own <a> tag, using multiple tags, or onclick events.
     Make sure the parent element has class='relative' or .. you know ..  **/
@@ -72,6 +66,7 @@ textarea,
 input[type="money"],
 input[type="number"],
 input[type="text"],
+input[type="tel"],
 input[type="search"],
 input[type="password"],
 input[type="email"] {
@@ -85,6 +80,26 @@ input[type="email"] {
     ;
 }
 
+div.bg-theme-tint {
+    select,
+    textarea,
+    input[type="money"],
+    input[type="number"],
+    input[type="tel"],
+    input[type="text"],
+    input[type="search"],
+    input[type="password"],
+    input[type="email"] {
+        @apply bg-theme-tint2;
+    }
+}
+
+.fui-type-name {
+    legend {
+        display: none;
+    }
+}
+
 
 input[type=radio].sr-only:checked + label {
     @apply
@@ -94,6 +109,8 @@ input[type=radio].sr-only:checked + label {
     ;
 }
 
+@import "mcui.pcss";
+@import "stripe.pcss";
 
 
 /** 3. Typography
@@ -127,10 +144,27 @@ input[type=radio].sr-only:checked + label {
         text-theme-bodycopy;
 
     p, ul, ol, blockquote {
+
+        &.larger {
+        @apply
+            text-lg       @4xs:text-xl       @md:text-2xl      @xl:text-3xl      @3xl:text-4xl        @5xl:text-5xl
+            leading-snug  @4xs:leading-snug  @md:leading-snug  @xl:leading-snug  @3xl:leading-normal  @5xl:leading-normal
+            mb-3          @4xs:mb-4          @md:mb-6          @xl:mb-8          @3xl:mb-10           @5xl:mb-12;
+        }
+
+        &:not([class*="larger"]):not([class*="smaller"]) {
         @apply
             text-sm        @4xs:text-base     @md:text-lg       @xl:text-xl       @3xl:text-2xl      @5xl:text-3xl
             leading-tight  @4xs:leading-snug  @md:leading-snug  @xl:leading-snug  @3xl:leading-snug  @5xl:leading-normal
             mb-3           @4xs:mb-4          @md:mb-6          @xl:mb-8          @3xl:mb-10         @5xl:mb-12;
+        }
+
+        &.smaller {
+        @apply
+            text-xs        @4xs:text-sm        @md:text-base     @xl:text-lg       @3xl:text-xl       @5xl:text-2xl
+            leading-tight  @4xs:leading-tight  @md:leading-snug  @xl:leading-snug  @3xl:leading-snug  @5xl:leading-snug
+            mb-3           @4xs:mb-4           @md:mb-6          @xl:mb-8          @3xl:mb-10         @5xl:mb-12;
+        }
     }
 
     /* a little extra spacing before headers that appear after body text */
@@ -208,22 +242,58 @@ input[type=radio].sr-only:checked + label {
     }
 }
 
-/** Removing the bottom margin on the last element inside one of these blocks is almost
-    always a good thing to help alignment with other elements and reduce large gaps. **/
-.last-child-mb-0,
-[data-bodycopy][class*="@container"],
-[data-bodycopy] .\@container {
-    & > h1:last-child,
-    & > h2:last-child,
-    & > h3:last-child,
-    & > h4:last-child,
-    & > p:last-child,
-    & > ol:last-child,
-    & > ul:last-child,
-    & > blockquote:last-child {
-        margin-bottom: 0 !important;
+
+[data-headercopy] {
+
+    @apply
+        font-body
+        text-theme-bodycopy;
+
+    p, ul, ol, blockquote {
+
+        &.larger {
+        @apply
+            text-base     @4xs:text-lg       @md:text-xl       @xl:text-2xl      @3xl:text-3xl        @5xl:text-4xl
+            leading-snug  @4xs:leading-snug  @md:leading-snug  @xl:leading-snug  @3xl:leading-normal  @5xl:leading-normal
+            mb-3          @4xs:mb-4          @md:mb-6          @xl:mb-8          @3xl:mb-10           @5xl:mb-12;
+        }
+
+        &:not([class*="larger"]):not([class*="smaller"]) {
+        @apply
+            text-sm        @4xs:text-base     @md:text-lg       @xl:text-xl       @3xl:text-2xl      @5xl:text-3xl
+            leading-tight  @4xs:leading-snug  @md:leading-snug  @xl:leading-snug  @3xl:leading-snug  @5xl:leading-normal
+            mb-3           @4xs:mb-4          @md:mb-6          @xl:mb-8          @3xl:mb-10         @5xl:mb-12;
+        }
+
+        &.smaller {
+        @apply
+            text-xs        @4xs:text-sm        @md:text-base     @xl:text-lg       @3xl:text-xl       @5xl:text-2xl
+            leading-tight  @4xs:leading-tight  @md:leading-snug  @xl:leading-snug  @3xl:leading-snug  @5xl:leading-snug
+            mb-3           @4xs:mb-4           @md:mb-6          @xl:mb-8          @3xl:mb-10         @5xl:mb-12;
+        }
     }
 }
+
+
+/** Removing the bottom margin on the last element inside one of these blocks is almost
+    always a good thing to help alignment with other elements and reduce large gaps. **/
+    .last-child-mb-0,
+    [data-headercopy][class*="@container"],
+    [data-headercopy] .\@container,
+    [data-bodycopy][class*="@container"],
+    [data-bodycopy] .\@container {
+        & > h1:last-child,
+        & > h2:last-child,
+        & > h3:last-child,
+        & > h4:last-child,
+        & > p:last-child,
+        & > ol:last-child,
+        & > ul:last-child,
+        & > blockquote:last-child {
+            margin-bottom: 0 !important;
+        }
+    }
+
 
 
 /** 3.2 Headlines **********************************************************************/
@@ -255,7 +325,7 @@ h1, .like-h1 {
     @apply
         font-display
         text-theme-accent
-        text-xl        @4xs:text-2xl      @xs:text-4xl      @lg:text-5xl      @2xl:text-6xl       @4xl:text-7xl       @6xl:text-8xl
+        text-2xl       @4xs:text-3xl      @xs:text-5xl      @lg:text-6xl      @2xl:text-7xl       @4xl:text-8xl       @6xl:text-9xl
         leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
         mb-4      @4xs:mb-6       @md:mb-10       @3xl:mb-14;
 
@@ -309,11 +379,13 @@ h4, .like-h4 {
 
 /** 3.2 Buttons & Links ****************************************************************/
 
-/** The `data-only-links` attribute gets added to a bodycopy parent container
-    if that element ONLY contains links (which is typical of call-to-action sections).
+/** The `data-only-links` attribute is typically added to <p> from CKeditor fields if
+    the only thing in the paragraph is an <a> element (typically a CTA element).
     Here, we're targetting bodycopy links that are NOT inside a `data-only-links`
     parent, which should be all other types of inline textual links. **/
-[data-bodycopy] :not([data-only-links]) a {
+[data-bodycopy] li a,
+[data-bodycopy] p:not([data-only-links]) a,
+[data-headercopy] p:not([data-only-links]) a {
     @apply
         underline
         underline-offset-2

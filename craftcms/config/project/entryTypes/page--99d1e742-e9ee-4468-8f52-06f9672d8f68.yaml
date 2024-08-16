@@ -43,7 +43,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Full Title
             handle: null
             includeInCards: false
             instructions: null
@@ -68,6 +68,26 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: a032eab6-7596-4f92-bd18-4d8fd254c6a9
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: e61396e0-c355-453a-b48f-50822b95cc72
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: fa90e5bd-112c-42d7-9639-22c09116af46
             userCondition: null
             warning: null
             width: 50
@@ -100,34 +120,6 @@ fieldLayouts:
             width: 75
         name: 'Primary Content'
         uid: 84e2ea5c-d6e3-44cf-ac8f-207b0fb8c88a
-        userCondition: null
-      -
-        elementCondition: null
-        elements:
-          -
-            elementCondition: null
-            template: _sitehub/ui-template-sidebar-builder.twig
-            type: craft\fieldlayoutelements\Template
-            uid: 4d9695ec-a8ec-4782-aeaf-44d6cdb8556f
-            userCondition: null
-            width: 50
-          -
-            elementCondition: null
-            fieldUid: a6272176-e780-4d5e-90f2-df0115d1a324 # Sidebar Builder
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: e14cdcca-0d93-444d-878b-94feb898b43d
-            userCondition: null
-            warning: null
-            width: 50
-        name: 'Secondary Content'
-        uid: 2860d157-6bee-4254-a52d-fef4f14c1a64
         userCondition: null
       -
         elementCondition: null
@@ -169,7 +161,41 @@ fieldLayouts:
             userCondition: null
           -
             elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            template: _sitehub/ui-template-sidebar-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 4d9695ec-a8ec-4782-aeaf-44d6cdb8556f
+            userCondition: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a6272176-e780-4d5e-90f2-df0115d1a324 # Sidebar Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e14cdcca-0d93-444d-878b-94feb898b43d
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 5d2cac26-963b-49f2-8ec0-91e92f092e93
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-addons.twig
+            type: craft\fieldlayoutelements\Template
+            uid: f6f01635-60a2-4446-809e-cabb402ab32a
+            userCondition: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 01c13296-4c57-49c0-802a-e980de4d84e0 # Addons
             handle: null
             includeInCards: false
             instructions: null
@@ -178,21 +204,21 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: fa90e5bd-112c-42d7-9639-22c09116af46
+            uid: fe69e4c2-8ba6-4636-af6f-2f55beddb559
             userCondition: null
             warning: null
-            width: 100
-        name: 'Meta Details'
-        uid: 3e153a92-1bfa-4879-b254-a188b527834a
+            width: 50
+        name: 'Secondary Content'
+        uid: 2860d157-6bee-4254-a52d-fef4f14c1a64
         userCondition: null
 handle: page
 hasTitleField: true
-icon: sidebar
-name: 'Content Page'
+icon: table-tree
+name: Page
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
 titleFormat: ''
-titleTranslationKeyFormat: null
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

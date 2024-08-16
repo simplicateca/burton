@@ -166,8 +166,11 @@ fieldLayouts:
 handle: primary
 instructions: ''
 maxNodes: null
-name: Primary
+name: 'Primary Navigation (Global)'
 permissions:
+  craft\commerce\elements\Product:
+    enabled: '1'
+    permissions: '*'
   craft\elements\Asset:
     enabled: ''
     permissions: '*'
@@ -179,19 +182,31 @@ permissions:
     permissions:
       - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
       - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
-      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Page Content
-      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Articles
+      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
+      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
   craft\elements\Tag:
+    enabled: ''
+    permissions: '*'
+  putyourlightson\campaign\elements\CampaignElement:
+    enabled: ''
+    permissions: '*'
+  verbb\events\elements\Event:
     enabled: ''
     permissions: '*'
   verbb\navigation\nodetypes\CustomType:
     enabled: '1'
   verbb\navigation\nodetypes\PassiveType:
     enabled: '1'
+  verbb\navigation\nodetypes\SiteType:
+    enabled: '1'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+  5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
+    enabled: false
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
     enabled: true
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # USA
+    enabled: false
 sortOrder: 1
 structure:
   maxLevels: null

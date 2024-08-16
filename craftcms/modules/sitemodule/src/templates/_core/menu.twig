@@ -22,18 +22,6 @@
         {% block dropdownMenu %}
             {% embed ["_site/menu.dropdown", "_core/menu.dropdown"] with { dropdown: node } %}{% endembed %}
         {% endblock %}
-
-        {% block lastItem %}
-            {{ block( 'openItem' ) }}
-
-            {{ tag( 'a', {
-                href : siteUrl('/search'),
-                class: 'block w-6 h-6',
-                html : svg( '@appicons/search.svg' ) | attr({ 'class': 'w-6 h-6 block fill-current'})
-            }) }}
-
-            {{ block( 'closeItem' ) }}
-        {% endblock %}
     {% endembed %}
 {% endmacro %}
 
@@ -93,11 +81,14 @@
                             </a>
                         </li>
                     {% else %}
-                        {% set title     = crumb.title ??? null %}
-                        {% set url       = crumb.url   ??? null %}
-                        {% set isVisible = true %}
+                        {# {% set cardtitle = crumb.element.summary   | default('') | retconOnly('h3') | striptags %}
+                        {% set fulltitle = crumb.element.fullTitle | default('') | retconOnly('h1') | striptags %}
+                        {% set title     = cardtitle ??? fulltitle ??? crumb.title %} #}
+                        {% set title     = crumb.title %}
+                        {% set url       = crumb.url ??? null %}
+                        {% set visible   = true %}
 
-                        {% if isVisible %}
+                        {% if visible %}
                             <li class="hidden {{loop.index > 2 ? 'sm:block' : 'xs:block' }}">
                                 <div class="flex items-center gap-1 md:gap-2">
                                     <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>

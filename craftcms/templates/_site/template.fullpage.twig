@@ -42,14 +42,14 @@
 %}
 
 {% block page %}
-    {% block page__top      block( 'header__base', '_site/header' ) %}
+    {% block page__top      block( 'base', '_site/header' ) %}
     {% block page__main     block( 'main__base' ) %}
     {% block page__bottom   block( 'footer__base', '_site/footer' ) %}
 
     {% import "_core/modal" as modal %}
     {{ modal.dynamic_target() }}
 
-    {{ include( "_core/menu.mobile" ) }}
+    {% block page__mobilemenu include( "_core/menu.mobile" ) %}
 {% endblock %}
 
 
@@ -86,7 +86,7 @@
 
 {# served when page requested via ajax #}
 {% block page__ajax %}
-    {{ block( 'header__builder', '_site/header' ) }}
+    {{ block( 'plaintitle', '_site/header' ) }}
     {{ assemble.builder( 'ajax', blocks, {
         container  : "fluid",
         spacerabove: "small",

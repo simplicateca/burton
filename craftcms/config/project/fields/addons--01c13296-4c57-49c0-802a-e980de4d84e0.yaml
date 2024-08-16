@@ -39,10 +39,11 @@ settings:
                 - values
                 -
                   - 40f8a572-f12e-49f2-849d-8fbe3395eb5c # Addon
-  selectionLabel: null
+  selectionLabel: Addon
   showCardsInGrid: false
   showSiteMenu: true
-  sources: '*'
+  sources:
+    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusables
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list

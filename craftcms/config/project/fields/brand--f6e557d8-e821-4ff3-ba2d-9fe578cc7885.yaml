@@ -1,0 +1,52 @@
+columnSuffix: null
+handle: brand
+instructions: null
+name: 'Event Brand'
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 5123ec8e-1024-4625-8e52-d0a235e7df28
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - f7e61633-c292-4302-a0d2-ca73da792fcb # Brand
+  selectionLabel: Choose
+  showCardsInGrid: false
+  showSiteMenu: false
+  sources:
+    - 'section:d4c481a4-83d0-4824-968f-d14247ec9c65' # Event Logistics
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

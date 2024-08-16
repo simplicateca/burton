@@ -1,0 +1,19 @@
+[{
+    "value"   : "collab_sponsor",
+    "label"   : "Sponsor",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "collab_exhibitor",
+    "label"   : "Exhibitor",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "collab_custom",
+    "label"   : "Custom • Other",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

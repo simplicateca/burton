@@ -2,14 +2,15 @@
 {---------------------------------------------------------------------------------------}
   > http://localhost:8000/sitehub/blocks/image
 {-------------------------------------------------------------------------------------##}
-{%- extends [ "_site/block", "_core/block" ] -%}
-
+{%- set _field = ( settings.field ??? block.settings.field ??? '' ) | replace({'Builder':''}) %}
+{%- extends [ "_site/#{_field}.block", "_site/block", "_core/block" ] -%}
 
 
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 %}
 
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = {
         variant : null,
         limit   : 24,

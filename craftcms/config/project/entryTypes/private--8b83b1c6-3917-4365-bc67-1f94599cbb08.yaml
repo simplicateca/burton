@@ -33,7 +33,27 @@ fieldLayouts:
             uid: a7bd709b-7584-4359-933e-2e1cc950bb04
             userCondition: null
             warning: null
-            width: 100
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\LineBreak
+            uid: 48d61918-73d0-4eae-8855-facca0d14312
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: 'How is this tag applied to content? Justify its existence and/or lifespan to minimize tag clutter.'
+            label: Purpose
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c4c4abda-76de-45da-8d55-d034cce1bf56
+            userCondition: null
+            warning: null
+            width: 50
         name: Content
         uid: b5571a90-5ef1-4d3c-a0f8-eaef63f89949
         userCondition: null
@@ -41,10 +61,10 @@ handle: private
 hasTitleField: true
 icon: user-secret
 name: 'Private Tag'
-showSlugField: false
-showStatusField: true
-slugTranslationKeyFormat: null
+showSlugField: true
+showStatusField: false
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
 titleFormat: ''
-titleTranslationKeyFormat: null
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

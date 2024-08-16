@@ -1,0 +1,22 @@
+columnSuffix: null
+handle: resources
+instructions: null
+name: 'Related Resources'
+searchable: true
+settings:
+  createButtonLabel: Add
+  entryTypes:
+    - 6959404b-a5e7-4b3c-ac92-144bfdf0e7ed # Knowledge Resource
+    - 105d868c-b1ba-4534-a294-c66bca17ed17 # Audio Resource
+    - 3f9234b9-eff5-41c9-9171-94fccbed06d2 # Downloadable Resource
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: true
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

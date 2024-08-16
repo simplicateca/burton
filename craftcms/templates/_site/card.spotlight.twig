@@ -1,0 +1,39 @@
+{## Panel Card   [Site Template]
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_site/card", "_core/card" ] %}
+
+
+{## Template Variables
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
+
+
+{## Overload Parent Blocks
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block card__class "w-full relative grid grid-cols-1" %}
+
+{% block card__images %}
+    <img src="https://simplicate.nyc3.digitaloceanspaces.com/artof/2024/static/bg/paint-splash-{{ random(1) + 1 }}.png">
+{% endblock %}
+
+{% block card__words -%}
+    <div class="absolute inset-0 z-30 flex items-center justify-center">
+        <div class="flex flex-col gap-3">
+            {%- block card__headline %}<h3 class="!my-0">{{ card.headline }}</h3>{% endblock -%}
+
+            <div class="-mr-8 pr-8 flex flex-col h-full">
+                <div class="flex-grow max-h-[50vh] overflow-y-auto">
+                    {{- ( card.text ??? card.summary ) | raw -}}
+                </div>
+            </div>
+
+            {{ block('card__action')}}
+        </div>
+    </div>
+{%- endblock %}

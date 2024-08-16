@@ -1,0 +1,7 @@
+headingLevels: false
+name: Outline
+toolbar:
+  - todoList
+  - bold
+  - italic
+  - link

@@ -1,0 +1,52 @@
+columnSuffix: null
+handle: sessions
+instructions: null
+name: Sessions
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - a9f0e39f-0965-4332-97f6-bac348389e61
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 773096ce-2142-42b4-9cf9-a945483e7609 # Session
+  selectionLabel: Choose
+  showCardsInGrid: false
+  showSiteMenu: false
+  sources:
+    - 'section:d4c481a4-83d0-4824-968f-d14247ec9c65' # Event Logistics
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

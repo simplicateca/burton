@@ -1,0 +1,25 @@
+[{
+    "value"   : "addon_alert",
+    "label"   : "Alert Notice",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "addon_modal",
+    "label"   : "Popup Modal",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "addon_rssfeed",
+    "label"   : "RSS Feed Homepage",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "addon_code",
+    "label"   : "Code Embed",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

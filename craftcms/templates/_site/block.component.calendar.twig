@@ -1,0 +1,44 @@
+{## [Core Block] Calendar Component
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_site/block.component", "_core/block.component" ] %}
+
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+    {%- import "_core" as assemble -%}
+
+    {% set eventsQuery = craft.events.events()
+        .type('conference')
+        .limit(10) %}
+
+    {# Fetch the Events #}
+    {% set events = eventsQuery.all() %}
+
+    {# Display their contents #}
+    {# {% for event in events %}
+        <p>{{ event.title }}</p>
+    {% endfor %} #}
+
+    {% set brand = craft.entries.type('brand').slug('leadership-summit').one() %}
+
+    {% set text  = brand.summary ??? null %}
+    {% set title = brand.summary | retconOnly('h3') | retconChange( 'h3', 'h2' ) %}
+    {% set title = title ? title : "<h2>#{brand.title}</h2>" %}
+
+    {{ assemble.builder( 'mainfull', [{
+        type: 'carddeck',
+        text: title ~ text | retconRemove('h3'),
+        entries: [brand],
+        theme: "base",
+      }], {
+        container: "fluid",
+        copylayout: "evenVert",
+        microlayout: "zone1Left",
+        cardname: "spotlight"
+    }) }}
+
+
+{% endblock %}

@@ -1,0 +1,135 @@
+color: null
+fieldLayouts:
+  b2dbf25e-0b94-42c3-8130-d73f51f7a09d:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 88442b94-23a6-49a4-ac0a-6c62b974be23
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Ticket Type'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: ff430867-1186-4a73-a317-568b438e83c1
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: be55dcbe-086b-4b95-8cbf-c280ec35449d
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: a410632e-9404-48a0-bada-427d97c46ea0 # Books
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Book Swag'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 10d4f489-358a-48e3-9239-921319457b1b
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 04de3988-1519-432d-92a4-e455f30a3afc # Form
+            handle: null
+            includeInCards: false
+            instructions: 'The **Formie** entry titled **[Ticket] Conference** is used by default'
+            label: 'Registration Form'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 62dc4b79-457f-4449-bdf2-9865b914ee2a
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 0659a718-a6cf-4ea0-af90-694b8f3d8b9d
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: dabd72e3-9239-43c0-9fc6-4d7d88108660
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6b3de2b5-5a80-483c-9358-8bb98942b626
+            userCondition: null
+            warning: null
+            width: 50
+        name: 'Main Content'
+        uid: df7b1dda-12b8-4d26-955f-fab2328399c2
+        userCondition: null
+handle: package
+hasTitleField: false
+icon: ticket
+name: Package
+showSlugField: false
+showStatusField: false
+slugTranslationKeyFormat: ''
+slugTranslationMethod: site
+titleFormat: '{{ object.variant.label }}'
+titleTranslationKeyFormat: ''
+titleTranslationMethod: site

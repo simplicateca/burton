@@ -1,0 +1,13 @@
+[{
+    "value"   : "knowledge_within",
+    "label"   : "Contained Within",
+    "tooltips": { "inline": "Primarily for articles within magazine issues" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "knowledge_general",
+    "label"   : "General Relationship",
+    "tooltips": { "inline": "Not sure yet if this type is necessary" },
+    "settings": {},
+    "virtuals": []
+}]

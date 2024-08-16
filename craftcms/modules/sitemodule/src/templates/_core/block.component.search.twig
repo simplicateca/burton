@@ -18,7 +18,7 @@
 {-------------------------------------------------------------------------------------##}
 {%- block block__microlayout %}
 
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
 
     {%- set settings = {
         iterator   : 'grid2',
@@ -96,7 +96,7 @@
         {{ raw( text ) }}
         {% if settings.interface != 'none' %}
             {{- assemble.separator( 'small' ) -}}
-            <form method="get" action="{{ search.baseurl }}" class="max-w-5xl w-full flex flex-col gap-y-3"
+            <form method="get" action="{{ search.baseurl }}" class="max-w-5xl w-full flex flex-col gap-y-3 mx-auto"
                 hx-select="#{{ search.uuid }}"
                 hx-target="#{{ search.uuid }}"
                 hx-swap="outerHTML ignoreTitle:true show:top"
@@ -122,6 +122,10 @@
             {%- if search.pageinfo.totalPages > 1 and settings.pagination != 'none' -%}
                 <div class="pt-10">{{ assemble.searchpart(  'pagination', search, settings ) }}</div>
             {%- endif -%}
+        {%- else -%}
+            <div class="p-10 text-center text-gray-500">
+                <p>No results found.</p>
+            </div>
         {%- endif -%}
     </div>
 {%- endblock -%}

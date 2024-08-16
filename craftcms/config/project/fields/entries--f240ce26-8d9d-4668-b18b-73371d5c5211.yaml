@@ -38,19 +38,23 @@ settings:
               -
                 - values
                 -
-                  - 40f8a572-f12e-49f2-849d-8fbe3395eb5c # Addon
                   - 21710874-0ba0-423c-82ec-7fd855abb982 # Dynamic Collection
                   - d7748b2a-ae79-4961-b103-a5aa758e39ab # Static Collection
-                  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # RSS Feed
-                  - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragments
+                  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # RSS Collection
                   - 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
+                  - ff76eb70-820e-4752-b138-daef62692e3f # Builder
+                  - 40f8a572-f12e-49f2-849d-8fbe3395eb5c # Addon
                   - 8b83b1c6-3917-4365-bc67-1f94599cbb08 # Private Tag
-  selectionLabel: 'Choose Entry'
+  selectionLabel: Choose
   showCardsInGrid: true
   showSiteMenu: true
   sources:
-    - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Articles
-    - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Page Content
+    - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
+    - 'section:d4c481a4-83d0-4824-968f-d14247ec9c65' # Event Logistics
+    - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
+    - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
+    - 'section:24626664-b886-4d46-a8d0-bb30ed656725' # Profiles
+    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusables
     - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
   targetSiteId: null
   validateRelatedElements: false

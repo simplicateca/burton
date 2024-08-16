@@ -125,11 +125,11 @@ fieldLayouts:
 handle: fragment
 hasTitleField: false
 icon: puzzle-piece
-name: Fragment
+name: 'Fragment 🧱'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
 titleFormat: ''
-titleTranslationKeyFormat: null
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

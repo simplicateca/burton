@@ -20,13 +20,7 @@ body {
     padding: 0;
     color: #171717; {# neutral-900 #}
     background-color: #f5f5f5; {# neutral-100 #}
-
-    /** alternating random blocks
-        background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23e5e5e5' fill-opacity='0.5' fill-rule='evenodd'/%3E%3C/svg%3E");
-    **/
-
-    /** blueprint looking grid **/
-    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmNWY1ZjUiPjwvcmVjdD4KPGcgZmlsbD0iI2U1ZTVlNSIgZmlsbC1vcGFjaXR5PSIwLjUiPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEiIHk9IjIwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMSIgeT0iNDAiPjwvcmVjdD4KPHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxIiB5PSI2MCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEiIHk9IjgwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEwMCIgeD0iMjAiPjwvcmVjdD4KPHJlY3Qgd2lkdGg9IjEiIGhlaWdodD0iMTAwIiB4PSI0MCI+PC9yZWN0Pgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxMDAiIHg9IjYwIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEwMCIgeD0iODAiPjwvcmVjdD4KPC9nPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2U9IiNmZmYiPjwvcmVjdD4KPC9zdmc+");
+    background-image: url(https://simplicate.nyc3.digitaloceanspaces.com/artof/2024/static/backgrounds/lineart.png);
 }
 
 
@@ -103,11 +97,13 @@ body {
 
 {-------------------------------------------------------------------------------------##}
 
+{% set brand = brand ??? null %}
 
 {## Base (Neutral) Theme
 {---------------------------------------------------------------------------------##}
 :root,
 *[data-theme="base"] {
+{% block base %}
     --background      : transparent;
     --background-tint : 229 229 229; /**  e5e5e5  |  neutral-200  **/
     --background-tint2: 212 212 212; /**  d4d4d4  |  neutral-300  **/
@@ -115,14 +111,16 @@ body {
     --headings        : 38 38 38;    /**  262626  |  neutral-800  **/
     --headings-alt    : 255 255 255; /**  ffffff  |  white        **/
     --bodycopy        : 23 23 23;    /**  171717  |  neutral-900  **/
-    --highlight       : 196 181 253; /**  c4b5fd  |  violet-300   **/
+    --highlight       : 26 85 112;   /**  1a5570  |  bluecyan-300 **/
 
     --link            : 30 64 175;   /**  1e40af  |  blue-800     **/
-    --link-tint       : 91 33 182;   /**  5b21b6  |  violet-800   **/
-    --accent          : 91 33 182;   /**  5b21b6  |  violet-800   **/
+    --link-tint       : 15 49 64;    /**  0f3140  |  bluecyan     **/
+    --accent          : 15 49 64;    /**  0f3140  |  bluecyan     **/
     --accent-tint     : 30 64 175;   /**  1e40af  |  blue-800     **/
     --accent-alt      : 255 255 255; /**  ffffff  |  white        **/
+{% endblock %}
 }
+
 
 
 {## Light (White) Theme
@@ -130,6 +128,7 @@ body {
 *[data-theme="light"],
 *[data-theme="dark--reverse"],
 *[data-theme="accent--reverse"] {
+{% block light %}
     --background      : 255 255 255; /**  ffffff  |  white        **/
     --background-tint : 229 229 229; /**  e5e5e5  |  neutral-200  **/
     --background-tint2: 212 212 212; /**  d4d4d4  |  neutral-300  **/
@@ -137,35 +136,47 @@ body {
     --headings        : 38 38 38;    /**  262626  |  neutral-800  **/
     --headings-alt    : 255 255 255; /**  ffffff  |  white        **/
     --bodycopy        : 23 23 23;    /**  171717  |  neutral-900  **/
-    --highlight       : 196 181 253; /**  c4b5fd  |  violet-300   **/
+    --highlight       : 26 85 112;   /**  1a5570  |  bluecyan-300 **/
 
     --link            : 30 64 175;   /**  1e40af  |  blue-800     **/
-    --link-tint       : 91 33 182;   /**  5b21b6  |  violet-800   **/
-    --accent          : 91 33 182;   /**  5b21b6  |  violet-800   **/
+    --link-tint       : 15 49 64;    /**  0f3140  |  bluecyan     **/
+    --accent          : 15 49 64;    /**  0f3140  |  bluecyan     **/
     --accent-tint     : 30 64 175;   /**  1e40af  |  blue-800     **/
     --accent-alt      : 255 255 255; /**  ffffff  |  white        **/
+{% endblock %}
 }
-
 
 
 {## Accent (Brand) Theme
 {---------------------------------------------------------------------------------##}
 *[data-theme="accent"],
 *[data-theme="light--reverse"] {
-    --background      : 91 33 182;   /**  5b21b6  |  violet-800   **/
-    --background-tint : 46 16 101;   /**  2e1065  |  violet-950   **/
-    --background-tint2: 124 58 237;  /**  7c3aed  |  violet-600   **/
+{% block accent %}
+    {% set code = ( brand.code ??? null ) | lower %}
+    {%- switch code -%}
+        {%- case "lw" -%}
+            {{ _self.accentwomen }}
+        {%- case "ls" -%}
 
-    --headings        : 212 212 212; /**  d4d4d4  |  neutral-300  **/
-    --headings-alt    : 91 33 182;   /**  5B21B6  |  violet-800   **/
-    --bodycopy        : 229 229 229; /**  e5e5e5  |  neutral-200  **/
-    --highlight       : 124 58 237;  /**  7c3aed  |  violet-600   **/
+        {%- case "fl" -%}
 
-    --link            : 96 165 250;  /**  60a5fa  |  blue-400     **/
-    --link-tint       : 167 139 250; /**  a78bfa  |  violet-400   **/
-    --accent          : 167 139 250; /**  a78bfa  |  violet-400   **/
-    --accent-tint     : 96 165 250;  /**  60a5fa  |  blue-400     **/
-    --accent-alt      : 38 38 38;    /**  262626  |  white        **/
+        {%- default -%}
+            --background      : 15 49 64;    /**  0f3140  |  bluecyan     **/
+            --background-tint : 11 37 48;    /**  0b2530  |  bluecyan-950 **/
+            --background-tint2: 19 61 80;    /**  133d50  |  bluecyan-600 **/
+
+            --headings        : 212 212 212; /**  d4d4d4  |  neutral-300  **/
+            --headings-alt    : 15 49 64;    /**  0f3140  |  bluecyan     **/
+            --bodycopy        : 229 229 229; /**  e5e5e5  |  neutral-200  **/
+            --highlight       : 19 61 80;    /**  7c3aed  |  bluecyan-600 **/
+
+            --link            : 96 165 250;  /**  60a5fa  |  blue-400     **/
+            --link-tint       : 30 98 128;   /**  1e6280  |  bluecyan-300 **/
+            --accent          : 30 98 128;   /**  1e6280  |  bluecyan-300 **/
+            --accent-tint     : 96 165 250;  /**  60a5fa  |  blue-400     **/
+            --accent-alt      : 255 255 255; /**  ffffff  |  white        **/
+    {%- endswitch -%}
+{% endblock %}
 }
 
 
@@ -173,9 +184,10 @@ body {
 {---------------------------------------------------------------------------------##}
 *[data-theme="dark"],
 *[data-theme="base--reverse"] {
-    --background      : 38 38 38;    /**  262626  |  neutral-800  **/
-    --background-tint : 23 23 23;    /**  171717  |  neutral-900  **/
-    --background-tint2: 10 10 10;    /**  7c3aed  |  neutral-950  **/
+{% block dark %}
+    --background      : 15 49 64;    /**  0f3140  |  bluecyan-800  **/
+    --background-tint : 19 61 80;    /**  133d50  |  bluecyan-600  **/
+    --background-tint2: 26 85 112;   /**  1a5570  |  bluecyan-400  **/
 
     --headings        : 212 212 212; /**  d4d4d4  |  neutral-300  **/
     --headings-alt    : 64 64 64;    /**  404040  |  neutral-700  **/
@@ -183,12 +195,29 @@ body {
     --highlight       : 124 58 237;  /**  404040  |  neutral-700  **/
 
     --link            : 96 165 250;  /**  60a5fa  |  blue-400     **/
-    --link-tint       : 167 139 250; /**  a78bfa  |  violet-400   **/
-    --accent          : 167 139 250; /**  a78bfa  |  violet-400   **/
+    --link-tint       : 30 98 128;   /**  1e6280  |  bluecyan-300 **/
+    --accent          : 30 98 128;   /**  1e6280  |  bluecyan-300 **/
     --accent-tint     : 96 165 250;  /**  60a5fa  |  blue-400     **/
     --accent-alt      : 38 38 38;    /**  262626  |  white        **/
+{% endblock %}
 }
-
-
 {##-------------------------------------------------------------------------------##}
 </style>{% endblock %}
+
+
+{% macro accentwomen() %}
+    --background      : 56 23 84;    /**  381754  |  purple       **/
+    --background-tint : 42 17 63;    /**  2a113f  |  purple-950   **/
+    --background-tint2: 72 29 109;   /**  481d6d  |  purple-600   **/
+
+    --headings        : 212 212 212; /**  d4d4d4  |  neutral-300  **/
+    --headings-alt    : 56 23 84;    /**  381754  |  purple       **/
+    --bodycopy        : 229 229 229; /**  e5e5e5  |  neutral-200  **/
+    --highlight       : 72 29 109;   /**  481d6d  |  purple-600   **/
+
+    --link            : 167 139 250; /**  a78bfa  |  purple-400   **/
+    --link-tint       : 85 55 117;   /**  553775  |  purple-300   **/
+    --accent          : 85 55 117;   /**  553775  |  purple-300   **/
+    --accent-tint     : 167 139 250; /**  a78bfa  |  purple-400   **/
+    --accent-alt      : 38 38 38;    /**  262626  |  white        **/
+{% endmacro %}

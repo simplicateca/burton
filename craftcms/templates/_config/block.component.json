@@ -7,7 +7,7 @@
         "inputabove": "These settings allow for **fine tuning the presentation** of the search result and the available __input filters__.",
         "help"      : "Understanding the Search Component",
         "helpurl"   : "https://www.youtube.com/watch?v=x5bVKZxFdPo",
-        "helptwig"  : "_selectplus/help/basic.twig"
+        "helptwig"  : "_selectplus/help/sample.twig"
     },
     "settings": {},
     "virtuals": [{
@@ -73,6 +73,35 @@
 },{
     "value"     : "form",
     "label"     : "Form Component",
+    "tooltips"  : { "inline": "" },
+    "settings"  : {},
+    "virtuals"  : [{
+        "label": "Formie Theme",
+        "name" : "formie",
+        "type" : "select",
+        "default": "default",
+        "options" : [{
+            "label": "Default",
+            "value": "default",
+            "themeConfig": {
+                "subFieldRow" : {
+                    "attributes": {
+                        "class": "text-red-500"
+                    }
+                },
+
+                "submitButton": {
+                    "resetClass": "true",
+                    "attributes": {
+                        "class": "button"
+                    }
+                }
+            }
+        }]
+    }]
+},{
+    "value"     : "calendar",
+    "label"     : "Upcoming Calendar",
     "tooltips"  : { "inline": "" },
     "settings"  : {},
     "virtuals"  : []

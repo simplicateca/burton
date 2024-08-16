@@ -1,15 +1,16 @@
 {% block fonts %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Rubik:wght@800&display=swap">
-
     {## To serve fonts locally, download fonts using: https://gwfh.mranftl.com/fonts,
         upload to server (or CDN), edit and uncomment the lines below:
-
-        <style>
-            {{ _self.fontface( 'Rubik', 'Rubik', 800 ) }}
-            {{ _self.fontface( 'Roboto Mono', 'Roboto-Mono', 400 ) }}
-        </style>
     {## ----------------------------------------------------------------------------- ##}
+    <style>
+        {{ _self.fontface( 'Lato', 'Lato-Light',    300 ) }}
+        {{ _self.fontface( 'Lato', 'Lato-Regular',  400 ) }}
+        {{ _self.fontface( 'Lato', 'Lato-Medium',   500 ) }}
+        {{ _self.fontface( 'Lato', 'Lato-Semibold', 600 ) }}
+        {{ _self.fontface( 'Lato', 'Lato-Black',    900 ) }}
+    </style>
 {% endblock %}
+
 
 {% macro fontface( family, filename, weight ) %}
     {% css alias( "@fonts/#{filename}.woff2" ) with { rel: "preload", as: "font", type: "font/woff2", crossorigin:"anonymous" } %}

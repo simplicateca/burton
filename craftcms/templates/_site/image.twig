@@ -9,7 +9,7 @@
 {%- macro default( images, settings ) -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = {
-        imgclass: "w-full max-w-full h-auto rounded-lg",
+        imgclass: "w-full max-w-full h-auto rounded-none",
         _placeholder: 'default',
      } | merge( settings ) %}
     {{- include( ['_site/image', '_core/image'], { images: images, settings: settings } ) -}}

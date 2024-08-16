@@ -14,6 +14,7 @@
     font-size: 18px;
 }
 
+
 .fieldTemplate p {
     max-width: 720px;
 }
@@ -24,6 +25,11 @@
 
 .fieldTemplate div.flex iframe {
 
+}
+
+.fieldTemplate__eventConference {
+    padding-top: .75rem;
+    padding-bottom: 1.5rem;
 }
 
 .fieldTemplate__headerBuilder {
@@ -39,7 +45,18 @@
     padding-top: 2.25rem !important;
 }
 
-#content .flex-fields #fields-headerBuilder-field + hr {
+
+#content .flex-fields + hr,
+#content :not(.meta) .flex-fields .field + hr
+{
     margin-top: 3rem !important;
-    margin-bottom: 4rem !important;
+    margin-bottom: 3rem !important;
+}
+
+
+#content .flex-fields + .line-break,
+#content :not(.meta) .flex-fields .field + .line-break
+{
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
 }

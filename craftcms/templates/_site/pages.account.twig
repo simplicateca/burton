@@ -1,0 +1,63 @@
+{## Account Functionality
+{---------------------------------------------------------------------------------------}
+    Handles requests for the root account page at `/account`, and also any valid
+    actions (i.e. /account/history, /account/profile, etc). Requests arrive here via:
+
+ 1. EntryType+Slug routing for `account` page via `templates/_site/pages._entry`
+ 2. Advanced URL routing of actions for `account/*` via `config/routes.php`
+
+ -> https://craftcms.com/docs/5.x/system/routing.html#advanced-routing-with-url-rules
+{-------------------------------------------------------------------------------------##}
+{% set entry   = entry ??? craft.entries.section('pages').slug('account').one() ??? null %}
+
+{% set action  = actionSlug ??? 'dashboard' %}
+{% set actions = [
+    'dashboard', 'history', 'billing', 'profile',
+    'login', 'confirm-email', 'verified', 'reset'
+] %}
+
+
+{## Validate Action or 404
+{-------------------------------------------------------------------------------------##}
+{% extends ( action in actions )
+    ? "_site/template.sidebar"
+    : template_from_string('{% block e %}{% header "HTTP/1.0 404 Not Found" %}{% endblock %}') %}
+
+
+
+{#######################################################################################}
+{##                                Template Overrides                                 ##}
+{#######################################################################################}
+{% block page__top %}
+    {% embed "_site/header" with {
+        blocks: action == 'dashboard' ? blocks ??? [] : [],
+        title: _self.account__title( action )
+     } %}
+        {% block plaintitle title ?? parent() %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block content %}
+
+{% endblock %}
+
+
+{## Unique Elements
+{-------------------------------------------------------------------------------------##}
+{% macro account__title( action ) %}
+    {% import "_core" as assemble %}
+    {% set eyebrow = assemble.text( "eyebrow__basic", "Your Account"|t, {}  ) %}
+
+    {% set title = "Dashboard"|t %}
+    {% set title = action == "history" ? "History"|t : title %}
+    {% set title = action == "billing" ? "Billing"|t : title %}
+    {% set title = action == "profile" ? "Profile"|t : title %}
+
+    <div class="max-w-5xl">
+        <div class="@container flex flex-col" data-headercopy>
+            {{ eyebrow }}
+            {{ tag( 'h1', { html: title }) }}
+        </div>
+    </div>
+{% endmacro %}

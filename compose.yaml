@@ -200,6 +200,22 @@ services:
         ports:
             - 8080:8080
 
+    # n8n - task automation tool (like zapier)
+    # https://docs.n8n.io/hosting/installation/server-setups/docker-compose/
+    n8n:
+        image: n8nio/n8n
+        restart: unless-stopped
+        init: true
+        tty: true
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=America/Toronto
+        ports:
+            - "5678:5678"
+        volumes:
+            - ./etc/n8n:/home/node/.n8n
+
 
 volumes:
     mysql_data:

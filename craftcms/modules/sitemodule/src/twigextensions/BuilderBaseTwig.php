@@ -96,6 +96,8 @@ class BuilderBaseTwig extends AbstractExtension {
     // to see if it's already dealing with a normalized block or not.
     public function BuilderBase( $matrixblocks = [], $builderSettings = [] ) : array
     {
+        $matrixblocks = is_array( $matrixblocks ) ? $matrixblocks : [];
+
         // 1) Splice in Fragments
         $blocks = [];
         foreach( $matrixblocks as $block ) {
@@ -125,9 +127,8 @@ class BuilderBaseTwig extends AbstractExtension {
             $blocks[] = [ 'block' => $block, 'settings' => $settings ];
         }
 
-
         // 2) Primary Attribute Fields
-        // Adds  data from variant, layout, theme fields (if they exist)
+        // Adds data from variant, layout, theme fields (if they exist)
         $blocks = array_map( function( $b ) {
             return $this->_attributes( $b );
         }, $blocks );
@@ -162,7 +163,7 @@ class BuilderBaseTwig extends AbstractExtension {
         // check for pre-normalized blocks
         if( $this->_isnormal( $b ) ) { return $b; }
 
-        // check for pre-normalized blocks
+        // no block
         if( !isset($b['block']) || empty($b['block']) ) { return null; }
 
         // still here? cool .. add custom field values
@@ -223,12 +224,16 @@ class BuilderBaseTwig extends AbstractExtension {
                 }
             }
 
-            // let fragment blocks override the theme of the block(s) it is importing
+            // let fragment blocks override the theme of the block(s) it imports
             if( isset($block['fragment']) && !empty($block['fragment']) ) {
-                $fragment = $this->_attributes( $block['fragment'] );
-                if( strtoupper( $fragment['settings']['theme'] ) != 'FRAGMENT'  ) {
-                    $blocks[$key]['settings']['theme'] = $fragment['settings']['theme'];
-                    $blocks[$key]['theme'] = $fragment['theme'];
+                $blockfrags = is_array( $block['fragment'] ) ? $block['fragment'] : [$block['fragment']];
+                foreach( $blockfrags AS $frag ) {
+                    $fragattr = $this->_attributes( [ 'block' => $frag, 'settings' => $block['settings'] ] );
+
+                    if( strtoupper( $fragattr['settings']['theme'] ) != 'FRAGMENT'  ) {
+                        $blocks[$key]['settings']['theme'] = $fragattr['settings']['theme'];
+                        $blocks[$key]['theme'] = $fragattr['theme'];
+                    }
                 }
             }
 
@@ -364,7 +369,6 @@ class BuilderBaseTwig extends AbstractExtension {
         $result = isset( $values[$attr] )
             ? ( is_object( $values[$attr] ) ? $values[$attr]->settings : [] )
             : ( isset( $values[$attr]['settings'] ) ? $values[$attr]['settings'] : [] );
-
         return $result;
     }
 
@@ -378,16 +382,23 @@ class BuilderBaseTwig extends AbstractExtension {
     // TODO: Umm.. does Craft 5 with Nested Matrix fields change my opinion of the above?
     private function _fragments( $original, $settings ) : array|null {
 
+
         if( $this->_type( $original ) != 'fragment' ) { return null; }
+        $fragments = [];
+        $builder   = $settings['builder'] ?? '';
 
-        // this is ugly but it does the trick for now.
+        // each $frag represents an entry added to the "Fragments" entry field
+        // now we need to find all the blocks inside each frag
         // TODO: could probably do with some eager loading?
-        $fragments = $original->fragments->collect()->map( function ( $frag ) {
-            return $frag->bodyBuilder->all()
-                ?? $frag->sidebarBuilder->all()
-                ?? [];
-        })->all() ?? [];
+        foreach( $original->fragments->collect() AS $frag ) {
+            $blocks = $frag->bodyBuilder->all();
+            if( 'sidebar' == $builder ) {
+                $blocks = $frag->sidebarBuilder->all();
+            }
 
+            array_push( $fragments, ...$blocks );
+
+        }
 
         // Pre-normalize(?) Individual Fragments
         // ------------------------------------------------------------------------------

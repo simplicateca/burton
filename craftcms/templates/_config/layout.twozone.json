@@ -8,35 +8,18 @@
     "tooltips": { "inline": "" },
     "settings": {},
     "virtuals": [
-        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
-        {% if field ??? null == 'sidebarBuilder' %}
-            ,{
-                "type" : "select",
-                "name" : "textlayer",
-                "default": "default",
-                "label": "Typography",
-                "instructions": "Adjust text treatment.",
-                "options" : {
-                    "default": "Default",
-                    "knockout": "Knockout Box",
-                }
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }},
+        {{ block( 'copyLayoutFull', '_config/_virtuals' ) }},{
+            "type" : "select",
+            "name" : "blockcta",
+            "default": "inline",
+            "label": "Create a ’Footer-Zone’",
+            "instructions": "Chose content+links from ‘Copy’ to use as a block Call-to-Action.",
+            "options" : {
+                "inline" : "- No Footer-Zone -",
+                "buttons": "Use trailing buttons"
             }
-        {% else %}
-            ,{{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
-            ,{
-                "type" : "select",
-                "name" : "textlayer",
-                "default": "default",
-                "label": "Typography",
-                "instructions": "Adjust overall text treatment.",
-                "fieldClass": "width-30",
-                "options" : {
-                    "default": "Default",
-                    "twocols": "Two Columns"
-                }
-            }
-            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
-        {% endif %}
+        }
     ]
 },{
     "value": "copyLeft",
@@ -46,11 +29,9 @@
     },
     "settings": {},
     "virtuals": [
-        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
-        {% if field ??? null != 'sidebarBuilder' %}
-            ,{{ block( 'copyLayoutLeft',  '_config/_virtuals' ) }}
-            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
-        {% endif %}
+        {{ block( 'eyebrowGroup',   '_config/_virtuals' ) }},
+        {{ block( 'copyLayoutLeft', '_config/_virtuals' ) }},
+        {{ block( 'headFootGroup',  '_config/_virtuals' ) }}
     ]
 },{
     "value": "copyRight",
@@ -60,11 +41,9 @@
     },
     "settings": {},
     "virtuals": [
-        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
-        {% if field ??? null != 'sidebarBuilder' %}
-            ,{{ block( 'copyLayoutRight', '_config/_virtuals' ) }}
-            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
-        {% endif %}
+        {{ block( 'eyebrowGroup',    '_config/_virtuals' ) }},
+        {{ block( 'copyLayoutRight', '_config/_virtuals' ) }},
+        {{ block( 'headFootGroup',   '_config/_virtuals' ) }}
     ]
 },{
     "value": "copyBelow",
@@ -74,10 +53,8 @@
         "microlayout": "zone1Bottom"
     },
     "virtuals": [
-        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
-        {% if field ??? null != 'sidebarBuilder' %}
-            ,{{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
-            ,{{ block( 'headFootGroup',   '_config/_virtuals' ) }}
-        {% endif %}
+        {{ block( 'eyebrowGroup',   '_config/_virtuals' ) }},
+        {{ block( 'copyLayoutFull', '_config/_virtuals' ) }},
+        {{ block( 'headFootGroup',  '_config/_virtuals' ) }}
     ]
 }]

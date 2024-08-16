@@ -10,9 +10,9 @@ settings:
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
-  selectionLabel: null
+  selectionLabel: Choose
   showCardsInGrid: false
-  showSiteMenu: false
+  showSiteMenu: true
   sources: '*'
   targetSiteId: null
   validateRelatedElements: false

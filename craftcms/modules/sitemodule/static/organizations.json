@@ -1,0 +1,802 @@
+[
+    {
+      "name": "Microsoft Dynamics CRM",
+      "url": "http://crm.dynamics.com/en-us/home",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/microsoft-dynamics-crm-1279312711.gif",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "microsoft-dynamics-crm",
+      "logo_filename": "microsoft-dynamics-crm-logo.gif"
+    },
+    {
+      "name": "Queen's Smith School of Business",
+      "url": "http://business.queensu.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/Smith_School_of_Business-Queens_University--Verical_Square_logo.png",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "queens-smith-school-of-business",
+      "logo_filename": "queens-smith-school-of-business-logo.png"
+    },
+    {
+      "name": "Canadian Marketing Association",
+      "url": "http://www.the-cma.org/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/cma-1279253053.gif",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "canadian-marketing-association",
+      "logo_filename": "canadian-marketing-association-logo.gif"
+    },
+    {
+      "name": "Marketing",
+      "url": "http://www.marketingmag.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/MARKETING-Logo.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "marketing",
+      "logo_filename": "marketing-logo.jpg"
+    },
+    {
+      "name": "TheBizMedia",
+      "url": "http://www.thebizmedia.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/the-biz-media.jpeg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "thebizmedia",
+      "logo_filename": "thebizmedia-logo.jpeg"
+    },
+    {
+      "name": "Simplicate Interactive",
+      "url": "http://www.simplicate.ca",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/simplicate162x96.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "simplicate-interactive",
+      "logo_filename": "simplicate-interactive-logo.jpg"
+    },
+    {
+      "name": "Scott's Directories",
+      "url": "http://www.scottsdirectories.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/Scotts.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "scotts-directories",
+      "logo_filename": "scotts-directories-logo.jpg"
+    },
+    {
+      "name": "CPSA",
+      "url": "http://www.cpsa.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/cpsa_logo_lockup_en_rgb.png",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "cpsa",
+      "logo_filename": "cpsa-logo.png"
+    },
+    {
+      "name": "Product of the Year",
+      "url": "http://www.productoftheyear.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/ProductoftheYear_162X96.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "product-of-the-year",
+      "logo_filename": "product-of-the-year-logo.jpg"
+    },
+    {
+      "name": "Tech Vibes",
+      "url": "http://www.techvibes.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/unknown-3-1305648938.jpeg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "tech-vibes",
+      "logo_filename": "tech-vibes-logo.jpeg"
+    },
+    {
+      "name": "Info Port",
+      "url": "http://www.infoport.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/info-port-1279253673.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "info-port",
+      "logo_filename": "info-port-logo.jpg"
+    },
+    {
+      "name": "BNOTIONS",
+      "url": "http://www.bnotions.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/bnotions-1279755785.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "bnotions",
+      "logo_filename": "bnotions-logo.jpg"
+    },
+    {
+      "name": "FCCQ",
+      "url": "http://fccq.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/fccq-1282229547.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "fccq",
+      "logo_filename": "fccq-logo.jpg"
+    },
+    {
+      "name": "Canadian Newspaper Association",
+      "url": "http://www.cna-acj.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/cnalogobihorz-1282229706.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "canadian-newspaper-association",
+      "logo_filename": "canadian-newspaper-association-logo.jpg"
+    },
+    {
+      "name": "Canadian Community Newspaper Association",
+      "url": "http://www.cna-acj.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/ccnahybrid-1282229739.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "canadian-community-newspaper-association",
+      "logo_filename": "canadian-community-newspaper-association-logo.jpg"
+    },
+    {
+      "name": "PPPC",
+      "url": "http://www.promocan.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/PPPC.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "pppc",
+      "logo_filename": "pppc-logo.jpg"
+    },
+    {
+      "name": "Marketing QC",
+      "url": "http://www.marketingqc.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/marketingqc-1282237908.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "marketing-qc",
+      "logo_filename": "marketing-qc-logo.jpg"
+    },
+    {
+      "name": "InfoPresse",
+      "url": "http://www2.infopresse.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/inforpresse_162x96-1282252209.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "infopresse",
+      "logo_filename": "infopresse-logo.jpg"
+    },
+    {
+      "name": "IABC - Montreal",
+      "url": "http://montreal.iabc.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/iabc-1282237153.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "iabc---montreal",
+      "logo_filename": "iabc---montreal-logo.jpg"
+    },
+    {
+      "name": "YES",
+      "url": "http://www.yesmontreal.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/yes-1282237973.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "yes",
+      "logo_filename": "yes-logo.jpg"
+    },
+    {
+      "name": "Concordia JMSB",
+      "url": "http://johnmolson.concordia.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/jmsb_concordia_162x96-1283353679.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "concordia-jmsb",
+      "logo_filename": "concordia-jmsb-logo.jpg"
+    },
+    {
+      "name": "JMSB Advancement & Alumni",
+      "url": "http://alumni.concordia.ca/chapters/faculty/jm/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/advancementandalumnirelations-1283979940.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "jmsb-advancement-alumni",
+      "logo_filename": "jmsb-advancement-alumni-logo.jpg"
+    },
+    {
+      "name": "Rhoddy",
+      "url": "http://rhoddy.com/home.html",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/rhoddylogonew-1283979888.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "rhoddy",
+      "logo_filename": "rhoddy-logo.jpg"
+    },
+    {
+      "name": "Canada Post",
+      "url": "https://www.canadapost.ca/web/en/home.page",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/CANADAPOST.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "canada-post",
+      "logo_filename": "canada-post-logo.jpg"
+    },
+    {
+      "name": "Isarta",
+      "url": "http://www.isarta.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/ISARTA%20LOGO.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "isarta",
+      "logo_filename": "isarta-logo.jpg"
+    },
+    {
+      "name": "InterContinental Montreal",
+      "url": "http://www.montreal.intercontinental.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/intercon_108x64-1285179356.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "intercontinental-montreal",
+      "logo_filename": "intercontinental-montreal-logo.jpg"
+    },
+    {
+      "name": "Simple Survey",
+      "url": "http://www.simplesurvey.ca",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/simplesondage108x64-1285358966.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "simple-survey",
+      "logo_filename": "simple-survey-logo.jpg"
+    },
+    {
+      "name": "Mashable",
+      "url": "http://www.mashable.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/mashable-1296147711.jpeg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "mashable",
+      "logo_filename": "mashable-logo.jpeg"
+    },
+    {
+      "name": "Self Care",
+      "url": "http://www.selfcarecatalysts.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/selfcarecatalysts-1296147866.jpeg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "self-care",
+      "logo_filename": "self-care-logo.jpeg"
+    },
+    {
+      "name": "Advisor Analyst",
+      "url": "http://advisoranalyst.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/advisoranalyst-1296843810.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "advisor-analyst",
+      "logo_filename": "advisor-analyst-logo.jpg"
+    },
+    {
+      "name": "BCIC",
+      "url": "http://www.bcic.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/BCIC.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "bcic",
+      "logo_filename": "bcic-logo.jpg"
+    },
+    {
+      "name": "680News",
+      "url": "http://www.680news.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/680news-1297277003.gif",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "680news",
+      "logo_filename": "680news-logo.gif"
+    },
+    {
+      "name": "Toronto Board of Trade - TRBOT",
+      "url": "http://www.bot.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/TRBOT.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "toronto-board-of-trade---trbot",
+      "logo_filename": "toronto-board-of-trade---trbot-logo.jpg"
+    },
+    {
+      "name": "CATA Alliance",
+      "url": "http://www.cata.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/cata-1297284504.jpeg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "cata-alliance",
+      "logo_filename": "cata-alliance-logo.jpeg"
+    },
+    {
+      "name": "BlackBerry",
+      "url": "http://ca.blackberry.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/blackberry-1297460891.jpeg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "blackberry",
+      "logo_filename": "blackberry-logo.jpeg"
+    },
+    {
+      "name": "Brash Avenues",
+      "url": "http://brashavenues.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/Brash.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "brash-avenues",
+      "logo_filename": "brash-avenues-logo.jpg"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "http://www.linkedin.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/linkedin-1298046844.jpeg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "linkedin",
+      "logo_filename": "linkedin-logo.jpeg"
+    },
+    {
+      "name": "Bullfrog Power",
+      "url": "http://www.bullfrogpower.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/bull-frog-1298047005.gif",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "bullfrog-power",
+      "logo_filename": "bullfrog-power-logo.gif"
+    },
+    {
+      "name": "Google",
+      "url": "http://www.google.ca",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/google-1298495578.jpeg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "google",
+      "logo_filename": "google-logo.jpeg"
+    },
+    {
+      "name": "Mediative",
+      "url": "http://www.mediative.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/mediative-1298495813.jpeg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "mediative",
+      "logo_filename": "mediative-logo.jpeg"
+    },
+    {
+      "name": "VIA Rail Canada",
+      "url": "http://www.viarail.ca/en/main",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/viarailcanada-1298496023.jpeg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "via-rail-canada",
+      "logo_filename": "via-rail-canada-logo.jpeg"
+    },
+    {
+      "name": "The Institute of Communication Agencies",
+      "url": "http://www.icacanada.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/ica108x64-1301500900.jpeg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "the-institute-of-communication-agencies",
+      "logo_filename": "the-institute-of-communication-agencies-logo.jpeg"
+    },
+    {
+      "name": "6S Marketing",
+      "url": "http://www.6smarketing.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/6S_Logo_New_2016_very_small.png",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "6s-marketing",
+      "logo_filename": "6s-marketing-logo.png"
+    },
+    {
+      "name": "BCBussiness",
+      "url": "http://www.bcbusiness.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/BCBusiness(162x96).jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "bcbussiness",
+      "logo_filename": "bcbussiness-logo.jpg"
+    },
+    {
+      "name": "Vancouver Sun",
+      "url": "http://www.vancouversun.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/vancouver_sun_logo.jpeg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "vancouver-sun",
+      "logo_filename": "vancouver-sun-logo.jpeg"
+    },
+    {
+      "name": "www.BIV.com",
+      "url": "http://www.biv.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/BIV.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "www-biv-com",
+      "logo_filename": "www-biv-com-logo.jpg"
+    },
+    {
+      "name": "SMEI",
+      "url": "http://www.smei.org/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/SMEI.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "smei",
+      "logo_filename": "smei-logo.jpg"
+    },
+    {
+      "name": "The Tite Group",
+      "url": "http://rontite.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/162x96_thetitegroup-1324070718.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "the-tite-group",
+      "logo_filename": "the-tite-group-logo.jpg"
+    },
+    {
+      "name": "IBM",
+      "url": "http://www.ibm.com/ca/en/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/IBM%20-%202016.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "ibm",
+      "logo_filename": "ibm-logo.jpg"
+    },
+    {
+      "name": "Rogers Connect",
+      "url": "http://www.rogersconnect.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/RogersConnect162X96.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "rogers-connect",
+      "logo_filename": "rogers-connect-logo.jpg"
+    },
+    {
+      "name": "Certified Management Accountants",
+      "url": "http://www.cma-ontario.org/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/cma_162x96-1328563952.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "certified-management-accountants",
+      "logo_filename": "certified-management-accountants-logo.jpg"
+    },
+    {
+      "name": "BizBash",
+      "url": "http://www.bizbash.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/BizBash.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "bizbash",
+      "logo_filename": "bizbash-logo.jpg"
+    },
+    {
+      "name": "Visibility Magazine",
+      "url": "http://www.visibilitymagazine.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/VisibilityMag.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "visibility-magazine",
+      "logo_filename": "visibility-magazine-logo.jpg"
+    },
+    {
+      "name": "Hub Mag",
+      "url": "http://www.hubmagazine.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/HUB_magazine.jpg",
+      "tag": [
+        "Media Org"
+      ],
+      "slug": "hub-mag",
+      "logo_filename": "hub-mag-logo.jpg"
+    },
+    {
+      "name": "Chicagoland Entrepreneurial Center",
+      "url": "http://www.chicagolandec.org",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/Ch_ENTCenter.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "chicagoland-entrepreneurial-center",
+      "logo_filename": "chicagoland-entrepreneurial-center-logo.jpg"
+    },
+    {
+      "name": "HeresChicago.com",
+      "url": "http://www.hereschicago.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/HereChicago.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "hereschicago-com",
+      "logo_filename": "hereschicago-com-logo.jpg"
+    },
+    {
+      "name": "Entrepreneurs' Organization",
+      "url": "http://eoaccess.eonetwork.org/Chicago/Pages/default.aspx",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/EO.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "entrepreneurs-organization",
+      "logo_filename": "entrepreneurs-organization-logo.jpg"
+    },
+    {
+      "name": "Illinois Technology Association",
+      "url": "http://illinoistech.org/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/Ill_Tech_Ass.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "illinois-technology-association",
+      "logo_filename": "illinois-technology-association-logo.jpg"
+    },
+    {
+      "name": "Keystone Solutions",
+      "url": "http://www.keystonesolutions.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/keystone.png",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "keystone-solutions",
+      "logo_filename": "keystone-solutions-logo.png"
+    },
+    {
+      "name": "Merit Direct",
+      "url": "http://www.meritdirect.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/MeritDirect.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "merit-direct",
+      "logo_filename": "merit-direct-logo.jpg"
+    },
+    {
+      "name": "Exact Target",
+      "url": "http://www.exacttarget.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/ExactTarget.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "exact-target",
+      "logo_filename": "exact-target-logo.jpg"
+    },
+    {
+      "name": "Big Shoes Network",
+      "url": "http://www.bigshoesnetwork.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/BigShoes.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "big-shoes-network",
+      "logo_filename": "big-shoes-network-logo.jpg"
+    },
+    {
+      "name": "CMO Council",
+      "url": "http://www.cmocouncil.org/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/CMO.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "cmo-council",
+      "logo_filename": "cmo-council-logo.jpg"
+    },
+    {
+      "name": "Hub Spot",
+      "url": "http://www.hubspot.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/HubSpot.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "hub-spot",
+      "logo_filename": "hub-spot-logo.jpg"
+    },
+    {
+      "name": "HSMAI",
+      "url": "http://chapter.hsmai.org/illinois/home.aspx",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/HSMAI.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "hsmai",
+      "logo_filename": "hsmai-logo.jpg"
+    },
+    {
+      "name": "Illinois Chamber of Commerce",
+      "url": "http://ilchamber.org/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/Illinois_CC.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "illinois-chamber-of-commerce",
+      "logo_filename": "illinois-chamber-of-commerce-logo.jpg"
+    },
+    {
+      "name": "PRSA",
+      "url": "http://www.prsa.org/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/PRSA.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "prsa",
+      "logo_filename": "prsa-logo.jpg"
+    },
+    {
+      "name": "The Canadian Internet Marketing Association (CIMA) ",
+      "url": "http://www.internetmarketingassociation.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/CIMA.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "the-canadian-internet-marketing-association-cima-",
+      "logo_filename": "the-canadian-internet-marketing-association-cima--logo.jpg"
+    },
+    {
+      "name": "SEMPO Chicago Chapter",
+      "url": "http://www.sempo.org/?page=chap_chicago",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/SEMPO.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "sempo-chicago-chapter",
+      "logo_filename": "sempo-chicago-chapter-logo.jpg"
+    },
+    {
+      "name": "Built in Chicago",
+      "url": "http://www.builtinchicago.org/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/builtinchicago.png",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "built-in-chicago",
+      "logo_filename": "built-in-chicago-logo.png"
+    },
+    {
+      "name": "Chicagoland Chamber of Commerce",
+      "url": "http://www.chicagolandchamber.org/wdk_cc/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/chamber.png",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "chicagoland-chamber-of-commerce",
+      "logo_filename": "chicagoland-chamber-of-commerce-logo.png"
+    },
+    {
+      "name": "Social Media Club | Chicago",
+      "url": "http://socialmediaclub.org/chapter/chicago",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/smc.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "social-media-club-chicago",
+      "logo_filename": "social-media-club-chicago-logo.jpg"
+    },
+    {
+      "name": "Techweek Conference Chicago",
+      "url": "http://www.techweek.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/TECH27.png",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "techweek-conference-chicago",
+      "logo_filename": "techweek-conference-chicago-logo.png"
+    },
+    {
+      "name": "Knightsbridge",
+      "url": "http://www.knightsbridge.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/knightsbridge162x96-1302803607.jpeg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "knightsbridge",
+      "logo_filename": "knightsbridge-logo.jpeg"
+    },
+    {
+      "name": "BrightCove",
+      "url": "http://www.brightcove.com/en/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/brightcove.png",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "brightcove",
+      "logo_filename": "brightcove-logo.png"
+    },
+    {
+      "name": "CCHL - The Canadian College of Health Leaders",
+      "url": "http://www.cchl-ccls.ca/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/cchl.jpg",
+      "tag": [
+        "Partner Org"
+      ],
+      "slug": "cchl---the-canadian-college-of-health-leaders",
+      "logo_filename": "cchl---the-canadian-college-of-health-leaders-logo.jpg"
+    },
+    {
+      "name": "Pfeiffer",
+      "url": "http://ca.pfeiffer.com/WileyCDA/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/Wiley(162x96).jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "pfeiffer",
+      "logo_filename": "pfeiffer-logo.jpg"
+    },
+    {
+      "name": "The Lowe-Martin Group ",
+      "url": "http://www.lmgroup.com",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/Lowe_Martin--very_small.png",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "the-lowe-martin-group-",
+      "logo_filename": "the-lowe-martin-group--logo.png"
+    },
+    {
+      "name": "Excellence Canada",
+      "url": "http://www.nqi.ca/en/home/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/2011%20EC%20Logo.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "excellence-canada",
+      "logo_filename": "excellence-canada-logo.jpg"
+    },
+    {
+      "name": "Silk Road",
+      "url": "http://www.silkroad.com/",
+      "logo_url": "https://www.theartof.com/assets/images/sponsor-logos/big/silkroad162x96-1305921034.jpg",
+      "tag": [
+        "Sponsor Org"
+      ],
+      "slug": "silk-road",
+      "logo_filename": "silk-road-logo.jpg"
+    }
+  ]

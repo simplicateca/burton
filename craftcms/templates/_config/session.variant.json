@@ -1,0 +1,19 @@
+[{
+    "value"   : "session_talk",
+    "label"   : "Standard Talk",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "session_interview",
+    "label"   : "Interview",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "session_roundtable",
+    "label"   : "Roundtable",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

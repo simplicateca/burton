@@ -1,0 +1,13 @@
+[{
+    "value"   : "venue_regular",
+    "label"   : "Regular (Active) Venue",
+    "tooltips": { "inline": "Conference centres, theatres, etc." },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "venue_inactive",
+    "label"   : "Former (Inactive) Venue",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

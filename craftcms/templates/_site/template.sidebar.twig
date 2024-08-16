@@ -16,13 +16,20 @@
 {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
+{## Set starting variable in `_site/header.twig` ➜ {% block plaintitle %}
+{-------------------------------------------------------------------------------------##}
+{%- set header__align = 'left' -%}
+
+
 {## Two Column Layout
 {-------------------------------------------------------------------------------------##}
 {% block main__content -%}
     {{- assemble.layout( 'sidebar__right', {
         main : block('content'),
         aside: block('aside')
-    }, settings ) -}}
+    }, {
+        container: "twocolumn",
+    } | merge(settings) ) -}}
 {%- endblock %}
 
 
@@ -62,7 +69,7 @@
 {% block content -%}
     {% set firstblock = mainblocks | first %}
     {% set headerattr = block( 'page__top' ) | retconOnly( 'header *[data-theme]' ) | parseAttr %}
-    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme|t ??? "base" %}
+    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme.value ??? "base" %}
 
     {{- assemble.builder( 'maincolumn', mainblocks ?? null, {
         container  : "relative",
@@ -77,6 +84,7 @@
 {-------------------------------------------------------------------------------------##}
 {% block aside -%}
     {{- assemble.builder( 'sidebar', sideblocks ?? null, {
+        builder    : "sidebar",
         container  : "relative",
         spacerabove: "small",
         spacerbelow: "small"

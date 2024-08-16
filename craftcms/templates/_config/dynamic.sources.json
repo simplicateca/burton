@@ -2,46 +2,189 @@
     "value": "articles",
     "label": "Articles",
     "tooltips": {
-        "inline" : "Articles + Blog Posts"
+        "inline" : "Articles, Guides, Videos, Podcasts, etc."
     },
+    "virtuals": [{
+        "type" : "select",
+        "name" : "variant",
+        "label": "Variant",
+        "fieldClass": "width-100",
+        "default": "",
+        "options": [{
+            "value": "",
+            "label": "Any Article Variant"
+        },{
+            "value": "article_general",
+            "label": "General Articles"
+        },{
+            "value": "article_guide",
+            "label": "Learning Guides"
+        },{
+            "value": "article_exclusive",
+            "label": "Insider Exclusive"
+        },{
+            "value": "article_audio",
+            "label": "Podcast • Audio"
+        },{
+            "value": "article_video",
+            "label": "Video Feature"
+        }]
+      },{{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ],
     "settings": {
         "with": ["images", "taxonomies", "users"],
         "where": {
             "type": ["article"]
         }
+    }
+},{
+    "value": "books",
+    "label": "Books",
+    "settings": {
+        "with": ["images"],
+        "where": {
+            "type": "book",
+            "section": "knowledge"
+        }
     },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "release",
+    "label": "Company blog, news release, etc.",
+    "settings": {
+        "with": ["images"],
+        "where": {
+            "type": "release",
+            "section": "knowledge"
+        }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "verbbevent",
+    "label": "Event Listing (Date, location, etc.)",
     "virtuals": [{
         "type" : "select",
-        "name" : "sort",
-        "label": "Default Sorting",
-        "default": "recent",
-        "instructions": "Unless otherwise overridden",
+        "name" : "type",
+        "label": "Event Type",
+        "default": "",
         "options": [{
-            "value": "recent",
-            "label": "Most Recent",
-            "orderby": "postDate DESC"
+            "value": "",
+            "label": "All Types"
         },{
-            "value": "alpha",
-            "label": "Alphabetically",
-            "orderby": "title ASC"
+            "value": "conference",
+            "label": "Conference"
         },{
-            "value": "random",
-            "label": "Random",
-            "orderby": "RAND()"
+            "value": "livestream",
+            "label": "Livestream"
+        },{
+            "value": "workshop",
+            "label": "Workshop"
         }]
     },{
-        "type" : "date",
-        "name" : "before",
-        "label": "On or Before",
-        "fieldClass": "width-25",
-        "instructions": "Exclude newer"
-    },{
-        "type" : "date",
-        "name" : "after",
-        "label": "On or After",
-        "fieldClass": "width-25",
-        "instructions": "Exclude older"
-    }]
+        "type" : "select",
+        "name" : "period",
+        "label": "Period",
+        "default": "conference",
+        "options": [{
+            "value": "upcoming",
+            "label": "Upcoming",
+            "after": "{{ "now"|date("Y-m-d") }}"
+        },{
+            "value": "past",
+            "label": "Past",
+            "before": "{{ "now"|date("Y-m-d") }}"
+        }]
+    }],
+    "settings": {
+        "with": ["images", "taxonomies"],
+        "element": "verbbevent",
+        "where": {
+
+        }
+    }
+},{
+    "value": "logistics",
+    "label": "Event Logistics",
+    "virtuals": [{
+        "type" : "select",
+        "name" : "type",
+        "label": "Type",
+        "default": "session",
+        "options": [{
+            "value": "session",
+            "label": "Session Descriptions"
+        },{
+            "value": "city",
+            "label": "Cities (Regular/Active)",
+            "variant": "city_regular"
+        },{
+            "value": "venue",
+            "label": "Venues (Regular/Active)",
+            "variant": "venue_regular"
+        }]
+    }],
+    "settings": {
+        "with": ["images"],
+        "where": {
+            "section": "logistics"
+        }
+    }
+},{
+    "value": "images",
+    "label": "Local Image Assets",
+    "settings" : {
+        "element": "asset",
+        "with": [],
+        "where": {
+            "kind": "image"
+        }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "media",
+    "label": "Local Media Assets",
+    "settings" : {
+        "element": "asset",
+        "with": [],
+        "where": {
+            "kind": ["video","audio","compressed","pdf","excel","word"]
+        }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "issues",
+    "label": "Magazine Issues",
+    "settings": {
+        "with": ["images"],
+        "where": {
+            "type": "issue",
+            "section": "knowledge"
+        }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "organization",
+    "label": "Organizations",
+    "settings": {
+        "with": ["images", "taxonomies"],
+        "where": {
+            "type": "organization",
+            "section": "profiles"
+        }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
 },{
     "value": "pages",
     "label": "Pages",
@@ -72,6 +215,75 @@
         "instructions": "Use the ‘current page’ as the parent if none provided?"
     }]
 },{
+    "value": "person",
+    "label": "People",
+    "virtuals": [{
+        "type" : "select",
+        "name" : "variant",
+        "label": "Person Type",
+        "default": "",
+        "options": [{
+            "value": "",
+            "label": "All People"
+        },{
+            "value": "person_leader",
+            "label": "Thought Leader"
+        },{
+            "value": "person_contributor",
+            "label": "Contributors"
+        }]
+      },{{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ],
+    "settings": {
+        "with": ["images"],
+        "where": {
+            "type": "person",
+            "section": "profiles"
+        }
+    }
+},{
+    "value": "public",
+    "label": "Public Facing Content",
+    "tooltips": {
+        "inline" : "Knowledge Base, Pages, Profiles, Event Logistics, Topics, etc."
+    },
+    "settings": {
+        "with": ["images", "taxonomies"],
+        "where": {
+            "type": "!= private",
+            "section": ["knowledge", "pages", "taxonomy", "profiles", "logistics"]
+        }
+    }
+},{
+    "value": "reusables",
+    "label": "Reusable Pieces of Content",
+    "virtuals": [{
+        "type" : "select",
+        "name" : "type",
+        "label": "Type",
+        "default": "",
+        "options": [{
+            "value": "bits",
+            "label": "Content Bits"
+        },{
+            "value": "embed",
+            "label": "Embeddable Media"
+        },{
+            "value": "faqs",
+            "label": "FAQs"
+        },{
+            "value": "quotes",
+            "label": "Quotes & Testimonials"
+        }]
+      },{{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ],
+    "settings": {
+        "with": ["images", "taxonomies"],
+        "where": {
+            "section": "reusables"
+        }
+    }
+},{
     "value": "topics",
     "label": "Topics",
     "settings": {
@@ -80,56 +292,8 @@
             "type": "topic",
             "section": "taxonomy"
         }
-    }
-},{
-    "value": "sitesearch",
-    "label": "Public Facing Content",
-    "tooltips": {
-        "inline" : "Articles + Pages + Topics"
     },
-    "settings": {
-        "with": ["images", "taxonomies"],
-        "where": {
-            "type": "!= private",
-            "section": ["articles", "pages", "taxonomy"]
-        }
-    }
-},{
-    "value": "bits",
-    "label": "Content Bits",
-    "settings" : {
-        "with": ["images", "taxonomies"],
-        "where": {
-            "type": "bit"
-        }
-    }
-},{
-    "value": "embeds",
-    "label": "Embeddable External Media",
-    "settings" : {
-        "with": ["images", "taxonomies"],
-        "where": {
-            "type": "embed"
-        }
-    }
-},{
-    "value": "media",
-    "label": "Local Media Assets",
-    "settings" : {
-        "element": "asset",
-        "with": [],
-        "where": {
-            "kind": ["video","audio","compressed","pdf","excel","word"]
-        }
-    }
-},{
-    "value": "images",
-    "label": "Local Image Assets",
-    "settings" : {
-        "element": "asset",
-        "with": [],
-        "where": {
-            "kind": "image"
-        }
-    }
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
 }]

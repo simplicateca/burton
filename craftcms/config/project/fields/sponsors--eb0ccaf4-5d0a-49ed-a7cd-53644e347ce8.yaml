@@ -1,0 +1,20 @@
+columnSuffix: null
+handle: sponsors
+instructions: null
+name: 'Sponsors & Partner'
+searchable: false
+settings:
+  createButtonLabel: Add
+  entryTypes:
+    - 2e044a61-9af9-452c-a361-bb3201ded89c # Collab
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: true
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

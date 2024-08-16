@@ -1,0 +1,30 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  - c1ea9486-a2c9-4169-9858-144fd21c25b9 # Article
+  - 98843cde-e128-4799-a8dd-1862eba69b21 # Book
+  - 16eeaaf8-6778-46b1-887b-f4a83630cda3 # Magazine Issue
+  - 80b8014d-fa4b-4271-9c59-73cd7c7c6d78 # News Release
+handle: knowledge
+maxAuthors: 2
+name: 'Knowledge Base'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary URL'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+    enabledByDefault: true
+    hasUrls: true
+    template: _site/knowledge._entry.twig
+    uriFormat: '{% from ''_site/knowledge._entry'' import uri %}{{ uri( object ) }}'
+type: channel

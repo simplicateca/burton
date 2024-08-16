@@ -118,7 +118,7 @@
 
 
 {## Card Iterators
-{-------------------------------------------iterator--------------------------------------------}
+{---------------------------------------------------------------------------------------}
     Checks to see if a template file exists with the following name:
 
   > templates/_site/deck.<iterator>.twig
@@ -184,7 +184,8 @@
     {---------------------------------------------------------------------------------##}
     {%- set factorypath = [
         "_site/#{card.section}.#{card.type}._card",
-        "_site/#{card.section}._card"
+        "_site/#{card.section}._card",
+        "_site/#{card.type}._card"
     ] -%}
 
 
@@ -200,6 +201,7 @@
     {%- set cardpath = [
         "_site/card.#{cardname}.#{card.section}.#{card.type}",
         "_site/card.#{cardname}.#{card.section}",
+        "_site/card.#{cardname}.#{card.type}",
         "_site/card.#{cardname}",
         "_site/card",
         "_core/card"
@@ -374,7 +376,7 @@
     the provided `macroname`. If no match is found, it check for a fallback
     `default()` macro (first in `_site`, then in `_core`).
 
-    A `default()` or `<part>__default()` macro should always exist in the `_core`
+    A `fallback()` or `<part>__fallback()` macro should always exist in the `_core`
     file for any element being assembled.
 
     For clarity, below is an unminified, unoptimized, pseudocode version of what this
@@ -399,7 +401,6 @@
     {%- set macroname = macroname ?? null -%}
     {%- set macroname = macroname is not null and macroname is not iterable
         ? macroname | replace('/[^\\w]+/', '') : null -%}
-    {# {%- set macroname = macroname ?? 'default' -%} #}
 
     {%- if template -%}
 

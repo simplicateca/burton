@@ -1,0 +1,13 @@
+[{
+    "value"   : "audio_naration",
+    "label"   : "Article Narration",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "audio_recording",
+    "label"   : "Live Recording",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

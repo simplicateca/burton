@@ -280,11 +280,11 @@ fieldLayouts:
 handle: component
 hasTitleField: false
 icon: gear
-name: Component
+name: 'Component 🧱'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
 titleFormat: ''
-titleTranslationKeyFormat: null
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

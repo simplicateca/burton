@@ -96,13 +96,13 @@
 
 {% macro iterator__randomize( items, settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.card( settings.cardname ??? 'default', shuffle(items)[:1], settings ) -}}
+    {{- assemble.card( settings.cardname ??? 'default', shuffle(items) | first, settings ) -}}
 {%- endmacro %}
 
 
 {% macro iterator__single( items, settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.card( settings.cardname ??? 'default', items[:1], settings ) -}}
+    {{- assemble.card( settings.cardname ??? 'default', items | first, settings ) -}}
 {%- endmacro %}
 
 

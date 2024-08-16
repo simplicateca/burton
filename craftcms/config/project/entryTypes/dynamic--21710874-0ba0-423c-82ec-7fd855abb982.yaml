@@ -124,9 +124,7 @@ fieldLayouts:
                   fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
                   layoutElementUid: 9283ceb7-142e-4115-804b-e3918ea8d85e
                   operator: in
-                  uid: 152a656f-b5a9-4a8f-b69a-c019535155d7
-                  values:
-                    - pages
+                  uid: 300eefa2-9eff-4c12-a9f3-5527f7db8e78
               elementType: craft\elements\Entry
               fieldContext: global
             fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
@@ -150,7 +148,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Full Title
             handle: null
             includeInCards: false
             instructions: null
@@ -202,8 +200,8 @@ icon: radar
 name: 'Dynamic Collection'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
 titleFormat: ''
-titleTranslationKeyFormat: null
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

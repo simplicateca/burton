@@ -1,0 +1,105 @@
+{## Entry Template for Taxonomies Section
+{---------------------------------------------------------------------------------------}
+    Admin ➜ http://localhost:8000/cms/settings/sections/6
+{-------------------------------------------------------------------------------------##}
+{% set template = null %}
+{% set handle   = entry.type.handle ?? null %}
+
+
+{## [Type] Topic ➜ http://localhost:8000/cms/settings/entry-types/16
+{-------------------------------------------------------------------------------------##}
+{% if 'topic' == handle %}
+    {% set template = ( entry.sidebarBuilder.one() ?? null )
+        ? "_site/template.sidebar"
+        : "_site/template.fullpage" %}
+{% endif %}
+
+
+{## Render Template
+{---------------------------------------------------------------------------------------}
+    We use `extends` (vs `include`) to allow overriding template {% blocks %} in *this*
+    template, rather than forcing separate files for each type, even for minimal changes.
+  ➜ https://twig.symfony.com/doc/3.x/tags/extends.html
+{-------------------------------------------------------------------------------------##}
+{% extends template ? template : template_from_string('{% block catch "" %}') %}
+
+
+{## [Error] 404 Not Found ➜ craftcms/templates/_site/error.twig
+{-------------------------------------------------------------------------------------##}
+{% block catch %}{% header "HTTP/1.0 404 Not Found" %}{% endblock %}
+
+
+
+{#######################################################################################}
+{##                                   Custom Macros                                   ##}
+{#######################################################################################}
+
+
+{## [Macro] Topic URI Builder
+{---------------------------------------------------------------------------------------}
+    Better than a long-ass Twig-oneliner stuffed into the `URI Format` CP field:
+  ➜ {% from '_site/topics._entry' import uri %}{{ uri( object ) }}
+
+ ## URI Format
+  └ trending/specific-topic-one
+  └ trending/broad-general-topic
+  └ trending/broad-general-topic/specific-topic-two
+
+ ## IMPORTANT ― Resave existing records (via console) anytime this macro changes:
+  ➜ make craft "resave/entries --section=taxonomy"
+{-------------------------------------------------------------------------------------##}
+{% macro uri( object ) %}{% apply spaceless %}
+    {% set parts  = [] %}
+    {% set handle = object.type.handle %}
+
+    {% if 'topic' == handle %}
+        {% set parts = [object.parent.uri ??? 'trending', object.slug] %}
+    {% endif %}
+
+    {{ parts | filter | join('/') }}
+{% endapply %}{% endmacro %}
+
+
+
+{#######################################################################################}
+{##                                Template Overrides                                 ##}
+{#######################################################################################}
+
+
+{## [Block] Primary Content Area
+{---------------------------------------------------------------------------------------}
+  - Define a Collection that will return desired content related to this entry
+  - Feed the Collection definition to a Component Search block for rendering
+{---------------------------------------------------------------------------------------}
+    From ➜ _site/template.fullpage.twig
+     …or ➜ _site/template.sidebar.twig
+{-------------------------------------------------------------------------------------##}
+{% block content %}
+
+    {## Define Collection sources ##}
+    {% set sources = [{
+        relatedTo: entry.id,
+        with : ['images'],
+        where: {
+            section: ['knowledge', 'profiles', 'logistics']
+        }
+    }] %}
+
+    {## Block layout settings ##}
+    {% set layout = {
+        container  : 'fluid',
+        spacerabove: 'none',
+        microlayout: 'zone1TopCenter',
+        pagination : 'nextprev',
+        iterator   : 'grid3',
+        autosearch : true,
+        limit      : 3,
+    } %}
+
+    {## Block ➜ Component ➜ Search ##}
+    {{ include( "_core/block.component.search", {
+        collections: sources,
+        settings   : layout
+    }) }}
+
+{% endblock %}

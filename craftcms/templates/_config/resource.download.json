@@ -1,0 +1,37 @@
+[{
+    "value"   : "download_program",
+    "label"   : "Event Program",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "download_slides",
+    "label"   : "Slide Deck",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "download_worksheet",
+    "label"   : "Worksheet",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "download_sample",
+    "label"   : "Sample Chapter",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "download_complete",
+    "label"   : "Complete Version",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "download_general",
+    "label"   : "General File",
+    "tooltips": { "inline": "Files without a defined relationship to the content" },
+    "settings": {},
+    "virtuals": []
+}]

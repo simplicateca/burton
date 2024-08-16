@@ -1,0 +1,20 @@
+columnSuffix: null
+handle: packages
+instructions: null
+name: 'Ticket Packages'
+searchable: false
+settings:
+  createButtonLabel: Add
+  entryTypes:
+    - 79e1ae4f-2754-4f61-8843-34e07eef3d17 # Package
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: false
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

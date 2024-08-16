@@ -33,9 +33,24 @@ options:
         name: 'Knockout (H3)'
       -
         classes:
+          - larger
+        element: p
+        name: Larger
+      -
+        classes:
+          - smaller
+        element: p
+        name: Smaller
+      -
+        classes:
           - marker
         element: span
         name: Marker
+      -
+        classes:
+          - button
+        element: a
+        name: Button
 toolbar:
   - heading
   - alignment

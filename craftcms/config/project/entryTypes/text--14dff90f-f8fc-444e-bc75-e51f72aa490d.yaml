@@ -227,11 +227,11 @@ fieldLayouts:
 handle: text
 hasTitleField: false
 icon: typewriter
-name: Text
+name: 'Text 🧱'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
 titleFormat: ''
-titleTranslationKeyFormat: null
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

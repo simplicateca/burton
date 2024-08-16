@@ -6,8 +6,8 @@
 
     {%- set content -%}
         <div class="flex flex-col lg:flex-row gap-10 2xl:gap-28">
-            {{- tag( 'main',  { html: content.main  ?? '', class: 'min-h-[30vh] grow @container/main'  } ) -}}
-            {{- tag( 'aside', { html: content.aside ?? '', class: 'w-full lg:max-w-sm @container/aside' } ) -}}
+            {{- tag( 'main',  { html: content.main  ?? '', class: 'min-h-[30vh] grow'  } ) -}}
+            {{- tag( 'aside', { html: content.aside ?? '', class: 'w-full lg:max-w-sm pb-10' } ) -}}
         </div>
     {%- endset -%}
 
@@ -25,8 +25,8 @@
 
     {%- set content -%}
         <div class="flex flex-col lg:flex-row-reverse gap-10 2xl:gap-28">
-            {{- tag( 'main',  { html: content.main  ?? '', class: 'min-h-[30vh] grow @container/main'  } ) -}}
-            {{- tag( 'aside', { html: content.aside ?? '', class: 'w-full lg:max-w-sm @container/aside' } ) -}}
+            {{- tag( 'main',  { html: content.main  ?? '', class: 'min-h-[30vh] grow'  } ) -}}
+            {{- tag( 'aside', { html: content.aside ?? '', class: 'w-full lg:max-w-sm' } ) -}}
         </div>
     {%- endset -%}
 
@@ -49,6 +49,20 @@
         html : canvas ~ content,
         data : dataset,
         class: '@container max-w-7xl mx-auto relative container',
+    }) -}}
+{%- endmacro %}
+
+
+
+{% macro container__twocolumn(content, settings) -%}
+    {%- set theme   = _self._containertheme( settings ) -%}
+    {%- set canvas  = theme ? '<div data-canvas="container"></div>' : '' %}
+    {%- set dataset = theme ? { theme: theme, coverage: 'container' } : null -%}
+
+    {{- tag('div', {
+        html : canvas ~ content,
+        data : dataset,
+        class: '@container 2xl:container px-0 sm:px-0 md:max-2xl:px-0',
     }) -}}
 {%- endmacro %}
 
@@ -93,7 +107,6 @@
 
 
 
-
 {## Content Spacers
 {-------------------------------------------------------------------------------------##}
 {% macro separator__default(block, settings) -%}{{ _self.separator__normal(block, settings) }}{% endmacro %}
@@ -110,17 +123,19 @@
         'after:h-12 @3xl:after:h-20 @7xl:after:h-36' ]}) -}}
 {%- endmacro %}
 
+{% macro separator__medium(block, settings) -%}
+    {{- tag('div', { class: [
+        "@container after:block after:content-['']",
+        'after:h-10 @3xl:after:h-16 @7xl:after:h-24' ]}) -}}
+{%- endmacro %}
+
 {% macro separator__small(block, settings) -%}
     {{- tag('div', { class: [
         "@container after:block after:content-['']",
         'after:h-8 @3xl:after:h-12 @7xl:after:h-18'
     ]}) -}}
 {%- endmacro %}
-
-{% macro separator__topbar(block, settings) -%}
-    {{ block('header__topbar', "_site/header" ) }}
-{% endmacro %}
-
+{##-----------------------------------------------------------------------------------##}
 
 
 {## Theme Dividers
@@ -328,7 +343,7 @@
 
 {## - Horizontal Alignment: Center
 {-------------------------------------------------------------------------------------##}
-{% macro microlayout__zone1Top__center( content, settings ) -%}
+{% macro microlayout__zone1TopCenter( content, settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         headerclass: 'max-w-5xl mx-auto pb-10',
@@ -344,10 +359,26 @@
 {%- endmacro %}
 
 
+{## - Horizontal Alignment: Left
+{## - Maximum Copy Width  : 50% (100% mobile/tablet)
+{-------------------------------------------------------------------------------------##}
+{% macro microlayout__zone1TopEven(content, settings) -%}
+    {%- import "_core" as assemble -%}
+    {{ assemble.layout( 'twozone__microlayout', {
+        class      : "w-full flex flex-col" ~ _self._default_zonegap(),
+        data       : { coverage: _self._coverage( settings, 'block' ) },
+        zone1class : 'lg:w-1/2',
+        clear      : true,
+        container  : settings.container ?? 'default',
+        content    : content
+    }, settings ) }}
+{%- endmacro %}
+
+
 {## - Maximum Copy Width  : 3xl
     - Horizontal Alignment: Center
 {-------------------------------------------------------------------------------------##}
-{% macro microlayout__zone1Top__narrow( content, settings ) -%}
+{% macro microlayout__zone1TopNarrow( content, settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
         headerclass: 'max-w-3xl mx-auto',
@@ -432,9 +463,9 @@
 {% macro microlayout__zone1Left__center( content, settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
-        class      : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        class      : "w-full flex flex-col lg:flex-row items-stretch" ~ _self._default_zonegap(),
         data       : { coverage: _self._coverage( settings, 'block' ) },
-        zone1class : 'lg:w-1/2',
+        zone1class : 'lg:w-1/2 self-center',
         zone2class : 'lg:w-1/2',
         autoalign  : 'zone1',
         container  : settings.container ?? 'default',
@@ -472,9 +503,9 @@
 {% macro microlayout__zone1Right__center( content, settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
-        class      : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        class      : "w-full flex flex-col lg:flex-row-reverse items-stretch" ~ _self._default_zonegap(),
         data       : { coverage: _self._coverage( settings, 'block' ) },
-        zone1class : 'lg:w-1/2',
+        zone1class : 'lg:w-1/2 self-center',
         zone2class : 'lg:w-1/2',
         autoalign  : 'zone1',
         container  : settings.container ?? 'default',
@@ -512,9 +543,9 @@
 {% macro microlayout__zone1LeftWide__center( content, settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
-        class      : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        class      : "w-full flex flex-col lg:flex-row items-stretch" ~ _self._default_zonegap(),
         data       : { coverage: _self._coverage( settings, 'block' ) },
-        zone1class : 'lg:w-3/5',
+        zone1class : 'lg:w-3/5 self-center',
         zone2class : 'lg:w-2/5',
         autoalign  : 'zone1',
         container  : settings.container ?? 'default',
@@ -552,9 +583,9 @@
 {% macro microlayout__zone1LeftNarrow__center( content, settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
-        class      : "w-full flex flex-col lg:flex-row items-center" ~ _self._default_zonegap(),
+        class      : "w-full flex flex-col lg:flex-row items-stretch" ~ _self._default_zonegap(),
         data       : { coverage: _self._coverage( settings, 'block' ) },
-        zone1class : 'lg:w-2/5',
+        zone1class : 'lg:w-2/5 self-center',
         zone2class : 'lg:w-3/5',
         autoalign  : 'zone1',
         container  : settings.container ?? 'default',
@@ -592,9 +623,9 @@
 {% macro microlayout__zone1RightWide__center( content, settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
-        class      : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        class      : "w-full flex flex-col lg:flex-row-reverse items-stretch" ~ _self._default_zonegap(),
         data       : { coverage: _self._coverage( settings, 'block' ) },
-        zone1class : 'lg:w-3/5',
+        zone1class : 'lg:w-3/5 self-center',
         zone2class : 'lg:w-2/5',
         autoalign  : 'zone1',
         container  : settings.container ?? 'default',
@@ -632,9 +663,9 @@
 {% macro microlayout__zone1RightNarrow__center( content, settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.layout( 'twozone__microlayout', {
-        class      : "w-full flex flex-col lg:flex-row-reverse items-center" ~ _self._default_zonegap(),
+        class      : "w-full flex flex-col lg:flex-row-reverse items-stretch" ~ _self._default_zonegap(),
         data       : { coverage: _self._coverage( settings, 'block' ) },
-        zone1class : 'lg:w-2/5',
+        zone1class : 'lg:w-2/5 self-center',
         zone2class : 'lg:w-3/5',
         autoalign  : 'zone1',
         container  : settings.container ?? 'default',

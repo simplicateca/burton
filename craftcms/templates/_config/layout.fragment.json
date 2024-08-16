@@ -1,3 +1,6 @@
+{%- set name = name ??? 'Other' -%}
+{%- set name = ( name == 'Text' ) ? 'Supporting' : name -%}
+
 [{
     "value": "copyAbove",
     "label": "Copy Above",
@@ -6,10 +9,7 @@
         "microlayout": "zone1Top"
     },
     "virtuals" : [
-        {% if field ?? null != 'sidebarBuilder' %}
-            {{ block( 'headFootGroup',   '_config/_virtuals' ) }}
-            {{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
-        {% endif %}
+
     ]
 },{
     "value": "copyBelow",
@@ -19,9 +19,6 @@
         "microlayout": "zone1Bottom"
     },
     "virtuals" : [
-        {% if field ?? null != 'sidebarBuilder' %}
-            {{ block( 'headFootGroup',   '_config/_virtuals' ) }},
-            {{ block( 'copyLayoutFull',  '_config/_virtuals' ) }}
-        {% endif %}
+
     ]
 }]

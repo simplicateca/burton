@@ -13,11 +13,13 @@
         "label": "Card Design",
         "instructions": "Choose the design to wrap around individual content items.",
         "options" : {
-            "none"      : "Basic",
-            "text"      : "Text Only",
-            "summary"   : "Summary",
-            "overlay"   : "Overlay",
-            "bulleticon": "Bullet Icon"
+            "none"        : "Basic",
+            "text"        : "Text Only",
+            "summary"     : "Summary",
+            "overlay"     : "Overlay",
+            "bulleticon"  : "Bullet Icon",
+            "spotlight"   : "Spotlight",
+            "statprogress": "(Stat) Progress Circle"
         }
     },{
         "type" : "select",
@@ -27,6 +29,7 @@
         "instructions": "Which grid type should be used for the layout?",
         "options" : {
             "autogrid": "Autogrid",
+            "autogapless": "Autogrid (Gapless)",
             "masonry" : "Masonry",
             "grid2"   : "2 Column Grid",
             "grid3"   : "3 Column Grid"
@@ -98,6 +101,7 @@
     },
     "settings": {
         "iterator": "single",
+        "limit"   : 1,
         "cardname": "spotlight"
     },
     "virtuals": []

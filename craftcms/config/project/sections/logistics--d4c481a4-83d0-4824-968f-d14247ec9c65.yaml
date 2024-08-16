@@ -1,0 +1,30 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  - 773096ce-2142-42b4-9cf9-a945483e7609 # Session
+  - 4df7052c-989e-4e15-8d24-31029f8fd2f6 # Venue
+  - 041e750b-ab10-4fb9-a87b-41acf128aae2 # City
+  - f7e61633-c292-4302-a0d2-ca73da792fcb # Brand
+handle: logistics
+maxAuthors: 1
+name: 'Event Logistics'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary URL'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+    enabledByDefault: true
+    hasUrls: true
+    template: _site/logistics._entry.twig
+    uriFormat: '{% from ''_site/logistics._entry'' import uri %}{{ uri( object ) }}'
+type: channel

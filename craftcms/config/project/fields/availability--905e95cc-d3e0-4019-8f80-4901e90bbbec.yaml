@@ -1,0 +1,224 @@
+columnSuffix: null
+handle: availability
+instructions: null
+name: Availability
+searchable: false
+settings:
+  addRowLabel: 'Add a row'
+  columns:
+    __assoc__:
+      -
+        - col2
+        -
+          __assoc__:
+            -
+              - heading
+              - Access
+            -
+              - handle
+              - access
+            -
+              - width
+              - ''
+            -
+              - type
+              - select
+            -
+              - options
+              -
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'Open to the Public'
+                    -
+                      - value
+                      - public
+                    -
+                      - default
+                      - true
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'Insiders Exclusive'
+                    -
+                      - value
+                      - insiders
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'Amex Cardholders (FotL)'
+                    -
+                      - value
+                      - amex
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'Nobody (Disabled)'
+                    -
+                      - value
+                      - nobody
+                    -
+                      - default
+                      - false
+      -
+        - col4
+        -
+          __assoc__:
+            -
+              - heading
+              - 'Promo Code Usage'
+            -
+              - handle
+              - promos
+            -
+              - width
+              - ''
+            -
+              - type
+              - select
+            -
+              - options
+              -
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'Event + General Codes'
+                    -
+                      - value
+                      - both
+                    -
+                      - default
+                      - true
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'General Codes Only'
+                    -
+                      - value
+                      - general
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'Event Specific Codes Only'
+                    -
+                      - value
+                      - event
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'No Promos'
+                    -
+                      - value
+                      - none
+                    -
+                      - default
+                      - false
+      -
+        - col3
+        -
+          __assoc__:
+            -
+              - heading
+              - 'Bulk Discount'
+            -
+              - handle
+              - bulk
+            -
+              - width
+              - ''
+            -
+              - type
+              - select
+            -
+              - options
+              -
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - '$50/ea after five (5)'
+                    -
+                      - value
+                      - 50after5
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - '$50/ea after three (3)'
+                    -
+                      - value
+                      - 50after3
+                    -
+                      - default
+                      - true
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'No Bulk Discount'
+                    -
+                      - value
+                      - none
+                    -
+                      - default
+                      - false
+      -
+        - col5
+        -
+          __assoc__:
+            -
+              - heading
+              - 'Password (leave empty for open access)'
+            -
+              - handle
+              - password
+            -
+              - width
+              - 40%
+            -
+              - type
+              - singleline
+  defaults:
+    -
+      __assoc__:
+        -
+          - col2
+          - public
+        -
+          - col4
+          - both
+        -
+          - col3
+          - 50after5
+        -
+          - col5
+          - ''
+  maxRows: null
+  minRows: null
+  staticRows: true
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Table

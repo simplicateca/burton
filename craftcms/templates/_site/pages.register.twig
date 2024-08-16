@@ -1,0 +1,563 @@
+{## Ticket Registration
+{---------------------------------------------------------------------------------------}
+    Handles requests for the root registration page at `/register`, and also any valid
+    steps (i.e. /register/tickets, /register/review, etc). Requests arrive here via:
+
+ 1. EntryType+Slug routing for `register` page via `templates/_site/pages._entry`
+ 2. Advanced URL routing of steps for `register/*` via `config/routes.php`
+
+ -> https://craftcms.com/docs/5.x/system/routing.html#advanced-routing-with-url-rules
+{-------------------------------------------------------------------------------------##}
+{% set entry = entry ??? craft.entries.section('pages').slug('register').one() ??? null %}
+{% set action  = actionSlug ??? 'choose' %}
+{% set actions = ['choose', 'tickets', 'account', 'account', 'review', 'complete'] %}
+
+
+{## Validate Step or 404
+{-------------------------------------------------------------------------------------##}
+{% extends ( action in actions )
+    ? "_site/template.sidebar"
+    : template_from_string('{% block e %}{% header "HTTP/1.0 404 Not Found" %}{% endblock %}') %}
+
+
+{## Registration Section - Page Top
+{-----------------------------------------------------------------------------------}
+    - Allows headerBuilder on the index page
+    - Creates a customer page header for all other actions
+    - Ignores `topbar__minimal` option
+    - Replace Primary Menu with Checkout Step Menu and
+    - Removes the Breadcrumb navigation
+{---------------------------------------------------------------------------------##}
+{% block page__top %}
+    {% embed "_site/header" with {
+        blocks: action == 'choose' ? blocks ??? [] : [],
+        title : _self.register__title( action ),
+        menu  : _self.register__menu( action ),
+     } %}
+        {% block primary         menu %}
+        {% block plaintitle      title ?? parent() %}
+        {% block breadcrumb      "" %}
+        {% block masthead__open  raw( block('topbar') ~ block('opentag') ) %}
+    {% endembed %}
+{% endblock %}
+
+
+{## Registration Section - Main Content
+{-----------------------------------------------------------------------------------}
+
+{---------------------------------------------------------------------------------##}
+{% block content %}
+    {% switch action %}
+        {% case "tickets" %}
+            {{ block('action__tickets') }}
+        {% case "account" %}
+            {{ block('action__account') }}
+        {% case "review" %}
+            {{ block('action__review') }}
+        {% case "complete" %}
+            {{ block('action__complete') }}
+        {% case "badges" %}
+            {{ block('action__badges') }}
+        {% default %}
+            {{ block('action__choose') }}
+    {% endswitch %}
+{% endblock %}
+
+
+
+{## Unique Elements
+{-------------------------------------------------------------------------------------##}
+{% macro register__title( action ) %}
+
+    {% set eyebrow = "Registration"|t %}
+
+    {% set title = "Choose Your Event"|t %}
+    {% set title = action == "tickets"  ? "Ticket Details"|t  : title %}
+    {% set title = action == "account"  ? "Account Setup"|t   : title %}
+    {% set title = action == "badges"   ? "Assign Badges!"|t  : title %}
+    {% set title = action == "review"   ? "Confirm Payment"|t : title %}
+    {% set title = action == "complete" ? "Successful!"|t     : title %}
+
+    {% import "_core" as assemble %}
+
+    <div class="max-w-5xl mx-auto @container" data-headercopy>
+        {{ assemble.text( "eyebrow__centerbasic", eyebrow, {} ) }}
+        {{ tag( 'h1', {
+            html : title,
+            class: 'text-center',
+        } ) }}
+    </div>
+{% endmacro %}
+
+
+{% macro register__menu( action ) %}
+    {%- set action = action ??? 'choose' -%}
+    <nav class="pb-4">
+        <ol class="flex items-center justify-between gap-x-10">
+            {{ _self.menustep( { num: 1, label: 'Select Event'|t, name: 'choose',  url: siteUrl( '/register' ) }, action ) }}
+            {{ _self.menustep( { num: 2, label: 'Tickets'|t, name: 'tickets', url: siteUrl( '/register/tickets' ) }, action ) }}
+            {{ _self.menustep( { num: 3, label: 'Payment'|t, name: 'account', url: siteUrl( '/register/account' ) }, action ) }}
+            {{ _self.menustep( { num: 4, label: 'Review'|t,  name: 'review',  url: siteUrl( '/register/review' )  }, action ) }}
+        </ol>
+    </nav>
+{% endmacro %}
+
+
+{% macro menustep( step, action ) %}
+    {%- set active = step.name ??? 'choose' == action ??? 'choose' -%}
+    {%- set number = tag('span', {
+        class: 'flex items-center justify-center w-8 h-8 bg-theme-highlight rounded-full',
+        html : step.num ??? null }) -%}
+
+    {%- set label = tag('strong', {
+        class: 'ml-4 text-lg font-medium whitespace-nowrap',
+        html : step.label ??? null }) -%}
+
+    {%- set span = tag('span', {
+        class: 'flex items-center text-theme-accent',
+        html : number ~ label }) -%}
+
+    {%- set link = tag('a', {
+        href : step.url,
+        class: 'flex items-center ' ~ ( active ? 'text-theme-hightlight' : 'text-theme-accent' ),
+        html : number ~ label }) -%}
+
+    <li class="group">{{ raw( link ) }}</li>
+{% endmacro %}
+
+
+
+{% block action__choose %}
+    {% set events = craft.events.events().limit(10) %}
+    <div class="flex flex-col gap-8">
+        {% for event in events %}
+            <div>
+                <h2>{{ event.title }}</h2>
+                {# {{ _self.eventdetails( event ) }} #}
+                <div class="bg-theme-tint p-4">
+                    {{ _self.choose__tickets( event ) }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+{% block action__account %}
+
+    {## TODO - Offer "Login" / "Create Account During Checkout" ##}
+
+    <h2>Your Information</h2>
+    {{ _self.account__form( currentUser ??? null, cart ??? null ) }}
+
+{% endblock %}
+
+
+{% block action__review %}
+
+{% endblock %}
+
+
+{% block action__complete %}
+
+{% endblock %}
+
+
+{% block action__tickets %}
+
+{% endblock %}
+
+
+{% block action__badges %}
+
+    {% set item = cart.lineItems[0] ?? null %}
+    {% set ticket = craft.events.tickets().id(item.purchasableId).one() ?? null %}
+    {% set badgeLabel = ticket.event.label ?? 'Badge' %}
+
+    <form method="POST" class="pt-10">
+        <input type="hidden" name="action" value="commerce/cart/update-cart">
+        {{ csrfInput() }}
+        {{ redirectInput( siteUrl('register/payment') ) }}
+        {{ hiddenInput('fields[json]', item.options ??? null | json_encode ) }}
+
+        {% for item in lineItems %}
+            <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
+                {% for i in 1.. item.qty %}
+                    {% set email    = loop.first and loop.parent.loop.first ? cart.email : '' %}
+                    {% set fullname = loop.first and loop.parent.loop.first ? address.fullName : '' %}
+                    {% set company  = address.organization ??? '' %}
+                    {% set city     = address.locality ??? '' %}
+
+                    <div class="max-w-sm lg:max-w-none">
+                        <h3 class="mb-2">{{item.snapshot.title}} Badge #{{loop.index}}</h3>
+
+                        <div class="p-4 bg-white">
+                            <div class="field flex gap-4 mb-3 items-center text-right">
+                                <label class="grow whitespace-nowrap text-sm 2xl:text-base">Attendee <strong>*</strong></label>
+                                <input type="text" name="lineItems[{{item.id}}][options][badges][{{i}}][fullName]" required class="p-2 bg-slate-100" value="{{fullname}}">
+                            </div>
+
+                            <div class="field flex gap-4 mb-3 items-center text-right">
+                                <label class="grow whitespace-nowrap text-sm 2xl:text-base">Email <strong>*</strong></label>
+                                <input type="email" name="lineItems[{{item.id}}][options][badges][{{i}}][email]" placeholder="name@example.com" required class="p-2 bg-slate-100" value="{{email}}">
+                            </div>
+
+                            <div class="field flex gap-4 mb-3 items-center text-right">
+                                <label class="grow whitespace-nowrap text-sm 2xl:text-base">Job Title <strong>*</strong></label>
+                                <input type="text" name="lineItems[{{item.id}}][options][badges][{{i}}][jobtitle]" required class="p-2 bg-slate-100">
+                            </div>
+
+                            <div class="field flex gap-4 mb-3 items-center text-right">
+                                <label class="grow whitespace-nowrap text-sm 2xl:text-base">Company <strong>*</strong></label>
+                                <input type="text" name="lineItems[{{item.id}}][options][badges][{{i}}][organization]" required class="p-2 bg-slate-100" value="{{company}}">
+                            </div>
+
+                            <div class="field flex gap-4 items-center text-right">
+                                <label class="grow whitespace-nowrap text-sm 2xl:text-base">City <strong>*</strong></label>
+                                <input type="text" name="lineItems[{{item.id}}][options][badges][{{i}}][city]" required class="p-2 bg-slate-100" value="{{city}}">
+                            </div>
+
+                            {# {% set questions = ticket.questionFragments ?? [] %}
+                            {% for question in questions %}
+                                <div class="field">
+                                    <label>{{ question.label }} {{question.required ? '*':''}}</label>
+
+                                    {% if question.fieldType == 'text' %}
+                                        <input type="text" name="lineItems[{{item.id}}][options][badges][{{i}}][{{question.slug}}]" {{question.required ? 'required':''}}>
+                                    {% endif %}
+
+                                    {% if question.fieldType == 'multiLineText' %}
+                                        <textaera name="lineItems[{{item.id}}][options][badges][{{i}}][{{question.slug}}]" {{question.required ? 'required':''}}></textaera>
+                                    {% endif %}
+
+                                    {% if question.fieldType == 'dropdown' %}
+                                        <select name="lineItems[{{item.id}}][options][badges][{{i}}][{{question.slug}}]" {{question.required ? 'required':''}}>
+                                            <option value=""> - Please Select -</option>
+                                            {% for item in question.textList %}
+                                                <option>{{item.item}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+                                </div>
+                            {% endfor %} #}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% endfor %}
+
+        <div class="buttons pt-10">
+            <input type="submit" value="Continue to Payment →" class="button is-success" />
+        </div>
+    </form>
+{% endblock %}
+
+
+{# {% macro eventdetails( event ) %}
+    <div class="flex flex-col @md:flex-row gap-4">
+        <strong>{{ event.cities.one().title }}</strong>
+        <span>{{ event.startDate }}</span>
+    </div>
+
+    <div class="order-2">
+        <div class="like-h4 mb-0">Date & Time</div>
+        <p class="mb-6">
+            {{ event.startDate|date('l F j, Y') }}<br>
+            {{ event.startDate|date('g:ia') }} - {{ event.endDate|date('g:ia') }}<br>
+            Doors open at {{ event.startDate.modify('- 30 minutes')|date('g:ia') }}
+        </p>
+
+        <div class="like-h4 mb-0">Location</div>
+        <p class="mb-6">
+            {{event.venue.one().title ??? null }}<br>
+            {{event.venue.one().address ??? null}}
+        </p>
+
+        <div class="like-h4 mb-0">Featuring</div>
+        <p class="mb-6">
+            {% for session in event.sessions.all() ??? null %}
+                {% set person = session.people|first %}
+                {{ person.personName.givenNames }} {{ person.personName.familyNames }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+    </div>
+{% endmacro %} #}
+
+
+{% macro choose__tickets( event ) %}
+    {% set tickets = craft.events.tickets().event(event) %}
+    {% if tickets.one() %}
+        <form method="POST" x-data="{
+            tickets: 0,
+            active : 'ticket-1'
+        }" class="max-w-lg">
+            {{ csrfInput() }}
+            {{ actionInput('commerce/cart/update-cart') }}
+            {{ redirectInput( siteUrl('register/account') ) }}
+
+            <h3>Choose Your Tickets</h3>
+
+            <div class="flex flex-col gap-20">
+                {% for ticket in tickets %}
+                    {{ _self.ticket( ticket, cart ??? null, loop ) }}
+                {% endfor %}
+            </div>
+
+            <div class="pt-10">
+                <button
+                    class="button"
+                    :class="(tickets<1) ? 'opacity-40 cursor-not-allowed' : ''"
+                    :disabled="tickets<1"
+                >{{ tag( 'span', { text: 'Next Step →'|t } ) }}</button>
+            </div>
+        </form>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro ticket( ticket, cart, loopindex ) %}
+    {% set loopindex = loopindex ?? 1 %}
+    {% set offer = ticket.offer.one() ??? null %}
+
+    <div class="border p-4"
+        x-data="{
+            id: 'ticket-{{loopindex}}',
+            qty:0,
+            lastCleanQty:0,
+            init() {
+                this.$watch('qty', (value, oldValue) => {
+                    if( !isNaN(value) ) {
+                        this.tickets = this.tickets + (value - this.lastCleanQty);
+                        this.lastCleanQty = value
+                    }
+                })
+            },
+            get expanded() {
+                return this.active === this.id
+            },
+            set expanded(value) {
+                this.active = value ? this.id : null
+            },
+            clean(dirty) {
+                dirty = parseInt(dirty);
+                this.qty = dirty >=1 ? dirty : 0;
+            },
+            increment() {
+                this.qty++;
+            },
+            decrement() {
+                this.qty = this.qty - (this.qty>0?1:0);
+            }
+        }"
+        x-init="init()">
+
+        <div class="flex gap-10">
+            <div class="max-w-sm w-full relative">
+                <div class="flex gap-10 items-center">
+                    <h4 class="mb-0 flex-grow">{{ ticket.name }}</h4>
+                    <div>{{ ticket.price | commerceCurrency(cart.currency) }}</div>
+                </div>
+
+                {# {% if offer %}
+                    <div class="text-sm mt-2">
+                        <p>
+                            {{ ( offer.summary ??? '' ) | retconChange( 'p', 'span' )  }}
+
+                            <button
+                                x-on:click="expanded = !expanded"
+                                :aria-expanded="expanded"
+                                class="items-center justify-between text-sm inline-block ml-1 clickable-parent"
+                            >
+                                <span x-show="expanded">
+                                    <span class="text-left">Less</span>
+                                    <span aria-hidden="true" class="ml-2">↓</span>
+                                </span>
+
+                                <span x-show="!expanded">
+                                    <span class="text-left">More</span>
+                                    <span aria-hidden="true" class="ml-2">→</span>
+                                </span>
+                            </button>
+                        </p>
+                    </div>
+                {% endif %} #}
+            </div>
+
+            <div class="flex flex-col max-w-[80px] min-w-[80px]">
+                <input type="hidden" name="purchasables[{{loopindex}}][id]" value="{{ ticket.purchasableId }}">
+                <input
+                    type="text"
+                    @change="clean(qty)"
+                    @keyup="clean(qty)"
+                    x-model="qty"
+                    name="purchasables[{{loopindex}}][qty]"
+                    value="0"
+                    pattern="[0-9]+"
+                    class="w-full text-center p-3"
+                >
+                <div class="grid grid-cols-2">
+                    <button type="button" @click="decrement" class="bg-gray-200 px-3 border" :disabled="(qty<1)">-</button>
+                    <button type="button" @click="increment" class="bg-gray-200 px-3 border">+</button>
+                </div>
+            </div>
+        </div>
+
+        {# {% if offer %}
+            <div x-show="expanded" x-collapse>
+                <div class="pt-2 pl-4">
+                    <ul class="list-disc list-inside text-sm">
+                        {% for feature in offer.options %}
+                            <li>{{ feature.item }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    {% set books = offer.books.all() ??? [] %}
+                    {% if books %}
+                        <div class="flex gap-2 mt-2">
+                            {% for book in books %}
+                                <a href="{{book.url}}"><img src="{{book.images.one().url}}" alt="{{book.title}}" class="h-24"></a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %} #}
+    </div>
+{% endmacro %}
+
+
+{% macro account__form( currentUser, cart ) %}
+    <form method="POST" x-data="{
+
+    }" class="max-w-lg">
+        {{ csrfInput() }}
+        {{ actionInput('commerce/cart/update-cart') }}
+        {{ redirectInput( siteUrl('register/badges') ) }}
+
+        <div class="flex flex-col gap-20">
+            {{ _self.account__fields( currentUser, cart ) }}
+        </div>
+
+        <div class="pt-10">
+            <button class="button"
+            >{{ tag( 'span', { text: 'Next Step →'|t } ) }}</button>
+        </div>
+    </form>
+{% endmacro %}
+
+
+{% macro account__fields( currentUser, cart ) %}
+    <div class="field grid grid-cols-2 mb-3">
+        <label>Email <strong>*</strong></label>
+        <input type="email" name="email" placeholder="name@example.com" value="{{cart.email??''}}" required class="p-2">
+    </div>
+
+    <div class="field grid grid-cols-2 mb-3">
+        <label>Name <strong>*</strong></label>
+        <input type="text" name="billingAddress[fullName]" value="" required class="p-2">
+    </div>
+
+    <div class="field grid grid-cols-2 mb-3">
+        <label>Company <strong>*</strong></label>
+        <input type="text" name="billingAddress[organization]" value="" required class="p-2">
+    </div>
+
+    <div class="field grid grid-cols-2 mb-3">
+        <label>Address <strong>*</strong></label>
+        <input type="text" name="billingAddress[addressLine1]" value="" required class="p-2">
+    </div>
+
+    <div class="field grid grid-cols-2 mb-3">
+        <label>Unit / Office #</label>
+        <input type="text" name="billingAddress[addressLine2]" value="" class="p-2">
+    </div>
+
+    <div class="field grid grid-cols-2 mb-3">
+        <label>City</label>
+        <input type="text"   name="billingAddress[locality]"    value="" required class="p-2">
+        <input type="hidden" name="billingAddress[countryCode]" value="CA">
+    </div>
+
+    <div class="field grid grid-cols-2 mb-3">
+        <label>Province / State <strong>*</strong></label>
+        <select name="billingAddress[administrativeArea]" required class="p-2">
+            <option value=""> - Please Select -</option>
+            <optgroup label="Canadian Provinces">
+                <option value="AB">Alberta</option>
+                <option value="BC">British Columbia</option>
+                <option value="MB">Manitoba</option>
+                <option value="NB">New Brunswick</option>
+                <option value="NF">Newfoundland</option>
+                <option value="NT">Northwest Territories</option>
+                <option value="NS">Nova Scotia</option>
+                <option value="NU">Nunavut</option>
+                <option value="ON">Ontario</option>
+                <option value="PE">Prince Edward Island</option>
+                <option value="QC">Quebec</option>
+                <option value="SK">Saskatchewan</option>
+                <option value="YT">Yukon Territory</option>
+            </optgroup>
+
+            <optgroup label="U.S. States/Territories">
+                <option value="AK">Alaska</option>
+                <option value="AL">Alabama</option>
+                <option value="AR">Arkansas</option>
+                <option value="AZ">Arizona</option>
+                <option value="CA">California</option>
+                <option value="CO">Colorado</option>
+                <option value="CT">Connecticut</option>
+                <option value="DC">District of Columbia</option>
+                <option value="DE">Delaware</option>
+                <option value="FL">Florida</option>
+                <option value="GA">Georgia</option>
+                <option value="HI">Hawaii</option>
+                <option value="IA">Iowa</option>
+                <option value="ID">Idaho</option>
+                <option value="IL">Illinois</option>
+                <option value="IN">Indiana</option>
+                <option value="KS">Kansas</option>
+                <option value="KY">Kentucky</option>
+                <option value="LA">Louisiana</option>
+                <option value="MA">Massachusetts</option>
+                <option value="MD">Maryland</option>
+                <option value="ME">Maine</option>
+                <option value="MI">Michigan</option>
+                <option value="MN">Minnesota</option>
+                <option value="MO">Missouri</option>
+                <option value="MS">Mississippi</option>
+                <option value="MT">Montana</option>
+                <option value="NC">North Carolina</option>
+                <option value="ND">North Dakota</option>
+                <option value="NE">Nebraska</option>
+                <option value="NH">New Hampshire</option>
+                <option value="NJ">New Jersey</option>
+                <option value="NM">New Mexico</option>
+                <option value="NV">Nevada</option>
+                <option value="NY">New York</option>
+                <option value="OH">Ohio</option>
+                <option value="OK">Oklahoma</option>
+                <option value="OR">Oregon</option>
+                <option value="PA">Pennsylvania</option>
+                <option value="PR">Puerto Rico</option>
+                <option value="RI">Rhode Island</option>
+                <option value="SC">South Carolina</option>
+                <option value="SD">South Dakota</option>
+                <option value="TN">Tennessee</option>
+                <option value="TX">Texas</option>
+                <option value="UT">Utah</option>
+                <option value="VA">Virginia</option>
+                <option value="VT">Vermont</option>
+                <option value="WA">Washington</option>
+                <option value="WI">Wisconsin</option>
+                <option value="WV">West Virginia</option>
+                <option value="WY">Wyoming</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div class="field grid grid-cols-2">
+        <label>Postal / Zip Code <strong>*</strong></label>
+        <input type="text" name="billingAddress[postalCode]" value="" required class="p-2">
+    </div>
+{% endmacro %}

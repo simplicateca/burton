@@ -1,0 +1,28 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
+  - 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
+handle: landings
+maxAuthors: 1
+name: 'Landing Pages'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary URL'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+    enabledByDefault: true
+    hasUrls: true
+    template: _site/pages._entry.twig
+    uriFormat: '{% from ''_site/pages._entry'' import uri %}{{ uri( object ) }}'
+type: channel

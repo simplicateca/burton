@@ -1,0 +1,48 @@
+columnSuffix: null
+handle: profiles
+instructions: null
+name: 'People • Organizations'
+searchable: true
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - b3ca56f9-ef4f-431e-ac0e-4d8d42eff6c6
+              -
+                - operator
+                - in
+  selectionLabel: Choose
+  showCardsInGrid: false
+  showSiteMenu: false
+  sources:
+    - 'section:24626664-b886-4d46-a8d0-bb30ed656725' # Profiles
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

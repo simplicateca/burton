@@ -1,0 +1,11 @@
+handle: stripe
+isFrontendEnabled: '1'
+name: Stripe
+paymentType: purchase
+settings:
+  apiKey: $PAYMENT_SECRET
+  publishableKey: $PAYMENT_KEY
+  sendReceiptEmail: false
+  signingSecret: $PAYMENT_WEBHOOKS
+sortOrder: 99
+type: craft\commerce\stripe\gateways\PaymentIntents

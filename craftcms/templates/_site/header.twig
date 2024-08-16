@@ -1,144 +1,255 @@
-{% extends template_from_string('{% block header__base "" %}') %}
-
-{% import "_core" as assemble %}
-
-{% block header__open %}
-    <header {{attr({
-        id   : "masthead",
-        role : "banner",
-        class: "relative z-10 py-20 canvas",
-        data : { theme: theme ??? 'base' }
-    }) }}>
-{% endblock %}
-
-{% block header__close "</header>" %}
-
 {## Page Header Elements   [Site Template]
 {---------------------------------------------------------------------------------------}
     Defaults & common elements that appear in and around the site-wide page <header>.
     - http://localhost:8000/sitehub/layout/header
 {-------------------------------------------------------------------------------------##}
-{% block header__base %}
+{% extends template_from_string('{% block base "" %}') %}
 
-    {% set headblocks = entry.headerBuilder.all() ??? null %}
-    {% set intopbar   = ( headblocks and headblocks[0].settings.spacerabove ??? false == 'topbar' ) %}
-    {% set theme      = ( headblocks and headblocks[0].settings.theme ??? 'base' ) %}
 
-    {% if not headblocks or not intopbar %}
-        {{ block('header__topbar') }}
-        {{ block('header__breadcrumb') }}
-    {% endif %}
 
-    {{ block( 'header__open' ) }}
-    {% block header__afteropen "" %}
+{% block base %}
+    {%- set block1   = entry.headerBuilder.one() ??? null -%}
+    {%- set subtitle = entry.fullTitle ??? null | retconRemove('h1') -%}
+    {%- set theme    = ( subtitle and not block1 ) ? 'light' : 'base' -%}
+    {%- set owner    = entry ??? block1.owner ??? null -%}
 
-    {{ block( 'header__builder' ) }}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = {
+        theme      : theme,
+        builder    : 'header',
+        container  : 'fluid',
+        spacerabove: 'medium',
+        spacerbelow: 'medium',
+        section    : owner.section.handle ??? owner.section ??? null,
+        entrytype  : owner.type.handle    ??? owner.type    ??? null,
+        entryid    : owner.id  ?? null,
+        entryurl   : owner.url ?? null,
+        blockpath  : [
+            "_site/header.block.%blocktype%.%variant%",
+            "_site/header.block.%blocktype%",
+            "_site/block.%blocktype%.%variant%",
+            "_core/block.%blocktype%.%variant%",
+            "_site/block.%blocktype%",
+            "_core/block.%blocktype%",
+            "_site/header.block",
+            "_site/block",
+            "_core/block"
+        ],
+    } | merge( settings ) -%}
 
-    {% if headblocks and intopbar %}
-        {{ block('header__breadcrumb') }}
-    {% endif %}
-
-    {% block header__beforeclose "" %}
-    {{ block( 'header__close' ) }}
+    {% set blocks = [block1 ??? { html: block( 'plaintitle') }] %}
+    {{ block('builder') }}
 {% endblock %}
 
 
-
-{% block header__builder %}
+{% block builder %}
     {% import "_core" as assemble %}
-
-    {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? null %}
-    {% set headblocks = headblocks ? headblocks : [{ html: block('header__plaintitle') }] %}
-
-    {{ assemble.builder( 'header', headblocks, {
-        container  : "fluid",
-        spacerabove: "none",
-        spacerbelow: "none"
-    }) }}
+    {%- for block in BuilderBase( blocks ??? [], settings ??? {} ) -%}
+        {{ loop.first ? raw( block('masthead__open') ??? null )  : null }}
+        {{ assemble.blockpart( 'block__includepath', block, block.settings | merge({ loop: loop }) ) }}
+        {{ loop.last  ? raw( block('masthead__close') ??? null ) : null }}
+    {%- endfor -%}
 {% endblock %}
 
 
+{% block masthead__open %}
+    {% set headerabove = block.settings.headerabove ??? 'brandfull' %}
+    {% set theme = block.settings.theme ??? 'base' %}
 
-{% block header__plaintitle %}
-    {%- set header__title    = header__title ??? entry.expandedTitle | retconOnly('h1') | retconChange( 'h1', false ) ??? null -%}
+    {% if headerabove in ['brandfull','brandonly'] %}
+        {{ block('topbar') }}
+        {{ block('opentag') }}
+
+        {% if headerabove == 'brandfull' %}
+            {{ block('breadcrumb') }}
+        {% endif %}
+    {% endif %}
+
+    {% if headerabove == 'minimal' %}
+        {{ block('topbar__minimal') }}
+        {{ block('opentag') }}
+    {% endif %}
+{% endblock %}
+
+
+{% block masthead__close %}
+    {%- set headerabove = block.settings.headerabove ??? null   -%}
+    {%- set headerbelow = block.settings.headerbelow ??? 'auto' -%}
+
+    {{ block('closetag') }}
+
+    {%- if headerbelow == 'auto' and headerabove == 'brandonly' -%}
+        {{ block('breadcrumb') }}
+    {%- endif -%}
+{% endblock %}
+
+
+{% block plaintitle %}
+    {%- set header__title    = header__title ??? entry.fullTitle | retconOnly('h1') | retconChange( 'h1', false ) ??? null -%}
     {%- set header__align    = header__align ??? 'center' -%}
     {%- set header__title    = header__title ??? entry.title -%}
-    {%- set header__subtitle = header__subtitle ??? entry.expandedTitle | retconRemove('h1') ??? null -%}
+    {%- set header__subtitle = header__subtitle ??? entry.fullTitle | retconRemove('h1') ??? null -%}
 
     {% if header__title or header__subtitle %}
-        <div class="max-w-7xl flex flex-col gap-3 @container/large last-child-mb-0 {{ header__align == 'center' ? 'mx-auto' }}" data-bodycopy>
-            {{ header__title    ? tag( 'h1',  { html: header__title|widont, class:['text-theme-accent', "#{header__align == 'center' ? 'text-center'}"], itemprop: 'headline' } ) }}
-            {{ header__subtitle ? tag( 'div', { html: header__subtitle|widont, class: ['max-w-5xl last-child-mb-0', "#{header__align == 'center' ? 'mx-auto text-center'}"], itemprop:'description' } ) }}
+        <div class="max-w-5xl {{ header__align == 'center' ? 'mx-auto' : '' }}">
+            <div class="@container flex flex-col gap-3 last-child-mb-0" data-headercopy>
+                {{ header__title    ? tag( 'h1',  { html: header__title|widont, class:['text-theme-accent', "#{header__align == 'center' ? 'text-center'}"], itemprop: 'headline' } ) }}
+
+                {% if header__subtitle %}
+                    {{ header__subtitle ? tag( 'div', {
+                        html: header__subtitle | widont | retconAttr( 'p', { class: 'larger' } ),
+                        class: ['last-child-mb-0 -mt-10', "#{header__align == 'center' ? 'mx-auto text-center'}"],
+                        itemprop:'description'
+                    }) }}
+                {% endif %}
+            </div>
         </div>
     {% endif %}
 {% endblock %}
 
 
+{% block logo tag( 'div', {
+    class: "flex items-center w-full gap-8 text-white",
+    html : block('logosvg')
+} ) %}
 
-{% block header__breadcrumb %}
+
+{% block logosvg %}
+    <a
+        x-data
+        x-cloak
+        href="{{ siteUrl('/') }}"
+        class="text-theme-bodycopy leading-none flex items-center hover:text-theme-accent-tint py-2"
+    ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" class="block h-28 fill-current">
+        <path d="m51.8 20.7 17.9 52.6H36.9c1.4-3.9 6.5-12.6 24-16l-4-12-15.7 6.3 10.6-31Zm21.6 21v-35H61.9l11.5 35ZM6.6 6.6v66.7h13.1L42.5 6.5H6.6Z" />
+    </svg></a>
+{% endblock %}
+
+
+{% block breadcrumb %}
     {%- import "_core" as assemble -%}
-    {%- set breadcrumbs = assemble.container( 'fluid', assemble.menu( 'breadcrumb', entry, {} ) ) -%}
+    {%- set breadcrumbs = assemble.container( 'fluid', assemble.menu( 'breadcrumb', entry ??? null, {} ) ) -%}
     {{- breadcrumbs | attr({ class: "relative z-10 opacity-50 hover:opacity-100 focus-within:opacity-100" }) -}}
 {% endblock %}
 
 
-
-{% block header__topbar %}
-    {% import "_core" as assemble %}
-
-    <div {{ attr({ class: ["w-full relative z-50 canvas"], 'data-theme': 'light' }) }}>
-
-        {{ assemble.container__open( 'fluid' ) }}
-
-        <div class="flex">
-
-            {% block header__topbar__logo %}
-                <div class="flex items-center w-full gap-8">{{ _self.logo() }}</div>
-            {% endblock %}
-
-            {% block header__topbar__navigation %}
-
-                <div class="w-full flex flex-col flex-grow text-right items-end gap-6 justify-center @container">
-                    {% block header__topbar__navUtility %}
-                        {% import "_core" as assemble %}
-                        {{ assemble.menu( 'utility', entry, {} ) }}
-                    {% endblock %}
-
-                    {% block header__topbar__navPrimary %}
-                        <div class="hidden md:flex items-center gap-6">
-                            {% import "_core" as assemble %}
-                            {{ assemble.menu( 'primary', entry, {} ) }}
-                        </div>
-                    {% endblock %}
-
-                    {% block header__topbar__navMobileTrigger %}
-                        {% import "_core/menu.mobile" as mobilemenu %}
-                        {{ mobilemenu.trigger() }}
-                    {% endblock %}
-                </div>
-
-            {% endblock %}
-        </div>
-        {{ assemble.container__close( 'fluid' ) }}
-    </div>
+{% block topbar %}
+    {%- import "_core" as assemble -%}
+    {{ tag( 'div', {
+        class: 'w-full relative z-50 canvas',
+        data : { theme: 'accent' },
+        html : assemble.container( 'fluid', tag( 'div', {
+            class: "flex",
+            html : block('logo') ~ block('navigation')
+        }) )
+    }) }}
 {% endblock %}
 
 
+{% block topbar__minimal %}
+    {%- import "_core" as assemble -%}
+    {{ tag( 'div', {
+        class: 'w-full relative z-50 canvas',
+        data : { theme: 'accent' },
+        html : assemble.container( 'fluid', tag( 'div', {
+            class: "flex",
+            html : block('logo') ~ block('navigation__minimal')
+        }) )
+    }) }}
+{% endblock %}
 
-{% macro logo() %}
-    <a href="{{ siteUrl('/') }}" class="py-4 text-theme-bodycopy/50 hover:text-theme-accent block" x-cloak x-data>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 75" class="block h-7 fill-current">
-            <g fill-rule="evenodd" stroke="transparent" stroke-linecap="round" stroke-width=".6" font-size="12">
-                <path d="M26 74H14a5 5 0 0 1-1 0l-2-1-1-2L0 7h0l1-2 1-1h16a6 6 0 0 1 1 0l2 2a4 4 0 0 1 0 1l5 33 6-17a4 4 0 0 1 0-1l1-1a2 2 0 0 1 1-1h10a5 5 0 0 1 0 0h1a2 2 0 0 1 1 1 12 12 0 0 1 0 1h1a5 5 0 0 1 0 1l6 17 5-33a3 3 0 0 1 0-1q1-2 3-2h15a2 2 0 0 1 2 1 3 3 0 0 1 0 0 2 2 0 0 1 0 1 2 2 0 0 1 1 1h0q0 0 0 0L69 71a3 3 0 0 1-1 1 5 5 0 0 1-1 1 4 4 0 0 1-2 1 6 6 0 0 1-1 0H52l-2-1-2-1-9-25-9 25-1 1a9 9 0 0 1 0 0 3 3 0 0 1-1 1h-2Z" vector-effect="non-scaling-stroke"/>
-                <path d="M104 74H89a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1 0-2 3 3 0 0 1 0 0V25a3 3 0 0 1 0-1 3 3 0 0 1 0-1 3 3 0 0 1 2-1 3 3 0 0 1 0 0h15l2 1 1 2v47l-1 2h-2Zm0-58H89a3 3 0 0 1-1 0 3 3 0 0 1 0-1 3 3 0 0 1-1-2 3 3 0 0 1 0 0V3l1-2 1-1h15a3 3 0 0 1 2 1 3 3 0 0 1 0 0 3 3 0 0 1 0 1 3 3 0 0 1 1 1v10l-1 2-2 1Z" vector-effect="non-scaling-stroke"/>
-                <path d="M135 74h-15a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V25a3 3 0 0 1 0-1 3 3 0 0 1 1-1 3 3 0 0 1 2-1 3 3 0 0 1 0 0h14a3 3 0 0 1 1 1 3 3 0 0 1 1 0 3 3 0 0 1 1 2 3 3 0 0 1 0 0v4l7-5a20 20 0 0 1 6-2 24 24 0 0 1 2 0h5l1 1 1 2v13l-1 2h-13l-4 1a6 6 0 0 0-1 1 6 6 0 0 0-2 3v2a13 13 0 0 0 0 1v24a3 3 0 0 1 0 1 3 3 0 0 1-1 1 3 3 0 0 1-2 0 3 3 0 0 1 0 0Z" vector-effect="non-scaling-stroke"/>
-                <path d="M218 48v3a2 2 0 0 1 0 1 3 3 0 0 1 0 1 3 3 0 0 1-1 0 3 3 0 0 1-1 1h-31 0a15 15 0 0 0 0 2 11 11 0 0 0 0 2 7 7 0 0 0 1 2 6 6 0 0 0 2 1 5 5 0 0 0 2 1 7 7 0 0 0 1 0h2a4 4 0 0 0 0 0l2-1 1-1 1-1 2-1a10 10 0 0 1 0 0h16l1 1a2 2 0 0 1 1 0v1a6 6 0 0 1 0 2l-2 3a20 20 0 0 1 0 0l-4 4a28 28 0 0 1-1 1 22 22 0 0 1-3 2l-5 2a31 31 0 0 1-5 1h-6a39 39 0 0 1-8-1l-9-3a23 23 0 0 1-3-2 21 21 0 0 1-6-9l-1-8a44 44 0 0 1 0-3v-2a37 37 0 0 1 0-6l3-8a23 23 0 0 1 0 0q4-6 10-9a28 28 0 0 1 7-2 38 38 0 0 1 7-1 38 38 0 0 1 6 1q4 0 7 2a22 22 0 0 1 2 1q6 4 9 10a29 29 0 0 1 3 10 35 35 0 0 1 0 3Zm-33-6h12v-4a9 9 0 0 0 0 0 7 7 0 0 0-1-2 5 5 0 0 0-2-1 5 5 0 0 0-2-1 7 7 0 0 0-1 0 7 7 0 0 0-2 0 5 5 0 0 0-1 1 5 5 0 0 0-2 1 7 7 0 0 0 0 2 11 11 0 0 0-1 1v2a20 20 0 0 0 0 1Z" vector-effect="non-scaling-stroke"/>
-                <path d="M250 74h-15a3 3 0 0 1-1 0 3 3 0 0 1 0 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V38h-7a3 3 0 0 1-2-1 3 3 0 0 1 0 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V25a3 3 0 0 1 0-1 3 3 0 0 1 1-1 3 3 0 0 1 1-1 3 3 0 0 1 1 0h7v-2a30 30 0 0 1 0-5l3-7a16 16 0 0 1 7-6 20 20 0 0 1 1 0 35 35 0 0 1 6-1 48 48 0 0 1 7-1h8l2 1 1 2v10l-1 2-2 1h-7a10 10 0 0 0-2 0l-2 1a4 4 0 0 0-1 2v1a8 8 0 0 0 0 0v2h11l2 1 1 2v10l-1 2-2 1h-11v34a3 3 0 0 1-1 1 3 3 0 0 1 0 1 3 3 0 0 1-2 0 3 3 0 0 1 0 0Z" vector-effect="non-scaling-stroke"/>
-                <path d="M292 74h-16a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V25a3 3 0 0 1 0-1 3 3 0 0 1 1-1 3 3 0 0 1 2-1 3 3 0 0 1 0 0h14a3 3 0 0 1 1 1 3 3 0 0 1 1 0 3 3 0 0 1 1 2 3 3 0 0 1 0 0v4l7-5a20 20 0 0 1 7-2 24 24 0 0 1 1 0h5l2 1v17h-13l-5 1a6 6 0 0 0-1 1 6 6 0 0 0-2 3v2a13 13 0 0 0 0 1v24a3 3 0 0 1 0 1 3 3 0 0 1-1 1 3 3 0 0 1-1 0 3 3 0 0 1 0 0Z" vector-effect="non-scaling-stroke"/>
-                <path d="m340 43 12-2v-1l-1-4a4 4 0 0 0 0-1l-4-1a9 9 0 0 0-1 0l-2 1a8 8 0 0 0-2 1 10 10 0 0 0-1 1 3 3 0 0 1-2 1 4 4 0 0 1 0 0h-15a3 3 0 0 1 0 0 2 2 0 0 1-1-1l-1-1a7 7 0 0 1 0-2l2-2a14 14 0 0 1 1-3l2-2a26 26 0 0 1 1 0 20 20 0 0 1 3-2l5-2a28 28 0 0 1 4-1l7-1q7 0 12 2a26 26 0 0 1 4 1 19 19 0 0 1 3 3q4 3 5 7a22 22 0 0 1 1 5 27 27 0 0 1 1 3v30a3 3 0 0 1-1 1 3 3 0 0 1 0 1 3 3 0 0 1-2 0 3 3 0 0 1 0 0h-16l-1-2v-3a12 12 0 0 1-3 2 15 15 0 0 1-1 1 17 17 0 0 1-3 2 21 21 0 0 1-2 0 19 19 0 0 1-3 1 24 24 0 0 1-3 0 25 25 0 0 1-6 0 20 20 0 0 1-4-2 19 19 0 0 1-4-2 16 16 0 0 1-3-3l-2-8q0-7 5-11a17 17 0 0 1 1-1 28 28 0 0 1 6-3l6-2a57 57 0 0 1 3 0Zm12 9h0l-7 1-5 2a5 5 0 0 0-1 1 4 4 0 0 0-1 2 3 3 0 0 0 0 1 3 3 0 0 0 1 1l2 2h3l4-1a7 7 0 0 0 3-2 9 9 0 0 0 0-1 10 10 0 0 0 1-2v-3a19 19 0 0 0 0-1Z" vector-effect="non-scaling-stroke"/>
-                <path d="M400 74h-15a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V25a3 3 0 0 1 1-1 3 3 0 0 1 0-1 3 3 0 0 1 2-1 3 3 0 0 1 0 0h14a3 3 0 0 1 1 1 3 3 0 0 1 1 0 3 3 0 0 1 0 2 3 3 0 0 1 0 0v3a15 15 0 0 1 2-2l3-2a30 30 0 0 1 1 0 16 16 0 0 1 5-2 21 21 0 0 1 3-1q12 0 16 9a17 17 0 0 1 4-5 22 22 0 0 1 3-1q4-3 9-3a20 20 0 0 1 6 1 18 18 0 0 1 3 2 16 16 0 0 1 5 4 21 21 0 0 1 2 3q2 5 2 13v28a3 3 0 0 1 0 1 3 3 0 0 1-1 1 3 3 0 0 1-1 0 3 3 0 0 1 0 0h-15a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V40a7 7 0 0 0-1-1 5 5 0 0 0-1-1 5 5 0 0 0-2-1 7 7 0 0 0-1 0 6 6 0 0 0-2 0 6 6 0 0 0-1 1q-2 0-2 2l-1 3a15 15 0 0 0 0 1v28a3 3 0 0 1 0 1 3 3 0 0 1-1 1 3 3 0 0 1-2 0 3 3 0 0 1 0 0h-14a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V44l-1-4a7 7 0 0 0 0-1 5 5 0 0 0-2-1 5 5 0 0 0-2-1 7 7 0 0 0-1 0l-3 1a6 6 0 0 0-1 1 7 7 0 0 0-1 1 6 6 0 0 0 0 1v31a3 3 0 0 1-1 1 3 3 0 0 1 0 1 3 3 0 0 1-2 0 3 3 0 0 1 0 0Z" vector-effect="non-scaling-stroke"/>
-                <path d="M528 48v3a2 2 0 0 1-1 1 3 3 0 0 1 0 1 3 3 0 0 1-1 0 3 3 0 0 1-1 1h-31 0a15 15 0 0 0 0 2 11 11 0 0 0 1 2 7 7 0 0 0 1 2 6 6 0 0 0 1 1 5 5 0 0 0 2 1 7 7 0 0 0 1 0h2a4 4 0 0 0 1 0l1-1 1-1 2-1 1-1a10 10 0 0 1 1 0h15l2 1a2 2 0 0 1 0 0v1a6 6 0 0 1 0 2l-1 3a20 20 0 0 1 0 0l-4 4a28 28 0 0 1-1 1 22 22 0 0 1-3 2l-5 2a31 31 0 0 1-6 1h-5a39 39 0 0 1-9-1l-9-3a23 23 0 0 1-2-2 21 21 0 0 1-6-9l-2-8a44 44 0 0 1 0-3v-2a37 37 0 0 1 1-6l3-8a23 23 0 0 1 0 0q3-6 9-9a28 28 0 0 1 8-2 38 38 0 0 1 7-1 38 38 0 0 1 6 1q4 0 7 2a22 22 0 0 1 2 1q6 4 9 10a29 29 0 0 1 3 10 35 35 0 0 1 0 3Zm-34-6h13l-1-4a9 9 0 0 0 0 0 7 7 0 0 0-1-2 5 5 0 0 0-1-1 5 5 0 0 0-2-1 7 7 0 0 0-1 0 7 7 0 0 0-2 0 5 5 0 0 0-2 1 5 5 0 0 0-1 1 7 7 0 0 0-1 2 11 11 0 0 0 0 1l-1 2a20 20 0 0 0 0 1Z" vector-effect="non-scaling-stroke"/>
-            </g>
-        </svg>
-    </a>
-{% endmacro %}
+
+{% block navigation %}
+    {{ tag( 'div', {
+        class: "w-full flex flex-col flex-grow text-right justify-between items-end gap-6 py-2 @container",
+        html : block('utility') ~ block('primary') ~ block('mobile')
+    } ) }}
+{% endblock %}
+
+
+{% block navigation__minimal %}
+    {{ tag( 'div', {
+        class: "w-full flex flex-col flex-grow text-right justify-between items-end gap-6 py-2 @container",
+        html : block('utility') ~ block('mobile')
+    } ) }}
+{% endblock %}
+
+
+{% block primary %}
+    {% import "_core" as assemble %}
+    {{ tag( 'div', {
+        class: "hidden md:flex items-center gap-6",
+        html : assemble.menu( 'primary', entry ??? null, {} )
+    } ) }}
+{% endblock %}
+
+
+{% block utility %}
+    {% set handle = 'utility' %}
+    {% set title  = title ??? craft.navigation.getNavByHandle( handle ).name ??? 'Utility' %}
+    {% set nodes  = craft.navigation.nodes().handle( handle ).level(1) %}
+
+    {% if nodes | length %}
+        <div class="hidden md:flex items-center gap-3 text-xs">
+            {% embed ["_site/menu.list", "_core/menu.list"] with {
+                title : title,
+                handle: handle,
+                items : nodes.all() ??? null,
+            } %}
+                {% block lastItem %}
+                    {{ block( 'openItem' ) }}
+
+                    {{ tag( 'a', {
+                        href : siteUrl('/search'),
+                        class: 'block w-4 h-4 -mt-0.5',
+                        html : svg( '@appicons/search.svg' ) | attr({ 'class': 'w-4 h-4 block fill-current'})
+                    }) }}
+
+                    {{ block( 'closeItem' ) }}
+                {% endblock %}
+
+                {% block menuClass %}
+                    m-0
+                    p-0
+                    list-none
+                    flex
+                    items-center
+                    gap-3
+                    text-sm
+                    no-underline
+                {% endblock %}
+
+                {% block itemClass %}
+                    flex
+                    flex-col
+                    items-center
+                    p-2
+                    text-theme-link
+                    underline-offset-1
+                    hover:underline
+                    hover:text-theme-link-tint
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{## Not the mobile menu, just an alpine trigger for it ##}
+{% block mobile %}
+    {% import "_core/menu.mobile" as mobilemenu %}
+    {{ mobilemenu.trigger() }}
+{% endblock %}
+
+
+{% block opentag %}
+    <header {{ attr({
+        id   : "masthead",
+        role : "banner",
+        class: "relative z-10 canvas",
+        data : { theme: theme ??? 'base' }
+    }) }}>
+{% endblock %}
+
+
+{% block closetag "</header>" %}

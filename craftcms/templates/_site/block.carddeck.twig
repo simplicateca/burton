@@ -1,0 +1,28 @@
+{## Text Block Base
+{---------------------------------------------------------------------------------------}
+    http://localhost:8000/sitehub/blocks/text
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_core/block.carddeck" ] %}
+
+
+{## Secondary Text Reveal Blocks
+{---------------------------------------------------------------------------------------}
+    This block varient loads content from the local `summary` field -or- from the
+    `summary` field of the attached Reusable Content Bit.
+{-------------------------------------------------------------------------------------##}
+
+{% block block__zone1_after -%}
+
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
+
+    {%- set deck     = deck ??? null -%}
+    {%- set element  = deck ? deck | first : null -%}
+    {%- set handle   = element.type.handle ??? null %}
+    {%- set cardname = settings.cardname   ??? null %}
+
+    {% if cardname == 'spotlight' and handle == 'brand' %}
+        {%- import "_site/card.spotlight.brand" as brand -%}
+        {{ brand.upcoming( element, settings ) }}
+    {% endif %}
+
+{% endblock %}

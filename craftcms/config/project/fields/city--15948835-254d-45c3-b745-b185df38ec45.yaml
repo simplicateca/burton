@@ -1,0 +1,52 @@
+columnSuffix: null
+handle: city
+instructions: null
+name: City
+searchable: true
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - e9463906-5ad1-4c76-8a48-e45f0441f3b1
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 041e750b-ab10-4fb9-a87b-41acf128aae2 # City
+  selectionLabel: Choose
+  showCardsInGrid: false
+  showSiteMenu: false
+  sources:
+    - 'section:d4c481a4-83d0-4824-968f-d14247ec9c65' # Event Logistics
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

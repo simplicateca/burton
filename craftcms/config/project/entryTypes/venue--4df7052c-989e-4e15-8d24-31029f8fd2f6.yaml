@@ -1,0 +1,207 @@
+color: null
+fieldLayouts:
+  ad3e4177-a0db-4d32-bdca-68efffaa2374:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Venue Type'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4519e44f-6108-4342-946b-e5a88d47ddd0
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 15948835-254d-45c3-b745-b185df38ec45 # City
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0f81cceb-f890-4b86-9d7b-f94b4acbed9d
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-header-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: e30da506-4bac-4a8f-b5b3-fb6c7c3870d6
+            userCondition: null
+            width: 100
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: 'Venue (Short) Name'
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 9f1b3f98-ee59-4137-9cc0-1574b1fee171
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Full Title
+            handle: null
+            includeInCards: false
+            instructions: 'Don''t include Hall or Room numbers'
+            label: 'Venue (Long) Name'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c0b96348-7a27-4447-a210-17becd9d1943
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2da0b53f-4948-46ec-98c6-5b666668524a
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 8563af1f-8528-42d1-9d4d-056a22674ad2
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: ad02d4ae-140c-42a7-ad18-9c14bd90aa05 # Address
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e8e2ae6e-2e7d-4d30-9a13-f5daadfa0816
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 8ae479a3-4fb7-4a94-a653-1c838d028f01 # FAQs
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0e428e3e-f8f6-411a-b295-0e25b54264a4
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\LineBreak
+            uid: 7903ba36-dce1-44e1-b934-f1ca9baea94a
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 29b673a0-177d-4ed0-b1e0-7328e02495e4 # Outbound Links & Accounts
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Contact & Socials'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e7c28af1-122d-4f35-8e64-c84d4cee02fd
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 632180b5-4e28-4bac-8d86-e4b116cb0ad5
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 18c6ae17-87a7-4bf8-811b-021d7d3b3839
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f1dcbfdc-bf56-4786-b398-6e3904c82ab7
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: e613cdea-1990-43c3-b74c-68ecb349d449
+        userCondition: null
+handle: venue
+hasTitleField: true
+icon: church
+name: Venue
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: ''
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: ''
+titleTranslationMethod: site

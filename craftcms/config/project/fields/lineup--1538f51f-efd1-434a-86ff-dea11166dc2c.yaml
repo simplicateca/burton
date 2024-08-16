@@ -1,0 +1,20 @@
+columnSuffix: null
+handle: lineup
+instructions: null
+name: Lineup
+searchable: false
+settings:
+  createButtonLabel: Add
+  entryTypes:
+    - 704de27a-b3b1-42d5-97ba-f89c47d27077 # Timeslot
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: null
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: false
+  viewMode: blocks
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

@@ -1,0 +1,107 @@
+color: null
+fieldLayouts:
+  92a71f13-a341-4dae-a324-c9a9eb54e890:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 6d1abcc6-b44d-4eb6-bd50-2323819d6b4d
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 4dce367e-15ad-4485-bca9-6069ca8f1fe8 # Time
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6f68084b-d5cb-4714-91a2-786a7df5e974
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Type
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 37875045-e474-4337-8aad-2f4c6aee78a8
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+                  layoutElementUid: 37875045-e474-4337-8aad-2f4c6aee78a8
+                  operator: in
+                  uid: 7bc6ae88-141b-47a1-9ca9-8af0787bb641
+                  values:
+                    - session
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: be00849c-cd4a-4685-92e6-55e006f6f29a # Sessions
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Session
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4378e36e-3873-4acc-967d-4b00eea5bcfb
+            userCondition: null
+            warning: null
+            width: 25
+        name: Content
+        uid: 2f02712d-ad23-4768-95e5-7fda3def0541
+        userCondition: null
+handle: timeslot
+hasTitleField: false
+icon: timer
+name: Timeslot
+showSlugField: false
+showStatusField: false
+slugTranslationKeyFormat: ''
+slugTranslationMethod: site
+titleFormat: '{{ object.owner.slug }}-{{ object.variant.value }}-{{ object.time ??? null | t }}'
+titleTranslationKeyFormat: ''
+titleTranslationMethod: site

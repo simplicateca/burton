@@ -1,0 +1,186 @@
+color: null
+fieldLayouts:
+  bb589d7d-986a-4917-aa3a-89765dc06c11:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: 'Author Name'
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 6dbfd9fd-4a9c-4b47-bfff-94fc2c8030a2
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c # Label
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Position (Role, job title, etc.)'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a40b8770-93b3-4421-adbe-b8b570829da2
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Quote
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d092636f-8b22-4922-b8a2-839662d540cb
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 183bfb75-b1ad-4de2-b9aa-13ba782e76b0
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 3599cd64-c574-4f16-b69a-d4d2fe02a535
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 420f9e16-016a-45f3-b259-d1eeceed2e1b
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 01e0d01f-e03b-4fce-8c03-1b3edf0d6a4b
+            userCondition: null
+          -
+            elementCondition: null
+            heading: Relationships
+            type: craft\fieldlayoutelements\Heading
+            uid: c51de9ad-c20c-466a-8af2-ca578ca24b5a
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: a410632e-9404-48a0-bada-427d97c46ea0 # Books
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 61b7bad7-42d8-47d6-870d-c4c44c379338
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: c5da4c05-a571-456d-aa75-00a7802b85f1 # People • Organizations
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 97917bb7-fca2-4396-a9bc-8bcf782859e8
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: f6e557d8-e821-4ff3-ba2d-9fe578cc7885 # Event Brand
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a3450768-9998-4616-bebc-6ca92b1ade3b
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: be00849c-cd4a-4685-92e6-55e006f6f29a # Sessions
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 3b9b081c-9e3b-4d87-b71c-49dc6ce64207
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: 668bc674-86b6-4e50-a07c-a1f3619796cf
+        userCondition: null
+handle: quote
+hasTitleField: true
+icon: quotes
+name: Quote
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: ''
+slugTranslationMethod: site
+titleFormat: ''
+titleTranslationKeyFormat: ''
+titleTranslationMethod: site

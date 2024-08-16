@@ -69,7 +69,7 @@ fieldLayouts:
         elements:
           -
             elementCondition: null
-            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Full Title
             handle: null
             includeInCards: false
             instructions: null
@@ -118,11 +118,11 @@ fieldLayouts:
 handle: rss
 hasTitleField: true
 icon: rss
-name: 'RSS Feed'
+name: 'RSS Collection'
 showSlugField: true
 showStatusField: true
-slugTranslationKeyFormat: null
+slugTranslationKeyFormat: ''
 slugTranslationMethod: site
 titleFormat: ''
-titleTranslationKeyFormat: null
+titleTranslationKeyFormat: ''
 titleTranslationMethod: site

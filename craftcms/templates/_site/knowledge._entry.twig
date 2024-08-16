@@ -1,0 +1,233 @@
+{## Entry Template for Knowledge Base Section
+{---------------------------------------------------------------------------------------}
+    Admin ➜ http://localhost:8000/cms/settings/sections/2
+{-------------------------------------------------------------------------------------##}
+{% set template = null %}
+{% set handle   = entry.type.handle ?? null %}
+
+
+{## [Type] Article → http://localhost:8000/cms/settings/entry-types/27
+{-------------------------------------------------------------------------------------##}
+{% if 'article' == handle %}
+    {% set template = "_site/template.fullpage" %}
+{% endif %}
+
+
+{## [Type] Book → http://localhost:8000/cms/settings/entry-types/24
+{-------------------------------------------------------------------------------------##}
+{% if 'book' == handle %}
+    {% set template = "_site/template.fullpage" %}
+{% endif %}
+
+
+{## [Type] Magazine Issue → http://localhost:8000/cms/settings/entry-types/26
+{-------------------------------------------------------------------------------------##}
+{% if 'issue' == handle %}
+    {% set template = "_site/template.fullpage" %}
+{% endif %}
+
+
+{## [Type] News Release → http://localhost:8000/cms/settings/entry-types/9
+{-------------------------------------------------------------------------------------##}
+{% if 'release' == handle %}
+    {% set template = "_site/template.sidebar" %}
+{% endif %}
+
+
+{## Render Template
+{---------------------------------------------------------------------------------------}
+    We use `extends` (vs `include`) to allow overriding template {% blocks %} in *this*
+    template, rather than forcing separate files for each type, even for minimal changes.
+  ➜ https://twig.symfony.com/doc/3.x/tags/extends.html
+{-------------------------------------------------------------------------------------##}
+{% extends template ? template : template_from_string('{% block catch "" %}') %}
+
+
+{## [Error] 404 Not Found ➜ craftcms/templates/_site/error.twig
+{-------------------------------------------------------------------------------------##}
+{% block catch %}{% header "HTTP/1.0 404 Not Found" %}{% endblock %}
+
+
+
+{#######################################################################################}
+{##                                   Custom Macros                                   ##}
+{#######################################################################################}
+
+
+{## [Macro] Knowledge Base URI Builder
+{---------------------------------------------------------------------------------------}
+    Better than a long-ass Twig-oneliner stuffed into the `URI Format` CP field:
+  ➜ {% from '_site/knowledge._entry' import uri %}{{ uri( object ) }}
+
+ ## Output Examples
+  └ magazine/issue-one
+  └ library/title-of-book-author-name
+  └ insights/regular-article-title
+  └ insights/exclusive/digital-insiders-content
+  └ insights/guides/learning-guide-name
+  └ insights/listen/episode-title
+  └ insights/watch/video-title
+  └ about/news/release-name
+
+ ## IMPORTANT ― Resave existing records (via console) anytime this macro changes:
+  ➜ make craft "resave/entries --section=knowledge"
+{-------------------------------------------------------------------------------------##}
+{% macro uri( object ) %}{% apply spaceless %}
+    {% set parts  = [] %}
+    {% set handle = object.type.handle %}
+
+    {% if 'article' == handle %}
+        {% switch object.variant.value ?? null %}
+            {% case 'rticle__general' %}
+                {% set parts = [ 'insights', object.slug ] %}
+            {% case 'article_audio' %}
+                {% set parts = [ 'insights/listen', object.slug ] %}
+            {% case 'article_video' %}
+                {% set parts = [ 'insights/watch', object.slug ] %}
+            {% case 'article_guide' %}
+                {% set parts = [ 'insights/guides', object.slug ] %}
+            {% case 'article_exclusive' %}
+                {% set parts = [ 'insights/exclusive', object.slug ] %}
+        {% endswitch %}
+    {% endif %}
+
+    {% if 'book' == handle %}
+        {% set parts = [ 'library', object.slug ] %}
+    {% endif %}
+
+    {% if 'issue' == handle %}
+        {% set parts = [ 'magazine', object.slug ] %}
+    {% endif %}
+
+    {% if 'release' == handle %}
+        {% set parts = [ 'about/news', object.slug ] %}
+    {% endif %}
+
+    {{ parts | filter | join('/') }}
+{% endapply %}{% endmacro %}
+
+
+{## [Macro] Author Chip
+{-------------------------------------------------------------------------------------##}
+{% macro authorchip( author ) %}
+    {% if author ?? null %}
+        <div class="flex items-center space-x-2" itemscope itemtype="http://schema.org/Person">
+            <img src="{{ author.photo.url ??? null }}" alt="{{ author.fullName }}" class="h-8 w-8 rounded-full" itemprop="image">
+            <span itemprop="name">{{ author.fullName }}</span>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{## [Macro] Author Bio
+{-------------------------------------------------------------------------------------##}
+{% macro authorbio(author) %}
+{% if author ?? null %}
+    <div class="bg-theme-tint p-4 rounded-lg">
+        <div class="flex items-center mb-4">
+            <img src="{{ author.photo.url ??? null }}" alt="{{ author.fullName }}" class="h-20 w-20 rounded-full" itemprop="image">
+            <div class="ml-4">
+                <h2 class="text-lg font-semibold">{{ author.fullName }}</h2>
+                <p>{{ author.text ??? author.summary }}</p>
+                {% if author.website ??? null%}<p><a href="{{ author.website }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600">{{ author.website }}</a></p>{% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endmacro %}
+
+
+{## [Macro] Post Date
+{-------------------------------------------------------------------------------------##}
+{% macro postdate(date) %}
+    <time datetime="{{ date|date('Y-m-d') }}" itemprop="datePublished">{{ date|date('F j, Y') }}</time>
+{% endmacro %}
+
+
+{## [Macro] Topics
+{-------------------------------------------------------------------------------------##}
+{% macro topics(topics) %}
+    <div class="like-h4">POSTED IN</div>
+    <div class="flex flex-wrap space-x-2">
+        {% for tag in topics %}
+            <a href="{{ tag.url }}" class="text-sm font-medium text-gray-800 hover:text-blue-600" itemprop="about">{{ tag.title }}</a>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+
+{## [Macro] Related Content
+{-------------------------------------------------------------------------------------##}
+{% macro related( articles ) %}
+    {%- set settings = {
+        'iterator': 'grid3',
+        'cardname': 'summary'
+    } -%}
+
+    {% import "_core" as assemble %}
+    {{- assemble.deck( settings.iterator, articles, settings ) -}}
+{% endmacro %}
+
+
+
+{#######################################################################################}
+{##                                Template Overrides                                 ##}
+{#######################################################################################}
+
+
+{## [Block] Page Top with <header>
+{---------------------------------------------------------------------------------------}
+  -
+{---------------------------------------------------------------------------------------}
+    From ➜ _site/template.fullpage.twig
+{-------------------------------------------------------------------------------------##}
+{% block page__top %}
+    {% embed '_site/header' with {
+        datechip  : _self.postdate( entry.postDate ),
+        authorchip: _self.authorchip( entry.author ),
+    } %}
+        {% block breadcrumb "" %}
+
+        {% block plaintitle %}
+            {% set header__align = "left" %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block header__beforeclose %}
+            {% import "_core" as assemble %}
+            {% set metacontent %}
+                <div class="bg-theme-tint p-4 mt-8 flex flex-row flex-wrap items-center gap-8 max-w-5xl">
+                    {{ datechip }}
+                    {{ authorchip }}
+                    <span>Read Time: <strong>5 min</strong></span>
+                </div>
+            {% endset %}
+            {{ assemble.container( 'fluid', metacontent ) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{## [Block] Before Closing Main Content Area
+{---------------------------------------------------------------------------------------}
+  -
+{---------------------------------------------------------------------------------------}
+    From ➜ _site/template.fullpage.twig
+{-------------------------------------------------------------------------------------##}
+{% block main__beforeclose %}
+    {% set articlebottom %}
+        <div class="flex flex-col gap-10" data-bodycopy>
+
+            <div class="max-w-5xl @container">
+                {{ _self.topics( entry.taxonomies ) }}
+                {{ _self.authorbio( entry.author ) }}
+            </div>
+
+            {%- set related = craft.entries({ section: 'articles', id: "!= #{entry.id}", limit: 3 }) -%}
+            {{ _self.related( related ) }}
+        </div>
+    {% endset %}
+
+    {% import "_core" as assemble %}
+    {{ assemble.container( 'fluid', articlebottom ) }}
+{% endblock %}

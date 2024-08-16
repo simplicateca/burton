@@ -4,49 +4,17 @@ instructions: null
 name: Bits
 searchable: false
 settings:
-  allowSelfRelations: false
-  branchLimit: null
-  localizeRelations: false
-  maintainHierarchy: false
-  maxRelations: null
-  minRelations: null
-  selectionCondition:
-    __assoc__:
-      -
-        - elementType
-        - craft\elements\Entry
-      -
-        - fieldContext
-        - global
-      -
-        - class
-        - craft\elements\conditions\entries\EntryCondition
-      -
-        - conditionRules
-        -
-          -
-            __assoc__:
-              -
-                - class
-                - craft\elements\conditions\entries\TypeConditionRule
-              -
-                - uid
-                - eaf7301f-e1b9-40c7-9b79-eb4dbcd116af
-              -
-                - operator
-                - in
-              -
-                - values
-                -
-                  - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
-  selectionLabel: 'Choose Bit'
+  createButtonLabel: Add
+  entryTypes:
+    - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: null
+  propagationKeyFormat: null
+  propagationMethod: none
   showCardsInGrid: false
-  showSiteMenu: true
-  sources:
-    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Content Bits
-  targetSiteId: null
-  validateRelatedElements: false
-  viewMode: list
+  viewMode: blocks
 translationKeyFormat: null
 translationMethod: site
-type: craft\fields\Entries
+type: craft\fields\Matrix

@@ -1,0 +1,289 @@
+descriptionFormat: '{product.title} - {title}'
+enableVersioning: false
+handle: shirt
+hasDimensions: false
+hasProductTitleField: true
+hasVariantTitleField: true
+maxVariants: null
+name: Shirt
+productFieldLayouts:
+  c07f0f2d-b956-492d-ad17-fae1def551cc:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\commerce\fieldlayoutelements\ProductTitleField
+            uid: ec6c0bd9-6f09-4381-978d-587f67ee6ffb
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: variants
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\VariantsField
+            uid: 34793380-74c2-493f-a30d-46dc0cfe501f
+            userCondition: null
+            warning: null
+        name: Content
+        uid: 935a08f6-746e-4b05-9038-f385c127f445
+        userCondition: null
+productTitleFormat: ''
+siteSettings:
+  5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
+    hasUrls: true
+    template: ''
+    uriFormat: 'shirt/{slug}'
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+    hasUrls: true
+    template: ''
+    uriFormat: 'shirt/{slug}'
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # USA
+    hasUrls: true
+    template: ''
+    uriFormat: 'shirt/{slug}'
+skuFormat: ''
+variantFieldLayouts:
+  fc40cfbf-e4c0-4aee-88e7-d30b6e915639:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\commerce\fieldlayoutelements\VariantTitleField
+            uid: c6820365-e676-4322-9da9-25a9206f9c33
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: sku
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: SKU
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: true
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableSkuField
+            uid: 44bac195-f7c8-477e-ba10-9726675bf158
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: price
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: true
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasablePriceField
+            uid: f9b519d3-4762-4b30-b00a-b6a3c26a1f76
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: stock
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: Inventory
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: true
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableStockField
+            uid: 78ad0baa-e005-4a72-906e-b64b95aab78e
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: availableForPurchase
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: 'Available for purchase'
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: true
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableAvailableForPurchaseField
+            uid: 0fb6708f-483e-441c-b5be-9c5164089304
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: allowedQty
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: 'Allowed Qty'
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableAllowedQtyField
+            uid: 7d999b6f-aab2-43dd-b2f5-2da05e284048
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: freeShipping
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: 'Free Shipping'
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: true
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableFreeShippingField
+            uid: 6f91b0cb-ba50-434c-83b0-bab1d3ecb08b
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: promotable
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: Promotable
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: true
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasablePromotableField
+            uid: 2441e547-c5f2-413b-a739-558494a468d5
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: dimensions
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: Dimensions
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableDimensionsField
+            uid: 505ce0de-edae-48dd-872c-1746899962ce
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: weight
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: Weight
+            mandatory: true
+            orientation: null
+            providesThumbs: false
+            requirable: false
+            required: false
+            tip: null
+            translatable: false
+            type: craft\commerce\fieldlayoutelements\PurchasableWeightField
+            uid: 710f8c20-0b11-416f-bae7-80310b5ca7cd
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 4091208a-7c2e-4915-ada7-c921a65a231c
+        userCondition: null
+variantTitleFormat: '{product.title}'

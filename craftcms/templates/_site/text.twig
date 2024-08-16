@@ -10,15 +10,21 @@
     {%- set align = settings.eyebrowalign ??? '' -%}
 
     {%- if text or icon -%}
-        <div class="eyebrow table pb-3 {{align}}">
+        <div class="eyebrow table {{align}}">
             <div class="flex flex-col gap-3" data-eyebrow="basic">
-                {{ tag( 'div', { html: svg("@appicons/#{icon}.svg")
-                    | attr({ class: ["w-10 fill-theme-accent", align] }) }) }}
-                {{ tag('span', { class: 'text-sm uppercase font-headline text-theme-accent', text: text }) }}
+                {% if icon %}
+                    {{ tag( 'div', { html: svg("@appicons/#{icon}.svg")
+                        | attr({ class: ["w-10 fill-theme-accent", align] }) }) }}
+                {% endif %}
+                {{ tag('span', { class: 'text-sm @xl:text-lg uppercase font-headline text-theme-accent font-bold', text: text }) }}
             </div>
         </div>
     {% endif %}
 {%- endmacro %}
+
+{% macro eyebrow__centerbasic( text, settings ) -%}
+    {{ _self.eyebrow__basic( text, settings | merge({ eyebrowalign: 'mx-auto' }) ) }}
+{% endmacro %}
 
 
 

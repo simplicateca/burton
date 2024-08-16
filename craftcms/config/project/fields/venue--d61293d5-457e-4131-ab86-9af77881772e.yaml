@@ -1,0 +1,53 @@
+columnSuffix: null
+handle: venue
+instructions: null
+name: Venue
+searchable: true
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 678af41f-4fe4-4970-817c-5ce9f369add3
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 4df7052c-989e-4e15-8d24-31029f8fd2f6 # Venue
+                  - ad3c4465-2c99-4028-82f5-cd2d63371663 # FAQ
+  selectionLabel: Choose
+  showCardsInGrid: false
+  showSiteMenu: false
+  sources:
+    - 'section:d4c481a4-83d0-4824-968f-d14247ec9c65' # Event Logistics
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

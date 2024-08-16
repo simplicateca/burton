@@ -11,7 +11,7 @@ previewTargets:
     __assoc__:
       -
         - label
-        - 'Primary entry page'
+        - 'Primary URL'
       -
         - urlFormat
         - '{url}'
@@ -20,11 +20,11 @@ previewTargets:
         - '1'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
     enabledByDefault: true
     hasUrls: true
-    template: _site/taxonomy._entry.twig
-    uriFormat: '{% from ''_site/taxonomy._entry'' import uri %}{{ uri( object ) }}'
+    template: _site/topics._entry.twig
+    uriFormat: '{% from ''_site/topics._entry'' import uri %}{{ uri( object ) }}'
 structure:
   maxLevels: 2
   uid: cc00ceed-0937-472c-b55c-c83fa5fce262

@@ -2,20 +2,8 @@
 {---------------------------------------------------------------------------------------}
   > http://localhost:8000/sitehub/blocks/text
 {-------------------------------------------------------------------------------------##}
-{%- extends [ "_site/block", "_core/block" ] -%}
-
-{%- import "_core" as assemble -%}
-
-
-{## Template Variables
-{---------------------------------------------------------------------------------------}
-    Reminder about Twig Variable Scope: Don't change or set default values on `block`
-    or `settings` both inside AND outside of inheritable {% block %} scope. Pick one!
-{-------------------------------------------------------------------------------------##}
-{%- set block = block ?? {} -%}
-
-{%- set settings = block.settings ??? null -%}
-{%- set settings = settings ?? null is iterable ? settings : {} -%}
+{%- set _field = ( settings.field ??? block.settings.field ??? '' ) | replace({'Builder':''}) %}
+{%- extends [ "_site/#{_field}.block", "_site/block", "_core/block" ] -%}
 
 
 {## Zone 1 Content
@@ -25,14 +13,13 @@
 
     Otherwise, something like the below code could be used to render the zone1 text.
 {-------------------------------------------------------------------------------------##}
-{# {% block block__zone1 %}
-    {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+{# {% block block__zone1 -%}
+{%- if block.text ??? null -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = { textlayer: 'default' } | merge( settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.text( settings.textlayer, block.text2, settings ) -}}
-{% endblock %}#}
-
+    {{- assemble.text( settings.textlayer, block.text, settings ) -}}
+{%- endif %}{% endblock %}#}
 
 
 {## Zone 2 Variant Routing
@@ -42,6 +29,7 @@
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 -%}
 
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = {
         variant   : null,
         textlayer : 'default',
@@ -67,8 +55,7 @@
 {-------------------------------------------------------------------------------------##}
 {% block text2__fallback -%}
 {% if block.text2 ??? null -%}
-    {%- set settings = settings ?? block.settings ?? null -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = { text2layer: 'default' } | merge( settings ) -%}
     {%- import "_core" as assemble -%}
     {{- assemble.text( settings.text2layer, block.text2, settings ) -}}

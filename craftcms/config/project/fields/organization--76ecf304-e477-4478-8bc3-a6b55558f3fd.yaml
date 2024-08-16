@@ -1,0 +1,52 @@
+columnSuffix: null
+handle: organization
+instructions: null
+name: Organization
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  localizeRelations: false
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 875775c2-02db-431b-971a-4ea7336cb104
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 8209c5fd-6e8c-45d3-8dc2-b44a991dc31e # Organization
+  selectionLabel: Choose
+  showCardsInGrid: false
+  showSiteMenu: false
+  sources:
+    - 'section:24626664-b886-4d46-a8d0-bb30ed656725' # Profiles
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Entries

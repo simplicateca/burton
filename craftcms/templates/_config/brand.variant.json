@@ -1,0 +1,19 @@
+[{
+    "value"   : "brand_current",
+    "label"   : "Current",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "brand_retired",
+    "label"   : "Retired",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "brand_soon",
+    "label"   : "Coming Soon",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

@@ -1,0 +1,357 @@
+eventFieldLayouts:
+  5215c2cc-365c-4de9-b2bc-1680cc690e3c:
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-event-conference.twig
+            type: craft\fieldlayoutelements\Template
+            uid: af73b6c9-1c95-4106-9963-da0e75936b61
+            userCondition: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab # Code
+            handle: null
+            includeInCards: false
+            instructions: 'LT24, LWC25, etc.'
+            label: 'Internal Reference'
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 8b18c053-f7aa-41c9-834e-7d4cfacf744c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\LineBreak
+            uid: abd1ef2c-6a1d-40f4-b75d-843df738c994
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f6e557d8-e821-4ff3-ba2d-9fe578cc7885 # Event Brand
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 1df46913-2789-4589-894f-6cb5cb243f3d
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 15948835-254d-45c3-b745-b185df38ec45 # City
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 153ebbd3-fe95-4719-874f-020994735692
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: d61293d5-457e-4131-ab86-9af77881772e # Venue
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 92d2944a-befa-484e-ab67-f220f629619e
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c # Label
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Room • Hall'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 23451df0-c5c3-494f-9cf0-7dc420b32d57
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\LineBreak
+            uid: 88accaa7-3df3-49e3-87f9-b151ee835c22
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: be00849c-cd4a-4685-92e6-55e006f6f29a # Sessions
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f98b73f4-402f-4cbe-be02-57e6f253094b
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 357cfa84-7167-41f8-9ebf-bbbbe6a45153
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 3f2c1712-4a3b-488b-9c9c-02c0749297f9
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-header-builder.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 67127922-caf9-4104-9310-c1ce2ac02b81
+            userCondition: null
+            width: 100
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: 'Use a shorter version of the title (if applicable or possible)'
+            label: Title
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: verbb\events\fieldlayoutelements\EventTitleField
+            uid: 3189c2e1-4173-4518-ae91-a9b78345125e
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            elementCondition: null
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Full Title
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9a6b6c38-6fb7-4596-8657-3e9b24c58d1c
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Header Builder
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e01ae9b2-367b-4910-8bde-8e7ccf4c474b
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 3802f6d4-fac4-4e77-aa2b-1931ddc92182
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: dab72320-6630-4b35-9ec9-0db40656f06e
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6add81de-f3ad-4bff-a2a6-956d1169b3f2
+            userCondition: null
+            warning: null
+            width: 50
+        name: 'Primary Content'
+        uid: 82b5d2cb-5021-47ca-9702-8c5fb8cb31b1
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            elementCondition: null
+            fieldUid: 7797eddc-33dc-46d9-845a-840f747716bd # Ticket Packages
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 92e176e9-25c0-4f01-916d-e6c12c4ab6cf
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            fieldUid: 34184a55-ddcb-4573-8156-20e90806caf3 # Related Resources
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Resources
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 37b6cc11-3ebf-46d1-ad58-33d03026803e
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 94f39cab-d7c6-423a-ae78-15252464be09
+            userCondition: null
+          -
+            elementCondition: null
+            fieldUid: 1538f51f-efd1-434a-86ff-dea11166dc2c # Lineup
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: 'Lineup & Agenda'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 9909de07-3572-4521-b9bc-5d036cd2a8ed
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            elementCondition: null
+            fieldUid: eb0ccaf4-5d0a-49ed-a7cd-53644e347ce8 # Sponsors & Partner
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c17d72c0-dd7e-4929-9704-b2014d0f7be1
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 8516544d-e0cf-4cfe-8018-aa506cd51e68
+            userCondition: null
+          -
+            elementCondition: null
+            template: _sitehub/ui-template-addons.twig
+            type: craft\fieldlayoutelements\Template
+            uid: 3a207cc6-2a49-4a82-877d-de82c32a9821
+            userCondition: null
+            width: 50
+          -
+            elementCondition: null
+            fieldUid: 01c13296-4c57-49c0-802a-e980de4d84e0 # Addons
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 68a56772-bf1a-4e2e-a8c6-6a6169471a65
+            userCondition: null
+            warning: null
+            width: 50
+        name: 'Secondary Content'
+        uid: b0b42e32-61a6-464f-9c16-f98f1692041e
+        userCondition: null
+handle: conference
+hasTickets: true
+hasTitleField: true
+icsDescriptionFieldHandle: ''
+icsLocationFieldHandle: ''
+icsTimezone: ''
+name: Conference
+siteSettings:
+  5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
+    hasUrls: false
+    template: null
+    uriFormat: null
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+    hasUrls: true
+    template: _site/events._entry.twig
+    uriFormat: '{% from ''_site/events._entry'' import uri %}{{ uri( object ) }}'
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # USA
+    hasUrls: false
+    template: null
+    uriFormat: null
+titleFormat: null
+titleLabel: Title

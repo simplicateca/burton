@@ -1,0 +1,37 @@
+[{
+    "value"   : "session",
+    "label"   : "Session",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "doors",
+    "label"   : "Doors Open",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "opening",
+    "label"   : "Opening Remarks",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "networking",
+    "label"   : "Networking Break",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "lunch",
+    "label"   : "Lunch",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "closing",
+    "label"   : "Closing Remarks",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

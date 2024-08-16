@@ -2,13 +2,12 @@
 {---------------------------------------------------------------------------------------}
   > http://localhost:8000/sitehub/blocks/carddeck
 {-------------------------------------------------------------------------------------##}
-{%- extends [ "_site/block", "_core/block" ] -%}
+{%- set _field = ( settings.field ??? block.settings.field ??? '' ) | replace({'Builder':''}) %}
+{%- extends [ "_site/#{_field}.block", "_site/block", "_core/block" ] -%}
 
 
-{## Zone 2 Content / Variant Routing
-{-------------------------------------------------------------------------------------##}
-{% block block__zone2 %}
-
+{% block block__microlayout %}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = {
         variant  : null,
         limit    : 100,
@@ -18,7 +17,7 @@
 
     {## Specific Entries
     {---------------------------------------------------------------------------------##}
-    {%- set deck = collect( block.entries.with(['images', 'taxonomies']) ).all() -%}
+    {%- set deck = collect( block.entries ).all() -%}
 
 
     {## Content Bits
@@ -48,9 +47,21 @@
         } ) -%}
     {%- endif -%}
 
+    {% set content = {
+        zone1 : block('block__zone1'),
+        zone2 : block('block__zone2'),
+        header: block('block__header'),
+        footer: block('block__footer'),
+    } %}
 
-    {## Named Variant Block or Fallback?
-    {---------------------------------------------------------------------------------##}
+    {%- import "_core" as assemble -%}
+    {{- assemble.microlayout( settings.microlayout ??? 'default', content, settings ) -}}
+{% endblock %}
+
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
     {%- set blockname = "carddeck__#{settings.variant}" -%}
     {{- ( block( blockname ) is defined )
         ? block( blockname )

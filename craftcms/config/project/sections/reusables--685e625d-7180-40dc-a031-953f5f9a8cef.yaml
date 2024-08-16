@@ -1,0 +1,32 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  - ad3c4465-2c99-4028-82f5-cd2d63371663 # FAQ
+  - 066383d2-4c3e-415b-be7e-93c6a4c5471b # Quote
+  - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+  - 2508516d-3329-44ec-8518-04f2a29ca3f3 # Embed
+  - ff76eb70-820e-4752-b138-daef62692e3f # Builder
+  - 40f8a572-f12e-49f2-849d-8fbe3395eb5c # Addon
+handle: reusables
+maxAuthors: 1
+name: Reusables
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Contextual Preview'
+      -
+        - urlFormat
+        - 'sitehub/reusables/{{object.type.handle}}/{{object.slug}}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

@@ -19,9 +19,13 @@
 {---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
+{% block card__imagelayer "square" %}
+
 {% block card__words -%}
-    <div class="absolute inset-0 flex p-2 z-30 flex-col justify-center h-full items-center group overflow-hidden">
-        {{- block( 'card__headline' ) | attr( { class: 'knockout' } ) -}}
-        {{- block('card__action') -}}
+    <div class="absolute inset-0 flex p-2 z-30 flex-col justify-end h-full items-center group overflow-hidden">
+
+        {{- block( 'card__headline' ) | attr({ class: false }) | attr({ class: 'text-white text-shadow-lg' }) -}}
+
     </div>
+    {{- block('card__action') -}}
 {%- endblock %}

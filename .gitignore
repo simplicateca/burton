@@ -5,6 +5,9 @@ license.key
 license.key.*
 craftcms/web/dist
 
+# CONVIENENCE SYMLINK FOR EDITING
+craftcms/templates/_core
+
 # UNCOMPRESSED DATABASE SEED FILES
 etc/database-seed/*.sql
 

@@ -179,8 +179,8 @@ permissions:
     permissions:
       - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
       - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
-      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Page Content
-      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Articles
+      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
+      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
   craft\elements\Tag:
     enabled: ''
     permissions: '*'
@@ -190,9 +190,9 @@ permissions:
     enabled: '1'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
     enabled: true
-sortOrder: 3
+sortOrder: 5
 structure:
   maxLevels: 1
   uid: 310ae1f7-dddd-4711-b139-5bf36c981f8a

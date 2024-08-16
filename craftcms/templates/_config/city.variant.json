@@ -1,0 +1,19 @@
+[{
+    "value"   : "city_regular",
+    "label"   : "Regular",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "city_feeder",
+    "label"   : "Feeder City",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "city_inactive",
+    "label"   : "Inactive",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

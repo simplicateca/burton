@@ -1,0 +1,93 @@
+{## [Core Block] Site Component
+{---------------------------------------------------------------------------------------}
+  > http://localhost:8000/sitehub/blocks/component
+{-------------------------------------------------------------------------------------##}
+{% extends [ "_core/block.component" ] %}
+
+{% block open %}
+    {% set opentag = parent() %}
+    {% set variant = block.variant ?? null %}
+
+    {% if variant == 'form' %}
+        {{ opentag | raw }}
+    {% else %}
+        {{ opentag | attr({
+            'data-bodycopy': false
+        }) | raw }}
+    {% endif %}
+{% endblock %}
+
+
+{## Menu Variant
+{-------------------------------------------------------------------------------------##}
+{% block component__menu %}
+    {% set handle  = collect( block.menu ??? null ).first %}
+    {% set menu    = craft.navigation.getNavByHandle( handle ) ??? null %}
+    {% set nodes   = craft.navigation.nodes().handle( handle ).level(1) %}
+    {% set sidebar = settings.field ?? null == 'sidebarBuilder' %}
+
+    {% if menu %}
+        <div class="@container">
+            {% if sidebar %}
+                {% embed ["_site/menu.list", "_core/menu.list"] with {
+                    title : menu.name ?? null,
+                    handle: handle,
+                    items : nodes.all() ??? null,
+                } %}
+                    {% block item %}
+                        {% if node.isPassive %}
+                            {% set passive = "text-theme-accent font-bold text-base uppercase" %}
+                            {{ tag( 'div', {
+                                class: loop.first ? passive : "#{passive} mt-10",
+                                html : "<span>#{node.title}</span>"
+                            }) }}
+                        {% else %}
+                            {% set link = 'bg-theme-tint p-2 block w-full no-underline hover:bg-theme-accent hover:text-theme-accent-alt' %}
+                            {{ tag( 'a', {
+                                href : node.url ??? null,
+                                class: node.active ? "#{link} is-active" : link,
+                                html : "<span>#{node.title}</span>"
+                            }) }}
+                        {% endif %}
+                    {% endblock %}
+
+                    {% block closeItem %}
+                        </li>
+
+                        {% if node.children.one() %}
+                            {% for child in node.children.all() %}
+                                <li class="{{ block('itemClass') }}">
+                                    {% set link = 'bg-theme-tint p-2 block w-full no-underline hover:bg-theme-accent hover:text-theme-accent-alt' %}
+                                    {{ tag( 'a', {
+                                        href : child.url ??? null,
+                                        class: child.active ? "#{link} is-active" : link,
+                                        html : "<span>#{child.title}</span>"
+                                    }) }}
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    {% endblock %}
+
+                    {% block menuClass %}
+                        m-0
+                        p-0
+                        flex
+                        flex-col
+                        gap-1
+                        w-full
+                    {% endblock %}
+
+                    {% block itemClass %}
+                        m-0
+                        flex
+                        items-center
+                        text-theme-link
+                        no-underline
+                    {% endblock %}
+                {% endembed %}
+            {% else %}
+
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

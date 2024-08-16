@@ -77,5 +77,8 @@ return GeneralConfig::create()
 
     ->autoLoginAfterAccountActivation(true)
 
-    ->loginPath( '/account' )
+    ->verifyEmailPath('account/confirm-email')
+    ->verifyEmailSuccessPath('account/verified')
+    ->logoutPath('account/logout')
+    ->loginPath('account')
 ;

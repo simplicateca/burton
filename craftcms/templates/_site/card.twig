@@ -88,3 +88,47 @@
     {%- set items = items | map( item => assemble.card( settings.cardname, item, settings ) ) -%}
     {{- tag( 'div', { html: items | join(''), class: class, 'data-grid': 'autogrid' } ) -}}
 {%- endif %}{% endmacro %}
+
+
+
+{## Auto-Grid (Gapless) Iterator
+{-------------------------------------------------------------------------------------##}
+{% macro iterator__autogapless( items, settings ) -%}
+{%- if items ??? null and items is iterable -%}
+
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = { cardname: 'default' } | merge( settings ) -%}
+
+    {%- set class = "w-full grid grid-cols-1 " -%}
+    {%- set count = items | length %}
+
+    {%- if count == 1 -%}
+        {%- set class = class ~ "" -%}
+    {%- elseif count == 2 -%}
+        {%- set class = class ~ "@sm:grid-cols-2" -%}
+    {%- elseif count == 3 -%}
+        {%- set class = class ~ "@3xl:grid-cols-3" -%}
+    {%- elseif count == 4 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4" -%}
+    {%- elseif count == 5 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3" -%}
+    {%- elseif count == 6 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3" -%}
+    {%- elseif count == 7 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @4xl:grid-cols-4" -%}
+    {%- elseif count == 8 -%}
+        {%- set class = class ~ "@xs:grid-cols-2 @md:grid-cols-3 @2xl:grid-cols-4" -%}
+    {%- elseif count == 9 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @6xl:grid-cols-5" -%}
+    {%- elseif count == 10 -%}
+        {%- set class = class ~ "@xs:grid-cols-2 @md:grid-cols-3 @2xl:grid-cols-4 @6xl:grid-cols-5" -%}
+    {%- elseif count == 11 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 @6xl:grid-cols-6" -%}
+    {%- elseif count >= 12 -%}
+        {%- set class = class ~ "@sm:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 @6xl:grid-cols-6" -%}
+    {%- endif -%}
+
+    {%- import "_core" as assemble -%}
+    {%- set items = items | map( item => assemble.card( settings.cardname, item, settings ) ) -%}
+    {{- tag( 'div', { html: items | join(''), class: class, 'data-grid': 'autogapless' } ) -}}
+{%- endif %}{% endmacro %}

@@ -26,9 +26,9 @@ module.exports = {
 
         extend: {
             fontFamily: {
-                display:  ["Rubik"],
-                headline: ["Rubik"],
-                body:     ["Roboto Mono"],
+                display:  ["Lato"],
+                headline: ["Lato"],
+                body:     ["Lato"],
             },
 
             lineHeight: {
@@ -106,6 +106,7 @@ module.exports = {
     },
 
     plugins: [
-        require('@tailwindcss/container-queries')
+        require('@tailwindcss/container-queries'),
+        require('tailwindcss-textshadow')
     ],
 };

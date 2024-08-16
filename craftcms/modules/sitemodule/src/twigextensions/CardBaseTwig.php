@@ -83,8 +83,9 @@ class CardBaseTwig extends AbstractExtension
               ?? $this->_cardlabel( $headline );
 
         $summary = $this->_cardtext( $content->summary ?? '' ) ?? $this->_cardtext( $content->headline ?? '' );
-        $summary = ( empty( $summary ) && $content->text ?? null )
-            ? $this->_truncate( $this->_cardtext( $content->text ), 150 )
+
+        $summary = empty( $summary )
+            ? $this->_truncate( $this->_cardtext( $content->text ?? null ), 150 )
             : $summary;
 
         $card = [
