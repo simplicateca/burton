@@ -1,23 +1,30 @@
-{## Accordion Card   [Site Template]
+{## Accordion Card
 {-------------------------------------------------------------------------------------##}
-{% extends ["_site/card.panel", "_site/card", "_core/card"] %}
+{% extends ["_site/card", "_core/card"] %}
 
 
 {## Template Variables
-{---------------------------------------------------------------------------------------}
-
 {-------------------------------------------------------------------------------------##}
 {%- set card = card ??? null -%}
 
 {%- set settings = settings ?? null is iterable ? settings : {} -%}
 {%- set settings = settings | merge({
-    card__imagelayer: 'stretch'
+
 }) -%}
 
 
+{% block card__imagelayer "icon" %}
 
-{## Overload Parent Blocks
-{---------------------------------------------------------------------------------------}
+{% block card__class "w-full relative flex flex-row-reverse gap-10 pr-8" %}
 
-{-------------------------------------------------------------------------------------##}
-{% block card__headline "" %}
+{% block card__words -%}
+    <div class="flex flex-col gap-3">
+        <div class="-mr-8 pr-8 flex flex-col h-full">
+            <div class="flex-grow max-h-[50vh] overflow-y-auto">
+                {{- ( card.text ??? card.summary ) | raw -}}
+            </div>
+        </div>
+
+        {{ block('card__action')}}
+    </div>
+{%- endblock %}

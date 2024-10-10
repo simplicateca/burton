@@ -1,0 +1,49 @@
+{## Universal System Email Layout
+{---------------------------------------------------------------------------------------}
+    Based roughly on a combination of the following:
+ -> https://craftsnippets.com/articles/universal-email-template-for-craft-cms
+ -> https://supergeekery.com/blog/craftcms-html-email-template-missing-documenation
+{-------------------------------------------------------------------------------------##}
+{% extends "_core/email" %}
+
+{% block button__color "#2980b9" %}
+
+{% block email__body %}
+    {% set emailKey = emailKey ??? null %}
+    {% switch emailKey %}
+        {% case "account_activation" %}
+            {{ block('content__activation') }}
+        {% case "verify_new_email" %}
+            {{ block('content__verify_new_email') }}
+        {% case "forgot_password" %}
+            {{ block('content__forgot_password') }}
+        {% case "test_email" %}
+            {{ block('content__test_email') }}
+    {% endswitch %}
+{% endblock %}
+
+{% block content__activation %}
+    {% import "_core/email" as email %}
+    {{ email.header1( "Let's activate your account" ) }}
+    {{ body }}
+
+    {# {{ helper.button( 'Call to action', '#', block('button__color') ) }} #}
+{% endblock %}
+
+{% block content__verify_new_email %}
+    {% import "_core/email" as email %}
+    {{ email.header1( "Verify your new email address" ) }}
+    {{ body }}
+{% endblock %}
+
+{% block content__forgot_password %}
+    {% import "_core/email" as email %}
+    {{ email.header1( "We'll reset that password now" ) }}
+    {{ body }}
+{% endblock %}
+
+{% block content__test_email %}
+    {% import "_core/email" as email %}
+    {{ email.header1( "Testing makes perfect" ) }}
+    {{ body }}
+{% endblock %}

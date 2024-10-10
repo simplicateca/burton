@@ -16,22 +16,29 @@
 {% block card__class "w-full relative @container flex flex-col gap-4" %}
 
 {% block card__images -%}
-    {% if card._element.icon ??? null %}
-        {{ svg( '@appicons/' ~ card._element.icon ~ '.svg' ) | attr({ 'class': 'w-16 h-16 inline-block fill-theme-accent mx-auto'}) }}
-    {% else %}
-        {%- import "_core" as assemble -%}
-        {{- assemble.imagelayer( 'icon', card.images, settings ) -}}
+    {%- set svglogo = collect( card.images ).firstWhere( 'variant', 'svglogo' ) -%}
+    {%- if svglogo -%}
+        {{ svg( svglogo ) | attr({ 'class': 'w-full max-h-24 inline-block mx-auto'}) }}
+    {%- else -%}
+        {%- if card._element.icon ??? null -%}
+            {{ svg( '@appicons/' ~ card._element.icon ~ '.svg' ) | attr({ 'class': 'w-16 h-16 inline-block fill-theme-accent mx-auto'}) }}
+        {%- else -%}
+            {%- import "_core" as assemble -%}
+            {{- assemble.imagelayer( 'icon', card.images, settings ) -}}
+        {%- endif -%}
     {% endif %}
 {%- endblock %}
+
 
 {% block card__words -%}
     <div class="flex flex-col gap-4">
         {%- block card__headline -%}
-            {%- if card.headline %}<h3 class="!my-0 text-center">{{ raw( card.headline ) }}</h3>{% endif -%}
+            {% set svglogo = collect( card.images ).firstWhere( 'variant', 'svglogo' ) %}
+            {%- if card.headline and not svglogo %}<h3 class="!my-0 like-h4 text-center">{{ raw( card.headline ) }}</h3>{% endif -%}
         {%- endblock -%}
 
         {%- block card__summary -%}
-            {%- if card.summary %}{{ card.summary | attr({ class: "text-center smaller @2xs:normal @sm:larger" }) }}{% endif -%}
+            {%- if card.summary %}{{ card.summary | attr({ class: "text-center text-balance smaller @2xs:normal @sm:larger" }) }}{% endif -%}
         {%- endblock -%}
     </div>
 

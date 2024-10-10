@@ -84,6 +84,88 @@
 }{% endblock %}
 
 
+{% block separatorHeader %}{
+    "type" : "select",
+    "name": "headerabove",
+    "default": "brandfull",
+    "label": "Page Header (Above Block)",
+    "instructions": "",
+    "options" : [{
+        "value": "brandfull",
+        "label": "Brand Header + Breadcrumb",
+        "spacerabove": "medium"
+     },{
+        "value": "brandonly",
+        "label": "Brand Header Only",
+        "spacerabove": "medium"
+     },{
+        "value": "minimal",
+        "label": "Minimal Header",
+        "spacerabove": "medium"
+     }]
+  },{
+    "type" : "select",
+    "name" : "headerbelow",
+    "default": "auto",
+    "label": "Page Header (Below Block)",
+    "instructions": "",
+    "options" : [{
+        "value": "auto",
+        "label": "Default (Auto)",
+        "spacerbelow": "medium"
+    },{
+        "value": "nocrumb",
+        "label": "No Breadcrumb (Forced)",
+        "spacerbelow": "medium"
+    },{
+        "value": "wave",
+        "label": "Wave Bottom",
+        "spacerbelow": "wave"
+    },{
+        "value": "tilt",
+        "label": "Tilt Bottom",
+        "spacerbelow": "tilt"
+    }]
+}{% endblock %}
+
+{% block separatorHeaderBase %}{
+    "type" : "select",
+    "name": "headerabove",
+    "default": "brandfull",
+    "label": "Page Header (Above Block)",
+    "instructions": "",
+    "options" : [{
+        "value": "brandfull",
+        "label": "Brand Header + Breadcrumb",
+        "spacerabove": "medium"
+     },{
+        "value": "brandonly",
+        "label": "Brand Header Only",
+        "spacerabove": "medium"
+     },{
+        "value": "minimal",
+        "label": "Minimal Header",
+        "spacerabove": "medium"
+     }]
+  },{
+    "type" : "select",
+    "name" : "headerbelow",
+    "default": "auto",
+    "label": "Page Header (Below Block)",
+    "instructions": "",
+    "options" : [{
+        "value": "auto",
+        "label": "Default (Auto)",
+        "spacerbelow": "medium"
+    },{
+        "value": "nocrumb",
+        "label": "No Breadcrumb (Forced)",
+        "spacerbelow": "medium"
+    }]
+}{% endblock %}
+
+
+
 {% block separatorBase %}{
     "type" : "select",
     "name": "spacerabove",
@@ -248,18 +330,26 @@
 {% block copyLayoutFull %}{
     "type" : "select",
     "name" : "copylayout",
-    "default": "wideTop",
+    "default": "left",
     "label": "Copy Container Layout",
     "fieldClass": "width-70",
     "instructions": "Set zone width &amp; alignment, particularly for screens wider than the maximum ‘Readable Width’.",
     "options" : [{
         "value": "left",
         "label": "Left Aligned",
-        "microlayout" : "zone1Top"
+        "microlayout": "zone1Top"
+    },{
+        "value": "left50",
+        "label": "Left Aligned (Narrow)",
+        "microlayout": "zone1TopEven"
     },{
         "value": "wideTop",
         "label": "Middle Aligned",
-        "microlayout" : "zone1Top__center"
+        "microlayout": "zone1TopCenter"
+    },{
+        "value": "narrowTop",
+        "label": "Middle Aligned (Narrow)",
+        "microlayout": "zone1TopNarrow"
     }]
 }{% endblock %}
 
@@ -268,7 +358,7 @@
 {% block copyLayoutRight %}{
     "type" : "select",
     "name" : "copylayout",
-    "default": "even",
+    "default": "evenVert",
     "label": "Copy Width + Alignment",
     "fieldClass": "width-100",
     "instructions": "Relative to other content elements",
@@ -381,6 +471,46 @@
             { "value": "tablet_twozone",   "label": "Narrow (Tablet Portrait)",   "container": "tablet", "coverage": "twozone", "basetheme": "base" }
     ]
 }{% endblock %}
+
+
+{% block collectionSortFilterBasic
+ %}{
+    "type" : "select",
+    "name" : "sort",
+    "label": "Default Sorting",
+    "default": "recent",
+    "instructions": "Unless otherwise overridden",
+    "options": [{
+        "value": "recent",
+        "label": "Most Recent",
+        "orderby": "postDate DESC"
+    },{
+        "value": "alpha",
+        "label": "Alphabetically",
+        "orderby": "title ASC"
+    },{
+        "value": "popular",
+        "label": "Popularity",
+        "orderby": "RAND()"
+    },{
+        "value": "random",
+        "label": "Random",
+        "orderby": "RAND()"
+    }]
+},{
+    "type" : "date",
+    "name" : "before",
+    "label": "On or Before",
+    "fieldClass": "width-25",
+    "instructions": "Exclude newer"
+},{
+    "type" : "date",
+    "name" : "after",
+    "label": "On or After",
+    "fieldClass": "width-25",
+    "instructions": "Exclude older"
+}{% endblock %}
+
 
 
 {% block json__systemtransforms -%}

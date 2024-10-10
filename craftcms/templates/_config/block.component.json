@@ -79,6 +79,35 @@
     "label"     : "Form Component",
     "tooltips"  : { "inline": "" },
     "settings"  : {},
+    "virtuals"  : [{
+        "label": "Formie Theme",
+        "name" : "formie",
+        "type" : "select",
+        "default": "default",
+        "options" : [{
+            "label": "Default",
+            "value": "default",
+            "themeConfig": {
+                "subFieldRow" : {
+                    "attributes": {
+                        "class": "text-red-500"
+                    }
+                },
+
+                "submitButton": {
+                    "resetClass": "true",
+                    "attributes": {
+                        "class": "button"
+                    }
+                }
+            }
+        }]
+    }]
+},{
+    "value"     : "calendar",
+    "label"     : "Upcoming Calendar",
+    "tooltips"  : { "inline": "" },
+    "settings"  : {},
     "virtuals"  : []
 },{
     "value"     : "menu",

@@ -7,7 +7,7 @@
   - Pulls content from the `entry.bodyBuilder` and `entry.sidebarBuilder` matrix fields.
 --------------------------------------------------------------------------------------##}
 {% extends "_site/template.fullpage" %}
-{% import "_core" as assemble %}
+{%- import "_core" as assemble -%}
 
 
 {## Template Variables
@@ -16,13 +16,20 @@
 {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
+{## Set starting variable in `_site/header.twig` ➜ {% block plaintitle %}
+{-------------------------------------------------------------------------------------##}
+{%- set header__align = 'left' -%}
+
+
 {## Two Column Layout
 {-------------------------------------------------------------------------------------##}
 {% block main__content -%}
     {{- assemble.layout( 'sidebar__right', {
         main : block('content'),
         aside: block('aside')
-    }, settings ) -}}
+    }, {
+        container: "twocolumn",
+    } | merge(settings) ) -}}
 {%- endblock %}
 
 
@@ -33,7 +40,7 @@
 
 {## Eager Load Matrix Builders
 {-------------------------------------------------------------------------------------##}
-{%- set mainblocks = entry.bodyBuilder ? entry.bodyBuilder
+{% set mainblocks = mainblocks ??? collect( entry.bodyBuilder
     .with([
         "text:bits",
         "image:collections",     "image:images",
@@ -41,9 +48,11 @@
         "carddeck:collections",  "carddeck:entries", "carddeck:items",
         "component:collections", "component:form",
         "fragment:fragments"
-    ]).all() -%}
+    ]) ??? null )
+    .all()
+%}
 
-{%- set sideblocks = entry.sidebarBuilder ? entry.sidebarBuilder
+{% set sideblocks = sideblocks ??? collect( entry.sidebarBuilder
     .with([
         "text:bits",
         "image:collections",     "image:images",
@@ -51,7 +60,9 @@
         "carddeck:collections",  "carddeck:entries", "carddeck:items",
         "component:collections", "component:form",
         "fragment:fragments"
-    ]).all() -%}
+    ]) ??? null )
+    .all()
+%}
 
 
 {## Body Content Builder
@@ -59,10 +70,10 @@
     If the first Body blocks' *theme* matches the Header Builder *theme*, we tell the
     Block Builder to skip the first spacer (`spacerfirst`).
 --------------------------------------------------------------------------------------##}
-{% block content -%}
+{% block builder__body -%}
     {% set firstblock = mainblocks | first %}
     {% set headerattr = block( 'page__top' ) | retconOnly( 'header *[data-theme]' ) | parseAttr %}
-    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme|t ??? "base" %}
+    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme.value ??? "base" %}
 
     {{- assemble.builder( 'maincolumn', mainblocks ?? null, {
         container  : "relative",
@@ -75,8 +86,17 @@
 
 {## Sidebar Builder
 {-------------------------------------------------------------------------------------##}
-{% block aside -%}
+{% block aside block('builder__sidebar') -%}
+
+{% block builder__sidebar  -%}
+    {% set firstblock = mainblocks | first %}
+    {% set headerattr = block( 'page__top' ) | retconOnly( 'header *[data-theme]' ) | parseAttr %}
+    {% set themematch = headerattr.data.theme ??? "base" == firstblock.theme.value ??? "base" %}
+
+    {% if not themematch %}<br><br>{% endif %}
+
     {{- assemble.builder( 'sidebar', sideblocks ?? null, {
+        builder    : "sidebar",
         container  : "relative",
         spacerabove: "small",
         spacerbelow: "small"

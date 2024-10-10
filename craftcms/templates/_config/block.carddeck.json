@@ -17,7 +17,8 @@
             "text"      : "Text Only",
             "summary"   : "Summary",
             "overlay"   : "Overlay",
-            "bulleticon": "Bullet Icon"
+            "bulleticon": "Bullet Icon",
+            "spotlight" : "Spotlight",
         }
     },{
         "type" : "select",
@@ -98,6 +99,7 @@
     },
     "settings": {
         "iterator": "single",
+        "limit"   : 1,
         "cardname": "spotlight"
     },
     "virtuals": []

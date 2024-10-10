@@ -22,8 +22,9 @@
 {% block card__attr   card__attr  ?? attr({ 'data-card': block('card__name') }) %}
 
 {% block card__imagelayer card.imagelayer  ?? settings.card__imagelayer ?? 'default' %}
+
 {% block card__headline   card.headline     ? tag( 'h3', { html: card.headline } ) : null %}
-{% block card__summary    card.summary      ? raw( card.summary  ) : null %}
+{% block card__summary    card.summary      ? tag( 'p',  { html: card.summary | retconChange( 'p', false ) } ) : null %}
 {% block card__text       card.longtext     ? raw( card.longtext ) : null %}
 
 {% block card__images -%}
@@ -96,13 +97,13 @@
 
 {% macro iterator__randomize( items, settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.card( settings.cardname ??? 'default', shuffle(items)[:1], settings ) -}}
+    {{- assemble.card( settings.cardname ??? 'default', shuffle(items) | first, settings ) -}}
 {%- endmacro %}
 
 
 {% macro iterator__single( items, settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.card( settings.cardname ??? 'default', items[:1], settings ) -}}
+    {{- assemble.card( settings.cardname ??? 'default', items | first, settings ) -}}
 {%- endmacro %}
 
 
@@ -264,7 +265,7 @@
     {% set card = card is null ? {} : card %}
     {% set settings = settings is null ? {} : settings %}
 
-    {% import "_core" as assemble %}
+    {%- import "_core" as assemble -%}
 
     {% set modalname = card.modalname ??? ["_site/modal", "_core/modal"] %}
     {% set cardname  = card.modal__cardname ??? 'panel' %}

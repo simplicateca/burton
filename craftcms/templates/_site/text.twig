@@ -1,5 +1,25 @@
 {## Text Layer Adjustments   [Site Specific]
 {-------------------------------------------------------------------------------------##}
+{% macro outline( outline, settings ) -%}
+    {%- import "_core" as assemble -%}
+
+    {% set settings = settings ??? { _: true } %}
+    {% set settings = {
+        eyebrow      : null,
+        eyebrow__type: 'eyebrow__basic',
+        separator    : 'small',
+    } | merge(settings) %}
+
+    {% if outline ??? null %}
+        {{ settings.eyebrow ? assemble.text( settings.eyebrow__type, settings.eyebrow, {}  ) }}
+        {{ tag( 'div', {
+            html : outline,
+            class: 'py-6 border-y-4 border-theme-tint last-child-mb-0'
+        })}}
+
+        {{- assemble.separator( settings.separator ) -}}
+    {% endif %}
+{% endmacro %}
 
 
 {## Basic Eyebrow
@@ -10,22 +30,28 @@
     {%- set align = settings.eyebrowalign ??? '' -%}
 
     {%- if text or icon -%}
-        <div class="eyebrow table pb-3 {{align}}">
+        <div class="eyebrow table {{align}}">
             <div class="flex flex-col gap-3" data-eyebrow="basic">
-                {{ tag( 'div', { html: svg("@appicons/#{icon}.svg")
-                    | attr({ class: ["w-10 fill-theme-accent", align] }) }) }}
-                {{ tag('span', { class: 'text-sm uppercase font-headline text-theme-accent', text: text }) }}
+                {% if icon %}
+                    {{ tag( 'div', { html: svg("@appicons/#{icon}.svg")
+                        | attr({ class: ["w-10 fill-theme-accent", align] }) }) }}
+                {% endif %}
+                {{ tag('span', { class: 'text-sm @xl:text-lg uppercase font-headline text-theme-accent font-bold', text: text }) }}
             </div>
         </div>
     {% endif %}
 {%- endmacro %}
+
+{% macro eyebrow__centerbasic( text, settings ) -%}
+    {{ _self.eyebrow__basic( text, settings | merge({ eyebrowalign: 'mx-auto' }) ) }}
+{% endmacro %}
 
 
 
 {## Image Captions
 {-------------------------------------------------------------------------------------##}
 {% macro image__caption( content, settings ) -%}
-    {%- set content  = content  ?? '' is iterable   ? '' : content|trim -%}
+    {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {% set captionlayer = settings.captionlayer ??? 'default' %}

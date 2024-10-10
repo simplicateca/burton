@@ -3,7 +3,7 @@ services:
     # https://github.com/nodejs/docker-node/tree/cd41dbe222da1ce72d61d8fbaa06ac79316ac6d5/16
     frontend:
         image: node:lts
-        restart: unless-stopped
+        restart: on-failure
         user: "1000:1000"
         working_dir: /var/www/frontend
         stop_grace_period: 1s
@@ -20,20 +20,20 @@ services:
         ports:
             - 3000:3000
         volumes:
-            - ./frontend:/var/www/frontend:delegated
+            - ./frontend:/var/www/frontend:cached
             - ./craftcms/templates:/var/www/craftcms/templates:ro
             - ./craftcms/modules:/var/www/craftcms/modules:ro
         healthcheck:
             test: ["CMD", "curl", "-f", "http://localhost:3000/js/app.js"]
-            interval: 5s
-            timeout: 5s
-            retries: 100
+            interval: 10s
+            timeout: 60s
+            retries: 20
 
     # MySQL - Persistent Database Storage
     # https://hub.docker.com/_/mysql
     mysql:
         image: mysql/mysql-server:8.0
-        restart: unless-stopped
+        restart: on-failure
         command: --default-authentication-plugin=mysql_native_password
         env_file:
             *env
@@ -43,12 +43,12 @@ services:
             - 3306:3306
         volumes:
             - mysql_data:/var/lib/mysql
-            - ./etc/database-seed:/docker-entrypoint-initdb.d
+            - ./etc/dev.local/seed:/docker-entrypoint-initdb.d
         healthcheck:
             test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
-            start_period: 3s
-            interval: 3s
-            timeout: 3s
+            start_period: 5s
+            interval: 10s
+            timeout: 60s
             retries: 20
 
     # Composer - PHP Package & Dependency Management
@@ -84,7 +84,7 @@ services:
         volumes:
             - ./craftcms:/app:cached
             - ./frontend/public/static:/app/web/static:ro
-            - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+            - ./etc/dev.local/php.ini:/usr/local/etc/php/conf.d/php.ini
         depends_on:
             composer:
                 condition: service_completed_successfully
@@ -97,7 +97,7 @@ services:
     # https://github.com/simplicateca/docker-php-fpm
     php:
         <<: *craft
-        restart: unless-stopped
+        restart: on-failure
         command: "php-fpm"
         depends_on:
             migrations:
@@ -107,7 +107,7 @@ services:
     # https://craftcms.com/docs/5.x/extend/queue-jobs.html
     queue:
         <<: *craft
-        restart: unless-stopped
+        restart: on-failure
         working_dir: /app
         command: "./craft queue/listen 10"
         tty: true
@@ -120,7 +120,7 @@ services:
     # https://hub.docker.com/_/nginx
     nginx:
         image: nginx:1.23-alpine
-        restart: unless-stopped
+        restart: on-failure
         env_file:
             *env
         ports:
@@ -128,7 +128,7 @@ services:
         volumes:
             - ./craftcms/web/index.php:/app/web/index.php:ro
             - ./frontend/public/static:/app/web/static:ro
-            - ./etc/nginx/docker-config.conf:/etc/nginx/conf.d/craft.conf:ro
+            - ./etc/dev.local/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
         depends_on:
             mysql:
                 condition: service_healthy
@@ -152,7 +152,7 @@ services:
         env_file:
             *env
         volumes:
-            - ./etc/banner.sh:/home/banner.sh
+            - ./etc/dev.local/banner.sh:/home/banner.sh
         depends_on:
             nginx:
                 condition: service_started
@@ -165,23 +165,23 @@ services:
     ## Usage:
     ##   docker compose exec php app/craft db/backup
     ##   docker compose down -v
-    ##   docker compose up --profile install
+    ##   docker compose --profile freshdb up
     ## ---------------------------------------------------------------
     ## NOTE: This will **DELETE** existing Craft CMS SQL database.
     ## ---------------------------------------------------------------
     install: &craft
         image: simplicateca/php-fpm:8.2
-        profiles: [install]
+        profiles: [freshdb]
         user: "1000:1000"
         working_dir: /app
         env_file:
             *env
         command: >
-          bash -c "./craft install --email='craft@example.com' --password='letmein' --site-name='Craft CMS' --site-url='http://localhost:8000'"
+            bash -c "./craft install --email='craft@example.com' --password='letmein' --site-name='Craft CMS' --site-url='http://localhost:8000'"
         volumes:
-            - ./craftcms:/app:cached
-            - ./frontend/public/static:/app/web/static:ro
-            - ./etc/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+        - ./craftcms:/app:cached
+        - ./frontend/public/static:/app/web/static:ro
+        - ./etc/dev.local/php.ini:/usr/local/etc/php/conf.d/php.ini:ro
         depends_on:
             composer:
                 condition: service_completed_successfully
@@ -199,7 +199,6 @@ services:
                 condition: service_healthy
         ports:
             - 8080:8080
-
 
 volumes:
     mysql_data:

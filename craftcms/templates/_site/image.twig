@@ -9,7 +9,7 @@
 {%- macro default( images, settings ) -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set settings = {
-        imgclass: "w-full max-w-full h-auto rounded-lg",
+        imgclass: "w-full max-w-full h-auto rounded-none",
         _placeholder: 'default',
      } | merge( settings ) %}
     {{- include( ['_site/image', '_core/image'], { images: images, settings: settings } ) -}}
@@ -17,12 +17,27 @@
 
 
 
-{% macro icon( image, settings ) %}
-    {%- set settings = settings ?? null is iterable ? settings : {} %}
-    {{- _self.default( image, {
-        figureclass : "max-w-28 @4xs:max-w-32 @3xs:max-w-36 mx-auto relative",
-        _placeholder: "icon"
-    } | merge( settings ) ) -}}
+{## Image with Caption
+{-------------------------------------------------------------------------------------##}
+{%- macro caption( images, settings ) -%}
+    {{ _self.default( images, {
+        caption: true,
+        captionclass: "py-3 border-b-4 border-theme-tint",
+    } | merge( settings ?? {} ) ) }}
+{% endmacro %}
+
+
+
+{## Right Float (with Transform)
+{-------------------------------------------------------------------------------------##}
+{% macro floatright( images, settings ) %}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = {
+        figureclass: 'relative z-20 @4xl:float-right @4xl:max-w-md @4xl:ml-10 mb-10 rounded-xl overflow-hidden'
+    } | merge( settings ) -%}
+
+    {%- import "_core" as assemble -%}
+    {{- assemble.imagelayer( 'default', images, settings ) -}}
 {%- endmacro %}
 
 

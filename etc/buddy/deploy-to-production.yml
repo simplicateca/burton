@@ -1,0 +1,130 @@
+# pipeline settings
+- pipeline: Build & Deploy to Production
+  events:
+  - type: PUSH
+    refs:
+    - refs/heads/main
+  fetch_all_refs: true
+
+  # pipeline variables
+  variables:
+  - key: "PROJECT_NAME"
+    value: ""
+  - key: "REMOTE_PATH"
+    value: ""
+  - key: "REMOTE_HOST"
+    value: ""
+  - key: "REMOTE_USER"
+    value: ""
+
+  # pipeline actions
+  actions:
+
+  # STEP 1: build the frontend js/css
+  - action: "Build the frontend js/css with vite:build"
+    type: "BUILD"
+    working_directory: "/buddy/$PROJECT_NAME/frontend"
+    docker_image_name: "node"
+    docker_image_tag: "lts"
+    volume_mappings:
+    - "/:/buddy/$PROJECT_NAME"
+    execute_commands:
+    - "npm ci && npm run build"
+
+  # STEP 2: install php vendor files with composer
+  - action: "Install Composer"
+    type: "BUILD"
+    working_directory: "/buddy/$PROJECT_NAME/craftcms"
+    docker_image_name: "composer"
+    docker_image_tag: "latest"
+    volume_mappings:
+    - "/:/buddy/$PROJECT_NAME"
+    execute_commands:
+    - "composer install --verbose --no-progress --no-scripts --optimize-autoloader --no-interaction"
+
+  # STEP 3: rsync push files to host
+  - action: "Rsync files to host"
+    type: "RSYNC"
+    local_path: "craftcms/"
+    remote_path: "$REMOTE_PATH/deploy-cache"
+    login: "$REMOTE_USER"
+    host: "$REMOTE_HOST"
+    port: "22"
+    authentication_mode: "WORKSPACE_KEY"
+    archive: true
+    delete_extra_files: true
+    recursive: true
+    compress: true
+
+  # STEP 4: create an atomic deployment release on the server
+  - action: "Prepare Atomic Deployment"
+    type: "SSH_COMMAND"
+    working_directory: "$REMOTE_PATH"
+    login: "$REMOTE_USER"
+    host: "$REMOTE_HOST"
+    port: "22"
+    authentication_mode: "WORKSPACE_KEY"
+    run_as_script: true
+    shell: "BASH"
+    commands:
+    # make sure we have all the files & directories we might need (especially on first deployments)
+    - "mkdir -p releases storage deploy-cache/migrations"
+
+    # wipe existing release directory of this is *not* the first attempt deploying this commit
+    - "[ -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && [ \"$BUDDY_EXECUTION_REFRESH\" = \"true\" ] && rm -rf releases/$BUDDY_EXECUTION_REVISION;"
+
+    # create the directory for this release and copy the contents of the deploy cache into it
+    - "[ ! -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && cp -dR deploy-cache releases/$BUDDY_EXECUTION_REVISION;"
+
+    # create symlinks to persistent storage directory and .env file from inside the new release
+    - "ln -nfs $REMOTE_PATH/.env $REMOTE_PATH/releases/$BUDDY_EXECUTION_REVISION"
+    - "ln -nfs $REMOTE_PATH/storage $REMOTE_PATH/releases/$BUDDY_EXECUTION_REVISION"
+
+    # set permissions on cpresources
+    - "mkdir -p releases/$BUDDY_EXECUTION_REVISION/web/cpresources"
+    - "chmod -R 0774 releases/$BUDDY_EXECUTION_REVISION/web/cpresources"
+
+  # Step 5 - Backup the Current Database
+  - action: "Backup the Current Database"
+    type: "SSH_COMMAND"
+    working_directory: "$REMOTE_PATH"
+    login: "$REMOTE_USER"
+    host: "$REMOTE_HOST"
+    port: "22"
+    authentication_mode: "WORKSPACE_KEY"
+    run_as_script: true
+    shell: "BASH"
+    trigger_conditions:
+    - trigger_condition: VAR_NOT_CONTAINS
+      trigger_variable_value: skip-sql-backup
+      trigger_variable_key: BUDDY_EXECUTION_REVISION_MESSAGE
+    commands:
+    - "chmod a+x current/craft && ./current/craft db/backup"
+
+  # Step 6: Make Release Live
+  - action: "Make Release Live"
+    type: "SSH_COMMAND"
+    working_directory: "$REMOTE_PATH"
+    login: "$REMOTE_USER"
+    host: "$REMOTE_HOST"
+    port: "22"
+    authentication_mode: "WORKSPACE_KEY"
+    run_as_script: true
+    shell: "BASH"
+    commands:
+    # TODO: put the site into maintenance mode
+
+    # Swap `current` symlink to new release
+    - "rm -f current && ln -s releases/$BUDDY_EXECUTION_REVISION current"
+
+    # Clear caches and run any pending migrations
+    - "cd current && chmod a+x craft"
+    - "./craft invalidate-tags/all --interactive=0"
+    - "./craft clear-caches/all --interactive=0"
+    - "./craft up --interactive=0"
+
+    # TODO: Move this to separate action that only runs on success
+    # Remove old releases
+    - "cd releases && ls -t | tail -n +10 | xargs rm -rf"
+
+  # TODO: (Step 7: Unrelease on Failure)

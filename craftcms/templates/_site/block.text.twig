@@ -12,7 +12,7 @@
 {-------------------------------------------------------------------------------------##}
 {% block text2__reveal -%}
 {%- if block.text2 ?? null %}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = {
         buttontext: 'View Hidden Content'|t,
         text2layer : 'default',
@@ -47,14 +47,13 @@
     `summary` field of the attached Reusable Content Bit.
 {-------------------------------------------------------------------------------------##}
 {% block text2__callout -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = { text2layer : 'callout' } | merge( settings ) -%}
 
     {%- set thistext = block.summary ?? "" -%}
     {%- if block.bits is iterable and block.bits.one() ??? null -%}
         {%- set bit = block.bits.one() -%}
         {%- set thistext = bit ? bit.summary ?? bit.text ?? null : thistext -%}
-        {%- set settings = settings | merge({ _bit: bit }) -%}
     {%- endif -%}
 
     {%- import "_core" as assemble -%}

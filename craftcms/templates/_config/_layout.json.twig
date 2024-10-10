@@ -15,14 +15,16 @@
 
 {## Field Attached to a Matrix Block Type? ##}
 {% set template = 'twozone' %}
-{% set template = type == 'text'     ? 'text'     : template %}
-{% set template = type == 'fragment' ? 'fragment' : template %}
+{% set template = ( field == 'sidebarBuilder' ) ? 'twozone.sidebar' : template %}
+{% set template = ( type == 'fragment' ) ? 'fragment' : template %}
+
 {{ include( "_config/layout.#{template}.json" ) }}
+
 
 {## Probably just need a list of names & values for all possibly variants ##}
 {% if not type %}
-    {% set combined =       [] | merge( include( '_config/layout.twozone.json'  ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/layout.text.json'     ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/layout.fragment.json' ) | json_decode ) %}
+    {% set combined =       [] | merge( include( '_config/layout.twozone.json'         ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/layout.twozone.sidebar.json' ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/layout.fragment.json'        ) | json_decode ) %}
     {{ combined | json_encode }}
 {% endif %}

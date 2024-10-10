@@ -1,0 +1,74 @@
+{## Entry Template for Core + Landing Page Sections
+{---------------------------------------------------------------------------------------}
+    Admin (Core)    → http://localhost:8000/cms/settings/sections/1
+    Admin (Landing) ➜ http://localhost:8000/cms/settings/sections/4
+{-------------------------------------------------------------------------------------##}
+{% set errortmpl = template_from_string('{% block catch %}{% header "HTTP/1.0 404 Not Found" %}{% endblock %}') %}
+{% set templates = [errortmpl] %}
+{% set handle    = entry.type.handle ?? null %}
+
+
+{## [Type] Redirect ➜ http://localhost:8000/cms/settings/entry-types/18
+{-------------------------------------------------------------------------------------##}
+{% set goto = entry.website ??? entry.entries.one().url ??? null %}
+{% if 'redirect' == handle and goto %}
+    {% redirect goto %}
+{% endif %}
+
+
+{## [Type] Page ➜ http://localhost:8000/cms/settings/entry-types/17
+{-------------------------------------------------------------------------------------##}
+{% set urislug  = entry.uri | replace({'/':'-'}) | slugify %}
+{% set uritmpl  = "_site/pages.#{urislug}" %}
+{% set basetmpl = entry.sidebarBuilder.one() ??? null
+    ? "_site/template.sidebar"
+    : "_site/template.fullpage" %}
+{% if 'page' == handle %}
+    {% set templates = [ uritmpl, basetmpl, errortmpl ] %}
+{% endif %}
+
+
+{## Render Template
+{---------------------------------------------------------------------------------------}
+    We use `extends` (vs `include`) to allow overriding template {% blocks %} in *this*
+    template, rather than forcing separate files for each type, even for minimal changes.
+  ➜ https://twig.symfony.com/doc/3.x/tags/extends.html
+{-------------------------------------------------------------------------------------##}
+{% extends templates %}
+
+
+{#######################################################################################}
+{##                                   Custom Macros                                   ##}
+{#######################################################################################}
+
+
+{## [Macro] Page URI Builder
+{---------------------------------------------------------------------------------------}
+    Better than a long-ass Twig-oneliner stuffed into the `URI Format` CP field:
+  ➜ {% from '_site/pages._section' import uri %}{{ uri( object ) }}
+
+ ## Output Examples (Core)
+  └ level-one
+  └ level-one/sub-page-one
+  └ level-one/sub-page-one/part-eh
+
+ ## Output Examples (Landing)
+  └ go/landing-page-one
+  └ go/landing-page-two
+  └ go/landing-page-whatever
+
+ ## IMPORTANT ― Resave existing records (via console) anytime this macro changes:
+  ➜ make craft "resave/entries --section=pages,landings"
+{-------------------------------------------------------------------------------------##}
+{% macro uri( object ) %}{% apply spaceless %}
+    {% set root  = 'landings' == object.section.handle ? 'go' : null %}
+    {% set parts = [root, object.parent.uri ?? null, object.slug] %}
+
+    {{ parts | filter | join('/') }}
+{% endapply %}{% endmacro %}
+
+
+
+{#######################################################################################}
+{##                                Template Overrides                                 ##}
+{#######################################################################################}

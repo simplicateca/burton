@@ -10,21 +10,23 @@
 {% macro larger( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
-    {%- if content -%}<div class="@container/large">{{ raw( content ) }}</div>{%- endif -%}
+    {%- if content -%}{{ raw( content ) | retconAttr( ['p','li','blockquote','div', 'td'], { class: 'larger' } ) }}{%- endif -%}
 {%- endmacro %}
 
 
 {% macro smaller( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
-    {%- if content -%}<div class="@container/small">{{ raw( content ) }}</div>{%- endif -%}
+    {%- if content -%}{{ raw( content | retconAttr( ['p','li','blockquote','div', 'td'], { class: 'smaller' } ) ) }}{%- endif -%}
 {%- endmacro %}
 
 
 {% macro twocols( content, settings ) -%}
     {%- set content  = content  ??? null and content  is not iterable ? content|trim : '' -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
-    {%- if content %}<div class="@container/small columns-2 gap-8">{{- raw( content ) -}}</div>{% endif -%}
+    {%- if content %}<div class="columns-2 gap-8">
+        {{- raw( content | retconAttr( ['p','li','blockquote','div', 'td'], { class: 'smaller' } ) ) -}}</div>
+    {% endif -%}
 {%- endmacro %}
 
 
@@ -34,8 +36,8 @@
 
     {%- if content -%}
         {% set theme = settings.theme ??? 'base' %}
-        <div data-theme="{{theme}}--reverse" class="p-4 @xl:p-10 border-2 border-theme-tint2 rounded @container/small canvas">
-            {{- raw( content ) -}}
+        <div data-theme="{{theme}}--reverse" class="p-4 @xl:p-10 border-2 border-theme-tint2 rounded canvas">
+            {{- raw( content ) | retconAttr( ['p','li','blockquote','div', 'td'], { class: 'smaller' } ) -}}
         </div>
     {%- endif -%}
 {%- endmacro %}
@@ -46,14 +48,13 @@
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
     {%- if content -%}
-        <div class="p-4 @xl:p-10 bg-theme-tint relative @container/small">
+        <div class="p-4 @xl:p-10 bg-theme-tint relative">
             <span class="absolute -left-4 top-0 opacity-15 like-h1">&#x201C;</span>
-            {{- raw( content ) -}}
+            {{- raw( content ) | retconAttr( ['p','li','blockquote','div', 'td'], { class: 'smaller' } ) -}}
             <span class="absolute -right-4 bottom-0 opacity-15 like-h1">&#x201E;</span>
         </div>
     {%- endif -%}
 {%- endmacro %}
-
 
 
 {## Text Alignment / Margin Matching Macro

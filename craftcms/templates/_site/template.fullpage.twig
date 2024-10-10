@@ -27,7 +27,7 @@
         - Userflow / Quicklinks
         - Legal Navigation
 --------------------------------------------------------------------------------------##}
-{% import "_core" as assemble %}
+{%- import "_core" as assemble -%}
 
 {% set blocks = blocks ??? collect( entry.bodyBuilder
     .with([
@@ -42,14 +42,16 @@
 %}
 
 {% block page %}
-    {% block page__top      block( 'header__base', '_site/header' ) %}
-    {% block page__main     block( 'main__base' ) %}
-    {% block page__bottom   block( 'footer__base', '_site/footer' ) %}
+    {% block page__content %}
+        {% block page__top      block( 'base', '_site/header' ) %}
+        {% block page__main     block( 'main__base' ) %}
+        {% block page__bottom   block( 'footer__base', '_site/footer' ) %}
+    {% endblock %}
 
     {% import "_core/modal" as modal %}
     {{ modal.dynamic_target() }}
 
-    {{ include( "_core/menu.mobile" ) }}
+    {% block page__mobilemenu include( "_core/menu.mobile" ) %}
 {% endblock %}
 
 
@@ -62,13 +64,14 @@
 {% endblock %}
 
 
-{% block content %}
+{% block content block('builder__body') -%}
 
-    {## Check for matching themes
-    {-----------------------------------------------------------------------------------}
-        If the theme of the first block in the header builder, matches the theme of the
-        first block in the body builder, skip the first spacer
-    ----------------------------------------------------------------------------------##}
+
+{## Default Body Builder
+{-----------------------------------------------------------------------------------}
+    If the header and first body block share a theme, skip the first opening spacer.
+----------------------------------------------------------------------------------##}
+{% block builder__body -%}
     {% set firstblock  = blocks | first %}
     {% set headerattr  = block( 'page__top' ) | retconOnly( 'header *[data-theme]' ) | parseAttr %}
     {% set headertheme = headerattr ? headerattr.data.theme ??? "base" : "base" %}
@@ -84,9 +87,18 @@
 {% endblock %}
 
 
+{## Default Modal Content
+{-----------------------------------------------------------------------------------}
+    If the header and first body block share a theme, skip the first opening spacer.
+----------------------------------------------------------------------------------##}
+
 {# served when page requested via ajax #}
 {% block page__ajax %}
-    {{ block( 'header__builder', '_site/header' ) }}
+    <div class="container">
+        <div class="@container">
+            {{ block( 'plaintitle', '_site/header' ) }}
+        </div>
+    </div>
     {{ assemble.builder( 'ajax', blocks, {
         container  : "fluid",
         spacerabove: "small",

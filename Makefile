@@ -1,117 +1,169 @@
-.PHONY: dev run down prep craft composer npm lint build exportdb exportdbseed ssh clean wipedb nuke
+#--------------------------------------------------------------
+# Craft CMS Project
+#--------------------------------------------------------------
+.PHONY: dev dev-rebuild dev-ssh dev-down \
+		autoconfig \
+		craft craft-update craft-assetsync \
+		composer composer-update \
+		db-export db-reseed db-reset db-debug \
+		n8n-export n8n-export-credentials n8n-import n8n-import-credentials \
+		npm \
+		wipe-volumes wipe-backend wipe-frontend wipe-nuke
 
-SEED_DIR  :=./etc/database-seed
-SQL_FILES :=$(SEED_DIR)/*.sql
-GZ_FILES  :=$(SEED_DIR)/*.sql.gz
+#--------------------------------------------------------------
+# Dotenv File Paths
+#--------------------------------------------------------------
+ENV_SMPL  :=craftcms/example.env
+ENV_PATH  :=craftcms/.env
+
+#--------------------------------------------------------------
+# Database Seed & Backup Paths
+#--------------------------------------------------------------
+SEED_PATH :=./etc/dev.local/seed
+SEED_GZIP :=./etc/dev.local/seed.sql.gz
+SEED_UNZIP:=mkdir $(SEED_PATH) && gzip -dkc $(SEED_GZIP) > $(SEED_PATH)/init.sql
+SEED_NAME :=$(SEED_DIR)/Craft-$(date %Y-%m-%d-%H%M).sql
+
+#--------------------------------------------------------------
+# n8n Backup Paths
+#--------------------------------------------------------------
+N8N_FLOWS=/home/node/n8n/workflows
+N8N_CREDS=/home/node/n8n/credentials
+
+#--------------------------------------------------------------
+# Craft CMS
+#--------------------------------------------------------------
 CRAFT_PATH:=/app/craft
-IS_RUNNING:=`docker compose ps --services | grep 'php'`
 
-# > make dev
-# > make run (runs in the background)
-# ---------------------------------------------------------------------
-# launches and prepares the docker based development environment
-dev: prep
-	[ $(IS_RUNNING) ] || docker compose up ;
+#--------------------------------------------------------------
+# Docker Settings (compose.yaml)
+#--------------------------------------------------------------
+DOCKER_DB:=mysql
+DOCKER_PHP:=php
+DOCKER_ENV:=--env-file $(ENV_PATH)
+DOCKER_COMPOSE:=docker compose $(DOCKER_ENV)
+DOCKER_EXEC_PHP:=$(DOCKER_COMPOSE) exec php
+DOCKER_EXEC_CRAFT:=$(DOCKER_COMPOSE) exec php $(CRAFT_PATH)
+DOCKER_EXEC_N8N:=$(DOCKER_COMPOSE) exec --user node n8n n8n
+DOCKER_PROFILE_REINSTALL:=freshdb
+DOCKER_PROFILE_DEBUG:=debug
 
-run: prep
-	[ $(IS_RUNNING) ] || docker compose up -d ;
+#--------------------------------------------------------------
+# Autoconfig Environment
+#--------------------------------------------------------------
+autoconfig: auto-cd auto-db auto-env
 
-down:
-	docker compose down ;
+auto-cd:
+	@cd "$(pwd -P)"
 
+auto-db:
+	@[ -f $(SEED_GZIP) ] && [ ! -d $(SEED_PATH) ] && $(SEED_UNZIP) || true
 
-# > make prep
-# ---------------------------------------------------------------------
-# takes care of some housekeeping before launching docker
-prep:
-	[ $(IS_RUNNING) ] || ( [ "ls $(GZ_FILES) &>/dev/null" ] && gunzip -kqf $(GZ_FILES) )
-	[ $(IS_RUNNING) ] || cp -n craftcms/.env.example craftcms/.env
+auto-env:
+	@[ -f $(ENV_SMPL)  ] && cp -n $(ENV_SMPL) $(ENV_PATH) || true
 
+#--------------------------------------------------------------
+# Development Environment Up/Down
+#--------------------------------------------------------------
+dev: autoconfig
+	$(DOCKER_COMPOSE) up ;
 
-# > make craft "tool/command arg1 arg2"
-# ---------------------------------------------------------------------
-# issue commands to the craft cli console
-craft:
-	docker compose exec php $(CRAFT_PATH) $(filter-out $@,$(MAKECMDGOALS)) ;
+dev-rebuild: autoconfig
+	$(DOCKER_COMPOSE) --build --force-recreate up ;
 
+dev-ssh: autoconfig
+	$(DOCKER_EXEC_PHP) /bin/bash ;
 
-# > make composer "install php/library"
-# ---------------------------------------------------------------------
-# issue commands to the php composer cli. surround arguments in quotes
-composer:
-	docker compose run composer $(filter-out $@,$(MAKECMDGOALS)) ;
-
-
-# > make npm "install javascript/package"
-# ---------------------------------------------------------------------
-# issue commands to the npm cli. surround arguments in quotes
-npm:
-	docker compose exec frontend npm $(filter-out $@,$(MAKECMDGOALS)) ;
-
-
-# > make lint
-# ---------------------------------------------------------------------
-# run the vite/npm lint scripts
-lint:
-	docker compose exec frontend npm run lint ;
+dev-down: autoconfig
+	$(DOCKER_COMPOSE) down ;
 
 
-# > make build
-# ---------------------------------------------------------------------
-# run the vite/npm lint & build scripts
-build:
-	docker compose exec frontend npm run build ;
+
+#--------------------------------------------------------------
+# Composer - PHP Dependency Manager
+#--------------------------------------------------------------
+composer: autoconfig
+	$(DOCKER_COMPOSE) run composer $(filter-out $@,$(MAKECMDGOALS)) ;
+
+composer-update: autoconfig
+	$(DOCKER_COMPOSE) run composer $(filter-out $@,$(MAKECMDGOALS)) ;
 
 
-# > make exportdb
-# ---------------------------------------------------------------------
-# short cut to run the craft database export
-exportdb:
-	docker compose exec php $(CRAFT_PATH) db/backup ;
+#--------------------------------------------------------------
+# Craft - Console Commands
+#--------------------------------------------------------------
+craft: autoconfig
+	$(DOCKER_EXEC_CRAFT) $(filter-out $@,$(MAKECMDGOALS)) ;
+
+craft-update: autoconfig
+	$(DOCKER_EXEC_CRAFT) $(filter-out $@,$(MAKECMDGOALS)) ;
+
+craft-assetsync: autoconfig
+	$(DOCKER_EXEC_CRAFT) $(filter-out $@,$(MAKECMDGOALS)) ;
 
 
-# > make exportdbseed
-# ---------------------------------------------------------------------
-# set the current database as the new seed file (./etc/database-seed)
-exportdbseed: exportdb
-	rm -f $(GZ_FILES)
-	rm -f $(SQL_FILES)
-	cp -p "`ls -dtr1 ./craftcms/storage/backups/* | tail -1`" $(SEED_DIR)
-	gzip $(SQL_FILES)
+#--------------------------------------------------------------
+# Database Management
+#--------------------------------------------------------------
+db-export: autoconfig
+	$(DOCKER_EXEC_CRAFT) db/backup ;
+
+db-reseed: db-export
+	rm -f $(SEED_GZIP)
+	cp -p "`ls -dtr1 ./craftcms/storage/backups/* | tail -1`" etc/$(SEED_NAME)
+	gzip -c etc/$(SEED_NAME) > $(SEED_PATH)
+
+db-reset: db-export
+	$(DOCKER_COMPOSE) rm -v $(DOCKER_DB) ;
+	$(DOCKER_COMPOSE) --profile $(DOCKER_PROFILE_REINSTALL) up ;
+
+db-debug: autoconfig
+	$(DOCKER_COMPOSE) --profile $(DOCKER_PROFILE_DEBUG) up ;
 
 
-# > make ssh
-# ---------------------------------------------------------------------
-# ssh into the php-fpm container
-ssh:
-	docker compose exec php /bin/bash ;
+#--------------------------------------------------------------
+# Frontend NodeJS
+#--------------------------------------------------------------
+npm: autoconfig
+	$(DOCKER_COMPOSE) exec frontend npm $(filter-out $@,$(MAKECMDGOALS)) ;
 
 
-# > make clean
-# ---------------------------------------------------------------------
-# deletes php (./craftcms/vendor) & node (./frontend/node_modules)
-# directories, along with respective lock files
-clean:
-	rm -f craftcms/composer.lock
-	rm -rf craftcms/vendor
+
+#--------------------------------------------------------------
+# n8n - workflow automation json import/export
+#--------------------------------------------------------------
+# https://docs.n8n.io/hosting/cli-commands/#import-workflows-and-credentials
+# https://docs.n8n.io/hosting/cli-commands/#export-workflows-and-credentials
+n8n-import: autoconfig
+	$(DOCKER_EXEC_N8N) import:workflow --separate --input=$(N8N_FLOWS) ;
+
+n8n-import-credentials: autoconfig
+	$(DOCKER_EXEC_N8N) import:credentials --separate --input=$(N8N_CREDS) ;
+
+n8n-export: autoconfig
+	$(DOCKER_EXEC_N8N) export:workflow --backup --output=$(N8N_FLOWS) ;
+
+n8n-export-credentials: autoconfig
+	$(DOCKER_EXEC_N8N) export:credentials --backup --output=$(N8N_CREDS) ;
+
+
+
+#--------------------------------------------------------------
+# Wipe persistent data from the local env
+#--------------------------------------------------------------
+wipe-volumes: autoconfig
+	$(DOCKER_COMPOSE) down -v ;
+
+wipe-frontend:
 	rm -f frontend/package-lock.json
 	rm -rf frontend/node_modules
 
+wipe-backend:
+	rm -f craftcms/composer.lock
+	rm -rf craftcms/vendor
 
-# > make wipedb
-# ---------------------------------------------------------------------
-# remove the mysql database. files in './etc/database-seed' will be
-# used to recreate the database the next time the project spins up
-wipedb:
-	docker compose down -v ;
+wipe-nuke: wipe-volumes wipe-backend wipe-frontend dev-rebuild
 
-
-# > make nuke
-# ---------------------------------------------------------------------
-# removes all persistent data (mysql volume included), deletes composer
-# and php libraries, and recreates the entire project from scratch
-nuke: clean wipedb
-	docker compose up --build --force-recreate ;
 
 
 %:

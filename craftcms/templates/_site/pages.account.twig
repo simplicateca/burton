@@ -1,0 +1,189 @@
+{## Account Functionality
+{---------------------------------------------------------------------------------------}
+    Handles requests for the root account page at `/account`, and also any valid
+    actions (i.e. /account/history, /account/profile, etc). Requests arrive here via:
+
+ 1. EntryType+Slug routing for `account` page via `templates/_site/pages._section`
+ 2. Advanced URL routing of actions for `account/*` via `config/routes.php`
+
+ -> https://craftcms.com/docs/5.x/system/routing.html#advanced-routing-with-url-rules
+{-------------------------------------------------------------------------------------##}
+{% set entry = entry ??? craft.entries.section('pages').slug('account').one() ??? null %}
+
+{% set loggedin  = ['dashboard', 'history', 'billing', 'profile'] %}
+{% set loggedout = ['login', 'forgot', 'reset', 'verified'] %}
+
+{% set action  = actionSlug ??? 'dashboard' %}
+{% set actions = collect([ loggedin, loggedout ]).collapse() %}
+
+{% set template = ( action in loggedout )
+    ? "_site/template.spotlight"
+    : "_site/template.sidebar" %}
+
+
+{## Validate Action or 404
+{-------------------------------------------------------------------------------------##}
+{% extends ( action in actions )
+    ? template
+    : template_from_string('{% block e %}{% header "HTTP/1.0 404 Not Found" %}{% endblock %}') %}
+
+
+
+{#######################################################################################}
+{##                                Template Overrides                                 ##}
+{#######################################################################################}
+{% block head__meta %}
+    {{ parent() }}
+    <meta name="robots" content="noindex">
+{% endblock %}
+
+{% block page__top %}
+    {% embed "_site/header" with {
+        blocks: action == 'dashboard' ? blocks ??? [] : [],
+        title: _self.account__title( action )
+     } %}
+        {% block plaintitle title ?? parent() %}
+    {% endembed %}
+{% endblock %}
+
+
+{% block page__bottom block( 'footer__slim', '_site/footer' ) %}
+
+
+{% block aside %}
+    <div class="@container h-full">
+        {%- import "_core" as assemble -%}
+        {% set currentUser = currentUser ??? null %}
+        {% if currentUser %}
+            {{ block('builder__sidebar') }}
+        {% else %}
+            <div class="bg-theme-tint p-4 sm:p-8 sticky top-20">
+                <h2 class="like-h3">Already have an account?</h2>
+                {{ block('content__login') }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    {%- import "_core" as assemble -%}
+    {% set content = content ??? raw( block("content__#{action}") ??? null ) %}
+    <div class="mb-20">
+        {{ assemble.container( 'fluid', content ) }}
+    </div>
+{% endblock %}
+
+
+{% block content__dashboard %}
+    {%- import "_site/pages.register" as register -%}
+
+    {% set user  = user ??? currentUser ??? null %}
+
+    {{ register.order_summary({
+        headline    : "Registration in Progress…",
+        class       : "canvas",
+        actiontitle : "Next Step...",
+        actionbutton: "Save and Review Badges →"|t,
+    })}}
+{% endblock %}
+
+
+{% block content__history %}
+    {% import "_site/commerce" as commerce %}
+
+    {% set number = craft.app.request.getParam('number') ??? null %}
+    {% set order  = number ? craft.orders().number(number).one() : null %}
+
+    {% if not order.isCompleted ??? null %}
+        {% redirect siteUrl('account') %}
+    {% endif %}
+
+    {% set session = craft.app.session %}
+    {% set private = order.getCustomer().email != currentUser.email ??? session.cartemail ??? null %}
+
+    {% if order %}
+        <h2>Order Summary</h2>
+        {{ commerce.order_summary( order, {} ) }}
+
+        {{ commerce.order_addresses( order, {} ) }}
+
+        {{ commerce.order_lineitems( order, {} ) }}
+
+        {{ commerce.order_totals( order, {} ) }}
+
+        <h3>{{- 'Transactions'|t -}}</h3>
+        {{ commerce.order_transactions( order, {} ) }}
+
+        <h3>Actions</h3>
+        <div class="p-10 bg-theme-tint">
+            {{ commerce.order_actions( order, {} ) }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content__billing %}
+
+
+
+{% endblock %}
+
+{% block content__profile %}
+
+{% endblock %}
+
+{% block content__badges %}
+
+{% endblock %}
+
+{% block content__login %}
+    {%- import "_site/forms" as forms -%}
+    {{ forms.form_login({
+        errorCode: errorCode ??? null,
+        errorMessage: errorMessage ??? null,
+    }) }}
+{% endblock %}
+
+{% block content__forgot %}
+    {%- import "_site/forms" as forms -%}
+    {{ forms.form_forgot({
+        errorCode: errorCode ??? null,
+        errorMessage: errorMessage ??? null,
+    }) }}
+{% endblock %}
+
+{% block content__confirm %}
+
+{% endblock %}
+
+{% block content__verified %}
+
+{% endblock %}
+
+{% block content__reset "We have sent that email address a link to reset their password" %}
+
+
+
+{## Unique Elements
+{-------------------------------------------------------------------------------------##}
+{% macro account__title( action ) %}
+    {%- import "_core" as assemble -%}
+
+    {% set user  = currentUser ??? null %}
+    {% set cart  = craft.commerce.carts.cart ??? null %}
+    {% set items = cart.lineItems ??? [] %}
+
+    {# {% set eyebrow = assemble.text( "eyebrow__basic", "Dashboard"|t, {}  ) %} #}
+    {% set title = "Your Account"|t %}
+
+    {% set title = action == "history" ? "History"|t : title %}
+    {% set title = action == "billing" ? "Billing"|t : title %}
+    {% set title = action == "profile" ? "Profile"|t : title %}
+
+    <div class="max-w-5xl">
+        <div class="@container flex flex-col" data-headercopy>
+            {{ eyebrow ??? null }}
+            {{ tag( 'h1', { html: title }) }}
+        </div>
+    </div>
+{% endmacro %}

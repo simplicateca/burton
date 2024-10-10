@@ -1,0 +1,13 @@
+[{
+    "value"   : "article_general",
+    "label"   : "General Article",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "article_video",
+    "label"   : "Video Feature",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

@@ -39,7 +39,36 @@
     padding-top: 2.25rem !important;
 }
 
-#content .flex-fields #fields-headerBuilder-field + hr {
+
+#content .flex-fields + hr,
+#content :not(.meta) .flex-fields .field + hr
+{
     margin-top: 3rem !important;
-    margin-bottom: 4rem !important;
+    margin-bottom: 3rem !important;
+}
+
+
+#content .flex-fields + .line-break,
+#content :not(.meta) .flex-fields .field + .line-break
+{
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.content-grid__main div.flex-fields input {
+    background-color: var(--gray-050) !important;
+}
+
+.content-grid__main div.flex-fields .selectize.select .selectize-input {
+    background-color: var(--gray-050) !important;
+    border: 1px solid var(--gray-200) !important;
+}
+
+.content-grid__main div.flex-fields {
+    --ck-color-base-background: var(--gray-050);
+}
+
+.content-grid__main div.flex-fields .chip {
+    background-color: var(--gray-050) !important;
+    border: 1px solid var(--gray-200) !important;
 }

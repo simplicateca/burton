@@ -1,21 +1,17 @@
-# pipeline settings
-- pipeline: "Build & Deploy to Production"
-  ref_name: "main"
+# Name & Triggers
+- pipeline: "Build & Deploy to Staging"
+  ref_name: "develop"
   ref_type: "BRANCH"
   trigger_mode: "ON_EVERY_PUSH"
   fetch_all_refs: true
 
   # pipeline variables
   variables:
-    - key: "PROJECT_SHORTNAME"
+    - key: "SSH_HOST"
       value: ""
-    - key: "PROJECT_URL"
+    - key: "SSH_USER"
       value: ""
-    - key: "REMOTE_PROJECT_ROOT"
-      value: ""
-    - key: "REMOTE_SSH_HOST"
-      value: ""
-    - key: "REMOTE_SSH_USER"
+    - key: "SSH_PATH"
       value: ""
 
   # pipeline actions
@@ -24,22 +20,22 @@
     # STEP 1: build the frontend js/css
   - action: "Build the frontend js/css with vite:build"
     type: "BUILD"
-    working_directory: "/buddy/$PROJECT_SHORTNAME/frontend"
+    working_directory: "/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH/frontend"
     docker_image_name: "node"
     docker_image_tag: "lts"
     volume_mappings:
-      - "/:/buddy/$PROJECT_SHORTNAME"
+      - "/:/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH"
     execute_commands:
       - "npm ci && npm run build"
 
     # STEP 2: install php vendor files with composer
   - action: "Install Composer"
     type: "BUILD"
-    working_directory: "/buddy/$PROJECT_SHORTNAME/craftcms"
+    working_directory: "/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH/craftcms"
     docker_image_name: "composer"
     docker_image_tag: "latest"
     volume_mappings:
-      - "/:/buddy/$PROJECT_SHORTNAME"
+      - "/:/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH"
     execute_commands:
       - "composer install --verbose --no-progress --no-scripts --optimize-autoloader --no-interaction"
 
@@ -47,9 +43,9 @@
   - action: "Rsync files to host"
     type: "RSYNC"
     local_path: "craftcms/"
-    remote_path: "$REMOTE_PROJECT_ROOT/deploy-cache"
-    login: "$REMOTE_SSH_USER"
-    host: "$REMOTE_SSH_HOST"
+    remote_path: "$SSH_PATH/deploy-cache"
+    login: "$SSH_USER"
+    host: "$SSH_HOST"
     port: "22"
     authentication_mode: "WORKSPACE_KEY"
     archive: true
@@ -60,18 +56,16 @@
     # STEP 4: create an atomic deployment release on the server
   - action: "Prepare Atomic Deployment"
     type: "SSH_COMMAND"
-    working_directory: "$REMOTE_PROJECT_ROOT"
-    login: "$REMOTE_SSH_USER"
-    host: "$REMOTE_SSH_HOST"
+    working_directory: "$SSH_PATH"
+    login: "$SSH_USER"
+    host: "$SSH_HOST"
     port: "22"
     authentication_mode: "WORKSPACE_KEY"
     run_as_script: true
     shell: "BASH"
     commands:
-
         # make sure we have all the files & directories we might need (especially on first deployments)
       - "mkdir -p releases storage deploy-cache/migrations"
-      - "[ ! -f '.env' ] && [ -f 'deploy-cache/.env.example' ] && cp deploy-cache/.env.example .env"
 
         # wipe existing release directory of this is *not* the first attempt deploying this commit
       - "[ -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && [ \"$BUDDY_EXECUTION_REFRESH\" = \"true\" ] && rm -rf releases/$BUDDY_EXECUTION_REVISION;"
@@ -80,8 +74,8 @@
       - "[ ! -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && cp -dR deploy-cache releases/$BUDDY_EXECUTION_REVISION;"
 
         # create symlinks to persistent storage directory and .env file from inside the new release
-      - "ln -nfs $REMOTE_PROJECT_ROOT/.env $REMOTE_PROJECT_ROOT/releases/$BUDDY_EXECUTION_REVISION"
-      - "ln -nfs $REMOTE_PROJECT_ROOT/storage $REMOTE_PROJECT_ROOT/releases/$BUDDY_EXECUTION_REVISION"
+      - "ln -nfs $SSH_PATH/.env $SSH_PATH/releases/$BUDDY_EXECUTION_REVISION"
+      - "ln -nfs $SSH_PATH/storage $SSH_PATH/releases/$BUDDY_EXECUTION_REVISION"
 
         # set permissions on cpresources
       - "mkdir -p releases/$BUDDY_EXECUTION_REVISION/web/cpresources"
@@ -93,9 +87,9 @@
     # STEP 5: make the new release live
   - action: "Make Release Live"
     type: "SSH_COMMAND"
-    working_directory: "$REMOTE_PROJECT_ROOT"
-    login: "$REMOTE_SSH_USER"
-    host: "$REMOTE_SSH_HOST"
+    working_directory: "$SSH_PATH"
+    login: "$SSH_USER"
+    host: "$SSH_HOST"
     port: "22"
     authentication_mode: "WORKSPACE_KEY"
     run_as_script: true

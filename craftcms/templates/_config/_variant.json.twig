@@ -10,29 +10,52 @@
     When `type` is null, it's because Craft is looking for all possible options to use
     in a list of conditional field settings.
 {-------------------------------------------------------------------------------------##}
-{%- set type  = type  ?? '' -%}
-{%- set type  = type  | lower -%}
-{%- set field = field ?? null -%}
+{%- set type    = type ??? '' | lower -%}
+{%- set element = element ??? '' | lower -%}
+{%- set field   = field ??? null -%}
 
-{## MatrixBlock Entries ##}
-{% if type == 'text'      %}{{ include( '_config/block.text.json'      ) }}{% endif %}
-{% if type == 'image'     %}{{ include( '_config/block.image.json'     ) }}{% endif %}
-{% if type == 'media'     %}{{ include( '_config/block.media.json'     ) }}{% endif %}
-{% if type == 'carddeck'  %}{{ include( '_config/block.carddeck.json'  ) }}{% endif %}
-{% if type == 'component' %}{{ include( '_config/block.component.json' ) }}{% endif %}
-{% if type == 'fragment'  %}{{ include( '_config/block.fragment.json'  ) }}{% endif %}
 
-{## Addon Entry ##}
-{% if type == 'addon'     %}{{ include( '_config/addon.json'  ) }}{% endif %}
+{## [Type] Addon → http://localhost:8000/cms/settings/entry-types/20
+{-------------------------------------------------------------------------------------##}
+{{- 'addon'     == type ? include( '_config/addon.variant.json'   ) : null -}}
+
+
+{## [Type] Article → http://localhost:8000/cms/settings/entry-types/27
+{-------------------------------------------------------------------------------------##}
+{{- 'article'   == type ? include( '_config/article.variant.json' ) : null -}}
+
+
+{## [EntryType] Matrix Builder Blocks
+{---------------------------------------------------------------------------------------}
+    Card Deck → http://localhost:8000/cms/settings/entry-types/5
+    Component → http://localhost:8000/cms/settings/entry-types/7
+    Fragment  → http://localhost:8000/cms/settings/entry-types/8
+    Image     → http://localhost:8000/cms/settings/entry-types/3
+    Media     → http://localhost:8000/cms/settings/entry-types/6
+    Text      → http://localhost:8000/cms/settings/entry-types/4
+{-------------------------------------------------------------------------------------##}
+{{- 'text'      == type ? include( '_config/block.text.json'      ) : null -}}
+{{- 'image'     == type ? include( '_config/block.image.json'     ) : null -}}
+{{- 'media'     == type ? include( '_config/block.media.json'     ) : null -}}
+{{- 'carddeck'  == type ? include( '_config/block.carddeck.json'  ) : null -}}
+{{- 'component' == type ? include( '_config/block.component.json' ) : null -}}
+{{- 'fragment'  == type ? include( '_config/block.fragment.json'  ) : null -}}
+
+
+{## [Asset] Static Volume → http://localhost:8000/cms/settings/assets/volumes/2
+{-------------------------------------------------------------------------------------##}
+{{- 'static'    == type ? include( '_config/asset.static.json' ) : null -}}
 
 {## All possible options ##}
 {% if not type %}
-    {% set combined =       [] | merge( include( '_config/block.text.json'      ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/block.image.json'     ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/block.media.json'     ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/block.carddeck.json'  ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/block.component.json' ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/block.fragment.json'  ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/addon.json'           ) | json_decode ) %}
+    {% set combined =       [] | merge( include( '_config/block.text.json'       ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.image.json'      ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.media.json'      ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.carddeck.json'   ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.component.json'  ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/block.fragment.json'   ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/addon.variant.json'    ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/article.variant.json'  ) | json_decode ) %}
+    {% set combined = combined | merge( include( '_config/asset.static.json'     ) | json_decode ) %}
     {{ combined | json_encode }}
 {% endif %}

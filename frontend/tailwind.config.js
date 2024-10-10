@@ -17,8 +17,11 @@ module.exports = {
         },
 
         screens: {
-            '2xs': '280px',
-            'xs': '360px',
+            '3xs' : '280px',
+            '2xs' : '320px',
+            'xs'  : '360px',
+            '3sm' : '440px',
+            '2sm' : '580px',
             'tall': { 'raw': '(min-height: 900px)' },
             'max-lg': {'max': '1023px'},
             ...defaultTheme.screens,
@@ -29,6 +32,13 @@ module.exports = {
                 display:  ["Rubik"],
                 headline: ["Rubik"],
                 body:     ["Roboto Mono"],
+            },
+
+            lineClamp: {
+                7: '7',
+                8: '8',
+                9: '9',
+               10: '10',
             },
 
             lineHeight: {

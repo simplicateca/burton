@@ -4,44 +4,55 @@
     "tooltips": {
         "inline" : "Articles + Blog Posts"
     },
+    "virtuals": [{
+        "type" : "select",
+        "name" : "variant",
+        "label": "Variant",
+        "fieldClass": "width-100",
+        "default": "",
+        "options": [{
+            "value": "",
+            "label": "Any Article Variant"
+        },{
+            "value": "article_general",
+            "label": "General Articles"
+        },{
+            "value": "article_guide",
+            "label": "Learning Guides"
+        },{
+            "value": "article_exclusive",
+            "label": "Insider Exclusive"
+        },{
+            "value": "article_audio",
+            "label": "Podcast • Audio"
+        },{
+            "value": "article_video",
+            "label": "Video Feature"
+        }]
+      },{{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ],
     "settings": {
         "with": ["images", "taxonomies", "users"],
         "where": {
             "type": ["article"]
         }
     },
-    "virtuals": [{
-        "type" : "select",
-        "name" : "sort",
-        "label": "Default Sorting",
-        "default": "recent",
-        "instructions": "Unless otherwise overridden",
-        "options": [{
-            "value": "recent",
-            "label": "Most Recent",
-            "orderby": "postDate DESC"
-        },{
-            "value": "alpha",
-            "label": "Alphabetically",
-            "orderby": "title ASC"
-        },{
-            "value": "random",
-            "label": "Random",
-            "orderby": "RAND()"
-        }]
-    },{
-        "type" : "date",
-        "name" : "before",
-        "label": "On or Before",
-        "fieldClass": "width-25",
-        "instructions": "Exclude newer"
-    },{
-        "type" : "date",
-        "name" : "after",
-        "label": "On or After",
-        "fieldClass": "width-25",
-        "instructions": "Exclude older"
-    }]
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "release",
+    "label": "Company blog, news release, etc.",
+    "settings": {
+        "with": ["images"],
+        "where": {
+            "type": "release",
+            "section": "articles"
+        }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
 },{
     "value": "pages",
     "label": "Pages",
@@ -80,9 +91,13 @@
             "type": "topic",
             "section": "taxonomy"
         }
-    }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
+
 },{
-    "value": "sitesearch",
+    "value": "public",
     "label": "Public Facing Content",
     "tooltips": {
         "inline" : "Articles + Pages + Topics"
@@ -95,31 +110,32 @@
         }
     }
 },{
-    "value": "bits",
-    "label": "Content Bits",
-    "settings" : {
+    "value": "reusables",
+    "label": "Reusable Pieces of Content",
+    "virtuals": [{
+        "type" : "select",
+        "name" : "type",
+        "label": "Type",
+        "default": "",
+        "options": [{
+            "value": "bits",
+            "label": "Content Bits"
+        },{
+            "value": "embed",
+            "label": "Embeddable Media"
+        },{
+            "value": "faqs",
+            "label": "FAQs"
+        },{
+            "value": "quotes",
+            "label": "Quotes & Testimonials"
+        }]
+      },{{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ],
+    "settings": {
         "with": ["images", "taxonomies"],
         "where": {
-            "type": "bit"
-        }
-    }
-},{
-    "value": "embeds",
-    "label": "Embeddable External Media",
-    "settings" : {
-        "with": ["images", "taxonomies"],
-        "where": {
-            "type": "embed"
-        }
-    }
-},{
-    "value": "media",
-    "label": "Local Media Assets",
-    "settings" : {
-        "element": "asset",
-        "with": [],
-        "where": {
-            "kind": ["video","audio","compressed","pdf","excel","word"]
+            "section": "reusables"
         }
     }
 },{
@@ -131,5 +147,21 @@
         "where": {
             "kind": "image"
         }
-    }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "media",
+    "label": "Local Media Assets",
+    "settings" : {
+        "element": "asset",
+        "with": [],
+        "where": {
+            "kind": ["video","audio","compressed","pdf","excel","word"]
+        }
+    },
+    "virtuals": [
+        {{ block( 'collectionSortFilterBasic', '_config/_virtuals' ) }}
+    ]
 }]

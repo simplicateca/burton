@@ -11,19 +11,13 @@ cat << EOF
 Your Docker Development Environment is Ready!
 _______________________________________________
 
-Frontend Website
+Website Frontend
  >> http://localhost:8000
 
 Craft CMS Admin
  >> http://localhost:8000/${CRAFT_CP_TRIGGER:-admin}
  u: craft@example.com
  p: letmein
-
-Editor Facing Style/Layout/Component Guide
- >> http://localhost:8000/sitehub
-
-Development Documentation Wiki
- >> http://localhost:5000
 
 EOF
 
@@ -35,11 +29,8 @@ echo "-----------------------------------------------"
 [[ ! -z "$S3_SECRET" ]]       || echo " ! S3_SECRET       ... missing!"
 [[ ! -z "$CAPTCHA_KEY" ]]     || echo " ! CAPTCHA_KEY     ... missing!"
 [[ ! -z "$CAPTCHA_SECRET" ]]  || echo " ! CAPTCHA_SECRET  ... missing!"
-[[ ! -z "$SMTP_USERNAME" ]]   || echo " ! SMTP_USERNAME   ... missing!"
-[[ ! -z "$SMTP_PASSWORD" ]]   || echo " ! SMTP_PASSWORD   ... missing!"
-[[ ! -z "$SMTP_HOSTNAME" ]]   || echo " ! SMTP_HOSTNAME   ... missing!"
-
-
-
+[[ ! -z "$EMAIL_HOSTNAME" ]]  || echo " ! EMAIL_HOSTNAME  ... missing!"
+[[ ! -z "$EMAIL_USERNAME" ]]  || echo " ! EMAIL_USERNAME  ... missing!"
+[[ ! -z "$EMAIL_PASSWORD" ]]  || echo " ! EMAIL_PASSWORD  ... missing!"
 
 echo " "

@@ -73,7 +73,7 @@ fieldLayouts:
             handle: null
             includeInCards: true
             instructions: null
-            label: __blank__
+            label: 'Uploaded Media'
             providesThumbs: false
             required: false
             tip: null
@@ -106,7 +106,7 @@ fieldLayouts:
             handle: null
             includeInCards: true
             instructions: null
-            label: __blank__
+            label: null
             providesThumbs: false
             required: false
             tip: null
@@ -139,7 +139,7 @@ fieldLayouts:
             handle: null
             includeInCards: true
             instructions: null
-            label: __blank__
+            label: 'Third Party Media'
             providesThumbs: false
             required: false
             tip: null
@@ -244,7 +244,7 @@ fieldLayouts:
 handle: media
 hasTitleField: false
 icon: tv-retro
-name: Media
+name: 'Media 🧱'
 showSlugField: false
 showStatusField: true
 slugTranslationKeyFormat: null

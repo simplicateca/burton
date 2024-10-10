@@ -2,13 +2,14 @@
 {---------------------------------------------------------------------------------------}
   > http://localhost:8000/sitehub/blocks/component
 {-------------------------------------------------------------------------------------##}
-{%- extends [ "_site/block", "_core/block" ] -%}
+{%- set _field = ( settings.field ??? block.settings.field ??? '' ) | replace({'Builder':''}) %}
+{%- extends [ "_site/#{_field}.block", "_site/block", "_core/block" ] -%}
 
 
 {## Zone 2 Content / Variant Routing
 {-------------------------------------------------------------------------------------##}
 {% block block__zone2 %}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
     {%- set settings = {
         variant: null,
         limit  : 100
@@ -30,7 +31,8 @@
     {% set form = block.form.one() ??? null %}
     {% if form %}
         <div class="bg-theme-tint p-10">
-            {{ craft.formie.renderForm(form) }}
+            {% set themeConfig = settings.themeConfig ?? {} %}
+            {{ craft.formie.renderForm( form, { themeConfig: themeConfig } ) }}
         </div>
     {% endif %}
 {% endblock %}
@@ -41,7 +43,7 @@
 {-------------------------------------------------------------------------------------##}
 {% block component__menu %}
     {% set menu = collect( block.menu ).first %}
-    <div class="@container text-xl">
+    <div class="@container">
         {{ craft.navigation.render(menu, {
             ulClass: 'flex flex-wrap justify-center w-full gap-6',
             aClass: 'px-4 py-2 font-display block border-2',
@@ -65,9 +67,9 @@
         {%- import "_core" as assemble -%}
         {%- switch block.source.account__component -%}
             {%- case "login" -%}
-                {{- assemble.accountpart( 'login', {}, settings ) -}}
+                {{- assemble.forms( 'login', {}, settings ) -}}
             {%- case "forgot" -%}
-                {{- assemble.accountpart( 'forgot', {}, settings ) -}}
+                {{- assemble.forms( 'forgot', {}, settings ) -}}
             {%- default -%}
         {%- endswitch -%}
     {%- endif -%}

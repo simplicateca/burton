@@ -1,10 +1,11 @@
 {## [Core] Account Elements
 {-------------------------------------------------------------------------------------##}
 {% macro login( params, settings ) %}
+    {% set redirect = params.redirect ??? siteUrl('account') %}
     <form method="post" action="" accept-charset="UTF-8" class="flex flex-col gap-8">
         {{ csrfInput() }}
         {{ actionInput('users/login') }}
-        {{ redirectInput(redirectUrl ?? '') }}
+        {{ redirectInput(redirect) }}
 
         <div class="field flex flex-col gap-1">
             <label for="loginName">{{- 'Email / Username'|t -}}</label>
@@ -29,7 +30,7 @@
 
         <p class="data-only-links">
             {{ tag('button', { type: 'submit', class: 'button', text: 'Sign in ➜'|t }) }}
-            <a href="{{ url('/account/forgot-password') }}">{{- 'Forgot your password?'|t -}}</a>
+            <a href="{{ siteUrl('account/forgot') }}">{{- 'Forgot your password?'|t -}}</a>
         </p>
     </form>
 {% endmacro %}
@@ -64,31 +65,9 @@
 {% endmacro %}
 
 
+
 {% macro register( params, settings ) %}
     <form method="post" action="" accept-charset="UTF-8" class="flex flex-col gap-8">
-        {# {{ csrfInput() }}
-        {{ actionInput('users/send-password-reset-email') }}
-        {{ redirectInput('account') }}
-        {{ successMessageInput('Password reset email sent!') }}
 
-        <div class="field flex flex-col gap-1">
-            <label for="loginName">{{- 'Email Address'|t -}}</label>
-            {{ input('text', 'loginName', loginName ?? craft.app.user.rememberedUsername, {
-                id: 'loginName'
-            }) }}
-        </div>
-
-        {% if errors is defined %}
-            {{ ul(errors, {
-                itemOptions: {
-                    class: 'text-red'
-                }
-            }) }}
-        {% endif %}
-
-        <p class="data-only-links">
-            {{ tag('button', { type: 'submit', class: "button" , text: 'Reset Password'|t }) }}
-            <a href="{{ url('account') }}">{{- 'Cancel'|t -}}</a>
-        </p> #}
     </form>
 {% endmacro %}

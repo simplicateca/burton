@@ -50,7 +50,7 @@ class CollectionBaseTwig extends AbstractExtension
     public function CollectionResults( $collections, $params )
     {
         $results = $this->CollectionBase( $collections, $params );
-        return ( is_object( $results ) &&  $results->one() )
+        return ( is_object( $results ) && $results->one() )
             ? $results->all()
             : $results;
     }
@@ -213,7 +213,9 @@ class CollectionBaseTwig extends AbstractExtension
         }
 
         if( $staticfield == 'media' ) {
-            return $collection->media->limit($limit) ?? null;
+            return $collection->media->one()
+                ? $collection->media->limit($limit)  ?? null
+                : $collection->embeds->limit($limit) ?? null;
         }
 
         if( $staticfield == 'images' ) {
@@ -237,8 +239,16 @@ class CollectionBaseTwig extends AbstractExtension
             'limit'   => $params['limit'] ?? 100,
             'keyword' => $params['query'] ?? null,
             'before'  => $collection->source->settings['before'] ?? null,
-            'after'   => $collection->source->settings['after'] ?? null,
+            'after'   => $collection->source->settings['after']  ?? null,
         ];
+
+        // if( in_array( $query['before'], ['now', 'now()', 'date()'] ) ) {
+        //     $query['before'] = date('Y-m-d H:i:s');
+        // }
+
+        // if( in_array( $query['after'], ['now', 'now()', 'date()'] ) ) {
+        //     $query['after'] = date('Y-m-d H:i:s');
+        // }
 
         $elementQuery = $this->elementQuery( $query['element'] );
 
@@ -251,9 +261,9 @@ class CollectionBaseTwig extends AbstractExtension
             $elementQuery->relatedTo( $taxonomies );
         }
 
-        if( $users = $collection->taxonomies->exists() ? $collection->taxonomies->ids() : [] ) {
-            $elementQuery->relatedTo( $taxonomies );
-        }
+        // if( $users = $collection->taxonomies->exists() ? $collection->taxonomies->ids() : [] ) {
+        //     $elementQuery->relatedTo( $taxonomies );
+        // }
 
         if( isset( $query['where'] ) && !empty( $query['where'] ) ) {
 

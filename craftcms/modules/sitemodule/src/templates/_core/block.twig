@@ -15,12 +15,12 @@
     {-------------------------------------------------------------------------------------##}
     {%- set block = block ?? null -%}
 
-    {%- set settings = block.settings ?? settings ?? null -%}
+    {%- set settings = block.settings ?? null -%}
     {%- set settings = settings is iterable ? settings : {} -%}
 
     {%- set settings = {
-        include__before: null,
-        include__after : null,
+        includebefore: null,
+        includeafter : null,
         container      : 'default',
         microlayout    : 'default'
     } | merge( settings ) -%}
@@ -35,7 +35,7 @@
     {% endif %}
 
     {# Spacer Before / Between Block #}
-    {%- block before assemble.separator( settings.include__before, block, settings ) -%}
+    {%- block before assemble.separator( settings.includebefore, block, settings ) -%}
 
     {# Open Theme #}
     {%- block theme -%}
@@ -57,7 +57,7 @@
     {%- endblock theme -%}
 
     {# Spacer After / Between Block #}
-    {%- block after assemble.separator( settings.include__after, block, settings ) -%}
+    {%- block after assemble.separator( settings.includeafter, block, settings ) -%}
 {%- endblock %}
 
 
@@ -121,7 +121,7 @@
 {-------------------------------------------------------------------------------------##}
 {% macro builder__fallback( blocks, settings ) -%}
 
-    {%- set blocks   = blocks   ??? null and blocks   is iterable ? blocks   : [] -%}
+    {%- set blocks   = blocks   ??? null and blocks is iterable ? blocks : [] -%}
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
 
 
@@ -134,11 +134,7 @@
         If that's the case, its probably worth setting an owner object along with the
         first block or just using a differnt builder macro altogether.
     {---------------------------------------------------------------------------------##}
-    {## TODO: Use collect() / firstWhere() instead of a loop ##}
-    {%- set owner = null -%}
-    {%- for b in blocks -%}
-        {%- set owner = owner is not null and b.owner ??? null ? b.owner : owner -%}
-    {%- endfor -%}
+    {%- set owner = ( blocks | first ).owner ??? null -%}
 
 
     {## Default Block `settings`
@@ -158,14 +154,14 @@
         probably means that your placeholder values should be present in the blocks'
         `settings` object.
     {---------------------------------------------------------------------------------##}
-    {%- set settings = {
+    {{- _self.block__builderbase( blocks, {
         theme    : 'base',
         builder  : 'fallback',
         container: 'default',
-        section  : owner.section.handle ?? owner.section ?? null,
-        entrytype: owner.type.handle    ?? owner.type    ?? null,
-        entryid  : owner.id  ?? null,
-        entryurl : owner.url ?? null,
+        section  : owner.section.handle ??? owner.section ??? null,
+        entrytype: owner.type.handle    ??? owner.type    ??? null,
+        entryid  : owner.id  ??? null,
+        entryurl : owner.url ??? null,
         blockpath: [
             "_site/block.%blocktype%.%variant%",
             "_core/block.%blocktype%.%variant%",
@@ -174,8 +170,10 @@
             "_site/block",
             "_core/block"
         ],
-    } | merge( settings ) -%}
+    } | merge( settings ) ) -}}
+{%- endmacro %}
 
+{% macro block__builderbase( blocks, settings ) %}
 
     {## BuilderBase() Macro
     {-----------------------------------------------------------------------------------}
@@ -188,21 +186,30 @@
      -> `craftcms/modules/sitemodule/src/twigextensions/BuilderBaseTwig.php`
     {---------------------------------------------------------------------------------##}
     {%- for block in BuilderBase( blocks, settings ) -%}
-
-        {%- set path = settings.blockpath | map( p => p|replace({
-            '%theme%'    : block.settings.theme     ??? null,
-            '%layout%'   : block.settings.layout    ??? null,
-            '%section%'  : block.settings.section   ??? null,
-            '%builder%'  : block.settings.builder   ??? null,
-            '%blocktype%': block.settings.blocktype ??? null,
-            '%entrytype%': block.settings.entrytype ??? null,
-            '%variant%'  : block.settings.variant   ??? null,
-        }) ) -%}
-
-        {{- include( path, { block:block, settings:block.settings, loop:loop }, withContext = false ) -}}
-
+        {{ assemble.blockpart( 'block__includepath', block, block.settings | merge({ loop: loop }) ) }}
     {%- endfor -%}
+
 {% endmacro %}
+
+
+{% macro block__includepath( block, settings ) -%}
+
+    {%- set path = settings.blockpath | map( p => p|replace({
+        '%theme%'    : settings.theme     ??? null,
+        '%layout%'   : settings.layout    ??? null,
+        '%section%'  : settings.section   ??? null,
+        '%builder%'  : settings.builder   ??? null,
+        '%blocktype%': settings.blocktype ??? null,
+        '%entrytype%': settings.entrytype ??? null,
+        '%variant%'  : settings.variant   ??? null,
+    }) ) -%}
+
+    {{- include( path, {
+        block   : block,
+        settings: settings,
+        loop    : settings.loop ??? null
+    }, withContext = false ) -}}
+{%- endmacro %}
 
 
 
@@ -210,9 +217,8 @@
 {---------------------------------------------------------------------------------------}
 
 {-------------------------------------------------------------------------------------##}
-{% macro theme__open( block, settings = null ) -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
-
+{% macro theme__open( block, settings ) -%}
+    {%- set settings  = settings ?? null is iterable ? settings : {} -%}
 
     {%- set tagname   = settings.theme__tag ??? "div" -%}
     {%- set tagclass  = settings.theme__class ?? "relative" -%}
@@ -268,7 +274,7 @@
     {## Decide if we're closing the Theme (Basically the reverse of Open Theme) ##}
     {%- set closetheme = ( settings._next is not defined or not settings._next.match__theme ) -%}
     {%- if closetheme -%}
-        {% import "_core" as assemble %}
+        {%- import "_core" as assemble -%}
         {{ assemble.separator( settings.spacerbelow ?? 'normal', block, settings | merge({ _closing: true }) ) }}
         {%- set tagname = settings.theme__tag ??? "div" -%}
         </{{tagname}}>
@@ -288,7 +294,7 @@
         class: settings.block__class ?? "relative z-20",
         data: {
             block   : settings.blocktype ??? 'manual',
-            bodycopy: true,
+            bodycopy: true
         } } ) ~ ">" ) }}
 {%- endmacro %}
 
@@ -309,7 +315,7 @@
 {-------------------------------------------------------------------------------------##}
 {# {% macro fragment( query = null, builder = 'content', settings = {} ) %}
     {%- if query.id ??? query.slug ??? query.preset ??? null -%}
-        {% set fragment = craft.entries({section:"reusable"}|merge( query )).one() ??? null %}
+        {% set fragment = craft.entries({section:"reusables"}|merge( query )).one() ??? null %}
         {% if fragment %}
 
         {% endif %}

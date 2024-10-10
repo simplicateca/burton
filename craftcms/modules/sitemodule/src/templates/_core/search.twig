@@ -72,7 +72,7 @@
 {## Basic Pagination ##}
 {% macro pagination( search, settings ) -%}
 {%- if search.pageinfo.totalPages > 1 %}
-    {% import "_core" as assemble %}
+    {%- import "_core" as assemble -%}
     <nav
         role="navigation"
         aria-label="Pagination Navigation"
@@ -85,13 +85,13 @@
             hx-swap="outerHTML ignoreTitle:true show:top"
             {% if search.hxvals %}hx-vals='{{ search.hxvals | json_encode }}'{% endif %}
         >
-            <li class="list-none">{{ assemble.searchpart( 'previouspage', search, settings ) }}</li>
+            <li class="list-none">{{ assemble.search( 'previouspage', search, settings ) }}</li>
 
             <li class="flex flex-col text-center items-center">
                 <strong class="text-xs uppercase">Page</strong>
                 <div>{{search.page}} / {{search.pageinfo.totalPages}}</div>
             </li>
-            <li class="list-none text-right">{{ assemble.searchpart( 'nextpage', search, settings ) }}</li>
+            <li class="list-none text-right">{{ assemble.search( 'nextpage', search, settings ) }}</li>
         </ul>
     </nav>
 {%- endif %}{% endmacro %}

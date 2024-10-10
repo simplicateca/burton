@@ -264,13 +264,13 @@
 
 {% macro iterator__randomize( items, settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.medialayer( settings.medialayer, shuffle(items)[:1][0], settings ) -}}
+    {{- assemble.medialayer( settings.medialayer, shuffle(items) | first, settings ) -}}
 {%- endmacro %}
 
 
 {% macro iterator__single( items, settings ) -%}
     {%- import "_core" as assemble -%}
-    {{- assemble.medialayer( settings.medialayer, items[:1][0], settings ) -}}
+    {{- assemble.medialayer( settings.medialayer, items | first, settings ) -}}
 {%- endmacro %}
 
 
@@ -342,11 +342,11 @@
     } %}
         {% block panel__title "#{item.headline ??? item.alt ??? item.title ??? item.name ??? item.label ??? null}" %}
         {% block panel__content %}
-            <div class="flex flex-col gap-8">
+            <div class="flex flex-col gap-8 @container">
                 {%- import "_core" as assemble -%}
                 {{- assemble.medialayer( settings.medialayer, item, settings ) -}}
                 {%- if item.summary -%}
-                    <div class="@container/small">{{ assemble.text( settings.textlayer, item.summary, settings ) }}</div>
+                    {{ assemble.text( settings.textlayer, item.summary, settings ) }}
                 {%- endif -%}
             </div>
         {% endblock %}

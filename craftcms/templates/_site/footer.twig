@@ -38,17 +38,18 @@
 
 
 {% block footer__fat %}
-    {% import "_core" as assemble %}
+    {%- import "_core" as assemble -%}
 
-    {% set menus %}
-        {{ assemble.menu( 'overview', entry, {} ) }}
-        {{ assemble.menu( 'themes',   entry, {} ) }}
-    {% endset %}
+    {{ assemble.container__open( 'fluid' ) }}
+        <div class="flex flex-col-reverse @4xl:flex-row w-full gap-8 py-10">
+            <div class="flex gap-x-8 @lg:gap-x-20 lg:w-full mx-auto flex-wrap @2xl:flex-nowrap gap-y-16">
+                {{ _self.menufooter( entry, { handle: 'streams' } ) }}
+                {{ _self.menufooter( entry, { handle: 'evergreen' } ) }}
+            </div>
 
-    {% set menuColumns = assemble.gridlayout( 'flexible2', menus ) %}
-    {% set footerCta   = block( 'footer__fatCta' ) %}
-
-    {{ assemble.container( 'fluid', assemble.gridlayout( 'flexible2', menuColumns ~ footerCta ) ) }}
+            {{ block( 'footer__fatCta' ) }}
+        </div>
+    {{ assemble.container__close() }}
 {% endblock %}
 
 
@@ -56,7 +57,7 @@
     <footer {{attr({
         id   : 'footer',
         role : 'contentinfo',
-        class: 'relative z-20 canvas pt-10',
+        class: 'relative z-20 canvas',
         data : { theme: 'dark' }
     })}}>
 {% endblock %}
@@ -64,15 +65,51 @@
 
 
 {% block footer__bottom %}
-    {% import "_core" as assemble %}
-    {{ assemble.container(
-        'fluid',
-        tag( 'div', {
-            class: "flex flex-col md:flex-row py-4 items-center text-xs md:text-base gap-3",
-            html : block('footer__message') ~ assemble.menu( 'legal', entry, {} )
-        } )
-    ) }}
+    {%- import "_core" as assemble -%}
+    {{ assemble.container__open( 'fluid' ) }}
+    <div class="flex flex-col @3xl:flex-row py-4 gap-4 leading-relaxed text-xs md:text-sm">
+        <div class="@lg:whitespace-nowrap">{{ block('footer__message') }}</div>
+        <div class="w-full flex-grow">{{ _self.legal( entry, {} ) }}</div>
+    </div>
+    {{ assemble.container__close() }}
 {% endblock %}
+
+
+{% macro legal( entry, settings ) %}
+    {% set handle = 'legal' %}
+    {% set label  = settings.label ?? 'Policies & Conditions' %}
+    {% set nodes  = craft.navigation.nodes().handle(handle).level(1).all() ??? null %}
+
+    {% if nodes %}
+        {% embed ["_site/menu.list", "_core/menu.list"] with {
+            title: label,
+            items: nodes,
+        } %}
+            {% block menuClass %}
+                m-0
+                p-0
+                list-none
+                flex
+                @3xl:justify-end
+                flex-wrap
+                gap-x-4
+                gap-y-2
+                no-underline
+                underline-offset-2
+            {% endblock %}
+
+            {% block itemClass %}
+                flex
+                flex-col
+                items-center
+                whitespace-nowrap
+                text-theme-link
+                hover:text-theme-link-tint
+                hover:underline
+            {% endblock %}
+        {% endembed %}
+    {% endif %}
+{% endmacro %}
 
 
 {% macro social() %}
@@ -89,5 +126,48 @@
                 {% endif %}
             {% endfor %}
         </div>
+    {% endif %}
+{% endmacro %}
+
+
+{% macro menufooter( entry, settings ) %}
+    {% set entry    = entry    ?? null %}
+    {% set settings = settings ?? null %}
+    {% set handle   = settings.handle ?? null %}
+    {% set title    = settings.title  ?? null %}
+
+    {% set nodes  = craft.navigation.nodes().handle(handle).level(1) ??? null %}
+    {% set first  = nodes.one() ??? null %}
+
+    {% if first %}
+        {% set title = first and first.isPassive() and not title ? first.title : title %}
+        {% embed ['_site/menu.list', '_core/menu.list'] with {
+            title: title,
+            items: nodes.all(),
+        } %}
+            {% block menuClass %}
+                m-0
+                p-0
+                list-none
+                flex
+                flex-col
+                leading-none
+                gap-4
+                no-underline
+                underline-offset-2
+                whitespace-nowrap
+                text-xs
+                @xs:text-sm
+                @md:text-base
+            {% endblock %}
+
+            {% block itemClass %}
+                flex
+                flex-col
+                text-theme-link
+                hover:text-theme-link-tint
+                hover:underline
+            {% endblock %}
+        {% endembed %}
     {% endif %}
 {% endmacro %}

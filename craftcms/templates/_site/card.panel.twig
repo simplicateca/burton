@@ -10,9 +10,6 @@
 {%- set card = card ??? null -%}
 
 {%- set settings = settings ?? null is iterable ? settings : {} -%}
-{# {%- set settings = settings | merge({
-    card__imagelayer: 'stretch'
-}) -%} #}
 
 
 {## Overload Parent Blocks
@@ -24,16 +21,16 @@
 {% block card__imagelayer "stretch" %}
 
 {% block card__words -%}
-    <div class="flex flex-col gap-3 @container">
+    <div class="flex flex-col gap-3">
+
         {%- block card__headline %}<h3 class="!my-0">{{ card.headline }}</h3>{% endblock -%}
 
         <div class="-mr-8 pr-8 flex flex-col h-full">
-
             <div class="flex-grow max-h-[50vh] overflow-y-auto">
-                {{- ( card.fulltext ??? card.summary ) | raw -}}
+                {{- ( card.text ??? card.summary ) | raw -}}
             </div>
         </div>
-    </div>
 
-    {{ block('card__action')}}
+        {{ block('card__action')}}
+    </div>
 {%- endblock %}

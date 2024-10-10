@@ -2,82 +2,55 @@
 {---------------------------------------------------------------------------------------}
     Extending from an empty {% block %} makes it easier to keep things organized in here.
 {-------------------------------------------------------------------------------------##}
-{% extends template_from_string('{% block image__skeleton "" %}') %}
+{% extends template_from_string('{% block image "" %}') %}
 
 
 {## Template Variables
 {-------------------------------------------------------------------------------------##}
-{# one or more images to generate a tag for #}
-{# {%- set images = images ??? image ??? null -%} #}
 {%- set images = images ??? image ??? null -%}
-
-{# caption text / html #}
-{%- set caption = caption ??? null -%}
-
-{# settings object #}
-{%- set settings = settings ?? null is iterable ? settings : {} -%}
-
-{# <figure> attributes - to use when generating tag with: `{{ tag('figure', attr ) }}` #}
-{%- set figure = figure ??? settings.figure ??? null -%}
-{%- set figure = figure ?? null is iterable ? figure : {} -%}
+{# {%- set settings = settings ??? null is iterable ? settings : {} -%} #}
 
 
 {## Default Configuration
-{---------------------------------------------------------------------------------------}
 {-------------------------------------------------------------------------------------##}
-{% block img__class      img__class     ?? "w-full max-w-full h-auto" %}
-{% block picture__tag    picture__tag   ?? "picture" %}
-{% block picture__class  picture__class ?? "" %}
-{% block figure__tag     figure__tag    ?? "figure" %}
-{% block figure__class   figure__class  ?? "relative z-20" %}
-{% block caption__tag    caption__tag   ?? "figcaption" %}
-{% block caption__class  caption__class ?? "text-sm" %}
+{%- block img__class      settings.imgclass     ?? "w-full max-w-full h-auto" -%}
+{%- block picture__tag    settings.picturetag   ?? "picture" -%}
+{%- block picture__class  settings.pictureclass ?? "" -%}
+{%- block figure__tag     settings.figuretag    ?? "figure" -%}
+{%- block figure__class   settings.figureclass  ?? "relative z-20" -%}
+{%- block caption__tag    settings.captiontag   ?? "figcaption" -%}
+{%- block caption__class  settings.captionclass ?? "text-sm" -%}
 
-{% block image__action -%}
-    {%- set settings = settings ?? null is iterable ? settings : {} -%}
-    {%- set settings = { clickaction: 'none' } | merge( settings ) -%}
+{%- block img__tag imgtag ?? _self.imgtag( images, {
+    imgclass : block('img__class'),
+    transform: settings.transform ??? null,
+} ) -%}
 
-    {%- switch settings.clickaction -%}
-        {%- case 'lightbox' -%}
-            {{- _self.action__lightbox( images, settings ) -}}
-
-        {%- case 'download' -%}
-            {{- _self.action__download( images, settings ) -}}
-        {%- case 'none' -%}
-
-        {%- default -%}
-            {{- _self.action__autolink( images, settings ) -}}
-    {%- endswitch -%}
-{%- endblock %}
-
+{%- block action _self.action( settings.clickaction ??? null, images, settings ) -%}
 
 
 {## Render HTML
 {---------------------------------------------------------------------------------------}
     Used to generate the html structure surrounding an image (figure, caption, etc).
 {-------------------------------------------------------------------------------------##}
-{% block image__skeleton -%}
-    {%- set figure = { class: settings.figureclass ?? block('figure__class') } | merge( figure ) -%}
-    {% tag block('figure__tag') with figure %}
-        {%- block figure -%}
-            {%- block image -%}
-                {%- tag block('picture__tag') with { class: block('picture__class') } -%}
-                    {{ block('image__sources' ) }}
-                    {%- set settings = { imgclass: block('img__class') } | merge( settings ) -%}
-                    {%- block img -%}{{ imgtag ?? _self.imgtag( images, settings ) }}{% endblock %}
-                {%- endtag -%}
-            {%- endblock -%}
+{% block image tag( block('figure__tag'), {
+    class: block('figure__class'),
+    html : block('figure')
+} ) %}
 
-            {%- block caption ( caption )
-                ? tag( block('caption__tag'), { class: block('caption__class'), html: caption } )
-                : '' -%}
-        {% endblock %}
-        {{ block( 'image__action' ) }}
-    {% endtag %}
-{%- endblock %}
+{%- block figure raw( block('picture') ~ block('caption') ~ block('action') ) -%}
 
+{%- block picture tag( block('picture__tag'), {
+    class: block('picture__class'),
+    html : block('img__tag') ~ block('srcset')
+} ) -%}
 
-{% block image__sources -%}{%- endblock %}
+{%- block caption tag( block('caption__tag'), {
+    class: block('caption__class'),
+    html : _self.caption( caption ??? settings.caption ??? null, images, settings ) | retconChange( 'p', false )
+} ) %}
+
+{% block srcset "" %}
 
 
 {## Fallback Method
@@ -90,8 +63,8 @@
     used within fallback methods inorder to remain as decoupled as possible.
 {-------------------------------------------------------------------------------------##}
 {%- macro fallback( images, settings ) -%}
-    {{- include( ['_site/image', '_core/image'] ) -}}
-{% endmacro %}
+    {{ include(['_site/image', '_core/image']) }}
+{%- endmacro %}
 
 
 {## Widescreen / Video Aspect Frame (with Transform)
@@ -226,24 +199,14 @@
     {%- set settings = settings ?? null is iterable ? settings : {} -%}
     {%- set imgcount = images | length -%}
 
-    {%- set widescreen = {
-        mode: 'crop',
-        width: 960,
-        height: 540,
-        quality: 75,
-        position: 'center-center'
-    } -%}
-
-    {%- set imgconfig = {
-        transform: widescreen,
-        figure: {
-            class: 'aspect-video overflow-hidden rounded-lg relative cursor-pointer'
-        },
+    {%- set imgattr = {
+        figureclass: 'aspect-video overflow-hidden rounded-lg relative cursor-pointer',
+        transform  : 'widescreen',
     } -%}
 
     {# if we only have two images, just slam them into a carousel #}
     {% if imgcount == 2 %}
-        {%- set images = images | map( i => _self.default( i,  ) ) -%}
+        {%- set images = images | map( i => _self.default( i, imgattr ) ) -%}
 
         {% embed ['_site/carousel', '_core/carousel'] with {
             items: images,
@@ -256,10 +219,9 @@
         }">
             {# prepare the feature <img> tag #}
             <div class="w-full">
-                {{- _self.imgtag( images|first, {
+                {{- _self.imgtag( images, {
                     imgclass   : 'aspect-video w-full h-full object-cover',
-                    figureclass: 'aspect-video overflow-hidden rounded-lg relative',
-                    transform  : widescreen,
+                    transform  : 'widescreen',
                 }) | retconAttr( 'img', { 'x-ref': 'feature' } ) }}
             </div>
 
@@ -272,13 +234,13 @@
             {% if imgcount > 2 and imgcount < 6 %}
                 {{ tag( 'div', {
                     class: "w-full grid-cols-3 md:grid-cols-#{imgcount} gap-4",
-                    html : images | map( i => _self.default( i, imgconfig ) )
+                    html : images | map( i => _self.default( i, imgattr ) )
                 }) }}
             {% endif %}
 
             {## Use a Carousel for more than 5 images ##}
             {% if imgcount > 5 %}
-                {%- set images = images | map( i => _self.default( i, imgconfig ) ) -%}
+                {%- set images = images | map( i => _self.default( i, imgattr ) ) -%}
 
                 {% embed ['_site/carousel', '_core/carousel'] with {
                     items: images,
@@ -295,10 +257,34 @@
 {%- endif -%}{%- endmacro %}
 
 
+
 {## Image Action
 {---------------------------------------------------------------------------------------}
     Generates the action for an image (lightbox, download, etc).
 {-------------------------------------------------------------------------------------##}
+{%- macro caption( caption, images, settings ) -%}
+    {%- set caption = caption ??? null %}
+    {%- set image = collect(images).first() -%}
+    {{- caption is same as(true)
+        ? image.headline ??? image.title ??? image.alt ??? null
+        : caption -}}
+{%- endmacro -%}
+
+
+{% macro action( action, images, settings ) %}
+    {%- switch action ?? 'none' -%}
+        {%- case 'lightbox' -%}
+            {{- _self.action__lightbox( images, settings ) -}}
+        {%- case 'download' -%}
+            {{- _self.action__download( images, settings ) -}}
+        {%- case 'none' -%}
+
+        {%- default -%}
+            {{- _self.action__autolink( images, settings ) -}}
+    {%- endswitch -%}
+{% endmacro %}
+
+
 {% macro action__autolink( image, settings ) -%}
     {%- if settings.autolink ??? null -%}
         {{ tag( 'a', {
@@ -321,6 +307,7 @@
         } ) }}
     {%- endif -%}
 {%- endmacro %}
+
 
 
 {## Lightbox Modal
@@ -460,20 +447,20 @@
     {%- set settings  = settings ?? null is iterable ? settings : {} -%}
     {%- set transform = settings.transform ??? null -%}
 
-    {%- set width  = transform.width  ??? 900 -%}
-    {%- set height = transform.height ??? 650 -%}
+    {%- set width  = transform.width  ??? 1024 -%}
+    {%- set height = transform.height ??? 740 -%}
 
     {%- set type = settings._placeholder ??? 'default' -%}
     {%- set type = ( type == 'default' and transform and transform is not iterable ) ? transform : type -%}
 
-    {%- set width  = type == 'widescreen' ? 900 : width  -%}
-    {%- set height = type == 'widescreen' ? 506 : height -%}
+    {%- set width  = type == 'widescreen' ? 1024 : width  -%}
+    {%- set height = type == 'widescreen' ? 576  : height -%}
 
-    {%- set width  = type == 'square'     ? 900 : width  -%}
-    {%- set height = type == 'square'     ? 900 : height -%}
+    {%- set width  = type == 'square'     ? 1024 : width  -%}
+    {%- set height = type == 'square'     ? 1024 : height -%}
 
-    {%- set width  = type == 'skull'      ? 240 : width  -%}
-    {%- set height = type == 'skull'      ? 240 : height -%}
+    {%- set width  = type == 'skull'      ? 240  : width  -%}
+    {%- set height = type == 'skull'      ? 240  : height -%}
 
     {%- set color = settings.color ??? '#475569' -%}
     {%- set color = color|replace({'#':''})   -%}
@@ -489,14 +476,14 @@
         ? "https://placeskull.com/#{width}/#{height}/#{color}/#{random(1,24)}"
         : source %}
 
-    {# Use local SVG files for icon placeholders #}
-    {## TODO: Update this to use the new Craft 5 SVG Icon Library ##}
-
+    {# Use SVG files for icon placeholders #}
     {% if type == 'icon' %}
-        {% set svgs = ['brick','calendar','cart','circle-error','circle-check','phone','star','widget'] %}
-        {{ svg( '@webroot/static/svg/' ~ shuffle(svgs)|first ~'.svg') | attr({ class: 'fill-current h-20 w-20 mx-auto' }) }}
+        {% set svgs = ["helicopter","pie","map-location","syringe","user-doctor","arrow-down-short-wide","sack-dollar","rectangle-vertical","flag-pennant","mars-and-venus","honey-pot","vacuum-robot","tornado","cross","money-check","hand","fire","presentation-screen","person-skiing","face-icicles","wallet","dna","crutch","upload","face-laugh-beam","user-shakespeare","suitcase","mask-face","memo","grid-4","universal-access","cherries","sausage","court-sport","soft-serve","yin-yang","alien","escalator","citrus","pegasus","voicemail","layer-group","language","face-flushed","watch-smart","copy","trademark","face-anguished","fork","skull"] %}
+        {{ svg( '@appicons/' ~ shuffle(svgs)|first ~'.svg')
+            | attr({ class: false })
+            | attr({ class: 'fill-current h-20 w-20 mx-auto' }) }}
 
-    {# Otherwise render placehold <img> #}
+    {# Otherwise render placeholder <img> #}
     {% else %}
         {{- tag( 'img', {
             src: source,
@@ -505,43 +492,3 @@
         } ) -}}
     {% endif %}
 {%- endif %}{% endmacro %}
-
-
-{#
-Outputs an SVG to be used as an image placeholder, optionally including target dimensions.
-
-@var width          int     Desired element width
-@var height         int     Desired element height
-@var showDimensions bool    Whether to display target dimensions (defaults to `true`)
-@var fill           string  Background fill color (defaults to `'#D0D0D0'`)
-#}
-{# {% set showDimensions = showDimensions ?? true %}
-{% set fill = fill ?? '#D0D0D0' %}
-<svg class="{{ class ?? '' }}"
-     xmlns="http://www.w3.org/2000/svg"
-     width="{{ width }}"
-     height="{{ height }}"
-     viewBox="0 0 {{ width }} {{ height }}"
->
-  <g clip-path="url(#clip0)">
-    <rect fill="{{ fill }}" width="{{ width }}" height="{{ height }}"/>
-    <line x1="0" y1="0" x2="{{ width }}" y2="{{ height }}" stroke="rgba(255,255,255,0.3)"/>
-    <line x1="0" y1="{{ height }}" x2="{{ width }}" y2="0" stroke="rgba(255,255,255,0.3)"/>
-  </g>
-  <text fill="rgba(0,0,0,0.1)"
-        font-family="ui-sans-serif,system-ui,-apple-system,sans-serif"
-        font-size="16"
-        dy="3%"
-        font-weight="thin"
-        x="50%"
-        y="50%"
-        text-anchor="middle"
-  >
-    {%- if showDimensions %}
-      {{ width }} × {{ height }}
-    {% endif -%}
-  </text>
-</svg> #}
-
-
-{## --------------------------------------------------------------------------------- ##}

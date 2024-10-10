@@ -1,133 +1,172 @@
-{% extends template_from_string('{% block header__base "" %}') %}
-
-{% import "_core" as assemble %}
-
-{% block header__open %}
-    <header {{attr({
-        id   : "masthead",
-        role : "banner",
-        class: "relative z-10 py-20 canvas",
-        data : { theme: theme ??? 'base' }
-    }) }}>
-{% endblock %}
-
-{% block header__close "</header>" %}
-
 {## Page Header Elements   [Site Template]
 {---------------------------------------------------------------------------------------}
     Defaults & common elements that appear in and around the site-wide page <header>.
     - http://localhost:8000/sitehub/layout/header
 {-------------------------------------------------------------------------------------##}
-{% block header__base %}
+{% extends template_from_string('{% block base "" %}') %}
 
-    {% set headblocks = entry.headerBuilder.all() ??? null %}
-    {% set intopbar   = ( headblocks and headblocks[0].settings.spacerabove ??? false == 'topbar' ) %}
-    {% set theme      = ( headblocks and headblocks[0].settings.theme ??? 'base' ) %}
+{% block base %}
+    {%- set block1   = block1 ?? entry.headerBuilder.one() ??? null -%}
+    {%- set subtitle = entry.fullTitle ??? null | retconRemove('h1') -%}
+    {%- set theme    = ( subtitle and not block1 ) ? 'light' : 'base' -%}
+    {%- set owner    = entry ??? block1.owner ??? null -%}
 
-    {% if not headblocks or not intopbar %}
-        {{ block('header__topbar') }}
-        {{ block('header__breadcrumb') }}
-    {% endif %}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = {
+        theme      : theme,
+        builder    : 'header',
+        container  : 'fluid',
+        spacerabove: 'medium',
+        spacerbelow: 'medium',
+        section    : owner.section.handle ??? owner.section ??? null,
+        entrytype  : owner.type.handle    ??? owner.type    ??? null,
+        entryid    : owner.id  ?? null,
+        entryurl   : owner.url ?? null,
+        blockpath  : [
+            "_site/block.%blocktype%.%variant%",
+            "_core/block.%blocktype%.%variant%",
+            "_site/block.%blocktype%",
+            "_core/block.%blocktype%",
+            "_site/block",
+            "_core/block"
+        ],
+    } | merge( settings ) -%}
 
-    {{ block( 'header__open' ) }}
-    {% block header__afteropen "" %}
-
-    {{ block( 'header__builder' ) }}
-
-    {% if headblocks and intopbar %}
-        {{ block('header__breadcrumb') }}
-    {% endif %}
-
-    {% block header__beforeclose "" %}
-    {{ block( 'header__close' ) }}
+    {% set blocks = [block1 ??? { html: block( 'plaintitle') }] %}
+    {{ block('builder') }}
+    {% html %}
+        {{ include( "_site/header.primary" ) }}
+    {% endhtml %}
 {% endblock %}
 
 
+{% block builder %}
+    {%- import "_core" as assemble -%}
+    {%- for block in BuilderBase( blocks ??? [], settings ??? {} ) -%}
+        {{ loop.first ? raw( block('masthead__open') ??? null )  : null }}
+        {% set blockhtml = assemble.blockpart( 'block__includepath', block, block.settings | merge({ loop: loop }) ) %}
 
-{% block header__builder %}
-    {% import "_core" as assemble %}
+        {{ raw( blockhtml | replace({
+            'data-bodycopy' : 'data-headercopy'
+        }) ) }}
 
-    {% set headblocks = headblocks ??? entry.headerBuilder.all() ??? null %}
-    {% set headblocks = headblocks ? headblocks : [{ html: block('header__plaintitle') }] %}
-
-    {{ assemble.builder( 'header', headblocks, {
-        container  : "fluid",
-        spacerabove: "none",
-        spacerbelow: "none"
-    }) }}
+        {{ loop.last  ? raw( block('masthead__close') ??? null ) : null }}
+    {%- endfor -%}
 {% endblock %}
 
 
+{% block masthead__open %}
+    {% set headerabove = block.settings.headerabove ??? 'brandfull' %}
+    {% set theme = block.settings.theme ??? 'base' %}
 
-{% block header__plaintitle %}
-    {%- set header__title    = header__title ??? entry.expandedTitle | retconOnly('h1') | retconChange( 'h1', false ) ??? null -%}
+    {% if headerabove in ['brandfull','brandonly'] %}
+        {{ block('topbar') }}
+        {{ block('opentag') }}
+
+        {% if headerabove == 'brandfull' %}
+            {{ block('breadcrumb') }}
+        {% endif %}
+    {% endif %}
+
+    {% if headerabove == 'minimal' %}
+        {{ block('topbar__minimal') }}
+        {{ block('opentag') }}
+    {% endif %}
+{% endblock %}
+
+
+{% block masthead__close %}
+    {%- set headerabove = block.settings.headerabove ??? null   -%}
+    {%- set headerbelow = block.settings.headerbelow ??? 'auto' -%}
+
+    {{ block('closetag') }}
+
+    {%- if headerbelow == 'auto' and headerabove == 'brandonly' -%}
+        {{ block('breadcrumb') }}
+    {%- endif -%}
+{% endblock %}
+
+
+{% block plaintitle %}
+    {%- set header__title    = header__title ??? entry.fullTitle | retconOnly('h1') | retconChange( 'h1', false ) ??? null -%}
     {%- set header__align    = header__align ??? 'center' -%}
     {%- set header__title    = header__title ??? entry.title -%}
-    {%- set header__subtitle = header__subtitle ??? entry.expandedTitle | retconRemove('h1') ??? null -%}
+    {%- set header__subtitle = header__subtitle ??? entry.fullTitle | retconRemove('h1') ??? entry.label ??? null -%}
 
     {% if header__title or header__subtitle %}
-        <div class="max-w-7xl flex flex-col gap-3 @container/large last-child-mb-0 {{ header__align == 'center' ? 'mx-auto' }}" data-bodycopy>
-            {{ header__title    ? tag( 'h1',  { html: header__title|widont, class:['text-theme-accent', "#{header__align == 'center' ? 'text-center'}"], itemprop: 'headline' } ) }}
-            {{ header__subtitle ? tag( 'div', { html: header__subtitle|widont, class: ['max-w-5xl last-child-mb-0', "#{header__align == 'center' ? 'mx-auto text-center'}"], itemprop:'description' } ) }}
+        <div class="max-w-5xl {{ header__align == 'center' ? 'mx-auto' : '' }}">
+            <div class="@container flex flex-col gap-3 last-child-mb-0" data-headercopy>
+                {% set length = header__title | striptags | length %}
+                {{ header__title
+                    ? tag( 'h1', {
+                        html: header__title | widont,
+                        itemprop: 'headline',
+                        class: [
+                            'text-theme-accent',
+                            "#{header__align == 'center' ? 'text-center'}",
+                            "#{length >= 40 ? 'long'}",
+                        ]
+                    } ) }}
+
+                {% if header__subtitle %}
+                    {{ header__subtitle ? tag( 'div', {
+                            html: header__subtitle | widont | retconAttr( 'p', { class: 'larger' } ),
+                           class: ['last-child-mb-0 -mt-10', "#{header__align == 'center' ? 'mx-auto text-center'}"],
+                        itemprop:'description'
+                    }) }}
+                {% endif %}
+            </div>
         </div>
     {% endif %}
 {% endblock %}
 
-
-
-{% block header__breadcrumb %}
+{% block breadcrumb %}
     {%- import "_core" as assemble -%}
-    {%- set breadcrumbs = assemble.container( 'fluid', assemble.menu( 'breadcrumb', entry, {} ) ) -%}
-    {{- breadcrumbs | attr({ class: "relative z-10 opacity-50 hover:opacity-100 focus-within:opacity-100" }) -}}
+    {%- set crumbs = crumbs ??? null -%}
+    {%- set crumbmenu = assemble.container( 'fluid', assemble.menu( 'breadcrumb', crumbs, {} ) ) -%}
+    {{- crumbmenu | attr({ class: "relative z-10 opacity-50 hover:opacity-100 focus-within:opacity-100" }) -}}
 {% endblock %}
 
 
+{% block topbar %}
+    {{ block('topbar__full' ) }}
+{% endblock %}
 
-{% block header__topbar %}
-    {% import "_core" as assemble %}
 
-    <div {{ attr({ class: ["w-full relative z-50 canvas"], 'data-theme': 'light' }) }}>
+{% block topbar__minimal %}
+    {{ block('topbar__full' ) | retconRemove('nav:not(#nav-utility)') }}
+{% endblock %}
 
+
+{% block topbar__full %}
+    {% set topbar__theme = topbar__theme ??? 'accent' %}
+    {%- import "_core" as assemble -%}
+    <div class="w-full relative z-50 canvas" data-theme="{{topbar__theme}}" data-topbar>
         {{ assemble.container__open( 'fluid' ) }}
-
-        <div class="flex">
-
-            {% block header__topbar__logo %}
-                <div class="flex items-center w-full gap-8">{{ _self.logo() }}</div>
-            {% endblock %}
-
-            {% block header__topbar__navigation %}
-
-                <div class="w-full flex flex-col flex-grow text-right items-end gap-6 justify-center @container">
-                    {% block header__topbar__navUtility %}
-                        {% import "_core" as assemble %}
-                        {{ assemble.menu( 'utility', entry, {} ) }}
-                    {% endblock %}
-
-                    {% block header__topbar__navPrimary %}
-                        <div class="hidden md:flex items-center gap-6">
-                            {% import "_core" as assemble %}
-                            {{ assemble.menu( 'primary', entry, {} ) }}
-                        </div>
-                    {% endblock %}
-
-                    {% block header__topbar__navMobileTrigger %}
-                        {% import "_core/menu.mobile" as mobilemenu %}
-                        {{ mobilemenu.trigger() }}
-                    {% endblock %}
-                </div>
-
-            {% endblock %}
+        <div class="flex py-4">
+            <div class="absolute translate-y-8 2xs:translate-y-4 xs:translate-y-2 3sm:translate-y-0 xs:relative">
+                {{ block('logo') }}
+            </div>
+            <div class="flex flex-col w-full items-end justify-between items-start">
+                {{ block('utility') }}
+                {% block primary %}
+                    {% embed "_site/header.primary" %}
+                        {% block base raw( block('menu__closed') ) %}
+                    {% endembed %}
+                {% endblock %}
+            </div>
         </div>
-        {{ assemble.container__close( 'fluid' ) }}
+        {{ assemble.container__close() }}
     </div>
 {% endblock %}
 
 
-
-{% macro logo() %}
-    <a href="{{ siteUrl('/') }}" class="py-4 text-theme-bodycopy/50 hover:text-theme-accent block" x-cloak x-data>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 75" class="block h-7 fill-current">
+{% block logo %}
+    <a x-cloak
+        x-data
+        href="{{ siteUrl('/') }}"
+        class="aspect-square text-theme-accent"
+    ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 75" class="block h-7 fill-current">
             <g fill-rule="evenodd" stroke="transparent" stroke-linecap="round" stroke-width=".6" font-size="12">
                 <path d="M26 74H14a5 5 0 0 1-1 0l-2-1-1-2L0 7h0l1-2 1-1h16a6 6 0 0 1 1 0l2 2a4 4 0 0 1 0 1l5 33 6-17a4 4 0 0 1 0-1l1-1a2 2 0 0 1 1-1h10a5 5 0 0 1 0 0h1a2 2 0 0 1 1 1 12 12 0 0 1 0 1h1a5 5 0 0 1 0 1l6 17 5-33a3 3 0 0 1 0-1q1-2 3-2h15a2 2 0 0 1 2 1 3 3 0 0 1 0 0 2 2 0 0 1 0 1 2 2 0 0 1 1 1h0q0 0 0 0L69 71a3 3 0 0 1-1 1 5 5 0 0 1-1 1 4 4 0 0 1-2 1 6 6 0 0 1-1 0H52l-2-1-2-1-9-25-9 25-1 1a9 9 0 0 1 0 0 3 3 0 0 1-1 1h-2Z" vector-effect="non-scaling-stroke"/>
                 <path d="M104 74H89a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1 0-2 3 3 0 0 1 0 0V25a3 3 0 0 1 0-1 3 3 0 0 1 0-1 3 3 0 0 1 2-1 3 3 0 0 1 0 0h15l2 1 1 2v47l-1 2h-2Zm0-58H89a3 3 0 0 1-1 0 3 3 0 0 1 0-1 3 3 0 0 1-1-2 3 3 0 0 1 0 0V3l1-2 1-1h15a3 3 0 0 1 2 1 3 3 0 0 1 0 0 3 3 0 0 1 0 1 3 3 0 0 1 1 1v10l-1 2-2 1Z" vector-effect="non-scaling-stroke"/>
@@ -139,6 +178,71 @@
                 <path d="M400 74h-15a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V25a3 3 0 0 1 1-1 3 3 0 0 1 0-1 3 3 0 0 1 2-1 3 3 0 0 1 0 0h14a3 3 0 0 1 1 1 3 3 0 0 1 1 0 3 3 0 0 1 0 2 3 3 0 0 1 0 0v3a15 15 0 0 1 2-2l3-2a30 30 0 0 1 1 0 16 16 0 0 1 5-2 21 21 0 0 1 3-1q12 0 16 9a17 17 0 0 1 4-5 22 22 0 0 1 3-1q4-3 9-3a20 20 0 0 1 6 1 18 18 0 0 1 3 2 16 16 0 0 1 5 4 21 21 0 0 1 2 3q2 5 2 13v28a3 3 0 0 1 0 1 3 3 0 0 1-1 1 3 3 0 0 1-1 0 3 3 0 0 1 0 0h-15a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V40a7 7 0 0 0-1-1 5 5 0 0 0-1-1 5 5 0 0 0-2-1 7 7 0 0 0-1 0 6 6 0 0 0-2 0 6 6 0 0 0-1 1q-2 0-2 2l-1 3a15 15 0 0 0 0 1v28a3 3 0 0 1 0 1 3 3 0 0 1-1 1 3 3 0 0 1-2 0 3 3 0 0 1 0 0h-14a3 3 0 0 1-1 0 3 3 0 0 1-1 0 3 3 0 0 1-1-2 3 3 0 0 1 0 0V44l-1-4a7 7 0 0 0 0-1 5 5 0 0 0-2-1 5 5 0 0 0-2-1 7 7 0 0 0-1 0l-3 1a6 6 0 0 0-1 1 7 7 0 0 0-1 1 6 6 0 0 0 0 1v31a3 3 0 0 1-1 1 3 3 0 0 1 0 1 3 3 0 0 1-2 0 3 3 0 0 1 0 0Z" vector-effect="non-scaling-stroke"/>
                 <path d="M528 48v3a2 2 0 0 1-1 1 3 3 0 0 1 0 1 3 3 0 0 1-1 0 3 3 0 0 1-1 1h-31 0a15 15 0 0 0 0 2 11 11 0 0 0 1 2 7 7 0 0 0 1 2 6 6 0 0 0 1 1 5 5 0 0 0 2 1 7 7 0 0 0 1 0h2a4 4 0 0 0 1 0l1-1 1-1 2-1 1-1a10 10 0 0 1 1 0h15l2 1a2 2 0 0 1 0 0v1a6 6 0 0 1 0 2l-1 3a20 20 0 0 1 0 0l-4 4a28 28 0 0 1-1 1 22 22 0 0 1-3 2l-5 2a31 31 0 0 1-6 1h-5a39 39 0 0 1-9-1l-9-3a23 23 0 0 1-2-2 21 21 0 0 1-6-9l-2-8a44 44 0 0 1 0-3v-2a37 37 0 0 1 1-6l3-8a23 23 0 0 1 0 0q3-6 9-9a28 28 0 0 1 8-2 38 38 0 0 1 7-1 38 38 0 0 1 6 1q4 0 7 2a22 22 0 0 1 2 1q6 4 9 10a29 29 0 0 1 3 10 35 35 0 0 1 0 3Zm-34-6h13l-1-4a9 9 0 0 0 0 0 7 7 0 0 0-1-2 5 5 0 0 0-1-1 5 5 0 0 0-2-1 7 7 0 0 0-1 0 7 7 0 0 0-2 0 5 5 0 0 0-2 1 5 5 0 0 0-1 1 7 7 0 0 0-1 2 11 11 0 0 0 0 1l-1 2a20 20 0 0 0 0 1Z" vector-effect="non-scaling-stroke"/>
             </g>
-        </svg>
-    </a>
-{% endmacro %}
+        </svg></a>
+{% endblock %}
+
+
+{% block utility %}
+    {% set handle = 'utility' %}
+    {% set title  = title ??? craft.navigation.getNavByHandle( handle ).name ??? 'Utility' %}
+    {% set nodes  = craft.navigation.nodes().handle( handle ).level(1) %}
+
+    {% if nodes | length %}
+        <div class="items-center gap-3 pb-6 3xs:pb-10 2xs:pb-6 xs:pb-4">
+            {% embed ["_site/menu.list", "_core/menu.list"] with {
+                title : title,
+                handle: handle,
+                items : nodes.all() ??? null,
+            } %}
+                {% block lastItem %}
+                    {{ block( 'openItem' ) }}
+
+                    {{ tag( 'a', {
+                        href : siteUrl('/search'),
+                        class: 'block w-4 h-4',
+                        html : svg( '@appicons/search.svg' ) | attr({ 'class': 'w-4 h-4 block fill-current'})
+                    }) }}
+
+                    {{ block( 'closeItem' ) }}
+                {% endblock %}
+
+                {% block menuClass %}
+                    m-0
+                    p-0
+                    list-none
+                    flex
+                    no-underline
+                    text-xs
+                    3sm:gap-3
+                    md:text-sm
+                {% endblock %}
+
+                {% block itemClass %}
+                    p-2
+                    pt-0
+                    flex
+                    flex-col
+                    items-center
+                    whitespace-nowrap
+                    text-theme-link
+                    underline-offset-1
+                    hover:underline
+                    hover:text-theme-link-tint
+                {% endblock %}
+            {% endembed %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block opentag %}
+    <header {{ attr({
+        id   : "masthead",
+        role : "banner",
+        class: "relative z-10 canvas",
+        data : { theme: theme ??? 'base' }
+    }) }}>
+{% endblock %}
+
+
+{% block closetag "</header>" %}

@@ -5,6 +5,9 @@ license.key
 license.key.*
 craftcms/web/dist
 
+# KEEP TRACK OF REMOTE HOSTING DETAILS
+.hosting
+
 # UNCOMPRESSED DATABASE SEED FILES
 etc/database-seed/*.sql
 

@@ -1,0 +1,39 @@
+<!-- Template: {{ _self }}.twig -->
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title title ?? 'PDF' %}</title>
+
+    <style>
+        {% block style %}
+            body {
+                font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 200;
+                font-style: normal;
+            }
+
+            table {
+                font-size: x-small;
+            }
+
+            tfoot tr td {
+                font-weight: bold;
+                font-size: x-small;
+            }
+
+            .gray {
+                background-color: lightgray;
+            }
+        {% endblock %}
+    </style>
+</head>
+
+<body>
+    {% block header "" %}
+    {% block body   "" %}
+    {% block footer "" %}
+</body>
+
+</html>

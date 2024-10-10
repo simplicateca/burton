@@ -15,7 +15,68 @@
 {%- set field = field ?? null -%}
 
 {## Add a 'Use Fragment' option to all Theme configs that aren't headerBuilder ##}
-{%- set themes = include( '_config/theme.json' ) | trim | spaceless -%}
-{{- type == 'fragment'
-    ? themes | trim(']', 'right') ~ ',{ "label": "Use Setting from Fragment", "value": "FRAGMENT" }]'
-    : themes -}}
+{# {%- set themes = include( '_config/theme.json' ) | trim | spaceless -%} #}
+
+[
+    {% if 'fragment' == type %}
+    {
+        "value": "FRAGMENT",
+        "label": "Use Setting from Fragment"
+    },
+    {% endif %}
+
+    {
+        "value": "base",
+        "label": "Default ‘Base’ Theme",
+        "default": true,
+        "tooltips": { "inline" : "Transparent base, page background visible" },
+        "settings": {},
+        "virtuals": [
+            {% if 'headerBuilder' == field %}
+                {{ block( 'separatorHeaderBase', '_config/_virtuals' ) }}
+            {% else %}
+                {{ block( 'separatorBase', '_config/_virtuals' ) }},
+                {{ block( 'viewportBase',  '_config/_virtuals' ) }}
+            {% endif %}
+        ]
+    },{
+        "value": "light",
+        "label": "White ‘Light’ Theme",
+        "tooltips": { "inline" : "White background, alternative to base theme" },
+        "settings": {},
+        "virtuals": [
+            {% if 'headerBuilder' == field %}
+                {{ block( 'separatorHeader', '_config/_virtuals' ) }}
+            {% else %}
+                {{ block( 'separatorCanvas', '_config/_virtuals' ) }},
+                {{ block( 'viewportCanvas',  '_config/_virtuals' ) }}
+            {% endif %}
+        ]
+    },{
+        "value": "accent",
+        "label": "Dark ‘Accent’ Theme",
+        "tooltips": { "inline" : "Dark background with white text" },
+        "settings": {},
+        "virtuals": [
+            {% if 'headerBuilder' == field %}
+                {{ block( 'separatorHeader', '_config/_virtuals' ) }}
+            {% else %}
+                {{ block( 'separatorCanvas', '_config/_virtuals' ) }},
+                {{ block( 'viewportCanvas',  '_config/_virtuals' ) }}
+            {% endif %}
+        ]
+    }
+
+    {% if field != 'headerBuilder' %}
+   ,{
+        "value": "INHERIT",
+        "label": "Inherit from Block Above",
+        "tooltips": { "inline" : "Matches the theme of the previous block (or defaults to ‘Base’)." },
+        "settings": {},
+        "virtuals": [
+            {{ block( 'separatorCanvas', '_config/_virtuals' ) }},
+            {{ block( 'viewportCanvas',  '_config/_virtuals' ) }}
+        ]
+    }
+    {% endif %}
+]

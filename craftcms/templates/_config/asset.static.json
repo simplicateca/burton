@@ -1,0 +1,19 @@
+[{
+    "value"   : "general",
+    "label"   : "General",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "svglogo",
+    "label"   : "SVG Logo",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+},{
+    "value"   : "background",
+    "label"   : "Background",
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": []
+}]

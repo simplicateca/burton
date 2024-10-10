@@ -1,77 +1,52 @@
 {
-  "config": {
-    "type": "project",
-    "sort-packages": true,
-    "optimize-autoloader": true,
-    "platform": {
-      "php": "8.2",
-      "ext-bcmath": "8.2",
-      "ext-intl": "8.2",
-      "ext-bz2": "8.2",
-      "ext-soap": "8.2",
-      "ext-sodium": "8.2",
-      "ext-zip": "8.2"
+    "config": {
+        "type": "project",
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "platform": {
+            "php": "8.2",
+            "ext-bcmath": "8.2",
+            "ext-intl": "8.2",
+            "ext-bz2": "8.2",
+            "ext-soap": "8.2",
+            "ext-sodium": "8.2",
+            "ext-zip": "8.2"
+        },
+        "allow-plugins": {
+            "yiisoft/*": true,
+            "craftcms/*": true,
+            "treeware/plant": true,
+            "php-http/discovery": true,
+            "craftcms/plugin-installer": true,
+            "yiisoft/yii2-composer": true
+        }
     },
-    "allow-plugins": {
-      "yiisoft/*": true,
-      "craftcms/*": true,
-      "treeware/plant": true,
-      "php-http/discovery": true,
-      "craftcms/plugin-installer": true,
-      "yiisoft/yii2-composer": true
+    "prefer-stable": true,
+    "minimum-stability": "beta",
+    "require": {
+        "craftcms/ckeditor": "^4.0.4",
+        "craftcms/cms": "^5.1.0",
+        "craftcms/feed-me": "^6.0.1",
+        "embed/embed": "^4.4.10",
+        "mmikkel/retcon": "^3.0.0",
+        "nystudio107/craft-emptycoalesce": "^5.0.0",
+        "nystudio107/craft-seomatic": "^5.0.2",
+        "nystudio107/craft-vite": "^5.0.0",
+        "openai-php/client": "^0.8.5",
+        "simplicateca/selectplus": "^5.0.5-beta",
+        "vaersaagod/dospaces": "^3.0.0-beta.1",
+        "verbb/formie": "^3.0.0-beta.9",
+        "verbb/navigation": "^3.0.0-beta.3",
+        "vlucas/phpdotenv": "^5.6.0",
+        "yiisoft/yii2-redis": "^2.0.18"
+    },
+    "require-dev": {
+        "craftcms/generator": "^2.0.1",
+        "yiisoft/yii2-shell": "^2.0.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "modules\\sitemodule\\": "modules/sitemodule/src/"
+        }
     }
-  },
-  "prefer-stable": true,
-  "minimum-stability": "beta",
-  "require": {
-    "craftcms/ckeditor": "^4.0.4",
-    "craftcms/cms": "^5.1.0",
-    "craftcms/feed-me": "^6.0.1",
-    "embed/embed": "^4.4.10",
-    "mmikkel/retcon": "^3.0.0",
-    "nystudio107/craft-emptycoalesce": "^5.0.0",
-    "nystudio107/craft-seomatic": "^5.0.2",
-    "nystudio107/craft-vite": "^5.0.0",
-    "openai-php/client": "^0.8.5",
-    "simplicateca/selectplus": "^5.0.4-beta",
-    "vaersaagod/dospaces": "^3.0.0-beta.1",
-    "verbb/formie": "^3.0.0-beta.9",
-    "verbb/navigation": "^3.0.0-beta.3",
-    "vlucas/phpdotenv": "^5.6.0",
-    "yiisoft/yii2-redis": "^2.0.18"
-  },
-  "require-dev": {
-    "craftcms/generator": "^2.0.1",
-    "yiisoft/yii2-shell": "^2.0.5"
-  },
-  "autoload": {
-    "psr-4": {
-      "modules\\sitemodule\\": "modules/sitemodule/src/"
-    }
-  },
-  "scripts": {
-    "craft-update": [
-      "@pre-craft-update",
-      "@post-craft-update"
-    ],
-    "pre-craft-update": [
-      "mkdir -p storage migrations web/cpresources config/project",
-      "chmod -R 0777 storage",
-      "chmod -R 0777 migrations",
-      "chmod -R 0777 web/cpresources",
-      "chmod -R 0777 config/project",
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "post-craft-update": [
-      "chmod -R 0777 vendor",
-      "chmod -R 0777 composer.json",
-      "chmod -R 0777 composer.lock"
-    ],
-    "pre-update-cmd": "@pre-craft-update",
-    "pre-install-cmd": "@pre-craft-update",
-    "post-update-cmd": "@post-craft-update",
-    "post-install-cmd": "@post-craft-update",
-    "post-create-project-cmd": "@pre-craft-update",
-    "post-root-package-install": "@pre-craft-update"
-  }
 }

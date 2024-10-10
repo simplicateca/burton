@@ -78,13 +78,14 @@ class CardBaseTwig extends AbstractExtension
         $eyebrow  = Retcon::getInstance()->retcon->only( $content->summary ?? '', 'div.eyebrow' );
         $headline = $this->_cardheadline( $content->summary ?? '' ) ?? $content->title ?? null;
 
-        $label = $this->_cardlabel( $content->label ?? null )
-              ?? $this->_cardlabel( $eyebrow )
-              ?? $this->_cardlabel( $headline );
+        $label = $this->_cardlabel( $content->label ?? null );
+        $label = empty( $label ) ? $this->_cardlabel( $eyebrow  ) : $label;
+        $label = empty( $label ) ? $this->_cardlabel( $headline ) : $label;
 
         $summary = $this->_cardtext( $content->summary ?? '' ) ?? $this->_cardtext( $content->headline ?? '' );
-        $summary = ( empty( $summary ) && $content->text ?? null )
-            ? $this->_truncate( $this->_cardtext( $content->text ), 150 )
+
+        $summary = empty( $summary )
+            ? $this->_truncate( $this->_cardtext( $content->text ?? null ), 150 )
             : $summary;
 
         $card = [
