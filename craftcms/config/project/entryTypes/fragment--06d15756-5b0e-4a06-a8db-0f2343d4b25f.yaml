@@ -10,13 +10,14 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-11T22:26:35+00:00'
             disabled: false
             elementCondition: null
             id: null
             includeInCards: false
             inputType: null
             instructions: null
-            label: null
+            label: Eyebrow
             max: null
             min: null
             name: null
@@ -33,49 +34,15 @@ fieldLayouts:
             uid: 0f564e2e-5e05-48a8-81c7-e6dc92f04c78
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
+            dateAdded: '2024-10-11T22:26:35+00:00'
             elementCondition: null
-            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Copy Layout
             handle: null
             includeInCards: false
             instructions: null
-            label: 'Fragment Presentation'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 0ad24987-d61b-4290-bec2-18b6b706d989
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            fieldUid: 97c10fff-f319-4ab2-8dac-c631658cb9a2 # Fragments
-            handle: null
-            includeInCards: true
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 92335426-57b3-4a4c-82bc-858d88a6252d
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: e6e155f7-d871-4497-bc48-97ac0ca665b6
-            userCondition: null
-          -
-            elementCondition: null
-            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Content Layout
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: 'Supporting Copy'
+            label: null
             providesThumbs: false
             required: false
             tip: null
@@ -83,8 +50,9 @@ fieldLayouts:
             uid: aa74f610-6bb5-405e-a702-4b2971d087f5
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
+            dateAdded: '2024-10-11T22:26:35+00:00'
             elementCondition: null
             fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
             handle: null
@@ -100,13 +68,31 @@ fieldLayouts:
             warning: null
             width: 75
           -
+            dateAdded: '2024-10-11T22:26:35+00:00'
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
-            uid: 2c1d8508-fa9d-47c1-b236-d63b8d84e7bc
+            uid: e6e155f7-d871-4497-bc48-97ac0ca665b6
             userCondition: null
           -
+            dateAdded: '2024-10-11T22:26:35+00:00'
             elementCondition: null
-            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Theme & Scenery
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0ad24987-d61b-4290-bec2-18b6b706d989
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2024-10-11T22:26:35+00:00'
+            elementCondition: null
+            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Theme
             handle: null
             includeInCards: false
             instructions: null
@@ -118,14 +104,30 @@ fieldLayouts:
             uid: 2848cec0-794d-489d-8fd6-f0b64d2f4621
             userCondition: null
             warning: null
+            width: 50
+          -
+            dateAdded: '2024-10-11T22:26:35+00:00'
+            elementCondition: null
+            fieldUid: 97c10fff-f319-4ab2-8dac-c631658cb9a2 # Fragments
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 92335426-57b3-4a4c-82bc-858d88a6252d
+            userCondition: null
+            warning: null
             width: 100
         name: Content
         uid: 234a7ecd-45dc-43e5-b9d1-c5a2da00ad8a
         userCondition: null
 handle: fragment
-hasTitleField: false
+hasTitleField: true
 icon: puzzle-piece
-name: 'Fragment 🧱'
+name: Fragment
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null

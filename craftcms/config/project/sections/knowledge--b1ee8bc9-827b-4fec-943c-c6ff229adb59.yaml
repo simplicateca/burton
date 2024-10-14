@@ -1,0 +1,27 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  - 80b8014d-fa4b-4271-9c59-73cd7c7c6d78 # Article
+handle: knowledge
+maxAuthors: 2
+name: Knowledge
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary URL'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+    enabledByDefault: true
+    hasUrls: true
+    template: _site/knowledge._section.twig
+    uriFormat: '{% from ''_site/knowledge._section'' import uri %}{{ uri( object ) }}'
+type: channel

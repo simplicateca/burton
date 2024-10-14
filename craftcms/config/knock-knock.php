@@ -1,5 +1,7 @@
 <?php
 
+use craft\helpers\App;
+
 return [
     '*' => [
         'enabled' => false,

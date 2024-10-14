@@ -1,0 +1,69 @@
+{% extends "_site/template.sidebar" %}
+
+{% set book = collect( entry.books ??? null ).first() %}
+
+{% set authors = book ? book.profiles : [] %}
+
+
+{% block content %}
+    {%- import "_core" as assemble -%}
+    {{- assemble.container( 'fluid', block('article__meta'), { data: { bodycopy: true } } ) -}}
+    {{- parent() -}}
+    {{- assemble.container( 'fluid', block('article__footer'), { data: { bodycopy: true } } ) -}}
+{% endblock %}
+
+
+{% block aside %}
+    {{ block('aside__book') }}
+{% endblock %}
+
+
+{% block aside__book %}
+    {% import "_site/knowledge.book" as books %}
+    {{ book ? books.chip( book ) }}
+{% endblock %}
+
+
+{% block article__meta %}
+    {%- import "_core" as assemble -%}
+    {%- import "_site/profiles._section" as profiles -%}
+    {%- import "_site/knowledge._section" as knowledge -%}
+
+    {{- assemble.separator( 'small' ) -}}
+
+    {{- authors ? profiles.byline( authors ) -}}
+
+    <div class="py-4 text-lg flex items-center gap-8">
+        <div class="flex gap-4">
+            <strong>Date Published</strong>
+            {{ knowledge.postdate( entry.postDate ) }}
+        </div>
+
+        <div class="flex gap-4">
+            <strong>Share</strong>
+            {{ knowledge.sharing( entry ) }}
+        </div>
+    </div>
+
+    {{ entry.outline ? assemble.text( 'outline', entry.outline, { separator: 'none' } ) }}
+    {{- assemble.imagelayer( 'caption', entry.images ) -}}
+
+{% endblock %}
+
+
+{% block article__footer %}
+    {%- import "_core" as assemble -%}
+    {%- import "_site/profiles._section" as profiles -%}
+
+    <div class="flex flex-col gap-6 border-t-2 border-theme-tint2" data-bodycopy>
+        {{- assemble.separator( 'small' ) -}}
+        {% for author in authors %}
+            {{ profiles.bio( author, {
+                action: 'biopage',
+                eyebrow: ''
+            } ) }}
+        {% endfor %}
+    </div>
+    {{- assemble.separator( 'small' ) -}}
+
+{% endblock %}

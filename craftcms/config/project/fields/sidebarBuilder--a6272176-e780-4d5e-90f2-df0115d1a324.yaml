@@ -9,7 +9,7 @@ settings:
     - 14dff90f-f8fc-444e-bc75-e51f72aa490d # Text
     - 4248eeb1-ca4d-476f-9998-7780ee611c74 # Image
     - b4783a60-e9ff-40a2-8e9e-159b24fad0a9 # Media
-    - 96192f21-960f-489c-a380-96e4b51f2777 # Card Deck
+    - 96192f21-960f-489c-a380-96e4b51f2777 # Deck
     - faaa512e-f0ed-4151-97de-d73bdc9a4f5e # Component
     - 06d15756-5b0e-4a06-a8db-0f2343d4b25f # Fragment
   includeTableView: false

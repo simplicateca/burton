@@ -1,7 +1,7 @@
 columnSuffix: null
 handle: images
 instructions: null
-name: Images
+name: 'Cover Image'
 searchable: true
 settings:
   allowSelfRelations: false
@@ -12,7 +12,6 @@ settings:
   branchLimit: null
   defaultUploadLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Uploads
   defaultUploadLocationSubpath: null
-  localizeRelations: false
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
@@ -32,5 +31,5 @@ settings:
   validateRelatedElements: false
   viewMode: cards
 translationKeyFormat: null
-translationMethod: site
+translationMethod: none
 type: craft\fields\Assets

@@ -1,7 +1,7 @@
 columnSuffix: null
 handle: variant
 instructions: null
-name: Variant
+name: Subtype
 searchable: false
 settings:
   columnType: null

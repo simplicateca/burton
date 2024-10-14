@@ -35,9 +35,6 @@ class SiteModule extends Module
         // Set direcotry paths for control panel and frontend templates
         self::setupTemplates( $this->id, $this->getBasePath() );
 
-        // Load our Control Panel Asset Bundles (CSS/JS)
-        self::assetBundle();
-
         // Register Control Panel Asset Bunch
         self::frontendRoutes();
 
@@ -53,11 +50,6 @@ class SiteModule extends Module
         self::$instance = $this;
 
         // Enable Twig Extensions
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\TextBaseTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\CardBaseTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\BuilderBaseTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\CollectionBaseTwig() );
-        Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\MediaBaseTwig() );
         Craft::$app->view->registerTwigExtension( new \modules\sitemodule\twigextensions\ToolboxTwig() );
 
         // Report that the module is loaded
@@ -99,34 +91,20 @@ class SiteModule extends Module
     private static function setupTemplates($id, $basePath = null)
     {
         // Include the module's template directory in the view path for control panel routes
-        $baseDir = $basePath . DIRECTORY_SEPARATOR . 'templates';
-        if( is_dir( $baseDir ) ) {
-            Event::on( View::class, View::EVENT_REGISTER_CP_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) use ($id, $baseDir) {
-                $e->roots[$id] = $baseDir;
-            });
-        }
+        // $baseDir = $basePath . DIRECTORY_SEPARATOR . 'templates';
+        // if( is_dir( $baseDir ) ) {
+        //     Event::on( View::class, View::EVENT_REGISTER_CP_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) use ($id, $baseDir) {
+        //         $e->roots[$id] = $baseDir;
+        //     });
+        // }
 
         // setup the paths that will be available in all twig templates
-        Event::on( View::class, View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) use ($basePath) {
-            $e->roots['_sitemodule'] = $basePath . DIRECTORY_SEPARATOR . 'templates';
-            $e->roots['_core']       = $basePath . DIRECTORY_SEPARATOR . 'templates/_core';
-            $e->roots['_sitehub']    = $basePath . DIRECTORY_SEPARATOR . 'templates/_sitehub';
-            $e->roots['_config']     = CRAFT_BASE_PATH . '/templates/_config';
-            $e->roots['_site']       = CRAFT_BASE_PATH . '/templates/_site';
-        });
-    }
-
-
-    private static function assetBundle()
-    {
-        if (Craft::$app->getRequest()->getIsCpRequest()) {
-            Event::on( View::class, View::EVENT_BEFORE_RENDER_TEMPLATE, function (\craft\events\TemplateEvent $event) {
-                try {
-                    Craft::$app->getView()->registerAssetBundle( \modules\sitemodule\assetbundles\sitemodule\SiteModuleAsset::class );
-                } catch (InvalidConfigException $e) {
-                    Craft::error( 'Error registering AssetBundle - ' . $e->getMessage(), __METHOD__ );
-                }
-            });
-        }
+        // Event::on( View::class, View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS, function (RegisterTemplateRootsEvent $e) use ($basePath) {
+        //     $e->roots['_sitemodule'] = $basePath . DIRECTORY_SEPARATOR . 'templates';
+        //     $e->roots['_core']       = $basePath . DIRECTORY_SEPARATOR . 'templates/_core';
+        //     $e->roots['_sitehub']    = $basePath . DIRECTORY_SEPARATOR . 'templates/_sitehub';
+        //     $e->roots['_config']     = CRAFT_BASE_PATH . '/templates/_config';
+        //     $e->roots['_site']       = CRAFT_BASE_PATH . '/templates/_site';
+        // });
     }
 }

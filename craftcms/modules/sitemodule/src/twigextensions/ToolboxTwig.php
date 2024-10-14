@@ -1,9 +1,6 @@
 <?php
 /**
- * Toolbox - Twig Extension
- *
-
- *
+ * Toolbox - Helpful Twig Extensions & Examples
  */
 
 namespace modules\sitemodule\twigextensions;
@@ -26,7 +23,6 @@ class ToolboxTwig extends AbstractExtension
         return [
             new TwigFunction( 'hex2rgb',  [ $this, 'hex2rgb'  ] ),
             new TwigFunction( 'text4hex', [ $this, 'text4hex' ] ),
-            new TwigFunction( 'md5',      [ $this, 'md5hash'  ] ),
         ];
     }
 
@@ -67,11 +63,6 @@ class ToolboxTwig extends AbstractExtension
         return Inflector::slug( $string );
     }
 
-
-
-    public function md5hash( $string ) {
-        return md5( $string );
-    }
 
     /**
      * Convert a hex color value to RGB.

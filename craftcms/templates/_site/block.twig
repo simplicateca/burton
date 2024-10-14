@@ -25,19 +25,10 @@
 
 {## Better Rich HTML / WYSIWYG Code Formatting
 {---------------------------------------------------------------------------------------}
-    This template makes use of `TextBase()` which is a custom Twig macro, written in
-    PHP and editable in the SiteModule folder here:
+    TextBase() is a (locally-editable) custom Twig function that separates a string
+    of HTML into distinct headline, eyebrow, intro, body, and CTA (button) parts.
 
- -> craftcms/modules/sitemodule/src/twigextensions/TextBaseTwig.php
-
-    TextBase() parses html content, and separates it into a handful of logical parts
-    that can be used to more precisely customize layouts without putting too much
-    burden on content editors.
-
-    i.e.
-      - Eyebrow elements
-      - Any (h1,h2,h3) headlines appearing before body text (p, ol, ul, etc)
-      - CTA Buttons & Links (along with their kicker text), appearing after body text.
+ -> craftcms/modules/themecore/src/twigextensions/TextBaseTwig.php
 {-------------------------------------------------------------------------------------##}
 {% block block__zone1 -%}
 {%- set zone1content = block.text ??? block.headline ??? null -%}
@@ -102,8 +93,12 @@
 
 {## Block <header> zone content
 {---------------------------------------------------------------------------------------}
-    This is not a page level <header> tag, but rather the header content for  "headline" content
-    for an individual block. This is typically used for the block's title or headline.
+    Not a page-level <header> tag, but the area for block-level **headline** content
+
+    TextBase() is a (locally-editable) custom Twig function that separates a string
+    of HTML into distinct headline, eyebrow, intro, body, and CTA (button) parts.
+
+ -> craftcms/modules/themecore/src/twigextensions/TextBaseTwig.php
 {-------------------------------------------------------------------------------------##}
 {% block block__header -%}
 {%- set zone1content = block.text ??? block.headline ??? null -%}
@@ -154,8 +149,12 @@
 
 {## Block <footer> zone content
 {---------------------------------------------------------------------------------------}
-    Note, this isn't the same as a page level <footer> tag, but rather the "headline" content
-    for an individual block. This is typically used for the block's title or headline.
+    Not a page-level <footer> tag, but the area for block-level **cta / button** content
+
+    TextBase() is a (locally-editable) custom Twig function that separates a string
+    of HTML into distinct headline, eyebrow, intro, body, and CTA (button) parts.
+
+ -> craftcms/modules/themecore/src/twigextensions/TextBaseTwig.php
 {-------------------------------------------------------------------------------------##}
 {% block block__footer -%}
 {%- set zone1content = block.text ??? block.headline ??? null -%}

@@ -1,0 +1,67 @@
+{## Article Cards   [Content Specific Factory]
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ??? null -%}
+
+{%- set path = path ??? ["_site/card","_core/card"] -%}
+
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
+{%- set settings = { cardname: 'default' } | merge( settings ) -%}
+
+
+{## Render the Card
+{-------------------------------------------------------------------------------------##}
+{%- if card -%}
+
+{%- set output -%}
+{%- embed path with { card: card, settings: settings } %}
+
+    {## Add Microdata formatting
+    {-----------------------------------------------------------------------------------}
+        Changes the tag used for the card from <div> to <article> and adds the
+        some basic Microdata attributes to it. See: https://schema.org/BlogPosting
+    {---------------------------------------------------------------------------------##}
+    {% block card__tag "article" %}
+    {% block card__attr attr({
+        class    : block('card__class'),
+        itemscope: true,
+        itemtype : "https://schema.org/BlogPosting",
+        itemid   : card.url ??? null,
+        'data-card': settings.cardname
+    }) %}
+
+
+    {## Include additional extra content
+    {-----------------------------------------------------------------------------------}
+        Coming Soon...
+        (Pull from macros in the `articles._section.twig` template)
+    {---------------------------------------------------------------------------------##}
+    {# {% block card_before_summary %}
+        {% import "_site/articles._section" as utils %}
+        {{ utils.byline( article ) }}
+    {% endblock %}
+
+
+    {% block card_after_summary %}
+        {% import "_site/articles._section" as utils %}
+        <span class="flex font-extrabold text-xs uppercase">
+            By {{ utils.authorlinks( article ) }}
+        </span>
+    {% endblock %} #}
+{% endembed %}
+{% endset %}
+
+
+{## Add a type tag inside <figure>
+{---------------------------------------------------------------------------------------}
+    Inject a <div> into the <figure> tag by using `retconInject` on the output generated
+    by the `card__images` block. Text for the tag comes from the `cardtypetag` attribute,
+    which was pushed into `settings` object above.
+{-------------------------------------------------------------------------------------##}
+{% set typetag = card.type is defined ? tag( 'div', {
+    class: "absolute right-0 bottom-0 py-0.5 px-3 text-sm uppercase bg-theme-tint2 text-headline",
+    text : card.type
+} ) : null %}
+
+{{ output | retconInject( 'figure', typetag ) }}
+
+{%- endif -%}

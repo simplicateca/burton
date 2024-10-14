@@ -77,7 +77,7 @@ fieldLayouts:
             width: 100
           -
             elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics & Tags
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics
             handle: null
             includeInCards: false
             instructions: null

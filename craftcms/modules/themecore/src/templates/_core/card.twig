@@ -1,0 +1,309 @@
+{## [Core] Card Layout
+{---------------------------------------------------------------------------------------}
+    This is the base template that will be used for every card in the site.
+{-------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block card__skeleton "" %}') %}
+
+
+{## Template Variables
+{-------------------------------------------------------------------------------------##}
+{%- set card = card ?? null is iterable ? card : {} -%}
+
+{%- set settings = settings ?? null is iterable ? settings : {} -%}
+
+
+{## Settings & Configuration
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block card__tag    card__tag   ?? "div" %}
+{% block card__class  card__class ?? "w-full relative @container" %}
+{% block card__name   card__name  ?? settings.cardname ?? 'default' %}
+{% block card__attr   card__attr  ?? attr({ 'data-card': block('card__name') }) %}
+
+{% block card__imagelayer card.imagelayer  ?? settings.card__imagelayer ?? 'default' %}
+
+{% block card__headline   card.headline     ? tag( 'h3', { html: card.headline } ) : null %}
+{% block card__summary    card.summary      ? tag( 'p',  { html: card.summary | retconChange( 'p', false ) } ) : null %}
+{% block card__text       card.longtext     ? raw( card.longtext ) : null %}
+
+{% block card__images -%}
+    {%- import "_core" as assemble -%}
+    {{- assemble.imagelayer( block('card__imagelayer'), card.images, settings ) -}}
+{%- endblock %}
+
+{% block card__action -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = { clickaction: 'autolink' } | merge( settings ) -%}
+
+    {%- switch settings.clickaction -%}
+        {%- case 'modal' -%}
+            {{- _self.action__inlinemodal( card, settings ) -}}
+
+        {%- case 'dynamic' -%}
+            {{- _self.action__dynamicmodal( card, settings ) -}}
+        {%- case 'none' -%}
+
+        {%- default -%}
+            {{- _self.action__invisiblecover( card, settings ) -}}
+    {%- endswitch -%}
+{%- endblock %}
+
+
+
+{## Render Card HTML
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% block card__skeleton -%}
+    {%- block card__open %}<{{ block('card__tag') }} class="{{ block('card__class') }}" {{ block('card__attr') }}>{% endblock -%}
+
+    {% block card__content %}
+        {% block card__images__open "" %}
+        {{ block('card__images') }}
+        {% block card__images__close "" %}
+
+        {% block card__words__open "" %}
+        {% block card__words %}
+            {{ block('card__headline') }}
+            {{ block('card__summary')  }}
+            {{ block('card__action')   }}
+        {% endblock %}
+        {% block card__words__close "" %}
+    {% endblock %}
+
+    {% block card__close %}</{{ block('card__tag') }}>{% endblock %}
+{%- endblock %}
+
+
+
+
+{## Card Iterators
+{---------------------------------------------------------------------------------------}
+    These macros are used to generate a variety of card layouts.
+{-------------------------------------------------------------------------------------##}
+{% macro iterator__fallback( items, settings = null ) -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = { cardname: 'default' } | merge(settings) -%}
+
+    {%- import "_core" as assemble -%}
+    <div class="grid grid-cols-1 gap-8">
+        {% for item in items %}
+            {{ assemble.card( settings.cardname, item, settings ) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+
+{% macro iterator__randomize( items, settings ) -%}
+    {%- import "_core" as assemble -%}
+    {{- assemble.card( settings.cardname ??? 'default', shuffle(items) | first, settings ) -}}
+{%- endmacro %}
+
+
+{% macro iterator__single( items, settings ) -%}
+    {%- import "_core" as assemble -%}
+    {{- assemble.card( settings.cardname ??? 'default', items | first, settings ) -}}
+{%- endmacro %}
+
+
+{## Card Carousel
+{-------------------------------------------------------------------------------------##}
+{% macro iterator__carousel( items, settings ) -%}
+{%- if items ??? null and items is iterable -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = { cardname: 'summary' } | merge( settings ) -%}
+
+    {%- import "_core" as assemble -%}
+    {%- set items = items | map( item => assemble.card( settings.cardname, item, settings ) ) -%}
+
+    {%- embed ['_site/carousel','_core/carousel'] with { items: items, settings: settings } only -%}
+    {%- endembed -%}
+{%- endif -%}{%- endmacro %}
+
+
+{## Accordion
+{---------------------------------------------------------------------------------------}
+    CardBase() is a (locally-editable) custom Twig function that adds meta content to
+    records in a Card Deck entries within a content builder Matrix field.
+
+ -> craftcms/modules/themecore/src/twigextensions/CardBaseTwig.php
+{-------------------------------------------------------------------------------------##}
+{% macro iterator__accordion( items, settings = null ) -%}
+{%- if items ??? null and items is iterable -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = { cardname: 'panel', firstopen: false } | merge( settings ) -%}
+
+    {%- import "_core" as assemble -%}
+    {%- embed ['_site/accordion','_core/accordion'] with {
+        items: items | map( item => {
+            label  : CardBase( item, settings )['label'],
+            content: assemble.card( settings.cardname, item, settings )
+        } ),
+        settings : settings,
+        firstopen: settings.firstopen
+    } only -%}
+        {% block panel__title   item.label   %}
+        {% block panel__content item.content %}
+    {%- endembed -%}
+
+{%- endif -%}{%- endmacro %}
+
+
+
+{## Horizontal Tabs
+{---------------------------------------------------------------------------------------}
+    CardBase() is a (locally-editable) custom Twig function that adds meta content to
+    records in a Card Deck entries within a content builder Matrix field.
+
+ -> craftcms/modules/themecore/src/twigextensions/CardBaseTwig.php
+{-------------------------------------------------------------------------------------##}
+{% macro iterator__tabs( items, settings = null ) -%}
+{%- if items ??? null and items is iterable -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+    {%- set settings = { cardname: 'panel' } | merge( settings ) -%}
+
+    {%- import "_core" as assemble -%}
+    {% embed ['_site/tabs','_core/tabs'] with {
+        items: items | map( item => {
+            label  : CardBase( item, settings )['label'],
+            content: assemble.card( settings.cardname, item, settings )
+        } ),
+        settings: settings,
+    } %}
+        {% block tab__title   item.label   %}
+        {% block tab__content item.content %}
+    {% endembed %}
+{%- endif -%}{%- endmacro %}
+
+
+
+{## Grid Layouts
+{-------------------------------------------------------------------------------------##}
+{% macro iterator__grid2( items, settings ) -%}
+    {%- set items    = items    ??? null and items    is iterable ? items    : [] -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+
+    {%- set settings = {
+        gridlayout: 'flexible2',
+        cardname  : 'default'
+    } | merge( settings ) -%}
+
+    {%- import "_core" as assemble -%}
+
+    {%- set html = items
+        | map( item => assemble.card( settings.cardname, item, settings ) )
+        | join -%}
+
+    {{- assemble.gridlayout( settings.gridlayout, html, settings ) -}}
+{%- endmacro %}
+
+
+{% macro iterator__grid3( items, settings ) -%}
+    {%- set items    = items    ??? null and items    is iterable ? items    : [] -%}
+    {%- set settings = settings ?? null is iterable ? settings : {} -%}
+
+    {%- set settings = {
+        gridlayout: 'fixed3',
+        cardname  : 'default'
+    } | merge( settings ) -%}
+
+    {%- import "_core" as assemble -%}
+
+    {%- set html = items
+        | map( item => assemble.card( settings.cardname, item, settings ) )
+        | join -%}
+
+    {{- assemble.gridlayout( settings.gridlayout, html, settings ) -}}
+{%- endmacro %}
+
+
+
+{## Card Click Actions
+{---------------------------------------------------------------------------------------}
+    The `card__action` block is typically responsible for rendering some kind of
+    "action" that a user can take when interacting with a card.
+
+    Sometimes the action might be to add a button or link below the card that directs
+    users to the entry URL for this card.
+
+    Sometimes the card doesn't represent an actual URL but might still have additional
+    information available that can appear in a modal.
+
+    Maybe this is a Inline Item rendering with a default card. If a single text link
+    appears in the card summary field, should we make the image portion of the card
+    clickable as well to help increase the clickable area?
+
+    There are lots of different actions we can take and the clickaction macros below
+    handle a variety of them.
+{-------------------------------------------------------------------------------------##}
+
+
+{## Invisible Click Cover
+{---------------------------------------------------------------------------------------}
+    The click cover link is a full-coverage link that can be used to make the entire
+    card clickable without a specific button or link.
+
+  ! Important: Ensure an appropriate parent element has `relative` applied,
+    AND something like the below CSS exists within your project stylesheet.
+
+    Otherwise the .click__cover class will do nothing and appear to not exist
+
+    a.click__cover::before {
+        @apply absolute content-[""] inset-0 z-20;
+    }
+{-------------------------------------------------------------------------------------##}
+{% macro action__invisiblecover( card, settings ) -%}
+    {%- if card.url|default() -%}
+        {{ tag( 'a', {
+            href : card.url,
+            class: 'click__cover',
+            html : '<span class="hidden">Read More →</span>',
+        } ) }}
+    {%- endif -%}
+{%- endmacro %}
+{## --------------------------------------------------------------------------------- ##}
+
+
+
+{## Modal Content (Basic)
+{---------------------------------------------------------------------------------------}
+    Creates a modal window that will load on-click to display extended card info.
+{-------------------------------------------------------------------------------------##}
+{% macro action__inlinemodal( card, settings ) -%}
+
+    {% set card = card is null ? {} : card %}
+    {% set settings = settings is null ? {} : settings %}
+
+    {%- import "_core" as assemble -%}
+
+    {% set modalname = card.modalname ??? ["_site/modal", "_core/modal"] %}
+    {% set cardname  = card.modal__cardname ??? 'panel' %}
+
+    {% set modal = settings | merge({
+        clickaction: 'default',
+        cardname: cardname,
+    }) %}
+
+    {{ include( modalname, { content: assemble.card( cardname, card._element ??? card, modal ) }, withContext = false ) }}
+{%- endmacro %}
+
+
+
+{## Dynamic Modal
+{---------------------------------------------------------------------------------------}
+
+{-------------------------------------------------------------------------------------##}
+{% macro action__dynamicmodal( card, settings ) -%}
+    {%- if card.url|default() -%}
+        {{ tag( 'a', {
+            href       : card.url,
+            class      : 'click__cover',
+            'hx-get'   : card.url,
+            'hx-ext'   : 'ajax-header',
+            'hx-target':'#modal__dynamic',
+            html       : '<span class="hidden">Read More →</span>',
+        } ) }}
+    {%- endif -%}
+{%- endmacro %}
+{## --------------------------------------------------------------------------------- ##}

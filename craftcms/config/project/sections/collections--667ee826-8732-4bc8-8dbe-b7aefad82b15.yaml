@@ -1,9 +1,9 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - 21710874-0ba0-423c-82ec-7fd855abb982 # Dynamic Collection
-  - d7748b2a-ae79-4961-b103-a5aa758e39ab # Static Collection
-  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # RSS Collection
+  - 21710874-0ba0-423c-82ec-7fd855abb982 # Dynamic
+  - d7748b2a-ae79-4961-b103-a5aa758e39ab # Static
+  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # RSS Feed
 handle: collections
 maxAuthors: 1
 name: Collections
@@ -12,10 +12,10 @@ previewTargets:
     __assoc__:
       -
         - label
-        - 'Contextual Preview'
+        - 'Context Preview'
       -
         - urlFormat
-        - 'sitehub/collection/{{object.type.handle}}/{{object.slug}}'
+        - '_hub/collection/{{object.type.handle}}/{{object.slug}}'
       -
         - refresh
         - '1'

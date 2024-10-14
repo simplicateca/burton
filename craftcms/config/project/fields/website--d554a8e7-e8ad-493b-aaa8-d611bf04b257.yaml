@@ -1,12 +1,24 @@
 columnSuffix: null
 handle: website
 instructions: null
-name: 'Website / Content URL'
+name: Website
 searchable: false
 settings:
   maxLength: 255
+  typeSettings:
+    __assoc__:
+      -
+        - url
+        -
+          __assoc__:
+            -
+              - allowRootRelativeUrls
+              - ''
+            -
+              - allowAnchors
+              - ''
   types:
     - url
 translationKeyFormat: null
 translationMethod: none
-type: craft\fields\Url
+type: craft\fields\Link

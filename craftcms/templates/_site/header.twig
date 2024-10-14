@@ -40,6 +40,13 @@
 {% endblock %}
 
 
+{## Header Builder Block Base
+{---------------------------------------------------------------------------------------}
+    BuilderBase() is a (locally-editable) custom Twig function that adds meta content to
+    all Content Entry **blocks** within a content builder Matrix field.
+
+    -> craftcms/modules/themecore/src/twigextensions/BuilderBaseTwig.php
+{-------------------------------------------------------------------------------------##}
 {% block builder %}
     {%- import "_core" as assemble -%}
     {%- for block in BuilderBase( blocks ??? [], settings ??? {} ) -%}

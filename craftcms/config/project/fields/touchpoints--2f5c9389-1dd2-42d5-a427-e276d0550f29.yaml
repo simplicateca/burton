@@ -1,0 +1,384 @@
+columnSuffix: null
+handle: touchpoints
+instructions: null
+name: Touchpoints
+searchable: true
+settings:
+  addRowLabel: Add
+  columns:
+    __assoc__:
+      -
+        - col6
+        -
+          __assoc__:
+            -
+              - heading
+              - Format
+            -
+              - handle
+              - format
+            -
+              - width
+              - 5%
+            -
+              - type
+              - select
+            -
+              - options
+              -
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Plain
+                    -
+                      - value
+                      - plain
+                    -
+                      - default
+                      - true
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Email
+                    -
+                      - value
+                      - email
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Phone
+                    -
+                      - value
+                      - phone
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - URL
+                    -
+                      - value
+                      - url
+                    -
+                      - default
+                      - false
+      -
+        - col3
+        -
+          __assoc__:
+            -
+              - heading
+              - ''
+            -
+              - handle
+              - value
+            -
+              - width
+              - ''
+            -
+              - type
+              - singleline
+      -
+        - col2
+        -
+          __assoc__:
+            -
+              - heading
+              - Description
+            -
+              - handle
+              - description
+            -
+              - width
+              - 180px
+            -
+              - type
+              - singleline
+      -
+        - col1
+        -
+          __assoc__:
+            -
+              - heading
+              - Icon
+            -
+              - handle
+              - icon
+            -
+              - width
+              - 5%
+            -
+              - type
+              - select
+            -
+              - options
+              -
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - ' '
+                    -
+                      - value
+                      - ''
+                    -
+                      - default
+                      - true
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Badge
+                    -
+                      - value
+                      - address-card
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Building
+                    -
+                      - value
+                      - apartment
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Calendar
+                    -
+                      - value
+                      - calendar-days
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Clock
+                    -
+                      - value
+                      - clock
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Comment
+                    -
+                      - value
+                      - comment
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Email
+                    -
+                      - value
+                      - envelop
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - House
+                    -
+                      - value
+                      - house
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Link
+                    -
+                      - value
+                      - up-right-from-square
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Location
+                    -
+                      - value
+                      - location-dot
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - 'Map Pin'
+                    -
+                      - value
+                      - map-location
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Messages
+                    -
+                      - value
+                      - messages
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Microphone
+                    -
+                      - value
+                      - microphone
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Mobile
+                    -
+                      - value
+                      - mobile
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Phone
+                    -
+                      - value
+                      - phone-office
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Play
+                    -
+                      - value
+                      - play
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Star
+                    -
+                      - value
+                      - star
+                    -
+                      - default
+                      - false
+                -
+                  __assoc__:
+                    -
+                      - label
+                      - Website
+                    -
+                      - value
+                      - globe
+                    -
+                      - default
+                      - false
+  defaults:
+    -
+      __assoc__:
+        -
+          - col6
+          - email
+        -
+          - col3
+          - ''
+        -
+          - col2
+          - Email
+        -
+          - col1
+          - envelop
+    -
+      __assoc__:
+        -
+          - col6
+          - phone
+        -
+          - col3
+          - ''
+        -
+          - col2
+          - Phone
+        -
+          - col1
+          - phone-office
+    -
+      __assoc__:
+        -
+          - col6
+          - plain
+        -
+          - col3
+          - ''
+        -
+          - col2
+          - Hours
+        -
+          - col1
+          - clock
+    -
+      __assoc__:
+        -
+          - col6
+          - url
+        -
+          - col3
+          - ''
+        -
+          - col2
+          - Website
+        -
+          - col1
+          - up-right-from-square
+  maxRows: null
+  minRows: null
+  staticRows: false
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Table

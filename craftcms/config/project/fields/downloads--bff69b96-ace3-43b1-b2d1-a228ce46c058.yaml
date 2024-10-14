@@ -1,0 +1,39 @@
+columnSuffix: null
+handle: downloads
+instructions: null
+name: Downloads
+searchable: true
+settings:
+  allowSelfRelations: false
+  allowSubfolders: false
+  allowUploads: true
+  allowedKinds:
+    - compressed
+    - excel
+    - pdf
+    - powerpoint
+    - word
+  branchLimit: null
+  defaultUploadLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Uploads
+  defaultUploadLocationSubpath: null
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  previewMode: full
+  restrictFiles: true
+  restrictLocation: false
+  restrictedDefaultUploadSubpath: null
+  restrictedLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Uploads
+  restrictedLocationSubpath: null
+  selectionLabel: Add
+  showCardsInGrid: false
+  showSiteMenu: false
+  showUnpermittedFiles: false
+  showUnpermittedVolumes: false
+  sources: '*'
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Assets

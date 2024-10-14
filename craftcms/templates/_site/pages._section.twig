@@ -18,7 +18,7 @@
 
 {## [Type] Page ➜ http://localhost:8000/cms/settings/entry-types/17
 {-------------------------------------------------------------------------------------##}
-{% set urislug  = entry.uri | replace({'/':'-'}) | slugify %}
+{% set urislug  = entry.uri | kebab %}
 {% set uritmpl  = "_site/pages.#{urislug}" %}
 {% set basetmpl = entry.sidebarBuilder.one() ??? null
     ? "_site/template.sidebar"

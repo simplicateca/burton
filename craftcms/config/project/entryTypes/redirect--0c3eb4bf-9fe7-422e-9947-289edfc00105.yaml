@@ -1,4 +1,4 @@
-color: null
+color: orange
 fieldLayouts:
   f95c6ac3-8994-4936-919f-cf7d84dde245:
     tabs:
@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-11T16:41:01+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -35,6 +36,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-11T16:41:01+00:00'
             elementCondition: null
             fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
             handle: null
@@ -50,8 +52,9 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: '2024-10-11T16:41:01+00:00'
             elementCondition: null
-            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website
             handle: null
             includeInCards: false
             instructions: null

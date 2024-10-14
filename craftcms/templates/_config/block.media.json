@@ -49,7 +49,7 @@
     }]
 },{
     "value": "background",
-    "label": "Background Video",
+    "label": "Play in Background",
     "tooltips": { "inline": "" },
     "settings": {},
     "virtuals": [{

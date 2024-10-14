@@ -1,0 +1,22 @@
+columnSuffix: null
+handle: resources
+instructions: null
+name: Resources
+searchable: true
+settings:
+  createButtonLabel: null
+  entryTypes:
+    - 2508516d-3329-44ec-8518-04f2a29ca3f3 # Embed
+    - 04b0238a-65ff-4aef-8275-f54486bf68cd # Quote
+    - 32955110-f4a8-4150-8168-7907b3ee8a33 # Download
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: false
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

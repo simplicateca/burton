@@ -1,0 +1,21 @@
+columnSuffix: null
+handle: outline
+instructions: 'Commonly a bullet list of highlights, expectations, etc.'
+name: Outline
+searchable: true
+settings:
+  availableTransforms: ''
+  availableVolumes: ''
+  ckeConfig: 4d846458-8f3d-4c3a-b5de-1d4c180856ba # Outline
+  createButtonLabel: null
+  defaultTransform: null
+  enableSourceEditingForNonAdmins: false
+  purifierConfig: null
+  purifyHtml: true
+  showUnpermittedFiles: false
+  showUnpermittedVolumes: false
+  showWordCount: true
+  wordLimit: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\ckeditor\Field

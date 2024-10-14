@@ -1,0 +1,12 @@
+headingLevels: false
+name: 'Richtext - Basic'
+options:
+  balloonToolbar:
+    - bold
+    - italic
+    - undo
+    - redo
+toolbar:
+  - bold
+  - italic
+  - link

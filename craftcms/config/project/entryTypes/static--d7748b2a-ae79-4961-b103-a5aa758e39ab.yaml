@@ -1,4 +1,4 @@
-color: null
+color: sky
 fieldLayouts:
   3a5fcba1-7080-4398-abf6-19311eb4d489:
     tabs:
@@ -6,6 +6,7 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
             template: _sitehub/ui-template-collection.twig
             type: craft\fieldlayoutelements\Template
@@ -17,6 +18,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-11T21:51:01+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -42,13 +44,15 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: be22b344-498e-448e-a9c7-9d13ee238e0a
             userCondition: null
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
-            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Cover Image
             handle: null
             includeInCards: false
             instructions: null
@@ -62,6 +66,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
             fieldUid: d8bf6768-4ff5-4727-ac20-12f8f0344542 # Media
             handle: null
@@ -77,6 +82,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
             fieldUid: a186d4ae-477e-4b06-868e-add5e8f44b0c # Embeds
             handle: null
@@ -92,6 +98,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
             fieldUid: ab7d33f0-3a17-47ea-a6a8-ad94734ee9a2 # Bits
             handle: null
@@ -107,6 +114,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
             fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
             handle: null
@@ -128,8 +136,9 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
-            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Headline + Subheading
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
             handle: null
             includeInCards: false
             instructions: null
@@ -143,6 +152,7 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
             fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
             handle: null
@@ -158,6 +168,7 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: '2024-10-11T21:51:01+00:00'
             elementCondition: null
             fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
             handle: null
@@ -178,7 +189,7 @@ fieldLayouts:
 handle: static
 hasTitleField: true
 icon: list-radio
-name: 'Static Collection'
+name: Static
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null

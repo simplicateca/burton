@@ -1,0 +1,110 @@
+{## [Core Block] Media
+{---------------------------------------------------------------------------------------}
+  > http://localhost:8000/sitehub/blocks/media
+{-------------------------------------------------------------------------------------##}
+{%- set _field = ( settings.field ??? block.settings.field ??? '' ) | replace({'Builder':''}) %}
+{%- extends [ "_site/#{_field}.block", "_site/block", "_core/block" ] -%}
+
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
+    {%- set settings = {
+        variant   : null,
+        limit     : 24,
+        iterator  : 'single',
+        medialayer: 'default',
+    } | merge( settings ) -%}
+
+    {%- set mediaitems = [] -%}
+
+    {## Item Source: Media Field
+    {---------------------------------------------------------------------------------##}
+    {%- set mediaitems = collect( block.media ?? null ).all() -%}
+
+
+    {## Item Source: Collection
+    {-----------------------------------------------------------------------------------}
+        CollectionResults() is a (locally-editable) custom Twig function that returns
+        Entry records based on search params passed into it.
+
+     -> craftcms/modules/themecore/src/twigextensions/CollectionBaseTwig.php
+    {---------------------------------------------------------------------------------##}
+    {%- if not mediaitems | length -%}
+        {%- set collections = collect( block.collections ).all() -%}
+        {%- set mediaitems = CollectionResults( collections, {
+            limit : settings.limit,
+            slug  : request.getParam('f') ?? null,
+            static: 'media'
+        } ) -%}
+
+        {% set firstitem = (mediaitems|first).type.handle ??? null %}
+        {% if firstitem == 'embed' %}
+            {% set embeds = mediaitems %}
+            {% set mediaitems = [] %}
+        {% endif %}
+    {%- endif -%}
+
+
+    {## Item Source: Embedable Third-Party URL (oEmbed)
+    {-----------------------------------------------------------------------------------}
+        MediaBase() is a (locally-editable) custom Twig function that returns
+        oEmbed metadata for embeddable third-party URLs
+
+     -> craftcms/modules/themecore/src/twigextensions/MediaBaseTwig.php
+     -> https://github.com/oscarotero/Embed
+    {---------------------------------------------------------------------------------##}
+    {%- set embeds = collect( block.embeds ).all() -%}
+    {%- if embeds -%}
+        {% set mediaitems = [] %}
+        {%- for item in embeds -%}
+            {%- set url = item.website ??? item.url ??? null -%}
+            {%- if url -%}
+                {%- set oembed = MediaBase( url ) -%}
+                {## TODO: Add items.images to eager loading ##}
+                {%- set mediaitems = mediaitems|merge([{
+                    _media   : item,
+                    url      : url,
+                    kind     : 'external',
+                    oembed   : oembed,
+                    images   : item.images.one() ? item.images.all() : [],
+                    summary  : item.summary  ??? oembed.summary ??? null,
+                    headline : item.headline ??? oembed.title   ??? null,
+                }]) -%}
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endif -%}
+
+
+    {## Named Variant Block or Standard Layout
+    {---------------------------------------------------------------------------------##}
+    {%- set blockname = "media__#{settings.variant}" -%}
+    {{- ( block( blockname ) is defined )
+        ? block( blockname )
+        : block( 'media__fallback' ) -}}
+{% endblock %}
+
+
+
+{## Fallback Renderer for Media Items
+{-------------------------------------------------------------------------------------##}
+{% block media__fallback %}
+    {%- import "_core" as assemble -%}
+    {{- assemble.media( settings.iterator, mediaitems, settings ) -}}
+{% endblock %}
+
+
+
+{## Media Third Party Embed
+{-------------------------------------------------------------------------------------##}
+{% block media__code %}
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
+
+    {{- block.code | retconOnly('iframe') | retconAttr( 'iframe', {
+        class : 'aspect-video',
+        width : false,
+        height: false
+    }) -}}
+{% endblock %}

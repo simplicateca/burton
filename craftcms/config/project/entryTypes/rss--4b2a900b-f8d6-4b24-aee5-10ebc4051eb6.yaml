@@ -1,4 +1,4 @@
-color: null
+color: orange
 fieldLayouts:
   88a546fc-9281-41ec-95ed-067b8189e823:
     tabs:
@@ -6,6 +6,7 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: '2024-10-11T21:51:29+00:00'
             elementCondition: null
             template: _sitehub/ui-template-collection.twig
             type: craft\fieldlayoutelements\Template
@@ -17,6 +18,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-11T21:51:29+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -42,13 +44,15 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: '2024-10-11T21:51:29+00:00'
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
             uid: 4c042122-01b4-4dcc-9378-8d5b8cd30d57
             userCondition: null
           -
+            dateAdded: '2024-10-11T21:51:29+00:00'
             elementCondition: null
-            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website
             handle: null
             includeInCards: false
             instructions: null
@@ -68,6 +72,7 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
+            dateAdded: '2024-10-11T21:51:29+00:00'
             elementCondition: null
             fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Expanded Title
             handle: null
@@ -83,6 +88,7 @@ fieldLayouts:
             warning: null
             width: 50
           -
+            dateAdded: '2024-10-11T21:51:29+00:00'
             elementCondition: null
             fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
             handle: null
@@ -98,6 +104,7 @@ fieldLayouts:
             warning: null
             width: 25
           -
+            dateAdded: '2024-10-11T21:51:29+00:00'
             elementCondition: null
             fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
             handle: null

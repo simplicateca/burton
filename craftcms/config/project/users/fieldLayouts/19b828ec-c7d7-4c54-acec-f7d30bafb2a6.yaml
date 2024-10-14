@@ -123,7 +123,7 @@ tabs:
         width: 100
       -
         elementCondition: null
-        fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+        fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website
         handle: null
         includeInCards: false
         instructions: null

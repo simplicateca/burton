@@ -35,9 +35,7 @@ use yii\helpers\Console;
  * ./craft site-module/default/do-something
  */
 
- use craft\elements\Entry;
-
- class DefaultController extends Controller
+class DefaultController extends Controller
 {
     /**
      * Handle site-module/default console commands
@@ -55,22 +53,4 @@ use yii\helpers\Console;
 
         return $result;
     }
-
-
-    // What is this here?!
-    // ----------------------------------------------------------------------------------
-    // Playing around with updating the `slug` field of Formie entries. It appears to be
-    // unused and is convienently one of the few default fields that can be used to make
-    // a "dynamic" Custom Source in the Control Panel.
-    //
-    // A Custom Source in Formie allows you to create filterable options when creating a
-    // custom Formie Entry select field (i.e. within Component Blocks).
-    // ----------------------------------------------------------------------------------
-    // public function actionFormSlug(): mixed
-    // {
-    //     $element = Craft::$app->getElements()->getElementById(99);
-    //     $element->slug = 'contact-form-embeddable';
-    //     Craft::$app->getElements()->saveElement($element);
-    //     return "";
-    // }
 }

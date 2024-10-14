@@ -1,170 +1,117 @@
 #--------------------------------------------------------------
 # Craft CMS Project
 #--------------------------------------------------------------
-.PHONY: dev dev-rebuild dev-ssh dev-down \
-		autoconfig \
-		craft craft-update craft-assetsync \
-		composer composer-update \
-		db-export db-reseed db-reset db-debug \
-		n8n-export n8n-export-credentials n8n-import n8n-import-credentials \
-		npm \
-		wipe-volumes wipe-backend wipe-frontend wipe-nuke
+CRAFT=craftcms
+DOCKER=etc/docker
+FRONTEND=frontend
+STORAGE=$(CRAFT)/storage
+
+# Environment
+ENV=$(CRAFT)/.env
+ENV_EMPTY=$(CRAFT)/example.env
+ENV_ID=CRAFT_APP_ID
+ENV_TEST=$(shell [ -f $(ENV_EMPTY)  ] && cp -n $(ENV_EMPTY) $(ENV) || true)
+
+# Utilities
+RAND_16=$(shell head /dev/urandom | tr -dc a-z0-9 | head -c 16)
+
+# Database Seed
+SEED_PATH=$(DOCKER)/seed
+SEED_GZIP=$(DOCKER)/seed.sql.gz
+SEED_UNZIP=mkdir $(SEED_PATH) && gzip -dkc $(SEED_GZIP) > $(SEED_PATH)/craft.sql
+SEED_NAME=$(DOCKER)/Craft-$(date %Y-%m-%d-%H%M).sql
+SEED_TEST=$(shell [ -f $(SEED_GZIP) ] && [ ! -d $(SEED_PATH) ] && $(SEED_UNZIP) || true)
+
+# Project
+PROJECT_ID=Burton-$(RAND_16)
+PROJECT_ID_TEST=$(shell grep -q '^$(ENV_ID)=' $(ENV) && [ -z "$(grep '^$(ENV_ID)=' $(ENV) | cut -d '=' -f 2)" ] && sed -i 's/^$(ENV_ID)=/$(ENV_ID)=$(PROJECT_ID)/' $(ENV))
+PROJECT_ID=$(shell grep -E '^$(ENV_ID)=' $(ENV) | cut -d '=' -f 2)
+PROJECT_DIR=$(shell basename $(realpath $(dir $(CURDIR))/..))
+PROJECT_NAME=$(if $(PROJECT_ID),$(PROJECT_ID),$(PROJECT_DIR))
+
+PROJECT_URL=$(shell grep -E '^CRAFT_WEB_URL=' $(ENV) | cut -d '=' -f 2)?:http://localhost:8000
+
+
+# Docker Compose
+COMPOSE=docker compose --project-name $(PROJECT_NAME) --env-file $(ENV)
+COMPOSE_UP=$(COMPOSE) up
+COMPOSE_DOWN=$(COMPOSE) down
+COMPOSE_REBUILD=$(COMPOSE) up --build --force-recreate
+
+# Container Commands
+EXEC_SSH=$(COMPOSE) exec php /bin/bash
+EXEC_CRAFT=$(COMPOSE) exec php /app/craft
+EXEC_NPM=$(COMPOSE) exec frontend npm
+EXEC_COMPOSER=$(COMPOSE) run composer --rm --optimize-autoloader
+
+
+# Actions
+#--------------------------------------------------------------
+.PHONY: assets backup composer craft debug dev down \
+		npm nuke rebuild reinstall reseed ssh update wipe
+#--------------------------------------------------------------
+assets: craft-index-assets
+backup: craft-export
+composer:
+	@$(EXEC_COMPOSER) $(filter-out $@,$(MAKECMDGOALS)) ;
+craft:
+	@$(EXEC_CRAFT) $(filter-out $@,$(MAKECMDGOALS)) ;
+debug:
+	@$(COMPOSE) --profile debug up ;
+dev:
+	@$(COMPOSE_UP) ;
+down:
+	@$(COMPOSE_DOWN) ;
+npm:
+	@$(EXEC_NPM) $(filter-out $@,$(MAKECMDGOALS)) ;
+nuke: composer-wipe npm-wipe
+	@$(COMPOSE_DOWN) -v ;
+rebuild:
+	@$(COMPOSE_REBUILD) ;
+restart: down rebuild
+reinstall: craft-empty-db restart
+reseed: craft-reseed
+ssh:
+	@$(EXEC_SSH) ;
+update: composer-bump restart
+wipe: composer-wipe npm-wipe restart
 
 #--------------------------------------------------------------
-# Dotenv File Paths
+# Composer Shortcuts
 #--------------------------------------------------------------
-ENV_SMPL  :=craftcms/example.env
-ENV_PATH  :=craftcms/.env
-
-#--------------------------------------------------------------
-# Database Seed & Backup Paths
-#--------------------------------------------------------------
-SEED_PATH :=./etc/dev.local/seed
-SEED_GZIP :=./etc/dev.local/seed.sql.gz
-SEED_UNZIP:=mkdir $(SEED_PATH) && gzip -dkc $(SEED_GZIP) > $(SEED_PATH)/init.sql
-SEED_NAME :=$(SEED_DIR)/Craft-$(date %Y-%m-%d-%H%M).sql
+composer-bump: composer-update
+	@$(EXEC_COMPOSER) bump ;
+composer-update:
+	@$(EXEC_COMPOSER) update ;
+composer-wipe:
+	@rm -f $(CRAFT)/composer.lock
+	@rm -rf $(CRAFT)/vendor
 
 #--------------------------------------------------------------
-# n8n Backup Paths
+# Craft Shortcuts
 #--------------------------------------------------------------
-N8N_FLOWS=/home/node/n8n/workflows
-N8N_CREDS=/home/node/n8n/credentials
+craft-index-assets:
+	@$(EXEC_CRAFT) index-assets/all ;
+craft-export:
+	@$(EXEC_CRAFT) db/backup ;
+craft-empty-db:
+	@$(EXEC_CRAFT) db/drop-all-tables ;
+	@$(EXEC_CRAFT) install \
+		--email='craft@example.com' \
+		--password='letmein' \
+		--site-name='Craft CMS' \
+		--site-url='$(PROJECT_URL)' ;
+craft-reseed: craft-export
+	@rm -f $(SEED_GZIP)
+	@cp -p "`ls -dtr1 $(STORAGE)/backups/* | tail -1`" $(SEED_NAME)
+	@gzip -c $(SEED_NAME) > $(SEED_PATH)
 
+
+# NPM Shortcuts
 #--------------------------------------------------------------
-# Craft CMS
-#--------------------------------------------------------------
-CRAFT_PATH:=/app/craft
-
-#--------------------------------------------------------------
-# Docker Settings (compose.yaml)
-#--------------------------------------------------------------
-DOCKER_DB:=mysql
-DOCKER_PHP:=php
-DOCKER_ENV:=--env-file $(ENV_PATH)
-DOCKER_COMPOSE:=docker compose $(DOCKER_ENV)
-DOCKER_EXEC_PHP:=$(DOCKER_COMPOSE) exec php
-DOCKER_EXEC_CRAFT:=$(DOCKER_COMPOSE) exec php $(CRAFT_PATH)
-DOCKER_EXEC_N8N:=$(DOCKER_COMPOSE) exec --user node n8n n8n
-DOCKER_PROFILE_REINSTALL:=freshdb
-DOCKER_PROFILE_DEBUG:=debug
-
-#--------------------------------------------------------------
-# Autoconfig Environment
-#--------------------------------------------------------------
-autoconfig: auto-cd auto-db auto-env
-
-auto-cd:
-	@cd "$(pwd -P)"
-
-auto-db:
-	@[ -f $(SEED_GZIP) ] && [ ! -d $(SEED_PATH) ] && $(SEED_UNZIP) || true
-
-auto-env:
-	@[ -f $(ENV_SMPL)  ] && cp -n $(ENV_SMPL) $(ENV_PATH) || true
-
-#--------------------------------------------------------------
-# Development Environment Up/Down
-#--------------------------------------------------------------
-dev: autoconfig
-	$(DOCKER_COMPOSE) up ;
-
-dev-rebuild: autoconfig
-	$(DOCKER_COMPOSE) --build --force-recreate up ;
-
-dev-ssh: autoconfig
-	$(DOCKER_EXEC_PHP) /bin/bash ;
-
-dev-down: autoconfig
-	$(DOCKER_COMPOSE) down ;
-
-
-
-#--------------------------------------------------------------
-# Composer - PHP Dependency Manager
-#--------------------------------------------------------------
-composer: autoconfig
-	$(DOCKER_COMPOSE) run composer $(filter-out $@,$(MAKECMDGOALS)) ;
-
-composer-update: autoconfig
-	$(DOCKER_COMPOSE) run composer $(filter-out $@,$(MAKECMDGOALS)) ;
-
-
-#--------------------------------------------------------------
-# Craft - Console Commands
-#--------------------------------------------------------------
-craft: autoconfig
-	$(DOCKER_EXEC_CRAFT) $(filter-out $@,$(MAKECMDGOALS)) ;
-
-craft-update: autoconfig
-	$(DOCKER_EXEC_CRAFT) $(filter-out $@,$(MAKECMDGOALS)) ;
-
-craft-assetsync: autoconfig
-	$(DOCKER_EXEC_CRAFT) $(filter-out $@,$(MAKECMDGOALS)) ;
-
-
-#--------------------------------------------------------------
-# Database Management
-#--------------------------------------------------------------
-db-export: autoconfig
-	$(DOCKER_EXEC_CRAFT) db/backup ;
-
-db-reseed: db-export
-	rm -f $(SEED_GZIP)
-	cp -p "`ls -dtr1 ./craftcms/storage/backups/* | tail -1`" etc/$(SEED_NAME)
-	gzip -c etc/$(SEED_NAME) > $(SEED_PATH)
-
-db-reset: db-export
-	$(DOCKER_COMPOSE) rm -v $(DOCKER_DB) ;
-	$(DOCKER_COMPOSE) --profile $(DOCKER_PROFILE_REINSTALL) up ;
-
-db-debug: autoconfig
-	$(DOCKER_COMPOSE) --profile $(DOCKER_PROFILE_DEBUG) up ;
-
-
-#--------------------------------------------------------------
-# Frontend NodeJS
-#--------------------------------------------------------------
-npm: autoconfig
-	$(DOCKER_COMPOSE) exec frontend npm $(filter-out $@,$(MAKECMDGOALS)) ;
-
-
-
-#--------------------------------------------------------------
-# n8n - workflow automation json import/export
-#--------------------------------------------------------------
-# https://docs.n8n.io/hosting/cli-commands/#import-workflows-and-credentials
-# https://docs.n8n.io/hosting/cli-commands/#export-workflows-and-credentials
-n8n-import: autoconfig
-	$(DOCKER_EXEC_N8N) import:workflow --separate --input=$(N8N_FLOWS) ;
-
-n8n-import-credentials: autoconfig
-	$(DOCKER_EXEC_N8N) import:credentials --separate --input=$(N8N_CREDS) ;
-
-n8n-export: autoconfig
-	$(DOCKER_EXEC_N8N) export:workflow --backup --output=$(N8N_FLOWS) ;
-
-n8n-export-credentials: autoconfig
-	$(DOCKER_EXEC_N8N) export:credentials --backup --output=$(N8N_CREDS) ;
-
-
-
-#--------------------------------------------------------------
-# Wipe persistent data from the local env
-#--------------------------------------------------------------
-wipe-volumes: autoconfig
-	$(DOCKER_COMPOSE) down -v ;
-
-wipe-frontend:
-	rm -f frontend/package-lock.json
-	rm -rf frontend/node_modules
-
-wipe-backend:
-	rm -f craftcms/composer.lock
-	rm -rf craftcms/vendor
-
-wipe-nuke: wipe-volumes wipe-backend wipe-frontend dev-rebuild
-
-
+npm-wipe:
+	@rm -f $(FRONTEND)/package-lock.json
+	@rm -rf $(FRONTEND)/node_modules
 
 %:
 	@:

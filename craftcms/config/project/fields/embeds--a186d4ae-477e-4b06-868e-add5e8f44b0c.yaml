@@ -43,7 +43,7 @@ settings:
   showCardsInGrid: true
   showSiteMenu: true
   sources:
-    - 'section:9cf1fb90-7384-41c9-8eda-fd8d9f2cd574' # Embeddables
+    - 'section:9cf1fb90-7384-41c9-8eda-fd8d9f2cd574'
   targetSiteId: null
   validateRelatedElements: false
   viewMode: cards

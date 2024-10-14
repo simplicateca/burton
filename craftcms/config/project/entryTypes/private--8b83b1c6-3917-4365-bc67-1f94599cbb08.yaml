@@ -1,4 +1,4 @@
-color: null
+color: red
 fieldLayouts:
   a54bf7db-44fd-4a78-8262-cbb1b81d17ca:
     tabs:
@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-11T21:58:02+00:00'
             disabled: false
             elementCondition: null
             id: null
@@ -40,7 +41,7 @@ fieldLayouts:
 handle: private
 hasTitleField: true
 icon: user-secret
-name: 'Private Tag'
+name: Private
 showSlugField: false
 showStatusField: true
 slugTranslationKeyFormat: null

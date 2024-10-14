@@ -1,0 +1,70 @@
+{## [Core Block] Image(s)
+{---------------------------------------------------------------------------------------}
+  > http://localhost:8000/sitehub/blocks/image
+{-------------------------------------------------------------------------------------##}
+{%- set _field = ( settings.field ??? block.settings.field ??? '' ) | replace({'Builder':''}) %}
+{%- extends [ "_site/#{_field}.block", "_site/block", "_core/block" ] -%}
+
+
+{## Zone 2 Content / Variant Routing
+{-------------------------------------------------------------------------------------##}
+{% block block__zone2 %}
+
+    {%- set settings = ( settings ?? null ) is iterable ? settings : block.settings ??? {} -%}
+    {%- set settings = {
+        variant : null,
+        limit   : 24,
+        iterator: 'single',
+    } | merge( settings ) -%}
+
+    {## are we getting our assets from the block field? ##}
+    {%- set images = collect( block.images ).all() -%}
+
+
+    {## Auto-Linking
+    {-----------------------------------------------------------------------------------}
+        TextBase() is a (locally-editable) custom Twig function that separates a string
+        of HTML into distinct headline, eyebrow, intro, body, and CTA (button) parts.
+
+     -> craftcms/modules/themecore/src/twigextensions/TextBaseTwig.php
+    {---------------------------------------------------------------------------------##}
+    {%- set text1 = TextBase(block.text) ??? null %}
+    {%- set autolink = ( text1.action ??? text1.body ) | retconOnly( "a[data-only-link]" ) %}
+    {%- set autolink = autolink ? autolink | parseAttr : null -%}
+    {%- if autolink.href ??? null -%}
+        {%- set settings = settings | merge({autolink: autolink.href}) -%}
+    {%- endif -%}
+
+
+    {## Load from a Collection?
+    {-----------------------------------------------------------------------------------}
+        CollectionResults() is a (locally-editable) custom Twig function that returns
+        Entry records based on search params passed into it.
+
+     -> craftcms/modules/themecore/src/twigextensions/CollectionBaseTwig.php
+    {---------------------------------------------------------------------------------##}
+    {%- if not images | length -%}
+        {%- set collections = collect( block.collections ).all() -%}
+        {%- set images = CollectionResults( collections, {
+            limit : settings.limit,
+            slug  : request.getParam('f') ?? null,
+            static: 'images'
+        } ) -%}
+    {%- endif -%}
+
+
+    {## Named Variant Block or Standard Layout
+    {---------------------------------------------------------------------------------##}
+    {%- set blockname = "image__#{settings.variant}" -%}
+    {{- ( block( blockname ) is defined )
+        ? block( blockname )
+        : block( 'image__fallback' ) -}}
+{% endblock %}
+
+
+{## Fallback Renderer for Image Block
+{-------------------------------------------------------------------------------------##}
+{% block image__fallback %}
+    {%- import "_core" as assemble -%}
+    {{- assemble.images( settings.iterator, images ??? [], settings ??? {} ) -}}
+{% endblock %}

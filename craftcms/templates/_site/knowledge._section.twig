@@ -1,0 +1,346 @@
+{## Entry Template for Knowledge Base Section
+{---------------------------------------------------------------------------------------}
+    Admin ➜ http://localhost:8000/cms/settings/sections/2
+{-------------------------------------------------------------------------------------##}
+{% set handle = entry.type.handle ??? null %}
+{% extends handle ? [
+    "_site/knowledge.#{handle}",
+    "_site/template.sidebar"
+] : template_from_string('{% header "HTTP/1.0 404 Not Found" %}') %}
+
+
+{## [Block] Page Top with <header>
+    From ➜ _site/template.fullpage.twig
+{-------------------------------------------------------------------------------------##}
+{% block page__top %}
+    {% embed '_site/header' with {
+        datechip  : _self.postdate( entry.postDate ),
+        authorchip: _self.authorchip( entry.author ),
+    } %}
+        {% block breadcrumb "" %}
+
+        {% block plaintitle %}
+            {% set header__align = "left" %}
+            {{ parent() }}
+        {% endblock %}
+
+        {% block header__beforeclose %}
+            {%- import "_core" as assemble -%}
+            {% set metacontent %}
+                <div class="bg-theme-tint p-4 mt-8 flex flex-row flex-wrap items-center gap-8 max-w-5xl">
+                    {{ datechip }}
+                    {{ authorchip }}
+                    <span>Read Time: <strong>5 min</strong></span>
+                </div>
+            {% endset %}
+            {{ assemble.container( 'fluid', metacontent ) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+
+{#######################################################################################}
+{##                                   Custom Macros                                   ##}
+{#######################################################################################}
+
+
+{## [Macro] Author Chip
+{-------------------------------------------------------------------------------------##}
+{% macro authorchip( author ) %}
+    {% if author ?? null %}
+        <div class="flex items-center space-x-2" itemscope itemtype="http://schema.org/Person">
+            <img src="{{ author.photo.url ??? null }}" alt="{{ author.fullName }}" class="h-8 w-8 rounded-full" itemprop="image">
+            <span itemprop="name">{{ author.fullName }}</span>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+{## [Macro] Author Bio
+{-------------------------------------------------------------------------------------##}
+{% macro authorbio(author) %}
+{% if author ?? null %}
+    <div class="bg-theme-tint p-4 rounded-lg">
+        <div class="flex items-center mb-4">
+            <img src="{{ author.photo.url ??? null }}" alt="{{ author.fullName }}" class="h-20 w-20 rounded-full" itemprop="image">
+            <div class="ml-4">
+                <h2 class="text-lg font-semibold">{{ author.fullName }}</h2>
+                <p>{{ author.text ??? author.summary }}</p>
+                {% if author.website ??? null%}<p><a href="{{ author.website }}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-600">{{ author.website }}</a></p>{% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endmacro %}
+
+
+{## [Macro] Post Date
+{-------------------------------------------------------------------------------------##}
+{% macro postdate(date) %}
+    <time datetime="{{ date|date('Y-m-d') }}" itemprop="datePublished">{{ date|date('F j, Y') }}</time>
+{% endmacro %}
+
+
+{## [Macro] Topics
+{-------------------------------------------------------------------------------------##}
+{% macro topics(topics) %}
+    <div class="like-h4">POSTED IN</div>
+    <div class="flex flex-wrap space-x-2">
+        {% for tag in topics %}
+            <a href="{{ tag.url }}" class="text-sm font-medium text-gray-800 hover:text-blue-600" itemprop="about">{{ tag.title }}</a>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+
+{## [Macro] Related Content
+{-------------------------------------------------------------------------------------##}
+{% macro related( articles ) %}
+    {%- set settings = {
+        'iterator': 'grid3',
+        'cardname': 'summary'
+    } -%}
+
+    {%- import "_core" as assemble -%}
+    {{- assemble.deck( settings.iterator, articles, settings ) -}}
+{% endmacro %}
+
+
+{% macro sharing( entry ) %}
+    <div class="flex gap-3">
+        <a aira-label="Share on LinkedIn" target="_blank"
+        href="https://www.linkedin.com/shareArticle?url={{entry.url|url_encode}}"
+        >{{ svg( '@webroot/static/svg/linkedin.svg') | attr({
+            class: 'fill-current h-6 w-6'
+        }) }}</a>
+
+        <a aira-label="Share on Twitter/X" target="_blank"
+        href="https://twitter.com/intent/tweet?url={{entry.url|url_encode}}&text={{entry.title|url_encode}}"
+        >{{ svg( '@webroot/static/svg/twitter.svg') | attr({
+            class: 'fill-current h-6 w-6'
+        }) }}</a>
+
+        <a aira-label="Share via Email" target="_blank"
+        href="mailto:?body={{entry.url}}&subject={{entry.title|url_encode}}"
+        >{{ svg( '@appicons/envelope.svg') | attr({
+            class: 'fill-current h-6 w-6'
+        }) }}</a>
+
+        <a aira-label="Copy Link"
+        href="javascript:copyToClipboard('{{entry.url}}')"
+        >{{ svg( '@appicons/link.svg') | attr({
+            class: 'fill-current h-6 w-6'
+        }) }}</a>
+    </div>
+
+    {% js %}
+        function copyToClipboard(textToCopy) {
+            const temp = document.createElement("input")
+                temp.type = "text"
+                temp.value = textToCopy
+
+            document.body.appendChild(temp)
+            temp.select()
+            document.execCommand("Copy")
+            document.body.removeChild(temp)
+
+            alert( "Article URL copied to clipboard");
+        }
+    {% endjs %}
+{% endmacro %}
+
+
+{% macro articles( person, settings ) %}
+    {%- import "_core" as assemble -%}
+    {%- import "_site/knowledge.book"  as books -%}
+
+    {% set settings = settings ??? { _: true } %}
+    {% set settings = {
+        headline     : null,
+        headline__tag: 'h2',
+        eyebrow      : null,
+        eyebrow__type: 'eyebrow__basic',
+        separator    : 'small',
+    } | merge(settings) %}
+
+    {% set articles = craft.entries.type('article').relatedTo(person) %}
+
+
+{% endmacro %}
+
+
+{% macro books( person, settings ) %}
+    {%- import "_core" as assemble -%}
+    {%- import "_site/knowledge.book"  as books -%}
+
+    {% set settings = settings ??? { _: true } %}
+    {% set settings = {
+        headline     : null,
+        headline__tag: 'h2',
+        eyebrow      : null,
+        eyebrow__type: 'eyebrow__basic',
+        separator    : 'small',
+    } | merge(settings) %}
+
+    {%- set authored = books.authored( person, {} ) | trim -%}
+    {%- if authored -%}
+        {{- settings.eyebrow  ? assemble.text( settings.eyebrow__type, settings.eyebrow, {} ) -}}
+        {{- settings.headline ? tag( settings.headline__tag, { html: settings.headline } ) -}}
+        {{- raw( authored ) -}}
+        {{- assemble.separator( settings.separator ) -}}
+    {%- endif -%}
+{% endmacro %}
+
+
+{% macro video( entry, settings ) %}
+    {%- import "_core" as assemble -%}
+
+    {% set settings = settings ??? { _: true } %}
+    {% set settings = {
+        headline : true,
+        summary  : true,
+        separator: 'small',
+    } | merge(settings) %}
+
+    {% set video = _self.video__single(
+        collect( entry.resources ??? [] )
+          .where('type', 'embed')
+          .whereNotNull('website')
+          .first(),
+        settings
+    ) | trim -%}
+
+    {{- video ? raw( video ) -}}
+    {{- video ? assemble.separator( settings.separator ) -}}
+{% endmacro %}
+
+
+{% macro video__single( video, settings ) %}
+    {%- import "_core" as assemble -%}
+
+    {% set settings = settings ??? { _: true } %}
+    {% set settings = {
+        medialayer   : 'native',
+        headline     : null,
+        summary      : null,
+        headline__tag: 'h2',
+        eyebrow      : null,
+        eyebrow__type: 'eyebrow__basic',
+    } | merge(settings) %}
+
+
+    {## Load Video from Embeddable URL
+    {-----------------------------------------------------------------------------------}
+        MediaBase() is a (locally-editable) custom Twig function that returns
+        oEmbed metadata for embeddable third-party URLs
+
+     -> craftcms/modules/themecore/src/twigextensions/MediaBaseTwig.php
+     -> https://github.com/oscarotero/Embed
+    {---------------------------------------------------------------------------------##}
+    {%- if video.website ??? null -%}
+        {%- set oembed = MediaBase( video.website ) -%}
+        {## TODO: Add Eager Loading to video.images ##}
+        {%- set media  = {
+            _media   : video,
+            url      : video.website,
+            kind     : 'external',
+            oembed   : oembed,
+            images   : video.images  ??? null,
+            summary  : video.summary ??? oembed.summary ??? null,
+            headline : video.title   ??? video.headline ??? oembed.title ??? null,
+        } -%}
+
+        {{- settings.eyebrow  ? assemble.text( settings.eyebrow__type, settings.eyebrow, settings ) -}}
+        {{- settings.headline ? tag( settings.headline__tag, { html: media.headline } ) -}}
+        {{- settings.summary ? media.summary -}}
+
+        {{- assemble.media( 'single', [media], settings ) -}}
+    {%- endif -%}
+{% endmacro %}
+
+
+{#######################################################################################}
+{##                                Template Overrides                                 ##}
+{#######################################################################################}
+
+
+
+
+
+{## [Block] Before Closing Main Content Area
+{---------------------------------------------------------------------------------------}
+  -
+{---------------------------------------------------------------------------------------}
+    From ➜ _site/template.fullpage.twig
+{-------------------------------------------------------------------------------------##}
+{# {% block main__beforeclose %}
+    {% set articlebottom %}
+        <div class="flex flex-col gap-10" data-bodycopy>
+
+            <div class="max-w-5xl @container">
+                {{ _self.topics( entry.taxonomies ) }}
+                {{ _self.authorbio( entry.author ) }}
+            </div>
+
+            {%- set related = craft.entries({ section: 'articles', id: "!= #{entry.id}", limit: 3 }) -%}
+            {{ _self.related( related ) }}
+        </div>
+    {% endset %}
+
+    {%- import "_core" as assemble -%}
+    {{ assemble.container( 'fluid', articlebottom ) }}
+{% endblock %} #}
+
+
+
+{## [Macro] Knowledge Base URI Builder
+{---------------------------------------------------------------------------------------}
+    Better than a long-ass Twig-oneliner stuffed into the `URI Format` CP field:
+  ➜ {% from '_site/knowledge._section' import uri %}{{ uri( object ) }}
+
+ ## Output Examples
+  └ magazine/issue-one
+  └ library/title-of-book-author-name
+  └ insights/regular-article-title
+  └ insights/exclusive/digital-insiders-content
+  └ insights/guides/learning-guide-name
+  └ insights/listen/episode-title
+  └ insights/watch/video-title
+  └ about/news/release-name
+
+ ## IMPORTANT ― Resave existing records (via console) anytime this macro changes:
+  ➜ make craft "resave/entries --section=knowledge"
+{-------------------------------------------------------------------------------------##}
+{% macro uri( object ) %}{% apply spaceless %}
+    {% set parts  = [] %}
+    {% set handle = object.type.handle %}
+
+    {% if 'article' == handle %}
+        {% switch object.variant.value ?? null %}
+            {% case 'article_general' %}
+                {% set parts = [ 'insights', object.slug ] %}
+            {% case 'article_audio' %}
+                {% set parts = [ 'insights/listen', object.slug ] %}
+            {% case 'article_video' %}
+                {% set parts = [ 'insights/watch', object.slug ] %}
+            {% case 'article_guide' %}
+                {% set parts = [ 'insights/guides', object.slug ] %}
+            {% case 'article_exclusive' %}
+                {% set parts = [ 'insights/exclusive', object.slug ] %}
+        {% endswitch %}
+    {% endif %}
+
+    {% if 'book' == handle %}
+        {% set parts = [ 'library', object.slug ] %}
+    {% endif %}
+
+    {% if 'issue' == handle %}
+        {% set parts = [ 'magazine', object.slug ] %}
+    {% endif %}
+
+    {% if 'release' == handle %}
+        {% set parts = [ 'about/news', object.slug ] %}
+    {% endif %}
+
+    {{ parts | filter | join('/') }}
+{% endapply %}{% endmacro %}

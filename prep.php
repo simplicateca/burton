@@ -1,23 +1,7 @@
 <?php
 
-// remove files that are only associated with starter repo
-unlink('composer.json');
-unlink('composer.lock');
-unlink('CHANGELOG.md');
-rrmdir('vendor');
+copy( 'craftcms/example.env', 'craftcms/.env' );
 
-// create default .env file (`make dev` does this, but might as well be double safe)
-copy( 'craftcms/.env.example', 'craftcms/.env' );
-
-// // gunzip the seed file (incase `docker compose up` is run instead of `make dev`)
-// $gz  = gzopen('./etc/database-seed/seed.sql.gz', 'rb');
-// $sql = fopen( './etc/database-seed/seed.sql',    'wb');
-// while(!gzeof($gz)) { fwrite($sql, gzread($gz, 4096)); }
-// fclose($sql);
-// gzclose($gz);
-
-// output welcome banner
-// ----------------------------------
 echo( " _           _           \n");
 echo( "| |_ _ _ ___| |_ ___ ___ \n");
 echo( "| . | | |  _|  _| . |   |\n");
@@ -27,11 +11,13 @@ echo( "_______________________________________________\n\n" );
 echo( "Start the Docker environment with the command:\n\n > make dev\n\n");
 echo( "Additional documentation available:\n\n - https://www.buildwithburton.com\n - https://github.com/simplicateca/burton\n\n");
 
-// remove this file
+rrmdir('vendor');
+unlink('composer.json');
+unlink('composer.lock');
+unlink('CHANGELOG.md');
 unlink('prep.php');
 
-function rrmdir(string $directory): bool
-{
+function rrmdir(string $directory): bool {
     array_map(fn (string $file) => is_dir($file) ? rrmdir($file) : unlink($file), glob($directory . '/' . '*'));
     return rmdir($directory);
 }

@@ -1,0 +1,32 @@
+columnSuffix: null
+handle: articles
+instructions: null
+name: Articles
+searchable: false
+settings:
+  createButtonLabel: null
+  entryTypes:
+    - 80b8014d-fa4b-4271-9c59-73cd7c7c6d78 # Article
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: false
+  siteSettings:
+    __assoc__:
+      -
+        - d34bee8e-bf22-451d-8339-a4342630833d # Craft CMS
+        -
+          __assoc__:
+            -
+              - uriFormat
+              - '{% from ''_site/knowledge._section'' import uri %}{{ uri( object ) }}'
+            -
+              - template
+              - _site/knowledge._section.twig
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

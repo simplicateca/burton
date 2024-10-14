@@ -1,12 +1,16 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-// module exports
 module.exports = {
     content: [
         '../craftcms/modules/**/templates/**/*.{twig,sprig,html,json,svg}',
         '../craftcms/templates/**/*.{twig,sprig,html,json,svg}',
         './vue/**/*.{vue,html}'
     ],
+
+    plugins: [
+        require('@tailwindcss/container-queries')
+    ],
+
     theme: {
         container: {
             center: true,
@@ -111,11 +115,7 @@ module.exports = {
                     'accent-alt'  : 'rgb( var(--accent-alt)  / <alpha-value> )',
                     'accent-alt2' : 'rgb( var(--accent-alt2)  / <alpha-value> )',
                 }
-            },
+            }
         }
-    },
-
-    plugins: [
-        require('@tailwindcss/container-queries')
-    ],
+    }
 };

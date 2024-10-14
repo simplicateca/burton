@@ -1,32 +1,36 @@
-# Site module for Craft CMS 5.x
+# SiteModule
 
-Use this module to add any custom logic for this project
+Bare bones custom module for Craft CMS 5.x projects
 
-To install the module, follow these instructions.
+Includes sample for custom routing, controllers, console commands, and twig extensions
 
-First, you'll need to include the following in your `config/app.php` file:
-```
+## Installation
+
+### 1. Add entires to `modules` + `bootstrap` arrays in `config/app.php`:
+
+```php
 return [
     'modules' => [
-        'sitemodule' => [
+        'site-module' => [
             'class' => \modules\sitemodule\SiteModule::class,
         ],
     ],
     'bootstrap' => ['site-module'],
 ];
 ```
-You'll also need to make sure that you add the following to your project's `composer.json` file so that Composer can find your module:
-```
+
+### 2. Add `psr-4` autoload record in `composer.json`:
+
+```json
     "autoload": {
         "psr-4": {
           "modules\\sitemodule\\": "modules/sitemodule/src/"
         }
     },
 ```
-After you have added this, you will need to do:
-```
+
+### 3. Rebuild Composer autoload map:
+
+```bash
     composer dump-autoload
 ```
- …from the project’s root directory, to rebuild the Composer autoload map. This will happen automatically any time you do a `composer install` or `composer update` as well.
-
-If you are using the burton starter, all this has already been done for you.

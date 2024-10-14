@@ -1,0 +1,13 @@
+headingLevels:
+  - 2
+name: Outline
+toolbar:
+  - heading
+  - '|'
+  - bold
+  - italic
+  - bulletedList
+  - numberedList
+  - todoList
+  - '|'
+  - link

@@ -10,13 +10,14 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-11T22:26:33+00:00'
             disabled: false
             elementCondition: null
             id: null
             includeInCards: false
             inputType: null
             instructions: null
-            label: null
+            label: Eyebrow
             max: null
             min: null
             name: null
@@ -33,169 +34,15 @@ fieldLayouts:
             uid: fc3ada7c-ee60-4eb9-b55c-8c3bd067c9a8
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
+            dateAdded: '2024-10-11T22:26:33+00:00'
             elementCondition: null
-            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
+            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Copy Layout
             handle: null
             includeInCards: false
             instructions: null
-            label: 'Component Type'
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition:
-              class: craft\elements\conditions\entries\EntryCondition
-              conditionRules:
-                -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
-                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
-                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
-                  operator: in
-                  uid: 62e034c7-1ca5-4430-92f9-1b6426235d8b
-                  values:
-                    - search
-              elementType: craft\elements\Entry
-              fieldContext: global
-            fieldUid: 1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40 # Collections
-            handle: null
-            includeInCards: true
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: a3095de2-479d-42ae-98db-13ce2f1f78c5
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition:
-              class: craft\elements\conditions\entries\EntryCondition
-              conditionRules:
-                -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
-                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
-                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
-                  operator: in
-                  uid: 362bfa89-b737-4569-b486-9c164a4979ab
-                  values:
-                    - addon
-              elementType: craft\elements\Entry
-              fieldContext: global
-            fieldUid: 01c13296-4c57-49c0-802a-e980de4d84e0 # Addons
-            handle: null
-            includeInCards: true
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 46859fa9-16bc-4e46-8c6a-399ca7db6ab2
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition:
-              class: craft\elements\conditions\entries\EntryCondition
-              conditionRules:
-                -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
-                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
-                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
-                  operator: in
-                  uid: efe42d0c-0a35-4bbd-81f1-c74985408358
-                  values:
-                    - menu
-              elementType: craft\elements\Entry
-              fieldContext: global
-            fieldUid: e034ba0c-9edc-4c7c-91a5-8b3b0b8430c6 # Menu
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 86d6e1e7-de79-4709-a2b4-dbe30122e37a
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition:
-              class: craft\elements\conditions\entries\EntryCondition
-              conditionRules:
-                -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
-                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
-                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
-                  operator: in
-                  uid: d4a08068-d262-4435-ad26-46b0c03320f7
-                  values:
-                    - form
-              elementType: craft\elements\Entry
-              fieldContext: global
-            fieldUid: 04de3988-1519-432d-92a4-e455f30a3afc # Form
-            handle: null
-            includeInCards: true
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 626a4709-4d6c-4646-bfff-d4d3a3298b42
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition:
-              class: craft\elements\conditions\entries\EntryCondition
-              conditionRules:
-                -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
-                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Variant
-                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
-                  operator: in
-                  uid: 26886c66-083a-42b5-b605-22a9496c9367
-                  values:
-                    - system
-              elementType: craft\elements\Entry
-              fieldContext: global
-            fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
-            handle: null
-            includeInCards: true
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: d5e1f994-769e-4177-98e9-5eaf445fe5ad
-            userCondition: null
-            warning: null
-            width: 100
-          -
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: a407f2a7-a173-4ba8-9b3b-e51abdd706d0
-            userCondition: null
-          -
-            elementCondition: null
-            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Content Layout
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: 'Supporting Copy'
+            label: null
             providesThumbs: false
             required: false
             tip: null
@@ -203,8 +50,9 @@ fieldLayouts:
             uid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
+            dateAdded: '2024-10-11T22:26:33+00:00'
             elementCondition:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
@@ -230,6 +78,7 @@ fieldLayouts:
             warning: null
             width: 75
           -
+            dateAdded: '2024-10-11T22:26:33+00:00'
             elementCondition:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
@@ -255,13 +104,31 @@ fieldLayouts:
             warning: null
             width: 75
           -
+            dateAdded: '2024-10-11T22:26:33+00:00'
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
-            uid: 2f090ba1-796e-4608-b673-9ca6847da899
+            uid: a407f2a7-a173-4ba8-9b3b-e51abdd706d0
             userCondition: null
           -
+            dateAdded: '2024-10-11T22:26:33+00:00'
             elementCondition: null
-            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Theme & Scenery
+            fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2024-10-11T22:26:33+00:00'
+            elementCondition: null
+            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Theme
             handle: null
             includeInCards: false
             instructions: null
@@ -273,12 +140,140 @@ fieldLayouts:
             uid: 6824c328-4e52-4ddf-833b-5fac45cf817d
             userCondition: null
             warning: null
+            width: 50
+          -
+            dateAdded: '2024-10-11T22:26:33+00:00'
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
+                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
+                  operator: in
+                  uid: 62e034c7-1ca5-4430-92f9-1b6426235d8b
+                  values:
+                    - search
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40 # Collections
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a3095de2-479d-42ae-98db-13ce2f1f78c5
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2024-10-11T22:26:33+00:00'
+            elementCondition: null
+            fieldUid: 01c13296-4c57-49c0-802a-e980de4d84e0 # Addons
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b4d5ccfb-86cf-4cac-96ad-efc7718ef872
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2024-10-11T22:26:33+00:00'
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
+                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
+                  operator: in
+                  uid: efe42d0c-0a35-4bbd-81f1-c74985408358
+                  values:
+                    - menu
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: e034ba0c-9edc-4c7c-91a5-8b3b0b8430c6 # Menu
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 86d6e1e7-de79-4709-a2b4-dbe30122e37a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2024-10-11T22:26:33+00:00'
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
+                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
+                  operator: in
+                  uid: d4a08068-d262-4435-ad26-46b0c03320f7
+                  values:
+                    - form
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 04de3988-1519-432d-92a4-e455f30a3afc # Form
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 626a4709-4d6c-4646-bfff-d4d3a3298b42
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2024-10-11T22:26:33+00:00'
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
+                  layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
+                  operator: in
+                  uid: 26886c66-083a-42b5-b605-22a9496c9367
+                  values:
+                    - system
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: d5e1f994-769e-4177-98e9-5eaf445fe5ad
+            userCondition: null
+            warning: null
             width: 100
         name: Content
         uid: 2e11ef68-53fd-41c4-9396-c451aac88a1c
         userCondition: null
 handle: component
-hasTitleField: false
+hasTitleField: true
 icon: gear
 name: Component
 showSlugField: true

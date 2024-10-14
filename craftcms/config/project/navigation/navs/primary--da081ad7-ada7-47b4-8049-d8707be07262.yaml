@@ -177,10 +177,10 @@ permissions:
   craft\elements\Entry:
     enabled: '1'
     permissions:
-      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
+      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Topics
       - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
-      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Page Content
-      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Articles
+      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
+      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge
   craft\elements\Tag:
     enabled: ''
     permissions: '*'
