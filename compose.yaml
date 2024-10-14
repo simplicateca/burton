@@ -1,10 +1,10 @@
-# ---------------------------------------------------------------
-# DOCKER CONTAINER
-# ---------------------------------------------------------------
+# ------------------------------------------------------------------------------------- #
+# DOCKER CONTAINERS
+# ------------------------------------------------------------------------------------- #
 services:
 
 # Status Message (on Successful Launch)
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/busybox
 # ➜ etc/docker/banner.sh
   status:
@@ -21,7 +21,7 @@ services:
         condition: service_healthy
 
 # PHP FastCGI
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://github.com/simplicateca/docker-php-fpm
 # ➜ etc/docker/php.ini
   php: &php_container
@@ -38,7 +38,7 @@ services:
         condition: service_completed_successfully
 
 # Composer (PHP Dependency Management)
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/composer
   composer:
     image: composer:2
@@ -48,7 +48,7 @@ services:
       - ./craftcms:/app
 
 # Craft CMS (with Queue Runner)
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ craftcms/composer.json
 # ➜ craftcms/.env
   craftcms:
@@ -75,7 +75,7 @@ services:
         condition: service_started
 
 # MySQL 8 Database
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/mysql
 # ➜ etc/docker/seed
   mysql:
@@ -100,7 +100,7 @@ services:
       retries: 20
 
 # Node + ViteJS Frontend
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/node
 # ➜ ./frontend/package.json
   frontend:
@@ -128,7 +128,7 @@ services:
       retries: 20
 
 # Nginx Webserver
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/nginx
 # ➜ etc/docker/nginx.conf
   nginx:
@@ -141,7 +141,7 @@ services:
       - ./etc/docker/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
 
 # Redis (Key-Value Storage)
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/redis
   redis:
     image: redis:7-alpine
@@ -150,7 +150,7 @@ services:
       - 6379:6379
 
 # Mailhog (SMTP Testing Server)
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://github.com/mailhog/MailHog
   mailhog:
     image: mailhog/mailhog:latest
@@ -158,7 +158,7 @@ services:
       - 8025:8025
 
 # Adminer (Database Web UI)
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/adminer
 # ➜ Requires `debug` profile
   adminer:
@@ -169,7 +169,7 @@ services:
     depends_on: [mysql]
 
 # Minio (s3-Compatible Object Storage)
-# ---------------------------------------------------------------
+# ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/r/minio/minio
   minio:
     image: minio/minio:latest
@@ -188,9 +188,25 @@ services:
       timeout: 20s
       retries: 3
 
-# ---------------------------------------------------------------
+# n8n - workflow automation
+# ----------------------------------------------------------------------- #
+# ➜ https://docs.n8n.io/hosting/installation/server-setups/docker-compose/
+  n8n:
+    image: n8nio/n8n
+    env_file: *project_env
+    environment:
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "5678:5678"
+    volumes:
+      - ./etc/n8n:/home/node/n8n
+      - n8n_data:/home/node/.n8n
+
+# ------------------------------------------------------------------------------------- #
 # DOCKER VOLUMES
-# ---------------------------------------------------------------
+# ------------------------------------------------------------------------------------- #
 volumes:
     mysql_data:
     minio_data:
+    n8n_data:
