@@ -15,27 +15,30 @@ return [
                 'throwExceptions' => false,
             ],
 
-            'redis' => [
-                'class' => \yii\redis\Connection::class,
-                'hostname' => App::env('REDIS_HOSTNAME') ?: 'localhost',
-                'port' => App::env('REDIS_PORT') ?: 6379,
-                'password' => App::env('REDIS_PASSWORD') ?: null,
-            ],
+            'cache' => function() {
+                return Craft::createObject([
+                    'class' => yii\redis\Cache::class,
+                    'keyPrefix' => Craft::$app->id . '-cache',
+                    'defaultDuration' => Craft::$app->config->general->cacheDuration,
+                    'redis' => [
+                        'hostname' => App::env('REDIS_HOSTNAME') ?: 'localhost',
+                        'port' => App::env('REDIS_PORT') ?: 6379,
+                        'password' => App::env('REDIS_PASSWORD') ?: null,
+                    ],
+                ]);
+            },
 
-            'cache' => Craft::createObject([
-                'class' => 'yii\redis\Cache',
-                'redis' => 'redis',
-                'keyPrefix' => Craft::$app->id . '-cache',
-                'defaultDuration' => Craft::$app->config->general->cacheDuration,
-            ]),
-
-            'queue' => Craft::createObject([
-                'class' => 'yii\queue\redis\Queue',
-                'redis' => 'redis',
-                'keyPrefix' => Craft::$app->id . '-queue',
-                'channel' => 'queue',
-                'ttr' => 10 * 60,
-            ])
+            'queue' => [
+                'proxyQueue' => [
+                    'class' => yii\queue\redis\Queue::class,
+                    'redis' => [
+                        'hostname' => App::env('REDIS_HOSTNAME') ?: 'localhost',
+                        'port' => App::env('REDIS_PORT') ?: 6379,
+                        'password' => App::env('REDIS_PASSWORD') ?: null,
+                    ],
+                ],
+                'channel' => 'queue'
+            ]
         ]
     ],
 
@@ -43,7 +46,7 @@ return [
         'components' => [
             'deprecator' => [
                 'throwExceptions' => true,
-            ],
+            ]
         ]
     ]
 ];

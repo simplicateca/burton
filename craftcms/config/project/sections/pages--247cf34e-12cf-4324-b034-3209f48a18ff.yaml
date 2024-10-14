@@ -13,11 +13,11 @@ previewTargets:
         - label
         - 'Page URL'
       -
-        - urlFormat
-        - '{url}'
-      -
         - refresh
         - '1'
+      -
+        - urlFormat
+        - '{url}'
 propagationMethod: all
 siteSettings:
   d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS

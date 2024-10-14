@@ -28,8 +28,7 @@ PROJECT_ID_TEST=$(shell grep -q '^$(ENV_ID)=' $(ENV) && [ -z "$(grep '^$(ENV_ID)
 PROJECT_ID=$(shell grep -E '^$(ENV_ID)=' $(ENV) | cut -d '=' -f 2)
 PROJECT_DIR=$(shell basename $(realpath $(dir $(CURDIR))/..))
 PROJECT_NAME=$(if $(PROJECT_ID),$(PROJECT_ID),$(PROJECT_DIR))
-
-PROJECT_URL=$(shell grep -E '^CRAFT_WEB_URL=' $(ENV) | cut -d '=' -f 2)?:http://localhost:8000
+PROJECT_URL=$(shell grep -E '^CRAFT_WEB_URL=' $(ENV) | cut -d '=' -f 2)
 
 
 # Docker Compose

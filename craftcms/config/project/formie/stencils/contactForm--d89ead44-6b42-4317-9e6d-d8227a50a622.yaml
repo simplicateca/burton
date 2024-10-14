@@ -1,6 +1,6 @@
 data:
   dataRetention: forever
-  dataRetentionValue: ''
+  dataRetentionValue: null
   fileUploadsAction: retain
   notifications:
     -
@@ -58,6 +58,7 @@ data:
             -
               settings:
                 conditions: null
+                containerAttributes: null
                 contentTable: null
                 cssClasses: null
                 defaultValue: null
@@ -227,8 +228,10 @@ data:
             -
               settings:
                 conditions: null
+                containerAttributes: null
                 countryDefaultValue: null
                 countryEnabled: true
+                countryLanguage: auto
                 cssClasses: null
                 defaultValue: null
                 emailValue: null
@@ -238,6 +241,7 @@ data:
                 errorMessage: null
                 handle: phone
                 includeInEmail: true
+                inputAttributes: null
                 instructions: null
                 instructionsPosition: null
                 label: Phone
@@ -253,6 +257,7 @@ data:
             -
               settings:
                 conditions: null
+                containerAttributes: null
                 cssClasses: null
                 defaultValue: null
                 emailValue: null
@@ -262,6 +267,7 @@ data:
                 errorMessage: null
                 handle: email
                 includeInEmail: true
+                inputAttributes: null
                 instructions: null
                 instructionsPosition: null
                 label: Email
@@ -279,6 +285,7 @@ data:
             -
               settings:
                 conditions: null
+                containerAttributes: null
                 cssClasses: null
                 defaultValue: null
                 emailValue: null
@@ -288,6 +295,7 @@ data:
                 errorMessage: null
                 handle: reason
                 includeInEmail: true
+                inputAttributes: null
                 instructions: null
                 instructionsPosition: null
                 label: Reason
@@ -322,6 +330,7 @@ data:
             -
               settings:
                 conditions: null
+                containerAttributes: null
                 cssClasses: null
                 defaultValue: null
                 emailValue: null
@@ -331,6 +340,7 @@ data:
                 errorMessage: null
                 handle: message
                 includeInEmail: true
+                inputAttributes: null
                 instructions: null
                 instructionsPosition: null
                 label: Message
@@ -357,6 +367,7 @@ data:
               settings:
                 checkedValue: 'Yes'
                 conditions: null
+                containerAttributes: null
                 cssClasses: null
                 defaultValue: false
                 description:
@@ -375,6 +386,7 @@ data:
                 errorMessage: null
                 handle: yesSignUpMeUpToYourNewsletter
                 includeInEmail: true
+                inputAttributes: null
                 instructions: null
                 instructionsPosition: null
                 label: 'Receive updates & tips?'

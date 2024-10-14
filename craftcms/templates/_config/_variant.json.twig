@@ -42,10 +42,6 @@
 {{- 'fragment'  == type ? include( '_config/block.fragment.json'  ) : null -}}
 
 
-{## [Asset] Static Volume → http://localhost:8000/cms/settings/assets/volumes/2
-{-------------------------------------------------------------------------------------##}
-{{- 'static'    == type ? include( '_config/asset.static.json' ) : null -}}
-
 {## All possible options ##}
 {% if not type %}
     {% set combined =       [] | merge( include( '_config/block.text.json'       ) | json_decode ) %}
@@ -56,6 +52,5 @@
     {% set combined = combined | merge( include( '_config/block.fragment.json'   ) | json_decode ) %}
     {% set combined = combined | merge( include( '_config/addon.variant.json'    ) | json_decode ) %}
     {% set combined = combined | merge( include( '_config/article.variant.json'  ) | json_decode ) %}
-    {% set combined = combined | merge( include( '_config/asset.static.json'     ) | json_decode ) %}
     {{ combined | json_encode }}
 {% endif %}

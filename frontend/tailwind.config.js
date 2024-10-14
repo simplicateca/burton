@@ -33,7 +33,7 @@ module.exports = {
 
         extend: {
             fontFamily: {
-                display:  ["Rubik"],
+                display:  ["Lobster"],
                 headline: ["Rubik"],
                 body:     ["Roboto Mono"],
             },

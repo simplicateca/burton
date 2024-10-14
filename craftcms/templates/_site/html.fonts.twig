@@ -2,13 +2,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Rubik:wght@800&display=swap">
 
     {## To serve fonts locally, download fonts using: https://gwfh.mranftl.com/fonts,
-        upload to server (or CDN), edit and uncomment the lines below:
-
-        <style>
-            {{ _self.fontface( 'Rubik', 'Rubik', 800 ) }}
-            {{ _self.fontface( 'Roboto Mono', 'Roboto-Mono', 400 ) }}
-        </style>
+        upload to server (or CDN) and edit and uncomment the lines below:
     {## ----------------------------------------------------------------------------- ##}
+        <style>
+            {{ _self.fontface( 'Lobster', 'Lobster', 400 ) }}
+        </style>
 {% endblock %}
 
 {% macro fontface( family, filename, weight ) %}
@@ -16,8 +14,7 @@
 
     @font-face {
         font-family: '{{family}}';
-        src: url('{{ alias( '@fonts' ) }}/{{filename}}.woff2') format('woff2'),
-             url('{{ alias( '@fonts' ) }}/{{filename}}.woff') format('woff');
+        src: url('{{ alias( '@fonts' ) }}/{{filename}}.woff2') format('woff2');
         font-weight: {{weight}};
         font-style: normal;
         font-display: swap;

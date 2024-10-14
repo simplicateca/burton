@@ -120,7 +120,7 @@
                 {% if social.url %}
                     <div>
                         <a href="{{social.url ??? '#'}}" class="flex" title="{{social.siteName}}" target="_blank" rel="noopener">
-                            <span class="h-8 w-8 xl:w-10 xl:h-10">{{ svg( '@webroot/static/svg/#{social.handle}.svg' ) }}</span>
+                            <span class="h-8 w-8 xl:w-10 xl:h-10">{{ svg( '@localsvg/#{social.handle}.svg' ) }}</span>
                         </a>
                     </div>
                 {% endif %}

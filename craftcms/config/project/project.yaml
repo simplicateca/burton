@@ -1,4 +1,4 @@
-dateModified: 1728770458
+dateModified: 1728942563
 elementSources:
   craft\elements\Entry:
     -
@@ -123,24 +123,52 @@ elementSources:
       tableAttributes: '-'
       type: custom
 email:
-  fromEmail: craft@example.com
-  fromName: 'Craft CMS'
-  transportType: craft\mail\transportadapters\Sendmail
+  fromEmail: $EMAIL_ADDRESS
+  fromName: $EMAIL_SENDER
+  replyToEmail: null
+  template: $EMAIL_TEMPLATE
+  transportSettings:
+    host: $EMAIL_HOSTNAME
+    password: $EMAIL_PASSWORD
+    port: $EMAIL_PORT
+    useAuthentication: $EMAIL_USE_AUTH
+    username: $EMAIL_USERNAME
+  transportType: craft\mail\transportadapters\Smtp
 fs:
-  spaces:
+  minio:
     hasUrls: true
-    name: Spaces
+    name: 'Minio (Public)'
     settings:
       bucket: $S3_BUCKET
-      contentDisposition: ''
       endpoint: $S3_ENDPOINT
-      expires: '30 days'
-      keyId: $S3_KEY
+      endpointType: $S3_ENDPOINT_TYPE
+      expires: ''
+      keyId: $S3_ACCESS_KEY
       region: $S3_REGION
-      secret: $S3_SECRET
-      subfolder: $CDN_FOLDER
-    type: vaersaagod\dospaces\Fs
-    url: $CDN_BASE
+      secret: $S3_SECRET_KEY
+      subfolder: public
+      visibility: public
+    type: behinddesign\ObjectStorage\Fs
+    url: $S3_HOST
+  private:
+    hasUrls: false
+    name: 'Private (Minio)'
+    settings:
+      bucket: $S3_BUCKET
+      endpoint: $S3_ENDPOINT
+      endpointType: $S3_ENDPOINT_TYPE
+      expires: ''
+      keyId: $S3_ACCESS_KEY
+      region: $S3_REGION
+      secret: $S3_SECRET_KEY
+      subfolder: private
+      visibility: private
+    type: behinddesign\ObjectStorage\Fs
+    url: null
+graphql:
+  publicToken:
+    enabled: false
+    expiryDate: null
 meta:
   __names__:
     0c3eb4bf-9fe7-422e-9947-289edfc00105: Redirect # Redirect
@@ -151,7 +179,7 @@ meta:
     1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40: Collections # Collections
     2a4489c4-88e2-4c89-a35c-77ee92f225c0: Outline # Outline
     2f5c9389-1dd2-42d5-a427-e276d0550f29: Touchpoints # Touchpoints
-    2f49bc19-1268-44b4-a2b9-82985d4df78f: Static # Static
+    2f49bc19-1268-44b4-a2b9-82985d4df78f: 'Design Assets' # Design Assets
     3e853ad2-4b7a-4dde-a453-9b50416ce4c8: Address # Address
     04b0238a-65ff-4aef-8275-f54486bf68cd: Quote # Quote
     4b2a900b-f8d6-4b24-aee5-10ebc4051eb6: 'RSS Feed' # RSS Feed
@@ -192,7 +220,7 @@ meta:
     5635a1ac-adca-4a96-816a-7ae1b664bc4d: Theme # Theme
     7487ca3f-f51b-40e9-a538-40ab5b2c4a27: Text # Text
     96192f21-960f-489c-a380-96e4b51f2777: Deck # Deck
-    280486f4-01ac-42a0-8604-c20f6b62b5df: Uploads # Uploads
+    280486f4-01ac-42a0-8604-c20f6b62b5df: 'Content Uploads' # Content Uploads
     2508516d-3329-44ec-8518-04f2a29ca3f3: Embed # Embed
     21710874-0ba0-423c-82ec-7fd855abb982: Dynamic # Dynamic
     32955110-f4a8-4150-8168-7907b3ee8a33: Download # Download
@@ -205,6 +233,7 @@ meta:
     b24f1298-62ac-4de3-9ac3-32e644553bab: Code # Code
     b54aca1f-5631-4f76-a248-e953c4ada5bd: Icon # Icon
     b161e6c6-3186-4ba2-b215-948d7a2d359a: 'Lead Gen Short' # Lead Gen Short
+    b188babd-3e02-4257-8252-a41de6ea3960: Confidential # Confidential
     b4753be4-da84-4306-82e8-a9473ca5398f: 'Body Builder' # Body Builder
     b4783a60-e9ff-40a2-8e9e-159b24fad0a9: Media # Media
     b5808dc3-38e1-4b2f-89b3-d1f575f89455: Resources # Resources
@@ -234,6 +263,14 @@ meta:
     faaa512e-f0ed-4151-97de-d73bdc9a4f5e: Component # Component
     ff76eb70-820e-4752-b138-daef62692e3f: Builder # Builder
 plugins:
+  aws-s3:
+    edition: standard
+    enabled: true
+    schemaVersion: '2.0'
+  behinddesign-object-storage:
+    edition: standard
+    enabled: true
+    schemaVersion: '2.0'
   ckeditor:
     edition: standard
     enabled: true
@@ -249,12 +286,12 @@ plugins:
   feed-me:
     edition: standard
     enabled: true
-    schemaVersion: 5.1.0.0
+    schemaVersion: 5.1.1
   formie:
     edition: standard
     enabled: true
     licenseKey: NM40O8AZHW8MPQI3G0MQM82C
-    schemaVersion: 3.4.4
+    schemaVersion: 3.4.6
   navigation:
     edition: standard
     enabled: true

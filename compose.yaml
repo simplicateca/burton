@@ -32,6 +32,7 @@ services:
     user: "1000:1000"
     working_dir: /app
     volumes:
+      - ./craftcms:/app:cached
       - ./etc/docker/php.ini:/usr/local/etc/php/conf.d/php.ini
     depends_on:
       composer:
@@ -62,10 +63,6 @@ services:
         ./craft queue/listen --verbose"
     stop_grace_period: "1s"
     tty: true
-    volumes:
-      - ./craftcms:/app:cached
-      - ./etc/feedme:/app/web/feedme/:ro
-      - ./frontend/public/static:/app/web/static:ro
     depends_on:
       mysql:
         condition: service_healthy
@@ -138,7 +135,10 @@ services:
     ports:
       - 8000:80
     volumes:
+      - ./craftcms:/app
+      - ./frontend/public/local:/app/web/local:ro
       - ./etc/docker/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
+      - ./etc/feedme:/app/web/feedme/:ro
 
 # Redis (Key-Value Storage)
 # ----------------------------------------------------------------------- #
@@ -154,6 +154,7 @@ services:
 # ➜ https://github.com/mailhog/MailHog
   mailhog:
     image: mailhog/mailhog:latest
+    restart: on-failure
     ports:
       - 8025:8025
 
@@ -172,11 +173,16 @@ services:
 # ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/r/minio/minio
   minio:
-    image: minio/minio:latest
-    command: server /data --console-address ":9001"
+    image: minio/minio
+    entrypoint: sh
+    command: >
+      -c "
+        mkdir -p /data/${S3_bucket:-project} &&
+        /usr/bin/minio server /data --console-address \":9001\""
+    env_file: *project_env
     environment:
-      - MINIO_ROOT_USER: project
-      - MINIO_ROOT_PASSWORD: secret
+      - MINIO_ROOT_USER=${S3_ACCESS_KEY:-project}
+      - MINIO_ROOT_PASSWORD=${S3_SECRET_KEY:-secretkey}
     ports:
       - "9000:9000" # S3 API
       - "9001:9001" # Web console
@@ -191,17 +197,17 @@ services:
 # n8n - workflow automation
 # ----------------------------------------------------------------------- #
 # ➜ https://docs.n8n.io/hosting/installation/server-setups/docker-compose/
-  n8n:
-    image: n8nio/n8n
-    env_file: *project_env
-    environment:
-      - PUID=1000
-      - PGID=1000
-    ports:
-      - "5678:5678"
-    volumes:
-      - ./etc/n8n:/home/node/n8n
-      - n8n_data:/home/node/.n8n
+  # n8n:
+  #   image: n8nio/n8n
+  #   env_file: *project_env
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #   ports:
+  #     - "5678:5678"
+  #   volumes:
+  #     - ./etc/n8n:/home/node/n8n
+  #     - n8n_data:/home/node/.n8n
 
 # ------------------------------------------------------------------------------------- #
 # DOCKER VOLUMES
@@ -209,4 +215,4 @@ services:
 volumes:
     mysql_data:
     minio_data:
-    n8n_data:
+    # n8n_data:

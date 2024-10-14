@@ -10,6 +10,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: '2024-10-14T17:48:23-04:00'
             disabled: false
             elementCondition: null
             id: null
@@ -35,6 +36,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: '2024-10-14T17:48:23-04:00'
             elementCondition: null
             includeInCards: false
             instructions: null
@@ -48,6 +50,7 @@ fieldLayouts:
             warning: null
           -
             attribute: newWindow
+            dateAdded: '2024-10-14T17:48:23-04:00'
             elementCondition: null
             id: null
             includeInCards: false
@@ -78,6 +81,7 @@ fieldLayouts:
             autocorrect: true
             autofocus: false
             class: null
+            dateAdded: '2024-10-14T17:48:23-04:00'
             disabled: false
             elementCondition: null
             id: null
@@ -113,6 +117,7 @@ fieldLayouts:
             autocorrect: true
             autofocus: false
             class: null
+            dateAdded: '2024-10-14T17:48:23-04:00'
             disabled: false
             elementCondition: null
             id: null
@@ -143,6 +148,7 @@ fieldLayouts:
             width: 100
           -
             attribute: customAttributes
+            dateAdded: '2024-10-14T17:48:23-04:00'
             elementCondition: null
             id: null
             includeInCards: false
@@ -164,7 +170,7 @@ fieldLayouts:
         uid: 3ec1e787-42d2-4a2c-a3f5-64957aae1591
         userCondition: null
 handle: themes
-instructions: ''
+instructions: null
 maxNodes: null
 name: Themes
 permissions:

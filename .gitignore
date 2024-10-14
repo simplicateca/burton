@@ -1,4 +1,4 @@
-# Craft CMS Specific
+# Craft CMS
 craftcms/web
 craftcms/storage
 !craftcms/web/index.php

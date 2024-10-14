@@ -1,0 +1,43 @@
+{%- set name = name ??? 'Other' -%}
+{%- set name = ( name == 'Text' ) ? 'Supporting' : name -%}
+
+[{
+    "value": "copyAbove",
+    "label": "Position Above {{ name }}",
+    "default" : true,
+    "tooltips": { "inline": "" },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "copyLeft",
+    "label": "Position Left of {{ name }}",
+    "tooltips": {
+        "inline": "Two column layout with Copy on the left and {{name}} content on the right"
+    },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "copyRight",
+    "label": "Position Right of {{name}}",
+    "tooltips": {
+        "inline": "Two column layout with {{name}} content on the left and Copy on the right"
+    },
+    "settings": {},
+    "virtuals": [
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
+    ]
+},{
+    "value": "copyBelow",
+    "label": "Position Below {{name}}",
+    "tooltips": { "inline": "" },
+    "settings": {
+        "microlayout": "zone1Bottom"
+    },
+    "virtuals": [
+        {{ block( 'eyebrowGroup', '_config/_virtuals' ) }}
+    ]
+}]

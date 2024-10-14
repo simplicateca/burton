@@ -46,7 +46,7 @@ export default defineConfig(({command}) => ({
             ],
         }),
         ViteFaviconsPlugin({
-            logo: "./public/static/favicon-src.png",
+            logo: "./public/favicon-src.png",
             inject: false,
             outputPath: 'favicons',
         }),

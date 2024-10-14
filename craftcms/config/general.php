@@ -7,7 +7,6 @@ return GeneralConfig::create()
 
     // General Settings
     // ➜ https://craftcms.com/docs/5.x/reference/config/general.html
-    ->cpTrigger('cms')
     ->maxUploadFileSize('100M')
     ->sendPoweredByHeader(false)
     ->omitScriptNameInUrls()
@@ -27,12 +26,12 @@ return GeneralConfig::create()
     // Aliases
     // ➜ https://craftcms.com/docs/5.x/reference/config/general.html#aliases
     ->aliases([
-        '@cdn'    => App::env('CRAFT_ENVIRONMENT') . '/' . App::env('CDN_FOLDER'),
         '@fonts'  => App::env('CRAFT_ENVIRONMENT') === 'dev'
-            ? App::env('VITE_DEV_SERVER_PUBLIC') . '/public/static/fonts'
-            : App::env('CRAFT_WEB_URL') . '/dist/static/fonts',
-        '@web'    => App::env('CRAFT_WEB_URL'),
-        '@webroot'=> App::env('CRAFT_WEB_ROOT')
+            ? App::env('VITE_DEV_SERVER_PUBLIC') . '/public/_local/fonts'
+            : App::env('CRAFT_WEB_URL') . '/dist/_local/fonts',
+        '@web'      => App::env('CRAFT_WEB_URL'),
+        '@webroot'  => App::env('CRAFT_WEB_ROOT'),
+        '@localsvg' => App::env('CRAFT_WEB_ROOT') . '/_local/svg',
     ])
 
     // Admin Panel & DevMode Changes
