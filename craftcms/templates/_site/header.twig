@@ -7,7 +7,7 @@
 
 {% block base %}
     {%- set block1   = block1 ?? entry.headerBuilder.one() ??? null -%}
-    {%- set subtitle = entry.fullTitle ??? null | retconRemove('h1') -%}
+    {%- set subtitle = entry.titleFull ??? null | retconRemove('h1') -%}
     {%- set theme    = ( subtitle and not block1 ) ? 'light' : 'base' -%}
     {%- set owner    = entry ??? block1.owner ??? null -%}
 
@@ -95,10 +95,10 @@
 
 
 {% block plaintitle %}
-    {%- set header__title    = header__title ??? entry.fullTitle | retconOnly('h1') | retconChange( 'h1', false ) ??? null -%}
+    {%- set header__title    = header__title ??? entry.titleFull | retconOnly('h1') | retconChange( 'h1', false ) ??? null -%}
     {%- set header__align    = header__align ??? 'center' -%}
     {%- set header__title    = header__title ??? entry.title -%}
-    {%- set header__subtitle = header__subtitle ??? entry.fullTitle | retconRemove('h1') ??? entry.label ??? null -%}
+    {%- set header__subtitle = header__subtitle ??? entry.titleFull | retconRemove('h1') ??? entry.label ??? null -%}
 
     {% if header__title or header__subtitle %}
         <div class="max-w-5xl {{ header__align == 'center' ? 'mx-auto' : '' }}">

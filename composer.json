@@ -22,10 +22,5 @@
     "platform": {
       "php": "8.2"
     }
-  },
-  "scripts": {
-    "post-create-project-cmd": [
-      "@chmod a+x prep.php && php prep.php"
-    ]
   }
 }

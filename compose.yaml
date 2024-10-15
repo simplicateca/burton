@@ -136,7 +136,7 @@ services:
       - 8000:80
     volumes:
       - ./craftcms:/app
-      - ./frontend/public/local:/app/web/local:ro
+      - ./frontend/public/local:/app/web/dist/local:ro
       - ./etc/docker/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
       - ./etc/feedme:/app/web/feedme/:ro
 

@@ -82,8 +82,8 @@
                         </li>
                     {% else %}
                      {# {% set cardtitle = crumb.element.summary   | default('') | retconOnly('h3') | striptags %}
-                        {% set fulltitle = crumb.element.fullTitle | default('') | retconOnly('h1') | striptags %}
-                        {% set title     = cardtitle ??? fulltitle ??? crumb.title %} #}
+                        {% set titleFull = crumb.element.titleFull | default('') | retconOnly('h1') | striptags %}
+                        {% set title     = cardtitle ??? titleFull ??? crumb.title %} #}
                         {% set title     = crumb.title %}
                         {% set url       = crumb.url ??? null %}
                         {% set visible   = true %}

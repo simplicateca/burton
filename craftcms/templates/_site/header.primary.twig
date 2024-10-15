@@ -1,0 +1,166 @@
+{## [Site] Mega Menu Dropdown
+{---------------------------------------------------------------------------------------}
+    A simple AlpineJS based mega-menu dropdown / drawer
+--------------------------------------------------------------------------------------##}
+{% extends template_from_string('{% block base "" %}') %}
+
+{%- set mega__bodyclass    = 'hasmaindrop' -%}
+{%- set mega__opentrigger  = 'openmaindrop' -%}
+{%- set mega__closetrigger = 'closemaindrop' -%}
+{%- set mega__theme        = 'light' -%}
+{%- set mega__handle       = 'primary' -%}
+
+
+{## Core HTML Structure
+--------------------------------------------------------------------------------------##}
+{% block base %}
+    {%- import "_core" as assemble -%}
+
+    <template
+        x-cloak
+        x-if="open"
+        x-data="{open:false}"
+        x-init="$watch('open', value => ( value ) ? document.body.classList.add('{{mega__bodyclass}}') : document.body.classList.remove('{{mega__bodyclass}}') )"
+        x-on:{{mega__opentrigger}}.window="open = true"
+        x-on:{{mega__closetrigger}}.window="open = false"
+
+    >
+        <div
+            x-transition
+            x-trap.noscroll.inert="open"
+            x-on:click.stop
+            x-on:keydown.escape.prevent.stop="$dispatch('{{mega__closetrigger}}'); open=false;"
+            {# x-on:mouseleave="open = false" #}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Sitemap Navigation"
+            data-theme="{{mega__theme}}"
+            class="fixed inset-x-0 top-0 z-50 overflow-none canvas"
+        >
+            {% embed ["_site/header.twig"] with {
+                topbar__theme: 'light'
+            } %}
+                {% block base block('topbar') %}
+
+                {% block primary %}
+                    {% embed ["_site/header.primary.twig"] %}
+                        {% block base raw( block('menu__opened') ) %}
+                    {% endembed %}
+                {% endblock %}
+            {% endembed %}
+        </div>
+    </template>
+{% endblock %}
+
+
+{% block menu__closed %}
+    {% embed ["_site/menu.list", "_core/menu.list"] with {
+        title: craft.navigation.getNavByHandle(mega__handle).name,
+        items: craft.navigation.nodes().handle(mega__handle).level(1),
+        firstItem: block('open')
+    } %}
+        {% block openItem %}
+            {% set hasurl   = ( node.url ??? null ) %}
+            {% set isbutton = ( 'button' == node.classes ??? null ) %}
+
+            {% set class  = block('liClass') %}
+            {% set class  = hasurl   ? block('urlClass')    : class %}
+            {% set class  = isbutton ? block('buttonClass') : class %}
+
+            <li class="{{ class }}">
+        {% endblock %}
+
+        {% block liClass     "mr-4" %}
+        {% block urlClass    "hidden md:block" %}
+        {% block buttonClass "" %}
+
+        {% block item__link %}
+            {% set isbutton = ( 'button' == node.classes ??? null ) %}
+
+            {% set linkclass = isbutton ? "button" : "
+                p-4
+                whitespace-nowrap
+                text-theme-link
+                underline-offset-2
+                hover:underline
+                hover:text-theme-link-tint" %}
+
+            {{ tag( 'a', {
+                href : node.url ??? null,
+                class: ( node.active ??? null )
+                    ? "#{linkclass} "
+                    : linkclass,
+                html : "<span>#{node.title}</span>"
+            }) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+
+{% block menu__opened %}
+    <div class="translate-y-[-1px]">
+        {% embed ["_site/menu.list", "_core/menu.list"] with {
+            title: craft.navigation.getNavByHandle(mega__handle).name,
+            items: craft.navigation.nodes().handle(mega__handle).level(1),
+            firstItem: block('close')
+        } %}
+            {% block itemClass %}
+                flex
+                flex-col
+                whitespace-nowrap
+                p-4
+                text-theme-link
+                underline-offset-2
+                hover:underline
+                hover:text-theme-link-tint
+            {% endblock %}
+        {% endembed %}
+        <div class="text-center p-10 font-bold">
+            Mega Menu
+        </div>
+    </div>
+{% endblock %}
+
+
+{## Manual Open / Close Buttons
+{----------------------------------------------------------------------------------------##}
+{%- block open -%}
+    {% import "_core/menu.mobile" as mobilemenu %}
+    {{ mobilemenu.trigger() }}
+    <div class="hidden lg:block">
+        {{ _self.trigger({
+            trigger : mega__opentrigger,
+            svgpath : '@appicons/bars.svg',
+            label   : 'Open Sitemap'|t
+        }) }}
+    </div>
+{% endblock %}
+
+{%- block close _self.trigger({
+    trigger : mega__closetrigger,
+    svgpath : '@appicons/xmark.svg',
+    label   : 'Close Sitemap'|t
+}) -%}
+
+{% macro trigger(settings) %}
+    {%- set settings = {
+        class   : 'flex bg-none p-0 m-0 text-theme-accent hover:text-gold focus:text-gold',
+        svgpath : null,
+        svgclass: 'h-8 w-8 block fill-current',
+        label   : null
+    } | merge( settings ??? { trigger: null } ) -%}
+
+    {% if settings.trigger %}
+        <button
+            type="button"
+            class="{{ settings.class }}"
+            x-data="{}"
+            x-on:click="$dispatch('{{ settings.trigger }}')"
+            aria-label="{{ settings.label }}"
+            title="{{ settings.label }}"
+        >
+            {{ settings.svgpath
+                ? svg( settings.svgpath ) | attr({ class: settings.svgclass })
+                : settings.label ??? null }}
+        </button>
+    {% endif %}
+{% endmacro %}

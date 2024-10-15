@@ -27,11 +27,11 @@ return GeneralConfig::create()
     // ➜ https://craftcms.com/docs/5.x/reference/config/general.html#aliases
     ->aliases([
         '@fonts'  => App::env('CRAFT_ENVIRONMENT') === 'dev'
-            ? App::env('VITE_DEV_SERVER_PUBLIC') . '/public/_local/fonts'
-            : App::env('CRAFT_WEB_URL') . '/dist/_local/fonts',
+            ? App::env('VITE_DEV_SERVER_PUBLIC') . '/public/local/fonts'
+            : App::env('CRAFT_WEB_URL') . '/dist/local/fonts',
         '@web'      => App::env('CRAFT_WEB_URL'),
         '@webroot'  => App::env('CRAFT_WEB_ROOT'),
-        '@localsvg' => App::env('CRAFT_WEB_ROOT') . '/_local/svg',
+        '@localsvg' => App::env('CRAFT_WEB_ROOT') . '/local/svg',
     ])
 
     // Admin Panel & DevMode Changes
