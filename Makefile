@@ -100,7 +100,7 @@ craft-empty-db:
 		--password='letmein' \
 		--site-name='Craft CMS' \
 		--site-url='$(PROJECT_URL)' ;
-craft-reseed: craft-export
+craft-reseed:
 	@rm -f $(SEED_GZIP)
 	@cp -p "`ls -dtr1 $(STORAGE)/backups/* | tail -1`" $(SEED_NAME)
 	@gzip -c $(SEED_NAME) > $(SEED_PATH)
