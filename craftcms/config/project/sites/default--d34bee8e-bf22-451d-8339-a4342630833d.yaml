@@ -1,4 +1,4 @@
-baseUrl: $PRIMARY_SITE_URL
+baseUrl: $CRAFT_WEB_URL
 handle: default
 hasUrls: true
 language: en-CA

@@ -18,9 +18,9 @@ RAND_16=$(shell head /dev/urandom | tr -dc a-z0-9 | head -c 16)
 # Database Seed
 SEED_PATH=$(DOCKER)/seed
 SEED_GZIP=$(DOCKER)/seed.sql.gz
-SEED_UNZIP=mkdir $(SEED_PATH) && gzip -dkc $(SEED_GZIP) > $(SEED_PATH)/craft.sql
-SEED_NAME=$(DOCKER)/Craft-$(date %Y-%m-%d-%H%M).sql
-SEED_TEST=$(shell [ -f $(SEED_GZIP) ] && [ ! -d $(SEED_PATH) ] && $(SEED_UNZIP) || true)
+SEED_UNZIP=$(shell mkdir -p $(SEED_PATH) && gzip -dkc $(SEED_GZIP) > $(SEED_PATH)/craft.sql || true)
+# SEED_NAME=$(DOCKER)/Craft-$(date %Y-%m-%d-%H%M).sql
+# SEED_TEST=$(shell [ -f $(SEED_GZIP) ] && [ ! -d $(SEED_PATH) ] && $(SEED_UNZIP) || true)
 
 # Project
 PROJECT_ID=Burton-$(RAND_16)

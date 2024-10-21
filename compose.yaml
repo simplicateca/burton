@@ -185,7 +185,7 @@ services:
       - "9000:9000" # S3
       - "9001:9001" # Web console
     volumes:
-      - ./etc/docker/minio_data:/data
+      - minio_data:/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -208,7 +208,7 @@ services:
     ports:
       - 7700:7700
     volumes:
-      - ./etc/docker/meili_data:/data.ms # App Data
+      - meili_data:/data.ms
 
 # n8n - workflow automation
 # ----------------------------------------------------------------------- #
@@ -220,11 +220,14 @@ services:
     ports:
       - 5678:5678
     volumes:
-      - ./etc/docker/n8n_data:/home/node/.n8n # App Data
-      - ./etc/n8n:/home/node/share # Container File Share
+      - n8n_data:/home/node/.n8n # App Data
+      - ./etc/n8n:/home/node/share # File Share
 
 # ------------------------------------------------------------------------------------- #
 # CONTAINER DATA STORAGE          https://docs.docker.com/reference/compose-file/volumes/
 # ------------------------------------------------------------------------------------- #
 volumes:
+  n8n_data:
+  meili_data:
+  minio_data:
   mysql_data:

@@ -15,9 +15,6 @@ Craft CMS Admin
 🥷  craft@example.com
 🔒 letmein
 
-Vite Frontend
- ➜ http://localhost:3000
-
 n8n Workflow Automation
  ➜ http://localhost:5678
 🥷  n8n@example.com
