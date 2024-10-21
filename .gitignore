@@ -1,8 +1,14 @@
 # Craft CMS
 craftcms/web
-craftcms/storage
 !craftcms/web/index.php
+craftcms/storage
 license.key*
+
+# Docker volume data
+n8n_data
+minio_data
+mysql_data
+meili_data
 
 # Miscllaneous
 .env
@@ -11,7 +17,6 @@ license.key*
 .idea
 .project
 .settings
-.minio.sys
 *.esproj
 *.sql
 *.sublime-workspace

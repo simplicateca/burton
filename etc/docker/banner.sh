@@ -5,8 +5,6 @@ cat << EOF
 | |_ _ _ ___| |_ ___ ___
 | . | | |  _|  _| . |   |
 |___|___|_| |_| |___|_|_|
-
-Burton Docker Environment is Ready!
 _______________________________________________
 
 Website Frontend
@@ -14,8 +12,30 @@ Website Frontend
 
 Craft CMS Admin
  ➜ http://localhost:8000/${CRAFT_CP_TRIGGER:-admin}
-u〉 craft@example.com
-p〉 letmein
+🥷  craft@example.com
+🔒 letmein
+
+Vite Frontend
+ ➜ http://localhost:3000
+
+n8n Workflow Automation
+ ➜ http://localhost:5678
+🥷  n8n@example.com
+🔒 letmein
+
+MinIO Object Storage
+ ➜ http://localhost:9001
+🥷  ${S3_ACCESS_KEY:-project}
+🔒 ${S3_SECRET_KEY:-secretkey}
+
+Meilisearch
+ ➜ http://localhost:7700
+🔒 secret
+
+Mailhog Email Testing
+ ➜ http://localhost:8025
+
+_______________________________________________
 
 EOF
 

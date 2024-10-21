@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------------- #
-# DOCKER CONTAINERS
+# DOCKER CONTAINERS              https://docs.docker.com/reference/compose-file/services/
 # ------------------------------------------------------------------------------------- #
 services:
 
@@ -177,19 +177,38 @@ services:
         mkdir -p /data/${S3_bucket:-project} &&
         /usr/bin/minio server /data --console-address \":9001\""
     env_file: *project_env
+    user: "1000:1000"
     environment:
       - MINIO_ROOT_USER=${S3_ACCESS_KEY:-project}
       - MINIO_ROOT_PASSWORD=${S3_SECRET_KEY:-secretkey}
     ports:
-      - "9000:9000" # S3:
+      - "9000:9000" # S3
       - "9001:9001" # Web console
     volumes:
-      - ./etc/minio/data:/data
+      - ./etc/docker/minio_data:/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 20s
       retries: 3
+
+# Meilisearch - data storage & search
+# ----------------------------------------------------------------------- #
+# ➜ https://www.meilisearch.com/
+  meilisearch:
+    image: getmeili/meilisearch
+    env_file: *project_env
+    user: "1000:1000"
+    environment:
+      - http_proxy
+      - https_proxy
+      - MEILI_MASTER_KEY=secret
+      - MEILI_NO_ANALYTICS=true
+      - MEILI_ENV=development
+    ports:
+      - 7700:7700
+    volumes:
+      - ./etc/docker/meili_data:/data.ms # App Data
 
 # n8n - workflow automation
 # ----------------------------------------------------------------------- #
@@ -197,18 +216,15 @@ services:
   n8n:
     image: n8nio/n8n
     env_file: *project_env
-    environment:
-      - PUID=1000
-      - PGID=1000
+    user: "1000:1000"
     ports:
-      - "5678:5678"
+      - 5678:5678
     volumes:
-      - n8n_data:/home/node/.n8n   # App Data
-      - ./etc/n8n:/home/node/share # Container Share
+      - ./etc/docker/n8n_data:/home/node/.n8n # App Data
+      - ./etc/n8n:/home/node/share # Container File Share
 
 # ------------------------------------------------------------------------------------- #
-# DOCKER VOLUMES
+# CONTAINER DATA STORAGE          https://docs.docker.com/reference/compose-file/volumes/
 # ------------------------------------------------------------------------------------- #
 volumes:
   mysql_data:
-  n8n_data:
