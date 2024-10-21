@@ -11,6 +11,7 @@ license.key*
 .idea
 .project
 .settings
+.minio.sys
 *.esproj
 *.sql
 *.sublime-workspace
