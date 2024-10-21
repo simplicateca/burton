@@ -22,7 +22,6 @@
         }
     },
     "prefer-stable": true,
-    "minimum-stability": "beta",
     "require": {
         "behinddesign/craft-object-storage": "^1.1.0",
         "craftcms/ckeditor": "^4.3.0",
