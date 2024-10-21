@@ -3,8 +3,6 @@ handle: icon
 instructions: null
 name: Icon
 searchable: false
-settings:
-  includeProIcons: true
 translationKeyFormat: null
 translationMethod: none
 type: craft\fields\Icon

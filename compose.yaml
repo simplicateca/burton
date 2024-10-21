@@ -35,8 +35,10 @@ services:
       - ./craftcms:/app:cached
       - ./etc/docker/php.ini:/usr/local/etc/php/conf.d/php.ini
     depends_on:
-      composer:
-        condition: service_completed_successfully
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
 # Composer (PHP Dependency Management)
 # ----------------------------------------------------------------------- #
@@ -63,13 +65,8 @@ services:
         ./craft queue/listen --verbose"
     stop_grace_period: "1s"
     tty: true
-    depends_on:
-      mysql:
-        condition: service_healthy
-      nginx:
-        condition: service_started
-      redis:
-        condition: service_started
+    depends_on: [php]
+
 
 # MySQL 8 Database
 # ----------------------------------------------------------------------- #
@@ -184,10 +181,10 @@ services:
       - MINIO_ROOT_USER=${S3_ACCESS_KEY:-project}
       - MINIO_ROOT_PASSWORD=${S3_SECRET_KEY:-secretkey}
     ports:
-      - "9000:9000" # S3 API
+      - "9000:9000" # S3:
       - "9001:9001" # Web console
     volumes:
-      - minio_data:/data
+      - ./etc/minio/data:/data
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s
@@ -197,22 +194,21 @@ services:
 # n8n - workflow automation
 # ----------------------------------------------------------------------- #
 # ➜ https://docs.n8n.io/hosting/installation/server-setups/docker-compose/
-  # n8n:
-  #   image: n8nio/n8n
-  #   env_file: *project_env
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #   ports:
-  #     - "5678:5678"
-  #   volumes:
-  #     - ./etc/n8n:/home/node/n8n
-  #     - n8n_data:/home/node/.n8n
+  n8n:
+    image: n8nio/n8n
+    env_file: *project_env
+    environment:
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n   # App Data
+      - ./etc/n8n:/home/node/share # Container Share
 
 # ------------------------------------------------------------------------------------- #
 # DOCKER VOLUMES
 # ------------------------------------------------------------------------------------- #
 volumes:
-    mysql_data:
-    minio_data:
-    # n8n_data:
+  mysql_data:
+  n8n_data:

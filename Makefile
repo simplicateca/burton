@@ -38,16 +38,17 @@ COMPOSE_DOWN=$(COMPOSE) down
 COMPOSE_REBUILD=$(COMPOSE) up --build --force-recreate
 
 # Container Commands
-EXEC_SSH=$(COMPOSE) exec php /bin/bash
-EXEC_CRAFT=$(COMPOSE) exec php /app/craft
-EXEC_NPM=$(COMPOSE) exec frontend npm
-EXEC_COMPOSER=$(COMPOSE) run composer --rm --optimize-autoloader
+EXEC_ARGS=--rm --remove-orphans
+EXEC_SSH=$(COMPOSE) run $(EXEC_ARGS) php /bin/bash
+EXEC_CRAFT=$(COMPOSE) run $(EXEC_ARGS) php /app/craft
+EXEC_NPM=$(COMPOSE) run $(EXEC_ARGS) frontend npm
+EXEC_COMPOSER=$(COMPOSE) run $(EXEC_ARGS) composer --optimize-autoloader
 
 
 # Actions
 #--------------------------------------------------------------
 .PHONY: assets backup composer craft debug dev down \
-		npm nuke rebuild reinstall reseed ssh update wipe
+		npm nuke rebuild ssh update wipe
 #--------------------------------------------------------------
 assets: craft-index-assets
 backup: craft-export
@@ -68,8 +69,6 @@ nuke: composer-wipe npm-wipe
 rebuild:
 	@$(COMPOSE_REBUILD) ;
 restart: down rebuild
-reinstall: craft-empty-db restart
-reseed: craft-reseed
 ssh:
 	@$(EXEC_SSH) ;
 update: composer-bump restart
@@ -79,7 +78,7 @@ wipe: composer-wipe npm-wipe restart
 # Composer Shortcuts
 #--------------------------------------------------------------
 composer-bump: composer-update
-	@$(EXEC_COMPOSER) bump ;
+	@$(COMPOSE) run $(EXEC_ARGS) composer bump ;
 composer-update:
 	@$(EXEC_COMPOSER) update ;
 composer-wipe:
@@ -92,18 +91,20 @@ composer-wipe:
 craft-index-assets:
 	@$(EXEC_CRAFT) index-assets/all ;
 craft-export:
-	@$(EXEC_CRAFT) db/backup ;
-craft-empty-db:
-	@$(EXEC_CRAFT) db/drop-all-tables ;
-	@$(EXEC_CRAFT) install \
+	$(EXEC_CRAFT) db/backup ;
+craft-fresh-database:
+	@$(EXEC_CRAFT) db/drop-all-tables --interactive=0;
+	@$(EXEC_CRAFT) install/craft \
 		--email='craft@example.com' \
 		--password='letmein' \
-		--site-name='Craft CMS' \
-		--site-url='$(PROJECT_URL)' ;
-craft-reseed:
+		--site-name='Website' \
+		--language='en-CA' \
+		--site-url='$(PROJECT_URL)' \
+		--interactive=0 ;
+craft-reseed: craft-export
 	@rm -f $(SEED_GZIP)
-	@cp -p "`ls -dtr1 $(STORAGE)/backups/* | tail -1`" $(SEED_NAME)
-	@gzip -c $(SEED_NAME) > $(SEED_PATH)
+	@cp -p "`ls -dtr1 $(STORAGE)/backups/* | tail -1`" $(DOCKER)/seed.sql
+	@gzip -c $(DOCKER)/seed.sql > $(SEED_GZIP)
 
 
 # NPM Shortcuts

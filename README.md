@@ -63,7 +63,6 @@ These Twig helper plugins aren't *strictly required*, but there's really no reas
 
 Plus I like them and removing all references to them through-out the codebase would be a pain.
 
-
  - **[Vite - by nystudio107](https://nystudio107.com/docs/vite/)**
 
 This most excellent plugin is included by default, but I would only call it *required* if you plan on using Vite as your frontend build tool.
@@ -78,7 +77,6 @@ Configuration for these plugin is already included within Burton, but they are n
 - Feed Me
 - topshelfcraft/environment-label
 - verbb/knock-knock
-- vaersaagod/dospaces (or something similar for asset management)
 
 
 **Recommended PAID Plugins**

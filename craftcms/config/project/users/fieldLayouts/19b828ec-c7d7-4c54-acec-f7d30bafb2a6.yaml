@@ -8,7 +8,6 @@ tabs:
         autocomplete: false
         autocorrect: true
         class: null
-        dateAdded: '2024-10-14T17:48:23-04:00'
         disabled: false
         elementCondition: null
         id: null
@@ -39,7 +38,6 @@ tabs:
         autocomplete: false
         autocorrect: true
         class: null
-        dateAdded: '2024-10-14T17:48:23-04:00'
         disabled: false
         elementCondition: null
         id: null
@@ -64,7 +62,6 @@ tabs:
         userCondition: null
         width: 100
       -
-        dateAdded: '2024-10-14T17:48:23-04:00'
         elementCondition: null
         id: null
         includeInCards: false
@@ -80,7 +77,6 @@ tabs:
         warning: null
         width: 100
       -
-        dateAdded: '2024-10-14T17:48:23-04:00'
         elementCondition: null
         fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Headline
         handle: null
@@ -96,7 +92,6 @@ tabs:
         warning: null
         width: 50
       -
-        dateAdded: '2024-10-14T17:48:23-04:00'
         elementCondition: null
         fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
         handle: null
@@ -112,7 +107,6 @@ tabs:
         warning: null
         width: 50
       -
-        dateAdded: '2024-10-14T17:48:23-04:00'
         elementCondition: null
         fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
         handle: null
@@ -128,7 +122,6 @@ tabs:
         warning: null
         width: 100
       -
-        dateAdded: '2024-10-14T17:48:23-04:00'
         elementCondition: null
         fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website
         handle: null
