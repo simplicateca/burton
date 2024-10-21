@@ -7,7 +7,7 @@
         "inputabove": "These settings allow for **fine tuning the presentation** of the search result and the available __input filters__.",
         "help"      : "Understanding the Search Component",
         "helpurl"   : "https://www.youtube.com/watch?v=x5bVKZxFdPo",
-        "helptwig"  : "_selectplus/help/sample.twig"
+        "helptwig"  : "_metasettings/help/sample.twig"
     },
     "settings": {},
     "virtuals": [{

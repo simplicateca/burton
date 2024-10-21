@@ -71,7 +71,7 @@ fieldLayouts:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
                 -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  class: simplicateca\metasettings\fields\MetaSettingsConditionRule
                   fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
                   layoutElementUid: 9283ceb7-142e-4115-804b-e3918ea8d85e
                   operator: ni
@@ -99,7 +99,7 @@ fieldLayouts:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
                 -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  class: simplicateca\metasettings\fields\MetaSettingsConditionRule
                   fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
                   layoutElementUid: 9283ceb7-142e-4115-804b-e3918ea8d85e
                   operator: in
@@ -127,7 +127,7 @@ fieldLayouts:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
                 -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  class: simplicateca\metasettings\fields\MetaSettingsConditionRule
                   fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
                   layoutElementUid: 9283ceb7-142e-4115-804b-e3918ea8d85e
                   operator: in

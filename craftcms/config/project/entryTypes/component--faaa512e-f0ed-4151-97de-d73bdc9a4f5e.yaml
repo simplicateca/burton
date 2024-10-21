@@ -147,7 +147,7 @@ fieldLayouts:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
                 -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  class: simplicateca\metasettings\fields\MetaSettingsConditionRule
                   fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
                   layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
                   operator: in
@@ -191,7 +191,7 @@ fieldLayouts:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
                 -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  class: simplicateca\metasettings\fields\MetaSettingsConditionRule
                   fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
                   layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
                   operator: in
@@ -219,7 +219,7 @@ fieldLayouts:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
                 -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  class: simplicateca\metasettings\fields\MetaSettingsConditionRule
                   fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
                   layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
                   operator: in
@@ -247,7 +247,7 @@ fieldLayouts:
               class: craft\elements\conditions\entries\EntryCondition
               conditionRules:
                 -
-                  class: simplicateca\selectplus\fields\SelectPlusConditionRule
+                  class: simplicateca\metasettings\fields\MetaSettingsConditionRule
                   fieldUid: 31cc93a2-d38f-4943-b7c2-473b72eb69a1 # Subtype
                   layoutElementUid: 23fd25d3-7235-4545-b9fa-ea614d8f78a2
                   operator: in

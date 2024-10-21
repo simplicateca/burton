@@ -34,7 +34,7 @@
         "nystudio107/craft-seomatic": "^5.1.4",
         "nystudio107/craft-vite": "^5.0.1",
         "openai-php/client": "^0.8.5",
-        "simplicateca/selectplus": "^5.0.5-beta",
+        "simplicateca/metasettings": "^5.1",
         "twig/html-extra": "^3.13.0",
         "verbb/formie": "^3.0.9",
         "verbb/navigation": "^3.0.5",

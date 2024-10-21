@@ -135,7 +135,7 @@ services:
       - ./craftcms:/app
       - ./frontend/public/local:/app/web/dist/local:ro
       - ./etc/docker/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
-      - ./etc/feedme:/app/web/feedme/:ro
+      - ./etc/feed-me:/app/storage/feed-me:ro
 
 # Redis (Key-Value Storage)
 # ----------------------------------------------------------------------- #

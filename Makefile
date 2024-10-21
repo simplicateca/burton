@@ -10,7 +10,7 @@ STORAGE=$(CRAFT)/storage
 ENV=$(CRAFT)/.env
 ENV_EMPTY=$(CRAFT)/example.env
 ENV_ID=CRAFT_APP_ID
-ENV_TEST=$(shell [ -f $(ENV_EMPTY)  ] && cp -n $(ENV_EMPTY) $(ENV) || true)
+ENV_COPY=$(shell cp -n $(ENV_EMPTY) $(ENV) || true)
 
 # Utilities
 RAND_16=$(shell head /dev/urandom | tr -dc a-z0-9 | head -c 16)
@@ -23,11 +23,8 @@ SEED_UNZIP=$(shell mkdir -p $(SEED_PATH) && gzip -dkc $(SEED_GZIP) > $(SEED_PATH
 # SEED_TEST=$(shell [ -f $(SEED_GZIP) ] && [ ! -d $(SEED_PATH) ] && $(SEED_UNZIP) || true)
 
 # Project
-PROJECT_ID=Burton-$(RAND_16)
-PROJECT_ID_TEST=$(shell grep -q '^$(ENV_ID)=' $(ENV) && [ -z "$(grep '^$(ENV_ID)=' $(ENV) | cut -d '=' -f 2)" ] && sed -i 's/^$(ENV_ID)=/$(ENV_ID)=$(PROJECT_ID)/' $(ENV))
-PROJECT_ID=$(shell grep -E '^$(ENV_ID)=' $(ENV) | cut -d '=' -f 2)
-PROJECT_DIR=$(shell basename $(realpath $(dir $(CURDIR))/..))
-PROJECT_NAME=$(if $(PROJECT_ID),$(PROJECT_ID),$(PROJECT_DIR))
+APP_ID=$(shell grep -E '^$(ENV_ID)=' $(ENV) | cut -d '=' -f 2)
+PROJECT_NAME=$(if $(APP_ID),$(APP_ID),$(shell basename $(realpath $(dir $(CURDIR))/..)))
 PROJECT_URL=$(shell grep -E '^CRAFT_WEB_URL=' $(ENV) | cut -d '=' -f 2)
 
 
@@ -58,7 +55,9 @@ craft:
 	@$(EXEC_CRAFT) $(filter-out $@,$(MAKECMDGOALS)) ;
 debug:
 	@$(COMPOSE) --profile debug up ;
-dev:
+dev: set-appid
+	@$(ENV_COPY)
+	@$(SEED_UNZIP)
 	@$(COMPOSE_UP) ;
 down:
 	@$(COMPOSE_DOWN) ;
@@ -66,13 +65,20 @@ npm:
 	@$(EXEC_NPM) $(filter-out $@,$(MAKECMDGOALS)) ;
 nuke: composer-wipe npm-wipe
 	@$(COMPOSE_DOWN) -v ;
-rebuild:
+rebuild: set-appid
+	@$(ENV_COPY)
+	@$(SEED_UNZIP)
 	@$(COMPOSE_REBUILD) ;
 restart: down rebuild
 ssh:
 	@$(EXEC_SSH) ;
 update: composer-bump restart
 wipe: composer-wipe npm-wipe restart
+
+set-appid:
+	@if ! grep -q '^$(ENV_ID)=' $(ENV) || grep -q '^$(ENV_ID)=$$' $(ENV); then \
+		echo '$(ENV_ID)=Burton-$(RAND_16)' >> $(ENV); \
+	fi
 
 #--------------------------------------------------------------
 # Composer Shortcuts
@@ -113,6 +119,19 @@ npm-wipe:
 	@rm -f $(FRONTEND)/package-lock.json
 	@rm -rf $(FRONTEND)/node_modules
 
+
+# Read missing variables from .env file
+#--------------------------------------------------------------
+ifneq (,$(wildcard $(ENV)))
+    include $(ENV)
+    export $(shell sed 's/=.*//' $(ENV))
+endif
+#--------------------------------------------------------------
+
+# Allow argument to be passed into the Makefile from the CLI
+# ➜ https://stackoverflow.com/questions/6273608/
+#--------------------------------------------------------------
+ARGS=$(filter-out $@,$(MAKECMDGOALS))
 %:
 	@:
-# ref: https://stackoverflow.com/questions/6273608/how-to-pass-argument-to-makefile-from-command-line
+#--------------------------------------------------------------

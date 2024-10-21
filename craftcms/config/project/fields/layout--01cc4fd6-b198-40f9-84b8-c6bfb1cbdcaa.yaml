@@ -8,4 +8,4 @@ settings:
   configFile: _config/_layout.json.twig
 translationKeyFormat: null
 translationMethod: none
-type: simplicateca\selectplus\fields\SelectPlusField
+type: simplicateca\metasettings\fields\MetaSettingsField

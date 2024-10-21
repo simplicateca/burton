@@ -34,13 +34,13 @@ While not so much *required*, these plugins are so strongly recommended that the
 
 You may of course add additional plugins as needed, but the following are required for Burton to function as intended:
 
-**[SelectPlus](https://github.com/simplicateca/craft-selectplus-field)**
+**[MetaSettings](https://github.com/simplicateca/craft-meta-settings-field)**
 
-Also by Simplicate (the creator of Burton), SelectPlus is the only paid plugin essential for Burton to operate as *efficiently* as possible.
+Also by Simplicate (the creator of Burton), MetaSettings is the only paid plugin essential for Burton to operate as *efficiently* as possible.
 
-I say *efficiently* because, while it's hypothetically possible to omit SelectPlus, it would be at the detriment of layout flexibility, author-experience, and development speed.
+I say *efficiently* because, while it's hypothetically possible to omit MetaSettings, it would be at the detriment of layout flexibility, author-experience, and development speed.
 
-Obviously I'm biased, but I also didn't want to give you the impression that SelectPlus is the only option for managing block-level design & layout tokens in Craft.
+Obviously I'm biased, but I also didn't want to give you the impression that MetaSettings is the only option for managing block-level design & layout tokens in Craft.
 
 [Design Tokens by TrendyMinds](https://plugins.craftcms.com/designtokens), [LJ Dynamic Fields by Lewis Jenkins](https://plugins.craftcms.com/craft-dynamic-fields?craft5), and [Element Meta by BlueWhale](https://plugins.craftcms.com/entry-meta?craft5=) are three plugins that might also be able to work.
 
