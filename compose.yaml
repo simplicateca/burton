@@ -27,14 +27,18 @@ services:
   php: &php_container
     image: simplicateca/php-fpm:8.2
     command: php-fpm
+    user: "1000:1000"
     restart: on-failure
     env_file: *project_env
-    user: "1000:1000"
     working_dir: /app
     volumes:
       - ./craftcms:/app:cached
       - ./etc/docker/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./etc/feed-me:/app/storage/feed-me:ro
+      - ./frontend/public:/app/web/dist:ro
     depends_on:
+      composer:
+        condition: service_completed_successfully
       mysql:
         condition: service_healthy
       redis:
@@ -132,10 +136,8 @@ services:
     ports:
       - 8000:80
     volumes:
-      - ./craftcms:/app
-      - ./frontend/public/local:/app/web/dist/local:ro
+      - ./craftcms/web:/app/web:ro
       - ./etc/docker/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
-      - ./etc/feed-me:/app/storage/feed-me:ro
 
 # Redis (Key-Value Storage)
 # ----------------------------------------------------------------------- #
@@ -171,13 +173,8 @@ services:
 # ➜ https://hub.docker.com/r/minio/minio
   minio:
     image: minio/minio
-    entrypoint: sh
-    command: >
-      -c "
-        mkdir -p /data/${S3_bucket:-project} &&
-        /usr/bin/minio server /data --console-address \":9001\""
+    command: server /data --console-address ":9001"
     env_file: *project_env
-    user: "1000:1000"
     environment:
       - MINIO_ROOT_USER=${S3_ACCESS_KEY:-project}
       - MINIO_ROOT_PASSWORD=${S3_SECRET_KEY:-secretkey}
@@ -198,7 +195,6 @@ services:
   meilisearch:
     image: getmeili/meilisearch
     env_file: *project_env
-    user: "1000:1000"
     environment:
       - http_proxy
       - https_proxy

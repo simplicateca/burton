@@ -1,5 +1,5 @@
 # Name & Triggers
-- pipeline: "Build & Deploy to Staging"
+- pipeline: "Build & Deploy to Production"
   ref_name: "main"
   ref_type: "BRANCH"
   trigger_mode: "ON_EVERY_PUSH"
@@ -26,14 +26,15 @@
     volume_mappings:
       - "/:/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH"
     execute_commands:
-      - "npm ci && npm run build"
+      - "[ -f package-lock.json ] && npm ci || npm install"
+      - "npm run build"
 
     # STEP 2: install php vendor files with composer
   - action: "Install Composer"
     type: "BUILD"
     working_directory: "/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH/craftcms"
     docker_image_name: "composer"
-    docker_image_tag: "latest"
+    docker_image_tag: "2"
     volume_mappings:
       - "/:/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH"
     execute_commands:
@@ -85,6 +86,9 @@
       - "cd releases && ls -t | tail -n +6 | xargs rm -rf"
 
     # STEP 5: make the new release live
+    # - swap `current` symlink to new release
+    # - run database backup
+    # - run migrations & clear caches
   - action: "Make Release Live"
     type: "SSH_COMMAND"
     working_directory: "$SSH_PATH"
@@ -95,15 +99,9 @@
     run_as_script: true
     shell: "BASH"
     commands:
-
-        # make sure the current craft script is executable & run a database backup
-      - "chmod a+x current/craft && ./current/craft db/backup"
-
-        # swap `current` symlink to new release
       - "rm -f current && ln -s releases/$BUDDY_EXECUTION_REVISION current"
-
-        # clear caches and run any pending migrations
       - "cd current && chmod a+x craft"
+      - "./craft db/backup --interactive=0"
       - "./craft invalidate-tags/all --interactive=0"
       - "./craft clear-caches/all --interactive=0"
       - "./craft up --interactive=0"

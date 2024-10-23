@@ -110,13 +110,13 @@
     <div class="flex gap-3">
         <a aira-label="Share on LinkedIn" target="_blank"
         href="https://www.linkedin.com/shareArticle?url={{entry.url|url_encode}}"
-        >{{ svg( '@localsvg/linkedin.svg') | attr({
+        >{{ svg( '@svgs/linkedin.svg') | attr({
             class: 'fill-current h-6 w-6'
         }) }}</a>
 
         <a aira-label="Share on Twitter/X" target="_blank"
         href="https://twitter.com/intent/tweet?url={{entry.url|url_encode}}&text={{entry.title|url_encode}}"
-        >{{ svg( '@localsvg/twitter.svg') | attr({
+        >{{ svg( '@svgs/twitter.svg') | attr({
             class: 'fill-current h-6 w-6'
         }) }}</a>
 
