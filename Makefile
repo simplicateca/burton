@@ -113,6 +113,32 @@ craft-reseed: craft-export
 	@gzip -c $(DOCKER)/seed.sql > $(SEED_GZIP)
 
 
+# Object Storage Shortcuts
+#--------------------------------------------------------------
+minio-setup:
+	@$(COMPOSE_UP) minio -d
+	@sleep 3
+	@mc mb localhost/${S3_BUCKET}
+	@mc anonymous set download localhost/${S3_BUCKET}/public
+	@$(COMPOSE_DOWN) minio
+
+minio-staging-to-dev:
+	@$(COMPOSE_UP) minio -d
+	@sleep 3
+	@mc mirror --overwrite staging/${STAGING_BUCKET}/public/content/staging localhost/${S3_BUCKET}/public/content/dev
+	@mc mirror --overwrite staging/${STAGING_BUCKET}/public/design localhost/${S3_BUCKET}/public/design
+	@mc mirror --overwrite staging/${STAGING_BUCKET}/private localhost/${S3_BUCKET}/private
+	@$(COMPOSE_DOWN) minio
+
+minio-dev-to-staging:
+	@$(COMPOSE_UP) minio -d
+	@sleep 3
+	@mc mirror --overwrite localhost/${S3_BUCKET}/public/content/dev staging/${STAGING_BUCKET}/public/content/staging
+	@mc mirror --overwrite localhost/${S3_BUCKET}/public/design staging/${STAGING_BUCKET}/public/design
+	@mc mirror --overwrite localhost/${S3_BUCKET}/private staging/${STAGING_BUCKET}/private
+	@$(COMPOSE_DOWN) minio
+
+
 # NPM Shortcuts
 #--------------------------------------------------------------
 npm-wipe:
