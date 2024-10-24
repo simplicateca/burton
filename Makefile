@@ -19,14 +19,11 @@ RAND_16=$(shell head /dev/urandom | tr -dc a-z0-9 | head -c 16)
 SEED_PATH=$(DOCKER)/seed
 SEED_GZIP=$(DOCKER)/seed.sql.gz
 SEED_UNZIP=$(shell mkdir -p $(SEED_PATH) && gzip -dkc $(SEED_GZIP) > $(SEED_PATH)/craft.sql || true)
-# SEED_NAME=$(DOCKER)/Craft-$(date %Y-%m-%d-%H%M).sql
-# SEED_TEST=$(shell [ -f $(SEED_GZIP) ] && [ ! -d $(SEED_PATH) ] && $(SEED_UNZIP) || true)
 
 # Project
 APP_ID=$(shell grep -E '^$(ENV_ID)=' $(ENV) | cut -d '=' -f 2)
 PROJECT_NAME=$(if $(APP_ID),$(APP_ID),$(shell basename $(realpath $(dir $(CURDIR))/..)))
 PROJECT_URL=$(shell grep -E '^CRAFT_WEB_URL=' $(ENV) | cut -d '=' -f 2)
-
 
 # Docker Compose
 COMPOSE=docker compose --project-name $(PROJECT_NAME) --env-file $(ENV)
@@ -116,27 +113,27 @@ craft-reseed: craft-export
 # Object Storage Shortcuts
 #--------------------------------------------------------------
 minio-setup:
-	@$(COMPOSE_UP) minio -d
+	@$(COMPOSE_UP) minio -d ;
 	@sleep 3
 	@mc mb localhost/${S3_BUCKET}
 	@mc anonymous set download localhost/${S3_BUCKET}/public
-	@$(COMPOSE_DOWN) minio
+	@$(COMPOSE_DOWN) minio ;
 
 minio-staging-to-dev:
-	@$(COMPOSE_UP) minio -d
+	@$(COMPOSE_UP) minio -d ;
 	@sleep 3
 	@mc mirror --overwrite staging/${STAGING_BUCKET}/public/content/staging localhost/${S3_BUCKET}/public/content/dev
 	@mc mirror --overwrite staging/${STAGING_BUCKET}/public/design localhost/${S3_BUCKET}/public/design
 	@mc mirror --overwrite staging/${STAGING_BUCKET}/private localhost/${S3_BUCKET}/private
-	@$(COMPOSE_DOWN) minio
+	@$(COMPOSE_DOWN) minio ;
 
 minio-dev-to-staging:
-	@$(COMPOSE_UP) minio -d
+	@$(COMPOSE_UP) minio -d ;
 	@sleep 3
 	@mc mirror --overwrite localhost/${S3_BUCKET}/public/content/dev staging/${STAGING_BUCKET}/public/content/staging
 	@mc mirror --overwrite localhost/${S3_BUCKET}/public/design staging/${STAGING_BUCKET}/public/design
 	@mc mirror --overwrite localhost/${S3_BUCKET}/private staging/${STAGING_BUCKET}/private
-	@$(COMPOSE_DOWN) minio
+	@$(COMPOSE_DOWN) minio ;
 
 
 # NPM Shortcuts

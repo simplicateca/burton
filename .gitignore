@@ -2,6 +2,7 @@
 craftcms/web
 !craftcms/web/index.php
 craftcms/storage
+!craftcms/storage/.gitkeep
 license.key*
 
 # Docker volume data
