@@ -58,7 +58,7 @@ setup:
 	fi
 
 	@if [ -f "$(SEED_PATH).sql.gz" ]; then \
-		mkdir -p $(SEED_PATH) && gzip -dkc $(SEED_PATH).sql.gz > $(SEED_PATH)/craft.sql
+		mkdir -p $(SEED_PATH) && gzip -dkc $(SEED_PATH).sql.gz > $(SEED_PATH)/craft.sql; \
 	fi
 
 #--------------------------------------------------------------

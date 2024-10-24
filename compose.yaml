@@ -34,8 +34,7 @@ services:
     volumes:
       - ./craftcms:/app:cached
       - ./etc/docker/php.ini:/usr/local/etc/php/conf.d/php.ini
-      - ./etc/feed-me:/app/storage/feed-me:ro
-      - ./frontend/public:/app/web/dist:ro
+      - ./frontend/public:/app/web/dist:cached
     depends_on:
       composer:
         condition: service_completed_successfully
