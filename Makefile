@@ -9,7 +9,7 @@ ENV_PATH		:= $(CRAFT_PATH)/.env
 SEED_PATH		:= $(ETC_PATH)/mysql/CraftCMS-Database
 
 APP_ID			:= $(shell grep -E '^CRAFT_APP_ID=' $(ENV_PATH) | cut -d '=' -f 2)
-PROJECT_NAME	:= $(if $(APP_ID),$(APP_ID),$(shell basename $(realpath $(dir $(CURDIR))/..)))
+PROJECT_NAME	:= $(shell echo $(if $(APP_ID),$(APP_ID),$(shell basename $(realpath $(dir $(CURDIR))))) | tr '[:upper:]' '[:lower:]')
 
 COMPOSE			:= docker compose --project-name $(PROJECT_NAME) --env-file $(ENV_PATH)
 COMPOSE_UP		:= $(COMPOSE) up
