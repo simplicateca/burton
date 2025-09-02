@@ -24,7 +24,7 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
-        "craftcms/cms": "^5.6.1",
+        "craftcms/cms": "^5.8.15",
         "craftcms/feed-me": "^6.10.0",
         "nystudio107/craft-seomatic": "^5.1.17",
         "nystudio107/craft-vite": "^5.0.1",

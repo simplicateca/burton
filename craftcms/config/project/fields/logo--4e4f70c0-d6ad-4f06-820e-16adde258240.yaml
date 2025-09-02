@@ -11,7 +11,7 @@ settings:
     - image
   branchLimit: null
   defaultPlacement: end
-  defaultUploadLocationSource: 'volume:2f49bc19-1268-44b4-a2b9-82985d4df78f' # Brand (Protected)
+  defaultUploadLocationSource: 'volume:2f49bc19-1268-44b4-a2b9-82985d4df78f'
   defaultUploadLocationSubpath: null
   maintainHierarchy: false
   maxRelations: null
@@ -20,7 +20,7 @@ settings:
   restrictFiles: true
   restrictLocation: false
   restrictedDefaultUploadSubpath: null
-  restrictedLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Content (Public)
+  restrictedLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df'
   restrictedLocationSubpath: null
   selectionLabel: Choose
   showCardsInGrid: false
@@ -29,7 +29,7 @@ settings:
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   sources:
-    - 'volume:2f49bc19-1268-44b4-a2b9-82985d4df78f' # Brand (Protected)
+    - 'volume:2f49bc19-1268-44b4-a2b9-82985d4df78f'
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list

@@ -184,10 +184,10 @@ permissions:
   craft\elements\Entry:
     enabled: '1'
     permissions:
-      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
-      - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
-      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
-      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
+      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e'
+      - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9'
+      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff'
+      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59'
   craft\elements\Tag:
     enabled: ''
     permissions: '*'
@@ -197,7 +197,7 @@ permissions:
     enabled: '1'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+  d34bee8e-bf22-451d-8339-a4342630833d:
     enabled: true
 sortOrder: 6
 structure:

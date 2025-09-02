@@ -12,37 +12,37 @@ settings:
       __assoc__:
         -
           - uid
-          - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+          - 1eb561c2-313a-4ea5-9332-dd8effd8eb73
     -
       __assoc__:
         -
           - uid
-          - 2508516d-3329-44ec-8518-04f2a29ca3f3 # Embed
+          - 2508516d-3329-44ec-8518-04f2a29ca3f3
     -
       __assoc__:
         -
           - uid
-          - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragment
+          - ff76eb70-820e-4752-b138-daef62692e3f
     -
       __assoc__:
         -
           - uid
-          - 105d868c-b1ba-4534-a294-c66bca17ed17 # Audio File
+          - 105d868c-b1ba-4534-a294-c66bca17ed17
     -
       __assoc__:
         -
           - uid
-          - 3f9234b9-eff5-41c9-9171-94fccbed06d2 # Downloadable
+          - 3f9234b9-eff5-41c9-9171-94fccbed06d2
     -
       __assoc__:
         -
           - uid
-          - ad3c4465-2c99-4028-82f5-cd2d63371663 # FAQ
+          - ad3c4465-2c99-4028-82f5-cd2d63371663
     -
       __assoc__:
         -
           - uid
-          - 066383d2-4c3e-415b-be7e-93c6a4c5471b # Quote
+          - 066383d2-4c3e-415b-be7e-93c6a4c5471b
   includeTableView: false
   maxEntries: null
   minEntries: null
@@ -53,7 +53,7 @@ settings:
   siteSettings:
     __assoc__:
       -
-        - d34bee8e-bf22-451d-8339-a4342630833d # Canada
+        - d34bee8e-bf22-451d-8339-a4342630833d
         -
           __assoc__:
             -

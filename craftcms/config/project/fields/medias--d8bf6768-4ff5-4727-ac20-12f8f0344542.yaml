@@ -17,7 +17,7 @@ settings:
     - word
   branchLimit: null
   defaultPlacement: end
-  defaultUploadLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Content (Public)
+  defaultUploadLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df'
   defaultUploadLocationSubpath: null
   maintainHierarchy: false
   maxRelations: null
@@ -26,7 +26,7 @@ settings:
   restrictFiles: true
   restrictLocation: false
   restrictedDefaultUploadSubpath: null
-  restrictedLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Content (Public)
+  restrictedLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df'
   restrictedLocationSubpath: null
   selectionLabel: 'Choose Media'
   showCardsInGrid: true

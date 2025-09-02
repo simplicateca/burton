@@ -56,7 +56,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:50+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257
             handle: feedUrl
             includeInCards: false
             instructions: null
@@ -73,7 +73,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T17:53:27+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: a6646e4b-1f8d-479d-a56f-109eb28ab6ce # Records
+            fieldUid: a6646e4b-1f8d-479d-a56f-109eb28ab6ce
             handle: null
             includeInCards: false
             instructions: null
@@ -96,7 +96,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:50+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Title - Entry
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85
             handle: null
             includeInCards: false
             instructions: null
@@ -113,7 +113,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:50+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
+            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd
             handle: null
             includeInCards: false
             instructions: null
@@ -130,7 +130,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:50+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
+            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb
             handle: null
             includeInCards: false
             instructions: null

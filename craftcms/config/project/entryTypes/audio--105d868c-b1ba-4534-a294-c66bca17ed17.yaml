@@ -11,7 +11,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:50+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: d4e393d2-e3cd-402c-a300-6f42cc0553c1 # Audio MP3
+            fieldUid: d4e393d2-e3cd-402c-a300-6f42cc0553c1
             handle: null
             includeInCards: false
             instructions: null
@@ -28,7 +28,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:50+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e
             handle: null
             includeInCards: false
             instructions: null
@@ -51,7 +51,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:50:28+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257
             handle: source
             includeInCards: false
             instructions: null
@@ -68,7 +68,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:50:28+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64 # JSON
+            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64
             handle: null
             includeInCards: false
             instructions: null

@@ -38,9 +38,9 @@ settings:
               -
                 - values
                 -
-                  - 21710874-0ba0-423c-82ec-7fd855abb982 # Content Query
-                  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # External Feed
-                  - e97f398a-bad8-4b85-8315-c80ad3a3d118 # Content Entries
+                  - 21710874-0ba0-423c-82ec-7fd855abb982
+                  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6
+                  - e97f398a-bad8-4b85-8315-c80ad3a3d118
   selectionLabel: Choose
   showCardsInGrid: true
   showSearchInput: true
@@ -48,7 +48,7 @@ settings:
   showUnpermittedEntries: false
   showUnpermittedSections: false
   sources:
-    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
+    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15'
   targetSiteId: null
   validateRelatedElements: false
   viewMode: cards

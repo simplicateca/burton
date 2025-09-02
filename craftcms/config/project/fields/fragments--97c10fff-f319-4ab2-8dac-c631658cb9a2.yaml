@@ -38,7 +38,7 @@ settings:
               -
                 - values
                 -
-                  - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragment
+                  - ff76eb70-820e-4752-b138-daef62692e3f
   selectionLabel: 'Add Fragment'
   showCardsInGrid: false
   showSearchInput: true
@@ -46,7 +46,7 @@ settings:
   showUnpermittedEntries: true
   showUnpermittedSections: true
   sources:
-    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusables
+    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef'
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list

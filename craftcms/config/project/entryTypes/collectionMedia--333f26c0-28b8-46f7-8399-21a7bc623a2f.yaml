@@ -41,7 +41,7 @@ fieldLayouts:
             dateAdded: '2025-06-19T17:56:06+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: d8bf6768-4ff5-4727-ac20-12f8f0344542 # Media
+            fieldUid: d8bf6768-4ff5-4727-ac20-12f8f0344542
             handle: null
             includeInCards: false
             instructions: null
@@ -58,7 +58,7 @@ fieldLayouts:
             dateAdded: '2025-06-19T17:56:06+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: a186d4ae-477e-4b06-868e-add5e8f44b0c # Embeds
+            fieldUid: a186d4ae-477e-4b06-868e-add5e8f44b0c
             handle: null
             includeInCards: false
             instructions: null

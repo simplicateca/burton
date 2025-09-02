@@ -187,12 +187,12 @@ permissions:
   craft\elements\Entry:
     enabled: '1'
     permissions:
-      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
-      - 'section:24626664-b886-4d46-a8d0-bb30ed656725' # Profiles
-      - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
-      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
+      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e'
+      - 'section:24626664-b886-4d46-a8d0-bb30ed656725'
+      - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9'
+      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59'
       - 'section:d4c481a4-83d0-4824-968f-d14247ec9c65'
-      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
+      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff'
   craft\elements\Tag:
     enabled: ''
     permissions: '*'
@@ -212,9 +212,9 @@ propagationMethod: all
 siteSettings:
   5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
     enabled: false
-  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+  d34bee8e-bf22-451d-8339-a4342630833d:
     enabled: true
-  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # USA
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5:
     enabled: false
 sortOrder: 2
 structure:

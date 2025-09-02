@@ -7,7 +7,7 @@ settings:
   availableTransforms: ''
   availableVolumes: ''
   characterLimit: null
-  ckeConfig: 54bdf500-79d2-4c24-9147-1e3da8064473 # converterPriority: 'high',Text [main]
+  ckeConfig: 54bdf500-79d2-4c24-9147-1e3da8064473
   createButtonLabel: null
   defaultTransform: null
   entryTypes:
@@ -15,7 +15,7 @@ settings:
       __assoc__:
         -
           - uid
-          - 1c33bd9b-3605-42a9-988b-edbab296d1d1 # Headline
+          - 1c33bd9b-3605-42a9-988b-edbab296d1d1
   expandEntryButtons: true
   fullGraphqlData: false
   parseEmbeds: false

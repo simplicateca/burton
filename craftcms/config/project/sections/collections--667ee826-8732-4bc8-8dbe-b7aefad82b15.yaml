@@ -3,18 +3,18 @@ enableVersioning: true
 entryTypes:
   -
     name: 'Collection - Query'
-    uid: 21710874-0ba0-423c-82ec-7fd855abb982 # Content Query
+    uid: 21710874-0ba0-423c-82ec-7fd855abb982
   -
     name: 'Collection - Images'
-    uid: d7748b2a-ae79-4961-b103-a5aa758e39ab # Image Collection
+    uid: d7748b2a-ae79-4961-b103-a5aa758e39ab
   -
     name: Entries
-    uid: e97f398a-bad8-4b85-8315-c80ad3a3d118 # Content Entries
+    uid: e97f398a-bad8-4b85-8315-c80ad3a3d118
   -
-    uid: 333f26c0-28b8-46f7-8399-21a7bc623a2f # Media Collection
+    uid: 333f26c0-28b8-46f7-8399-21a7bc623a2f
   -
     name: 'RSS Feed'
-    uid: 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # External Feed
+    uid: 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6
 handle: collections
 maxAuthors: 1
 name: Collections
@@ -43,7 +43,7 @@ previewTargets:
         - 'hub/collection/{{object.slug}}'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+  d34bee8e-bf22-451d-8339-a4342630833d:
     enabledByDefault: true
     hasUrls: true
     template: _base/entry.twig

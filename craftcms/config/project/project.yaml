@@ -1,0 +1,71 @@
+dateModified: 1756843294
+email:
+  fromEmail: craft@example.com
+  fromName: Canada
+  transportType: craft\mail\transportadapters\Sendmail
+meta:
+  __names__:
+    0a298d28-5145-4b28-a06b-d95742714bdd: Approved # Approved
+    947caae6-8659-44f2-8260-19e9a8f290e1: Simple # Simple
+    5435578f-4317-4fbf-b24f-a5fd4d2e9f68: French # French
+    b161e6c6-3186-4ba2-b215-948d7a2d359a: 'Lead Gen Short' # Lead Gen Short
+    d3d3706c-8e74-46e7-801c-ceea9f8ee159: 'Newsletter Signup' # Newsletter Signup
+    d55f85db-5b73-4535-bb04-6fa3f56ab826: Unreviewed # Unreviewed
+    d89ead44-6b42-4317-9e6d-d8227a50a622: 'Contact Form' # Contact Form
+    d8048ba0-d91d-4863-994b-2e3bb210ac41: Unapproved # Unapproved
+    daed701a-d2cb-4188-b5c2-40e06c01f5c6: Processed # Processed
+    e99d0421-a8b0-490d-98be-c5eb531ef855: New # New
+plugins:
+  behinddesign-object-storage:
+    edition: standard
+    enabled: true
+    schemaVersion: '2.0'
+  ckeditor:
+    edition: standard
+    enabled: true
+    schemaVersion: 3.0.0.0
+  empty-coalesce:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  environment-label:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  feed-me:
+    edition: standard
+    enabled: true
+    schemaVersion: 5.1.1
+  formie:
+    edition: standard
+    enabled: true
+    licenseKey: 45BTVKIL529IAI40W8KD6HG8
+    schemaVersion: 3.4.10
+  metasettings:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  navigation:
+    edition: standard
+    enabled: true
+    licenseKey: WFZXCD5CJ7PRCRRF8WS9ZPCF
+    schemaVersion: 2.1.1
+  retcon:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+  seomatic:
+    edition: standard
+    enabled: true
+    licenseKey: GG3TBR433QO1V05I4AFL5K82
+    schemaVersion: 3.0.13
+  vite:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
+system:
+  edition: solo
+  live: true
+  name: Canada
+  schemaVersion: 5.8.0.3
+  timeZone: America/Los_Angeles

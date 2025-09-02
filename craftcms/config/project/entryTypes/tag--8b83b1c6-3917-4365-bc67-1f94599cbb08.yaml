@@ -47,7 +47,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d
             handle: null
             includeInCards: false
             instructions: 'How is this tag applied to content? Justify its existence and/or lifespan to minimize tag clutter.'

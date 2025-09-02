@@ -13,7 +13,7 @@ fieldLayouts:
             dateAdded: '2025-08-11T15:39:04+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c # Label
+            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c
             handle: statistic
             includeInCards: false
             instructions: null
@@ -30,7 +30,7 @@ fieldLayouts:
             dateAdded: '2025-08-11T15:39:04+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c # Label
+            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c
             handle: headline
             includeInCards: false
             instructions: null
@@ -47,7 +47,7 @@ fieldLayouts:
             dateAdded: '2025-08-12T16:27:50+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
+            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd
             handle: null
             includeInCards: false
             instructions: null
@@ -64,7 +64,7 @@ fieldLayouts:
             dateAdded: '2025-08-11T15:39:04+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d
             handle: null
             includeInCards: true
             instructions: ' '

@@ -38,10 +38,10 @@ settings:
               -
                 - values
                 -
-                  - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
-                  - ad3c4465-2c99-4028-82f5-cd2d63371663 # FAQ
-                  - 066383d2-4c3e-415b-be7e-93c6a4c5471b # Quote
-                  - b9df713e-1b28-462e-b65f-03198b663096 # Stat
+                  - 1eb561c2-313a-4ea5-9332-dd8effd8eb73
+                  - ad3c4465-2c99-4028-82f5-cd2d63371663
+                  - 066383d2-4c3e-415b-be7e-93c6a4c5471b
+                  - b9df713e-1b28-462e-b65f-03198b663096
   selectionLabel: 'Choose Collection'
   showCardsInGrid: false
   showSearchInput: true
@@ -49,7 +49,7 @@ settings:
   showUnpermittedEntries: false
   showUnpermittedSections: false
   sources:
-    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
+    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15'
   targetSiteId: null
   validateRelatedElements: false
   viewMode: cards

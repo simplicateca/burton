@@ -187,7 +187,7 @@ permissions:
   craft\elements\Entry:
     enabled: '1'
     permissions:
-      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
+      - 'section:247cf34e-12cf-4324-b034-3209f48a18ff'
   craft\elements\Tag:
     enabled: ''
     permissions: '*'
@@ -207,9 +207,9 @@ propagationMethod: all
 siteSettings:
   5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
     enabled: true
-  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+  d34bee8e-bf22-451d-8339-a4342630833d:
     enabled: true
-  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # USA
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5:
     enabled: true
 sortOrder: 7
 structure:

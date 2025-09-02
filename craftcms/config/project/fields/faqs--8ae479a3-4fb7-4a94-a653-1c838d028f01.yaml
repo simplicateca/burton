@@ -12,7 +12,7 @@ settings:
       __assoc__:
         -
           - uid
-          - ad3c4465-2c99-4028-82f5-cd2d63371663 # FAQ
+          - ad3c4465-2c99-4028-82f5-cd2d63371663
   includeTableView: false
   maxEntries: null
   minEntries: null
