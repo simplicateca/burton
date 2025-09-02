@@ -38,7 +38,7 @@ settings:
               -
                 - values
                 -
-                  - d7748b2a-ae79-4961-b103-a5aa758e39ab
+                  - d7748b2a-ae79-4961-b103-a5aa758e39ab # Image Collection
   selectionLabel: 'Choose Collection'
   showCardsInGrid: false
   showSearchInput: true
@@ -46,7 +46,7 @@ settings:
   showUnpermittedEntries: false
   showUnpermittedSections: false
   sources:
-    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15'
+    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
   targetSiteId: null
   validateRelatedElements: false
   viewMode: cards

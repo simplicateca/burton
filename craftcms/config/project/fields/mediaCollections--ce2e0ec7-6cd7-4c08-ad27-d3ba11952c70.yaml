@@ -38,8 +38,8 @@ settings:
               -
                 - values
                 -
-                  - 333f26c0-28b8-46f7-8399-21a7bc623a2f
-                  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6
+                  - 333f26c0-28b8-46f7-8399-21a7bc623a2f # Media Collection
+                  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # External Feed
   selectionLabel: 'Choose Collection'
   showCardsInGrid: false
   showSearchInput: true
@@ -47,7 +47,7 @@ settings:
   showUnpermittedEntries: false
   showUnpermittedSections: false
   sources:
-    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15'
+    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
   targetSiteId: null
   validateRelatedElements: false
   viewMode: cards

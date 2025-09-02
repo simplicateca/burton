@@ -41,7 +41,7 @@ fieldLayouts:
             dateAdded: '2025-06-19T18:11:01+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211
+            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
             handle: null
             includeInCards: false
             instructions: null
@@ -60,7 +60,7 @@ fieldLayouts:
 handle: collectionEntries
 hasTitleField: true
 icon: cabinet-filing
-name: 'Content Entries'
+name: 'Entry Collection'
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null

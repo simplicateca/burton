@@ -41,7 +41,7 @@ fieldLayouts:
             dateAdded: null
             editCondition: null
             elementCondition: null
-            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211
+            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
             handle: null
             includeInCards: false
             instructions: null
@@ -58,7 +58,7 @@ fieldLayouts:
             dateAdded: null
             editCondition: null
             elementCondition: null
-            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
             handle: null
             includeInCards: false
             instructions: null

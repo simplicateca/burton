@@ -29,7 +29,7 @@ fieldLayouts:
             dateAdded: '2025-08-26T17:52:00+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: dd16cc0f-224b-4492-9c1b-1cc91a5d61f5
+            fieldUid: dd16cc0f-224b-4492-9c1b-1cc91a5d61f5 # Entry Details
             handle: null
             includeInCards: false
             instructions: null
@@ -94,7 +94,7 @@ fieldLayouts:
             dateAdded: '2025-08-26T17:52:00+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: c8176ffc-a976-4b43-b634-244a16039154
+            fieldUid: c8176ffc-a976-4b43-b634-244a16039154 # Entry Card
             handle: null
             includeInCards: false
             instructions: null
@@ -120,7 +120,7 @@ fieldLayouts:
             dateAdded: '2025-08-26T17:52:00+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: d3134fdd-a3cf-4946-83cf-d9061072af34
+            fieldUid: d3134fdd-a3cf-4946-83cf-d9061072af34 # Component
             handle: form
             includeInCards: false
             instructions: null
@@ -137,7 +137,7 @@ fieldLayouts:
             dateAdded: '2025-08-26T17:52:00+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Tags
             handle: null
             includeInCards: false
             instructions: null
@@ -169,7 +169,7 @@ fieldLayouts:
             dateAdded: '2025-08-26T17:52:00+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab
+            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab # Code
             handle: transcript
             includeInCards: false
             instructions: null
@@ -189,21 +189,13 @@ fieldLayouts:
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
             uid: d21d4f5f-7934-4d4b-8c7c-4869eb814926
-            userCondition:
-              class: craft\elements\conditions\users\UserCondition
-              conditionRules:
-                -
-                  class: craft\elements\conditions\users\AdminConditionRule
-                  uid: 0bea4cbb-3568-41dc-8e78-f91f3c8eb27b
-                  value: true
-              elementType: craft\elements\User
-              fieldContext: global
+            userCondition: null
             width: 25
           -
             dateAdded: '2025-08-26T17:52:00+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64
+            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64 # JSON
             handle: null
             includeInCards: false
             instructions: null
@@ -213,15 +205,7 @@ fieldLayouts:
             tip: null
             type: craft\fieldlayoutelements\CustomField
             uid: 442b9385-d5e5-48c3-8ae2-c4a2639059f4
-            userCondition:
-              class: craft\elements\conditions\users\UserCondition
-              conditionRules:
-                -
-                  class: craft\elements\conditions\users\AdminConditionRule
-                  uid: d20d7ac0-cc67-4ee2-b23a-9743a18879cb
-                  value: true
-              elementType: craft\elements\User
-              fieldContext: global
+            userCondition: null
             warning: null
             width: 75
         name: Meta

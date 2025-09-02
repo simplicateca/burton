@@ -12,7 +12,7 @@ settings:
       __assoc__:
         -
           - uid
-          - 2f9a88fa-6727-4d94-8911-683ba9031dd0
+          - 2f9a88fa-6727-4d94-8911-683ba9031dd0 # Block - Bits
         -
           - group
           - General
@@ -20,7 +20,7 @@ settings:
       __assoc__:
         -
           - uid
-          - 96192f21-960f-489c-a380-96e4b51f2777
+          - 96192f21-960f-489c-a380-96e4b51f2777 # Block - Card
         -
           - group
           - General
@@ -28,7 +28,7 @@ settings:
       __assoc__:
         -
           - uid
-          - faaa512e-f0ed-4151-97de-d73bdc9a4f5e
+          - faaa512e-f0ed-4151-97de-d73bdc9a4f5e # Block - Component
         -
           - group
           - General
@@ -36,7 +36,7 @@ settings:
       __assoc__:
         -
           - uid
-          - 4248eeb1-ca4d-476f-9998-7780ee611c74
+          - 4248eeb1-ca4d-476f-9998-7780ee611c74 # Block - Image
         -
           - group
           - General
@@ -44,7 +44,7 @@ settings:
       __assoc__:
         -
           - uid
-          - b4783a60-e9ff-40a2-8e9e-159b24fad0a9
+          - b4783a60-e9ff-40a2-8e9e-159b24fad0a9 # Block - Media
         -
           - group
           - General
@@ -52,7 +52,7 @@ settings:
       __assoc__:
         -
           - uid
-          - 14dff90f-f8fc-444e-bc75-e51f72aa490d
+          - 14dff90f-f8fc-444e-bc75-e51f72aa490d # Block - Text
         -
           - group
           - General

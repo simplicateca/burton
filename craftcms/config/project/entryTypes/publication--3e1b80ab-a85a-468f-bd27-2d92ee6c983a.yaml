@@ -1,32 +1,32 @@
-color: null
+color: rose
 description: null
 fieldLayouts:
-  eef57681-5e0b-4580-b05a-72dea32206f5:
+  6c1321a4-38b4-4f46-92c7-1237ffa7db03:
     cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
         elements:
           -
-            content: "# Topic\r\n---"
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            content: "# Publications\r\n---"
+            dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
-            uid: 1683de9f-ae0f-4bfe-89a5-19e5b246b172
+            uid: 24123707-b371-4f6f-8eca-f2de16489b19
             userCondition: null
             width: 100
           -
             content: '## Details'
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
-            uid: 82fd1890-cce0-4b26-90d5-1ca2ce7fa2ac
+            uid: 0f325136-2924-43d3-a43f-062d543a9df3
             userCondition: null
             width: 25
           -
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             editCondition: null
             elementCondition: null
             fieldUid: dd16cc0f-224b-4492-9c1b-1cc91a5d61f5 # Entry Details
@@ -38,21 +38,21 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: ec6d139a-4185-426a-91c1-1d230887c55f
+            uid: cb792dc5-6a7e-4402-90d7-b637057b8163
             userCondition: null
             warning: null
             width: 75
           -
             content: '## Teaser Card'
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
-            uid: d4d45e9a-81b3-4f76-95ad-b1a66ca7af37
+            uid: 8dd74148-c5e4-4136-8f60-a8c22248de04
             userCondition: null
             width: 25
           -
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             editCondition: null
             elementCondition: null
             fieldUid: c8176ffc-a976-4b43-b634-244a16039154 # Entry Card
@@ -64,21 +64,21 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 13e0ac86-53e0-484d-9f05-97d3989750e1
+            uid: 7a59675c-9863-424c-9ba1-cf15a7708986
             userCondition: null
             warning: null
             width: 75
           -
             content: '## Graphics'
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
-            uid: 675c94ce-3cdb-4a69-a8ad-c3de2d65e3e2
+            uid: ffff92e7-2aa0-4e2d-87d5-cac5f1c90a4e
             userCondition: null
             width: 25
           -
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             editCondition: null
             elementCondition: null
             fieldUid: cd2e6879-b86b-4803-8657-7cc5dad06cfb # Entry Graphics
@@ -90,30 +90,30 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: e4084cda-1a60-4d9d-8f17-35692575283c
+            uid: 06c87752-0969-47ef-affc-52ba4d75624d
             userCondition: null
             warning: null
             width: 75
           -
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:55:32+00:00'
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
-            uid: c92e323c-bbd5-4ca1-aac1-8db8b958da27
+            uid: a1b0ef4e-915c-401c-b17a-64fd03def6fc
             userCondition: null
           -
-            content: '## Relationships'
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            content: '## Entries'
+            dateAdded: '2025-09-02T22:55:32+00:00'
             displayInPane: false
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
-            uid: 1f5073f5-0950-4d6c-9455-9e12abd8d075
+            uid: 8a9202c4-0e54-4007-829f-024c2403da11
             userCondition: null
             width: 25
           -
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:55:32+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
+            fieldUid: 71c33ae7-e68b-4a57-85cf-d73b1c55565c # Nested Entries
             handle: null
             includeInCards: false
             instructions: null
@@ -122,27 +122,27 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 0acb9ea7-e2db-4d8f-8295-584ca52290d9
+            uid: 84e9b8a0-903d-4abd-8acd-cd7b38707f2e
             userCondition: null
             warning: null
             width: 75
-        name: Topic
-        uid: cbf19f7c-2dd0-4513-bc6c-370b9bd8fe10
+        name: Publication
+        uid: b9a694aa-5b29-42d0-9aab-d31c6dd7047e
         userCondition: null
       -
         elementCondition: null
         elements:
           -
             content: '## Header Builder'
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
-            uid: 5361ae52-3745-4a98-a47a-73da77727b3d
+            uid: 17785ec3-7d85-4c39-a38a-4b5abd53d72e
             userCondition: null
             width: 25
           -
-            dateAdded: '2024-11-03T22:21:51+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             editCondition: null
             elementCondition: null
             fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
@@ -154,21 +154,21 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: e22de661-6d83-4cfe-bae8-6e96baf0941c
+            uid: 27d41e4e-1fe6-4a84-a7b8-aa848e4055b1
             userCondition: null
             warning: null
             width: 75
           -
             content: '## Body Builder'
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
-            uid: c3c42784-d831-4765-a7c4-112de7d1b63b
+            uid: eb759d87-b2e6-4527-b8c6-83bb01ea4c33
             userCondition: null
             width: 25
           -
-            dateAdded: '2024-11-03T22:21:51+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             editCondition: null
             elementCondition: null
             fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Builder - Body
@@ -180,21 +180,21 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: a29392b6-40b3-4b3d-bd85-41144fbab6a0
+            uid: d20073b8-ce6a-4c11-9933-cbcbcfe14a12
             userCondition: null
             warning: null
             width: 75
           -
-            content: '## Sidebar Builder'
-            dateAdded: '2025-09-02T23:09:33+00:00'
-            displayInPane: false
+            content: '## Sidebar'
+            dateAdded: '2025-09-02T22:53:56+00:00'
+            displayInPane: true
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
-            uid: fb5a4a15-1498-4a1a-af4f-a70171eff0a1
+            uid: e2523712-549d-47cf-8d73-58fd1639715c
             userCondition: null
             width: 25
           -
-            dateAdded: '2025-09-02T23:09:33+00:00'
+            dateAdded: '2025-09-02T22:53:56+00:00'
             editCondition: null
             elementCondition: null
             fieldUid: a6272176-e780-4d5e-90f2-df0115d1a324 # Builder - Sidebar
@@ -206,17 +206,17 @@ fieldLayouts:
             required: false
             tip: null
             type: craft\fieldlayoutelements\CustomField
-            uid: 9cb38751-d65e-4300-8e6f-2aeeb0245048
+            uid: 0ed835f2-242a-48fe-aa8f-8901aeb32982
             userCondition: null
             warning: null
             width: 75
         name: Content
-        uid: 02d94838-1168-49d9-9901-127afee57e44
+        uid: c8293d70-cd30-4e66-8f35-fb4213b9271b
         userCondition: null
-handle: topic
+handle: publication
 hasTitleField: false
-icon: tags
-name: Topic
+icon: book-open
+name: Publication
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null

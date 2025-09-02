@@ -39,7 +39,7 @@ tabs:
         dateAdded: null
         editCondition: null
         elementCondition: null
-        fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e
+        fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
         handle: null
         includeInCards: false
         instructions: null
@@ -56,7 +56,7 @@ tabs:
         dateAdded: null
         editCondition: null
         elementCondition: null
-        fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d
+        fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
         handle: null
         includeInCards: false
         instructions: null
@@ -73,7 +73,7 @@ tabs:
         dateAdded: null
         editCondition: null
         elementCondition: null
-        fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27
+        fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text [main]
         handle: null
         includeInCards: false
         instructions: null
@@ -90,7 +90,7 @@ tabs:
         dateAdded: null
         editCondition: null
         elementCondition: null
-        fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257
+        fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
         handle: null
         includeInCards: false
         instructions: null

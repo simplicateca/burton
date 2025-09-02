@@ -11,14 +11,14 @@ settings:
     - link
     - type
     - postDate
-    - 'field:545f1fed-e750-457f-91f5-47b4faf56f85'
+    - 'field:545f1fed-e750-457f-91f5-47b4faf56f85' # Title - Entry
   enableVersioning: false
   entryTypes:
     -
       __assoc__:
         -
           - uid
-          - 99d1e742-e9ee-4468-8f52-06f9672d8f68
+          - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
         -
           - group
           - General
@@ -26,7 +26,7 @@ settings:
       __assoc__:
         -
           - uid
-          - c1ea9486-a2c9-4169-9858-144fd21c25b9
+          - c1ea9486-a2c9-4169-9858-144fd21c25b9 # Article
         -
           - group
           - General

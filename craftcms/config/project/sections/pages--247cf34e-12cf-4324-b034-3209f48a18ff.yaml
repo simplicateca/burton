@@ -3,21 +3,13 @@ enableVersioning: true
 entryTypes:
   -
     name: 'Entry - Page'
-    uid: 99d1e742-e9ee-4468-8f52-06f9672d8f68
+    uid: 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
   -
-    uid: 0c3eb4bf-9fe7-422e-9947-289edfc00105
+    uid: 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
   -
-    name: 'Entry - Brand'
-    uid: f7e61633-c292-4302-a0d2-ca73da792fcb
+    uid: c1ea9486-a2c9-4169-9858-144fd21c25b9 # Article
   -
-    name: 'Entry - City'
-    uid: 041e750b-ab10-4fb9-a87b-41acf128aae2
-  -
-    name: 'Entry - Venue'
-    uid: 4df7052c-989e-4e15-8d24-31029f8fd2f6
-  -
-    name: 'Entry - Magazine Issue'
-    uid: 16eeaaf8-6778-46b1-887b-f4a83630cda3
+    uid: 3e1b80ab-a85a-468f-bd27-2d92ee6c983a # Publication
 handle: pages
 maxAuthors: 1
 name: 'Core Pages'
@@ -35,7 +27,7 @@ previewTargets:
         - '{url}'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
     enabledByDefault: true
     hasUrls: true
     template: _base/entry.twig

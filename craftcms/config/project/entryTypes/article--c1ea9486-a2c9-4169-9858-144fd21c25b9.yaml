@@ -67,7 +67,7 @@ fieldLayouts:
             dateAdded: '2024-08-27T18:11:53+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Title - Entry
             handle: null
             includeInCards: false
             instructions: null
@@ -84,7 +84,7 @@ fieldLayouts:
             dateAdded: '2024-08-27T18:11:53+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
             handle: null
             includeInCards: false
             instructions: null
@@ -107,7 +107,7 @@ fieldLayouts:
             dateAdded: '2024-09-01T20:09:59+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 0b229987-523a-4f15-9fb6-ff9113242afe
+            fieldUid: 0b229987-523a-4f15-9fb6-ff9113242afe # Content Outline
             handle: null
             includeInCards: false
             instructions: null
@@ -124,7 +124,7 @@ fieldLayouts:
             dateAdded: '2024-08-27T18:11:53+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Tags
             handle: null
             includeInCards: false
             instructions: null
@@ -141,7 +141,7 @@ fieldLayouts:
             dateAdded: '2024-08-27T18:11:53+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
             handle: null
             includeInCards: false
             instructions: null
@@ -158,7 +158,7 @@ fieldLayouts:
             dateAdded: '2024-08-27T18:11:53+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
             handle: null
             includeInCards: false
             instructions: null
@@ -190,7 +190,7 @@ fieldLayouts:
             dateAdded: '2024-08-27T18:11:53+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Builder - Body
             handle: null
             includeInCards: false
             instructions: null

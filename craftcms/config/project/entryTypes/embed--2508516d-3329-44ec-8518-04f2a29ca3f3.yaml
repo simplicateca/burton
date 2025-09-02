@@ -45,14 +45,14 @@ fieldLayouts:
               conditionRules:
                 -
                   class: craft\fields\conditions\TextFieldConditionRule
-                  fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab
+                  fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab # Code
                   layoutElementUid: c7da2ae7-76e4-45d1-9523-1dc41bf4ce7a
                   operator: empty
                   uid: b2207621-c0e7-4773-aee9-880b6cd76438
                   value: ''
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
             handle: null
             includeInCards: false
             instructions: null
@@ -73,14 +73,14 @@ fieldLayouts:
               conditionRules:
                 -
                   class: craft\fields\conditions\TextFieldConditionRule
-                  fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257
+                  fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
                   layoutElementUid: 34c14ce2-99c8-4ece-8121-448e83999375
                   operator: empty
                   uid: 6afa79a1-dd24-4f8f-af44-19f6125e9ee9
                   value: ''
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab
+            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab # Code
             handle: null
             includeInCards: false
             instructions: null
@@ -112,7 +112,7 @@ fieldLayouts:
             dateAdded: '2025-05-21T00:09:52+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
             handle: null
             includeInCards: false
             instructions: null
@@ -129,7 +129,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
             handle: null
             includeInCards: false
             instructions: null
@@ -146,7 +146,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
             handle: null
             includeInCards: false
             instructions: null
@@ -169,7 +169,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Tags
             handle: null
             includeInCards: false
             instructions: null
@@ -192,7 +192,7 @@ fieldLayouts:
             dateAdded: '2025-07-21T16:41:03+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
             handle: transcript
             includeInCards: false
             instructions: 'Transcribed log of audio content (if applicable)'
@@ -209,7 +209,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:47:18+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64
+            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64 # JSON
             handle: null
             includeInCards: false
             instructions: null

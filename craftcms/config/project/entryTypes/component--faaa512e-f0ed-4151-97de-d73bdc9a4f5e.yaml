@@ -23,7 +23,7 @@ fieldLayouts:
             dateAdded: '2025-07-11T16:01:56+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2
+            fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
             handle: null
             includeInCards: false
             instructions: null
@@ -44,7 +44,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
-                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2
+                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
                   layoutElementUid: 67d9ffe9-367a-4a34-b0cf-1ced461a4120
                   operator: in
                   uid: f9a5bf92-6611-4dbc-b0e6-c6ae6bba4bd7
@@ -52,7 +52,7 @@ fieldLayouts:
                     - embed
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab
+            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab # Code
             handle: null
             includeInCards: false
             instructions: null
@@ -73,7 +73,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
-                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2
+                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
                   layoutElementUid: 67d9ffe9-367a-4a34-b0cf-1ced461a4120
                   operator: in
                   uid: 0fac1946-7b64-440b-9996-b7c0810b4342
@@ -81,7 +81,7 @@ fieldLayouts:
                     - select
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: d3134fdd-a3cf-4946-83cf-d9061072af34
+            fieldUid: d3134fdd-a3cf-4946-83cf-d9061072af34 # Component
             handle: null
             includeInCards: false
             instructions: null
@@ -102,7 +102,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
-                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2
+                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
                   layoutElementUid: 67d9ffe9-367a-4a34-b0cf-1ced461a4120
                   operator: in
                   uid: 5248ae5a-7a73-42e7-8208-34e2d65ea91b
@@ -110,7 +110,7 @@ fieldLayouts:
                     - asset
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: 0c659167-8917-4560-a17e-1b77c1469dd8
+            fieldUid: 0c659167-8917-4560-a17e-1b77c1469dd8 # Download
             handle: null
             includeInCards: false
             instructions: null
@@ -142,7 +142,7 @@ fieldLayouts:
             dateAdded: '2024-08-27T18:11:54+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d
+            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Frame
             handle: null
             includeInCards: false
             instructions: null
@@ -159,7 +159,7 @@ fieldLayouts:
             dateAdded: '2025-06-14T20:05:29+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 30d51977-2c56-424c-b45a-e20afdc7dfbb
+            fieldUid: 30d51977-2c56-424c-b45a-e20afdc7dfbb # Format
             handle: null
             includeInCards: false
             instructions: null
@@ -191,7 +191,7 @@ fieldLayouts:
             dateAdded: '2024-08-27T18:11:54+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa
+            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
             handle: null
             includeInCards: false
             instructions: null
@@ -212,7 +212,7 @@ fieldLayouts:
               conditionRules:
                 -
                   class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
-                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa
+                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
                   layoutElementUid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
                   operator: in
                   uid: 04a2a90c-fb16-470d-a2bd-4b2d6f1df74c
@@ -225,10 +225,10 @@ fieldLayouts:
                   operator: ni
                   uid: b0d63468-7324-41bd-a0ca-40d1175a92be
                   values:
-                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: 7f04ec39-5b52-4784-a5cf-696c57c8b43a
+            fieldUid: 7f04ec39-5b52-4784-a5cf-696c57c8b43a # Title - Block
             handle: intro
             includeInCards: false
             instructions: null
@@ -252,10 +252,10 @@ fieldLayouts:
                   operator: in
                   uid: 7eb3e51e-3793-4155-a036-89b567041aae
                   values:
-                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
                 -
                   class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
-                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa
+                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
                   layoutElementUid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
                   operator: in
                   uid: 90fe1b49-04b1-4818-a468-b7a4a23ff3e4
@@ -265,7 +265,7 @@ fieldLayouts:
                     - copyBelowHeader
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Title - Entry
             handle: introHeader
             includeInCards: false
             instructions: null
@@ -295,10 +295,10 @@ fieldLayouts:
                   operator: ni
                   uid: f4eb23ae-58a3-4096-889a-6ad3cd4c622e
                   values:
-                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
                 -
                   class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
-                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa
+                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
                   layoutElementUid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
                   operator: ni
                   uid: 53911d1a-a5a4-4639-8009-6f7b0a6bf017
@@ -306,7 +306,7 @@ fieldLayouts:
                     - copyNone
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text [main]
             handle: null
             includeInCards: true
             instructions: null
@@ -330,10 +330,10 @@ fieldLayouts:
                   operator: in
                   uid: dac56427-b054-406f-8233-dffa80fefb0a
                   values:
-                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
                 -
                   class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
-                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa
+                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
                   layoutElementUid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
                   operator: ni
                   uid: 6a733015-b009-461d-a540-555d41878f01
@@ -341,7 +341,7 @@ fieldLayouts:
                     - copyNone
               elementType: craft\elements\Entry
               fieldContext: global
-            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
             handle: null
             includeInCards: true
             instructions: null

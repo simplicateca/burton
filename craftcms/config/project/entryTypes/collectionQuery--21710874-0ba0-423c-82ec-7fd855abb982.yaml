@@ -56,7 +56,7 @@ fieldLayouts:
             dateAdded: '2025-06-19T17:49:50+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 2ad016be-9629-4fb6-b1e6-be1bc3d88c0f
+            fieldUid: 2ad016be-9629-4fb6-b1e6-be1bc3d88c0f # Query
             handle: null
             includeInCards: false
             instructions: null
@@ -73,7 +73,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Tags
             handle: null
             includeInCards: false
             instructions: null
@@ -90,7 +90,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211
+            fieldUid: f240ce26-8d9d-4668-b18b-73371d5c5211 # Entries
             handle: null
             includeInCards: false
             instructions: null
@@ -113,7 +113,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Title - Entry
             handle: null
             includeInCards: false
             instructions: null
@@ -130,7 +130,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd
+            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
             handle: null
             includeInCards: false
             instructions: null
@@ -147,7 +147,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:51+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb
+            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
             handle: null
             includeInCards: false
             instructions: null
@@ -166,7 +166,7 @@ fieldLayouts:
 handle: collectionQuery
 hasTitleField: true
 icon: radar
-name: 'Content Query'
+name: 'Live Query'
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null

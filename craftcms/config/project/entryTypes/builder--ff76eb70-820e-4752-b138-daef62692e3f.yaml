@@ -74,7 +74,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:42:47+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Builder - Body
             handle: builder
             includeInCards: false
             instructions: null

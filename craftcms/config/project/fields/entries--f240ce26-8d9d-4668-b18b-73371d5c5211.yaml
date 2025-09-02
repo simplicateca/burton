@@ -38,11 +38,11 @@ settings:
               -
                 - values
                 -
-                  - 99d1e742-e9ee-4468-8f52-06f9672d8f68
-                  - bb561dd8-e748-4c68-9107-2ffd5db410d8
+                  - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
+                  - bb561dd8-e748-4c68-9107-2ffd5db410d8 # Topic
                   - 98843cde-e128-4799-a8dd-1862eba69b21
                   - 16eeaaf8-6778-46b1-887b-f4a83630cda3
-                  - c1ea9486-a2c9-4169-9858-144fd21c25b9
+                  - c1ea9486-a2c9-4169-9858-144fd21c25b9 # Article
                   - f7e61633-c292-4302-a0d2-ca73da792fcb
                   - 041e750b-ab10-4fb9-a87b-41acf128aae2
                   - 4df7052c-989e-4e15-8d24-31029f8fd2f6

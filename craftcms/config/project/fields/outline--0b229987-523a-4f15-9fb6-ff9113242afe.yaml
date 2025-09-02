@@ -7,7 +7,7 @@ settings:
   availableTransforms: ''
   availableVolumes: ''
   characterLimit: null
-  ckeConfig: 941927ac-1577-4a48-adde-7f457a78ace6
+  ckeConfig: 941927ac-1577-4a48-adde-7f457a78ace6 # Content Outline
   createButtonLabel: null
   defaultTransform: null
   expandEntryButtons: false

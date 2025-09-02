@@ -11,7 +11,7 @@ fieldLayouts:
             dateAdded: '2025-08-11T15:42:37+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c
+            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c # Label
             handle: null
             includeInCards: false
             instructions: null
@@ -28,7 +28,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:42:49+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
             handle: null
             includeInCards: false
             instructions: null
@@ -51,7 +51,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:42:49+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
             handle: null
             includeInCards: false
             instructions: null
@@ -68,7 +68,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:42:49+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd
+            fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
             handle: null
             includeInCards: false
             instructions: null
@@ -85,7 +85,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:42:49+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb
+            fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
             handle: null
             includeInCards: false
             instructions: null
@@ -108,7 +108,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:46:46+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
             handle: source
             includeInCards: false
             instructions: null
@@ -125,7 +125,7 @@ fieldLayouts:
             dateAdded: '2025-06-27T16:46:46+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64
+            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64 # JSON
             handle: null
             includeInCards: false
             instructions: null

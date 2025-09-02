@@ -67,7 +67,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:59+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
             handle: null
             includeInCards: false
             instructions: null
@@ -84,7 +84,7 @@ fieldLayouts:
             dateAdded: '2024-11-03T22:21:59+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Tags
             handle: null
             includeInCards: false
             instructions: null
@@ -101,7 +101,7 @@ fieldLayouts:
             dateAdded: '2025-07-21T16:42:20+00:00'
             editCondition: null
             elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
             handle: transcript
             includeInCards: false
             instructions: 'Transcribed log of audio content (if applicable)'

@@ -1,20 +1,190 @@
-dateModified: 1756843294
+dateModified: 1756855502
+elementSources:
+  craft\elements\Entry:
+    -
+      defaultSort:
+        - postDate
+        - desc
+      defaultViewMode: ''
+      disabled: true
+      key: '*'
+      tableAttributes:
+        - status
+        - section
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      heading: 'Primary Content'
+      key: 'heading:38c87a82-3f3d-4277-87d9-712cc185327b'
+      type: heading
+    -
+      defaultSort:
+        - structure
+        - asc
+      defaultViewMode: ''
+      disabled: false
+      key: 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
+      tableAttributes:
+        - status
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      heading: 'Secondary Content'
+      key: 'heading:e0c2b039-c232-42e3-8fd6-bce2f85df383'
+      type: heading
+    -
+      defaultSort:
+        - postDate
+        - desc
+      defaultViewMode: ''
+      disabled: false
+      key: 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
+      tableAttributes:
+        - status
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      defaultSort:
+        - postDate
+        - desc
+      defaultViewMode: ''
+      disabled: true
+      key: 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusables
+      tableAttributes:
+        - status
+        - postDate
+        - expiryDate
+        - link
+      type: native
+    -
+      condition:
+        class: craft\elements\conditions\entries\EntryCondition
+        conditionRules:
+          -
+            class: craft\elements\conditions\entries\TypeConditionRule
+            operator: in
+            uid: 26d355e0-2ddf-459a-a8ca-246bbeabf0d0
+            values:
+              - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragment
+        elementType: craft\elements\Entry
+        fieldContext: global
+      defaultSort:
+        - id
+        - asc
+      defaultViewMode: ''
+      key: 'custom:73d5a2ae-91a3-4144-aec0-78bceb9b751b'
+      label: Pieces
+      tableAttributes:
+        - type
+      type: custom
 email:
   fromEmail: craft@example.com
   fromName: Canada
   transportType: craft\mail\transportadapters\Sendmail
 meta:
   __names__:
-    0a298d28-5145-4b28-a06b-d95742714bdd: Approved # Approved
+    0b229987-523a-4f15-9fb6-ff9113242afe: 'Content Outline' # Content Outline
+    0c3eb4bf-9fe7-422e-9947-289edfc00105: Redirect # Redirect
+    0c659167-8917-4560-a17e-1b77c1469dd8: Download # Download
+    1c33bd9b-3605-42a9-988b-edbab296d1d1: Headline # Headline
+    01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa: Secondary # Secondary
+    1eb561c2-313a-4ea5-9332-dd8effd8eb73: Bit # Bit
+    1fc4d14e-bdf2-4cfa-a95c-64f6dac73d40: 'Entry Collections' # Entry Collections
+    2ad016be-9629-4fb6-b1e6-be1bc3d88c0f: Query # Query
+    2f9a88fa-6727-4d94-8911-683ba9031dd0: 'Block - Bits' # Block - Bits
+    2f49bc19-1268-44b4-a2b9-82985d4df78f: 'Brand (Protected)' # Brand (Protected)
+    3e1b80ab-a85a-468f-bd27-2d92ee6c983a: Publication # Publication
+    3f9234b9-eff5-41c9-9171-94fccbed06d2: Downloadable # Downloadable
+    4b2a900b-f8d6-4b24-aee5-10ebc4051eb6: 'External Feed' # External Feed
+    4b104ed0-4b08-424b-a744-f9bbf418fc2f: Images # Images
+    4dce367e-15ad-4485-bca9-6069ca8f1fe8: Time # Time
+    04de3988-1519-432d-92a4-e455f30a3afc: Form # Form
+    4e4f70c0-d6ad-4f06-820e-16adde258240: Logo # Logo
+    05a000c7-b7b3-48ca-be09-d6694316cd33: 'Bit Collections' # Bit Collections
+    6b2eba22-6c56-45f8-8902-db5d24ff39ba: Document # Document
+    06d15756-5b0e-4a06-a8db-0f2343d4b25f: 'Block - Fragment' # Block - Fragment
+    7c5978ef-57e9-4af0-ac60-b2ecdde4197a: 'Block [title]' # Block [title]
+    7f04ec39-5b52-4784-a5cf-696c57c8b43a: 'Title - Block' # Title - Block
+    8b83b1c6-3917-4365-bc67-1f94599cbb08: Tag # Tag
+    8fdbf754-ae65-42c5-ba4b-09de9259cad2: Source # Source
+    14dff90f-f8fc-444e-bc75-e51f72aa490d: 'Block - Text' # Block - Text
+    30d51977-2c56-424c-b45a-e20afdc7dfbb: Format # Format
+    034fa9d1-d6c0-4c0e-8b5c-c149c6fc6265: Bits # Bits
+    54bdf500-79d2-4c24-9147-1e3da8064473: "converterPriority: 'high',Text [main]" # converterPriority: 'high',Text [main]
+    71c33ae7-e68b-4a57-85cf-d73b1c55565c: 'Nested Entries' # Nested Entries
+    80efb477-2139-4866-94cf-33a1c87432af: 'Nested Blocks' # Nested Blocks
+    88fdcb93-d8c6-4625-807e-885199098b6c: Label # Label
+    93a86902-7a1b-4986-ba7f-35cef71233ac: Canadian # Canadian
+    97c10fff-f319-4ab2-8dac-c631658cb9a2: Fragments # Fragments
+    99d1e742-e9ee-4468-8f52-06f9672d8f68: Page # Page
+    105d868c-b1ba-4534-a294-c66bca17ed17: 'Audio File' # Audio File
+    247cf34e-12cf-4324-b034-3209f48a18ff: 'Core Pages' # Core Pages
+    333f26c0-28b8-46f7-8399-21a7bc623a2f: 'Media Collection' # Media Collection
+    335b1087-e2f6-41b1-b7de-f8d4b61d6c1e: 'Text [header]' # Text [header]
+    545f1fed-e750-457f-91f5-47b4faf56f85: 'Title - Entry' # Title - Entry
+    581b9070-f50c-49a0-91c7-2921437ad0fb: Color # Color
+    615b4078-5891-406a-ba93-6eb8e1528924: Users # Users
+    638d56f9-7d8c-4ff1-9e7e-a692f3348ddf: 'United States' # United States
+    667ee826-8732-4bc8-8dbe-b7aefad82b15: Collections # Collections
+    685e625d-7180-40dc-a031-953f5f9a8cef: Reusables # Reusables
     947caae6-8659-44f2-8260-19e9a8f290e1: Simple # Simple
+    4248eeb1-ca4d-476f-9998-7780ee611c74: 'Block - Image' # Block - Image
+    5635a1ac-adca-4a96-816a-7ae1b664bc4d: Frame # Frame
+    7487ca3f-f51b-40e9-a538-40ab5b2c4a27: 'Text [main]' # Text [main]
+    066383d2-4c3e-415b-be7e-93c6a4c5471b: Quote # Quote
+    96192f21-960f-489c-a380-96e4b51f2777: 'Block - Card' # Block - Card
+    117811d2-61b4-46e9-875e-998c4f9df9c8: 'Text (With Bits)' # Text (With Bits)
+    280486f4-01ac-42a0-8604-c20f6b62b5df: 'Content (Public)' # Content (Public)
+    941927ac-1577-4a48-adde-7f457a78ace6: 'Content Outline' # Content Outline
+    2508516d-3329-44ec-8518-04f2a29ca3f3: Embed # Embed
     5435578f-4317-4fbf-b24f-a5fd4d2e9f68: French # French
-    b161e6c6-3186-4ba2-b215-948d7a2d359a: 'Lead Gen Short' # Lead Gen Short
-    d3d3706c-8e74-46e7-801c-ceea9f8ee159: 'Newsletter Signup' # Newsletter Signup
-    d55f85db-5b73-4535-bb04-6fa3f56ab826: Unreviewed # Unreviewed
-    d89ead44-6b42-4317-9e6d-d8227a50a622: 'Contact Form' # Contact Form
-    d8048ba0-d91d-4863-994b-2e3bb210ac41: Unapproved # Unapproved
-    daed701a-d2cb-4188-b5c2-40e06c01f5c6: Processed # Processed
-    e99d0421-a8b0-490d-98be-c5eb531ef855: New # New
+    21710874-0ba0-423c-82ec-7fd855abb982: 'Live Query' # Live Query
+    a03cf6a5-0e00-43cb-871c-3a37dde51a3e: 'Builder - Header' # Builder - Header
+    a186d4ae-477e-4b06-868e-add5e8f44b0c: Embeds # Embeds
+    a6646e4b-1f8d-479d-a56f-109eb28ab6ce: Records # Records
+    a6272176-e780-4d5e-90f2-df0115d1a324: 'Builder - Sidebar' # Builder - Sidebar
+    ad02d4ae-140c-42a7-ad18-9c14bd90aa05: Address # Address
+    ad3c4465-2c99-4028-82f5-cd2d63371663: FAQ # FAQ
+    b9df713e-1b28-462e-b65f-03198b663096: Stat # Stat
+    b24f1298-62ac-4de3-9ac3-32e644553bab: Code # Code
+    b54aca1f-5631-4f76-a248-e953c4ada5bd: Icon # Icon
+    b4753be4-da84-4306-82e8-a9473ca5398f: 'Builder - Body' # Builder - Body
+    b4783a60-e9ff-40a2-8e9e-159b24fad0a9: 'Block - Media' # Block - Media
+    bb561dd8-e748-4c68-9107-2ffd5db410d8: Topic # Topic
+    c1ea9486-a2c9-4169-9858-144fd21c25b9: Article # Article
+    c3a40ee3-075b-405c-8e4e-6e676b5e7f64: JSON # JSON
+    c79e1e50-f4c9-4875-af8a-4a1be47d3c09: 'Enriched [title]' # Enriched [title]
+    c8176ffc-a976-4b43-b634-244a16039154: 'Entry Card' # Entry Card
+    cd2e6879-b86b-4803-8657-7cc5dad06cfb: 'Entry Graphics' # Entry Graphics
+    ce2e0ec7-6cd7-4c08-ad27-d3ba11952c70: 'Media Collections' # Media Collections
+    d4e393d2-e3cd-402c-a300-6f42cc0553c1: 'Audio MP3' # Audio MP3
+    d8bf6768-4ff5-4727-ac20-12f8f0344542: Media # Media
+    d34bee8e-bf22-451d-8339-a4342630833d: Canada # Canada
+    d54e9112-8ddd-477c-b0db-038d553edef4: Square # Square
+    d554a8e7-e8ad-493b-aaa8-d611bf04b257: 'Website / Content URL' # Website / Content URL
+    d794ad1d-257e-41a6-a11e-6e0c66406d07: 'Text [header]' # Text [header]
+    d3134fdd-a3cf-4946-83cf-d9061072af34: Component # Component
+    d7748b2a-ae79-4961-b103-a5aa758e39ab: 'Image Collection' # Image Collection
+    dd16cc0f-224b-4492-9c1b-1cc91a5d61f5: 'Entry Details' # Entry Details
+    e7f9ef82-aa7c-4def-8477-dbe7648488b5: USA # USA
+    e97f398a-bad8-4b85-8315-c80ad3a3d118: 'Entry Collection' # Entry Collection
+    ea50810e-421f-4332-8d5b-0fa6f1a3d7e0: Enable # Enable
+    ec7e5f34-b050-4b33-91c2-ec94e22dcd9a: 'Public Schema' # Public Schema
+    ec9d3607-c4fd-4f5e-927a-239b76666389: 'Secure (Private)' # Secure (Private)
+    ec92452d-10f2-4a41-a9ee-bf384facb572: Tags # Tags
+    ee5ec53b-b28e-44bf-bea0-3b8f8d20804e: 'Bit Collection' # Bit Collection
+    ef0d77ed-a6ab-49db-afe4-2be38730d402: 'Content Summary' # Content Summary
+    f3cf4580-ee28-4e7e-b9c6-4177b508cdfc: 'Image Collections' # Image Collections
+    f3d34d10-7741-40ba-9fae-27d87f771b4d: 'Content Summary' # Content Summary
+    f240ce26-8d9d-4668-b18b-73371d5c5211: Entries # Entries
+    faaa512e-f0ed-4151-97de-d73bdc9a4f5e: 'Block - Component' # Block - Component
+    ff76eb70-820e-4752-b138-daef62692e3f: 'Block Fragment' # Block Fragment
 plugins:
   behinddesign-object-storage:
     edition: standard

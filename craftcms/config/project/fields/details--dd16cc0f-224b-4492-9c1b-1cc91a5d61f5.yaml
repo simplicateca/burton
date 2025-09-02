@@ -55,7 +55,7 @@ settings:
                               - 80c0392d-6071-4072-a35d-fede1b0667ee
                             14:
                               - fieldUid
-                              - 88fdcb93-d8c6-4625-807e-885199098b6c
+                              - 88fdcb93-d8c6-4625-807e-885199098b6c # Label
                         -
                           __assoc__:
                             0:
@@ -87,7 +87,7 @@ settings:
                               - bb6c7b14-c9c9-4315-a19e-86b004222426
                             14:
                               - fieldUid
-                              - 545f1fed-e750-457f-91f5-47b4faf56f85
+                              - 545f1fed-e750-457f-91f5-47b4faf56f85 # Title - Entry
                         -
                           __assoc__:
                             0:
@@ -116,7 +116,7 @@ settings:
                               - 3ddd73b9-fcc1-497b-9c74-679f2a5c5e80
                             14:
                               - fieldUid
-                              - 0b229987-523a-4f15-9fb6-ff9113242afe
+                              - 0b229987-523a-4f15-9fb6-ff9113242afe # Content Outline
                         -
                           __assoc__:
                             0:
@@ -148,7 +148,7 @@ settings:
                               - 24592039-4616-4c64-bc02-14f3022cc633
                             14:
                               - fieldUid
-                              - ea50810e-421f-4332-8d5b-0fa6f1a3d7e0
+                              - ea50810e-421f-4332-8d5b-0fa6f1a3d7e0 # Enable
             3:
               - cardThumbAlignment
               - end
