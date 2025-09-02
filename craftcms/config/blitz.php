@@ -8,6 +8,6 @@ return [
     ],
 
     'production' => [
-        'cachingEnabled' => true,
+        'cachingEnabled' => !(getenv('CRAFT_DEV_MODE') ?? false),
     ],
 ];

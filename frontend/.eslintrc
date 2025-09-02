@@ -1,9 +1,7 @@
 {
   "root": true,
-  "parser": "vue-eslint-parser",
   "rules": {
-    "no-undef": "off",
-    "vue/html-indent": ["error", 4]
+    "no-undef": "off"
   },
   "env": {
     "browser": true,
@@ -11,7 +9,6 @@
     "node": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:vue/vue3-recommended"
+    "eslint:recommended"
   ]
 }

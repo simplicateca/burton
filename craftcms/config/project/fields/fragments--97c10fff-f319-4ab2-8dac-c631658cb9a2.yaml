@@ -6,7 +6,7 @@ searchable: false
 settings:
   allowSelfRelations: false
   branchLimit: null
-  localizeRelations: false
+  defaultPlacement: end
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
@@ -38,15 +38,18 @@ settings:
               -
                 - values
                 -
-                  - ff76eb70-820e-4752-b138-daef62692e3f # Builder
-  selectionLabel: null
+                  - ff76eb70-820e-4752-b138-daef62692e3f # Block Fragment
+  selectionLabel: 'Add Fragment'
   showCardsInGrid: false
+  showSearchInput: true
   showSiteMenu: false
+  showUnpermittedEntries: true
+  showUnpermittedSections: true
   sources:
-    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef'
+    - 'section:685e625d-7180-40dc-a031-953f5f9a8cef' # Reusables
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list
 translationKeyFormat: null
-translationMethod: site
+translationMethod: none
 type: craft\fields\Entries

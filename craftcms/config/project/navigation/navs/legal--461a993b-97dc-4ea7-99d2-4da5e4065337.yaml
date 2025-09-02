@@ -1,6 +1,7 @@
 defaultPlacement: end
 fieldLayouts:
   003e9084-a327-49b2-861a-e5a1ace17d18:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
@@ -10,6 +11,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -35,6 +37,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
             elementCondition: null
             includeInCards: false
             instructions: null
@@ -48,6 +51,7 @@ fieldLayouts:
             warning: null
           -
             attribute: newWindow
+            dateAdded: null
             elementCondition: null
             id: null
             includeInCards: false
@@ -78,6 +82,7 @@ fieldLayouts:
             autocorrect: true
             autofocus: false
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -113,6 +118,7 @@ fieldLayouts:
             autocorrect: true
             autofocus: false
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -143,6 +149,7 @@ fieldLayouts:
             width: 100
           -
             attribute: customAttributes
+            dateAdded: null
             elementCondition: null
             id: null
             includeInCards: false
@@ -164,7 +171,7 @@ fieldLayouts:
         uid: 15588361-c260-4e49-87a0-4b4c738e69e9
         userCondition: null
 handle: legal
-instructions: ''
+instructions: null
 maxNodes: null
 name: Legal
 permissions:
@@ -177,10 +184,10 @@ permissions:
   craft\elements\Entry:
     enabled: '1'
     permissions:
-      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Topics
+      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
       - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
       - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
-      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge
+      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
   craft\elements\Tag:
     enabled: ''
     permissions: '*'
@@ -190,9 +197,9 @@ permissions:
     enabled: '1'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
     enabled: true
-sortOrder: 5
+sortOrder: 6
 structure:
   maxLevels: 1
   uid: bd5f1624-cfe9-406b-9017-b449a416832a

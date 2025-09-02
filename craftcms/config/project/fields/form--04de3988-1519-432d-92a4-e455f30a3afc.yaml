@@ -6,17 +6,18 @@ searchable: false
 settings:
   allowSelfRelations: false
   branchLimit: null
-  localizeRelations: false
+  defaultPlacement: end
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
-  selectionLabel: null
+  selectionLabel: Choose
   showCardsInGrid: false
-  showSiteMenu: false
+  showSearchInput: true
+  showSiteMenu: true
   sources: '*'
   targetSiteId: null
   validateRelatedElements: false
   viewMode: list
 translationKeyFormat: null
-translationMethod: site
+translationMethod: none
 type: verbb\formie\fields\Forms

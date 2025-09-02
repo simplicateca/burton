@@ -1,5 +1,4 @@
 import {defineConfig} from 'vite';
-import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy';
 import ViteRestart from 'vite-plugin-restart';
 import viteCompression from 'vite-plugin-compression';
@@ -52,11 +51,9 @@ export default defineConfig(({command}) => ({
         }),
         ViteRestart({
             reload: [
-                './templates/**/*',
-                './vue/**/*',
+                './templates/**/*'
             ],
         }),
-        vue(),
         viteCompression({
             filter: /\.(js|mjs|json|css|map)$/i
         }),

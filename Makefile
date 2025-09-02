@@ -6,7 +6,7 @@ ETC_PATH		:= etc
 FRONTEND_PATH	:= frontend
 
 ENV_PATH		:= $(CRAFT_PATH)/.env
-SEED_PATH		:= $(ETC_PATH)/docker/seed
+SEED_PATH		:= $(ETC_PATH)/mysql/CraftCMS-Database
 
 APP_ID			:= $(shell grep -E '^CRAFT_APP_ID=' $(ENV_PATH) | cut -d '=' -f 2)
 PROJECT_NAME	:= $(if $(APP_ID),$(APP_ID),$(shell basename $(realpath $(dir $(CURDIR))/..)))
@@ -21,6 +21,7 @@ EXEC_SSH		:= $(COMPOSE) run $(COMPOSE_ARGS) php /bin/bash
 EXEC_CRAFT		:= $(COMPOSE) run $(COMPOSE_ARGS) php /app/craft
 EXEC_NPM		:= $(COMPOSE) run $(COMPOSE_ARGS) frontend npm
 EXEC_COMPOSER	:= $(COMPOSE) run $(COMPOSE_ARGS) composer
+EXEC_N8N		:= $(COMPOSE) run $(COMPOSE_ARGS) --user node n8n
 
 
 # Actions
@@ -31,7 +32,8 @@ EXEC_COMPOSER	:= $(COMPOSE) run $(COMPOSE_ARGS) composer
 assets: craft-index-assets
 backup: craft-export
 composer:
-	@$(EXEC_COMPOSER) --optimize-autoloader $(CLI_ARGS) ;
+	@$(EXEC_COMPOSER) $(CLI_ARGS) ;
+# 	@$(EXEC_COMPOSER) --optimize-autoloader $(CLI_ARGS) ;
 craft:
 	@$(EXEC_CRAFT) $(CLI_ARGS) ;
 debug:
@@ -52,7 +54,7 @@ ssh:
 update: composer-bump restart
 wipe: composer-wipe npm-wipe restart
 setup:
-	cp -n $(CRAFT_PATH)/example.env $(ENV_PATH)
+	cp -n $(CRAFT_PATH)/.env.example $(ENV_PATH)
 	@if [ -z "$(APP_ID)" ]; then \
 		sed -i "s|^CRAFT_APP_ID *= *.*|CRAFT_APP_ID=\"$(PROJECT_NAME)\"|" "$(ENV_PATH)"; \
 	fi
@@ -118,6 +120,20 @@ minio-dev-to-staging:
 	@mc mirror --overwrite localhost/${S3_BUCKET}/public/design staging/${STAGING_BUCKET}/public/design
 	@mc mirror --overwrite localhost/${S3_BUCKET}/private staging/${STAGING_BUCKET}/private
 	@$(COMPOSE_DOWN) ;
+
+
+#--------------------------------------------------------------
+# n8n Commands
+#--------------------------------------------------------------
+# https://docs.n8n.io/hosting/cli-commands/#import-workflows-and-credentials
+n8n-import: setup
+	$(EXEC_N8N) import:workflow --separate --input=/home/node/n8n/workflows ;
+	$(EXEC_N8N) import:credentials --separate --input=/home/node/n8n/credentials ;
+
+# https://docs.n8n.io/hosting/cli-commands/#export-workflows-and-credentials
+n8n-export: setup
+	$(EXEC_N8N) export:workflow --backup --output=/home/node/n8n/workflows ;
+	$(EXEC_N8N) export:credentials --backup --output=/home/node/n8n/credentials ;
 
 
 # NPM Shortcuts

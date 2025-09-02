@@ -1,0 +1,186 @@
+{%- extends "_theme/entry" -%}
+
+{## Dynamic URI Generation Routing
+{---------------------------------------------------------------------------------------}
+    IMPORTANT: Resave existing records (via console) anytime this macro changes.
+{---------------------------------------------------------------------------------------}
+  ➜ make craft "resave/entries --section=articles"
+  ➜ make craft "resave/entries"
+{-------------------------------------------------------------------------------------##}
+{%- macro uri_format( object ) -%}{% apply spaceless %}
+
+    {%- set parts   = [] -%}
+    {%- set slug    = object.slug|default(null) -%}
+    {%- set handle  = object.type.handle|default(null) -%}
+    {%- set parent  = object.parent.uri|default(null) -%}
+    {%- set variant = object.variant.value|default(null) -%}
+
+
+    {## Page/Redirect Entries (Core+Landing Sections)
+    {-----------------------------------------------------------------------------------}
+      └ core-page
+      └ core-page/two
+      └ core-page/two/sub
+      └ go/landing-one
+      └ go/landing-two
+    {---------------------------------------------------------------------------------##}
+    {%- if handle in ['page','redirect'] -%}
+        {%- set parts = ( 'landings' == section ) ? ['go', slug] : [parent, slug] -%}
+    {%- endif -%}
+
+
+    {## Articles Entries
+    {-----------------------------------------------------------------------------------}
+      └ insights/regular-article-title
+      └ insights/exclusive/digital-insiders-content
+      └ insights/guides/learning-guide-name
+      └ insights/listen/episode-title
+      └ insights/watch/video-title
+    {---------------------------------------------------------------------------------##}
+    {%- if 'article' == handle -%}
+        {%- switch variant -%}
+            {%- case 'article_general' -%}
+                {%- set parts = ['insights', slug] %}
+            {%- case 'article_audio' -%}
+                {%- set parts = ['insights/listen', slug] %}
+            {%- case 'article_video' -%}
+                {%- set parts = ['insights/watch', slug] %}
+            {%- case 'article_guide' -%}
+                {%- set parts = ['insights/guides', slug] %}
+            {%- case 'article_exclusive' -%}
+                {%- set parts = ['insights/exclusive', slug] %}
+        {%- endswitch -%}
+    {%- endif -%}
+
+
+    {## Book Entries
+    {-----------------------------------------------------------------------------------}
+      └ library/title-of-book-author-name
+    {---------------------------------------------------------------------------------##}
+    {%- if 'book' == handle -%}
+        {%- set parts = ['library', slug] -%}
+    {%- endif -%}
+
+
+    {## Magazine Issues
+    {-----------------------------------------------------------------------------------}
+      └ magazine/issue-one
+    {---------------------------------------------------------------------------------##}
+    {%- if 'issue' == handle -%}
+        {%- set parts = ['magazine', slug] -%}
+    {%- endif -%}
+
+
+    {## News Release
+    {-----------------------------------------------------------------------------------}
+      └ about/news/release-name
+    {---------------------------------------------------------------------------------##}
+    {%- if 'release' == handle -%}
+        {%- set parts = ['about/news', slug] -%}
+    {%- endif -%}
+
+
+    {## Partners / Orgainations
+    {-----------------------------------------------------------------------------------}
+      └ partners/organization-name
+    {---------------------------------------------------------------------------------##}
+    {%- if 'organization' == handle -%}
+        {%- set parts = ['about/_partners', slug] -%}
+    {%- endif -%}
+
+
+    {## People
+    {-----------------------------------------------------------------------------------}
+      └ insights/leaders/person-name
+      └ contributors/person-name
+    {---------------------------------------------------------------------------------##}
+    {%- if 'person' == handle -%}
+        {%- set parts = ( 'leader' in variant )
+            ? ['insights/leaders',   slug]
+            : ['about/contributors', slug] -%}
+    {%- endif -%}
+
+
+    {## Topics
+    {-----------------------------------------------------------------------------------}
+      └ trending/specific-topic-one
+      └ trending/broad-general-topic
+      └ trending/broad-general-topic/specific-topic-two
+    {---------------------------------------------------------------------------------##}
+    {%- if 'topic' == handle -%}
+        {%- set parts = [parent ?? 'trending', slug] -%}
+    {%- endif -%}
+
+
+    {## Conference Brand
+    {-----------------------------------------------------------------------------------}
+      └ leadership-series
+      └ leadership-women
+    {---------------------------------------------------------------------------------##}
+    {%- if 'brand' == handle -%}
+        {%- set parts = [slug] -%}
+    {%- endif -%}
+
+
+    {## Cities
+    {-----------------------------------------------------------------------------------}
+      └ events/cities/toronto
+    {---------------------------------------------------------------------------------##}
+    {%- if 'city' == handle -%}
+        {%- set parts = ['events/cities', slug] -%}
+    {%- endif -%}
+
+
+    {## Venues
+    {-----------------------------------------------------------------------------------}
+      └ events/venues/john-bassett-theatre
+    {---------------------------------------------------------------------------------##}
+    {%- if 'venue' == handle -%}
+        {%- set parts = ['events/venues', slug] -%}
+    {%- endif -%}
+
+
+    {## Session / Showcase
+    {-----------------------------------------------------------------------------------}
+      └ insights/showcase/session-name
+    {---------------------------------------------------------------------------------##}
+    {%- if 'session' == handle -%}
+        {%- set parts = ['insights/showcase', slug] -%}
+    {%- endif -%}
+
+
+    {## Conference Dates
+    {-----------------------------------------------------------------------------------}
+      └
+    {---------------------------------------------------------------------------------##}
+    {% if 'conference' == handle %}
+        {%- set city  = object.city.one().slug  ??? null -%}
+        {%- set brand = object.brand.one().slug ??? null -%}
+        {%- set year  = object.startDate|date('Y')
+                    ??? object.code[-2:2]
+                    ??? 'now'|date('Y') ??? null -%}
+
+        {%- set parts = [brand, "#{city}-#{year}"] -%}
+    {% endif %}
+
+
+    {## Collections
+    {-----------------------------------------------------------------------------------}
+      └
+    {---------------------------------------------------------------------------------##}
+    {%- if handle in ['collectionFeed','collectionQuery','collectionEntries','collectionImages','collectionMedia'] -%}
+        {%- set parts = [ 'collection', slug ] -%}
+    {%- endif -%}
+
+
+    {## Fallback URI
+    {-----------------------------------------------------------------------------------}
+      └ <pluralized-entry-type>/<entry-slug>
+    {---------------------------------------------------------------------------------##}
+    {%- if parts is empty -%}
+        {%- set parts = [ handle | pluralize | slugify, slug ] -%}
+    {%- endif -%}
+
+
+    {{- parts | filter | join('/') -}}
+{%- endapply -%}{%- endmacro -%}

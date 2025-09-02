@@ -1,65 +1,278 @@
+/** frontend/css/app.pcss
+/---------------------------------------------------------------------------------------/
+    (1) External Libraries
+    (2) Global Utility Classes
+    (3) Miscellaneous
+    (4) Typography
+        - Body Copy & Lists
+        - Blockquotes & Decorators
+        - Headlines
+        - Buttons & Links
+    (5) Form Controls
+    (6) Animations & Transitions
+/-------------------------------------------------------------------------------------**/
+
+
+/** (1) External Libraries
+/-------------------------------------------------------------------------------------**/
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+
+/** (2) Global Utility Classes
+/-------------------------------------------------------------------------------------**/
 @layer utilities {
-/** Utility class for making a parent element (card) clickable without resorting to
-    wrapping the card in it's own <a> tag, using multiple tags, or onclick events.
-    Make sure the parent element has class='relative' or .. you know ..  **/
-    .click__cover {
-        &::before {
-            @apply absolute content-[""] inset-0 z-50;
+
+    .base-headline { @apply
+        font-headline
+        font-extrabold
+        text-theme-headings
+        text-balance
+        mb-[0.6em];
+
+        a { @apply
+            text-theme-highlight/80
+      hover:text-theme-headings
+        ;}
+
+        strong { @apply
+            text-theme-accent/70;
         }
+    }
+
+    .base-h1 { @apply
+            text-4xl/tight
+        @lg:text-5xl/taut
+        @xl:text-6xl/taut
+       @2xl:text-7xl/taut
+       @4xl:text-8xl/taut
+    ;}
+
+    .base-h2 { @apply
+            text-3xl/tight
+        @lg:text-4xl/tight
+        @xl:text-5xl/taut
+       @2xl:text-6xl/taut
+       @4xl:text-7xl/taut
+    ;}
+
+    .base-h3 { @apply
+            text-2xl/tight
+        @lg:text-3xl/tight
+        @xl:text-4xl/taut
+       @2xl:text-5xl/taut
+       @4xl:text-6xl/taut
+    ;}
+
+    .base-h4 { @apply
+            text-xl/snug
+        @lg:text-2xl/tight
+        @xl:text-3xl/tight
+       @2xl:text-4xl/tight
+       @4xl:text-4xl/tight
+    ;}
+
+    .base-link { @apply
+        underline
+        underline-offset-2
+        text-theme-link
+        hover:text-theme-link/75
+        focus:text-theme-link/50
+    ;}
+
+    .base-copy { @apply
+            font-body
+            text-theme-body
+            text-sm/snug
+        @xs:text-base/snug
+        @md:text-lg/snug
+        @lg:text-xl/tight
+        @xl:text-2xl/tight
+       @2xl:text-3xl/tight
+       @4xl:text-4xl/taut
+    ;}
+
+    .base-larger { @apply
+            font-body
+            text-theme-body
+            text-base/snug
+        @xs:text-lg/snug
+        @md:text-xl/snug
+        @lg:text-2xl/snug
+        @xl:text-3xl/snug
+       @2xl:text-4xl/snug
+       @4xl:text-5xl/snug
+    ;}
+
+    .base-smaller { @apply
+            font-body
+            text-theme-body
+            text-xs/tight
+        @xs:text-sm/snug
+        @md:text-base/snug
+        @lg:text-lg/snug
+        @xl:text-xl/snug
+       @2xl:text-2xl/snug
+       @4xl:text-3xl/snug
+    ;}
+
+    .base-tiny { @apply
+            font-body
+            text-theme-body
+            text-xs/tight
+        @md:text-sm/tight
+        @lg:text-base/tight
+        @xl:text-lg/tight
+       @2xl:text-xl/tight
+       @4xl:text-2xl/tight
+    ;}
+
+    .moustache {
+        @apply relative;
+        &:after { @apply bg-theme-highlight absolute content-[''] block w-16 h-1 -bottom-1; }
+        &[class*="text-center"]:after { transform: translateX(-50%); left:50%; width: 10rem; }
+        &[class*="text-right"]:after  { right: 0rem; }
+    }
+
+    .moustache-lg {
+        @apply relative;
+        &:after { @apply bg-theme-highlight absolute content-[''] block w-24 h-2 -bottom-8; }
+        &[class*="text-center"]:after { transform: translateX(-50%); left:50%; width: 15rem; }
+        &[class*="text-right"]:after  { right: 0rem; }
+    }
+
+    .click-cover::before { @apply
+        absolute content-[""] inset-0 z-50 cursor-pointer
+    ;}
+
+    .zone-gap { @apply
+        gap-x-10
+        gap-y-10
+        @xl:gap-x-16
+        @xl:gap-y-16
+    ;}
+
+    .grid-gap { @apply
+        gap-x-5
+        gap-y-5
+        @xl:gap-x-10
+        @xl:gap-y-10
+    ;}
+
+    .encroachment    { @apply -mt-[0.7rem];  }
+    .encroachment-sm { @apply -mt-[0.35rem]; }
+
+    .last-child-mb-0 {
+        :is(h1, h2, h3, h4, p, ol, ul, dl, figure, table, blockquote,
+           .h1,.h2,.h3,.h4):last-child { @apply !mb-0; }
     }
 }
 
 
-/** Base Site Styles
-/---------------------------------------------------------------------------------------/
-    1. Block Themes
-    2. Form Controls
-    3. Typography
-      - Body Copy (p, ul, ol, blockquote)
-      - Headlines
-      - Buttons & Links
-/-------------------------------------------------------------------------------------**/
-
-
-/** 1. Block Themes
+/** (3) Miscellaneous
 /-------------------------------------------------------------------------------------**/
 [data-theme] {
-    @apply text-theme-bodycopy;
-    &.canvas, .canvas { @apply bg-theme; }
-    &.autospace { @apply py-16; }
+    &.canvas { @apply bg-theme; }
+    .canvas { @apply
+        absolute inset-0 overflow-hidden fill-theme bg-theme
+    ;}
+}
 
-    [data-canvas] {
-        @apply bg-theme absolute inset-0 z-0;
-    }
+[data-knockout="light"] {
+    @apply bg-theme-tint
+}
 
-    &[data-coverage=container] {
-        @apply relative xl:p-4 @4xl:p-12;
+[data-knockout="dark"] {
+    @apply bg-theme-tint2
+}
 
-        [data-canvas] {
-            @apply bg-theme absolute -inset-4 z-0 rounded-xl border-theme-tint border-2 shadow-2xl;
-        }
-    }
+[class*="\@container"] {
+    @apply last-child-mb-0;
+}
 
-    &[data-coverage=twozone] {
-        @apply relative;
+header#header {
+    &:not(*:has(section)) { h1 { @apply moustache-lg; } }
+}
 
-        [data-zone] {
-            @apply relative z-20;
-        }
-
-        [data-canvas] {
-            @apply bg-theme absolute -inset-4 z-0 rounded-xl border-theme-tint border-2 shadow-2xl;
-        }
-    }
+header#header[data-theme="neutral"] + main > *[data-theme="neutral"]:first-of-type,
+header#header[data-theme="light"]   + main > *[data-theme="light"]:first-of-type,
+header#header[data-theme="accent"]  + main > *[data-theme="accent"]:first-of-type {
+    @apply -mt-16;
 }
 
 
 
-/** 2. Form Controls
+/** (4) Typography
+/-------------------------------------------------------------------------------------**/
+
+/** Body Text --------------------------------------------------------------------**/
+main#content, header#header, footer#footer, [data-builder], [role="dialog"] {
+    h1, .h1 { @apply base-h1 base-headline; }
+    h2, .h2 { @apply base-h2 base-headline moustache; }
+    h3, .h3 { @apply base-h3 base-headline; }
+    h4, .h4 { @apply base-h4 base-headline; }
+    h5, .h5 { @apply base-h4 base-headline; }
+    h6, .h6 { @apply base-h4 base-headline; }
+
+    p, blockquote, address {
+        @apply base-copy;
+        &.larger  { @apply base-larger; }
+        &.smaller { @apply base-smaller; }
+        &.tiny    { @apply base-tiny; }
+    }
+
+    table, figure, ol:not(nav ol), ul:not(nav ul), dl {
+        :is(td, th, li, dt, dd, figcaption, caption) { @apply base-copy; }
+        &.larger  :is(td, th, li, dt, dd, figcaption, caption) { @apply base-larger; }
+        &.smaller :is(td, th, li, dt, dd, figcaption, caption) { @apply base-smaller; }
+        &.tiny    :is(td, th, li, dt, dd, figcaption, caption) { @apply base-tiny; }
+    }
+}
+
+
+/** Builder Adjustments ----------------------------------------------------------**/
+[data-builder] {
+    p, dl, blockquote, table, ol:not(nav ol), ul:not(nav ul) { @apply
+        mb-[0.8em]
+    ;}
+
+    h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+        & + :is(h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6) { @apply encroachment; }
+    }
+
+    h4, .h4, h5, .h5, h6, .h6 {
+        & + :is(p, ul, ol, dl) { @apply encroachment-sm; }
+    }
+
+    ul:not(nav ul) { @apply
+        list-disc
+        pl-[1em]
+        pr-[2em]
+    ;}
+
+    ol:not(nav ol) { @apply
+        list-decimal
+        pl-[2em]
+    ;}
+
+    blockquote { @apply
+        bg-theme-tint
+        p-8;
+    }
+
+    mark { @apply
+        inline-block
+        relative
+        bg-transparent;
+    }
+
+    /* a:not([class*="button"]) { @apply base-link; } */
+    a:not(.button) { @apply base-link; }
+}
+
+
+/** (3) Form Controls
 /-------------------------------------------------------------------------------------**/
 select,
 textarea,
@@ -70,29 +283,23 @@ input[type="tel"],
 input[type="search"],
 input[type="password"],
 input[type="email"] {
-    @apply
-        bg-theme-tint
-        text-theme-bodycopy
-        p-2
-        border
-        border-theme-tint
-        rounded-lg
-    ;
-}
-
-div.bg-theme-tint {
-    select,
-    textarea,
-    input[type="money"],
-    input[type="number"],
-    input[type="tel"],
-    input[type="text"],
-    input[type="search"],
-    input[type="password"],
-    input[type="email"] {
-        @apply bg-theme-tint2;
+    &.fui-input, &:not(.fui-input) {
+        @apply
+            bg-white
+            text-black/70
+            !p-3
+            !border-2
+            border-theme-highlight
+            rounded-lg
+        ;
     }
 }
+
+.fui-label,
+.fui-legend {
+    @apply text-lg !mb-1;
+}
+
 
 .fui-type-name {
     legend {
@@ -100,303 +307,20 @@ div.bg-theme-tint {
     }
 }
 
-
-input[type=radio].sr-only:checked + label {
-    @apply
-        bg-theme-accent
-        text-theme-accent-alt
-        cursor-default
-    ;
+[data-single-line-form] {
+    input  { @apply !rounded-r-none; }
+    button { @apply !rounded-l-none; }
 }
 
-
-/** 3. Typography
-/---------------------------------------------------------------------------------------/
-    This stylesheet makes use of the Tailwind Container Query plugin. It introduces the
-    `@container` class to mark parent elements as a responsive container "viewport".
-    It also introduces new container-based responsive prefixes: @xs:, @sm:, @md:, etc.
-
-    These new prefixes work exactly like the core responsive prefixes (sm:/lg:/2xl:etc),
-    only using the parent container with for making adjustments, not the device width.
-
- -> https://tailwindcss.com/docs/plugins#container-queries
-/-------------------------------------------------------------------------------------**/
+input[type=radio].sr-only:checked + label { @apply
+    bg-theme-accent
+    text-theme-accent-alt
+    cursor-default
+;}
 
 
-/** 3.1 Body Text ----------------------------------------------------------------------/
-
-    Use `data-bodycopy` as an attribute on parent elements containing text that comes
-    from a CKEditor / Redactor field. This allows a consistent style to be applied to
-    <HtmlFieldData> text without crashing into other styles for common html elements.
-
-/**-----------------------------------------------------------------------------------**/
-[data-bodycopy] { @apply
-    font-body
-    text-theme-bodycopy;
-
-    p, ul, ol, blockquote {
-        &:not([class*="larger"]):not([class*="smaller"]) { @apply
-            text-sm        @4xs:text-base     @md:text-lg       @xl:text-xl       @3xl:text-2xl      @6xl:text-3xl
-            leading-tight  @4xs:leading-snug  @md:leading-snug  @xl:leading-snug  @3xl:leading-snug  @6xl:leading-normal
-            mb-3           @4xs:mb-4          @md:mb-6          @xl:mb-8          @3xl:mb-10         @6xl:mb-12
-        ;}
-
-        &.larger { @apply
-            text-lg       @4xs:text-xl       @md:text-2xl      @xl:text-3xl      @3xl:text-4xl        @5xl:text-5xl
-            leading-snug  @4xs:leading-snug  @md:leading-snug  @xl:leading-snug  @3xl:leading-normal  @5xl:leading-normal
-            mb-3          @4xs:mb-4          @md:mb-6          @xl:mb-8          @3xl:mb-10           @5xl:mb-12
-        ;}
-    }
-
-    /* a little extra spacing before headers that appear after body text */
-    p+h2, ul+h2, ol+h2, blockquote+h2,
-    p+h3, ul+h3, ol+h3, blockquote+h3,
-    p+h4, ul+h4, ol+h4, blockquote+h4,
-    p+.like-h2, ul+.like-h2, ol+.like-h2, blockquote+.like-h2,
-    p+.like-h3, ul+.like-h3, ol+.like-h3, blockquote+.like-h3,
-    p+.like-h4, ul+.like-h4, ol+.like-h4, blockquote+.like-h4 { @apply
-        mt-6      @4xs:mt-8        @md:mt-12     @xl:mt-16     @3xl:mt-20      @5xl:mt-24
-    ;}
-
-    /** This is a pretty hack way to do two columns, but it gets the point across. It could
-        be better, especially if Tailwind Container Queries understood CSS columns. **/
-    div.columns-2 p {
-        @apply !text-base !mb-4 @xl:!text-lg @xl:!mb-6 @3xl:!text-xl @3xl:!mb-8 @5xl:!text-2xl @5xl:!mb-10;
-    }
-
-
-    /** basic list layout options **/
-    ol, ul {
-
-        /** plain <ul> **/
-        &:not(ul):not(.checklist):not(.check-columns):not(.columnlist):not(.rowlist) {
-            @apply list-decimal pl-[2em];
-        }
-
-        /** plain <ol> **/
-        &:not(ol):not(.checklist):not(.check-columns):not(.columnlist):not(.rowlist) {
-            @apply list-disc pl-[1em] pr-[2em];
-        }
-
-        /** checkmark list **/
-        &.checklist {
-            @apply ml-6;
-            list-style-image: url("data:image/svg+xml,<svg width='16' height='16' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m8.5 16.586-3.793-3.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l11-11a1 1 0 0 0-1.414-1.414L8.5 16.586Z' fill='%23333333'/></svg>");
-
-            li { @apply mb-3; }
-        }
-
-        /** two column list **/
-        &.columnlist {
-            @apply grid grid-cols-1 gap-5 @lg:grid-cols-2;
-        }
-
-        /** row list with separator lines **/
-        &.rowlist {
-            @apply grid grid-cols-1 items-center justify-center;
-
-            li {
-                @apply max-w-2xl border-b border-theme-tint2 p-4 mx-auto my-0 text-center;
-                &:last-of-type { @apply border-0; }
-            }
-        }
-
-        /** checkmark list **/
-        &.check-columns { @apply
-            grid
-            grid-cols-1
-            gap-x-10
-            gap-y-1
-            ml-6
-            @lg:grid-cols-2;
-            list-style-image: url("data:image/svg+xml,<svg width='16' height='16' fill='none' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='m8.5 16.586-3.793-3.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l11-11a1 1 0 0 0-1.414-1.414L8.5 16.586Z' fill='%23333333'/></svg>");
-            li { @apply
-                text-lg;
-            }
-        }
-
-        li:has(br):not(:last-of-type) { @apply
-            mb-3;
-        }
-    }
-
-    blockquote {
-        @apply bg-theme-tint p-4 @xl:p-10;
-    }
-
-    mark {
-        @apply inline-block relative bg-transparent;
-
-        &[class=""],
-        &:not([class]),
-        &.highlight {
-            span { @apply relative z-10; }
-            &:before { @apply
-                absolute
-                content-[""]
-                -inset-y-0.5
-                -inset-x-2
-                z-0
-                bg-theme-accent/25;
-
-                /* Add clip-path to create slanted edges */
-                clip-path: polygon(1.5% 10%, 97.5% 0%, 95.5% 90%, 0% 100%);
-            }
-        }
-
-        &.nowrap {
-            span { @apply whitespace-nowrap; }
-        }
-    }
-}
-
-
-[data-headercopy] { @apply
-    font-body
-    text-theme-bodycopy;
-
-    p, ul, ol, blockquote { @apply
-        text-base     @4xs:text-lg       @md:text-xl       @xl:text-2xl      @3xl:text-3xl        @5xl:text-4xl
-        leading-snug  @4xs:leading-snug  @md:leading-snug  @xl:leading-snug  @3xl:leading-normal  @5xl:leading-normal
-        mb-3          @4xs:mb-4          @md:mb-6          @xl:mb-8          @3xl:mb-10           @5xl:mb-12
-    ;}
-}
-
-
-/** Removing the bottom margin on the last element inside one of these blocks is almost
-    always a good thing to help alignment with other elements and reduce large gaps. **/
-.last-child-mb-0,
-[data-headercopy][class*="@container"],
-[data-headercopy] .\@container,
-[data-bodycopy][class*="@container"],
-[data-bodycopy] .\@container {
-	& > h1:last-child,
-	& > h2:last-child,
-	& > h3:last-child,
-	& > h4:last-child,
-	& > p:last-child,
-	& > ol:last-child,
-	& > ul:last-child,
-	& > blockquote:last-child {
-	    margin-bottom: 0 !important;
-	}
-}
-
-
-
-/** 3.2 Headlines **********************************************************************/
-
-h1,h2,h3,h4,h5,h6,
-.like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 { @apply
-    font-headline
-    font-extrabold
-    text-theme-headings
-    text-balance;
-
-
-
-    strong { @apply
-        text-theme-accent/70;
-    }
-
-    &.knockout { @apply
-        bg-theme-accent
-        text-theme-accent-alt
-        py-3
-        px-5
-        inline-table
-        text-center;
-     }
-}
-
-h1, .like-h1 {
-    @apply
-        font-display
-        text-theme-accent
-        text-xl        @4xs:text-2xl      @xs:text-4xl      @lg:text-5xl      @2xl:text-6xl       @4xl:text-7xl       @6xl:text-8xl
-        leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
-        mb-4      @4xs:mb-6       @md:mb-10       @3xl:mb-14;
-
-    /** a little less gap if immediately followed by <h2> **/
-    &+h2, &+.like-h2 { @apply -mt-2.5; }
-}
-
-h2, .like-h2 {
-    @apply
-        text-lg        @4xs:text-xl       @xs:text-3xl      @lg:text-4xl      @2xl:text-5xl       @4xl:text-6xl       @6xl:text-7xl
-        leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
-        mb-4      @4xs:mb-6       @md:mb-10       @3xl:mb-14;
-    ;
-
-    /** a stylish underline :) **/
-    /* relative pb-4 */
-    position: relative;
-    padding-bottom: 1rem;
-    &:after { @apply bg-theme-highlight absolute content-[''] block w-16 h-1 -bottom-1; }
-    &[class*="text-center"]:after { transform: translateX(-50%); left:50%; width: 10rem; }
-    &[class*="text-right"]:after  { right: 0rem; }
-
-    /** a little less gap if immediately followed by <h3> **/
-    &+h3, &+.like-h3 { @apply -mt-2.5; }
-}
-
-h3, .like-h3 {
-    @apply
-        text-base      @4xs:text-lg       @xs:text-2xl      @lg:text-3xl      @2xl:text-4xl       @4xl:text-5xl       @6xl:text-6xl
-        leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
-        mb-4    @4xs:mb-5    @md:mb-8    @3xl:mb-10;
-
-    /** a little less gap if immediately followed by <h4> **/
-    &+h4, &+.like-h4 { @apply -mt-2.5; }
-}
-
-h4, .like-h4 {
-    @apply
-        border-b-2
-        border-theme-highlight
-
-        text-sm        @4xs:text-base     @xs:text-xl       @lg:text-2xl      @2xl:text-3xl       @4xl:text-4xl       @6xl:text-5xl
-        leading-none   @4xs:leading-none  @xs:leading-taut  @lg:leading-taut  @2xl:leading-tight  @4xl:leading-tight  @6xl:leading-snug
-        mb-3      @4xs:mb-4       @md:mb-6        @3xl:mb-8;
-
-    /** a little less gap if immediately followed by <p>, <ul>. <ol> **/
-    &+p, &+ul, &+ol { @apply -mt-2.5; }
-}
-/**-----------------------------------------------------------------------------------**/
-
-
-/** 3.2 Buttons & Links ****************************************************************/
-
-/** The `data-only-links` attribute is typically added to <p> from CKeditor fields if
-    the only thing in the paragraph is an <a> element (typically a CTA element).
-    Here, we're targetting bodycopy links that are NOT inside a `data-only-links`
-    parent, which should be all other types of inline textual links. **/
-[data-bodycopy] li a,
-[data-bodycopy] p:not([data-only-links]) a,
-[data-headercopy] p:not([data-only-links]) a {
-    @apply
-        underline
-        underline-offset-2
-        hover:no-underline
-        focus:underline-offset-4
-
-        text-theme-link
-        hover:text-theme-link-tint
-        focus:text-theme-link-tint
-    ;
-}
-
-/** Links inside header tags **/
-h1,h2,h3,h4,h5,h6, .like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-}
-
-/** Simple. unassuming button **/
+/** Buttons **********************************************************************/
 .button { @apply
-
     rounded-lg
     transition
     inline-block
@@ -404,15 +328,16 @@ h1,h2,h3,h4,h5,h6, .like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
     font-bold
     no-underline
     !leading-none
-    whitespace-nowrap;
+    whitespace-nowrap
+    ;
 
-    &:not(.button_ghost) { @apply
+    &:not(.button_gold)&:not(.button_ghost) { @apply
         bg-theme-accent/80
         text-theme-accent-alt/80
         border-theme-accent-tint
         hover:bg-theme-accent
-        hover:text-theme;
-    }
+        hover:text-gold;
+    ;}
 
     &.button_ghost { @apply
         opacity-50
@@ -420,8 +345,17 @@ h1,h2,h3,h4,h5,h6, .like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
         text-theme
         border-theme-tint
         hover:bg-theme-accent-tint/20
-        hover:opacity-100
-    }
+        hover:opacity-100;
+    ;}
+
+    &.button_gold { @apply
+        bg-theme-accent
+        bg-gold/70
+        text-gray-800
+        border-gold
+        hover:bg-gold
+        hover:border-gold/50
+    ;}
 
     &:not(.button_small) { @apply
         text-sm
@@ -430,19 +364,35 @@ h1,h2,h3,h4,h5,h6, .like-h1,.like-h2,.like-h3,.like-h4,.like-h5,.like-h6 {
         border
         sm:py-3
         sm:px-4
-        sm:border-2;
-    }
+        sm:border-2
+    ;}
 
     &.button_small { @apply
         text-sm
         py-2
         px-2.5
-        border;
-    }
+        border
+    ;}
 }
 
 
-[data-single-line-form] {
-    input  { @apply !rounded-r-none; }
-    button { @apply !rounded-l-none; }
+/** (4) Animations & Transitions
+/-------------------------------------------------------------------------------------**/
+*[data-animate="reveal"] [data-zone="1"],
+*[data-animate="reveal"] [data-zone="2"] {
+    opacity   : 0;
+    transform : translateY(30px);
+    transition: all 0.5s;
+}
+
+*[data-entered=true] [data-animate="reveal"] [data-zone="1"] {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: 0.5s;
+}
+
+*[data-entered=true] [data-animate="reveal"] [data-zone="2"] {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: 0.25s;
 }

@@ -1,22 +1,12 @@
 columnSuffix: null
 handle: website
 instructions: null
-name: Website
+name: 'Website / Content URL'
 searchable: false
 settings:
+  fullGraphqlData: false
   maxLength: 255
-  typeSettings:
-    __assoc__:
-      -
-        - url
-        -
-          __assoc__:
-            -
-              - allowRootRelativeUrls
-              - ''
-            -
-              - allowAnchors
-              - ''
+  showLabelField: false
   types:
     - url
 translationKeyFormat: null

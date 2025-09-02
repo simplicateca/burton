@@ -6,10 +6,9 @@ return [
     '*' => [
         'id' => App::env('CRAFT_APP_ID') ?: 'CraftCMS',
         'modules' => [
-            'site-module' => [ 'class' => \modules\sitemodule\SiteModule::class ],
-            'theme-core'  => [ 'class' => \modules\themecore\ThemeCore::class ]
+            'local' => [ 'class' => \modules\local\LocalModule::class ],
         ],
-        'bootstrap' => ['site-module', 'theme-core', 'queue'],
+        'bootstrap' => ['local', 'queue'],
         'components' => [
             'deprecator' => [
                 'throwExceptions' => false,

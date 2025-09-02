@@ -1,0 +1,11 @@
+handle: downloadGates
+name: 'Download Gates'
+outputCssLayout: true
+outputCssLocation: page-header
+outputCssTheme: true
+outputJsBase: true
+outputJsLocation: page-footer
+outputJsTheme: true
+sortOrder: null
+template: ''
+useCustomTemplates: false

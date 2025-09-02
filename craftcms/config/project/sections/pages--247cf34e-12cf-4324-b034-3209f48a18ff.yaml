@@ -1,8 +1,23 @@
 defaultPlacement: end
 enableVersioning: true
 entryTypes:
-  - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
-  - 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
+  -
+    name: 'Entry - Page'
+    uid: 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
+  -
+    uid: 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
+  -
+    name: 'Entry - Brand'
+    uid: f7e61633-c292-4302-a0d2-ca73da792fcb # Conference Brand
+  -
+    name: 'Entry - City'
+    uid: 041e750b-ab10-4fb9-a87b-41acf128aae2 # City
+  -
+    name: 'Entry - Venue'
+    uid: 4df7052c-989e-4e15-8d24-31029f8fd2f6 # Venue
+  -
+    name: 'Entry - Magazine Issue'
+    uid: 16eeaaf8-6778-46b1-887b-f4a83630cda3 # Magazine Issue
 handle: pages
 maxAuthors: 1
 name: 'Core Pages'
@@ -11,20 +26,20 @@ previewTargets:
     __assoc__:
       -
         - label
-        - 'Page URL'
-      -
-        - urlFormat
-        - '{url}'
+        - 'Primary URL'
       -
         - refresh
         - '1'
+      -
+        - urlFormat
+        - '{url}'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
     enabledByDefault: true
     hasUrls: true
-    template: _site/pages._section.twig
-    uriFormat: '{% from ''_site/pages._section'' import uri %}{{ uri( object ) }}'
+    template: _base/entry.twig
+    uriFormat: '{% import "_base/entry" as e %}{{ e.uri_format(object) }}'
 structure:
   maxLevels: null
   uid: 55f15188-2e0e-4284-9978-2e6b6786e26a

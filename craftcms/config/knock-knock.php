@@ -54,5 +54,5 @@ return [
 
     'staging' => [
         'enabled' => true,
-    ]
+    ],
 ];

@@ -1,0 +1,43 @@
+columnSuffix: null
+handle: nestedEntries
+instructions: null
+name: 'Nested Entries'
+searchable: false
+settings:
+  createButtonLabel: null
+  defaultIndexViewMode: cards
+  defaultTableColumns:
+    - status
+    - link
+    - type
+    - postDate
+    - 'field:545f1fed-e750-457f-91f5-47b4faf56f85' # Title - Entry
+  enableVersioning: false
+  entryTypes:
+    -
+      __assoc__:
+        -
+          - uid
+          - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - c1ea9486-a2c9-4169-9858-144fd21c25b9 # Article
+        -
+          - group
+          - General
+  includeTableView: true
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: false
+  viewMode: index
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

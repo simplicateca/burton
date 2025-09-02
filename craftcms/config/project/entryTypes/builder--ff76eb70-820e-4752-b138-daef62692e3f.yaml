@@ -1,23 +1,43 @@
-color: orange
+color: null
+description: null
 fieldLayouts:
   89296a1c-5559-43a3-8dea-a125ac30a48c:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
         elements:
           -
+            content: "# Fragment Partial\r\n---"
+            dateAdded: '2025-08-26T18:04:40+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: c54ecae5-2a84-4bc2-a595-fea7b54d34f4
+            userCondition: null
+            width: 100
+          -
+            content: "## Details\r\n\r\nLorem ipsum dolor sit amet, consectetur"
+            dateAdded: '2025-08-28T17:06:42+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 4f96a91f-551e-4f8c-ba52-7d2f5db91e6a
+            userCondition: null
+            width: 25
+          -
             autocapitalize: true
             autocomplete: false
             autocorrect: true
             class: null
-            dateAdded: '2024-10-11T22:14:01+00:00'
+            dateAdded: '2025-08-28T17:04:38+00:00'
             disabled: false
             elementCondition: null
             id: null
             includeInCards: false
             inputType: null
             instructions: null
-            label: null
+            label: 'Reference Name'
             max: null
             min: null
             name: null
@@ -25,32 +45,40 @@ fieldLayouts:
             placeholder: null
             providesThumbs: false
             readonly: false
-            requirable: false
+            required: true
             size: null
             step: null
             tip: null
             title: null
             type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: cb1b3b49-5006-4f9f-86ae-28fb646636c2
+            uid: 6e4bbad6-100b-49ac-8713-5f52798c50e3
             userCondition: null
             warning: null
-            width: 100
+            width: 50
           -
-            dateAdded: '2024-10-11T22:14:01+00:00'
+            dateAdded: '2025-08-28T17:04:55+00:00'
             elementCondition: null
-            template: _sitehub/ui-template-body-builder.twig
-            type: craft\fieldlayoutelements\Template
-            uid: 17bb8c0a-8953-40af-ab17-861ae72ce6a2
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 82c06ac8-8d32-4ab1-9c54-9201df846446
             userCondition: null
-            width: 100
           -
-            dateAdded: '2024-10-11T22:14:01+00:00'
+            content: "## Block(s)\r\n---\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit"
+            dateAdded: '2025-08-26T18:04:40+00:00'
+            displayInPane: false
             elementCondition: null
-            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Body Builder
-            handle: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 57f8fdb2-a5fc-414f-93ce-c76ae1cce963
+            userCondition: null
+            width: 25
+          -
+            dateAdded: '2025-06-27T16:42:47+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Builder - Body
+            handle: builder
             includeInCards: false
             instructions: null
-            label: null
+            label: __blank__
             providesThumbs: false
             required: false
             tip: null
@@ -59,33 +87,17 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 75
-          -
-            dateAdded: '2024-10-11T22:14:01+00:00'
-            elementCondition: null
-            fieldUid: a6272176-e780-4d5e-90f2-df0115d1a324 # Sidebar Builder
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 7387dd0a-0963-496c-b7f7-97ecb6fbfa69
-            userCondition: null
-            warning: null
-            width: 25
         name: Content
         uid: 7b6cfbc4-41c9-44e2-a7d6-41b9edf2286f
         userCondition: null
 handle: builder
 hasTitleField: true
 icon: block-brick
-name: Builder
+name: 'Block Fragment'
 showSlugField: false
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
+titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

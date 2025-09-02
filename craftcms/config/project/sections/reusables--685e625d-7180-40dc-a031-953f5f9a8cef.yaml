@@ -1,0 +1,36 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  -
+    uid: 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+  -
+    uid: ff76eb70-820e-4752-b138-daef62692e3f # Block Fragment
+  -
+    uid: ad3c4465-2c99-4028-82f5-cd2d63371663 # FAQ
+  -
+    uid: 066383d2-4c3e-415b-be7e-93c6a4c5471b # Quote
+  -
+    uid: b9df713e-1b28-462e-b65f-03198b663096 # Stat
+handle: reusables
+maxAuthors: 1
+name: Reusables
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Contextual Preview'
+      -
+        - refresh
+        - '1'
+      -
+        - urlFormat
+        - 'sitehub/reusables/{{object.type.handle}}/{{object.slug}}'
+propagationMethod: all
+siteSettings:
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

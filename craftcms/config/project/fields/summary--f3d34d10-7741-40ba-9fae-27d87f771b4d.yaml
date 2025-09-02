@@ -1,21 +1,26 @@
 columnSuffix: null
 handle: summary
-instructions: null
-name: Summary
+instructions: 'Used for card summaries & meta descriptions'
+name: 'Content Summary'
 searchable: true
 settings:
   availableTransforms: ''
   availableVolumes: ''
-  ckeConfig: ef0d77ed-a6ab-49db-afe4-2be38730d402 # Description
+  characterLimit: null
+  ckeConfig: ef0d77ed-a6ab-49db-afe4-2be38730d402 # Content Summary
   createButtonLabel: null
   defaultTransform: null
-  enableSourceEditingForNonAdmins: false
+  expandEntryButtons: false
+  fullGraphqlData: false
+  parseEmbeds: false
   purifierConfig: null
   purifyHtml: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false
   showWordCount: true
-  wordLimit: 100
+  sourceEditingGroups:
+    - __ADMINS__
+  wordLimit: 150
 translationKeyFormat: null
 translationMethod: none
 type: craft\ckeditor\Field

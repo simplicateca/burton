@@ -1,0 +1,11 @@
+handle: componentEmbed
+name: 'Component Embed'
+outputCssLayout: true
+outputCssLocation: page-header
+outputCssTheme: true
+outputJsBase: true
+outputJsLocation: page-footer
+outputJsTheme: true
+sortOrder: 1
+template: null
+useCustomTemplates: false

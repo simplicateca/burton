@@ -1,56 +1,72 @@
-color: green
+color: null
+description: null
 fieldLayouts:
   d5987dad-8fc6-4016-8a6f-f88bdcfc6149:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
         elements:
           -
-            dateAdded: '2024-10-11T22:15:06+00:00'
+            dateAdded: '2025-08-11T15:42:37+00:00'
+            editCondition: null
             elementCondition: null
-            template: _sitehub/ui-template-reusable-bit.twig
-            type: craft\fieldlayoutelements\Template
-            uid: 63c0f42e-9e2d-4ed0-8960-dc425e26a087
-            userCondition: null
-            width: 100
-          -
-            autocapitalize: true
-            autocomplete: false
-            autocorrect: true
-            class: null
-            dateAdded: '2024-10-11T22:15:06+00:00'
-            disabled: false
-            elementCondition: null
-            id: null
+            fieldUid: 88fdcb93-d8c6-4625-807e-885199098b6c # Label
+            handle: null
             includeInCards: false
-            inputType: null
             instructions: null
             label: null
-            max: null
-            min: null
-            name: null
-            orientation: null
-            placeholder: null
             providesThumbs: false
-            readonly: false
-            requirable: false
-            size: null
-            step: null
+            required: false
             tip: null
-            title: null
-            type: craft\fieldlayoutelements\entries\EntryTitleField
-            uid: 6867bcd7-af17-492f-a3a7-047f563b42f5
+            type: craft\fieldlayoutelements\CustomField
+            uid: e2ede4e5-1d54-4f0b-9bb9-0aefcc044a66
             userCondition: null
             warning: null
             width: 50
           -
-            dateAdded: '2024-10-11T22:15:06+00:00'
+            dateAdded: '2025-06-27T16:42:49+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 05b8915d-85a6-45a5-9e41-a84d08934d25
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2025-06-27T16:42:49+00:00'
             elementCondition: null
             type: craft\fieldlayoutelements\HorizontalRule
-            uid: bb99f315-92b5-4fcf-976c-2a5692944e67
+            uid: 266a6486-e076-41ca-8329-2d2d420df62d
             userCondition: null
           -
-            dateAdded: '2024-10-11T22:15:06+00:00'
+            dateAdded: '2025-06-27T16:42:49+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Copy
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 5983dad4-8807-4bd1-9a4b-3a659008ae64
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2025-06-27T16:42:49+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
             handle: null
@@ -66,7 +82,8 @@ fieldLayouts:
             warning: null
             width: 25
           -
-            dateAdded: '2024-10-11T22:15:06+00:00'
+            dateAdded: '2025-06-27T16:42:49+00:00'
+            editCondition: null
             elementCondition: null
             fieldUid: 581b9070-f50c-49a0-91c7-2921437ad0fb # Color
             handle: null
@@ -81,93 +98,57 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 25
-          -
-            dateAdded: '2024-10-11T22:15:06+00:00'
-            elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: ca9862ec-4309-4813-b2d3-bdc8b92ed755
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            dateAdded: '2024-10-11T22:15:06+00:00'
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: 266a6486-e076-41ca-8329-2d2d420df62d
-            userCondition: null
-          -
-            dateAdded: '2024-10-11T22:15:06+00:00'
-            elementCondition: null
-            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Summary
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 5983dad4-8807-4bd1-9a4b-3a659008ae64
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            dateAdded: '2024-10-11T22:15:06+00:00'
-            elementCondition: null
-            fieldUid: 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Cover Image
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 05b8915d-85a6-45a5-9e41-a84d08934d25
-            userCondition: null
-            warning: null
-            width: 50
-          -
-            dateAdded: '2024-10-11T22:15:06+00:00'
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: 99face47-9c70-4f37-90b8-bba2a152ab37
-            userCondition: null
-          -
-            dateAdded: '2024-10-11T22:15:06+00:00'
-            elementCondition: null
-            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: null
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: c5669682-e32b-4105-a1a0-9b323d4b9385
-            userCondition: null
-            warning: null
-            width: 75
         name: 'Content Bit'
         uid: fc93ce85-8a48-4e3f-b1e4-636a7627734e
         userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            dateAdded: '2025-06-27T16:46:46+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+            handle: source
+            includeInCards: false
+            instructions: null
+            label: URL
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 393dc4c3-f74f-4d48-8d56-d0d83f7fd69a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-06-27T16:46:46+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64 # JSON
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 2c9907ca-48ad-4d91-95b7-acca0a6ec48e
+            userCondition: null
+            warning: null
+            width: 100
+        name: Meta
+        uid: 759fb185-b29d-4b03-beb4-c42c5c43facc
+        userCondition: null
 handle: bit
-hasTitleField: true
+hasTitleField: false
 icon: bin-recycle
 name: Bit
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null
 slugTranslationMethod: site
-titleFormat: ''
+titleFormat: null
 titleTranslationKeyFormat: null
 titleTranslationMethod: site

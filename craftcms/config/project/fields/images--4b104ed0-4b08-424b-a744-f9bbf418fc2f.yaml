@@ -1,7 +1,7 @@
 columnSuffix: null
 handle: images
 instructions: null
-name: 'Cover Image'
+name: Images
 searchable: true
 settings:
   allowSelfRelations: false
@@ -10,19 +10,21 @@ settings:
   allowedKinds:
     - image
   branchLimit: null
-  defaultUploadLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Content Uploads
+  defaultPlacement: end
+  defaultUploadLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Content (Public)
   defaultUploadLocationSubpath: null
   maintainHierarchy: false
   maxRelations: null
   minRelations: null
-  previewMode: full
+  previewMode: thumbs
   restrictFiles: true
   restrictLocation: false
   restrictedDefaultUploadSubpath: null
-  restrictedLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Content Uploads
+  restrictedLocationSource: 'volume:280486f4-01ac-42a0-8604-c20f6b62b5df' # Content (Public)
   restrictedLocationSubpath: null
-  selectionLabel: 'Choose Image'
+  selectionLabel: Choose
   showCardsInGrid: true
+  showSearchInput: true
   showSiteMenu: true
   showUnpermittedFiles: false
   showUnpermittedVolumes: false

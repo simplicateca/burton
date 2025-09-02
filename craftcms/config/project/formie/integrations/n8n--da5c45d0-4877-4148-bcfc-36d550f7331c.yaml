@@ -1,0 +1,7 @@
+enabled: true
+handle: n8n
+name: n8n
+settings:
+  webhook: null
+sortOrder: 1
+type: verbb\formie\integrations\automations\N8n

@@ -4,7 +4,7 @@ instructions: null
 name: Color
 searchable: false
 settings:
-  defaultColor: null
+  allowCustomColors: true
 translationKeyFormat: null
 translationMethod: none
 type: craft\fields\Color

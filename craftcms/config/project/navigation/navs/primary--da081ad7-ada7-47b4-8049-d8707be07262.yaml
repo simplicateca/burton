@@ -1,6 +1,7 @@
 defaultPlacement: end
 fieldLayouts:
   a6093236-d4a9-45bb-b95b-b5c93244135d:
+    cardThumbAlignment: end
     tabs:
       -
         elementCondition: null
@@ -10,6 +11,7 @@ fieldLayouts:
             autocomplete: false
             autocorrect: true
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -35,6 +37,7 @@ fieldLayouts:
             warning: null
             width: 100
           -
+            dateAdded: null
             elementCondition: null
             includeInCards: false
             instructions: null
@@ -48,6 +51,7 @@ fieldLayouts:
             warning: null
           -
             attribute: newWindow
+            dateAdded: null
             elementCondition: null
             id: null
             includeInCards: false
@@ -78,6 +82,7 @@ fieldLayouts:
             autocorrect: true
             autofocus: false
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -113,6 +118,7 @@ fieldLayouts:
             autocorrect: true
             autofocus: false
             class: null
+            dateAdded: null
             disabled: false
             elementCondition: null
             id: null
@@ -143,6 +149,7 @@ fieldLayouts:
             width: 100
           -
             attribute: customAttributes
+            dateAdded: null
             elementCondition: null
             id: null
             includeInCards: false
@@ -164,10 +171,13 @@ fieldLayouts:
         uid: 08c2140a-d494-477e-a767-4e3cfa4ebaaa
         userCondition: null
 handle: primary
-instructions: ''
+instructions: null
 maxNodes: null
-name: Primary
+name: 'Primary Navigation (Global)'
 permissions:
+  craft\commerce\elements\Product:
+    enabled: '1'
+    permissions: '*'
   craft\elements\Asset:
     enabled: ''
     permissions: '*'
@@ -177,21 +187,33 @@ permissions:
   craft\elements\Entry:
     enabled: '1'
     permissions:
-      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Topics
+      - 'section:83a6e4e2-3e52-435e-bcb4-ced4dc7e387e' # Taxonomies
       - 'section:4688dcb4-257f-4a94-b8b7-db234f63e0a9' # Landing Pages
+      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge Base
       - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
-      - 'section:b1ee8bc9-827b-4fec-943c-c6ff229adb59' # Knowledge
   craft\elements\Tag:
+    enabled: ''
+    permissions: '*'
+  putyourlightson\campaign\elements\CampaignElement:
+    enabled: ''
+    permissions: '*'
+  verbb\events\elements\Event:
     enabled: ''
     permissions: '*'
   verbb\navigation\nodetypes\CustomType:
     enabled: '1'
   verbb\navigation\nodetypes\PassiveType:
     enabled: '1'
+  verbb\navigation\nodetypes\SiteType:
+    enabled: '1'
 propagationMethod: all
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Craft CMS
+  5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
+    enabled: false
+  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
     enabled: true
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # USA
+    enabled: false
 sortOrder: 1
 structure:
   maxLevels: null

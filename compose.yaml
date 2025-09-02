@@ -13,7 +13,7 @@ services:
     env_file: &project_env
       - ./craftcms/.env
     volumes:
-      - ./etc/docker/banner.sh:/home/banner.sh
+      - ./etc/banner.sh:/home/banner.sh
     depends_on:
       nginx:
         condition: service_started
@@ -28,12 +28,12 @@ services:
     image: simplicateca/php-fpm:8.2
     command: php-fpm
     user: "1000:1000"
-    restart: on-failure
+    restart: no
     env_file: *project_env
     working_dir: /app
     volumes:
-      - ./craftcms:/app:cached
-      - ./etc/docker/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./craftcms:/app
+      - ./etc/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./frontend/public:/app/web/dist:cached
     depends_on:
       composer:
@@ -48,10 +48,16 @@ services:
 # ➜ https://hub.docker.com/_/composer
   composer:
     image: composer:2
-    command: "composer install --verbose --no-progress --no-interaction"
+    command: >
+      sh -c 'if [ ! -f composer.lock ] || [ ! -d vendor ]; then
+              composer install --verbose --no-progress --no-interaction;
+            else
+              echo "composer.lock and vendor/ exist, skipping install.";
+            fi'
     user: "1000:1000"
     volumes:
       - ./craftcms:/app
+
 
 # Craft CMS (with Queue Runner)
 # ----------------------------------------------------------------------- #
@@ -80,7 +86,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - 3306:3306
-    restart: on-failure
+    restart: no
     env_file: *project_env
     environment:
       - MYSQL_ROOT_PASSWORD=secret
@@ -89,7 +95,7 @@ services:
       - MYSQL_PASSWORD=${CRAFT_DB_PASSWORD:-project}
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./etc/docker/seed:/docker-entrypoint-initdb.d
+      - ./etc/mysql/:/docker-entrypoint-initdb.d
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
       interval: 10s
@@ -107,7 +113,7 @@ services:
         [ ! -f package-lock.json ] && npm install;
         [ ! -d node_modules/.vite ] && npm ci;
         npm run dev"
-    restart: on-failure
+    restart: no
     stop_grace_period: "1s"
     tty: true
     ports:
@@ -130,31 +136,31 @@ services:
 # ➜ etc/docker/nginx.conf
   nginx:
     image: nginx:1-alpine
-    restart: on-failure
+    restart: no
     depends_on: [php]
     ports:
       - 8000:80
     volumes:
       - ./craftcms/web:/app/web:ro
-      - ./etc/docker/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
+      - ./etc/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
 
 # Redis (Key-Value Storage)
 # ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/redis
   redis:
     image: redis:7-alpine
-    restart: on-failure
+    restart: no
     ports:
       - 6379:6379
 
 # Mailhog (SMTP Testing Server)
 # ----------------------------------------------------------------------- #
 # ➜ https://github.com/mailhog/MailHog
-  mailhog:
-    image: mailhog/mailhog:latest
-    restart: on-failure
-    ports:
-      - 8025:8025
+# mailhog:
+#   image: mailhog/mailhog:latest
+#   restart: on-failure
+#   ports:
+#     - 8025:8025
 
 # Adminer (Database Web UI)
 # ----------------------------------------------------------------------- #
@@ -167,26 +173,6 @@ services:
     profiles: [debug]
     depends_on: [mysql]
 
-# Minio (s3-Compatible Object Storage)
-# ----------------------------------------------------------------------- #
-# ➜ https://hub.docker.com/r/minio/minio
-  minio:
-    image: minio/minio
-    command: server /data --console-address ":9001"
-    env_file: *project_env
-    environment:
-      - MINIO_ROOT_USER=${S3_ACCESS_KEY:-project}
-      - MINIO_ROOT_PASSWORD=${S3_SECRET_KEY:-secretkey}
-    ports:
-      - "9000:9000" # S3 API
-      - "9001:9001" # Web console
-    volumes:
-      - minio_data:/data
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 20s
-      retries: 3
 
 # Meilisearch - data storage & search
 # ----------------------------------------------------------------------- #
@@ -211,6 +197,8 @@ services:
   n8n:
     image: n8nio/n8n
     env_file: *project_env
+    environment:
+      - N8N_ENCRYPTION_KEY=${CRAFT_SECURITY_KEY:-secret}
     user: "1000:1000"
     ports:
       - 5678:5678
@@ -224,5 +212,4 @@ services:
 volumes:
   n8n_data:
   meili_data:
-  minio_data:
   mysql_data:

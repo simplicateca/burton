@@ -1,0 +1,53 @@
+columnSuffix: null
+handle: bits
+instructions: null
+name: Bits
+searchable: false
+settings:
+  createButtonLabel: 'Add Bit'
+  defaultIndexViewMode: cards
+  enableVersioning: false
+  entryTypes:
+    -
+      __assoc__:
+        -
+          - uid
+          - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - ad3c4465-2c99-4028-82f5-cd2d63371663 # FAQ
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - 066383d2-4c3e-415b-be7e-93c6a4c5471b # Quote
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - b9df713e-1b28-462e-b65f-03198b663096 # Stat
+        -
+          - group
+          - General
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: false
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

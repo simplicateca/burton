@@ -1,0 +1,114 @@
+{## _base/article
+{---------------------------------------------------------------------------##}
+{%- extends "_base/entry" -%}
+
+{## --------------------------------------------------------------------------}
+{§§ 1.0 ➜ Article Entry ----------------------------------------------------##}
+
+{## [Article Entry] ➜ Template Rendering
+{---------------------------------------------------------------------------##}
+{%- block content -%}
+    {%- import _self as article -%}
+
+    {{- article.metabar( entry ) -}}
+    {{- article.authorchips( entry ) -}}
+    {{- article.outline( entry ) -}}
+
+    {{ parent() }}
+
+    {{- article.authorcards( entry ) -}}
+{%- endblock -%}
+
+
+{% block aside %}
+    {%- from "_base/book" import chip -%}
+    {{- chip( entry.books.one() ??? null ) -}}
+{% endblock %}
+
+
+{##---------------------------------------------------------------------------}
+{§§ 2.0 ➜ Entry Cards ------------------------------------------------------##}
+
+
+
+
+
+{##---------------------------------------------------------------------------}
+{§§ 3.0 ➜ Content Specific Macros ------------------------------------------##}
+
+
+{## Author Headshot Chips
+{---------------------------------------------------------------------------##}
+{%- macro authorchips( entry ) -%}
+    {%- import "_base/person" as person -%}
+    {%- set authors = ( entry.books.one() ??? null ) ? entry.profiles : [] -%}
+    {{- authors ? person.byline( authors ) -}}
+{%- endmacro -%}
+
+
+{## Author Bio Cards
+{---------------------------------------------------------------------------##}
+{%- macro authorcards( entry ) -%}
+    {%- import "_base/person" as person -%}
+
+    {%- set authors = ( entry.books.one() ??? null ) ? entry.profiles : null -%}
+    {%- if authors is not empty -%}
+        <div class="flex flex-col gap-6 border-t-2 border-theme-tint2">
+            {%- for author in authors -%}
+                {{- person.bio( author ) -}}
+            {%- endfor -%}
+        </div>
+    {%- endif -%}
+{%- endmacro -%}
+
+
+{## Meta Details Bar
+{---------------------------------------------------------------------------##}
+{%- macro metabar( entry ) -%}
+    {%- import _self as e -%}
+    <div class="py-4 text-lg flex items-center gap-8">
+        <div class="flex gap-4">
+            <strong>Date Published</strong>
+            {{ e.datetime( entry.postDate ) }}
+        </div>
+
+        <div class="flex gap-4">
+            <strong>Share</strong>
+            {{- e.sharing( entry.url, title: entry.title ) -}}
+        </div>
+
+        <div class="flex gap-4">
+            <strong>Read Time</strong>
+            {{- e.readtime( entry ) -}}
+        </div>
+    </div>
+{%- endmacro -%}
+
+
+{## Outline
+{---------------------------------------------------------------------------##}
+{%- macro outline( entry ) -%}
+    {%- import "_burton" as b -%}
+    {{- entry.outline ? b.text( entry.outline, 'outline', separator: 'none' ) -}}
+    {{- b.image( entry.images, 'caption' ) -}}
+{%- endmacro -%}
+
+
+{## Topic Tags
+{---------------------------------------------------------------------------##}
+{%- macro topics( topics ) -%}
+    <div class="h4">POSTED IN</div>
+    <div class="flex flex-wrap space-x-2">
+        {% for tag in topics %}
+            <a href="{{ tag.url }}" class="text-sm font-medium text-gray-800 hover:text-blue-600" itemprop="about">{{ tag.title }}</a>
+        {% endfor %}
+    </div>
+{%- endmacro -%}
+
+
+{## Related Entry Cards
+{---------------------------------------------------------------------------##}
+{%- macro related( articles ) -%}
+    <h1>_base/article|related()</h1>
+
+{%- endmacro -%}

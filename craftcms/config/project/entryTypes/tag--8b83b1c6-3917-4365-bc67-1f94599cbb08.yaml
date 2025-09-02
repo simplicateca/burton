@@ -1,0 +1,76 @@
+color: null
+description: null
+fieldLayouts:
+  a54bf7db-44fd-4a78-8262-cbb1b81d17ca:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2024-11-03T22:21:51+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            required: true
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: a7bd709b-7584-4359-933e-2e1cc950bb04
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2024-11-03T22:21:51+00:00'
+            elementCondition: null
+            type: craft\fieldlayoutelements\LineBreak
+            uid: 48d61918-73d0-4eae-8855-facca0d14312
+            userCondition: null
+          -
+            dateAdded: '2024-11-03T22:21:51+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
+            handle: null
+            includeInCards: false
+            instructions: 'How is this tag applied to content? Justify its existence and/or lifespan to minimize tag clutter.'
+            label: Purpose
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c4c4abda-76de-45da-8d55-d034cce1bf56
+            userCondition: null
+            warning: null
+            width: 50
+        name: Content
+        uid: b5571a90-5ef1-4d3c-a0f8-eaef63f89949
+        userCondition: null
+handle: tag
+hasTitleField: true
+icon: user-secret
+name: Tag
+showSlugField: true
+showStatusField: false
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

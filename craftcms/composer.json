@@ -22,21 +22,17 @@
         }
     },
     "prefer-stable": true,
+    "minimum-stability": "beta",
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://github.com/simplicateca/craft-burton-plugin"
+    }],
     "require": {
-        "behinddesign/craft-object-storage": "^1.1.0",
-        "craftcms/ckeditor": "^4.3.0",
         "craftcms/cms": "^5.4.8",
         "craftcms/feed-me": "^6.5.0",
-        "embed/embed": "^4.4.12",
-        "mmikkel/retcon": "^3.2.0",
-        "nystudio107/craft-emptycoalesce": "^5.0.0",
         "nystudio107/craft-seomatic": "^5.1.4",
         "nystudio107/craft-vite": "^5.0.1",
-        "openai-php/client": "^0.8.5",
-        "simplicateca/metasettings": "^5.1",
-        "twig/html-extra": "^3.13.0",
-        "verbb/formie": "^3.0.9",
-        "verbb/navigation": "^3.0.5",
+        "simplicateca/craft-burton-plugin": "dev-develop",
         "vlucas/phpdotenv": "^5.6.1",
         "yiisoft/yii2-redis": "^2.0.18"
     },
@@ -46,8 +42,7 @@
     },
     "autoload": {
         "psr-4": {
-            "modules\\sitemodule\\": "modules/sitemodule/src/",
-            "modules\\themecore\\": "modules/themecore/src/"
+            "modules\\local\\": "modules/local/src/"
         }
     }
 }

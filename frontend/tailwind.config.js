@@ -3,8 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
     content: [
         '../craftcms/modules/**/templates/**/*.{twig,sprig,html,json,svg}',
-        '../craftcms/templates/**/*.{twig,sprig,html,json,svg}',
-        './vue/**/*.{vue,html}'
+        '../craftcms/templates/**/*.{twig,sprig,html,json,svg}'
     ],
 
     plugins: [

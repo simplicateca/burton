@@ -26,12 +26,15 @@ return GeneralConfig::create()
     // Aliases
     // ➜ https://craftcms.com/docs/5.x/reference/config/general.html#aliases
     ->aliases([
-        '@web'     => App::env('CRAFT_WEB_URL'),
-        '@webroot' => App::env('CRAFT_WEB_ROOT'),
-        '@svgs'    => App::env('CRAFT_WEB_ROOT') . '/dist/svgs',
-        '@fonts'   => App::env('CRAFT_ENVIRONMENT') === 'dev'
-                    ? App::env('VITE_DEV_SERVER_PUBLIC') . '/fonts'
-                    : App::env('CRAFT_WEB_URL') . '/dist/fonts',
+        '@web'      => App::env('CRAFT_WEB_URL'),
+        '@assets'   => App::env('MINIO_ENDPOINT'),
+        '@automate' => App::env('AUTOMATE_ENDPOINT') . App::env('AUTOMATE_WEBHOOK_URL') ?? '/webhook-test',
+        '@webroot'  => App::env('CRAFT_WEB_ROOT'),
+        '@svg'      => App::env('CRAFT_WEB_URL') . '/dist/svg',
+        '@svgroot'  => App::env('CRAFT_WEB_ROOT') . '/dist/svg',
+        '@fonts'    => App::env('CRAFT_ENVIRONMENT') === 'dev'
+                        ? App::env('VITE_DEV_SERVER_PUBLIC') . '/fonts'
+                        : App::env('CRAFT_WEB_ROOT') . '/dist/fonts',
     ])
 
     // Admin Panel & DevMode Changes
