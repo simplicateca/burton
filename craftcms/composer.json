@@ -23,10 +23,6 @@
     },
     "prefer-stable": true,
     "minimum-stability": "beta",
-    "repositories": [{
-        "type": "vcs",
-        "url": "https://github.com/simplicateca/craft-burton-plugin"
-    }],
     "require": {
         "craftcms/cms": "^5.4.8",
         "craftcms/feed-me": "^6.5.0",
