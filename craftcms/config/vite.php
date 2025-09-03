@@ -11,8 +11,8 @@ return [
         'includeModulePreloadShim' => true,
         'serverPublic' => App::env('CRAFT_WEB_URL')  . '/dist/',
         'manifestPath' => App::env('CRAFT_WEB_ROOT') . '/dist/manifest.json',
-        'criticalPath' => App::env('CRAFT_WEB_ROOT') . '/dist/criticalcss',
-        'criticalSuffix' =>'_critical.min.css',
+        // 'criticalPath' => App::env('CRAFT_WEB_ROOT') . '/dist/criticalcss',
+        // 'criticalSuffix' =>'_critical.min.css',
     ],
     'dev' => [
         'useDevServer' => true,

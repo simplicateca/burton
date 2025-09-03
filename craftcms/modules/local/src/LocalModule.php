@@ -13,6 +13,12 @@ class LocalModule extends Module
     {
         parent::init();
 
+        // Point alias at your dist/ folder (where fonts, SVGs, etc. live)
+        \Craft::setAlias('@static', __DIR__ . '/assetbundles/myassetbundle/dist');
+
+        // If you want the entire module folder too:
+        \Craft::setAlias('@mymodule', __DIR__);
+
         if ($this->_moduleAlias) {
             Craft::setAlias($this->_moduleAlias, $this->getBasePath());
         }

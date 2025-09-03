@@ -1,0 +1,37 @@
+{## _base/article
+{---------------------------------------------------------------------------##}
+{%- extends "_burton/local/entry" -%}
+
+{## --------------------------------------------------------------------------}
+{§§ 1.0 ➜ Article Entry ----------------------------------------------------##}
+
+{## [Article Entry] ➜ Template Rendering
+{---------------------------------------------------------------------------##}
+{%- block content -%}
+    {%- block above -%}
+        {%- block metabar -%}
+            <div class="py-4 text-lg flex items-center gap-8">
+                <div class="flex gap-4">
+                    <strong>Date Published</strong>
+                    {{ _self.datetime( entry.postDate ) }}
+                </div>
+
+                <div class="flex gap-4">
+                    <strong>Share</strong>
+                    {{- _self.sharing( entry.url, title: entry.title ) -}}
+                </div>
+
+                <div class="flex gap-4">
+                    <strong>Read Time</strong>
+                    {{- _self.readtime( entry ) -}}
+                </div>
+            </div>
+        {%- endblock -%}
+
+        {%- block outline -%}
+            {{- _self.outline( entry ) -}}
+        {%- endblock -%}
+    {%- endblock -%}
+
+    {{ parent() }}
+{%- endblock -%}

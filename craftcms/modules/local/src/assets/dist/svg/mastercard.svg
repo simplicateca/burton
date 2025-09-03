@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 47 30">
+  <path fill="#fff" d="M44 0H3C1 0 0 1 0 3v24c0 2 1 3 3 3h41c2 0 3-1 3-3V3c0-2-1-3-3-3Z"/>
+  <path fill="#E41D2C" fill-rule="evenodd" d="M13 15v-1h2v4h-1v-1c-1 1-2 1-2-1l2-1h-1Zm5 0h-1l1 1c1 0 0 2-3 1h2c0-1-2-1-1-2l3-1-1 1ZM7 13h2v3l1-3h2l-1 5h-1l1-4-1 4H8v-4 4H7v-5Zm16 10 1-1h-2 3v-1c-2 0-3 1-3-1h4-5v-1h5v-1h-6 7v-1h-2v1h-1v-4h3l-1 1h-1 1l1-1h-7 1v1h-1c1-2 3-1 4-1v2h-3l3 1-1 1h-1l-2-2v-1 3c-2 0-1-1-1-3l1-2h7v-1h-7 6l-2-1h-3l2-1h3-5l1-1h3l-3-1h2l-1-1-1-1a11 11 0 1 0-4 19c3 0 4-1 5-2Z" clip-rule="evenodd"/>
+  <path fill="#F8B02B" fill-rule="evenodd" d="M31 14c3-1 3 1 2 2v2h-1v-1c-1 1-2 1-2-1l2-1h-2l1-1Zm3 0h2v1h-1l-1 3h-1l1-4Zm5-1h1l-1 5-1-1c-1 1-3 0-2-2 0-1 2-2 3-1v-1ZM24 7v1h-2l3 1h-3l-1 1h5-3l-2 1h3l2 1h-6 7v1h-7v1h7l1-1h2v1l-2 1c-1 1 0 2 2 1 0 2-1 2-2 2l-1-1h-2 2v1h-7 6v1h-5v1h5-4c0 2 1 1 3 1v1h-3 2l-1 1 6 2h6a11 11 0 1 0-9-20l-2 2Z" clip-rule="evenodd"/>
+  <path fill="#FEFEFE" fill-rule="evenodd" d="M7 18h1v-4 4h2l1-4-1 4h1l1-5h-2l-1 3v-3H7v5Zm30-1c-1-1 0-3 1-2 1 0 1 2-1 2Zm2-3c-1-1-3 0-3 1-1 2 1 3 2 2l1 1 1-5h-1v1Zm-8 3 1-1-1 1Zm0-3-1 1h2l-2 1c0 2 1 2 2 1v1h1v-2c1-1 1-3-2-2Zm-17 2v1h-1l1-1Zm-1-1h1c-1 0-2 0-2 2h2v1h1v-4h-2v1Zm9 0h1-1Zm-2 0v1l2 2h1l1-1-3-1h3v-2c-1 0-3-1-4 1Zm7-1-1 1v1l1 1 1 1c1 0 2 0 2-2-2 1-3 1-2-1l2-1v-1h-2l-1 1Zm-8 0-3 1c-1 1 1 1 1 2h-2c3 1 4-1 3-1l-1-1h1l1-1Z" clip-rule="evenodd"/>
+  <path fill="#FEFEFE" fill-rule="evenodd" d="M20 15h1v-1h-1v-1l-1 2c0 2-1 3 1 3v-3Zm5 2v-2h1l1-1h-3v4h1v-1Zm8 1h1l1-3h1v-1h-2l-1 4Z" clip-rule="evenodd"/>
+  <path fill="#F8B02B" fill-rule="evenodd" d="M37 17c2 0 2-2 1-2-1-1-2 1-1 2Z" clip-rule="evenodd"/>
+  <path fill="#E41D2C" fill-rule="evenodd" d="m14 16-1 1h1v-1Zm11 1h2l-1-1h-1v1Z" clip-rule="evenodd"/>
+  <path fill="#F8B02B" fill-rule="evenodd" d="m31 17 1-1-1 1Zm-6-1h1v-1h-1v1Z" clip-rule="evenodd"/>
+  <path fill="#E41D2C" fill-rule="evenodd" d="M22 15h1-1Z" clip-rule="evenodd"/>
+  <path fill="#F8B02B" fill-rule="evenodd" d="M20 15v1-1Z" clip-rule="evenodd"/>
+</svg>

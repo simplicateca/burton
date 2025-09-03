@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-label="Curved dashed line with arrow" viewBox="0 0 1200 200">
+  <defs>
+    <marker id="arrow-center-left" markerHeight="6" markerWidth="6" orient="auto" refX="1" refY="5" viewBox="0 0 10 10">
+      <path d="M 0 0 L 10 5 L 0 10 z"/>
+    </marker>
+  </defs>
+
+  <path d="M1160 40
+           C 1060 80, 920 140, 760 140
+           C 680 140, 640 100, 600 160"
+        fill="none"
+        stroke-width="6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-dasharray="24 16"
+        marker-end="url(#arrow-center-left)" />
+</svg>

@@ -102,6 +102,7 @@ services:
       timeout: 60s
       retries: 20
 
+
 # Node + ViteJS Frontend
 # ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/node
@@ -130,6 +131,7 @@ services:
       timeout: 120s
       retries: 20
 
+
 # Nginx Webserver
 # ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/nginx
@@ -144,6 +146,7 @@ services:
       - ./craftcms/web:/app/web:ro
       - ./etc/nginx.conf:/etc/nginx/conf.d/craft.conf:ro
 
+
 # Redis (Key-Value Storage)
 # ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/redis
@@ -153,63 +156,9 @@ services:
     ports:
       - 6379:6379
 
-# Mailhog (SMTP Testing Server)
-# ----------------------------------------------------------------------- #
-# ➜ https://github.com/mailhog/MailHog
-# mailhog:
-#   image: mailhog/mailhog:latest
-#   restart: on-failure
-#   ports:
-#     - 8025:8025
-
-# Adminer (Database Web UI)
-# ----------------------------------------------------------------------- #
-# ➜ https://hub.docker.com/_/adminer
-# ➜ Requires `debug` profile
-  adminer:
-    image: adminer:latest
-    ports:
-      - 8080:8080
-    profiles: [debug]
-    depends_on: [mysql]
-
-
-# Meilisearch - data storage & search
-# ----------------------------------------------------------------------- #
-# ➜ https://www.meilisearch.com/
-  meilisearch:
-    image: getmeili/meilisearch
-    env_file: *project_env
-    environment:
-      - http_proxy
-      - https_proxy
-      - MEILI_MASTER_KEY=secret
-      - MEILI_NO_ANALYTICS=true
-      - MEILI_ENV=development
-    ports:
-      - 7700:7700
-    volumes:
-      - meili_data:/data.ms
-
-# n8n - workflow automation
-# ----------------------------------------------------------------------- #
-# ➜ https://docs.n8n.io/hosting/installation/server-setups/docker-compose/
-  n8n:
-    image: n8nio/n8n
-    env_file: *project_env
-    environment:
-      - N8N_ENCRYPTION_KEY=${CRAFT_SECURITY_KEY:-secret}
-    user: "1000:1000"
-    ports:
-      - 5678:5678
-    volumes:
-      - n8n_data:/home/node/.n8n # App Data
-      - ./etc/n8n:/home/node/share # File Share
 
 # ------------------------------------------------------------------------------------- #
 # CONTAINER DATA STORAGE          https://docs.docker.com/reference/compose-file/volumes/
 # ------------------------------------------------------------------------------------- #
 volumes:
-  n8n_data:
-  meili_data:
   mysql_data:
