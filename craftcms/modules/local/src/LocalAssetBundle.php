@@ -8,7 +8,7 @@ class LocalAssetBundle extends AssetBundle
 {
     public function init(): void
     {
-        $this->sourcePath = "@modules/local/web/static";
+        $this->sourcePath = "@modules/local/web/dist";
         // $this->css = ["css/styles.css"];
         // $this->js = ["js/script.js"];
         parent::init();
