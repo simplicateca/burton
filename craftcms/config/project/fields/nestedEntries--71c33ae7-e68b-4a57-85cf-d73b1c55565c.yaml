@@ -11,7 +11,6 @@ settings:
     - link
     - type
     - postDate
-    - 'field:ec92452d-10f2-4a41-a9ee-bf384facb572' # Topics
   enableVersioning: false
   entryTypes:
     -
@@ -45,10 +44,30 @@ settings:
           __assoc__:
             -
               - uriFormat
-              - "{{ [object.primaryOwner.uri|default(null),object.slug]|filter|join('/') }}"
+              - '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
             -
               - template
-              - _burton/local/entry/index.twig
+              - _burton/local/entry/_router.twig
+      -
+        - 5435578f-4317-4fbf-b24f-a5fd4d2e9f68 # French
+        -
+          __assoc__:
+            -
+              - uriFormat
+              - '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
+            -
+              - template
+              - _burton/local/entry/_router.twig
+      -
+        - e7f9ef82-aa7c-4def-8477-dbe7648488b5 # Alternate
+        -
+          __assoc__:
+            -
+              - uriFormat
+              - '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
+            -
+              - template
+              - _burton/local/entry/_router.twig
   viewMode: index
 translationKeyFormat: null
 translationMethod: site
