@@ -4,7 +4,7 @@ instructions: null
 name: Query
 searchable: false
 settings:
-  configFile: _base/settings/collection.query.twig
+  configFile: _burton/local/settings/collection.query.twig
   configJson: ''
   configTwig: ''
   customOptions: false

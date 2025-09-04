@@ -4,7 +4,7 @@ instructions: 'Amet con sectetur adi piscing posse lorem ipsum'
 name: Frame
 searchable: false
 settings:
-  configFile: _base/settings/block.frame.twig
+  configFile: _burton/local/settings/block.frame.twig
   configJson: ''
   configTwig: ''
   customOptions: false

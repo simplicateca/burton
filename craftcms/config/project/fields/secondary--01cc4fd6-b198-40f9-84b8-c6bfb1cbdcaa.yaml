@@ -4,7 +4,7 @@ instructions: null
 name: Secondary
 searchable: false
 settings:
-  configFile: _base/settings/block.secondary.twig
+  configFile: _burton/local/settings/block.secondary.twig
   configJson: ''
   configTwig: ''
   customOptions: false

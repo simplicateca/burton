@@ -4,7 +4,7 @@ instructions: 'Deinde prima illa quae in congressu lorem ipsum'
 name: Format
 searchable: false
 settings:
-  configFile: _base/settings/block.format.twig
+  configFile: _burton/local/settings/block.format.twig
   configJson: ''
   configTwig: ''
   customOptions: false
@@ -38,10 +38,10 @@ settings:
       __assoc__:
         -
           - label
-          - Simple
+          - 'Default (Simple, Seamless, Basic Image, Basic Media, Basic Text)'
         -
           - value
-          - simple
+          - default
     -
       __assoc__:
         -
@@ -62,14 +62,6 @@ settings:
       __assoc__:
         -
           - label
-          - Seamless
-        -
-          - value
-          - seamless
-    -
-      __assoc__:
-        -
-          - label
           - Interactive
         -
           - value
@@ -82,14 +74,6 @@ settings:
         -
           - value
           - multivariate
-    -
-      __assoc__:
-        -
-          - label
-          - 'Basic (Basic Image, Basic Media, Basic Text)'
-        -
-          - value
-          - basic
     -
       __assoc__:
         -

@@ -331,12 +331,11 @@ input[type=radio].sr-only:checked + label { @apply
     whitespace-nowrap
     ;
 
-    &:not(.button_gold)&:not(.button_ghost) { @apply
+    &:not(.button_ghost) { @apply
         bg-theme-accent/80
         text-theme-accent-alt/80
         border-theme-accent-tint
-        hover:bg-theme-accent
-        hover:text-gold;
+        hover:bg-theme-accent;
     ;}
 
     &.button_ghost { @apply
@@ -346,15 +345,6 @@ input[type=radio].sr-only:checked + label { @apply
         border-theme-tint
         hover:bg-theme-accent-tint/20
         hover:opacity-100;
-    ;}
-
-    &.button_gold { @apply
-        bg-theme-accent
-        bg-gold/70
-        text-gray-800
-        border-gold
-        hover:bg-gold
-        hover:border-gold/50
     ;}
 
     &:not(.button_small) { @apply

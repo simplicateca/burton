@@ -93,7 +93,7 @@ fieldLayouts:
 handle: builder
 hasTitleField: true
 icon: block-brick
-name: 'Block Fragment'
+name: Multi-Builder
 showSlugField: false
 showStatusField: true
 slugTranslationKeyFormat: null

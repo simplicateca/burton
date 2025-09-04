@@ -31,6 +31,35 @@ settings:
                               - craft\fieldlayoutelements\CustomField
                             2:
                               - label
+                              - Image
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 50
+                            10:
+                              - dateAdded
+                              - '2025-08-11T16:01:38+00:00'
+                            11:
+                              - uid
+                              - 763e5dce-469f-40b8-b525-fb79a33a1624
+                            14:
+                              - fieldUid
+                              - 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            2:
+                              - label
                               - Copy
                             3:
                               - instructions
@@ -88,39 +117,10 @@ settings:
                             14:
                               - fieldUid
                               - ea50810e-421f-4332-8d5b-0fa6f1a3d7e0 # Enable
-                        -
-                          __assoc__:
-                            0:
-                              - type
-                              - craft\fieldlayoutelements\CustomField
-                            2:
-                              - label
-                              - Image
-                            6:
-                              - required
-                              - false
-                            7:
-                              - providesThumbs
-                              - false
-                            8:
-                              - includeInCards
-                              - false
-                            9:
-                              - width
-                              - 50
-                            10:
-                              - dateAdded
-                              - '2025-08-11T16:01:38+00:00'
-                            11:
-                              - uid
-                              - 763e5dce-469f-40b8-b525-fb79a33a1624
-                            14:
-                              - fieldUid
-                              - 4b104ed0-4b08-424b-a744-f9bbf418fc2f # Images
             3:
               - cardThumbAlignment
               - end
-  viewMode: pane
+  viewMode: grouped
 translationKeyFormat: null
 translationMethod: site
 type: craft\fields\ContentBlock

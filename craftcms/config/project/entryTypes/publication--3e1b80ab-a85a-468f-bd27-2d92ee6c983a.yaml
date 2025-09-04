@@ -8,7 +8,7 @@ fieldLayouts:
         elementCondition: null
         elements:
           -
-            content: "# Publications\r\n---"
+            content: "# Publication Overview\r\n---"
             dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
@@ -17,7 +17,7 @@ fieldLayouts:
             userCondition: null
             width: 100
           -
-            content: '## Details'
+            content: "## Details\r\n---"
             dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
@@ -43,7 +43,7 @@ fieldLayouts:
             warning: null
             width: 75
           -
-            content: '## Teaser Card'
+            content: "## Teaser Card\r\n---"
             dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
@@ -69,7 +69,7 @@ fieldLayouts:
             warning: null
             width: 75
           -
-            content: '## Graphics'
+            content: "## Branding\r\n---"
             dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
@@ -94,46 +94,23 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 75
-          -
-            dateAdded: '2025-09-02T22:55:32+00:00'
-            elementCondition: null
-            type: craft\fieldlayoutelements\HorizontalRule
-            uid: a1b0ef4e-915c-401c-b17a-64fd03def6fc
-            userCondition: null
-          -
-            content: '## Entries'
-            dateAdded: '2025-09-02T22:55:32+00:00'
-            displayInPane: false
-            elementCondition: null
-            type: craft\fieldlayoutelements\Markdown
-            uid: 8a9202c4-0e54-4007-829f-024c2403da11
-            userCondition: null
-            width: 25
-          -
-            dateAdded: '2025-09-02T22:55:32+00:00'
-            editCondition: null
-            elementCondition: null
-            fieldUid: 71c33ae7-e68b-4a57-85cf-d73b1c55565c # Nested Entries
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: 84e9b8a0-903d-4abd-8acd-cd7b38707f2e
-            userCondition: null
-            warning: null
-            width: 75
-        name: Publication
+        name: Overview
         uid: b9a694aa-5b29-42d0-9aab-d31c6dd7047e
         userCondition: null
       -
         elementCondition: null
         elements:
           -
-            content: '## Header Builder'
+            content: "# Publication Landing Page\r\n---"
+            dateAdded: '2025-09-04T00:27:37+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: e038c301-1a62-4d6e-84b2-7da7f9a0758e
+            userCondition: null
+            width: 100
+          -
+            content: "## Hero\r\n\r\nThe **Header Builder** provides a set of content-first block types that can be combined to create complex layouts."
             dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
@@ -159,7 +136,7 @@ fieldLayouts:
             warning: null
             width: 75
           -
-            content: '## Body Builder'
+            content: "## Body Content\r\n\r\nThe **Body Builder** provides a set of content-first block types that can be combined to create complex layouts."
             dateAdded: '2025-09-02T22:53:56+00:00'
             displayInPane: false
             elementCondition: null
@@ -185,9 +162,9 @@ fieldLayouts:
             warning: null
             width: 75
           -
-            content: '## Sidebar'
+            content: "## Secondary\r\n\r\nThe **Sidebar Builder** provides a set of content-first block types that can be combined to create complex layouts."
             dateAdded: '2025-09-02T22:53:56+00:00'
-            displayInPane: true
+            displayInPane: false
             elementCondition: null
             type: craft\fieldlayoutelements\Markdown
             uid: e2523712-549d-47cf-8d73-58fd1639715c
@@ -210,8 +187,49 @@ fieldLayouts:
             userCondition: null
             warning: null
             width: 75
-        name: Content
+        name: Homepage
         uid: c8293d70-cd30-4e66-8f35-fb4213b9271b
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            content: "# Publication Entries\r\n---"
+            dateAdded: '2025-09-04T00:27:37+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 4e2d0d16-b9dc-4456-92d6-f574a4393d7b
+            userCondition: null
+            width: 100
+          -
+            content: '## Manifest'
+            dateAdded: '2025-09-04T00:34:34+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 80402de0-9b08-400e-b53a-4e1e4e1442ca
+            userCondition: null
+            width: 25
+          -
+            dateAdded: '2025-09-02T22:55:32+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 71c33ae7-e68b-4a57-85cf-d73b1c55565c # Nested Entries
+            handle: entries
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 84e9b8a0-903d-4abd-8acd-cd7b38707f2e
+            userCondition: null
+            warning: null
+            width: 75
+        name: Entries
+        uid: f8004709-09a1-4b06-9faa-234c74d949d2
         userCondition: null
 handle: publication
 hasTitleField: false

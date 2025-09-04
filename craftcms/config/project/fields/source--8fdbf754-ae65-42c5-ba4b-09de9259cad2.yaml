@@ -4,7 +4,7 @@ instructions: 'Ut in voluptate sit, qui epuletur'
 name: Source
 searchable: false
 settings:
-  configFile: _base/settings/block.source.twig
+  configFile: _burton/local/settings/block.source.twig
   configJson: ''
   configTwig: ''
   customOptions: false

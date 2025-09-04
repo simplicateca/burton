@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" aria-label="Curved dashed line with arrow" viewBox="0 0 1200 200">
-    <defs>
-        <marker id="a" markerHeight="6" markerWidth="6" orient="auto" refX="1" refY="5" viewBox="0 0 10 10">
-            <path d="m0 0 10 5-10 5z"/>
-        </marker>
-    </defs>
-    <path fill="none" stroke-dasharray="24 16" stroke-linecap="round" stroke-linejoin="round" stroke-width="6" marker-end="url(#a)" d="M40 20c100 60 260 120 440 120S760 30 980 60c80 10 160 80 180 100" transform="translate(1200, 0) scale(-1, 1)" />
-</svg>

@@ -141,10 +141,10 @@ fieldLayouts:
         name: Meta
         uid: 759fb185-b29d-4b03-beb4-c42c5c43facc
         userCondition: null
-handle: bit
+handle: generic
 hasTitleField: false
 icon: bin-recycle
-name: Bit
+name: 'Generic Bit'
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null

@@ -12,7 +12,26 @@ settings:
       __assoc__:
         -
           - uid
-          - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+          - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Generic Bit
+        -
+          - name
+          - Generic
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - 20c65dbf-0c77-4dfa-a35f-138d49439f7b # Address
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - 342cce68-7c60-4b56-9381-6c0d83e2d32e # Date
         -
           - group
           - General
@@ -36,7 +55,7 @@ settings:
       __assoc__:
         -
           - uid
-          - b9df713e-1b28-462e-b65f-03198b663096 # Stat
+          - b9df713e-1b28-462e-b65f-03198b663096 # Statistic
         -
           - group
           - General

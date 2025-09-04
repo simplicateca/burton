@@ -83,7 +83,7 @@ fieldLayouts:
 handle: stat
 hasTitleField: false
 icon: calculator
-name: Stat
+name: Statistic
 showSlugField: true
 showStatusField: true
 slugTranslationKeyFormat: null

@@ -69,32 +69,6 @@ fieldLayouts:
             warning: null
             width: 75
           -
-            content: "## Topics & Tags\r\n\r\nLorem ipsum dolor sit amet"
-            dateAdded: '2025-08-11T16:49:46+00:00'
-            displayInPane: false
-            elementCondition: null
-            type: craft\fieldlayoutelements\Markdown
-            uid: f067f0d1-23d0-4d3c-8af9-38ae479b6522
-            userCondition: null
-            width: 25
-          -
-            dateAdded: '2024-08-27T18:11:53+00:00'
-            editCondition: null
-            elementCondition: null
-            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Tags
-            handle: null
-            includeInCards: false
-            instructions: null
-            label: __blank__
-            providesThumbs: false
-            required: false
-            tip: null
-            type: craft\fieldlayoutelements\CustomField
-            uid: fa90e5bd-112c-42d7-9639-22c09116af46
-            userCondition: null
-            warning: null
-            width: 75
-          -
             content: "---\r\n# Content Builders\r\n---"
             dateAdded: '2025-08-11T16:59:47+00:00'
             displayInPane: false

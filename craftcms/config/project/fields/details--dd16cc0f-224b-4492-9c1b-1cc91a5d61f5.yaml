@@ -149,6 +149,43 @@ settings:
                             14:
                               - fieldUid
                               - ea50810e-421f-4332-8d5b-0fa6f1a3d7e0 # Enable
+                        -
+                          __assoc__:
+                            -
+                              - type
+                              - craft\fieldlayoutelements\LineBreak
+                            -
+                              - dateAdded
+                              - '2025-09-03T14:40:41+00:00'
+                            -
+                              - uid
+                              - 3e43f3cd-b0f4-4f6f-95c3-f70759c2dd92
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2025-09-03T14:40:41+00:00'
+                            11:
+                              - uid
+                              - a89a0466-0244-4bdf-acc2-68d8d8cbe5a0
+                            14:
+                              - fieldUid
+                              - ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics
             3:
               - cardThumbAlignment
               - end

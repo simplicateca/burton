@@ -1,24 +1,24 @@
-# Craft CMS
+## Craft CMS specific files/folders
 craftcms/license.key*
-craftcms/templates/sandbox
 craftcms/storage
 craftcms/web
 !craftcms/web/index.php
 
-
-# Miscellaneous Files
-.cache
-.DS_Store
+# Local Config / Env Files, etc
 .env
-.idea
 .project
-*.config
 *.override.yaml
 .settings
-.vscode/*
-.volumes/*
-*.esproj
+.idea
+.vscode
+
+## Compress SQL before committing
 *.sql
+
+## Caches, logs, and temp files
+.cache
+.DS_Store
+*.esproj
 *.sublime-*
 *.tmproj
 *.tmproject

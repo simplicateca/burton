@@ -23,29 +23,28 @@ previewTargets:
     __assoc__:
       -
         - label
-        - 'Public URL'
-      -
-        - refresh
-        - '1'
-      -
-        - urlFormat
-        - '{url}'
-  -
-    __assoc__:
-      -
-        - label
         - 'Result Preview'
-      -
-        - refresh
-        - '1'
       -
         - urlFormat
         - 'hub/collection/{{object.slug}}'
-propagationMethod: all
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
 siteSettings:
-  d34bee8e-bf22-451d-8339-a4342630833d: # Canada
+  5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
+    enabledByDefault: false
+    hasUrls: false
+    template: null
+    uriFormat: null
+  d34bee8e-bf22-451d-8339-a4342630833d: # English
     enabledByDefault: true
-    hasUrls: true
-    template: _base/entry.twig
-    uriFormat: '{% import "_base/entry" as e %}{{ e.uri_format(object) }}'
+    hasUrls: false
+    template: null
+    uriFormat: null
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # Alternate
+    enabledByDefault: false
+    hasUrls: false
+    template: null
+    uriFormat: null
 type: channel

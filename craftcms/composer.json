@@ -33,6 +33,7 @@
         "yiisoft/yii2-redis": "^2.0.20"
     },
     "require-dev": {
+        "stevecomrie/twig-sandbox": "dev-develop",
         "craftcms/generator": "^2.1.0",
         "yiisoft/yii2-shell": "^2.0.5"
     },

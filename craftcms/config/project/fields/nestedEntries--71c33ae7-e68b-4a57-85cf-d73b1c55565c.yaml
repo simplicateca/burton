@@ -5,20 +5,20 @@ name: 'Nested Entries'
 searchable: false
 settings:
   createButtonLabel: null
-  defaultIndexViewMode: cards
+  defaultIndexViewMode: table
   defaultTableColumns:
     - status
     - link
     - type
     - postDate
-    - 'field:545f1fed-e750-457f-91f5-47b4faf56f85' # Title - Entry
+    - 'field:ec92452d-10f2-4a41-a9ee-bf384facb572' # Topics
   enableVersioning: false
   entryTypes:
     -
       __assoc__:
         -
           - uid
-          - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
+          - c1ea9486-a2c9-4169-9858-144fd21c25b9 # Article
         -
           - group
           - General
@@ -26,7 +26,7 @@ settings:
       __assoc__:
         -
           - uid
-          - c1ea9486-a2c9-4169-9858-144fd21c25b9 # Article
+          - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
         -
           - group
           - General
@@ -37,6 +37,18 @@ settings:
   propagationKeyFormat: null
   propagationMethod: all
   showCardsInGrid: false
+  siteSettings:
+    __assoc__:
+      -
+        - d34bee8e-bf22-451d-8339-a4342630833d # English
+        -
+          __assoc__:
+            -
+              - uriFormat
+              - "{{ [object.primaryOwner.uri|default(null),object.slug]|filter|join('/') }}"
+            -
+              - template
+              - _burton/local/entry/index.twig
   viewMode: index
 translationKeyFormat: null
 translationMethod: site

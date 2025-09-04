@@ -2,8 +2,9 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
     content: [
+        '../craftcms/templates/**/*.{twig,sprig,html,json}',
         '../craftcms/modules/**/templates/**/*.{twig,sprig,html,json,svg}',
-        '../craftcms/templates/**/*.{twig,sprig,html,json,svg}'
+        '../craftcms/vendor/simplicateca/**/src/templates/**/*.{twig,sprig,html,json,svg}',
     ],
 
     plugins: [
@@ -52,8 +53,7 @@ module.exports = {
             // container queries on already small screens
             containers: {
                 '2xs': '16rem',
-                '3xs': '12rem',
-                '4xs': '8rem'
+                '3xs': '12rem'
             },
 
             animation: {
@@ -87,18 +87,18 @@ module.exports = {
                     'DEFAULT'     : 'rgb( var(--background) / <alpha-value> )',
                     'tint'        : 'rgb( var(--background-tint) / <alpha-value> )',
                     'tint2'       : 'rgb( var(--background-tint2) / <alpha-value> )',
-                    'alt'         : 'rgb( var(--bodycopy) / <alpha-value> )',
+                    'alt'         : 'rgb( var(--body) / <alpha-value> )',
 
                     // text
-                    // text-theme-headings | text-theme-bodycopy | text-theme-highlight
+                    // text-theme-headings | text-theme-body | text-theme-highlight
                     'headings'    : 'rgb( var(--headings) / <alpha-value> )',
                     'headings-alt': 'rgb( var(--headings-alt) / <alpha-value> )',
                     'headings1'   : 'rgb( var(--headings1) / <alpha-value> )',
                     'headings2'   : 'rgb( var(--headings2) / <alpha-value> )',
                     'headings3'   : 'rgb( var(--headings3) / <alpha-value> )',
                     'headings4'   : 'rgb( var(--headings4) / <alpha-value> )',
-                    'bodycopy'    : 'rgb( var(--bodycopy) / <alpha-value> )',
-                    'leadcopy'    : 'rgb( var(--leadcopy) / <alpha-value> )',
+                    'body'        : 'rgb( var(--body) / <alpha-value> )',
+                    'lead'        : 'rgb( var(--lead) / <alpha-value> )',
                     'highlight'   : 'rgb( var(--highlight) / <alpha-value> )',
 
                     // inline text links:
@@ -114,7 +114,7 @@ module.exports = {
                     'accent-alt'  : 'rgb( var(--accent-alt)  / <alpha-value> )',
                     'accent-alt2' : 'rgb( var(--accent-alt2)  / <alpha-value> )',
                 }
-            }
+            },
         }
     }
 };

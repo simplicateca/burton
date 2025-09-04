@@ -38,10 +38,10 @@ settings:
               -
                 - values
                 -
-                  - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Bit
+                  - 1eb561c2-313a-4ea5-9332-dd8effd8eb73 # Generic Bit
                   - ad3c4465-2c99-4028-82f5-cd2d63371663 # FAQ
                   - 066383d2-4c3e-415b-be7e-93c6a4c5471b # Quote
-                  - b9df713e-1b28-462e-b65f-03198b663096 # Stat
+                  - b9df713e-1b28-462e-b65f-03198b663096 # Statistic
   selectionLabel: 'Choose Collection'
   showCardsInGrid: false
   showSearchInput: true
