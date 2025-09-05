@@ -15,22 +15,23 @@ Craft CMS Admin
 🥷  craft@example.com
 🔒 letmein
 
-n8n Workflow Automation
- ➜ http://localhost:5678
-🥷  n8n@example.com
-🔒 letmein
-
-MinIO Object Storage
- ➜ http://localhost:9001
-🥷  ${S3_ACCESS_KEY:-project}
-🔒 ${S3_SECRET_KEY:-secretkey}
-
-Mailhog Email Testing
- ➜ http://localhost:8025
-
 _______________________________________________
 
 EOF
+
+# MinIO Object Storage
+#  ➜ http://localhost:9001
+# 🥷  ${S3_ACCESS_KEY:-project}
+# 🔒 ${S3_SECRET_KEY:-secretkey}
+
+# n8n Workflow Automation
+#  ➜ http://localhost:5678
+# 🥷  n8n@example.com
+# 🔒 letmein
+
+# Mailhog Email Testing
+#  ➜ http://localhost:8025
+
 
 # test env variables
 echo " "
