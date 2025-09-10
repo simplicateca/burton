@@ -4,7 +4,7 @@
 # ======================
 
 # Staging
-- pipeline: "Build & Deploy to Staging"
+- pipeline: "staging"
   extends: deploy-template
   events:
     - type: PUSH
@@ -19,7 +19,7 @@
       value: "lts"       # default Node
 
 # Production
-- pipeline: "Build & Deploy to Production"
+- pipeline: "production"
   extends: deploy-template
   events:
     - type: PUSH

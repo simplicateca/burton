@@ -81,15 +81,17 @@ craft-index-assets:
 	@$(EXEC_CRAFT) index-assets/all ;
 craft-export:
 	$(EXEC_CRAFT) db/backup ;
-craft-fresh-database:
+craft-drop-database:
 	@$(EXEC_CRAFT) db/drop-all-tables --interactive=0 ;
+craft-install:
 	@$(EXEC_CRAFT) install/craft \
 		--email='craft@example.com' \
 		--password='letmein' \
-		--site-name='Website' \
+		--site-name='English' \
 		--language='en-CA' \
-		--site-url='http://localhost:8000' \
+		--site-url='http://localhost:8000/en' \
 		--interactive=0 ;
+craft-fresh-database: craft-drop-database craft-install
 craft-reseed: craft-export
 	@rm -f $(SEED_PATH).sql.gz
 	@cp -p "`ls -dtr1 $(CRAFT_PATH)/storage/backups/* | tail -1`" $(SEED_PATH).sql
