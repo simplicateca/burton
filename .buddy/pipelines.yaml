@@ -12,11 +12,11 @@
         - refs/heads/staging
   variables:
     - key: "RELEASE_KEEP"
-      value: "6"         # keep fewer releases on staging
+      value: "5"
     - key: "RELEASE_SYMLINK"
-      value: "current"   # staging symlink
+      value: "current"
     - key: "FRONTEND_IMAGE_TAG"
-      value: "lts"       # default Node
+      value: "lts"
 
 # Production
 - pipeline: "production"
