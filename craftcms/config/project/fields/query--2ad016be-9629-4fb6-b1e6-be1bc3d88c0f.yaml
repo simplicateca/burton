@@ -1,0 +1,95 @@
+columnSuffix: null
+handle: query
+instructions: null
+name: Query
+searchable: false
+settings:
+  configFile: _burton/local/settings/collection.query.twig
+  configJson: ''
+  configTwig: ''
+  customOptions: false
+  mode: file
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - 'Public Facing Content'
+        -
+          - value
+          - public
+    -
+      __assoc__:
+        -
+          - label
+          - Articles
+        -
+          - value
+          - articles
+    -
+      __assoc__:
+        -
+          - label
+          - 'Events (Upcoming)'
+        -
+          - value
+          - events
+    -
+      __assoc__:
+        -
+          - label
+          - 'Events (Past)'
+        -
+          - value
+          - eventsPast
+    -
+      __assoc__:
+        -
+          - label
+          - Books
+        -
+          - value
+          - books
+    -
+      __assoc__:
+        -
+          - label
+          - 'Magazine Issues'
+        -
+          - value
+          - issues
+    -
+      __assoc__:
+        -
+          - label
+          - Organizations
+        -
+          - value
+          - organizations
+    -
+      __assoc__:
+        -
+          - label
+          - People
+        -
+          - value
+          - people
+    -
+      __assoc__:
+        -
+          - label
+          - 'Stage Content'
+        -
+          - value
+          - stage
+    -
+      __assoc__:
+        -
+          - label
+          - Topics
+        -
+          - value
+          - topics
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\metasettings\fields\MetaSettingsField

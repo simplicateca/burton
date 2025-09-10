@@ -1,0 +1,24 @@
+css: ".ck.ck-dropdown__panel:has(> .ck-color-selector) {\r\n  min-width: auto !important;\r\n  left: auto !important;\r\n  right: auto !important;\r\n  width: auto !important;\r\n  max-width: 260px !important;\r\n  transform: translateX(-50%) !important;\r\n}\r\n\r\n.ck.ck-paragraph-larger {\r\n  font-size: 1.15em;\r\n}\r\n\r\n.larger {\r\n  font-size: 1.15em;\r\n}\r\n\r\n.smaller {\r\n  font-size: 0.85em;\r\n}\r\n\r\n.ck-outro { \r\n  background: #ffffaa;\r\n}"
+headingLevels:
+  - 2
+  - 3
+  - 4
+js: "return {\r\n  alignment: {\r\n    options: [\r\n      'left',\r\n      'center',\r\n      'right',\r\n      'justify',\r\n    ],\r\n  },\r\n  link: {\r\n    toolbar: [\r\n      'linkPreview',\r\n      '|',\r\n      'editLink',\r\n      'linkProperties',\r\n      'unlink',\r\n    ],\r\n    decorators: {\r\n      isButton: {\r\n        mode: 'manual',\r\n        label: 'Button',\r\n        classes: \"button\",\r\n      },\r\n      useModal: {\r\n        mode: 'manual',\r\n        label: 'Open in Modal',\r\n        classes: \"useModal\",\r\n      },\r\n    },\r\n  },\r\n  heading: {\r\n  options: [\r\n      {\r\n        model: 'paragraph',\r\n        title: 'Paragraph',\r\n        class: 'ck-paragraph',\r\n      },\r\n      {\r\n        model: 'paragraphLarger',\r\n        title: 'Paragraph - Large',\r\n        class: 'ck-paragraph-larger',\r\n        converterPriority: 'high',\r\n        view: {\r\n          name: 'p',\r\n          classes: 'larger',\r\n        },\r\n      },\r\n      {\r\n        model: 'paragraphSmaller',\r\n        title: 'Paragraph - Small',\r\n        view: {\r\n          name: 'p',\r\n          classes: 'ck-paragraph smaller',\r\n        },\r\n      },\r\n      {\r\n        model: 'heading2',\r\n        view: 'h2',\r\n        title: 'Heading 2',\r\n        class: 'ck-heading2',\r\n      },\r\n      {\r\n        model: 'heading3',\r\n        view: 'h3',\r\n        title: 'Heading 3',\r\n        class: 'ck-heading3',\r\n      },\r\n      {\r\n        model: 'heading3Outro',\r\n        title: 'Outro Headline',\r\n        view: {\r\n          name: 'h3',\r\n          classes: 'ck-outro',\r\n        }\r\n      },\r\n      {\r\n        model: 'outroText',\r\n        title: 'Outro',\r\n        view: {\r\n          name: 'p',\r\n          classes: 'ck-outro',\r\n        },\r\n       converterPriority: 'high',\r\n      },      \r\n    ],\r\n  },\r\n  fontBackgroundColor: {\r\n    colorPicker: false,\r\n    colors: [\r\n      {\r\n        color: 'hsl(0, 0%, 60%)',\r\n        withText: true,\r\n        label: 'Grey',\r\n      },\r\n      {\r\n        color: 'hsl(60, 75%, 60%)',\r\n        label: 'Yellow',\r\n      },\r\n      {\r\n        color: 'hsl(0, 75%, 60%)',\r\n        label: 'Red',\r\n      },\r\n      {\r\n        color: 'hsl(120, 75%, 60%)',\r\n        label: 'Green',\r\n      },\r\n    ],\r\n    columns: 4,\r\n    documentColors: 0,\r\n  },\r\n\tlist: {\r\n\t\tmultiBlock: true\r\n\t}  \r\n}"
+name: "converterPriority: 'high',Text [main]"
+toolbar:
+  - heading
+  - alignment
+  - link
+  - bookmark
+  - bold
+  - italic
+  - fontBackgroundColor
+  - '|'
+  - bulletedList
+  - numberedList
+  - todoList
+  - blockQuote
+  - horizontalLine
+  - outdent
+  - indent
+  - sourceEditing

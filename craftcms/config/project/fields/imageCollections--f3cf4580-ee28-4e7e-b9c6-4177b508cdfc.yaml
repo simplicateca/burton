@@ -1,0 +1,55 @@
+columnSuffix: null
+handle: imageCollections
+instructions: null
+name: 'Image Collections'
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  defaultPlacement: end
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 808bd05d-6bd2-45e6-8066-165d180149a4
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - d7748b2a-ae79-4961-b103-a5aa758e39ab # Image Collection
+  selectionLabel: 'Choose Collection'
+  showCardsInGrid: false
+  showSearchInput: true
+  showSiteMenu: false
+  showUnpermittedEntries: false
+  showUnpermittedSections: false
+  sources:
+    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Entries

@@ -1,0 +1,47 @@
+columnSuffix: null
+handle: source
+instructions: 'Ut in voluptate sit, qui epuletur'
+name: Source
+searchable: false
+settings:
+  configFile: _burton/local/settings/block.source.twig
+  configJson: ''
+  configTwig: ''
+  customOptions: false
+  mode: file
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - 'Embed (New Bits, External Embed, Local Deck, Nested Blocks, External Embeds, Text Editor)'
+        -
+          - value
+          - embed
+    -
+      __assoc__:
+        -
+          - label
+          - 'Collection (Use Bits from a Collection, Load from Collection)'
+        -
+          - value
+          - collection
+    -
+      __assoc__:
+        -
+          - label
+          - 'Select (System Component, Manual Selection, Reusable Element, Local Image Asset, Local Media Asset)'
+        -
+          - value
+          - select
+    -
+      __assoc__:
+        -
+          - label
+          - 'Asset (Digital Asset, Parsed Document)'
+        -
+          - value
+          - asset
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\metasettings\fields\MetaSettingsField

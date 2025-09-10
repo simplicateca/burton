@@ -1,0 +1,70 @@
+color: null
+description: null
+fieldLayouts:
+  072016bf-052f-4164-945e-a23f5a1344ee:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2025-09-03T02:50:50+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            required: true
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 429657a4-4a7c-47e1-8e48-036f81738017
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-09-03T02:53:08+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 484225d4-edc1-4a9b-a104-115138e125ff # Date
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 81e6e991-7d35-4391-85d9-b9f156d19cb5
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 6adc208b-0b66-4392-a554-c763478c550e
+        userCondition: null
+handle: date
+hasTitleField: true
+icon: calendar-star
+name: Date
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

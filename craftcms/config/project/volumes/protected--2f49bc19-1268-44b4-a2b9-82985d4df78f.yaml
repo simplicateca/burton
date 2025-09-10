@@ -1,0 +1,128 @@
+altTranslationKeyFormat: null
+altTranslationMethod: none
+fieldLayouts:
+  d3a488f5-d1b6-48da-8988-528d9d988f24:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2024-11-03T22:21:59+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: false
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\assets\AssetTitleField
+            uid: f0565c04-9f10-4bde-b781-963b66b706fe
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            attribute: alt
+            class: null
+            cols: null
+            dateAdded: '2024-11-03T22:21:59+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            instructions: null
+            label: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            requirable: true
+            required: false
+            rows: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\assets\AltField
+            uid: 47195c7c-997f-4cde-8db9-e1afac538596
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2024-11-03T22:21:59+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c35ff24f-0a55-4920-819a-927bd63098ad
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2024-11-03T22:21:59+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 955eba0c-1846-4be2-8e96-4c882ccecb2c
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-07-21T16:42:20+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: f3d34d10-7741-40ba-9fae-27d87f771b4d # Content Summary
+            handle: transcript
+            includeInCards: false
+            instructions: 'Transcribed log of audio content (if applicable)'
+            label: Transcript
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 05a9fe97-f653-4cf5-add4-0e9718f56f87
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 0cd93f5d-f311-4305-b915-c920b68b05f0
+        userCondition: null
+fs: staticAssets
+handle: protected
+name: 'Brand (Protected)'
+sortOrder: 2
+subpath: ''
+titleTranslationKeyFormat: null
+titleTranslationMethod: site
+transformFs: ''
+transformSubpath: _transforms

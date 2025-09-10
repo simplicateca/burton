@@ -1,0 +1,108 @@
+columnSuffix: null
+handle: graphics
+instructions: null
+name: 'Entry Graphics'
+searchable: false
+settings:
+  fieldLayouts:
+    __assoc__:
+      -
+        - 6b4368f6-4ade-46f0-af1c-efcea5d80356
+        -
+          __assoc__:
+            0:
+              - tabs
+              -
+                -
+                  __assoc__:
+                    1:
+                      - uid
+                      - 43e6e7a7-e628-4a00-8c76-e330e38a2ef2
+                    4:
+                      - elements
+                      -
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 50
+                            10:
+                              - dateAdded
+                              - '2025-08-19T23:02:17+00:00'
+                            11:
+                              - uid
+                              - 4aec9af8-d0aa-40bb-af2f-9a8e472b1899
+                            14:
+                              - fieldUid
+                              - 4e4f70c0-d6ad-4f06-820e-16adde258240 # Logo
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 50
+                            10:
+                              - dateAdded
+                              - '2025-08-19T23:02:17+00:00'
+                            11:
+                              - uid
+                              - a4f330b2-116b-483d-9d2d-288395fcdeda
+                            14:
+                              - fieldUid
+                              - f672229f-14bd-4e5e-af75-4a0980b93a5c
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 50
+                            10:
+                              - dateAdded
+                              - '2025-08-19T23:02:17+00:00'
+                            11:
+                              - uid
+                              - 000f9a58-37f7-4cc9-bd86-706100f7342e
+                            14:
+                              - fieldUid
+                              - b54aca1f-5631-4f76-a248-e953c4ada5bd # Icon
+            3:
+              - cardThumbAlignment
+              - end
+  viewMode: grouped
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\ContentBlock

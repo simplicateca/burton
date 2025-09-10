@@ -1,0 +1,370 @@
+color: yellow
+description: null
+fieldLayouts:
+  b4475076-e702-46ac-ace4-e855d80c22be:
+    cardThumbAlignment: end
+    cardView:
+      - 'layoutElement:de1c8809-2706-465c-924a-3db9ffc0d49c'
+      - 'layoutElement:f5aad56a-3dcd-4e2b-838b-5442567707a8'
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            content: "# Site Components\r\n\r\n- Amet consectetur adipiscing posse lorem ipsum dolor sit amet\r\n- Deinde prima illa quae in congressu **lorem ipsum dolor ➜**"
+            dateAdded: '2025-08-23T20:34:01+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: a6986006-4ff4-47f2-ba5b-2016f855cfaf
+            userCondition: null
+            width: 50
+          -
+            dateAdded: '2025-07-11T16:01:56+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 67d9ffe9-367a-4a34-b0cf-1ced461a4120
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2025-08-23T20:34:01+00:00'
+            editCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
+                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
+                  layoutElementUid: 67d9ffe9-367a-4a34-b0cf-1ced461a4120
+                  operator: in
+                  uid: f9a5bf92-6611-4dbc-b0e6-c6ae6bba4bd7
+                  values:
+                    - embed
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: b24f1298-62ac-4de3-9ac3-32e644553bab # Code
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 0db866f6-19dc-4c15-a5ba-f4a24fe3bb74
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            dateAdded: '2025-08-23T20:35:33+00:00'
+            editCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
+                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
+                  layoutElementUid: 67d9ffe9-367a-4a34-b0cf-1ced461a4120
+                  operator: in
+                  uid: 0fac1946-7b64-440b-9996-b7c0810b4342
+                  values:
+                    - select
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: d3134fdd-a3cf-4946-83cf-d9061072af34 # Component
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 30250b18-0940-4a85-822c-9f74782b1be1
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2025-08-23T20:34:01+00:00'
+            editCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
+                  fieldUid: 8fdbf754-ae65-42c5-ba4b-09de9259cad2 # Source
+                  layoutElementUid: 67d9ffe9-367a-4a34-b0cf-1ced461a4120
+                  operator: in
+                  uid: 5248ae5a-7a73-42e7-8208-34e2d65ea91b
+                  values:
+                    - asset
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 0c659167-8917-4560-a17e-1b77c1469dd8 # Download
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: bc52ccbf-b443-442c-abb3-5c43c352692d
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            dateAdded: '2024-08-27T18:11:54+00:00'
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: a407f2a7-a173-4ba8-9b3b-e51abdd706d0
+            userCondition: null
+          -
+            content: "## Style & Presentation\r\n\r\n- **Frame** Quorum sine cau et sa fieri nihil putandum est quonam modo\r\n- **Format** Ut in voluptate sit, qui epuletur, in dolore, qui torqueatur"
+            dateAdded: '2025-07-11T16:01:56+00:00'
+            displayInPane: true
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 3d22c4e1-9e69-438c-ae20-4d95e67492f1
+            userCondition: null
+            width: 50
+          -
+            dateAdded: '2024-08-27T18:11:54+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 5635a1ac-adca-4a96-816a-7ae1b664bc4d # Frame
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 6824c328-4e52-4ddf-833b-5fac45cf817d
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            dateAdded: '2025-06-14T20:05:29+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 30d51977-2c56-424c-b45a-e20afdc7dfbb # Format
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a774eb4a-6a50-4355-b4b0-3985960738fe
+            userCondition: null
+            warning: null
+            width: 25
+          -
+            dateAdded: '2025-07-28T18:25:16+00:00'
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: 85455b6f-2d9e-4092-9a3f-b3cced5d4d9f
+            userCondition: null
+          -
+            content: "## Secondary Content\r\n  \r\n- Amet consectetur adipiscing posse lorem ipsum dolor sit amet voluptate sit, qui epuletur ➜"
+            dateAdded: '2025-07-28T18:25:16+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 0920c875-5325-4b6c-83de-eda87a013f59
+            userCondition: null
+            width: 50
+          -
+            dateAdded: '2024-08-27T18:11:54+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2025-08-23T21:58:43+00:00'
+            editCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
+                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
+                  layoutElementUid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
+                  operator: in
+                  uid: 04a2a90c-fb16-470d-a2bd-4b2d6f1df74c
+                  values:
+                    - copyLeftHeader
+                    - copyRightHeader
+                    - copyBelowHeader
+                -
+                  class: craft\elements\conditions\entries\FieldConditionRule
+                  operator: ni
+                  uid: b0d63468-7324-41bd-a0ca-40d1175a92be
+                  values:
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 7f04ec39-5b52-4784-a5cf-696c57c8b43a # Title - Block
+            handle: intro
+            includeInCards: false
+            instructions: null
+            label: Intro
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 29db6522-93c4-4b56-bcf8-884a50e92590
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-08-23T21:58:43+00:00'
+            editCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\FieldConditionRule
+                  operator: in
+                  uid: 7eb3e51e-3793-4155-a036-89b567041aae
+                  values:
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
+                -
+                  class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
+                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
+                  layoutElementUid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
+                  operator: in
+                  uid: 90fe1b49-04b1-4818-a468-b7a4a23ff3e4
+                  values:
+                    - copyLeftHeader
+                    - copyRightHeader
+                    - copyBelowHeader
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 545f1fed-e750-457f-91f5-47b4faf56f85 # Title - Entry
+            handle: introHeader
+            includeInCards: false
+            instructions: null
+            label: Intro
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 74747b3a-72ce-40a3-825a-4a8054794590
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-08-23T21:58:43+00:00'
+            elementCondition: null
+            type: craft\fieldlayoutelements\HorizontalRule
+            uid: d78c4abc-c429-4470-84db-423c752d1e50
+            userCondition: null
+          -
+            dateAdded: '2024-08-27T18:11:54+00:00'
+            editCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\FieldConditionRule
+                  operator: ni
+                  uid: f4eb23ae-58a3-4096-889a-6ad3cd4c622e
+                  values:
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
+                -
+                  class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
+                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
+                  layoutElementUid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
+                  operator: ni
+                  uid: 53911d1a-a5a4-4639-8009-6f7b0a6bf017
+                  values:
+                    - copyNone
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text [main]
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: 'Body Copy'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f5aad56a-3dcd-4e2b-838b-5442567707a8
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            dateAdded: '2024-08-27T18:11:54+00:00'
+            editCondition: null
+            elementCondition:
+              class: craft\elements\conditions\entries\EntryCondition
+              conditionRules:
+                -
+                  class: craft\elements\conditions\entries\FieldConditionRule
+                  operator: in
+                  uid: dac56427-b054-406f-8233-dffa80fefb0a
+                  values:
+                    - a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
+                -
+                  class: simplicateca\metasettings\fields\conditions\MetaSettingsDropdownConditionRule
+                  fieldUid: 01cc4fd6-b198-40f9-84b8-c6bfb1cbdcaa # Secondary
+                  layoutElementUid: 17dcf7bc-37bb-4491-9c1f-f0d4039db57f
+                  operator: ni
+                  uid: 6a733015-b009-461d-a540-555d41878f01
+                  values:
+                    - copyNone
+              elementType: craft\elements\Entry
+              fieldContext: global
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
+            handle: null
+            includeInCards: true
+            instructions: null
+            label: 'Body Copy'
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: de1c8809-2706-465c-924a-3db9ffc0d49c
+            userCondition: null
+            warning: null
+            width: 75
+        name: Content
+        uid: 2e11ef68-53fd-41c4-9396-c451aac88a1c
+        userCondition: null
+handle: component
+hasTitleField: false
+icon: gear
+name: 'Block - Component'
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

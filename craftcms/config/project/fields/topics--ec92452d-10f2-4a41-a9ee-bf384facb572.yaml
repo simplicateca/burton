@@ -1,0 +1,56 @@
+columnSuffix: null
+handle: topics
+instructions: null
+name: Topics
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  defaultPlacement: end
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - 41d2c56f-23e2-4f9d-8dce-70fe3d5ce494
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - bb561dd8-e748-4c68-9107-2ffd5db410d8 # Topic
+  selectionLabel: Choose
+  showCardsInGrid: false
+  showSearchInput: true
+  showSiteMenu: true
+  showUnpermittedEntries: true
+  showUnpermittedSections: true
+  sources:
+    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
+    - 'section:247cf34e-12cf-4324-b034-3209f48a18ff' # Core Pages
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: list
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Entries

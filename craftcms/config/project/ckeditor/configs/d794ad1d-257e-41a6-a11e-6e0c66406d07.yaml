@@ -1,0 +1,13 @@
+headingLevels:
+  - 1
+  - 2
+js: "return {\r\n  toolbar: [\r\n    'heading',\r\n    '|',\r\n    'bulletedList',\r\n    'numberedList',\r\n    'highlight',\r\n    'undo',\r\n    'redo',\r\n  ],\r\n  alignment: {\r\n    options: [\r\n      'left',\r\n      'center',\r\n      'right',\r\n      'justify'\r\n    ],\r\n  },\r\n  style: {\r\n    definitions: [\r\n      {\r\n        name: 'Larger',\r\n        element: 'p',\r\n        classes: [\r\n          'larger',\r\n        ],\r\n      },      \r\n      {\r\n        name: 'Knockout',\r\n        element: 'h3',\r\n        classes: [\r\n          'knockout',\r\n        ],\r\n      },\r\n      {\r\n        name: 'Marker',\r\n        element: 'span',\r\n        classes: [\r\n          'marker',\r\n        ],\r\n      },\r\n    ],\r\n  },\r\n  highlight: {\r\n    options: [\r\n      {\r\n        class: 'marker-green',\r\n        color: 'var(--ck-highlight-marker-green)',\r\n        model: 'greenMarker',\r\n        title: 'Green marker',\r\n        type: 'marker',\r\n      },\r\n      {\r\n        class: 'pen-red',\r\n        color: 'var(--ck-highlight-pen-red)',\r\n        model: 'redPen',\r\n        title: 'Red pen',\r\n        type: 'pen',\r\n      },\r\n    ],\r\n  }  \r\n}"
+name: 'Text [header]'
+toolbar:
+  - heading
+  - alignment
+  - '|'
+  - link
+  - bold
+  - italic
+  - style

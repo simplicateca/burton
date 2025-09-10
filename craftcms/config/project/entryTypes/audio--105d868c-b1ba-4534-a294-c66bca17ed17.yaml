@@ -1,0 +1,97 @@
+color: null
+description: null
+fieldLayouts:
+  8ef03de5-4787-4f79-9eb2-d82066c906c5:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            dateAdded: '2024-11-03T22:21:50+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: d4e393d2-e3cd-402c-a300-6f42cc0553c1 # Audio MP3
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: true
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: b0a05cf7-9d45-4c0d-b4e7-ac8d27d8d576
+            userCondition: null
+            warning: null
+            width: 50
+          -
+            dateAdded: '2024-11-03T22:21:50+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 4fdc22e7-f88a-4231-b6a1-61010b828aaf
+            userCondition: null
+            warning: null
+            width: 75
+        name: Content
+        uid: 423388b4-a5b2-4c6c-acb4-d480ba79ee5b
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            dateAdded: '2025-06-27T16:50:28+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+            handle: source
+            includeInCards: false
+            instructions: null
+            label: URL
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a26f1715-f94a-4bd4-bb95-66b9a2d5f3ff
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-06-27T16:50:28+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64 # JSON
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e41c2c7f-bf47-4eac-9a38-50ccac990914
+            userCondition: null
+            warning: null
+            width: 100
+        name: Meta
+        uid: 853128d6-2066-4012-9ba8-48e0618682c2
+        userCondition: null
+handle: audio
+hasTitleField: false
+icon: microphone-stand
+name: 'Audio File'
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: '{{ object.headline ? object.headline | striptags | trim : object.mp3.one().title ??? null }}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

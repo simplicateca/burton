@@ -1,0 +1,29 @@
+columnSuffix: null
+handle: embeds
+instructions: null
+name: Embeds
+searchable: true
+settings:
+  createButtonLabel: Add
+  defaultIndexViewMode: cards
+  enableVersioning: false
+  entryTypes:
+    -
+      __assoc__:
+        -
+          - uid
+          - 2508516d-3329-44ec-8518-04f2a29ca3f3 # Embed
+        -
+          - group
+          - General
+  includeTableView: false
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: true
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

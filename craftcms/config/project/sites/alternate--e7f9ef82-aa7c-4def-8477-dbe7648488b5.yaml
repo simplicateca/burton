@@ -1,0 +1,9 @@
+baseUrl: '@web/alt'
+enabled: '1'
+handle: alternate
+hasUrls: true
+language: en
+name: Alternate
+primary: false
+siteGroup: 638d56f9-7d8c-4ff1-9e7e-a692f3348ddf # Secondary
+sortOrder: 3

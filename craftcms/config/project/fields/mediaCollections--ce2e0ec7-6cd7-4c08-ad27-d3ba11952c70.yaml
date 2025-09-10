@@ -1,0 +1,56 @@
+columnSuffix: null
+handle: mediaCollections
+instructions: null
+name: 'Media Collections'
+searchable: false
+settings:
+  allowSelfRelations: false
+  branchLimit: null
+  defaultPlacement: end
+  maintainHierarchy: false
+  maxRelations: null
+  minRelations: null
+  selectionCondition:
+    __assoc__:
+      -
+        - elementType
+        - craft\elements\Entry
+      -
+        - fieldContext
+        - global
+      -
+        - class
+        - craft\elements\conditions\entries\EntryCondition
+      -
+        - conditionRules
+        -
+          -
+            __assoc__:
+              -
+                - class
+                - craft\elements\conditions\entries\TypeConditionRule
+              -
+                - uid
+                - f4d504fb-ba2e-4df2-8943-d67d30e34e31
+              -
+                - operator
+                - in
+              -
+                - values
+                -
+                  - 333f26c0-28b8-46f7-8399-21a7bc623a2f # Media Collection
+                  - 4b2a900b-f8d6-4b24-aee5-10ebc4051eb6 # External Feed
+  selectionLabel: 'Choose Collection'
+  showCardsInGrid: false
+  showSearchInput: true
+  showSiteMenu: false
+  showUnpermittedEntries: false
+  showUnpermittedSections: false
+  sources:
+    - 'section:667ee826-8732-4bc8-8dbe-b7aefad82b15' # Collections
+  targetSiteId: null
+  validateRelatedElements: false
+  viewMode: cards
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Entries
