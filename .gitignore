@@ -4,6 +4,9 @@ craftcms/storage
 craftcms/web
 !craftcms/web/index.php
 
+## Avoid nested .git folders
+**.git
+
 # Local Config / Env Files, etc
 .env
 .project
