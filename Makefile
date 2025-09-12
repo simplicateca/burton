@@ -1,90 +1,84 @@
-#--------------------------------------------------------------
-# Craft CMS Project
-#--------------------------------------------------------------
-CRAFT_PATH		:= craftcms
-ETC_PATH		:= etc
-FRONTEND_PATH	:= frontend
+##----------------------------------------------------------- ##
+## Craft CMS Project Makefile
+##----------------------------------------------------------- ##
+.PHONY: preflight dev debug down ssh craft craft-index-assets \
+		craft-export craft-drop-database craft-install craft-fresh-database \
+		craft-reseed composer composer-bump composer-update composer-wipe \
+		npm yarn frontend-wipe n8n-import n8n-export npm-wipe
 
-ENV_PATH		:= $(CRAFT_PATH)/.env
-SEED_FILE		:= $(CRAFT_PATH)/seed.sql.gz
+## Essential Variables
+##----------------------------------------------------------- ##
+CRAFT_FOLDER   ?= ./craftcms
+CRAFT_ENV      ?= $(CRAFT_FOLDER)/.env
+CRAFT_SQL_SEED ?= $(CRAFT_FOLDER)/seed.sql.gz
+CLI_ARGS       := $(filter-out $@,$(MAKECMDGOALS))
 
-APP_ID			:= $(shell grep -E '^CRAFT_APP_ID=' $(ENV_PATH) | cut -d '=' -f 2)
-PROJECT_NAME	:= $(shell echo $(if $(APP_ID),$(APP_ID),$(shell basename $(realpath $(dir $(CURDIR))))) | tr '[:upper:]' '[:lower:]')
+## Load .env if it exists
+##----------------------------------------------------------- ##
+ifneq (,$(wildcard $(CRAFT_ENV)))
+    include $(CRAFT_ENV)
+    export $(shell sed -n 's/^\([^#][^=]*\)=.*/\1/p' $(CRAFT_ENV))
+endif
 
-COMPOSE			:= docker compose --project-name $(PROJECT_NAME) --env-file $(ENV_PATH)
-COMPOSE_UP		:= $(COMPOSE) up
-COMPOSE_DOWN	:= $(COMPOSE) down
-COMPOSE_REBUILD	:= $(COMPOSE) up --build --force-recreate
-COMPOSE_ARGS	:= --rm --remove-orphans
+## Helper: ensure env var exists in $(ENV_PATH)
+##----------------------------------------------------------- ##
+define ensure-env
+	@if ! grep -q '^$(1)=' $(CRAFT_ENV) 2>/dev/null; then \
+		val="$(2)"; \
+		echo "$(1)=$$val" >> $(CRAFT_ENV); \
+		export $(1)="$$val"; \
+		echo "[INFO] Added $(1)=$$val to $(CRAFT_ENV)"; \
+	fi
+endef
 
-EXEC_SSH		:= $(COMPOSE) run $(COMPOSE_ARGS) php /bin/bash
-EXEC_CRAFT		:= $(COMPOSE) run $(COMPOSE_ARGS) php /app/craft
-EXEC_NPM		:= $(COMPOSE) run $(COMPOSE_ARGS) frontend npm
-EXEC_COMPOSER	:= $(COMPOSE) run $(COMPOSE_ARGS) composer
-EXEC_N8N		:= $(COMPOSE) run $(COMPOSE_ARGS) --user node n8n
+## Preflight: copy .env.example and restore seed
+##----------------------------------------------------------- ##
+preflight:
+	@cp -n $(CRAFT_FOLDER)/.env.example $(CRAFT_ENV) || true
+	@if [ -f "$(CRAFT_SQL_SEED)" ]; then \
+		mkdir -p $(CRAFT_FOLDER)/storage/seed && \
+		gzip -dkc $(CRAFT_SQL_SEED) > $(CRAFT_FOLDER)/storage/seed/craft.sql; \
+		echo "[INFO] Seed file restored to storage/seed/craft.sql"; \
+	fi
+
+## Init: Generate CRAFT_APP_ID if missing
+##----------------------------------------------------------- ##
+init: preflight
+	@$(call ensure-env,CRAFT_APP_ID,Craft-$(shell (command -v uuidgen >/dev/null && uuidgen) || cat /dev/urandom | tr -dc 'a-f0-9' | head -c 32))
+	@echo "[INFO] Using CRAFT_APP_ID=$(CRAFT_APP_ID)"
 
 
-# Actions
-#--------------------------------------------------------------
-.PHONY: assets backup composer craft debug dev down \
-		npm nuke rebuild ssh update wipe
-#--------------------------------------------------------------
-assets: craft-index-assets
-backup: craft-export
-composer:
-	@$(EXEC_COMPOSER) $(CLI_ARGS) ;
-# 	@$(EXEC_COMPOSER) --optimize-autoloader $(CLI_ARGS) ;
-craft:
-	@$(EXEC_CRAFT) $(CLI_ARGS) ;
-debug:
+## Docker Shortcuts
+##----------------------------------------------------------- ##
+COMPOSE := docker compose --project-name $(CRAFT_APP_ID) --env-file $(CRAFT_ENV)
+
+dev: preflight
+	@$(COMPOSE) up ;
+debug: preflight
 	@$(COMPOSE) --profile debug up ;
-dev: setup
-	@$(COMPOSE_UP) ;
 down:
-	@$(COMPOSE_DOWN) ;
-npm:
-	@$(EXEC_NPM) $(CLI_ARGS) ;
-nuke: composer-wipe npm-wipe
-	@$(COMPOSE_DOWN) -v ;
-rebuild: setup
-	@$(COMPOSE_REBUILD) ;
-restart: down rebuild
+	@$(COMPOSE) down $(CLI_ARGS) ;
 ssh:
-	@$(EXEC_SSH) ;
-update: composer-bump restart
-wipe: composer-wipe npm-wipe restart
-setup:
-	cp -n $(CRAFT_PATH)/.env.example $(ENV_PATH)
-	@if [ -z "$(APP_ID)" ]; then \
-		sed -i "s|^CRAFT_APP_ID *= *.*|CRAFT_APP_ID=\"$(PROJECT_NAME)\"|" "$(ENV_PATH)"; \
-	fi
+	@$(COMPOSE) run --rm --remove-orphans php /bin/bash ;
 
-	@if [ -f "$(SEED_FILE)" ]; then \
-		mkdir -p $(CRAFT_PATH)/storage/seed && gzip -dkc $(SEED_FILE) > $(CRAFT_PATH)/storage/seed/craft.sql; \
-	fi
 
-#--------------------------------------------------------------
-# Composer Shortcuts
-#--------------------------------------------------------------
-composer-bump: composer-update
-	@$(EXEC_COMPOSER) bump ;
-composer-update:
-	@$(EXEC_COMPOSER) --optimize-autoloader update ;
-composer-wipe:
-	@rm -f $(CRAFT_PATH)/composer.lock
-	@rm -rf $(CRAFT_PATH)/vendor
+## Craft CMS
+##----------------------------------------------------------- ##
+craft: preflight
+	@$(COMPOSE) run --rm --remove-orphans php /app/craft $(CLI_ARGS) ;
 
-#--------------------------------------------------------------
-# Craft Shortcuts
-#--------------------------------------------------------------
-craft-index-assets:
-	@$(EXEC_CRAFT) index-assets/all ;
-craft-export:
-	$(EXEC_CRAFT) db/backup ;
-craft-drop-database:
-	@$(EXEC_CRAFT) db/drop-all-tables --interactive=0 ;
+craft-index-assets: preflight
+	@$(RUN_CRAFT) index-assets/all ;
+
+craft-export: preflight
+	@$(RUN_CRAFT) db/backup ;
+
+craft-drop-database: preflight
+	@$(RUN_CRAFT) db/drop-all-tables --interactive=0 ;
+
 craft-install:
-	@$(EXEC_CRAFT) install/craft \
+	@rm -f $(CRAFT_FOLDER)/storage/seed/*.sql $(CRAFT_FOLDER)/storage/seed/*.gz $(SEED_FILE)
+	@$(RUN_CRAFT) install/craft \
 		--email='craft@example.com' \
 		--password='letmein' \
 		--site-name='English' \
@@ -92,46 +86,61 @@ craft-install:
 		--site-url='http://localhost:8000/en' \
 		--interactive=0 ;
 craft-fresh-database: craft-drop-database craft-install
+
 craft-reseed: craft-export
-	@mkdir -p $(CRAFT_PATH)/storage/seed
-	@rm -f $(CRAFT_PATH)/storage/seed/*.sql $(CRAFT_PATH)/storage/seed/*.gz $(SEED_FILE)
-	@cp -p "`ls -dtr1 $(CRAFT_PATH)/storage/backups/* | tail -1`" $(CRAFT_PATH)/storage/seed/temp.sql
-	@gzip -c $(CRAFT_PATH)/storage/seed/temp.sql > $(SEED_FILE)
+	@mkdir -p $(CRAFT_FOLDER)/storage/seed
+	@rm -f $(CRAFT_FOLDER)/storage/seed/*.sql $(CRAFT_FOLDER)/storage/seed/*.gz $(SEED_FILE)
+	@cp -p "`ls -dtr1 $(CRAFT_FOLDER)/storage/backups/* | tail -1`" $(CRAFT_FOLDER)/storage/seed/temp.sql
+	@gzip -c $(CRAFT_FOLDER)/storage/seed/temp.sql > $(SEED_FILE)
 
 
-#--------------------------------------------------------------
-# n8n Commands
-#--------------------------------------------------------------
+## PHP Composer
+##----------------------------------------------------------- ##
+PHP_COMPOSER = $(COMPOSE) run --rm --remove-orphans composer --ignore-platform-reqs --no-interaction --no-progress --prefer-dist
+
+composer:
+	@$(PHP_COMPOSER) $(CLI_ARGS) ;
+
+composer-bump: composer-update
+	@$(PHP_COMPOSER) bump ;
+
+composer-update:
+	@$(PHP_COMPOSER) --optimize-autoloader update ;
+
+composer-wipe:
+	@rm -rf $(CRAFT_FOLDER)/vendor $(CRAFT_FOLDER)/composer.lock || true
+
+
+## Frontend Build Tools
+##----------------------------------------------------------- ##
+npm:
+	@$(COMPOSE) run --rm --remove-orphans frontend npm $(CLI_ARGS) ;
+
+yarn:
+	@$(COMPOSE) run --rm --remove-orphans frontend yarn $(CLI_ARGS) ;
+
+frontend-wipe:
+	@rm -rf frontend/node_modules frontend/package-lock.json frontend/yarn.lock || true
+
+
+
+## n8n Commands
+##----------------------------------------------------------- ##
 # https://docs.n8n.io/hosting/cli-commands/#import-workflows-and-credentials
-n8n-import: setup
-	$(EXEC_N8N) import:workflow --separate --input=/home/node/n8n/workflows ;
-	$(EXEC_N8N) import:credentials --separate --input=/home/node/n8n/credentials ;
+n8n-import:
+	$(RUN_N8N) import:workflow --separate --input=/home/node/n8n/workflows ;
+	$(RUN_N8N) import:credentials --separate --input=/home/node/n8n/credentials ;
 
 # https://docs.n8n.io/hosting/cli-commands/#export-workflows-and-credentials
-n8n-export: setup
-	$(EXEC_N8N) export:workflow --backup --output=/home/node/n8n/workflows ;
-	$(EXEC_N8N) export:credentials --backup --output=/home/node/n8n/credentials ;
+n8n-export:
+	$(RUN_N8N) export:workflow --backup --output=/home/node/n8n/workflows ;
+	$(RUN_N8N) export:credentials --backup --output=/home/node/n8n/credentials ;
 
 
-# NPM Shortcuts
-#--------------------------------------------------------------
-npm-wipe:
-	@rm -f $(FRONTEND_PATH)/package-lock.json
-	@rm -rf $(FRONTEND_PATH)/node_modules
 
-
-# Read missing variables from .env file
-#--------------------------------------------------------------
-ifneq (,$(wildcard $(ENV_PATH)))
-    include $(ENV_PATH)
-    export $(shell sed 's/=.*//' $(ENV_PATH))
-endif
-#--------------------------------------------------------------
-
-# Allow argument to be passed into the Makefile from the CLI
-# ➜ https://stackoverflow.com/questions/6273608/
-#--------------------------------------------------------------
-CLI_ARGS=$(filter-out $@,$(MAKECMDGOALS))
+## Allow argument to be passed into the Makefile from the CLI
+## ➜ https://stackoverflow.com/questions/6273608/
+##----------------------------------------------------------- ##
 %:
 	@:
-#--------------------------------------------------------------
+##----------------------------------------------------------- ##
