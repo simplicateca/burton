@@ -55,11 +55,9 @@ services:
               echo "composer.lock and vendor/ exist, skipping install.";
             fi'
     user: "1000:1000"
-    environment:
-      - COMPOSER_CACHE_DIR=/composer_cache
     volumes:
       - ./craftcms:/app
-      - composer_cache:/composer_cache
+      - ./.cache/composer:/tmp
 
 
 # Craft CMS (with Queue Runner)
@@ -98,7 +96,7 @@ services:
       - MYSQL_PASSWORD=${CRAFT_DB_PASSWORD:-project}
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./etc/mysql/:/docker-entrypoint-initdb.d
+      - ./craftcms/storage/seed/:/docker-entrypoint-initdb.d
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
       interval: 10s
@@ -165,4 +163,3 @@ services:
 # ------------------------------------------------------------------------------------- #
 volumes:
   mysql_data:
-  composer_cache:
