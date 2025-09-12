@@ -5,7 +5,7 @@
 
 # Staging
 - pipeline: "staging"
-  extends: deploy-template
+  extends: craft-deploy
   events:
     - type: PUSH
       refs:
@@ -20,7 +20,7 @@
 
 # Production
 - pipeline: "production"
-  extends: deploy-template
+  extends: craft-deploy
   events:
     - type: PUSH
       refs:

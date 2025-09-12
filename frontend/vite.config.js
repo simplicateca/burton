@@ -44,11 +44,11 @@ export default defineConfig(({command}) => ({
                 path.resolve('./node_modules'),
             ],
         }),
-        ViteFaviconsPlugin({
-            logo: "./public/favicon-src.png",
-            inject: false,
-            outputPath: 'favicons',
-        }),
+        // ViteFaviconsPlugin({
+        //     logo: "./public/favicon-src.png",
+        //     inject: false,
+        //     outputPath: 'favicons',
+        // }),
         ViteRestart({
             reload: [
                 './templates/**/*'
