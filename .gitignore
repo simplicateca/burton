@@ -21,6 +21,7 @@ craftcms/web
 ## Caches, logs, and temp files
 .cache
 !.cache/.gitkeep
+!.cache/composer/.gitkeep
 .DS_Store
 *.esproj
 *.sublime-*
