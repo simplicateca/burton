@@ -55,8 +55,11 @@ services:
               echo "composer.lock and vendor/ exist, skipping install.";
             fi'
     user: "1000:1000"
+    environment:
+      - COMPOSER_CACHE_DIR=/composer_cache
     volumes:
       - ./craftcms:/app
+      - composer_cache:/composer_cache
 
 
 # Craft CMS (with Queue Runner)
@@ -162,3 +165,4 @@ services:
 # ------------------------------------------------------------------------------------- #
 volumes:
   mysql_data:
+  composer_cache:

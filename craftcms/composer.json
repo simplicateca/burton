@@ -1,6 +1,6 @@
 {
+    "type": "project",
     "config": {
-        "type": "project",
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {

@@ -6,7 +6,7 @@ ETC_PATH		:= etc
 FRONTEND_PATH	:= frontend
 
 ENV_PATH		:= $(CRAFT_PATH)/.env
-SEED_PATH		:= $(ETC_PATH)/mysql/CraftCMS-Database
+SEED_FILE		:= $(CRAFT_PATH)/seed.sql.gz
 
 APP_ID			:= $(shell grep -E '^CRAFT_APP_ID=' $(ENV_PATH) | cut -d '=' -f 2)
 PROJECT_NAME	:= $(shell echo $(if $(APP_ID),$(APP_ID),$(shell basename $(realpath $(dir $(CURDIR))))) | tr '[:upper:]' '[:lower:]')
@@ -59,8 +59,8 @@ setup:
 		sed -i "s|^CRAFT_APP_ID *= *.*|CRAFT_APP_ID=\"$(PROJECT_NAME)\"|" "$(ENV_PATH)"; \
 	fi
 
-	@if [ -f "$(SEED_PATH).sql.gz" ]; then \
-		mkdir -p $(SEED_PATH) && gzip -dkc $(SEED_PATH).sql.gz > $(SEED_PATH)/craft.sql; \
+	@if [ -f "$(SEED_FILE)" ]; then \
+		mkdir -p $(CRAFT_PATH)/storage/seed && gzip -dkc $(SEED_FILE) > $(CRAFT_PATH)/storage/seed/craft.sql; \
 	fi
 
 #--------------------------------------------------------------
@@ -93,9 +93,10 @@ craft-install:
 		--interactive=0 ;
 craft-fresh-database: craft-drop-database craft-install
 craft-reseed: craft-export
-	@rm -f $(SEED_PATH).sql.gz
-	@cp -p "`ls -dtr1 $(CRAFT_PATH)/storage/backups/* | tail -1`" $(SEED_PATH).sql
-	@gzip -c $(SEED_PATH).sql > $(SEED_PATH).sql.gz
+	@mkdir -p $(CRAFT_PATH)/storage/seed
+	@rm -f $(CRAFT_PATH)/storage/seed/*.sql $(CRAFT_PATH)/storage/seed/*.gz $(SEED_FILE)
+	@cp -p "`ls -dtr1 $(CRAFT_PATH)/storage/backups/* | tail -1`" $(CRAFT_PATH)/storage/seed/temp.sql
+	@gzip -c $(CRAFT_PATH)/storage/seed/temp.sql > $(SEED_FILE)
 
 
 #--------------------------------------------------------------
