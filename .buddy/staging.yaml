@@ -1,12 +1,12 @@
-# Name & Triggers
+# Staging Deployment Pipeline
 - pipeline: "staging"
   events:
   - type: PUSH
     refs:
     - refs/heads/staging
-  auto_clear_cache: true
-  fetch_all_refs: true
-  # pipeline actions
+  terminate_stale_runs: true
+  clone_depth: 2
+  docker_build_cache: WORKSPACE
   actions:
     # STEP 1: build the frontend js/css
     - action: "Build the frontend js/css with vite:build"
@@ -19,7 +19,8 @@
       execute_commands:
         - "[ -f package-lock.json ] && npm ci || npm install"
         - "npm run build"
-        # STEP 2: install php vendor files with composer
+
+    # STEP 2: install php vendor files with composer
     - action: "Install Composer"
       type: "BUILD"
       working_directory: "/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH/craftcms"
@@ -29,59 +30,51 @@
         - "/:/buddy/$BUDDY_PROJECT_NAME_ID/$BUDDY_EXECUTION_BRANCH"
       execute_commands:
         - "composer install --verbose --no-progress --no-scripts --optimize-autoloader --no-interaction"
-        # STEP 3: rsync push files to host
-    - action: "Rsync files to host"
-      type: "RSYNC"
-      local_path: "craftcms/"
-      remote_path: "$SSH_PATH/deploy-cache"
-      login: "$SSH_USER"
-      host: "$SSH_HOST"
-      port: "22"
-      authentication_mode: "WORKSPACE_KEY"
-      archive: true
+
+      # STEP 3: rsync push files to host
+    - action: Rsync files to host
+      type: RSYNC
+      local_path: craftcms/
       delete_extra_files: true
+      archive: true
       recursive: true
       compress: true
+      targets:
+      - target: SSH_HOST
+        type: SSH
+        name: $SSH_HOST
+        host: $SSH_HOST
+        path: $SSH_PATH/.cache
+        auth:
+          method: ASSETS_KEY
+          username: $SSH_USER
+          asset: id_workspace
+
       # STEP 4: create an atomic deployment release on the server
-    - action: "Prepare Atomic Deployment"
+    - action: "Atomic Deployment"
       type: "SSH_COMMAND"
-      working_directory: "$SSH_PATH"
-      login: "$SSH_USER"
-      host: "$SSH_HOST"
-      port: "22"
-      authentication_mode: "WORKSPACE_KEY"
-      run_as_script: true
       shell: "BASH"
+      targets:
+      - target: ssh_host
+        type: SSH
+        name: $SSH_HOST
+        host: $SSH_HOST
+        path: $SSH_PATH
+        auth:
+          method: ASSETS_KEY
+          username: $SSH_USER
+          asset: id_workspace
+      run_as_script: true
+      working_directory: "$SSH_PATH"
       commands:
-        # make sure we have all the files & directories we might need (especially on first deployments)
-        - "mkdir -p releases storage deploy-cache/migrations"
-        # wipe existing release directory of this is *not* the first attempt deploying this commit
-        - "[ -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && [ \"$BUDDY_EXECUTION_REFRESH\" = \"true\" ] && rm -rf releases/$BUDDY_EXECUTION_REVISION;"
-        # create the directory for this release and copy the contents of the deploy cache into it
-        - "[ ! -d \"releases/$BUDDY_EXECUTION_REVISION\" ] && cp -dR deploy-cache releases/$BUDDY_EXECUTION_REVISION;"
-        # create symlinks to persistent storage directory and .env file from inside the new release
-        - "ln -nfs $SSH_PATH/.env $SSH_PATH/releases/$BUDDY_EXECUTION_REVISION"
-        - "ln -nfs $SSH_PATH/storage $SSH_PATH/releases/$BUDDY_EXECUTION_REVISION"
-        # set permissions on cpresources
-        - "mkdir -p releases/$BUDDY_EXECUTION_REVISION/web/cpresources"
-        - "chmod -R 0774 releases/$BUDDY_EXECUTION_REVISION/web/cpresources"
-        # remove old releases
+        - "rm -rf .cache/web/cpresources .env* .cache/storage"
+        - "mkdir -p .cache/web/cpresources releases storage"
+        - "chmod 0744 .cache/web/cpresources && chmod a+x .cache/craft"
+        - "ln -nfs $SSH_PATH/.env .cache/.env"
+        - "ln -nfs $SSH_PATH/storage .cache/storage"
+        - "rm -rf releases/$BUDDY_EXECUTION_REVISION && cp -dR .cache releases/$BUDDY_EXECUTION_REVISION"
+        - "./releases/$BUDDY_EXECUTION_REVISION/craft invalidate-tags/all --interactive=0"
+        - "./releases/$BUDDY_EXECUTION_REVISION/craft clear-caches/all --interactive=0"
+        - "./releases/$BUDDY_EXECUTION_REVISION/craft up --interactive=0"
+        - "ln -sf releases/$BUDDY_EXECUTION_REVISION current"
         - "cd releases && ls -t | tail -n +6 | xargs rm -rf"
-        # STEP 5: make the new release live
-        # - swap `current` symlink to new release
-        # - run migrations & clear caches
-    - action: "Make Release Live"
-      type: "SSH_COMMAND"
-      working_directory: "$SSH_PATH"
-      login: "$SSH_USER"
-      host: "$SSH_HOST"
-      port: "22"
-      authentication_mode: "WORKSPACE_KEY"
-      run_as_script: true
-      shell: "BASH"
-      commands:
-        - "rm -f current && ln -s releases/$BUDDY_EXECUTION_REVISION current"
-        - "cd current && chmod a+x craft"
-        - "./craft invalidate-tags/all --interactive=0"
-        - "./craft clear-caches/all --interactive=0"
-        - "./craft up --interactive=0"
