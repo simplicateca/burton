@@ -23,11 +23,17 @@ endif
 ## Helper: ensure env var exists in $(ENV_PATH)
 ##----------------------------------------------------------- ##
 define ensure-env
+	echo "Ensuring $(1) is set and not empty in $(CRAFT_ENV)"
 	@if ! grep -q '^$(1)=' $(CRAFT_ENV) 2>/dev/null; then \
 		val="$(2)"; \
 		echo "$(1)=$$val" >> $(CRAFT_ENV); \
 		export $(1)="$$val"; \
 		echo "[INFO] Added $(1)=$$val to $(CRAFT_ENV)"; \
+	elif [ -z "$$(grep '^$(1)=' $(CRAFT_ENV) | cut -d'=' -f2-)" ]; then \
+		val="$(2)"; \
+		sed -i "s/^$(1)=.*/$(1)=$$val/" $(CRAFT_ENV); \
+		export $(1)="$$val"; \
+		echo "[INFO] Updated $(1) to $$val in $(CRAFT_ENV)"; \
 	fi
 endef
 
@@ -35,6 +41,7 @@ endef
 ##----------------------------------------------------------- ##
 preflight:
 	@cp -n $(CRAFT_FOLDER)/.env.example $(CRAFT_ENV) || true
+	@$(call ensure-env,CRAFT_APP_ID,Craft-$(shell (command -v uuidgen >/dev/null && uuidgen) || cat /dev/urandom | tr -dc 'a-f0-9' | head -c 32))
 	@if [ -f "$(CRAFT_SQL_SEED)" ]; then \
 		mkdir -p $(CRAFT_FOLDER)/storage/seed && \
 		gzip -dkc $(CRAFT_SQL_SEED) > $(CRAFT_FOLDER)/storage/seed/craft.sql; \
@@ -44,13 +51,11 @@ preflight:
 ## Init: Generate CRAFT_APP_ID if missing
 ##----------------------------------------------------------- ##
 init: preflight
-	@$(call ensure-env,CRAFT_APP_ID,Craft-$(shell (command -v uuidgen >/dev/null && uuidgen) || cat /dev/urandom | tr -dc 'a-f0-9' | head -c 32))
-	@echo "[INFO] Using CRAFT_APP_ID=$(CRAFT_APP_ID)"
 
 
 ## Docker Shortcuts
 ##----------------------------------------------------------- ##
-COMPOSE := docker compose --project-name $(CRAFT_APP_ID) --env-file $(CRAFT_ENV)
+COMPOSE := docker compose --project-name $(shell echo $(CRAFT_APP_ID) | tr '[:upper:]' '[:lower:]') --env-file $(CRAFT_ENV)
 
 dev: preflight
 	@$(COMPOSE) up ;
@@ -68,17 +73,17 @@ craft: preflight
 	@$(COMPOSE) run --rm --remove-orphans php /app/craft $(CLI_ARGS) ;
 
 craft-index-assets: preflight
-	@$(RUN_CRAFT) index-assets/all ;
+	@$(COMPOSE) run --rm --remove-orphans php /app/craft index-assets/all ;
 
 craft-export: preflight
-	@$(RUN_CRAFT) db/backup ;
+	@$(COMPOSE) run --rm --remove-orphans php /app/craft db/backup ;
 
 craft-drop-database: preflight
-	@$(RUN_CRAFT) db/drop-all-tables --interactive=0 ;
+	@$(COMPOSE) run --rm --remove-orphans php /app/craft db/drop-all-tables --interactive=0 ;
 
 craft-install:
 	@rm -f $(CRAFT_FOLDER)/storage/seed/*.sql $(CRAFT_FOLDER)/storage/seed/*.gz $(SEED_FILE)
-	@$(RUN_CRAFT) install/craft \
+	@$(COMPOSE) run --rm --remove-orphans php /app/craft install/craft \
 		--email='craft@example.com' \
 		--password='letmein' \
 		--site-name='English' \
@@ -96,7 +101,7 @@ craft-reseed: craft-export
 
 ## PHP Composer
 ##----------------------------------------------------------- ##
-PHP_COMPOSER = $(COMPOSE) run --rm --remove-orphans composer --ignore-platform-reqs --no-interaction --no-progress --prefer-dist
+PHP_COMPOSER = $(COMPOSE) run --rm --remove-orphans composer --no-interaction
 
 composer:
 	@$(PHP_COMPOSER) $(CLI_ARGS) ;
