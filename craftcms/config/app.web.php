@@ -10,6 +10,7 @@ return [
             $config['class'] = \yii\redis\Session::class;
             $config['keyPrefix'] = Craft::$app->id . '-session';
             $config['redis'] = [
+                'class' => yii\redis\Connection::class,
                 'hostname' => App::env('REDIS_HOSTNAME'),
                 'port' => App::env('REDIS_PORT'),
                 'password' => App::env('REDIS_PASSWORD') ?: null,

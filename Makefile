@@ -12,6 +12,7 @@ CRAFT_FOLDER   ?= ./craftcms
 CRAFT_ENV      ?= $(CRAFT_FOLDER)/.env
 CRAFT_SQL_SEED ?= $(CRAFT_FOLDER)/seed.sql.gz
 CLI_ARGS       := $(filter-out $@,$(MAKECMDGOALS))
+PROJECT_ID	   ?= $(shell echo $(CRAFT_APP_ID) | tr '[:upper:]' '[:lower:]')
 
 ## Load .env if it exists
 ##----------------------------------------------------------- ##
@@ -55,7 +56,7 @@ init: preflight
 
 ## Docker Shortcuts
 ##----------------------------------------------------------- ##
-COMPOSE := docker compose --project-name $(shell echo $(CRAFT_APP_ID) | tr '[:upper:]' '[:lower:]') --env-file $(CRAFT_ENV)
+COMPOSE := docker compose --project-name $(PROJECT_ID) --env-file $(CRAFT_ENV)
 
 dev: preflight
 	@$(COMPOSE) up ;
