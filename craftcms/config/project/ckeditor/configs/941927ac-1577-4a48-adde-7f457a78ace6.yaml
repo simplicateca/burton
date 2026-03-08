@@ -1,7 +1,0 @@
-headingLevels: false
-name: 'Content Outline'
-toolbar:
-  - bulletedList
-  - bold
-  - italic
-  - link

@@ -1,9 +1,0 @@
-baseUrl: '@web/en'
-enabled: true
-handle: english
-hasUrls: true
-language: en
-name: English
-primary: true
-siteGroup: 93a86902-7a1b-4986-ba7f-35cef71233ac # Primary
-sortOrder: 1
