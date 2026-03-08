@@ -1,0 +1,9 @@
+headingLevels:
+  - 3
+  - 4
+name: 'Content Summary'
+toolbar:
+  - heading
+  - '|'
+  - bold
+  - italic

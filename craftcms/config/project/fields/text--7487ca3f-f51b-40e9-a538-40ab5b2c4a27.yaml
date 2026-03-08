@@ -1,0 +1,32 @@
+columnSuffix: null
+handle: text
+instructions: null
+name: 'Text [main]'
+searchable: true
+settings:
+  availableTransforms: ''
+  availableVolumes: ''
+  characterLimit: null
+  ckeConfig: 54bdf500-79d2-4c24-9147-1e3da8064473 # converterPriority: 'high',Text [main]
+  createButtonLabel: null
+  defaultTransform: null
+  entryTypes:
+    -
+      __assoc__:
+        -
+          - uid
+          - 1c33bd9b-3605-42a9-988b-edbab296d1d1 # Headline
+  expandEntryButtons: true
+  fullGraphqlData: false
+  parseEmbeds: false
+  purifierConfig: null
+  purifyHtml: true
+  showUnpermittedFiles: false
+  showUnpermittedVolumes: false
+  showWordCount: false
+  sourceEditingGroups:
+    - __ADMINS__
+  wordLimit: null
+translationKeyFormat: null
+translationMethod: none
+type: craft\ckeditor\Field

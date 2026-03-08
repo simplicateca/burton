@@ -1,0 +1,87 @@
+columnSuffix: null
+handle: secondary
+instructions: null
+name: Secondary
+searchable: false
+settings:
+  configFile: _burton/local/settings/block.secondary.twig
+  configJson: ''
+  configTwig: ''
+  customOptions: false
+  mode: file
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - Nothing
+        -
+          - value
+          - copyNone
+    -
+      __assoc__:
+        -
+          - label
+          - 'Zigzag Copy'
+        -
+          - value
+          - alternate
+    -
+      __assoc__:
+        -
+          - label
+          - 'Body Copy Above'
+        -
+          - value
+          - copyAbove
+    -
+      __assoc__:
+        -
+          - label
+          - 'Body Copy Left'
+        -
+          - value
+          - copyLeft
+    -
+      __assoc__:
+        -
+          - label
+          - 'Body Copy Right'
+        -
+          - value
+          - copyRight
+    -
+      __assoc__:
+        -
+          - label
+          - 'Body Copy Below'
+        -
+          - value
+          - copyBelow
+    -
+      __assoc__:
+        -
+          - label
+          - 'Intro + Body Copy Left'
+        -
+          - value
+          - copyLeftHeader
+    -
+      __assoc__:
+        -
+          - label
+          - 'Intro + Body Copy Right'
+        -
+          - value
+          - copyRightHeader
+    -
+      __assoc__:
+        -
+          - label
+          - 'Intro + Body Copy Below'
+        -
+          - value
+          - copyBelowHeader
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\metasettings\fields\MetaSettingsField

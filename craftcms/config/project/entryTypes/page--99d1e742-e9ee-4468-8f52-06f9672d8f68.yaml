@@ -1,0 +1,171 @@
+color: null
+description: null
+fieldLayouts:
+  c78854db-e1e0-457e-81b6-8637252ac031:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            content: "# Page Overview\r\n---"
+            dateAdded: '2025-08-11T17:00:45+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 7d7f18c0-a2c1-4390-a38f-080a548adbce
+            userCondition: null
+            width: 100
+          -
+            content: "## Introduction\r\n\r\nAmet consectetur adipiscing posse **lorem ipsum dolor**. Deinde illa quae in congressu lorem ipsum dolor."
+            dateAdded: '2025-08-11T16:27:06+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: fffd3cdd-d622-4c0d-98fc-92ee382e9c24
+            userCondition: null
+            width: 25
+          -
+            dateAdded: '2025-08-11T16:27:06+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: dd16cc0f-224b-4492-9c1b-1cc91a5d61f5 # Entry Details
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: c565bbb4-dcd8-4330-821c-560b54fe5aaa
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            content: "## Teaser Card\r\n\r\nLorem ipsum dolor sit amet consectetur adipiscing posse lorem ipsum dolor sit amet"
+            dateAdded: '2025-08-11T16:27:06+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: f10c49b1-1c13-4a34-814f-4d1a5392ef22
+            userCondition: null
+            width: 25
+          -
+            dateAdded: '2025-08-11T16:27:06+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: c8176ffc-a976-4b43-b634-244a16039154 # Entry Card
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: f109dd1c-8fca-41ce-85fe-c5dca5d4621b
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            content: "---\r\n# Content Builders\r\n---"
+            dateAdded: '2025-08-11T16:59:47+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: e9843157-6693-4dd5-a085-e9e08e8d06af
+            userCondition: null
+            width: 100
+          -
+            content: "## Hero Section\r\n\r\nThe **Hero Builder** provides a set of content-first block types that can be combined to create complex layouts.\r\n"
+            dateAdded: '2025-08-11T16:27:06+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 744afb10-8aee-4e34-bbe3-5feff2a2404d
+            userCondition: null
+            width: 25
+          -
+            dateAdded: '2024-08-27T18:11:53+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: a03cf6a5-0e00-43cb-871c-3a37dde51a3e # Builder - Header
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a032eab6-7596-4f92-bd18-4d8fd254c6a9
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            content: "## Body Section\r\n\r\nThe **Body Builder** provides a set of content-first block types that can be combined to create complex layouts.\r\n"
+            dateAdded: '2025-08-11T16:27:06+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 6f20be82-7c18-400c-9bbb-8f9885f4a56a
+            userCondition: null
+            width: 25
+          -
+            dateAdded: '2024-08-27T18:11:53+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: b4753be4-da84-4306-82e8-a9473ca5398f # Builder - Body
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: a83ec247-8188-46ad-8dd3-fb5acd4caec8
+            userCondition: null
+            warning: null
+            width: 75
+          -
+            content: "## Sidebar Section\r\n  \r\nUsed to support navigation, highlight vital information, solicit conversions, suggest similar content for users, or helps them get closer to what they're looking for."
+            dateAdded: '2025-08-11T16:27:06+00:00'
+            displayInPane: false
+            elementCondition: null
+            type: craft\fieldlayoutelements\Markdown
+            uid: 3bde2467-cc85-49c1-8dc1-ba299e8e0301
+            userCondition: null
+            width: 25
+          -
+            dateAdded: '2024-08-27T18:11:53+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: a6272176-e780-4d5e-90f2-df0115d1a324 # Builder - Sidebar
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: __blank__
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: e14cdcca-0d93-444d-878b-94feb898b43d
+            userCondition: null
+            warning: null
+            width: 75
+        name: Content
+        uid: 84e2ea5c-d6e3-44cf-ac8f-207b0fb8c88a
+        userCondition: null
+handle: page
+hasTitleField: false
+icon: table-tree
+name: Page
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: '{{ object.details.short }}'
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

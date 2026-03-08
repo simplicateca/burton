@@ -1,0 +1,50 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  -
+    uid: ff76eb70-820e-4752-b138-daef62692e3f # Multi-Builder
+  -
+    uid: 2f9a88fa-6727-4d94-8911-683ba9031dd0 # Block - Bits
+  -
+    uid: 96192f21-960f-489c-a380-96e4b51f2777 # Block - Card
+  -
+    uid: faaa512e-f0ed-4151-97de-d73bdc9a4f5e # Block - Component
+  -
+    uid: 4248eeb1-ca4d-476f-9998-7780ee611c74 # Block - Image
+  -
+    uid: b4783a60-e9ff-40a2-8e9e-159b24fad0a9 # Block - Media
+  -
+    uid: 14dff90f-f8fc-444e-bc75-e51f72aa490d # Block - Text
+handle: reusables
+maxAuthors: 1
+name: Reusables
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Contextual Preview'
+      -
+        - urlFormat
+        - 'sitehub/reusables/{{object.type.handle}}/{{object.slug}}'
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
+siteSettings:
+  5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
+    enabledByDefault: false
+    hasUrls: false
+    template: null
+    uriFormat: null
+  d34bee8e-bf22-451d-8339-a4342630833d: # English
+    enabledByDefault: true
+    hasUrls: false
+    template: null
+    uriFormat: null
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # Alternate
+    enabledByDefault: false
+    hasUrls: false
+    template: null
+    uriFormat: null
+type: channel

@@ -1,0 +1,9 @@
+baseUrl: '@web/fr'
+enabled: '1'
+handle: french
+hasUrls: true
+language: fr
+name: French
+primary: false
+siteGroup: 93a86902-7a1b-4986-ba7f-35cef71233ac # Primary
+sortOrder: 2

@@ -1,0 +1,144 @@
+color: null
+description: null
+fieldLayouts:
+  53f63b0f-414e-47a9-a199-2d979704b291:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2025-06-27T16:42:51+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            required: true
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: 72c623d2-0d6d-429f-9753-ddb57ec0b9f0
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-06-27T16:42:51+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 335b1087-e2f6-41b1-b7de-f8d4b61d6c1e # Text [header]
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Question
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 26cf1be0-bbeb-4301-9d71-35c9cd16027b
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-06-27T16:42:51+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: 7487ca3f-f51b-40e9-a538-40ab5b2c4a27 # Text [main]
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: Answer
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 666ec079-c2ef-41c0-83f7-78bbfe26e77a
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-06-27T16:42:51+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 405b007e-9b16-4ca4-a0f1-011c06830543
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: ff19ce58-ccb1-4922-a183-6d0c11d4431e
+        userCondition: null
+      -
+        elementCondition: null
+        elements:
+          -
+            dateAdded: '2025-06-27T16:49:08+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: d554a8e7-e8ad-493b-aaa8-d611bf04b257 # Website / Content URL
+            handle: source
+            includeInCards: false
+            instructions: null
+            label: URL
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 7d6a83f5-591c-4f96-9b59-de2dc186771b
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-06-27T16:49:08+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: c3a40ee3-075b-405c-8e4e-6e676b5e7f64 # JSON
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 87818e5a-34ce-44b9-aa0f-d43495b7f466
+            userCondition: null
+            warning: null
+            width: 100
+        name: Meta
+        uid: e388a158-a76c-481a-aec5-75b71b09fa01
+        userCondition: null
+handle: faq
+hasTitleField: true
+icon: block-question
+name: FAQ
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

@@ -1,0 +1,195 @@
+columnSuffix: null
+handle: details
+instructions: null
+name: 'Entry Details'
+searchable: true
+settings:
+  fieldLayouts:
+    __assoc__:
+      -
+        - 6be5bfc8-8357-4c0c-9ff2-f4839b0e3c0d
+        -
+          __assoc__:
+            0:
+              - tabs
+              -
+                -
+                  __assoc__:
+                    0:
+                      - name
+                      - Content
+                    1:
+                      - uid
+                      - 7a12e2f2-2029-4fb8-82c9-dd60ce11ab3d
+                    4:
+                      - elements
+                      -
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            1:
+                              - handle
+                              - short
+                            2:
+                              - label
+                              - Title
+                            6:
+                              - required
+                              - true
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 50
+                            10:
+                              - dateAdded
+                              - '2025-08-11T16:04:59+00:00'
+                            11:
+                              - uid
+                              - 80c0392d-6071-4072-a35d-fede1b0667ee
+                            14:
+                              - fieldUid
+                              - 88fdcb93-d8c6-4625-807e-885199098b6c # Label
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            1:
+                              - handle
+                              - long
+                            2:
+                              - label
+                              - Headline
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 75
+                            10:
+                              - dateAdded
+                              - '2025-08-11T16:04:59+00:00'
+                            11:
+                              - uid
+                              - bb6c7b14-c9c9-4315-a19e-86b004222426
+                            14:
+                              - fieldUid
+                              - 545f1fed-e750-457f-91f5-47b4faf56f85 # Title - Entry
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            2:
+                              - label
+                              - Outline
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 75
+                            10:
+                              - dateAdded
+                              - '2025-08-11T16:54:27+00:00'
+                            11:
+                              - uid
+                              - 3ddd73b9-fcc1-497b-9c74-679f2a5c5e80
+                            14:
+                              - fieldUid
+                              - 0b229987-523a-4f15-9fb6-ff9113242afe # Content Outline
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            1:
+                              - handle
+                              - autoOutline
+                            2:
+                              - label
+                              - 'Auto Outline'
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 25
+                            10:
+                              - dateAdded
+                              - '2025-08-11T17:17:29+00:00'
+                            11:
+                              - uid
+                              - 24592039-4616-4c64-bc02-14f3022cc633
+                            14:
+                              - fieldUid
+                              - ea50810e-421f-4332-8d5b-0fa6f1a3d7e0 # Enable
+                        -
+                          __assoc__:
+                            -
+                              - type
+                              - craft\fieldlayoutelements\LineBreak
+                            -
+                              - dateAdded
+                              - '2025-09-03T14:40:41+00:00'
+                            -
+                              - uid
+                              - 3e43f3cd-b0f4-4f6f-95c3-f70759c2dd92
+                        -
+                          __assoc__:
+                            0:
+                              - type
+                              - craft\fieldlayoutelements\CustomField
+                            6:
+                              - required
+                              - false
+                            7:
+                              - providesThumbs
+                              - false
+                            8:
+                              - includeInCards
+                              - false
+                            9:
+                              - width
+                              - 100
+                            10:
+                              - dateAdded
+                              - '2025-09-03T14:40:41+00:00'
+                            11:
+                              - uid
+                              - a89a0466-0244-4bdf-acc2-68d8d8cbe5a0
+                            14:
+                              - fieldUid
+                              - ec92452d-10f2-4a41-a9ee-bf384facb572 # Topics
+            3:
+              - cardThumbAlignment
+              - end
+  viewMode: grouped
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\ContentBlock

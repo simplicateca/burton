@@ -1,0 +1,74 @@
+columnSuffix: null
+handle: nestedEntries
+instructions: null
+name: 'Nested Entries'
+searchable: false
+settings:
+  createButtonLabel: null
+  defaultIndexViewMode: table
+  defaultTableColumns:
+    - status
+    - link
+    - type
+    - postDate
+  enableVersioning: false
+  entryTypes:
+    -
+      __assoc__:
+        -
+          - uid
+          - c1ea9486-a2c9-4169-9858-144fd21c25b9 # Article
+        -
+          - group
+          - General
+    -
+      __assoc__:
+        -
+          - uid
+          - 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
+        -
+          - group
+          - General
+  includeTableView: true
+  maxEntries: null
+  minEntries: null
+  pageSize: 50
+  propagationKeyFormat: null
+  propagationMethod: all
+  showCardsInGrid: false
+  siteSettings:
+    __assoc__:
+      -
+        - d34bee8e-bf22-451d-8339-a4342630833d # English
+        -
+          __assoc__:
+            -
+              - uriFormat
+              - '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
+            -
+              - template
+              - _burton/local/entry/_router.twig
+      -
+        - 5435578f-4317-4fbf-b24f-a5fd4d2e9f68 # French
+        -
+          __assoc__:
+            -
+              - uriFormat
+              - '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
+            -
+              - template
+              - _burton/local/entry/_router.twig
+      -
+        - e7f9ef82-aa7c-4def-8477-dbe7648488b5 # Alternate
+        -
+          __assoc__:
+            -
+              - uriFormat
+              - '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
+            -
+              - template
+              - _burton/local/entry/_router.twig
+  viewMode: index
+translationKeyFormat: null
+translationMethod: site
+type: craft\fields\Matrix

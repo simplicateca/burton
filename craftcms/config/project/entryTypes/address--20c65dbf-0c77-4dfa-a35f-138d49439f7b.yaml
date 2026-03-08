@@ -1,0 +1,70 @@
+color: null
+description: null
+fieldLayouts:
+  d430b787-dc38-4575-9222-7ab5c66c3d72:
+    cardThumbAlignment: end
+    tabs:
+      -
+        elementCondition: null
+        elements:
+          -
+            autocapitalize: true
+            autocomplete: false
+            autocorrect: true
+            class: null
+            dateAdded: '2025-09-03T02:52:11+00:00'
+            disabled: false
+            elementCondition: null
+            id: null
+            includeInCards: false
+            inputType: null
+            instructions: null
+            label: null
+            max: null
+            min: null
+            name: null
+            orientation: null
+            placeholder: null
+            providesThumbs: false
+            readonly: false
+            required: true
+            size: null
+            step: null
+            tip: null
+            title: null
+            type: craft\fieldlayoutelements\entries\EntryTitleField
+            uid: c5ebd0c0-0dc5-4696-8909-8fa1b9286045
+            userCondition: null
+            warning: null
+            width: 100
+          -
+            dateAdded: '2025-09-03T02:53:30+00:00'
+            editCondition: null
+            elementCondition: null
+            fieldUid: ad02d4ae-140c-42a7-ad18-9c14bd90aa05 # Address
+            handle: null
+            includeInCards: false
+            instructions: null
+            label: null
+            providesThumbs: false
+            required: false
+            tip: null
+            type: craft\fieldlayoutelements\CustomField
+            uid: 86316c4b-5fd0-4ad1-8a7c-ddc37d6ad46a
+            userCondition: null
+            warning: null
+            width: 100
+        name: Content
+        uid: 443d8a6a-5f56-4d9b-9674-c10e6de91880
+        userCondition: null
+handle: address
+hasTitleField: true
+icon: map-pin
+name: Address
+showSlugField: true
+showStatusField: true
+slugTranslationKeyFormat: null
+slugTranslationMethod: site
+titleFormat: null
+titleTranslationKeyFormat: null
+titleTranslationMethod: site

@@ -1,0 +1,45 @@
+defaultPlacement: end
+enableVersioning: true
+entryTypes:
+  -
+    uid: 99d1e742-e9ee-4468-8f52-06f9672d8f68 # Page
+  -
+    uid: 3e1b80ab-a85a-468f-bd27-2d92ee6c983a # Publication
+  -
+    uid: 0c3eb4bf-9fe7-422e-9947-289edfc00105 # Redirect
+handle: pages
+maxAuthors: 1
+name: 'Core Pages'
+previewTargets:
+  -
+    __assoc__:
+      -
+        - label
+        - 'Primary URL'
+      -
+        - urlFormat
+        - '{url}'
+      -
+        - refresh
+        - '1'
+propagationMethod: custom
+siteSettings:
+  5435578f-4317-4fbf-b24f-a5fd4d2e9f68: # French
+    enabledByDefault: false
+    hasUrls: true
+    template: _burton/local/entry/_router.twig
+    uriFormat: '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
+  d34bee8e-bf22-451d-8339-a4342630833d: # English
+    enabledByDefault: true
+    hasUrls: true
+    template: _burton/local/entry/_router.twig
+    uriFormat: '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
+  e7f9ef82-aa7c-4def-8477-dbe7648488b5: # Alternate
+    enabledByDefault: false
+    hasUrls: true
+    template: _burton/local/entry/_router.twig
+    uriFormat: '{%- import "_burton/local/entry/_router" as r -%}{{- r.uri_format( object ) -}}'
+structure:
+  maxLevels: null
+  uid: 55f15188-2e0e-4284-9978-2e6b6786e26a
+type: structure

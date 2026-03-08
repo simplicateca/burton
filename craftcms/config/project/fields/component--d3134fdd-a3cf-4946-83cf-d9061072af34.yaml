@@ -1,0 +1,23 @@
+columnSuffix: null
+handle: component
+instructions: null
+name: Component
+searchable: false
+settings:
+  configFile: _base/_settings/block._component.twig
+  configJson: ''
+  configTwig: "{%- if handle ?? null == 'form' and element.volume.handle ?? null == 'secure' -%}\r\n    {%- set options = [{ value: \"none\", label: \"None\" }] -%}\r\n    {%- for handle, title in collect( craft.formie.forms({ templateId: 2}) )\r\n        .sortBy('title', SORT_NATURAL)\r\n        .pluck( 'title', 'handle' ) -%}\r\n\r\n        {%- set options = options | push({\r\n            value: \"form_#{handle}\",\r\n            label: title,\r\n            help: \"Use as Default Download Gate\",\r\n            constants: {\r\n                title : title,\r\n                handle: handle,\r\n                type  : \"form\",\r\n            },\r\n            settings: {\r\n\r\n            }\r\n        }) -%}\r\n    {%- endfor -%}\r\n\r\n    {{- options | json_encode | raw -}}\r\n{%- else -%}\r\n    {{- include( \"_burton/local/settings/block.component\" ) -}}\r\n{%- endif -%}"
+  customOptions: false
+  mode: twig
+  options:
+    -
+      __assoc__:
+        -
+          - label
+          - '[System] Display Comments'
+        -
+          - value
+          - system_comments
+translationKeyFormat: null
+translationMethod: none
+type: simplicateca\metasettings\fields\MetaSettingsField

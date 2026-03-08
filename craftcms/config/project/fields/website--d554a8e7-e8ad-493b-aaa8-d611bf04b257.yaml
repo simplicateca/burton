@@ -1,0 +1,14 @@
+columnSuffix: null
+handle: website
+instructions: null
+name: 'Website / Content URL'
+searchable: false
+settings:
+  fullGraphqlData: false
+  maxLength: 255
+  showLabelField: false
+  types:
+    - url
+translationKeyFormat: null
+translationMethod: none
+type: craft\fields\Link
