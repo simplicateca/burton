@@ -54,16 +54,16 @@ craft-install:
 		--password='letmein' \
 		--site-name='English' \
 		--language='en-CA' \
-		--site-url='http://localhost:8000/en' \
+		--site-url='@web/en' \
 		--interactive=0 ;
 
 craft-fresh-database: craft-drop-database craft-install
 
-craft-reseed: craft-export
-	@mkdir -p $(CRAFT_FOLDER)/storage/seed
-	@rm -f $(CRAFT_FOLDER)/storage/seed/*.sql $(CRAFT_FOLDER)/storage/seed/*.gz $(SEED_FILE)
-	@cp -p "`ls -dtr1 $(CRAFT_FOLDER)/storage/backups/* | tail -1`" $(CRAFT_FOLDER)/storage/seed/temp.sql
-	@gzip -c $(CRAFT_FOLDER)/storage/seed/temp.sql > $(SEED_FILE)
+# craft-reseed: craft-export
+# 	@mkdir -p $(CRAFT_FOLDER)/storage/seed
+# 	@rm -f $(CRAFT_FOLDER)/storage/seed/*.sql $(CRAFT_FOLDER)/storage/seed/*.gz $(SEED_FILE)
+# 	@cp -p "`ls -dtr1 $(CRAFT_FOLDER)/storage/backups/* | tail -1`" $(CRAFT_FOLDER)/storage/seed/temp.sql
+# 	@gzip -c $(CRAFT_FOLDER)/storage/seed/temp.sql > $(SEED_FILE)
 
 
 ## PHP Composer

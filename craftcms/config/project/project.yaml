@@ -1,6 +1,6 @@
 email:
   fromEmail: craft@example.com
-  fromName: English
+  fromName: Example.com
   transportType: craft\mail\transportadapters\Sendmail
 fs:
   public:
@@ -48,3 +48,9 @@ fs:
       visibility: private
     type: behinddesign\ObjectStorage\Fs
     url: '@s3Static'
+system:
+  edition: solo
+  live: true
+  name: English
+  schemaVersion: 5.8.0.3
+  timeZone: America/Toronto

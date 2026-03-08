@@ -78,18 +78,11 @@ services:
       - mysql_data:/var/lib/mysql
       - ./etc/mysql/:/docker-entrypoint-initdb.d
     healthcheck:
-      test: >
-        /usr/bin/mysql
-        --user=root
-        --password=$$MYSQL_ROOT_PASSWORD
-        --database=project
-        --silent --skip-column-names
-        --execute "SELECT 1 FROM craft_users LIMIT 1;"
-        | grep -q 1
-      interval: 90s
+      test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
+      interval: 30s
       timeout: 10s
       start_period: 20s
-      start_interval: 20s
+      start_interval: 10s
       retries: 20
 
 
@@ -111,16 +104,21 @@ services:
       - 3000:3000
     user: "1000:1000"
     working_dir: /var/www/frontend
-    volumes:
-      - ./frontend:/var/www/frontend:cached
-      - ./craftcms/templates:/var/www/craftcms/templates:ro
-      - ./craftcms/vendor:/var/www/craftcms/vendor:ro
-      - ./craftcms/modules:/var/www/craftcms/modules:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/js/app.js"]
       interval: 10s
       timeout: 120s
       retries: 20
+    # wait for `composer` to create the `craftcms/vendor` folder before passing it as a volume
+    # otherwise, chance of permission error on `craftcms/vendor` ownership
+    depends_on:
+      composer:
+        condition: service_completed_successfully
+    volumes:
+      - ./frontend:/var/www/frontend:cached
+      - ./craftcms/vendor:/var/www/craftcms/vendor:ro
+      - ./craftcms/templates:/var/www/craftcms/templates:ro
+      - ./craftcms/modules:/var/www/craftcms/modules:ro
 
 
 # Nginx Webserver
