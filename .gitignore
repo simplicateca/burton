@@ -4,6 +4,10 @@ craftcms/storage
 craftcms/web/*
 !craftcms/web/index.php
 
+## Dependency directories
+node_modules
+vendor
+
 ## Avoid nested .git folders
 **.git
 
@@ -18,10 +22,13 @@ craftcms/web/*
 ## Compress SQL before committing
 *.sql
 
-## Caches, logs, and temp files
+## Local composer cache
 .cache/*
 !.cache/composer/
+.cache/composer/*
 !.cache/composer/.gitkeep
+
+## Additional caches, logs, temp files, etc
 .DS_Store
 *.esproj
 *.sublime-*
@@ -32,5 +39,5 @@ craftcms/web/*
 config.codekit3
 prepros-6.config
 npm-debug.log
-node_modules
-vendor
+yarn-debug.log
+yarn-error.log

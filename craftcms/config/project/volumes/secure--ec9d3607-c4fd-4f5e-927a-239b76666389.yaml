@@ -211,7 +211,7 @@ fieldLayouts:
         name: Meta
         uid: 0ad68fb3-4261-4b7c-80bf-998adbaf76b9
         userCondition: null
-fs: secureShare
+fs: secure
 handle: secure
 name: 'Secure (Private)'
 sortOrder: 3

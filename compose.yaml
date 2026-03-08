@@ -3,23 +3,6 @@
 # ------------------------------------------------------------------------------------- #
 services:
 
-# Status Message (on Successful Launch)
-# ----------------------------------------------------------------------- #
-# ➜ https://hub.docker.com/_/busybox
-# ➜ etc/docker/banner.sh
-  status:
-    image: busybox:latest
-    command: "sh -c 'sleep 1 && /bin/sh /home/banner.sh'"
-    env_file: &project_env
-      - ./craftcms/.env
-    volumes:
-      - ./etc/banner.sh:/home/banner.sh
-    depends_on:
-      nginx:
-        condition: service_started
-      frontend:
-        condition: service_healthy
-
 # PHP FastCGI
 # ----------------------------------------------------------------------- #
 # ➜ https://github.com/simplicateca/docker-php-fpm
@@ -29,7 +12,6 @@ services:
     command: php-fpm
     user: "1000:1000"
     restart: no
-    env_file: *project_env
     working_dir: /app
     volumes:
       - ./craftcms:/app
@@ -63,13 +45,12 @@ services:
 # Craft CMS (with Queue Runner)
 # ----------------------------------------------------------------------- #
 # ➜ craftcms/composer.json
-# ➜ craftcms/.env
   craftcms:
     <<: *php_container
     command: >
       bash -c "
-        ./craft install/check --interactive=0 &&
         ./craft setup/keys --interactive=0 &&
+        ./craft install/check --interactive=0 &&
         ./craft up --interactive=0 &&
         ./craft clear-caches/all --interactive=0 &&
         ./craft queue/listen --verbose"
@@ -81,26 +62,34 @@ services:
 # MySQL 8 Database
 # ----------------------------------------------------------------------- #
 # ➜ https://hub.docker.com/_/mysql
-# ➜ etc/docker/seed
+# ➜ etc/mysql/seed
   mysql:
     image: mysql/mysql-server:8.0
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - 3306:3306
     restart: no
-    env_file: *project_env
     environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_DATABASE=${CRAFT_DB_DATABASE:-project}
-      - MYSQL_USER=${CRAFT_DB_USER:-project}
-      - MYSQL_PASSWORD=${CRAFT_DB_PASSWORD:-project}
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: project
+      MYSQL_USER: project
+      MYSQL_PASSWORD: project
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./craftcms/storage/seed/:/docker-entrypoint-initdb.d
+      - ./etc/mysql/:/docker-entrypoint-initdb.d
     healthcheck:
-      test: "/usr/bin/mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute \"SHOW DATABASES;\""
-      interval: 10s
-      timeout: 60s
+      test: >
+        /usr/bin/mysql
+        --user=root
+        --password=$$MYSQL_ROOT_PASSWORD
+        --database=project
+        --silent --skip-column-names
+        --execute "SELECT 1 FROM craft_users LIMIT 1;"
+        | grep -q 1
+      interval: 90s
+      timeout: 10s
+      start_period: 20s
+      start_interval: 20s
       retries: 20
 
 

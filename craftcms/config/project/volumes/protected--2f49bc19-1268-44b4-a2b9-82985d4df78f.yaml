@@ -117,7 +117,7 @@ fieldLayouts:
         name: Content
         uid: 0cd93f5d-f311-4305-b915-c920b68b05f0
         userCondition: null
-fs: staticAssets
+fs: static
 handle: protected
 name: 'Brand (Protected)'
 sortOrder: 2

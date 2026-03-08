@@ -161,12 +161,12 @@ fieldLayouts:
         name: Content
         uid: 6616191f-76a5-4562-ba53-2f017a4354cc
         userCondition: null
-fs: websiteContent
+fs: public
 handle: website
 name: 'Content (Public)'
 sortOrder: 1
 subpath: ''
 titleTranslationKeyFormat: null
 titleTranslationMethod: custom
-transformFs: websiteContent
+transformFs: ''
 transformSubpath: _transforms
