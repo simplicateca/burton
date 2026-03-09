@@ -48,16 +48,11 @@ craft-export:
 craft-drop-database:
 	@docker compose run --rm --remove-orphans php /app/craft db/drop-all-tables --interactive=0 ;
 
-craft-install:
+craft-install: craft-drop-database
 	@docker compose run --rm --remove-orphans php /app/craft install/craft \
 		--email='craft@example.com' \
 		--password='letmein' \
-		--site-name='English' \
-		--language='en-CA' \
-		--site-url='@web/en' \
 		--interactive=0 ;
-
-craft-fresh-database: craft-drop-database craft-install
 
 # craft-reseed: craft-export
 # 	@mkdir -p $(CRAFT_FOLDER)/storage/seed
