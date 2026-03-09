@@ -50,7 +50,7 @@ craft-drop-database:
 	@docker compose run --rm --remove-orphans php /app/craft db/drop-all-tables --interactive=0 ;
 
 craft-install: craft-drop-database
-	docker compose run --rm --remove-orphans php /app/craft install/craft \
+	@docker compose run --rm --remove-orphans php /app/craft install/craft \
 		--email='$(subst ",,$(USER_EMAIL))' \
 		--password='letmein' \
 		--interactive=0 ;
@@ -83,12 +83,16 @@ composer-wipe:
 ##----------------------------------------------------------- ##
 npm:
 	@docker compose run --rm --remove-orphans frontend npm $(CLI_ARGS) ;
+	@touch craftcms/web/dist/.gitkeep ;
 
 yarn:
 	@docker compose run --rm --remove-orphans frontend yarn $(CLI_ARGS) ;
+	@touch craftcms/web/dist/.gitkeep ;
 
 frontend-wipe:
 	@rm -rf frontend/node_modules frontend/package-lock.json frontend/yarn.lock || true
+	@rm -rf craftcms/web/dist/* || true
+	@touch craftcms/web/dist/.gitkeep ;
 
 
 

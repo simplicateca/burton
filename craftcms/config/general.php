@@ -32,6 +32,8 @@ return GeneralConfig::create()
         '@webroot'  => App::env('CRAFT_WEB_ROOT'),
         '@svg'      => App::env('CRAFT_WEB_URL') . '/dist/svg',
         '@svgroot'  => App::env('CRAFT_WEB_ROOT') . '/dist/svg',
+        '@s3Public' => "//" . App::env('S3_ENDPOINT') . "/" . App::env('S3_PUBLIC_BUCKET'),
+        '@s3Static' => "//" . App::env('S3_ENDPOINT') . "/" . App::env('S3_STATIC_BUCKET'),
         '@fonts'    => App::env('CRAFT_ENVIRONMENT') === 'dev'
                         ? App::env('VITE_DEV_SERVER_PUBLIC') . '/fonts'
                         : App::env('CRAFT_WEB_ROOT') . '/dist/fonts',
