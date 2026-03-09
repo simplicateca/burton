@@ -1,0 +1,2 @@
+# This file ensures `craftcms/web/dist` exists, with the correct permissions prior to use.
+# Nothing else in this folder should be committed to version control

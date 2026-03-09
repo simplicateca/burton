@@ -3,6 +3,9 @@ craftcms/license.key*
 craftcms/storage
 craftcms/web/*
 !craftcms/web/index.php
+!craftcms/web/dist/
+craftcms/web/dist/*
+!craftcms/web/dist/.gitkeep
 
 ## Dependency directories
 node_modules
