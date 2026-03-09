@@ -20,10 +20,10 @@ services:
     depends_on:
       composer:
         condition: service_completed_successfully
-      mysql:
-        condition: service_healthy
       redis:
         condition: service_started
+      mysql:
+        condition: service_healthy
 
 # Composer (PHP Dependency Management)
 # ----------------------------------------------------------------------- #
@@ -56,7 +56,6 @@ services:
         ./craft queue/listen --verbose"
     stop_grace_period: "1s"
     tty: true
-    depends_on: [php]
 
 
 # MySQL 8 Database
@@ -84,7 +83,6 @@ services:
       start_period: 20s
       start_interval: 10s
       retries: 20
-
 
 # Node + ViteJS Frontend
 # ----------------------------------------------------------------------- #
@@ -128,7 +126,11 @@ services:
   nginx:
     image: nginx:1-alpine
     restart: no
-    depends_on: [php]
+    depends_on:
+      frontend:
+        condition: service_healthy
+      php:
+        condition: service_started
     ports:
       - 8000:80
     volumes:

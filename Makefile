@@ -1,4 +1,4 @@
-.PHONY: dev debug dev-down ssh craft craft-index-assets \
+.PHONY: dev debug down ssh craft craft-index-assets \
 		craft-export craft-drop-database craft-install craft-fresh-database \
 		craft-reseed composer composer-bump composer-update composer-wipe \
 		npm yarn frontend-wipe n8n-import n8n-export npm-wipe
@@ -14,10 +14,11 @@ endif
 CLI_ARGS   := $(filter-out $@,$(MAKECMDGOALS))
 CLI_ARGS   := $(wordlist 2,$(words $(CLI_ARGS)),$(CLI_ARGS))
 
-# Preflight Hack
+# Preflight Hacks
 CRAFT_ENV  := $(shell [ -f craftcms/.env.example ] && cp -n craftcms/.env.example craftcms/.env || true)
 SEED_DIR   := $(shell mkdir -p ./etc/mysql)
-SEED_CRAFT := $(shell [ -f ${CRAFT_DB_SEED} ] && gzip -dkc $(CRAFT_DB_SEED) > ./etc/mysql/craft-seed.sql || true)
+SEED_CRAFT := $(shell [ -n "${CRAFT_DB_SEED}" ] && [ -f "${CRAFT_DB_SEED}" ] && gzip -dkc $(CRAFT_DB_SEED) > ./etc/mysql/craft-seed.sql || true)
+USER_EMAIL := $(or $(CRAFT_USER_EMAIL),craft@example.com)
 
 
 ## Docker Shortcuts
@@ -26,7 +27,7 @@ dev:
 	@docker compose up ;
 debug:
 	@docker compose --profile debug up ;
-dev-down:
+down:
 	@docker compose down ;
 dev-nuke:
 	@docker compose down -v --remove-orphans ;
@@ -49,8 +50,8 @@ craft-drop-database:
 	@docker compose run --rm --remove-orphans php /app/craft db/drop-all-tables --interactive=0 ;
 
 craft-install: craft-drop-database
-	@docker compose run --rm --remove-orphans php /app/craft install/craft \
-		--email='craft@example.com' \
+	docker compose run --rm --remove-orphans php /app/craft install/craft \
+		--email='$(subst ",,$(USER_EMAIL))' \
 		--password='letmein' \
 		--interactive=0 ;
 
@@ -75,7 +76,7 @@ composer-update:
 	@$(PHP_COMPOSER) --optimize-autoloader update ;
 
 composer-wipe:
-	@rm -rf $(CRAFT_FOLDER)/vendor $(CRAFT_FOLDER)/composer.lock || true
+	@rm -rf craftcms/vendor craftcms/composer.lock || true
 
 
 ## Frontend Build Tools
