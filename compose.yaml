@@ -114,6 +114,7 @@ services:
         condition: service_completed_successfully
     volumes:
       - ./frontend:/var/www/frontend:cached
+      - ./craftcms/web:/var/www/craftcms/web:cached
       - ./craftcms/vendor:/var/www/craftcms/vendor:ro
       - ./craftcms/templates:/var/www/craftcms/templates:ro
       - ./craftcms/modules:/var/www/craftcms/modules:ro
@@ -129,7 +130,7 @@ services:
     depends_on:
       frontend:
         condition: service_healthy
-      php:
+      craftcms:
         condition: service_started
     ports:
       - 8000:80
