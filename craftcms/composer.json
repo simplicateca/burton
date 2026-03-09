@@ -24,18 +24,17 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
-        "craftcms/cms": "^5.8.15",
-        "craftcms/feed-me": "^6.10.0",
-        "nystudio107/craft-seomatic": "^5.1.17",
+        "craftcms/cms": "^5.8.23",
+        "craftcms/feed-me": "^6.11.0",
+        "nystudio107/craft-seomatic": "^5.1.20",
         "nystudio107/craft-vite": "^5.0.1",
         "simplicateca/burton-protosite": "dev-develop",
-        "vlucas/phpdotenv": "^5.6.2",
-        "yiisoft/yii2-redis": "^2.0.20"
+        "vlucas/phpdotenv": "^5.6.3",
+        "yiisoft/yii2-redis": "^2.1.0"
     },
     "require-dev": {
-        "stevecomrie/twig-sandbox": "dev-develop",
-        "craftcms/generator": "^2.1.0",
-        "yiisoft/yii2-shell": "^2.0.5"
+        "craftcms/generator": "^2.2.0",
+        "yiisoft/yii2-shell": "^2.0.6"
     },
     "autoload": {
         "psr-4": {
