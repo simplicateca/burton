@@ -49,8 +49,7 @@ craft-export:
 craft-drop-database:
 	@docker compose run --rm --remove-orphans php /app/craft db/drop-all-tables --interactive=0 ;
 
-# craft-install: craft-drop-database
-craft-install:
+craft-install: craft-drop-database
 	@docker compose run --rm --remove-orphans php /app/craft install/craft \
 		--email='$(subst ",,$(USER_EMAIL))' \
 		--password='letmein' \
